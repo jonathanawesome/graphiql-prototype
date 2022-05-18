@@ -25,14 +25,14 @@
       "filePath": "src/components/explorer/Explorer/explorer.stories.tsx",
       "meta": {}
     },
-    "reference-app--reference-app": {
-      "name": "Reference app",
+    "app--reference": {
+      "name": "Reference",
       "levels": [
-        "Reference app"
+        "App"
       ],
       "locStart": 4,
       "locEnd": 6,
-      "filePath": "src/components/reference/ReferenceApp/ReferenceApp.stories.tsx",
+      "filePath": "src/components/reference/ReferenceApp/App.stories.tsx",
       "meta": {}
     },
     "navigation--navigation": {
