@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "plugin:prettier/recommended", 
+    "plugin:react-hooks/recommended",    
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "object-shorthand": ["error", "always"],
+    "no-unused-vars": "off",
+    "no-unneeded-ternary": "error",
+    "@typescript-eslint/no-unused-vars": ["warn"],
+    "consistent-return": ["error"]
+  }
+}
