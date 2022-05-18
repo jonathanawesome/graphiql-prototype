@@ -5,4 +5,4 @@ export const Story = () => {
   return <ReferenceApp />;
 };
 
-Story.storyName = 'ReferenceApp';
+Story.storyName = 'Reference';
