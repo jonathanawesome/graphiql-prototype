@@ -1,3 +1,1 @@
-export const defaultVariables = `{
-  "dragonId": "dragon1"
-}`;
+export const defaultVariables = `{}`;
