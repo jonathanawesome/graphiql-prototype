@@ -16,7 +16,7 @@ export const NameAndTypeName = styled('div', {
   variants: {
     pointer: {
       true: {
-        cursor: 'pointer',
+        // cursor: 'pointer',
       },
     },
   },
@@ -25,6 +25,8 @@ export const NameAndTypeName = styled('div', {
 export const Description = styled('div', {
   display: 'flex',
   alignItems: 'center',
+  justifyContent: 'flex-start',
+  textAlign: 'left',
   gap: 8,
   color: `$scale600`,
   fontWeight: 400,
@@ -41,7 +43,7 @@ export const FieldDetailsStyled = styled('div', {
   gap: 6,
   padding: `6px 0`,
   fontSize: 12,
-  cursor: 'default',
+  // cursor: 'default',
 
   '&:hover': {
     // backgroundColor: 'LightBlue',

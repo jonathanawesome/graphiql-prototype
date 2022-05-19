@@ -1,4 +1,11 @@
-import { ArgumentNode, FieldNode, GraphQLArgument, ObjectFieldNode } from 'graphql';
+import {
+  ArgumentNode,
+  FieldNode,
+  GraphQLArgument,
+  isEnumType,
+  isNonNullType,
+  ObjectFieldNode,
+} from 'graphql';
 
 /** components */
 import { FieldDetails, IndicatorArgument } from '@/components';
@@ -72,6 +79,7 @@ export const ScalarArg = ({
         isCollapsed={false}
         isSelected={!!argSelection()}
       />
+      <span>{isNonNullType(arg.type) ? 'NONNULL' : 'SOME_OTHER_TYE'}</span>
     </ScalarArgStyled>
   );
 };

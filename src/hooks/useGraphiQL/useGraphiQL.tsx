@@ -12,6 +12,9 @@ import {
   Kind,
   VariableDefinitionNode,
   NamedTypeNode,
+  TypeNode,
+  isWrappingType,
+  ListTypeNode,
 } from 'graphql';
 
 import type { ExecutableDefinitionNode, IntrospectionQuery } from 'graphql';
@@ -25,7 +28,7 @@ import {
 } from '@/constants';
 
 /** utils */
-import { fetcher, parseQuery } from '@/utils';
+import { fetcher, parseQuery, unwrapInputType } from '@/utils';
 
 export type GraphiQLStore = {
   schema: GraphQLSchema | null;
@@ -75,6 +78,7 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
       query: getIntrospectionQuery(),
       operationName: 'IntrospectionQuery',
     });
+    console.log('running initschema:', { result });
 
     if (!('data' in result)) {
       throw Error('this demo does not support subscriptions or http multipart yet');
@@ -159,21 +163,58 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
     if (nextDefinition) {
       if (nextDefinition.variableDefinitions) {
         //TODO: LOADS of work to do here, but it's working
-        // console.log({ variableDefinitions: nextDefinition.variableDefinitions });
+        console.log({ variableDefinitions: nextDefinition.variableDefinitions });
 
-        const vars = nextDefinition.variableDefinitions.reduce(
-          (accumulator: Record<string, string>, v: VariableDefinitionNode) => {
-            return {
-              ...accumulator,
-              [v.variable.name.value]: (v.type as NamedTypeNode).name.value,
-            };
-          },
-          {}
-        );
+        // const unwrapTypeNode = ({ typeNode }: { typeNode: TypeNode }): NamedTypeNode => {
+        //   let namedTypeNode: NamedTypeNode | null = null;
+        //   if (typeNode.kind === Kind.NAMED_TYPE) {
+        //     //we're good, we have a NamedTypeNode
+        //     namedTypeNode = typeNode;
+        //   } else if (typeNode.kind === Kind.LIST_TYPE) {
+        //     // return unwrapTypeNode({ typeNode });
+        //   } else if (typeNode.kind === Kind.NON_NULL_TYPE) {
+        //     // const unwrappedType = unwrapInputType({ inputType: v.type });
+        //     // unwrap the type until we get to a NamedTypeNode
+        //   }
+        //   // while (isWrappingType(unwrappedType)) {
+        //   //   unwrappedType = unwrappedType.ofType;
+        //   // }
+        //   return namedTypeNode;
+        // };
 
-        setVariables({
-          value: JSON.stringify(vars, null, 2),
-        });
+        // const vars = nextDefinition.variableDefinitions.reduce(
+        //   (accumulator: Record<string, string>, v: VariableDefinitionNode) => {
+        //     // NamedTypeNode | ListTypeNode | NonNullTypeNode;
+        //     // console.log({ v });
+        //     if (v.type.kind === Kind.NAMED_TYPE) {
+        //       console.log({ NAMED_TYPE: v });
+
+        //       return {
+        //         ...accumulator,
+        //         [v.variable.name.value]: v.type.name.value,
+        //       };
+        //       //   //we're good, we have a NamedTypeNode
+        //     } else if (v.type.kind === Kind.NON_NULL_TYPE) {
+        //       console.log({ NON_NULL_TYPE: v });
+
+        //       return {
+        //         ...accumulator,
+        //         [v.variable.name.value]: (v.type.type as NamedTypeNode).name.value,
+        //       };
+        //     } else if (v.type.kind === Kind.LIST_TYPE) {
+        //       console.log({ LIST_TYPE: v });
+        //       // return {
+        //       //   ...accumulator,
+        //       //   [v.variable.name.value]: (v.type.type as ListTypeNode).name.value,
+        //       // };
+        //     }
+        //   },
+        //   {}
+        // );
+
+        // setVariables({
+        //   value: JSON.stringify(vars, null, 2),
+        // });
       }
       setOperation({
         value: print({

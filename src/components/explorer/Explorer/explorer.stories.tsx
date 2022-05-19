@@ -8,7 +8,7 @@ export const ExplorerStory = () => {
   const { operation } = useGraphiQL();
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: `300px 1fr`, height: `100%` }}>
+    <div style={{ display: 'grid', gridTemplateColumns: `1fr 200px`, height: `100%` }}>
       <Explorer />
       {operation && <div>{operation}</div>}
     </div>

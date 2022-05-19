@@ -17,8 +17,9 @@ export interface UpdateFieldNode {
   type: 'updateField';
   payloads: {
     field: FieldNode;
+    newVariableDefinition?: VariableDefinitionNode;
     variableNameToRemove?: string;
-    variableDefinitionToAdd?: VariableDefinitionNode;
+    // variableDefinitionToAdd?: VariableDefinitionNode;
   };
 }
 

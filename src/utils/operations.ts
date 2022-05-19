@@ -4,14 +4,11 @@ import {
   DocumentNode,
   FieldNode,
   GraphQLArgument,
-  GraphQLField,
   isRequiredArgument,
   Kind,
-  NamedTypeNode,
   parse,
   SelectionNode,
   SelectionSetNode,
-  VariableDefinitionNode,
   VariableNode,
 } from 'graphql';
 
@@ -127,14 +124,6 @@ export const buildArgumentNode = ({
   },
 });
 
-const buildNamedTypeNode = ({ type }: { type: string }): NamedTypeNode => ({
-  kind: Kind.NAMED_TYPE,
-  name: {
-    kind: Kind.NAME,
-    value: type,
-  },
-});
-
 const buildVariableNode = ({ name }: { name: string }): VariableNode => ({
   kind: Kind.VARIABLE,
   name: {
@@ -142,52 +131,6 @@ const buildVariableNode = ({ name }: { name: string }): VariableNode => ({
     value: name,
   },
 });
-
-export const buildVariableDefinitionNode = ({
-  variableName,
-  variableType,
-}: {
-  variableName: string;
-  variableType: string;
-}): VariableDefinitionNode => ({
-  kind: Kind.VARIABLE_DEFINITION,
-  variable: {
-    ...buildVariableNode({ name: variableName }),
-  },
-  type: {
-    ...buildNamedTypeNode({ type: variableType }),
-  },
-});
-
-export const getVariableDefinitionsForField = ({
-  field,
-  onlyRequired,
-}: {
-  field: GraphQLField<any, any>;
-  onlyRequired: boolean;
-}): VariableDefinitionNode[] => {
-  return field.args.flatMap((arg) => {
-    if (onlyRequired) {
-      if (isRequiredArgument(arg)) {
-        return {
-          ...buildVariableDefinitionNode({
-            variableName: `${field.name}${capitalize({ string: arg.name })}`,
-            variableType: arg.type.toString(),
-          }),
-        };
-      } else {
-        return [];
-      }
-    } else {
-      return {
-        ...buildVariableDefinitionNode({
-          variableName: `${field.name}${capitalize({ string: arg.name })}`,
-          variableType: arg.type.toString(),
-        }),
-      };
-    }
-  });
-};
 
 export const getArgumentNodes = ({
   args,

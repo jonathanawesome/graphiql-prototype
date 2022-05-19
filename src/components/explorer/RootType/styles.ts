@@ -1,6 +1,8 @@
 import { styled } from '@stitches/react';
 
-export const Trigger = styled('div', {
+import * as Collapsible from '@radix-ui/react-collapsible';
+
+export const Trigger = styled(Collapsible.Trigger, {
   display: 'flex',
   alignContent: 'center',
   gap: 6,
@@ -8,14 +10,14 @@ export const Trigger = styled('div', {
   userSelect: 'none',
 
   '& span': {
-    color:`$scale800`,
+    color: `$scale800`,
     fontWeight: 600,
   },
 });
 
-export const Content = styled('div', {
+export const Content = styled(Collapsible.Content, {
   position: 'relative',
-  paddingLeft: 6,
+  paddingLeft: 18,
 
   //TODO better solution for this marker line
   '&:before': {
@@ -25,11 +27,11 @@ export const Content = styled('div', {
     left: 6,
     width: 1,
     height: '100%',
-    backgroundColor:`$scale400`,
+    backgroundColor: `$scale400`,
   },
 });
 
-export const RootStyled = styled('div', {
+export const Root = styled(Collapsible.Root, {
   //TODO due to the nested nature of the Explorer, 👇 this acts as a reset for all buttons under this dom node.
   button: {
     border: 'none',

@@ -8,18 +8,18 @@ import {
 } from 'graphql';
 
 /** components */
-import {
-  Root as CollapsibleRoot,
-  Trigger as CollapsibleTrigger,
-  Content as CollapsibleContent,
-} from '@radix-ui/react-collapsible';
+// import {
+//   Root as CollapsibleRoot,
+//   Trigger as CollapsibleTrigger,
+//   Content as CollapsibleContent,
+// } from '@radix-ui/react-collapsible';
 import { Caret, Field } from '@/components';
 
 /** hooks */
 import { useGraphiQL } from '@/hooks';
 
 /** styles */
-import { Content, RootStyled, Trigger } from './styles';
+import { Content, Root as RootWrap, Trigger } from './styles';
 
 /** types */
 import { EditFieldAction } from '@/types';
@@ -82,13 +82,18 @@ export const RootType = ({
             );
           });
         }
-        if (input.payloads.variableDefinitionToAdd) {
+        if (input.payloads.newVariableDefinition) {
+          console.log({
+            'operationDefinition?.variableDefinitions':
+              operationDefinition?.variableDefinitions,
+            'input.payloads.newVariableDefinition': input.payloads.newVariableDefinition,
+          });
           return operationDefinition?.variableDefinitions
             ? [
                 ...operationDefinition?.variableDefinitions,
-                input.payloads.variableDefinitionToAdd,
+                input.payloads.newVariableDefinition,
               ]
-            : [input.payloads.variableDefinitionToAdd];
+            : [input.payloads.newVariableDefinition];
         }
       }
 
@@ -128,30 +133,24 @@ export const RootType = ({
   };
 
   return (
-    <RootStyled>
-      <CollapsibleRoot open={isExpanded} onOpenChange={setIsExpanded}>
-        <CollapsibleTrigger>
-          <Trigger>
-            <Caret isExpanded={isExpanded} />
-            <span>{rootType.name}</span>
-          </Trigger>
-        </CollapsibleTrigger>
+    <RootWrap open={isExpanded} onOpenChange={setIsExpanded}>
+      <Trigger>
+        <Caret isExpanded={isExpanded} />
+        <span>{rootType.name}</span>
+      </Trigger>
 
-        <Content>
-          <CollapsibleContent>
-            {Object.keys(fields)
-              .sort()
-              .map((field) => (
-                <Field
-                  key={field}
-                  field={fields[field]}
-                  onEdit={handleToggleField}
-                  selectionSet={operationDefinition?.selectionSet}
-                />
-              ))}
-          </CollapsibleContent>
-        </Content>
-      </CollapsibleRoot>
-    </RootStyled>
+      <Content>
+        {Object.keys(fields)
+          .sort()
+          .map((field) => (
+            <Field
+              key={field}
+              field={fields[field]}
+              onEdit={handleToggleField}
+              selectionSet={operationDefinition?.selectionSet}
+            />
+          ))}
+      </Content>
+    </RootWrap>
   );
 };

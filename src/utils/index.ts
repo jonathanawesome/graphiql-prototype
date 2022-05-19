@@ -5,3 +5,4 @@ export * from './misc';
 export * from './monaco';
 export * from './operations';
 export * from './schema';
+export * from './variables';

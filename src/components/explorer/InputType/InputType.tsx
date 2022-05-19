@@ -11,21 +11,16 @@ import {
 } from 'graphql';
 
 /** components */
-import {
-  Root as CollapsibleRoot,
-  Trigger as CollapsibleTrigger,
-  Content as CollapsibleContent,
-} from '@radix-ui/react-collapsible';
 import { Argument, FieldDetails } from '@/components';
 
 /** styles */
-import { InputTypeChildArguments, InputTypeStyled } from './styles';
+import { Content, Root, Trigger, InputTypeChildArguments } from './styles';
 
 /** types */
 import { OnEditSignature } from '@/types';
 
 /* utils */
-import { buildVariableDefinitionNode, capitalize } from '@/utils';
+import { buildNewVariableDefinition, capitalize } from '@/utils';
 
 export const InputType = ({
   inputTypeArg,
@@ -51,15 +46,14 @@ export const InputType = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // console.log('InputObject', {
-  //   inputObject,
-  //   arg,
-  //   selection,
-  // });
+  console.log('InputObject', {
+    inputTypeArg,
+    fields,
+    // arg,
+    selection,
+  });
 
   const addNestedArg = ({ argToAdd }: { argToAdd: GraphQLArgument }) => {
-    // console.log('i want to add this NESTED arg', { argToAdd, fields, selection });
-
     const ourNewObjectField: ObjectFieldNode = {
       kind: Kind.OBJECT_FIELD,
       name: {
@@ -79,6 +73,7 @@ export const InputType = ({
 
     let newArg: ArgumentNode | null = null;
     let newArguments: ArgumentNode[] | null = null;
+
     if (argSelection) {
       newArg = {
         ...argSelection,
@@ -105,6 +100,21 @@ export const InputType = ({
       newArguments = [...(selection?.arguments || []), newArg];
     }
 
+    //TODO 👆 newarguments is wrong here when there's an existing arg selection
+    console.log('i want to add this NESTED arg', {
+      argToAdd,
+      // fields,
+      inputTypeArg,
+      argSelection,
+      selection,
+      newArguments: [
+        ...(selection?.arguments?.filter((a) => a.name.value !== inputTypeArg.name) ||
+          []),
+        newArg,
+      ],
+      // newArguments: [...(selection?.arguments || []), newArg],
+    });
+
     const newFieldNode: FieldNode = {
       ...(selection as FieldNode),
       arguments: newArguments,
@@ -115,20 +125,23 @@ export const InputType = ({
         type: 'updateField',
         payloads: {
           field: newFieldNode,
-          variableDefinitionToAdd: buildVariableDefinitionNode({
-            variableName: `${selection?.name.value}${capitalize({
-              string: inputTypeArg.name,
-            })}${capitalize({ string: argToAdd.name })}`,
-            variableType: argToAdd.type.toString(),
+          newVariableDefinition: buildNewVariableDefinition({
+            forArg: argToAdd,
+            parentArgName: inputTypeArg.name,
+            selectionName: selection?.name.value as string,
           }),
+          // variableDefinitionToAdd: buildVariableDefinitionNode({
+          //   variableName: `${selection?.name.value}${capitalize({
+          //     string: inputTypeArg.name,
+          //   })}${capitalize({ string: argToAdd.name })}`,
+          //   variableType: argToAdd.type.toString(),
+          // }),
         },
       },
     });
   };
 
   const removeNestedArg = ({ argToRemove }: { argToRemove: GraphQLArgument }) => {
-    // console.log('i want to remove this NESTED arg', { argToRemove, fields, selection });
-
     let newArgs: ArgumentNode[] | null = null;
 
     if ((argSelection?.value as ObjectValueNode).fields.length === 1) {
@@ -160,6 +173,13 @@ export const InputType = ({
       ];
     }
 
+    console.log('i want to remove this NESTED arg', {
+      argToRemove,
+      fields,
+      selection,
+      newArgs,
+    });
+
     // console.log({ newArgs, origArgs: selection?.arguments });
 
     const newFieldNode: FieldNode = {
@@ -174,44 +194,42 @@ export const InputType = ({
           field: newFieldNode,
           variableNameToRemove: `${selection?.name.value}${capitalize({
             string: inputTypeArg.name,
-          })}${capitalize({ string: argToRemove.name })}`, // should be capsulesFindId
+          })}${capitalize({ string: argToRemove.name })}`,
         },
       },
     });
   };
 
   return (
-    <InputTypeStyled>
-      <CollapsibleRoot open={isExpanded} onOpenChange={setIsExpanded}>
-        <CollapsibleTrigger>
-          <FieldDetails
-            fieldOrArg={inputTypeArg}
-            isCollapsible={true}
-            isCollapsed={!isExpanded}
-            isSelected={!!argSelection}
-          />
-        </CollapsibleTrigger>
+    <Root open={isExpanded} onOpenChange={setIsExpanded}>
+      <Trigger>
+        <FieldDetails
+          fieldOrArg={inputTypeArg}
+          isCollapsible={true}
+          isCollapsed={!isExpanded}
+          isSelected={!!argSelection}
+        />
+      </Trigger>
 
-        <CollapsibleContent>
-          {isExpanded && (
-            <InputTypeChildArguments>
-              {Object.keys(fields).map((a) => {
-                return (
-                  <Argument
-                    key={a}
-                    addArg={addNestedArg}
-                    arg={fields[a]}
-                    onInputTypeArg={inputTypeArg.name}
-                    removeArg={removeNestedArg}
-                    selection={selection}
-                    onEdit={onEdit}
-                  />
-                );
-              })}
-            </InputTypeChildArguments>
-          )}
-        </CollapsibleContent>
-      </CollapsibleRoot>
-    </InputTypeStyled>
+      <Content>
+        {isExpanded && (
+          <InputTypeChildArguments>
+            {Object.keys(fields).map((a) => {
+              return (
+                <Argument
+                  key={a}
+                  addArg={addNestedArg}
+                  arg={fields[a]}
+                  onInputTypeArg={inputTypeArg.name}
+                  removeArg={removeNestedArg}
+                  selection={selection}
+                  onEdit={onEdit}
+                />
+              );
+            })}
+          </InputTypeChildArguments>
+        )}
+      </Content>
+    </Root>
   );
 };

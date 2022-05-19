@@ -8,7 +8,7 @@ import {
 } from 'graphql';
 import { useEffect, useState } from 'react';
 
-import schemaString from './schema.graphql?raw';
+import schemaString from './schema.docs.graphql?raw';
 
 export const useOfflineSchema = () => {
   const [schema, setSchema] = useState<GraphQLSchema | null>(null);

@@ -38,9 +38,8 @@ export const Argument = ({
 }) => {
   // console.log('Argument', {
   //   name: arg.name,
-  //   type: arg.type,
   //   arg,
-  //   'isRequiredArgument(arg)': isRequiredArgument(arg),
+  //   // 'isRequiredArgument(arg)': isRequiredArgument(arg),
   // });
 
   let render: React.ReactNode | null = null;
@@ -56,7 +55,7 @@ export const Argument = ({
     );
   } else if (isNonNullType(arg.type) || isListType(arg.type)) {
     const unwrappedType = unwrapInputType({ inputType: arg.type });
-
+    // console.log({ unwrappedType });
     if (isScalarType(unwrappedType)) {
       render = (
         <ScalarArg
@@ -78,6 +77,15 @@ export const Argument = ({
       );
     } else if (isEnumType(unwrappedType)) {
       //TODO handle EnumType
+      render = (
+        <ScalarArg
+          arg={arg}
+          selection={selection}
+          addArg={addArg}
+          removeArg={removeArg}
+          onInputTypeArg={onInputTypeArg}
+        />
+      );
     }
   } else if (isLeafType(arg.type)) {
     render = (

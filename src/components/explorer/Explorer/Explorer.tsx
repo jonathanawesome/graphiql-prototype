@@ -2,7 +2,7 @@
 import { Command, Ellipsis, Search, RootType } from '@/components';
 
 /** hooks */
-import { useGraphiQL } from '@/hooks';
+import { useGraphiQL, useOfflineSchema } from '@/hooks';
 
 /** styles */
 import {
@@ -17,6 +17,7 @@ import {
 
 export const Explorer = () => {
   const { schema } = useGraphiQL();
+  // const { schema } = useOfflineSchema();
 
   if (!schema) {
     //TODO: some loading skeleton
@@ -26,6 +27,7 @@ export const Explorer = () => {
   const queryType = schema.getQueryType();
   const mutationType = schema.getMutationType();
 
+  console.log({ queryType });
   return (
     <ExplorerStyled>
       <ExplorerLead>
