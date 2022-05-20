@@ -48,6 +48,7 @@ export const RootType = ({
     //   input,
     // });
 
+    //TODO 👇 totally wonky, fix ASAP
     const nextVariableDefinitions = (() => {
       if (input.type === 'addField') {
         let newVariableDefinitions: VariableDefinitionNode[] | null = null;
@@ -57,7 +58,6 @@ export const RootType = ({
             onlyRequired: true,
           });
         }
-        // console.log({ newVariableDefinitions });
         if (!newVariableDefinitions) {
           return undefined;
         } else {
@@ -83,11 +83,6 @@ export const RootType = ({
           });
         }
         if (input.payloads.newVariableDefinition) {
-          console.log({
-            'operationDefinition?.variableDefinitions':
-              operationDefinition?.variableDefinitions,
-            'input.payloads.newVariableDefinition': input.payloads.newVariableDefinition,
-          });
           return operationDefinition?.variableDefinitions
             ? [
                 ...operationDefinition?.variableDefinitions,

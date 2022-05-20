@@ -46,12 +46,12 @@ export const InputType = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log('InputObject', {
-    inputTypeArg,
-    fields,
-    // arg,
-    selection,
-  });
+  // console.log('InputObject', {
+  //   inputTypeArg,
+  //   fields,
+  //   // arg,
+  //   selection,
+  // });
 
   const addNestedArg = ({ argToAdd }: { argToAdd: GraphQLArgument }) => {
     const ourNewObjectField: ObjectFieldNode = {
@@ -100,21 +100,6 @@ export const InputType = ({
       newArguments = [...(selection?.arguments || []), newArg];
     }
 
-    //TODO 👆 newarguments is wrong here when there's an existing arg selection
-    console.log('i want to add this NESTED arg', {
-      argToAdd,
-      // fields,
-      inputTypeArg,
-      argSelection,
-      selection,
-      newArguments: [
-        ...(selection?.arguments?.filter((a) => a.name.value !== inputTypeArg.name) ||
-          []),
-        newArg,
-      ],
-      // newArguments: [...(selection?.arguments || []), newArg],
-    });
-
     const newFieldNode: FieldNode = {
       ...(selection as FieldNode),
       arguments: newArguments,
@@ -126,16 +111,11 @@ export const InputType = ({
         payloads: {
           field: newFieldNode,
           newVariableDefinition: buildNewVariableDefinition({
-            forArg: argToAdd,
+            fieldName: selection?.name.value as string,
             parentArgName: inputTypeArg.name,
-            selectionName: selection?.name.value as string,
+            forArg: argToAdd,
           }),
-          // variableDefinitionToAdd: buildVariableDefinitionNode({
-          //   variableName: `${selection?.name.value}${capitalize({
-          //     string: inputTypeArg.name,
-          //   })}${capitalize({ string: argToAdd.name })}`,
-          //   variableType: argToAdd.type.toString(),
-          // }),
+          variableNameToRemove: null,
         },
       },
     });
@@ -195,6 +175,7 @@ export const InputType = ({
           variableNameToRemove: `${selection?.name.value}${capitalize({
             string: inputTypeArg.name,
           })}${capitalize({ string: argToRemove.name })}`,
+          newVariableDefinition: null,
         },
       },
     });

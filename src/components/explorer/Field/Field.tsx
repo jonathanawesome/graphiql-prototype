@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
 
-import { FieldNode, GraphQLField, SelectionSetNode, isObjectType, Kind } from 'graphql';
+import {
+  FieldNode,
+  GraphQLField,
+  SelectionSetNode,
+  isObjectType,
+  Kind,
+  VariableDefinitionNode,
+} from 'graphql';
 
 /** components */
 import { FieldDetails, IndicatorField } from '@/components';
@@ -56,6 +63,12 @@ export const Field = ({ field, selectionSet, onEdit }: FieldProps) => {
       return null;
     }
 
+    let newVariableDefinition: VariableDefinitionNode | null = null;
+
+    if (input.type === 'updateField') {
+      newVariableDefinition = input.payloads.newVariableDefinition;
+    }
+
     const selectionSet: SelectionSetNode = (() => {
       const set: SelectionSetNode = fieldSelection.selectionSet
         ? fieldSelection.selectionSet
@@ -72,7 +85,11 @@ export const Field = ({ field, selectionSet, onEdit }: FieldProps) => {
     return onEdit({
       input: {
         type: 'updateField',
-        payloads: { field: { ...fieldSelection, selectionSet } },
+        payloads: {
+          field: { ...fieldSelection, selectionSet },
+          newVariableDefinition,
+          variableNameToRemove: null,
+        },
       },
     });
   };

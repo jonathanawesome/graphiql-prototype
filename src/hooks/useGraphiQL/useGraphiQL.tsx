@@ -11,10 +11,6 @@ import {
   print,
   Kind,
   VariableDefinitionNode,
-  NamedTypeNode,
-  TypeNode,
-  isWrappingType,
-  ListTypeNode,
 } from 'graphql';
 
 import type { ExecutableDefinitionNode, IntrospectionQuery } from 'graphql';
@@ -28,7 +24,14 @@ import {
 } from '@/constants';
 
 /** utils */
-import { fetcher, parseQuery, unwrapInputType } from '@/utils';
+import { fetcher, parseQuery } from '@/utils';
+
+export type VariableInput = {
+  variableName: string;
+  variableType: string | number;
+  variableValue: string | number;
+  variableSuggestion: string;
+};
 
 export type GraphiQLStore = {
   schema: GraphQLSchema | null;
@@ -116,6 +119,7 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
   },
   variables: defaultVariables,
   setVariables: ({ value }) => {
+    console.log('setVariables', value);
     set({ variables: value });
   },
   operationDefinition: null,
@@ -130,6 +134,8 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
     const operation = get().operation;
     const operationDefinition = get().operationDefinition;
     const variables = get().variables;
+
+    console.log('variables being submitted', JSON.stringify(JSONC.parse(variables)));
 
     const result = await fetcher({
       operationName: operationDefinition?.name?.value || '',
@@ -162,59 +168,23 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
 
     if (nextDefinition) {
       if (nextDefinition.variableDefinitions) {
-        //TODO: LOADS of work to do here, but it's working
+        //TODO: 👇 lots
         console.log({ variableDefinitions: nextDefinition.variableDefinitions });
 
-        // const unwrapTypeNode = ({ typeNode }: { typeNode: TypeNode }): NamedTypeNode => {
-        //   let namedTypeNode: NamedTypeNode | null = null;
-        //   if (typeNode.kind === Kind.NAMED_TYPE) {
-        //     //we're good, we have a NamedTypeNode
-        //     namedTypeNode = typeNode;
-        //   } else if (typeNode.kind === Kind.LIST_TYPE) {
-        //     // return unwrapTypeNode({ typeNode });
-        //   } else if (typeNode.kind === Kind.NON_NULL_TYPE) {
-        //     // const unwrappedType = unwrapInputType({ inputType: v.type });
-        //     // unwrap the type until we get to a NamedTypeNode
-        //   }
-        //   // while (isWrappingType(unwrappedType)) {
-        //   //   unwrappedType = unwrappedType.ofType;
-        //   // }
-        //   return namedTypeNode;
-        // };
+        const vars = nextDefinition.variableDefinitions.reduce(
+          (accumulator: Record<string, string>, v: VariableDefinitionNode) => {
+            console.log({ v });
+            return {
+              ...accumulator,
+              [v.variable.name.value]: v.variable.name.value,
+            };
+          },
+          {}
+        );
 
-        // const vars = nextDefinition.variableDefinitions.reduce(
-        //   (accumulator: Record<string, string>, v: VariableDefinitionNode) => {
-        //     // NamedTypeNode | ListTypeNode | NonNullTypeNode;
-        //     // console.log({ v });
-        //     if (v.type.kind === Kind.NAMED_TYPE) {
-        //       console.log({ NAMED_TYPE: v });
-
-        //       return {
-        //         ...accumulator,
-        //         [v.variable.name.value]: v.type.name.value,
-        //       };
-        //       //   //we're good, we have a NamedTypeNode
-        //     } else if (v.type.kind === Kind.NON_NULL_TYPE) {
-        //       console.log({ NON_NULL_TYPE: v });
-
-        //       return {
-        //         ...accumulator,
-        //         [v.variable.name.value]: (v.type.type as NamedTypeNode).name.value,
-        //       };
-        //     } else if (v.type.kind === Kind.LIST_TYPE) {
-        //       console.log({ LIST_TYPE: v });
-        //       // return {
-        //       //   ...accumulator,
-        //       //   [v.variable.name.value]: (v.type.type as ListTypeNode).name.value,
-        //       // };
-        //     }
-        //   },
-        //   {}
-        // );
-
-        // setVariables({
-        //   value: JSON.stringify(vars, null, 2),
-        // });
+        setVariables({
+          value: JSON.stringify(vars, null, 2),
+        });
       }
       setOperation({
         value: print({

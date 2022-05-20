@@ -79,7 +79,6 @@ export const ScalarArg = ({
         isCollapsed={false}
         isSelected={!!argSelection()}
       />
-      <span>{isNonNullType(arg.type) ? 'NONNULL' : 'SOME_OTHER_TYE'}</span>
     </ScalarArgStyled>
   );
 };

@@ -27,7 +27,6 @@ export const Explorer = () => {
   const queryType = schema.getQueryType();
   const mutationType = schema.getMutationType();
 
-  console.log({ queryType });
   return (
     <ExplorerStyled>
       <ExplorerLead>

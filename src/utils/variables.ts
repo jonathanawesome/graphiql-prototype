@@ -6,6 +6,7 @@ import {
   ListTypeNode,
   NamedTypeNode,
   NonNullTypeNode,
+  parseType,
   TypeNode,
   VariableDefinitionNode,
 } from 'graphql';
@@ -14,7 +15,7 @@ import {
 import { capitalize } from './misc';
 
 const buildNamedTypeNode = ({ typeNode }: { typeNode: NamedTypeNode }): NamedTypeNode => {
-  console.log('running buildNamedTypeNode', typeNode);
+  // console.log('running buildNamedTypeNode', typeNode);
 
   return {
     kind: Kind.NAMED_TYPE,
@@ -30,7 +31,7 @@ const buildNonNullTypeNode = ({
 }: {
   typeNode: NonNullTypeNode;
 }): NonNullTypeNode => {
-  console.log('running buildNonNullTypeNode', typeNode);
+  // console.log('running buildNonNullTypeNode', typeNode);
 
   if (typeNode.type.kind === Kind.LIST_TYPE) {
     return {
@@ -47,7 +48,7 @@ const buildNonNullTypeNode = ({
 };
 
 const buildListTypeNode = ({ typeNode }: { typeNode: ListTypeNode }): ListTypeNode => {
-  console.log('running buildListTypeNode', typeNode);
+  // console.log('running buildListTypeNode', typeNode);
 
   if (typeNode.type.kind === Kind.LIST_TYPE) {
     return {
@@ -77,7 +78,8 @@ const buildListTypeNode = ({ typeNode }: { typeNode: ListTypeNode }): ListTypeNo
 };
 
 const buildTypeNode = ({ typeNode }: { typeNode: TypeNode }): TypeNode => {
-  console.log('running buildTypeNode', typeNode);
+  // console.log('running buildTypeNode', { typeNode });
+
   if (typeNode.kind === Kind.NON_NULL_TYPE) {
     return buildNonNullTypeNode({ typeNode });
   }
@@ -89,26 +91,33 @@ const buildTypeNode = ({ typeNode }: { typeNode: TypeNode }): TypeNode => {
 };
 
 export const buildNewVariableDefinition = ({
-  forArg,
+  fieldName,
   parentArgName,
-  selectionName,
+  forArg,
 }: {
+  fieldName: string;
+  parentArgName: string | null;
   forArg: GraphQLArgument;
-  parentArgName: string;
-  selectionName: string;
 }): VariableDefinitionNode => {
+  const argPrintedType = forArg.type.toString();
+  const argType = parseType(argPrintedType);
+
   return {
     kind: Kind.VARIABLE_DEFINITION,
     variable: {
       kind: Kind.VARIABLE,
       name: {
         kind: Kind.NAME,
-        value: `${selectionName}${capitalize({
-          string: parentArgName,
-        })}${capitalize({ string: forArg.name })}`,
+        value: `${fieldName}${
+          parentArgName
+            ? capitalize({
+                string: parentArgName,
+              })
+            : ''
+        }${capitalize({ string: forArg.name })}`,
       },
     },
-    type: buildTypeNode({ typeNode: forArg.astNode?.type as TypeNode }),
+    type: buildTypeNode({ typeNode: argType }),
   };
 };
 
@@ -125,14 +134,10 @@ export const getVariableDefinitionsForField = ({
       if (isRequiredArgument(arg)) {
         return {
           ...buildNewVariableDefinition({
+            fieldName: field.name,
+            parentArgName: null,
             forArg: arg,
-            parentArgName: field.name,
-            selectionName: arg.name,
           }),
-          // ...buildVariableDefinitionNode({
-          //   variableName: `${field.name}${capitalize({ string: arg.name })}`,
-          //   variableType: arg.type.toString(),
-          // }),
         };
       } else {
         return [];
@@ -140,14 +145,10 @@ export const getVariableDefinitionsForField = ({
     } else {
       return {
         ...buildNewVariableDefinition({
+          fieldName: field.name,
+          parentArgName: null,
           forArg: arg,
-          parentArgName: field.name,
-          selectionName: arg.name,
         }),
-        // ...buildVariableDefinitionNode({
-        //   variableName: `${field.name}${capitalize({ string: arg.name })}`,
-        //   variableType: arg.type.toString(),
-        // }),
       };
     }
   });

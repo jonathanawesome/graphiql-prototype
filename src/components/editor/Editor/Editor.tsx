@@ -52,6 +52,7 @@ export const Editor = ({
     const model = getOrCreateModel({ uri, value: defaultValue });
 
     model.onDidChangeContent(() => {
+      console.log({ modelValue: model.getValue() });
       valueSetter({ value: model.getValue() });
     });
 

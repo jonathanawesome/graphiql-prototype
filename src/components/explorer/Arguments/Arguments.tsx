@@ -27,6 +27,10 @@ export const Arguments = ({
   onFieldName,
   onFieldSelection,
 }: ArgumentsProps) => {
+  // console.log('rendering Arguments', {
+  //   args,
+  // });
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   // TODO: this is gross
@@ -34,7 +38,11 @@ export const Arguments = ({
   const optionalArgs = args.filter((a) => !isRequiredArgument(a));
 
   const addArg = ({ argToAdd }: { argToAdd: GraphQLArgument }) => {
-    // console.log('addArg', { argToAdd, field });
+    // console.log('addArg', {
+    //   forArg: argToAdd,
+    //   parentArgName: argToAdd.name,
+    //   selectionName: onFieldName,
+    // });
 
     const newArg = buildArgumentNode({
       argumentName: argToAdd.name,
@@ -42,8 +50,6 @@ export const Arguments = ({
     });
 
     const newArgs = [...(onFieldSelection?.arguments || []), newArg];
-
-    // console.log({ newArgs });
 
     const newFieldNode: FieldNode = {
       ...(onFieldSelection as FieldNode),
@@ -56,14 +62,11 @@ export const Arguments = ({
         payloads: {
           field: newFieldNode,
           newVariableDefinition: buildNewVariableDefinition({
+            fieldName: onFieldName,
+            parentArgName: null,
             forArg: argToAdd,
-            parentArgName: argToAdd.name,
-            selectionName: onFieldName,
           }),
-          // variableDefinitionToAdd: buildVariableDefinitionNode({
-          //   variableName: `${onFieldName}${capitalize({ string: argToAdd.name })}`,
-          //   variableType: argToAdd.type.toString(),
-          // }),
+          variableNameToRemove: null,
         },
       },
     });
@@ -75,7 +78,6 @@ export const Arguments = ({
     const newArgs = onFieldSelection?.arguments?.filter(
       (a) => a.name.value !== argToRemove.name
     );
-    // console.log({ newArgs });
 
     const newFieldNode: FieldNode = {
       ...(onFieldSelection as FieldNode),
@@ -90,14 +92,11 @@ export const Arguments = ({
           variableNameToRemove: `${onFieldSelection?.name.value}${capitalize({
             string: argToRemove.name,
           })}`,
+          newVariableDefinition: null,
         },
       },
     });
   };
-
-  // console.log('rendering Arguments', {
-  //   args,
-  // });
 
   return (
     <Root open={isOpen} onOpenChange={setIsOpen}>
