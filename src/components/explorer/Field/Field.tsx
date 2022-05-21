@@ -11,9 +11,13 @@ import {
 
 /** components */
 import { FieldDetails, IndicatorField } from '@/components';
+import { Arguments } from '../Arguments';
+
+/** hooks */
+import { useOperation } from '@/hooks';
 
 /** styles */
-import { ChildFields, Content, Trigger, Root } from './styles';
+import { ChildFields, Content, IndicatorWrap, Trigger, Root } from './styles';
 
 /** types */
 import { EditFieldAction, OnEditSignature } from '@/types';
@@ -26,7 +30,6 @@ import {
   editFieldSelection,
   getTypeFields,
 } from '@/utils';
-import { Arguments } from '../Arguments';
 
 type FieldProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -38,6 +41,8 @@ type FieldProps = {
 export const Field = ({ field, selectionSet, onEdit }: FieldProps) => {
   const [fieldSelection, setFieldSelection] = useState<FieldNode | null>(null);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
+  const { operationDefinition } = useOperation();
 
   const fields = getTypeFields({ type: field.type });
 
@@ -63,11 +68,16 @@ export const Field = ({ field, selectionSet, onEdit }: FieldProps) => {
       return null;
     }
 
-    let newVariableDefinition: VariableDefinitionNode | null = null;
+    // let newVariableDefinition: VariableDefinitionNode | null = null;
 
-    if (input.type === 'updateField') {
-      newVariableDefinition = input.payloads.newVariableDefinition;
-    }
+    // if (input.type === 'updateField') {
+    //   //TODO 👇 this is overwriting existing variable definitions
+    //   // if input.payloads.newVariableDefinition.variable.name.value already exists in the variableDefinitions, skip it
+    //   if (operationDefinition?.variableDefinitions?.find(vD => vD.variable.name ===  input.payloads.newVariableDefinition?.variable.name) {
+
+    //     newVariableDefinition = input.payloads.newVariableDefinition;
+    //   }
+    // }
 
     const selectionSet: SelectionSetNode = (() => {
       const set: SelectionSetNode = fieldSelection.selectionSet
@@ -87,7 +97,7 @@ export const Field = ({ field, selectionSet, onEdit }: FieldProps) => {
         type: 'updateField',
         payloads: {
           field: { ...fieldSelection, selectionSet },
-          newVariableDefinition,
+          newVariableDefinition: null,
           variableNameToRemove: null,
         },
       },
@@ -130,7 +140,9 @@ export const Field = ({ field, selectionSet, onEdit }: FieldProps) => {
               });
         }}
       >
-        <IndicatorField active={!!fieldSelection} />
+        <IndicatorWrap isActive={!!fieldSelection}>
+          <IndicatorField active={!!fieldSelection} />
+        </IndicatorWrap>
         <FieldDetails
           fieldOrArg={field}
           isCollapsible={!!fields}

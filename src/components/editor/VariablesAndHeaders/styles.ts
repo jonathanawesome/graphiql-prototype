@@ -3,73 +3,63 @@ import { styled } from '@stitches/react';
 import * as Collapsible from '@radix-ui/react-collapsible';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 
-export const TabsList = styled(TabsPrimitive.List, {
-  flexShrink: 0,
-  display: 'flex',
-  borderBottom: `1px solid red`,
-});
-
-export const TabsRoot = styled(TabsPrimitive.Root, {
-  // display: 'flex',
-  // flexDirection: 'column',
-  // width: 300,
-  backgroundColor: 'pink',
-  // boxShadow: `0 2px 10px black`,
-});
-
-export const TabsTrigger = styled(TabsPrimitive.Trigger, {
-  backgroundColor: 'BlanchedAlmond',
-});
-
-export const TabsContent = styled(TabsPrimitive.Content, {
-  backgroundColor: 'PaleTurquoise',
-  height: 200,
-});
-
-export const CollapsibleContent = styled(Collapsible.Content, {});
-
-export const CollapsibleTrigger = styled(Collapsible.Trigger, {
-  marginLeft: 'auto',
-});
-
 export const CollapsibleRoot = styled(Collapsible.Root, {
   backgroundColor: `$scale100`,
   borderTop: `1px solid $scale400`,
 });
 
+export const TabsRoot = styled(TabsPrimitive.Root, {});
+
 export const TabsAndTrigger = styled('div', {
   display: 'flex',
-  padding: `0 12px`,
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: `8px 30px 8px 12px`,
+});
 
-  span: {
-    fontSize: 12,
-    lineHeight: 1,
-    fontWeight: 500,
-    padding: 12,
-    display: 'flex',
-    alignContent: 'center',
-    justifyItems: 'center',
-    '&:nth-of-type(2)': {
-      color: `$scale700`,
-    },
+export const TabsList = styled(TabsPrimitive.List, {
+  display: 'flex',
+  gap: 8,
+});
+
+export const TabsTrigger = styled(TabsPrimitive.Trigger, {
+  cursor: 'pointer',
+  fontSize: `$body`,
+  lineHeight: `$body`,
+  fontWeight: `$medium`,
+  padding: `10px`,
+  color: `$scale700`,
+
+  '&:hover': { color: `$scale800` },
+  '&[data-state="active"]': {
+    fontWeight: `$semiBold`,
+    color: `$scale800`,
   },
 
-  button: {
-    border: 'none',
-    backgroundColor: 'transparent',
-    margin: 0,
-    padding: 0,
-    cursor: 'pointer',
-    marginLeft: 'auto',
-
-    svg: {
-      height: 15,
-      width: 15,
-    },
+  span: {
+    padding: `2px 4px`,
+    marginLeft: `4px`,
+    borderRadius: `2px`,
+    fontSize: `$mini`,
+    backgroundColor: `$scale300`,
+    color: '$scale700',
   },
 });
 
+export const CollapsibleTrigger = styled(Collapsible.Trigger, {
+  all: 'reset',
+  cursor: 'pointer',
+  marginBottom: 8,
+  width: 12,
+  height: 12,
+});
+
+export const CollapsibleContent = styled(Collapsible.Content, {});
+
+export const TabsContent = styled(TabsPrimitive.Content, {
+  padding: `0 16px 16px 16px`,
+});
+
 export const VariablesEditor = styled('div', {
-  paddingLeft: 12,
-  paddingRight: 12,
+  height: 150,
 });

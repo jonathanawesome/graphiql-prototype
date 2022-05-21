@@ -14,8 +14,9 @@ export const OperationsEditor = styled('div', {
   position: 'relative',
   height: '100%',
   paddingTop: 20,
-  paddingLeft: 12,
   paddingRight: 48,
+  paddingBottom: 20,
+  paddingLeft: 12,
 });
 
 export const EditorActionsWrap = styled('div', {

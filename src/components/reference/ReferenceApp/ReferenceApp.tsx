@@ -10,13 +10,14 @@ import {
 import { defaultResults } from '@/constants';
 
 /** hooks */
-import { useGraphiQL } from '@/hooks';
+import { useGraphiQL, useResults } from '@/hooks';
 
 /** styles */
 import { ReferenceAppStyled } from './styles';
 
 export const ReferenceApp = () => {
-  const { results, schema, setResults } = useGraphiQL();
+  const { schema } = useGraphiQL();
+  const { results, setResults } = useResults();
 
   if (!schema) {
     return <p>loading schema...</p>;
@@ -32,7 +33,7 @@ export const ReferenceApp = () => {
               <Explorer />
             </>
           ),
-          initialWidthPercent: 30,
+          initialWidthPercent: 40,
         }}
         rightPane={{
           component: (
@@ -43,7 +44,7 @@ export const ReferenceApp = () => {
               setResults={setResults}
             />
           ),
-          initialWidthPercent: 70,
+          initialWidthPercent: 60,
         }}
       />
     </ReferenceAppStyled>

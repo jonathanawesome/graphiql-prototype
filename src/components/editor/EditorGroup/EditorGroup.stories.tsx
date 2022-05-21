@@ -5,10 +5,11 @@ import { EditorGroup } from './EditorGroup';
 import { defaultResults } from '@/constants';
 
 /** hooks */
-import { useGraphiQL } from '@/hooks';
+import { useGraphiQL, useResults } from '@/hooks';
 
 export const Story = () => {
-  const { results, schema, setResults } = useGraphiQL();
+  const { schema } = useGraphiQL();
+  const { results, setResults } = useResults();
 
   if (!schema) {
     return <p>loading schema...</p>;

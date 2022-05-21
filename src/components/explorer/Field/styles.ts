@@ -13,18 +13,39 @@ export const Content = styled(Collapsible.Content, {
   marginLeft: 20,
 });
 
+export const IndicatorWrap = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  svg: {
+    height: 15,
+    width: 15,
+  },
+
+  variants: {
+    isActive: {
+      false: {
+        svg: {
+          transform: `scale(0.85)`,
+        },
+      },
+    },
+  },
+});
+
 export const Trigger = styled(Collapsible.Trigger, {
   width: '100%',
   display: 'grid',
   gridTemplateColumns: '15px 1fr',
   alignItems: 'center',
-  justifyContent: 'flex-start',
   gap: 6,
   cursor: 'pointer',
 });
 
 export const Root = styled(Collapsible.Root, {
   position: 'relative',
+  padding: `8px 0`,
 
   variants: {
     offset: {

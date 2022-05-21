@@ -8,7 +8,7 @@ import { VariablesAndHeaders } from '../VariablesAndHeaders';
 import { defaultOperation } from '@/constants';
 
 /** hooks */
-import { useGraphiQL } from '@/hooks';
+import { useOperation } from '@/hooks';
 
 /** styles */
 import {
@@ -19,7 +19,7 @@ import {
 } from './styles';
 
 export const EditorStack = () => {
-  const { operationAction, operation, setOperation } = useGraphiQL();
+  const { operationAction, operation, setOperation } = useOperation();
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const operationsEditorRef = useRef<HTMLDivElement | null>(null);

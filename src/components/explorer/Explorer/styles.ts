@@ -3,7 +3,8 @@ import { styled } from '@stitches/react';
 export const ExplorerStyled = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  padding: `40px 0 32px 32px`,
+  gap: 34,
+  padding: `30px 0 32px 32px`,
   width: '100%',
   //TODO 👇 this works, but it's kinda weird... might be a better solution
   minWidth: 300,
@@ -12,8 +13,11 @@ export const ExplorerStyled = styled('div', {
 export const ExplorerLead = styled('div', {
   display: 'flex',
   justifyContent: 'space-between',
+  alignItems: 'center',
 
   h2: {
+    fontSize: '$display',
+    fontWeight: '$semiBold',
     color: `$scale800`,
     margin: 0,
     padding: 0,
@@ -52,7 +56,7 @@ export const FakeSearch = styled('div', {
   alignItems: 'center',
 
   span: {
-    fontSize: 12,
+    fontSize: `$body`,
     color: `$scale700`,
   },
 

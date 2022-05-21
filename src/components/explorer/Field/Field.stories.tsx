@@ -2,12 +2,13 @@
 import { Field } from '@/components';
 
 /** hooks */
-import { useGraphiQL } from '@/hooks';
+import { useGraphiQL, useOperation } from '@/hooks';
 import { GraphQLField } from 'graphql';
 
 export const FieldStory = () => {
   // const { operation } = useGraphiQL();
-  const { onEditDefinition, operationDefinition, schema } = useGraphiQL();
+  const { schema } = useGraphiQL();
+  const { onEditDefinition, operationDefinition } = useOperation();
 
   if (!schema) {
     return <p>loading...</p>;

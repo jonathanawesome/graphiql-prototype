@@ -16,7 +16,7 @@ import {
 import { Caret, Field } from '@/components';
 
 /** hooks */
-import { useGraphiQL } from '@/hooks';
+import { useOperation } from '@/hooks';
 
 /** styles */
 import { Content, Root as RootWrap, Trigger } from './styles';
@@ -33,7 +33,7 @@ export const RootType = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rootType: GraphQLObjectType<any, any>;
 }) => {
-  const { onEditDefinition, operationDefinition } = useGraphiQL();
+  const { onEditDefinition, operationDefinition } = useOperation();
 
   const fields = rootType.getFields();
 
@@ -44,9 +44,9 @@ export const RootType = ({
   // });
 
   const handleToggleField = ({ input }: { input: EditFieldAction }) => {
-    // console.log('running handleToggleField', {
-    //   input,
-    // });
+    console.log('running handleToggleField', {
+      input,
+    });
 
     //TODO 👇 totally wonky, fix ASAP
     const nextVariableDefinitions = (() => {
@@ -83,6 +83,8 @@ export const RootType = ({
           });
         }
         if (input.payloads.newVariableDefinition) {
+          console.log('newVariableDefinition', input.payloads.newVariableDefinition);
+
           return operationDefinition?.variableDefinitions
             ? [
                 ...operationDefinition?.variableDefinitions,

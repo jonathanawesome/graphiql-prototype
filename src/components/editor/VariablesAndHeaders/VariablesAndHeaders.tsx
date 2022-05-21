@@ -7,25 +7,28 @@ import { Chevron, Editor } from '@/components';
 import { defaultVariables } from '@/constants';
 
 /** hooks */
-import { useGraphiQL } from '@/hooks';
+import { useOperation, useVariables } from '@/hooks';
 
 /** styles */
 import {
   CollapsibleContent,
   CollapsibleRoot,
-  TabsAndTrigger,
   CollapsibleTrigger,
-  VariablesEditor,
+  TabsAndTrigger,
+  TabsContent,
+  TabsList,
   TabsRoot,
   TabsTrigger,
-  TabsList,
-  TabsContent,
+  VariablesEditor,
 } from './styles';
 
 export const VariablesAndHeaders = ({ setHeight }: { setHeight: () => void }) => {
   const [isVariablesOpen, setIsVariablesOpen] = useState<boolean>(false);
 
-  const { operationAction, variables, setVariables } = useGraphiQL();
+  const { operationDefinition, operationAction } = useOperation();
+  const { variables, setVariables } = useVariables();
+
+  const variablesCount = operationDefinition?.variableDefinitions?.length || 0;
 
   const handleOpenChange = () => {
     setIsVariablesOpen(!isVariablesOpen);
@@ -40,13 +43,21 @@ export const VariablesAndHeaders = ({ setHeight }: { setHeight: () => void }) =>
       <TabsRoot defaultValue="tab1">
         <TabsAndTrigger>
           <TabsList aria-label="Manage your account">
-            <TabsTrigger value="tab1">Variables</TabsTrigger>
-            <TabsTrigger value="tab2">Headers</TabsTrigger>
+            <TabsTrigger
+              value="tab1"
+              onClick={() => setIsVariablesOpen(!isVariablesOpen)}
+            >
+              Variables {variablesCount > 0 && <span>{variablesCount}</span>}
+            </TabsTrigger>
+            <TabsTrigger
+              value="tab2"
+              onClick={() => setIsVariablesOpen(!isVariablesOpen)}
+            >
+              Headers
+            </TabsTrigger>
           </TabsList>
           <CollapsibleTrigger>
-            <div style={{ transform: isVariablesOpen ? undefined : 'rotate(180deg)' }}>
-              <Chevron />
-            </div>
+            <Chevron active={isVariablesOpen} />
           </CollapsibleTrigger>
         </TabsAndTrigger>
         <CollapsibleContent>
@@ -62,7 +73,7 @@ export const VariablesAndHeaders = ({ setHeight }: { setHeight: () => void }) =>
               />
             </VariablesEditor>
           </TabsContent>
-          <TabsContent value="tab2">Headers</TabsContent>
+          <TabsContent value="tab2">TODO: Headers</TabsContent>
         </CollapsibleContent>
       </TabsRoot>
     </CollapsibleRoot>

@@ -26,21 +26,17 @@ export const { getCssText, styled, theme } = createStitches({
         'Inter, -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif',
     },
     fontSizes: {
-      1: '12px',
-      2: '15px',
-      3: '22px',
-      4: '29px',
+      10: '10px',
+      13: '13px',
+      24: '24px',
+      mini: '$10',
+      body: '$13',
+      display: '$24',
     },
     fontWeights: {
       regular: 400,
       medium: 500,
       semiBold: 600,
-    },
-    space: {
-      1: '2px',
-      2: '4px',
-      3: '8px',
-      4: '16px',
     },
   },
 });

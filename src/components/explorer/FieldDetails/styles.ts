@@ -5,11 +5,11 @@ export const NameAndTypeName = styled('div', {
   alignItems: 'center',
   gap: 4,
   '& span:nth-of-type(1)': {
-    fontWeight: 500,
+    fontWeight: `$medium`,
     color: `$scale800`,
   },
   '& span:nth-of-type(2)': {
-    fontWeight: 400,
+    fontWeight: `$regular`,
     color: `$scale700`,
   },
 
@@ -29,7 +29,7 @@ export const Description = styled('div', {
   textAlign: 'left',
   gap: 8,
   color: `$scale600`,
-  fontWeight: 400,
+  fontWeight: `$regular`,
 
   '& svg': {
     height: 2,
@@ -41,13 +41,9 @@ export const FieldDetailsStyled = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: 6,
-  padding: `6px 0`,
-  fontSize: 12,
-  // cursor: 'default',
+  fontSize: '$body',
 
-  '&:hover': {
-    // backgroundColor: 'LightBlue',
-  },
+  '&:hover': {},
 
   variants: {
     inlineDescription: {

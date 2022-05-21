@@ -15,9 +15,9 @@ export const StyledShowArguments = styled('div', {
   },
 
   span: {
-    fontWeight: 500,
-    fontSize: 12,
-    color:`$scale700`,
+    fontWeight: `$medium`,
+    fontSize: '$body',
+    color: `$scale700`,
   },
 });
 
