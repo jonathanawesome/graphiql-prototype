@@ -25,7 +25,13 @@ import { Content, Root as RootWrap, Trigger } from './styles';
 import { EditFieldAction } from '@/types';
 
 /** utils */
-import { editFieldSelection, getVariableDefinitionsForField } from '@/utils';
+import {
+  buildVariableNameValue,
+  editFieldSelection,
+  generateAndSetEasyVariable,
+  getRequiredVariableDefinitionsForField,
+  unwrapInputType,
+} from '@/utils';
 
 export const RootType = ({
   rootType,
@@ -35,13 +41,15 @@ export const RootType = ({
 }) => {
   const { onEditDefinition, operationDefinition } = useOperation();
 
+  const varDefs = operationDefinition?.variableDefinitions;
+
   const fields = rootType.getFields();
 
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
 
-  // console.log('rendering RootType', {
-  //   operationDefinition,
-  // });
+  console.log('rendering RootType', {
+    operationDefinition,
+  });
 
   const handleToggleField = ({ input }: { input: EditFieldAction }) => {
     console.log('running handleToggleField', {
@@ -49,50 +57,81 @@ export const RootType = ({
     });
 
     //TODO 👇 totally wonky, fix ASAP
-    const nextVariableDefinitions = (() => {
+    const nextVarDefs = (() => {
       if (input.type === 'addField') {
-        let newVariableDefinitions: VariableDefinitionNode[] | null = null;
-        if (input.payloads.args.some((arg) => isRequiredArgument(arg))) {
-          newVariableDefinitions = getVariableDefinitionsForField({
+        // if we're adding a field, we need to set _required_ variable definitions
+        let newVarDefs: VariableDefinitionNode[] | null = null;
+
+        if (input.payloads.args.length > 0) {
+          // get the required variable definitions ... done with var defs
+          newVarDefs = getRequiredVariableDefinitionsForField({
             field: input.payloads,
-            onlyRequired: true,
+          });
+
+          input.payloads.args.forEach((arg) => {
+            if (isRequiredArgument(arg)) {
+              // if this arg is required, we need to set the easy Variable
+              generateAndSetEasyVariable({
+                variableName: buildVariableNameValue({
+                  fieldName: input.payloads.name,
+                  parentArgName: null,
+                  argName: arg.name,
+                }),
+                unwrappedType: unwrapInputType({ inputType: arg.type }),
+              });
+            }
           });
         }
-        if (!newVariableDefinitions) {
-          return undefined;
+
+        // if (input.payloads.args.some((arg) => isRequiredArgument(arg))) {
+        //   // console.log("let's set these variables:", JSON.stringify(vars, null, 2));
+        //   // setEasyVariables({ value: 'something' });
+        //   newVarDefs = getRequiredVariableDefinitionsForField({
+        //     field: input.payloads,
+        //   });
+        // }
+
+        if (newVarDefs) {
+          // // console.log({ newVarDefs });
+          // // const argForNVD = input.payloads.a
+          // const easyVars: EasyVariable[] = [];
+          // newVarDefs.forEach((nVD) => {
+          //   console.log({ nVD, args: input.payloads.args });
+          //   // easyVars.push({ [nVD.variable.name.value]: ['as', 123] });
+          // });
+
+          return varDefs ? [...varDefs, ...newVarDefs] : [...newVarDefs];
         } else {
-          return operationDefinition?.variableDefinitions
-            ? [...operationDefinition?.variableDefinitions, ...newVariableDefinitions]
-            : [...newVariableDefinitions];
+          return undefined;
         }
       }
 
       if (input.type === 'removeField') {
         // TODO: this seems fragile!
-        return operationDefinition?.variableDefinitions?.filter((vd) => {
+        return varDefs?.filter((vd) => {
           return !vd.variable.name.value.includes(input.payloads.name);
         });
       }
 
-      if (input.type === 'updateField') {
-        if (input.payloads.variableNameToRemove) {
-          return operationDefinition?.variableDefinitions?.filter((vd) => {
-            return !vd.variable.name.value.includes(
-              input.payloads.variableNameToRemove as string
-            );
-          });
-        }
-        if (input.payloads.newVariableDefinition) {
-          console.log('newVariableDefinition', input.payloads.newVariableDefinition);
+      // if (input.type === 'updateField') {
+      //   if (input.payloads.variableNameToRemove) {
+      //     return varDefs?.filter((vd) => {
+      //       return !vd.variable.name.value.includes(
+      //         input.payloads.variableNameToRemove as string
+      //       );
+      //     });
+      //   }
+      //   if (input.payloads.newVariableDefinition) {
+      //     console.log(
+      //       'newVariableDefinition in RootType',
+      //       input.payloads.newVariableDefinition
+      //     );
 
-          return operationDefinition?.variableDefinitions
-            ? [
-                ...operationDefinition?.variableDefinitions,
-                input.payloads.newVariableDefinition,
-              ]
-            : [input.payloads.newVariableDefinition];
-        }
-      }
+      //     return varDefs
+      //       ? [...varDefs, input.payloads.newVariableDefinition]
+      //       : [input.payloads.newVariableDefinition];
+      //   }
+      // }
 
       return undefined;
     })();
@@ -114,8 +153,7 @@ export const RootType = ({
               value: 'ExampleQuery',
             },
           }) as OperationDefinitionNode),
-      variableDefinitions:
-        nextVariableDefinitions ?? operationDefinition?.variableDefinitions,
+      variableDefinitions: nextVarDefs ?? varDefs,
       selectionSet: {
         kind: Kind.SELECTION_SET,
         selections,

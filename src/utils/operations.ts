@@ -40,7 +40,7 @@ export const editFieldSelection = ({
 }): SelectionNode[] => {
   switch (action.type) {
     case 'addField': {
-      // console.log(`running addField in editFieldSelection, action:`, { action });
+      console.log(`running addField in editFieldSelection, action:`, { action });
 
       const field = action.payloads;
       const fieldObjectType = getObjectType(field.type);
@@ -85,14 +85,14 @@ export const editFieldSelection = ({
       ];
     }
     case 'removeField': {
-      // console.log(`running removeField in editFieldSelection:`, { action });
+      console.log(`running removeField in editFieldSelection:`, { action });
 
       return (original as FieldNode[]).filter(
         (item) => item.name.value !== action.payloads.name
       );
     }
     case 'updateField': {
-      // console.log(`running updateField in editFieldSelection:`, { action });
+      console.log(`running updateField in editFieldSelection:`, { action });
       const fieldNodes = (original as FieldNode[]).map((item) => {
         if (item.name.value === action.payloads.field.name.value) {
           return action.payloads.field;

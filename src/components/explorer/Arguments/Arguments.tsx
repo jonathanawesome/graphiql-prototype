@@ -12,7 +12,14 @@ import { Root, Content, Trigger } from './styles';
 import { OnEditSignature } from '@/types';
 
 /** utils */
-import { buildArgumentNode, buildNewVariableDefinition, capitalize } from '@/utils';
+import {
+  buildArgumentNode,
+  buildVariableNameValue,
+  //  buildNewVariableDefinition,
+  generateAndSetEasyVariable,
+  unwrapInputType,
+  capitalize,
+} from '@/utils';
 
 type ArgumentsProps = {
   args: GraphQLArgument[];
@@ -38,12 +45,6 @@ export const Arguments = ({
   const optionalArgs = args.filter((a) => !isRequiredArgument(a));
 
   const addArg = ({ argToAdd }: { argToAdd: GraphQLArgument }) => {
-    // console.log('addArg', {
-    //   forArg: argToAdd,
-    //   parentArgName: argToAdd.name,
-    //   selectionName: onFieldName,
-    // });
-
     const newArg = buildArgumentNode({
       argumentName: argToAdd.name,
       variableName: `${onFieldName}${capitalize({ string: argToAdd.name })}`,
@@ -56,17 +57,32 @@ export const Arguments = ({
       arguments: newArgs,
     };
 
+    generateAndSetEasyVariable({
+      variableName: buildVariableNameValue({
+        fieldName: onFieldName,
+        parentArgName: null,
+        argName: argToAdd.name,
+      }),
+      unwrappedType: unwrapInputType({ inputType: argToAdd.type }),
+    });
+
+    // console.log('addArg', {
+    //   forArg: argToAdd,
+    //   parentArgName: argToAdd.name,
+    //   selectionName: onFieldName,
+    //   // newVariableDefinition: buildNewVariableDefinition({
+    //   //   fieldName: onFieldName,
+    //   //   parentArgName: null,
+    //   //   forArg: argToAdd,
+    //   // }),
+    //   field: newFieldNode,
+    // });
+
     return onEdit({
       input: {
         type: 'updateField',
         payloads: {
           field: newFieldNode,
-          newVariableDefinition: buildNewVariableDefinition({
-            fieldName: onFieldName,
-            parentArgName: null,
-            forArg: argToAdd,
-          }),
-          variableNameToRemove: null,
         },
       },
     });
@@ -89,10 +105,10 @@ export const Arguments = ({
         type: 'updateField',
         payloads: {
           field: newFieldNode,
-          variableNameToRemove: `${onFieldSelection?.name.value}${capitalize({
-            string: argToRemove.name,
-          })}`,
-          newVariableDefinition: null,
+          // variableNameToRemove: `${onFieldSelection?.name.value}${capitalize({
+          //   string: argToRemove.name,
+          // })}`,
+          // newVariableDefinition: null,
         },
       },
     });

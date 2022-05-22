@@ -97,8 +97,8 @@ export const Field = ({ field, selectionSet, onEdit }: FieldProps) => {
         type: 'updateField',
         payloads: {
           field: { ...fieldSelection, selectionSet },
-          newVariableDefinition: null,
-          variableNameToRemove: null,
+          // newVariableDefinition: null,
+          // variableNameToRemove: null,
         },
       },
     });

@@ -52,7 +52,7 @@ export const Editor = ({
     const model = getOrCreateModel({ uri, value: defaultValue });
 
     model.onDidChangeContent(() => {
-      console.log({ modelValue: model.getValue() });
+      // console.log({ modelValue: model.getValue() });
       valueSetter({ value: model.getValue() });
     });
 
@@ -83,7 +83,7 @@ export const Editor = ({
     if (model) {
       // https://github.com/Microsoft/monaco-editor/issues/1397
       if (value !== model.getValue()) {
-        console.log(`setting value for ${uri}`, value);
+        // console.log(`setting value for ${uri}`, value);
         //update the operations editor when our value (either operation or variables) changes
         //TODO 👇 setValue is the quick way to update the model. pushEditOperations is recommended, but causes text selection on update.
         model.setValue(value);

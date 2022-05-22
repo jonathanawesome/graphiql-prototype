@@ -2,7 +2,7 @@
 import { Command, Ellipsis, Search, RootType } from '@/components';
 
 /** hooks */
-import { useGraphiQL, useOfflineSchema } from '@/hooks';
+import { useGraphiQL } from '@/hooks';
 
 /** styles */
 import {
@@ -17,7 +17,6 @@ import {
 
 export const Explorer = () => {
   const { schema } = useGraphiQL();
-  // const { schema } = useOfflineSchema();
 
   if (!schema) {
     //TODO: some loading skeleton

@@ -26,7 +26,9 @@ export const VariablesAndHeaders = ({ setHeight }: { setHeight: () => void }) =>
   const [isVariablesOpen, setIsVariablesOpen] = useState<boolean>(false);
 
   const { operationDefinition, operationAction } = useOperation();
-  const { variables, setVariables } = useVariables();
+
+  const { variables, setVariables, easyVariables } = useVariables();
+  console.log({ easyVariables });
 
   const variablesCount = operationDefinition?.variableDefinitions?.length || 0;
 

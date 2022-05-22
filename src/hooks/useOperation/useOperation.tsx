@@ -1,6 +1,5 @@
 import create from 'zustand';
 import { editor, KeyCode, KeyMod } from 'monaco-editor';
-import * as JSONC from 'jsonc-parser';
 
 import {
   isExecutableDefinitionNode,
@@ -76,12 +75,12 @@ export const useOperation = create<OperationStore>((set, get) => ({
     const setResults = useResults.getState().setResults;
 
     console.log('operation being submitted', operation);
-    console.log('variables being submitted', JSON.stringify(JSONC.parse(variables)));
+    console.log('variables being submitted', variables);
 
     const result = await fetcher({
       operationName: operationDefinition?.name?.value || '',
       query: operation,
-      variables: JSON.stringify(JSONC.parse(variables)),
+      variables,
     });
 
     // TODO: this demo only supports a single iteration for http GET/POST,
@@ -106,38 +105,17 @@ export const useOperation = create<OperationStore>((set, get) => ({
   }) => {
     // const operationDefinition = get().operationDefinition;
     const setOperation = get().setOperation;
+    // const operationDefinition = get().operationDefinition;
     const setVariables = useVariables.getState().setVariables;
 
     if (nextDefinition) {
-      console.log({ nextDefinition });
-
-      // if (nextDefinition.variableDefinitions) {
-      //   //TODO: 👇 lots
-      //   console.log({ variableDefinitions: nextDefinition.variableDefinitions });
-
-      //   const vars = nextDefinition.variableDefinitions.reduce(
-      //     (accumulator: Record<string, string>, v: VariableDefinitionNode) => {
-      //       console.log({ v });
-      //       const existingDefinition = operationDefinition?.variableDefinitions?.find(
-      //         (vD) => vD.variable.name === v.variable.name
-      //       );
-      //       if (existingDefinition) {
-      //         console.log(existingDefinition);
-      //         return { ...accumulator, ...existingDefinition };
-      //       } else {
-      //         return {
-      //           ...accumulator,
-      //           [v.variable.name.value]: v.variable.name.value,
-      //         };
-      //       }
-      //     },
-      //     {}
-      //   );
-
-      //   setVariables({
-      //     value: JSON.stringify(vars, null, 2),
-      //   });
-      // }
+      // console.log("let's set this operation:", {
+      //   nextDefinition,
+      //   printResult: print({
+      //     kind: Kind.DOCUMENT,
+      //     definitions: [nextDefinition],
+      //   }),
+      // });
 
       setOperation({
         value: print({

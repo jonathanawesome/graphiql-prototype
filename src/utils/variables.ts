@@ -1,15 +1,29 @@
 import {
-  GraphQLArgument,
+  // ConstValueNode,
+  // FloatValueNode,
+  // GraphQLArgument,
+  // GraphQLEnumType,
   GraphQLField,
+  GraphQLNamedType,
+  // GraphQLScalarType,
+  // IntValueNode,
+  isEnumType,
   isRequiredArgument,
+  // isScalarType,
   Kind,
   ListTypeNode,
   NamedTypeNode,
   NonNullTypeNode,
+  // NullValueNode,
   parseType,
+  // StringValueNode,
   TypeNode,
+  // ValueNode,
   VariableDefinitionNode,
+  // VariableNode,
 } from 'graphql';
+import { EasyVariable } from '../hooks/useVariables/useVariables';
+import { useVariables } from '@/hooks';
 
 /** utils */
 import { capitalize } from './misc';
@@ -90,66 +104,105 @@ const buildTypeNode = ({ typeNode }: { typeNode: TypeNode }): TypeNode => {
   return typeNode;
 };
 
-export const buildNewVariableDefinition = ({
+export const buildVariableNameValue = ({
   fieldName,
   parentArgName,
-  forArg,
+  argName,
 }: {
   fieldName: string;
   parentArgName: string | null;
-  forArg: GraphQLArgument;
-}): VariableDefinitionNode => {
-  const argPrintedType = forArg.type.toString();
-  const argType = parseType(argPrintedType);
-
-  return {
-    kind: Kind.VARIABLE_DEFINITION,
-    variable: {
-      kind: Kind.VARIABLE,
-      name: {
-        kind: Kind.NAME,
-        value: `${fieldName}${
-          parentArgName
-            ? capitalize({
-                string: parentArgName,
-              })
-            : ''
-        }${capitalize({ string: forArg.name })}`,
-      },
-    },
-    type: buildTypeNode({ typeNode: argType }),
-  };
+  argName: string;
+}): string => {
+  const parentArgOrEmptyString = parentArgName
+    ? capitalize({
+        string: parentArgName,
+      })
+    : '';
+  return `${fieldName}${parentArgOrEmptyString}${capitalize({ string: argName })}`;
 };
 
-export const getVariableDefinitionsForField = ({
+export const getRequiredVariableDefinitionsForField = ({
   field,
-  onlyRequired,
 }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   field: GraphQLField<any, any>;
-  onlyRequired: boolean;
 }): VariableDefinitionNode[] => {
   return field.args.flatMap((arg) => {
-    if (onlyRequired) {
-      if (isRequiredArgument(arg)) {
-        return {
-          ...buildNewVariableDefinition({
-            fieldName: field.name,
-            parentArgName: null,
-            forArg: arg,
-          }),
-        };
-      } else {
-        return [];
-      }
-    } else {
+    if (isRequiredArgument(arg)) {
+      const argPrintedType = arg.type.toString();
+      const typeNode = parseType(argPrintedType);
       return {
-        ...buildNewVariableDefinition({
-          fieldName: field.name,
-          parentArgName: null,
-          forArg: arg,
-        }),
+        kind: Kind.VARIABLE_DEFINITION,
+        variable: {
+          kind: Kind.VARIABLE,
+          name: {
+            kind: Kind.NAME,
+            value: buildVariableNameValue({
+              fieldName: field.name,
+              parentArgName: null,
+              argName: arg.name,
+            }),
+          },
+        },
+        type: buildTypeNode({ typeNode }),
       };
+    } else {
+      return [];
     }
   });
+};
+
+export const generateAndSetEasyVariable = ({
+  // valueNode,
+  variableName = 'no name provided',
+  unwrappedType,
+}: {
+  // valueNode: ValueNode;
+  variableName: string;
+  unwrappedType: GraphQLNamedType;
+}): void => {
+  //value here is a ValueNode
+  const setEasyVariables = useVariables.getState().setEasyVariables;
+  let easyVariable: EasyVariable | null = null;
+  if (isEnumType(unwrappedType)) {
+    const options = unwrappedType.getValues();
+    easyVariable = {
+      [variableName]: options.map((option) => option.name),
+    };
+  } else {
+    // Scalars
+    // let scalarValue: string | number | undefined;
+    switch (unwrappedType.name) {
+      case 'Boolean':
+        easyVariable = {
+          [variableName]: ['true', 'false'],
+        };
+        break;
+
+      case 'BigDecimal':
+      case 'Float':
+      case 'Int':
+      case 'Long':
+        console.log("I'm an Int", { unwrappedType });
+        // scalarValue =
+        //   (valueNode as NullValueNode)?.kind === 'NullValue'
+        //     ? ''
+        //     : (valueNode as FloatValueNode | IntValueNode)?.value ?? '';
+        easyVariable = {
+          [variableName]: 123,
+        };
+        break;
+
+      default:
+        // scalarValue = isVariable
+        //   ? `$${(value as VariableNode).name.value}`
+        //   : (value as NullValueNode)?.kind === 'NullValue'
+        //   ? ''
+        //   : (value as StringValueNode)?.value ?? '';
+        easyVariable = {
+          [variableName]: 'someString',
+        };
+    }
+  }
+  setEasyVariables({ addOrRemove: 'ADD', easyVariable });
 };

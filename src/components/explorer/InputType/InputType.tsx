@@ -20,7 +20,11 @@ import { Content, Root, Trigger, InputTypeChildArguments } from './styles';
 import { OnEditSignature } from '@/types';
 
 /* utils */
-import { buildNewVariableDefinition, capitalize } from '@/utils';
+import {
+  buildVariableNameValue,
+  generateAndSetEasyVariable,
+  unwrapInputType,
+} from '@/utils';
 
 export const InputType = ({
   inputTypeArg,
@@ -54,6 +58,12 @@ export const InputType = ({
   // });
 
   const addNestedArg = ({ argToAdd }: { argToAdd: GraphQLArgument }) => {
+    const variableName = buildVariableNameValue({
+      fieldName: selection?.name.value as string,
+      parentArgName: inputTypeArg.name,
+      argName: argToAdd.name,
+    });
+
     const ourNewObjectField: ObjectFieldNode = {
       kind: Kind.OBJECT_FIELD,
       name: {
@@ -64,9 +74,7 @@ export const InputType = ({
         kind: Kind.VARIABLE,
         name: {
           kind: Kind.NAME,
-          value: `${selection?.name.value}${capitalize({
-            string: inputTypeArg.name,
-          })}${capitalize({ string: argToAdd.name })}`,
+          value: variableName,
         },
       },
     };
@@ -105,17 +113,22 @@ export const InputType = ({
       arguments: newArguments,
     };
 
+    generateAndSetEasyVariable({
+      variableName,
+      unwrappedType: unwrapInputType({ inputType: argToAdd.type }),
+    });
+
     return onEdit({
       input: {
         type: 'updateField',
         payloads: {
           field: newFieldNode,
-          newVariableDefinition: buildNewVariableDefinition({
-            fieldName: selection?.name.value as string,
-            parentArgName: inputTypeArg.name,
-            forArg: argToAdd,
-          }),
-          variableNameToRemove: null,
+          // newVariableDefinition: buildNewVariableDefinition({
+          //   fieldName: selection?.name.value as string,
+          //   parentArgName: inputTypeArg.name,
+          //   forArg: argToAdd,
+          // }),
+          // variableNameToRemove: null,
         },
       },
     });
@@ -172,10 +185,10 @@ export const InputType = ({
         type: 'updateField',
         payloads: {
           field: newFieldNode,
-          variableNameToRemove: `${selection?.name.value}${capitalize({
-            string: inputTypeArg.name,
-          })}${capitalize({ string: argToRemove.name })}`,
-          newVariableDefinition: null,
+          // variableNameToRemove: `${selection?.name.value}${capitalize({
+          //   string: inputTypeArg.name,
+          // })}${capitalize({ string: argToRemove.name })}`,
+          // newVariableDefinition: null,
         },
       },
     });
