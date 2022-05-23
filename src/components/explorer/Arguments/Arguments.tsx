@@ -15,7 +15,7 @@ import { OnEditSignature } from '@/types';
 import {
   buildArgumentNode,
   buildVariableNameValue,
-  //  buildNewVariableDefinition,
+  buildNewVariableDefinition,
   generateAndSetEasyVariable,
   unwrapInputType,
   capitalize,
@@ -34,9 +34,11 @@ export const Arguments = ({
   onFieldName,
   onFieldSelection,
 }: ArgumentsProps) => {
-  // console.log('rendering Arguments', {
-  //   args,
-  // });
+  console.log('rendering Arguments', {
+    args,
+    onFieldSelection,
+    'onFieldSelection.arguments': onFieldSelection?.arguments,
+  });
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -45,12 +47,12 @@ export const Arguments = ({
   const optionalArgs = args.filter((a) => !isRequiredArgument(a));
 
   const addArg = ({ argToAdd }: { argToAdd: GraphQLArgument }) => {
-    const newArg = buildArgumentNode({
+    const newArgumentNode = buildArgumentNode({
       argumentName: argToAdd.name,
       variableName: `${onFieldName}${capitalize({ string: argToAdd.name })}`,
     });
 
-    const newArgs = [...(onFieldSelection?.arguments || []), newArg];
+    const newArgs = [...(onFieldSelection?.arguments || []), newArgumentNode];
 
     const newFieldNode: FieldNode = {
       ...(onFieldSelection as FieldNode),
@@ -83,6 +85,12 @@ export const Arguments = ({
         type: 'updateField',
         payloads: {
           field: newFieldNode,
+          variableNameToRemove: null,
+          newVariableDefinition: buildNewVariableDefinition({
+            fieldName: onFieldName,
+            parentArgName: null,
+            forArg: argToAdd,
+          }),
         },
       },
     });
@@ -105,10 +113,10 @@ export const Arguments = ({
         type: 'updateField',
         payloads: {
           field: newFieldNode,
-          // variableNameToRemove: `${onFieldSelection?.name.value}${capitalize({
-          //   string: argToRemove.name,
-          // })}`,
-          // newVariableDefinition: null,
+          variableNameToRemove: `${onFieldSelection?.name.value}${capitalize({
+            string: argToRemove.name,
+          })}`,
+          newVariableDefinition: null,
         },
       },
     });

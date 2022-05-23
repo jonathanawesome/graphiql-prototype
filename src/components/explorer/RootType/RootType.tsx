@@ -113,25 +113,24 @@ export const RootType = ({
         });
       }
 
-      // if (input.type === 'updateField') {
-      //   if (input.payloads.variableNameToRemove) {
-      //     return varDefs?.filter((vd) => {
-      //       return !vd.variable.name.value.includes(
-      //         input.payloads.variableNameToRemove as string
-      //       );
-      //     });
-      //   }
-      //   if (input.payloads.newVariableDefinition) {
-      //     console.log(
-      //       'newVariableDefinition in RootType',
-      //       input.payloads.newVariableDefinition
-      //     );
-
-      //     return varDefs
-      //       ? [...varDefs, input.payloads.newVariableDefinition]
-      //       : [input.payloads.newVariableDefinition];
-      //   }
-      // }
+      if (input.type === 'updateField') {
+        console.log(
+          'newVariableDefinition in RootType',
+          input.payloads.newVariableDefinition
+        );
+        if (input.payloads.variableNameToRemove) {
+          return varDefs?.filter((vd) => {
+            return !vd.variable.name.value.includes(
+              input.payloads.variableNameToRemove as string
+            );
+          });
+        }
+        if (input.payloads.newVariableDefinition) {
+          return varDefs
+            ? [...varDefs, input.payloads.newVariableDefinition]
+            : [input.payloads.newVariableDefinition];
+        }
+      }
 
       return undefined;
     })();

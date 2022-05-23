@@ -39,27 +39,26 @@ type FieldProps = {
 };
 
 export const Field = ({ field, selectionSet, onEdit }: FieldProps) => {
-  const [fieldSelection, setFieldSelection] = useState<FieldNode | null>(null);
+  // const [fieldSelection, setFieldSelection] = useState<FieldNode | null>(null);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const { operationDefinition } = useOperation();
 
   const fields = getTypeFields({ type: field.type });
 
-  useEffect(() => {
-    const fieldSelection = (selectionSet?.selections as FieldNode[])?.find(
-      (item) => item.name.value === field.name
-    );
-
-    if (fieldSelection) {
-      setFieldSelection(fieldSelection);
-      setIsExpanded(true);
-    } else {
-      setFieldSelection(null);
-      setIsExpanded(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectionSet]);
+  const fieldSelection = (selectionSet?.selections as FieldNode[])?.find(
+    (item) => item.name.value === field.name
+  );
+  // useEffect(() => {
+  //   if (fieldSelection) {
+  //     // setFieldSelection(fieldSelection);
+  //     setIsExpanded(true);
+  //   } else {
+  //     // setFieldSelection(null);
+  //     setIsExpanded(false);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [selectionSet]);
 
   const handleToggleChildField = ({ input }: { input: EditFieldAction }) => {
     console.log('running handleToggleChildField', { input });
@@ -97,8 +96,8 @@ export const Field = ({ field, selectionSet, onEdit }: FieldProps) => {
         type: 'updateField',
         payloads: {
           field: { ...fieldSelection, selectionSet },
-          // newVariableDefinition: null,
-          // variableNameToRemove: null,
+          newVariableDefinition: null,
+          variableNameToRemove: null,
         },
       },
     });

@@ -1,4 +1,5 @@
 import {
+  GraphQLArgument,
   // ConstValueNode,
   // FloatValueNode,
   // GraphQLArgument,
@@ -119,6 +120,34 @@ export const buildVariableNameValue = ({
       })
     : '';
   return `${fieldName}${parentArgOrEmptyString}${capitalize({ string: argName })}`;
+};
+
+export const buildNewVariableDefinition = ({
+  fieldName,
+  parentArgName,
+  forArg,
+}: {
+  fieldName: string;
+  parentArgName: string | null;
+  forArg: GraphQLArgument;
+}): VariableDefinitionNode => {
+  const argPrintedType = forArg.type.toString();
+  const typeNode = parseType(argPrintedType);
+  return {
+    kind: Kind.VARIABLE_DEFINITION,
+    variable: {
+      kind: Kind.VARIABLE,
+      name: {
+        kind: Kind.NAME,
+        value: buildVariableNameValue({
+          fieldName,
+          parentArgName,
+          argName: forArg.name,
+        }),
+      },
+    },
+    type: buildTypeNode({ typeNode }),
+  };
 };
 
 export const getRequiredVariableDefinitionsForField = ({

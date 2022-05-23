@@ -21,6 +21,8 @@ import { OnEditSignature } from '@/types';
 
 /* utils */
 import {
+  capitalize,
+  buildNewVariableDefinition,
   buildVariableNameValue,
   generateAndSetEasyVariable,
   unwrapInputType,
@@ -123,12 +125,12 @@ export const InputType = ({
         type: 'updateField',
         payloads: {
           field: newFieldNode,
-          // newVariableDefinition: buildNewVariableDefinition({
-          //   fieldName: selection?.name.value as string,
-          //   parentArgName: inputTypeArg.name,
-          //   forArg: argToAdd,
-          // }),
-          // variableNameToRemove: null,
+          newVariableDefinition: buildNewVariableDefinition({
+            fieldName: selection?.name.value as string,
+            parentArgName: inputTypeArg.name,
+            forArg: argToAdd,
+          }),
+          variableNameToRemove: null,
         },
       },
     });
@@ -185,10 +187,10 @@ export const InputType = ({
         type: 'updateField',
         payloads: {
           field: newFieldNode,
-          // variableNameToRemove: `${selection?.name.value}${capitalize({
-          //   string: inputTypeArg.name,
-          // })}${capitalize({ string: argToRemove.name })}`,
-          // newVariableDefinition: null,
+          variableNameToRemove: `${selection?.name.value}${capitalize({
+            string: inputTypeArg.name,
+          })}${capitalize({ string: argToRemove.name })}`,
+          newVariableDefinition: null,
         },
       },
     });

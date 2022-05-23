@@ -6,6 +6,11 @@ import {
   OperationDefinitionNode,
   print,
   Kind,
+  // VariableDefinitionNode,
+  // TypeNode,
+  // NamedTypeNode,
+  // ListTypeNode,
+  // NonNullTypeNode,
 } from 'graphql';
 
 import type { ExecutableDefinitionNode } from 'graphql';
