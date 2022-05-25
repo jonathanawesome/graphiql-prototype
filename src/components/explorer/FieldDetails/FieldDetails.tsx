@@ -10,16 +10,16 @@ type FieldDetailsProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fieldOrArg: GraphQLField<any, any> | GraphQLArgument;
   inlineDescription?: boolean;
-  isCollapsed: boolean;
-  isCollapsible: boolean;
+  // isCollapsed: boolean;
+  // isCollapsible: boolean;
   isSelected: boolean;
 };
 
 export const FieldDetails = ({
   fieldOrArg,
   inlineDescription = true,
-  isCollapsed,
-  isCollapsible,
+  // isCollapsed,
+  // isCollapsible,
   isSelected,
 }: FieldDetailsProps) => {
   return (
@@ -28,7 +28,7 @@ export const FieldDetails = ({
       inlineDescription={inlineDescription}
       type={'args' in fieldOrArg ? 'field' : 'argument'}
     >
-      {isCollapsible && (
+      {/* {isCollapsible && (
         <>
           {'args' in fieldOrArg ? (
             <Caret isExpanded={!isCollapsed} />
@@ -36,8 +36,10 @@ export const FieldDetails = ({
             <IndicatorInputType isExpanded={!isCollapsed} isSelected={isSelected} />
           )}
         </>
-      )}
-      <NameAndTypeName pointer={isCollapsible}>
+      )} */}
+      <NameAndTypeName
+      // pointer={isCollapsible}
+      >
         {!('args' in fieldOrArg) ? (
           <span>
             {fieldOrArg.name}

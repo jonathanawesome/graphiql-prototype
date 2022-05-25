@@ -1,169 +1,97 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import {
-  FieldNode,
-  GraphQLField,
-  SelectionSetNode,
-  isObjectType,
-  Kind,
-  VariableDefinitionNode,
-} from 'graphql';
+import { FieldNode, isObjectType } from 'graphql';
 
 /** components */
 import { FieldDetails, IndicatorField } from '@/components';
 import { Arguments } from '../Arguments';
 
-/** hooks */
-import { useOperation } from '@/hooks';
-
 /** styles */
-import { ChildFields, Content, IndicatorWrap, Trigger, Root } from './styles';
-
-/** types */
-import { EditFieldAction, OnEditSignature } from '@/types';
+import {
+  ChildFields,
+  Content,
+  IndicatorWrap,
+  Trigger,
+  TriggerWrap,
+  Root,
+} from './styles';
 
 /** utils */
-import {
-  // buildArgumentNode,
-  // buildVariableDefinitionNode,
-  // capitalize,
-  editFieldSelection,
-  getTypeFields,
-} from '@/utils';
+import { getTypeFields } from '@/utils';
+import { AncestorField, AncestorMap, toggleField } from './toggleField';
+import { Caret, IndicatorInputType } from '../../icons';
 
 type FieldProps = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  field: GraphQLField<any, any>;
-  selectionSet: SelectionSetNode | undefined;
-  onEdit: OnEditSignature;
+  ancestors: AncestorMap;
 };
 
-export const Field = ({ field, selectionSet, onEdit }: FieldProps) => {
-  // const [fieldSelection, setFieldSelection] = useState<FieldNode | null>(null);
+export const Field = ({ ancestors }: FieldProps) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
-  const { operationDefinition } = useOperation();
+  const { field, selectionSet } = ancestors.values().next().value as AncestorField;
 
-  const fields = getTypeFields({ type: field.type });
+  const childFields = getTypeFields({ type: field.type });
 
   const fieldSelection = (selectionSet?.selections as FieldNode[])?.find(
-    (item) => item.name.value === field.name
+    (selection) => selection.name.value === field.name
   );
-  // useEffect(() => {
-  //   if (fieldSelection) {
-  //     // setFieldSelection(fieldSelection);
-  //     setIsExpanded(true);
-  //   } else {
-  //     // setFieldSelection(null);
-  //     setIsExpanded(false);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [selectionSet]);
 
-  const handleToggleChildField = ({ input }: { input: EditFieldAction }) => {
-    console.log('running handleToggleChildField', { input });
-
-    if (!fieldSelection) {
-      return null;
-    }
-
-    // let newVariableDefinition: VariableDefinitionNode | null = null;
-
-    // if (input.type === 'updateField') {
-    //   //TODO 👇 this is overwriting existing variable definitions
-    //   // if input.payloads.newVariableDefinition.variable.name.value already exists in the variableDefinitions, skip it
-    //   if (operationDefinition?.variableDefinitions?.find(vD => vD.variable.name ===  input.payloads.newVariableDefinition?.variable.name) {
-
-    //     newVariableDefinition = input.payloads.newVariableDefinition;
-    //   }
-    // }
-
-    const selectionSet: SelectionSetNode = (() => {
-      const set: SelectionSetNode = fieldSelection.selectionSet
-        ? fieldSelection.selectionSet
-        : {
-            kind: Kind.SELECTION_SET,
-            selections: [],
-          };
-
-      set.selections = editFieldSelection({ original: set.selections, action: input });
-
-      return set;
-    })();
-
-    return onEdit({
-      input: {
-        type: 'updateField',
-        payloads: {
-          field: { ...fieldSelection, selectionSet },
-          newVariableDefinition: null,
-          variableNameToRemove: null,
-        },
-      },
-    });
-  };
-
-  // console.log('rendering Field', {
-  //   fieldName: field.name,
-  //   field,
-  //   fieldSelection,
-  // });
+  // console.log('rendering Field', { fieldName: field.name, selectionSet, fieldSelection });
 
   return (
     <Root offset={!isObjectType(parent)} open={isExpanded} onOpenChange={setIsExpanded}>
-      <Trigger
-        onClick={() => {
-          const shouldAdd = !fieldSelection;
-          // console.log({ onEdit, shouldAdd });
-
-          if (!shouldAdd && !isExpanded) {
-            setIsExpanded(false);
-          }
-
-          if (shouldAdd && !isExpanded) {
-            setIsExpanded(true);
-          }
-
-          if (!shouldAdd && isExpanded) {
-            setIsExpanded(false);
-          }
-
-          if (shouldAdd && isExpanded) {
-            setIsExpanded(true);
-          }
-
-          shouldAdd
-            ? onEdit({ input: { type: 'addField', payloads: field } })
-            : onEdit({
-                input: { type: 'removeField', payloads: { name: field.name } },
-              });
-        }}
-      >
-        <IndicatorWrap isActive={!!fieldSelection}>
+      <TriggerWrap isCollapsible={!!childFields}>
+        <IndicatorWrap
+          isActive={!!fieldSelection}
+          onClick={() => toggleField({ ancestors })}
+        >
           <IndicatorField active={!!fieldSelection} />
         </IndicatorWrap>
+        {!!childFields && (
+          <Trigger>
+            {'args' in field ? (
+              <Caret isExpanded={isExpanded} />
+            ) : (
+              <IndicatorInputType isExpanded={isExpanded} isSelected={!!fieldSelection} />
+            )}
+          </Trigger>
+        )}
         <FieldDetails
           fieldOrArg={field}
-          isCollapsible={!!fields}
-          isCollapsed={!isExpanded}
+          // isCollapsible={!!childFields}
+          // isCollapsed={!isExpanded}
           isSelected={!!fieldSelection}
         />
-      </Trigger>
+      </TriggerWrap>
+
       <Content>
         <Arguments
           args={[...field.args]}
-          onEdit={onEdit}
+          // onEdit={onEdit}
           onFieldName={field.name}
-          onFieldSelection={fieldSelection}
+          // onFieldSelection={fieldSelection}
         />
-        {!fields ? null : (
+        {!childFields ? null : (
           <ChildFields>
-            {Object.keys(fields).map((f) => (
+            {Object.keys(childFields).map((f) => (
               <Field
-                key={fields[f].name}
-                field={fields[f]}
-                selectionSet={fieldSelection?.selectionSet}
-                onEdit={handleToggleChildField}
+                key={childFields[f].name}
+                ancestors={
+                  new Map([
+                    [
+                      `${childFields[f].name}`,
+                      {
+                        field: childFields[f],
+                        selectionSet: fieldSelection?.selectionSet,
+                        selection: fieldSelection?.selectionSet?.selections.find(
+                          (selection) =>
+                            (selection as FieldNode).name.value === childFields[f].name
+                        ),
+                      },
+                    ],
+                    ...ancestors,
+                  ])
+                }
               />
             ))}
           </ChildFields>

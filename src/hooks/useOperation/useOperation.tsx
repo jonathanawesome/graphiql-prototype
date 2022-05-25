@@ -65,12 +65,14 @@ export const useOperation = create<OperationStore>((set, get) => ({
 
         return null;
       };
-      // console.log('running setOperationDefinition:', { operationDefinition: operationDefinition() });
       setOperationDefinition({ operationDefinition: operationDefinition() });
     }
   },
   operationDefinition: null,
   setOperationDefinition: ({ operationDefinition }) => {
+    // console.log('running setOperationDefinition:', {
+    //   operationDefinition,
+    // });
     set({ operationDefinition });
   },
   executeOperation: async () => {
@@ -108,19 +110,19 @@ export const useOperation = create<OperationStore>((set, get) => ({
   }: {
     nextDefinition: OperationDefinitionNode | null;
   }) => {
-    // const operationDefinition = get().operationDefinition;
+    // const setOperationDefinition = get().setOperationDefinition;
     const setOperation = get().setOperation;
     // const operationDefinition = get().operationDefinition;
     const setVariables = useVariables.getState().setVariables;
 
     if (nextDefinition) {
-      // console.log("let's set this operation:", {
-      //   nextDefinition,
-      //   printResult: print({
-      //     kind: Kind.DOCUMENT,
-      //     definitions: [nextDefinition],
-      //   }),
-      // });
+      console.log("let's set this operation:", {
+        nextDefinition,
+        // printResult: print({
+        //   kind: Kind.DOCUMENT,
+        //   definitions: [nextDefinition],
+        // }),
+      });
 
       setOperation({
         value: print({
@@ -128,6 +130,7 @@ export const useOperation = create<OperationStore>((set, get) => ({
           definitions: [nextDefinition],
         }),
       });
+      set;
     } else {
       setOperation({ value: '' });
       setVariables({ value: '' });

@@ -13,13 +13,13 @@ export const NameAndTypeName = styled('div', {
     color: `$scale700`,
   },
 
-  variants: {
-    pointer: {
-      true: {
-        // cursor: 'pointer',
-      },
-    },
-  },
+  // variants: {
+  //   pointer: {
+  //     true: {
+  //       // cursor: 'pointer',
+  //     },
+  //   },
+  // },
 });
 
 export const Description = styled('div', {

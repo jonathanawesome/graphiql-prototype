@@ -13,7 +13,7 @@ export const Content = styled(Collapsible.Content, {
   marginLeft: 20,
 });
 
-export const IndicatorWrap = styled('div', {
+export const IndicatorWrap = styled('button', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -34,13 +34,29 @@ export const IndicatorWrap = styled('div', {
   },
 });
 
-export const Trigger = styled(Collapsible.Trigger, {
+export const TriggerWrap = styled('div', {
   width: '100%',
   display: 'grid',
   gridTemplateColumns: '15px 1fr',
   alignItems: 'center',
   gap: 6,
-  cursor: 'pointer',
+
+  variants: {
+    isCollapsible: {
+      true: {
+        gridTemplateColumns: '15px 15px 1fr',
+      },
+    },
+  },
+});
+
+export const Trigger = styled(Collapsible.Trigger, {
+  // width: '100%',
+  // display: 'grid',
+  // gridTemplateColumns: '15px 1fr',
+  // alignItems: 'center',
+  // gap: 6,
+  // cursor: 'pointer',
 });
 
 export const Root = styled(Collapsible.Root, {
