@@ -199,12 +199,7 @@ export const InputType = ({
   return (
     <Root open={isExpanded} onOpenChange={setIsExpanded}>
       <Trigger>
-        <FieldDetails
-          fieldOrArg={inputTypeArg}
-          isCollapsible={true}
-          isCollapsed={!isExpanded}
-          isSelected={!!argSelection}
-        />
+        <FieldDetails fieldOrArg={inputTypeArg} isSelected={!!argSelection} />
       </Trigger>
 
       <Content>

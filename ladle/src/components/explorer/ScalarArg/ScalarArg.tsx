@@ -72,13 +72,7 @@ export const ScalarArg = ({
       >
         <IndicatorArgument isSelected={!!argSelection()} />
       </div>
-      <FieldDetails
-        fieldOrArg={arg}
-        isCollapsible={false}
-        //TODO 👇 this prop shouldn't be necessary
-        isCollapsed={false}
-        isSelected={!!argSelection()}
-      />
+      <FieldDetails fieldOrArg={arg} isSelected={!!argSelection()} />
     </ScalarArgStyled>
   );
 };

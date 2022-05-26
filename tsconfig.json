@@ -1,44 +1,13 @@
 {
   "compilerOptions": {
-    "allowJs": false,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": false,
-    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,    
+    "esModuleInterop": true,
     "isolatedModules": true,
-    "jsx": "react-jsx",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "noEmit": true,
-    "resolveJsonModule": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "lib": [ "esnext"],
     "skipLibCheck": true,
     "strict": true,
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "baseUrl": "src",
-    "paths": {
-      "@/components": [
-        "components"
-      ],
-      "@/constants": [
-        "constants"
-      ],      
-      "@/hooks": [
-        "hooks"
-      ],        
-      "@/theme": [
-        "theme"
-      ], 
-      "@/types": [
-        "types"
-      ],      
-      "@/utils": [
-        "utils"
-      ],
-    },    
-  },
-  "include": ["src", "vite-env.d.ts", ".ladle/components.tsx"],
-  "exclude": [
-    "node_modules"
-  ], 
+    "target": "esnext",
+  }
 }

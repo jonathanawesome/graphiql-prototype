@@ -1,0 +1,44 @@
+{
+  "name": "api",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "nodemon src/server.ts",
+    "codegen": "graphql-codegen",
+    "codegen:watch": "graphql-codegen --watch",
+    "db:up": "cd db && docker-compose up",
+    "db:down": "cd db && docker-compose down",
+    "prisma:db:push": "pnpm prisma db push --schema src/prisma/schema.prisma",
+    "prisma:format": "pnpm prisma format --schema src/prisma/schema.prisma",
+    "prisma:generate": "pnpm prisma generate --schema src/prisma/schema.prisma",
+    "prisma:migrate:reset": "pnpm prisma migrate reset --skip-seed --schema src/prisma/schema.prisma",
+    "prisma:reset": "pnpm prisma:migrate:reset && pnpm prisma:db:push && ts-node --transpile-only src/prisma/seed/index.ts",
+    "prisma:studio": "pnpm prisma studio --schema src/prisma/schema.prisma",
+    "tsc": "tsc --noEmit"
+  },
+  "prisma": {
+    "seed": "ts-node --transpile-only src/prisma/seed/index.ts"
+  },
+  "dependencies": {
+    "@envelop/graphql-modules": "^3.3.2",
+    "@graphql-yoga/node": "^2.6.0",
+    "cuid": "^2.1.8",
+    "dayjs": "^1.11.2",
+    "express": "^4.18.1",
+    "graphql": "^16.1.0",
+    "graphql-modules": "^2.0.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^6.1.1",
+    "@graphql-codegen/add": "^3.1.1",
+    "@graphql-codegen/cli": "^2.4.0",
+    "@graphql-codegen/graphql-modules-preset": "^2.3.2",
+    "@graphql-codegen/schema-ast": "^2.4.1",
+    "@graphql-codegen/typescript": "^2.4.2",
+    "@graphql-codegen/typescript-resolvers": "^2.4.3",
+    "@prisma/client": "^3.14.0",
+    "@types/express": "^4.17.13",
+    "nodemon": "^2.0.16",
+    "prisma": "^3.14.0",
+    "ts-node": "^10.8.0"
+  }
+}
