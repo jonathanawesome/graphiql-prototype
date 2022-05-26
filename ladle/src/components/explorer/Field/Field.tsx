@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { FieldNode, isObjectType } from 'graphql';
+import cuid from 'cuid';
+
+import { FieldNode, GraphQLFieldMap, isObjectType } from 'graphql';
 
 /** components */
 import { FieldDetails, IndicatorField } from '@/components';
@@ -26,17 +28,26 @@ type FieldProps = {
 };
 
 export const Field = ({ ancestors }: FieldProps) => {
+  const hash = cuid();
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const { field, selectionSet } = ancestors.values().next().value as AncestorField;
 
   const childFields = getTypeFields({ type: field.type });
+  // if (isUnionType(type)) {
+  //   // do something here with unions
+  // }
 
   const fieldSelection = (selectionSet?.selections as FieldNode[])?.find(
     (selection) => selection.name.value === field.name
   );
 
-  // console.log('rendering Field', { fieldName: field.name, selectionSet, fieldSelection });
+  console.log('rendering Field', {
+    fieldName: field.name,
+    hash,
+    ancestors,
+    childFields,
+  });
 
   return (
     <Root offset={!isObjectType(parent)} open={isExpanded} onOpenChange={setIsExpanded}>
@@ -56,12 +67,7 @@ export const Field = ({ ancestors }: FieldProps) => {
             )}
           </Trigger>
         )}
-        <FieldDetails
-          fieldOrArg={field}
-          // isCollapsible={!!childFields}
-          // isCollapsed={!isExpanded}
-          isSelected={!!fieldSelection}
-        />
+        <FieldDetails fieldOrArg={field} isSelected={!!fieldSelection} />
       </TriggerWrap>
 
       <Content>
@@ -73,27 +79,30 @@ export const Field = ({ ancestors }: FieldProps) => {
         />
         {!childFields ? null : (
           <ChildFields>
-            {Object.keys(childFields).map((f) => (
-              <Field
-                key={childFields[f].name}
-                ancestors={
-                  new Map([
-                    [
-                      `${childFields[f].name}`,
-                      {
-                        field: childFields[f],
-                        selectionSet: fieldSelection?.selectionSet,
-                        selection: fieldSelection?.selectionSet?.selections.find(
-                          (selection) =>
-                            (selection as FieldNode).name.value === childFields[f].name
-                        ),
-                      },
-                    ],
-                    ...ancestors,
-                  ])
-                }
-              />
-            ))}
+            {Object.keys(childFields).map((f) => {
+              return (
+                <Field
+                  key={childFields[f].name}
+                  // we hash the key here to prevent the spread from overwriting deeply nested fields with the same key
+                  ancestors={
+                    new Map([
+                      [
+                        `${childFields[f].name}-${hash}`,
+                        {
+                          field: childFields[f],
+                          selectionSet: fieldSelection?.selectionSet,
+                          selection: fieldSelection?.selectionSet?.selections.find(
+                            (selection) =>
+                              (selection as FieldNode).name.value === childFields[f].name
+                          ),
+                        },
+                      ],
+                      ...ancestors,
+                    ])
+                  }
+                />
+              );
+            })}
           </ChildFields>
         )}
       </Content>

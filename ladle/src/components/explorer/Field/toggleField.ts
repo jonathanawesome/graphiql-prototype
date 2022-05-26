@@ -48,7 +48,7 @@ export const toggleField = ({ ancestors }: { ancestors: AncestorMap }) => {
       (s) => (s as FieldNode).name.value !== current.field.name
     );
 
-    // console.log({ name: key, siblings, current, nextSelectionSet });
+    console.log({ name: key, siblings, current, nextSelectionSet });
 
     if (!current) {
       /**
