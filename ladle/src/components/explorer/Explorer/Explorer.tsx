@@ -45,7 +45,7 @@ export const Explorer = () => {
       <ExplorerContentWrap>
         <ExplorerContent>
           {queryType ? <RootType rootType={queryType} /> : null}
-          {/* {mutationType ? <RootType rootType={mutationType} /> : null} */}
+          {mutationType ? <RootType rootType={mutationType} /> : null}
         </ExplorerContent>
       </ExplorerContentWrap>
     </ExplorerStyled>

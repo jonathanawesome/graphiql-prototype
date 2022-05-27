@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FieldNode, GraphQLObjectType } from 'graphql';
+import { FieldNode, GraphQLObjectType, SelectionNode } from 'graphql';
 
 /** components */
 import { Caret, Field } from '@/components';
@@ -20,9 +20,9 @@ export const RootType = ({
 }) => {
   const { operationDefinition } = useOperation();
 
-  // console.log('rendering RootType', {
-  //   operationDefinition,
-  // });
+  console.log('rendering RootType', {
+    operationDefinition,
+  });
 
   const fields = rootType.getFields();
 
@@ -51,10 +51,10 @@ export const RootType = ({
                       selection: operationDefinition?.selectionSet?.selections.find(
                         (selection) =>
                           (selection as FieldNode).name.value === fields[field].name
-                      ),
+                      ) as SelectionNode | undefined,
                     },
                   ],
-                  [`${rootType.name}`, null],
+                  [`${rootType.name}`, { rootTypeName: rootType.name }],
                 ])
               }
             />

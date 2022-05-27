@@ -1,27 +1,34 @@
-import { useEffect, useState } from 'react';
+import {
+  // useEffect,
+  useState,
+} from 'react';
 
 import cuid from 'cuid';
 
-import { FieldNode, GraphQLFieldMap, isObjectType } from 'graphql';
+import {
+  FieldNode,
+  // GraphQLFieldMap,
+  // GraphQLObjectType,
+  InlineFragmentNode,
+  isObjectType,
+  isUnionType,
+  // isWrappingType,
+  // SelectionNode,
+} from 'graphql';
 
 /** components */
 import { FieldDetails, IndicatorField } from '@/components';
 import { Arguments } from '../Arguments';
+import { Caret } from '../../icons';
+import { ObjectType } from '../ObjectType';
+import { UnionType } from '../UnionType';
 
 /** styles */
-import {
-  ChildFields,
-  Content,
-  IndicatorWrap,
-  Trigger,
-  TriggerWrap,
-  Root,
-} from './styles';
+import { Content, IndicatorWrap, Trigger, TriggerWrap, Root } from './styles';
 
 /** utils */
-import { getTypeFields } from '@/utils';
+import { findSelection, getTypeFields, unwrapType } from '@/utils';
 import { AncestorField, AncestorMap, toggleField } from './toggleField';
-import { Caret, IndicatorInputType } from '../../icons';
 
 type FieldProps = {
   ancestors: AncestorMap;
@@ -33,78 +40,68 @@ export const Field = ({ ancestors }: FieldProps) => {
 
   const { field, selectionSet } = ancestors.values().next().value as AncestorField;
 
-  const childFields = getTypeFields({ type: field.type });
-  // if (isUnionType(type)) {
-  //   // do something here with unions
-  // }
+  const unwrappedType = unwrapType(field.type);
 
-  const fieldSelection = (selectionSet?.selections as FieldNode[])?.find(
-    (selection) => selection.name.value === field.name
-  );
+  const isCollapsible = isObjectType(unwrappedType) || isUnionType(unwrappedType);
 
-  console.log('rendering Field', {
-    fieldName: field.name,
-    hash,
-    ancestors,
-    childFields,
-  });
+  let selection: FieldNode | InlineFragmentNode | undefined = undefined;
+
+  if (selectionSet && selectionSet.selections) {
+    selection = findSelection({
+      fieldName: field.name,
+      selections: [...selectionSet.selections],
+    });
+  }
+
+  // console.log('rendering Field', {
+  //   hash,
+  //   fieldName: field.name,
+  //   selectionSet,
+  //   ancestors,
+  //   selection,
+  //   unwrappedType: unwrapType(field.type),
+  // });
+
+  let childFieldsToRender: React.ReactNode = null;
+
+  if (isObjectType(unwrappedType)) {
+    childFieldsToRender = (
+      <ObjectType
+        ancestors={ancestors}
+        fields={getTypeFields({ type: unwrappedType })}
+        selection={selection}
+      />
+    );
+  } else if (isUnionType(unwrappedType)) {
+    childFieldsToRender = (
+      <UnionType ancestors={ancestors} unionType={unwrappedType} selection={selection} />
+    );
+  }
 
   return (
     <Root offset={!isObjectType(parent)} open={isExpanded} onOpenChange={setIsExpanded}>
-      <TriggerWrap isCollapsible={!!childFields}>
-        <IndicatorWrap
-          isActive={!!fieldSelection}
-          onClick={() => toggleField({ ancestors })}
-        >
-          <IndicatorField active={!!fieldSelection} />
+      <p style={{ fontSize: '8px' }}>{hash}</p>
+      <TriggerWrap isCollapsible={isCollapsible}>
+        <IndicatorWrap isActive={!!selection} onClick={() => toggleField({ ancestors })}>
+          <IndicatorField active={!!selection} />
         </IndicatorWrap>
-        {!!childFields && (
+        {isCollapsible && (
           <Trigger>
-            {'args' in field ? (
-              <Caret isExpanded={isExpanded} />
-            ) : (
-              <IndicatorInputType isExpanded={isExpanded} isSelected={!!fieldSelection} />
-            )}
+            <Caret isExpanded={isExpanded} />
           </Trigger>
         )}
-        <FieldDetails fieldOrArg={field} isSelected={!!fieldSelection} />
+        <FieldDetails fieldOrArg={field} isSelected={!!selection} />
       </TriggerWrap>
-
       <Content>
-        <Arguments
-          args={[...field.args]}
-          // onEdit={onEdit}
-          onFieldName={field.name}
-          // onFieldSelection={fieldSelection}
-        />
-        {!childFields ? null : (
-          <ChildFields>
-            {Object.keys(childFields).map((f) => {
-              return (
-                <Field
-                  key={childFields[f].name}
-                  // we hash the key here to prevent the spread from overwriting deeply nested fields with the same key
-                  ancestors={
-                    new Map([
-                      [
-                        `${childFields[f].name}-${hash}`,
-                        {
-                          field: childFields[f],
-                          selectionSet: fieldSelection?.selectionSet,
-                          selection: fieldSelection?.selectionSet?.selections.find(
-                            (selection) =>
-                              (selection as FieldNode).name.value === childFields[f].name
-                          ),
-                        },
-                      ],
-                      ...ancestors,
-                    ])
-                  }
-                />
-              );
-            })}
-          </ChildFields>
-        )}
+        <>
+          {/* <Arguments
+            args={[...field.args]}
+            // onEdit={onEdit}
+            onFieldName={field.name}
+            // onFieldSelection={fieldSelection}
+          /> */}
+          {childFieldsToRender}
+        </>
       </Content>
     </Root>
   );

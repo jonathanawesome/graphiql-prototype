@@ -1,6 +1,7 @@
 import {
   FieldNode,
   GraphQLField,
+  InlineFragmentNode,
   Kind,
   OperationDefinitionNode,
   SelectionNode,
@@ -10,15 +11,47 @@ import {
 /** hooks */
 import { useOperation } from '@/hooks';
 
+type AncestorSelection = SelectionNode | undefined;
+type AncestorSelectionSet = SelectionSetNode | undefined;
+
+export type AncestorRoot = {
+  rootTypeName: string;
+};
+
 export type AncestorField = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   field: GraphQLField<any, any>;
-  selection: SelectionNode | undefined;
-  selectionSet: SelectionSetNode | undefined;
+  selection: AncestorSelection;
+  selectionSet: AncestorSelectionSet;
 };
 
+export type AncestorInlineFragment = {
+  onType: string;
+  selection: AncestorSelection;
+  selectionSet: AncestorSelectionSet;
+};
+
+type AncestorTypes = AncestorRoot | AncestorField | AncestorInlineFragment;
+
 /** we're using a Map here so that we can take advantage of the insertion order */
-export type AncestorMap = Map<string, AncestorField | null>;
+export type AncestorMap = Map<string, AncestorTypes>;
+
+const findSiblings = ({
+  ancestor,
+}: {
+  ancestor: AncestorTypes;
+}): SelectionNode[] | undefined => {
+  if ('field' in ancestor) {
+    return ancestor.selectionSet?.selections.filter(
+      (s) => (s as FieldNode).name.value !== ancestor.field?.name
+    );
+  } else if ('onType' in ancestor) {
+    return ancestor.selectionSet?.selections.filter(
+      (s) => (s as InlineFragmentNode).typeCondition?.name.value !== ancestor.onType
+    );
+  }
+  return undefined;
+};
 
 export const toggleField = ({ ancestors }: { ancestors: AncestorMap }) => {
   const operationDefinition = useOperation.getState().operationDefinition;
@@ -34,7 +67,7 @@ export const toggleField = ({ ancestors }: { ancestors: AncestorMap }) => {
   };
 
   /** we'll use this value more than once, so let's put it into a variable */
-  const target = ancestors.values().next().value as AncestorField;
+  const target = ancestors.values().next().value;
 
   /**
    * this will move through our AncestorFields in their original insertion order
@@ -42,105 +75,151 @@ export const toggleField = ({ ancestors }: { ancestors: AncestorMap }) => {
    * the target-field's parent-field (if there is one), would be next
    * then the target-field's parent-field's parent...and so on until we hit the root ancestor
    * */
-  ancestors.forEach((current, key) => {
-    /** get the siblings for each field */
-    const siblings = current?.selectionSet?.selections.filter(
-      (s) => (s as FieldNode).name.value !== current.field.name
-    );
+  ancestors.forEach((ancestor, key) => {
+    console.log({ name: key, ancestor, nextSelectionSet, ancestors });
+    const isRoot = 'rootTypeName' in ancestor;
+    const isField = 'field' in ancestor;
+    const isInlineFragment = 'onType' in ancestor;
 
-    console.log({ name: key, siblings, current, nextSelectionSet });
+    /** find possible siblings */
+    let siblings: SelectionNode[] | undefined = undefined;
+    if (ancestor) {
+      siblings = findSiblings({ ancestor });
+    }
 
-    if (!current) {
+    if (isRoot) {
       /**
-       * there isn't a value here, so we're on the root
        * TODO: figure out how to use this to mark our operation type
        */
-      return console.log('were on the root:', { key, nextSelectionSet });
+      return console.log(`on the root:`, {
+        rootTypeName: ancestor.rootTypeName,
+        nextSelectionSet,
+      });
     } else {
-      if (current === target) {
-        // console.log('were on the target:', { current });
+      /** begin handle target */
+
+      if (ancestor === target) {
+        console.log(`on the target:`, { ancestor });
         /**
-         * when we're on the target field, it's currently either active (current.selection) or inactive (!current.selection)
+         * when we're on the target, it's currently either active (ancestor.selection) or inactive (!ancestor.selection)
          * if it's active, we want to deactivate it (remove)
          * if it's inactive, we want to activate it (add)
          */
 
-        if (!current.selection) {
-          // console.log('adding target field', { name: current.field.name });
-          /** inactive, so we want to add it */
+        /** begin handle FIELD */
+        if (isField) {
+          if (!ancestor.selection) {
+            /** inactive, let's add it */
+            // console.log('adding target field', { name: ancestor.field.name });
 
-          /** first, we build a new FieldNode using the field's name */
-          const newFieldNode: FieldNode = {
-            kind: Kind.FIELD,
-            name: {
-              kind: Kind.NAME,
-              value: current.field?.name,
-            },
-          };
+            /** first, we build a new FieldNode using the field's name */
+            const newFieldNode: FieldNode = {
+              kind: Kind.FIELD,
+              name: {
+                kind: Kind.NAME,
+                value: ancestor.field.name,
+              },
+            };
 
-          /** then we update the nextSelectionSet to include our new field node and any sibling selections */
-          return (nextSelectionSet = {
-            ...nextSelectionSet,
-            selections: siblings ? [newFieldNode, ...siblings] : [newFieldNode],
-          });
-        } else {
-          // console.log('removing target field', { name: current.field.name });
-          /** active, so we want to remove it */
+            /** then we update the nextSelectionSet to include our new field node and any sibling selections */
+            return (nextSelectionSet = {
+              ...nextSelectionSet,
+              selections: siblings ? [newFieldNode, ...siblings] : [newFieldNode],
+            });
+          } else {
+            /** active, let's remove it */
+            // console.log('removing target field', { name: ancestor.field.name });
 
-          /** filter this field from the current selection set */
-          const filtered: SelectionNode[] = (
-            current?.selectionSet?.selections as FieldNode[]
-          ).filter((s) => s.name.value !== target.field.name);
+            /** filter this field from the ancestor selection set */
+            const filtered: SelectionNode[] = (
+              ancestor.selectionSet?.selections as FieldNode[]
+            ).filter((s) => s.name.value !== target.field.name);
 
-          /** update the nextSelectionSet...no reason to use siblings here because they're in the filtered array */
-          return (nextSelectionSet = {
-            ...nextSelectionSet,
-            selections: filtered,
-          });
-        }
+            /** update the nextSelectionSet...no reason to use siblings here because they're in the filtered array */
+            return (nextSelectionSet = {
+              ...nextSelectionSet,
+              selections: filtered,
+            });
+          }
+        } /** end handle FIELD */
+
+        //TODO handle arguments
+        /** end handle target */
       } else {
-        // console.log(`we're on a parent field`, { current });
+        /** begin handle parent */
+        // console.log(`NOT on the target`, { ancestor });
 
-        /** this check can probably be cleaned up, but what we're doing here is finding out whether this parent field is active or inactive */
-        if (current && current.field && current.selection && current.selectionSet) {
-          // console.log(`we're on a parent field and it is selected`, { current, siblings });
+        /** begin handle parent FIELD */
+        if (isField) {
+          if (ancestor.selection && ancestor.selectionSet) {
+            // console.log(`NOT on the target, it's a parent FIELD, it is selected`, { ancestor, siblings });
+            ((ancestor.selection as FieldNode).selectionSet as SelectionSetNode) =
+              nextSelectionSet;
 
-          /**
-           * here we're overwriting the selection set for this parent field with our nextSelectionSet,
-           * which has been updated by children fields of this parent field
-           * this double assertion is gross...can this be cleaned up?
-           */
-          ((current.selection as FieldNode).selectionSet as SelectionSetNode) =
-            nextSelectionSet;
+            /** update the nextSelectionSet */
+            return (nextSelectionSet = {
+              kind: Kind.SELECTION_SET,
+              selections: siblings
+                ? [ancestor.selection as SelectionNode, ...siblings]
+                : [ancestor.selection as SelectionNode],
+            });
+          } else {
+            // console.log(`NOT on the target, it's a parent FIELD, it is NOT selected`, { ancestor });
+            /** this field needs to be made active, so we build a new FieldNode using the field name and all child selections  */
+            const newFieldNode: FieldNode = {
+              kind: Kind.FIELD,
+              name: {
+                kind: Kind.NAME,
+                value: ancestor.field.name,
+              },
+              selectionSet: nextSelectionSet,
+            };
 
-          /** update the nextSelectionSet */
-          return (nextSelectionSet = {
-            kind: Kind.SELECTION_SET,
-            selections: siblings
-              ? [current.selection as SelectionNode, ...siblings]
-              : [current.selection as SelectionNode],
-          });
-        } else {
-          // console.log(`we're on a parent field and it is NOT selected`, { current, siblings });
-
-          /** this field needs to be made active, so we build a new FieldNode using the field name and all child selections  */
-          const newFieldNode: FieldNode = {
-            kind: Kind.FIELD,
-            name: {
-              kind: Kind.NAME,
-              value: current.field.name,
-            },
-            selectionSet: nextSelectionSet,
-          };
-
-          /** update the nextSelectionSet */
-          return (nextSelectionSet = {
-            ...nextSelectionSet,
-            selections: siblings ? [newFieldNode, ...siblings] : [newFieldNode],
-          });
+            /** update the nextSelectionSet */
+            return (nextSelectionSet = {
+              ...nextSelectionSet,
+              selections: siblings ? [newFieldNode, ...siblings] : [newFieldNode],
+            });
+          }
         }
-      }
+        /** end handle parent FIELD */
+
+        /** begin handle parent INLINE_FRAGMENT */
+        if (isInlineFragment) {
+          if (ancestor.selection && ancestor.selectionSet) {
+            // console.log(`NOT on the target, it's a parent INLINE_FRAGMENT, it is selected`, { ancestor, siblings });
+            ((ancestor.selection as FieldNode).selectionSet as SelectionSetNode) =
+              nextSelectionSet;
+
+            /** update the nextSelectionSet */
+            return (nextSelectionSet = {
+              kind: Kind.SELECTION_SET,
+              selections: siblings
+                ? [ancestor.selection as SelectionNode, ...siblings]
+                : [ancestor.selection as SelectionNode],
+            });
+          } else {
+            // console.log(`NOT on the target, it's a parent INLINE_FRAGMENT, it is NOT selected`, { ancestor, });
+            const newInlineFragmentNode: InlineFragmentNode = {
+              kind: Kind.INLINE_FRAGMENT,
+              typeCondition: {
+                kind: Kind.NAMED_TYPE,
+                name: { kind: Kind.NAME, value: ancestor.onType },
+              },
+              selectionSet: nextSelectionSet,
+            };
+            /** update the nextSelectionSet */
+            return (nextSelectionSet = {
+              ...nextSelectionSet,
+              selections: siblings
+                ? [newInlineFragmentNode, ...siblings]
+                : [newInlineFragmentNode],
+            });
+          }
+        } /** end handle parent INLINE_FRAGMENT */
+      } /** end handle parent */
     }
+    return undefined;
   });
 
   const nextDefinition: OperationDefinitionNode = {

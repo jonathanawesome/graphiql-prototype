@@ -3,12 +3,6 @@ import { styled } from '@stitches/react';
 
 import * as Collapsible from '@radix-ui/react-collapsible';
 
-export const ChildFields = styled('div', {
-  borderLeft: `1px solid $scale100`,
-  // marginLeft: 8,
-  // paddingLeft: 12,
-});
-
 export const Content = styled(Collapsible.Content, {
   marginLeft: 20,
 });

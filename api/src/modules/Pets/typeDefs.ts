@@ -69,14 +69,14 @@ export const PetsTypeDefs = gql`
   union CreatePetResult = Pet | CreatePetError
 
   # operations
-  extend type Mutation {
+  type Mutation {
     """
     Adds a Pet to the MeowWoof system,
     """
     createPet(input: CreatePetInput!): CreatePetResult!
   }
 
-  extend type Query {
+  type Query {
     """
     Finds a Pet given a name. Returns a Pet object or an ErrorForUI.
     """

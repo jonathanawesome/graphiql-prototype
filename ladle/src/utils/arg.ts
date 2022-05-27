@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { GraphQLInputType, GraphQLNamedType, isWrappingType } from 'graphql';
+import { GraphQLInputType, GraphQLNamedType, isWrappingType, GraphQLType } from 'graphql';
 
 export const unwrapInputType = ({
   inputType,
@@ -12,3 +12,11 @@ export const unwrapInputType = ({
   }
   return unwrappedType;
 };
+
+export function unwrapType(type: GraphQLType): GraphQLNamedType {
+  let unwrappedType = type;
+  while (isWrappingType(unwrappedType)) {
+    unwrappedType = unwrappedType.ofType;
+  }
+  return unwrappedType;
+}
