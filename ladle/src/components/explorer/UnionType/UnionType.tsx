@@ -30,8 +30,7 @@ export const UnionType = ({ ancestors, selection, unionType }: UnionTypeProps) =
     <UnionTypeWrap>
       {array.map((o) => {
         const inlineFragmentNode = selection?.selectionSet?.selections?.find(
-          (sel) =>
-            sel.kind === Kind.INLINE_FRAGMENT && sel.typeCondition?.name.value === o.name
+          (s) => s.kind === Kind.INLINE_FRAGMENT && s.typeCondition?.name.value === o.name
         ) as InlineFragmentNode | undefined;
 
         console.log({ 'o.name': o.name, inlineFragmentNode, selection });

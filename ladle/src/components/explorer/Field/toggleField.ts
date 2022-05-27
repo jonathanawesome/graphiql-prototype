@@ -99,7 +99,7 @@ export const toggleField = ({ ancestors }: { ancestors: AncestorMap }) => {
       /** begin handle target */
 
       if (ancestor === target) {
-        console.log(`on the target:`, { ancestor });
+        // console.log(`on the target:`, { ancestor });
         /**
          * when we're on the target, it's currently either active (ancestor.selection) or inactive (!ancestor.selection)
          * if it's active, we want to deactivate it (remove)
@@ -110,7 +110,7 @@ export const toggleField = ({ ancestors }: { ancestors: AncestorMap }) => {
         if (isField) {
           if (!ancestor.selection) {
             /** inactive, let's add it */
-            // console.log('adding target field', { name: ancestor.field.name });
+            // console.log('adding target field', { ancestor });
 
             /** first, we build a new FieldNode using the field's name */
             const newFieldNode: FieldNode = {
@@ -128,7 +128,7 @@ export const toggleField = ({ ancestors }: { ancestors: AncestorMap }) => {
             });
           } else {
             /** active, let's remove it */
-            // console.log('removing target field', { name: ancestor.field.name });
+            // console.log('removing target field', { ancestor });
 
             /** filter this field from the ancestor selection set */
             const filtered: SelectionNode[] = (

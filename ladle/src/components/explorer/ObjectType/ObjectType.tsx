@@ -1,5 +1,5 @@
 import cuid from 'cuid';
-import { FieldNode, GraphQLFieldMap, InlineFragmentNode } from 'graphql';
+import { FieldNode, GraphQLFieldMap, InlineFragmentNode, Kind } from 'graphql';
 
 /** components */
 import { Field } from '../Field';
@@ -37,9 +37,9 @@ export const ObjectType = ({ ancestors, fields, selection }: ObjectTypeProps) =>
                     {
                       field: fields[f],
                       selectionSet: selection?.selectionSet,
-                      selection: selection?.selectionSet?.selections.find((selection) => {
-                        (selection as FieldNode).name.value === fields[f].name;
-                      }),
+                      selection: selection?.selectionSet?.selections?.find(
+                        (s) => s.kind === Kind.FIELD && s.name.value === fields[f].name
+                      ),
                     },
                   ],
                   ...ancestors,

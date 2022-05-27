@@ -53,14 +53,14 @@ export const Field = ({ ancestors }: FieldProps) => {
     });
   }
 
-  // console.log('rendering Field', {
-  //   hash,
-  //   fieldName: field.name,
-  //   selectionSet,
-  //   ancestors,
-  //   selection,
-  //   unwrappedType: unwrapType(field.type),
-  // });
+  console.log('rendering Field', {
+    hash,
+    field,
+    selection,
+    selectionSet,
+    // ancestors,
+    // unwrappedType: unwrapType(field.type),
+  });
 
   let childFieldsToRender: React.ReactNode = null;
 
