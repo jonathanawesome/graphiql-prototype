@@ -2,9 +2,9 @@ import { styled } from '@stitches/react';
 
 export const ScalarArgStyled = styled('div', {
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   justifyContent: 'flex-start',
   gap: 8,
   marginLeft: 1,
-  marginTop: 10,
+  // marginTop: 10,
 });

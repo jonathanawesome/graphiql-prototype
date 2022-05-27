@@ -2,7 +2,7 @@ import { gql } from 'graphql-modules';
 
 export const PetsTypeDefs = gql`
   """
-  A Pet has an owner, is of a specific breed, and possibly has visited MeowWoof.
+  A domesticated animal kept for pleasure rather than utility. A Pet has an owner, is of a specific breed, and possibly has visited MeowWoof.
   """
   type Pet {
     """

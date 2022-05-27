@@ -5,16 +5,17 @@ import {
   FieldNode,
   GraphQLArgument,
   GraphQLInputFieldMap,
+  isRequiredArgument,
   Kind,
   ObjectFieldNode,
   ObjectValueNode,
 } from 'graphql';
 
 /** components */
-import { Argument, FieldDetails } from '@/components';
+import { Argument, Caret, FieldDetails } from '@/components';
 
 /** styles */
-import { Content, Root, Trigger, InputTypeChildArguments } from './styles';
+import { Content, Root, Trigger, TriggerWrap, InputTypeChildArguments } from './styles';
 
 /** types */
 import { OnEditSignature } from '@/types';
@@ -52,12 +53,12 @@ export const InputType = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // console.log('InputObject', {
-  //   inputTypeArg,
-  //   fields,
-  //   // arg,
-  //   selection,
-  // });
+  console.log('rendering InputType', {
+    inputTypeArg,
+    fields,
+    // arg,
+    selection,
+  });
 
   const addNestedArg = ({ argToAdd }: { argToAdd: GraphQLArgument }) => {
     const variableName = buildVariableNameValue({
@@ -198,10 +199,20 @@ export const InputType = ({
 
   return (
     <Root open={isExpanded} onOpenChange={setIsExpanded}>
-      <Trigger>
-        <FieldDetails fieldOrArg={inputTypeArg} isSelected={!!argSelection} />
-      </Trigger>
-
+      <TriggerWrap>
+        <Trigger>
+          <Caret isExpanded={isExpanded} />
+        </Trigger>
+        <FieldDetails
+          name={`${inputTypeArg.name}${isRequiredArgument(inputTypeArg) ? '*' : ''}`}
+          description={
+            unwrapInputType({ inputType: inputTypeArg.type }).description || null
+          }
+          typeName={inputTypeArg.type.toString()}
+          variant="INPUT_TYPE"
+          isSelected={!!argSelection}
+        />
+      </TriggerWrap>
       <Content>
         {isExpanded && (
           <InputTypeChildArguments>

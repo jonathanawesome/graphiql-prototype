@@ -4,6 +4,7 @@ import {
   GraphQLArgument,
   isEnumType,
   isNonNullType,
+  isRequiredArgument,
   ObjectFieldNode,
 } from 'graphql';
 
@@ -26,12 +27,12 @@ export const ScalarArg = ({
   removeArg: ({ argToRemove }: { argToRemove: GraphQLArgument }) => void;
   selection: FieldNode | null;
 }) => {
-  // console.log('ScalarArg', {
-  //   name: arg.name,
-  //   type: arg.type,
-  //   arg,
-  //   selection,
-  // });
+  console.log('ScalarArg', {
+    name: arg.name,
+    type: arg.type,
+    arg,
+    selection,
+  });
 
   const argSelection = () => {
     let argSelection: ArgumentNode | ObjectFieldNode | null = null;
@@ -72,7 +73,13 @@ export const ScalarArg = ({
       >
         <IndicatorArgument isSelected={!!argSelection()} />
       </div>
-      <FieldDetails fieldOrArg={arg} isSelected={!!argSelection()} />
+      <FieldDetails
+        name={`${arg.name}${isRequiredArgument(arg) ? `*` : ''}`}
+        description={arg.description || null}
+        typeName={arg.type.toString()}
+        variant="ARGUMENT"
+        isSelected={!!argSelection()}
+      />
     </ScalarArgStyled>
   );
 };

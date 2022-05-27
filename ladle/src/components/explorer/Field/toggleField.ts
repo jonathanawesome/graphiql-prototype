@@ -187,17 +187,39 @@ export const toggleField = ({ ancestors }: { ancestors: AncestorMap }) => {
         /** begin handle parent INLINE_FRAGMENT */
         if (isInlineFragment) {
           if (ancestor.selection && ancestor.selectionSet) {
-            // console.log(`NOT on the target, it's a parent INLINE_FRAGMENT, it is selected`, { ancestor, siblings });
-            ((ancestor.selection as FieldNode).selectionSet as SelectionSetNode) =
-              nextSelectionSet;
-
-            /** update the nextSelectionSet */
-            return (nextSelectionSet = {
-              kind: Kind.SELECTION_SET,
-              selections: siblings
-                ? [ancestor.selection as SelectionNode, ...siblings]
-                : [ancestor.selection as SelectionNode],
-            });
+            console.log(
+              `NOT on the target, it's a parent INLINE_FRAGMENT, it is selected`,
+              {
+                ancestor,
+                siblings,
+                'ancestor.selection': ancestor.selection,
+                nextSelectionSet,
+                // nextSelectionSet: {
+                //   kind: Kind.SELECTION_SET,
+                //   selections: siblings
+                //     ? [ancestor.selection as SelectionNode, ...siblings]
+                //     : [ancestor.selection as SelectionNode],
+                // },
+              }
+            );
+            if (nextSelectionSet.selections.length === 0) {
+              /** update the nextSelectionSet */
+              return (nextSelectionSet = {
+                kind: Kind.SELECTION_SET,
+                selections: siblings ? [...siblings] : [],
+              });
+            } else {
+              ((ancestor.selection as FieldNode).selectionSet as SelectionSetNode) =
+                nextSelectionSet;
+              /** update the nextSelectionSet */
+              return (nextSelectionSet = {
+                kind: Kind.SELECTION_SET,
+                selections: siblings
+                  ? [ancestor.selection, ...siblings]
+                  : [ancestor.selection],
+              });
+            }
+            // if siblings is 0
           } else {
             // console.log(`NOT on the target, it's a parent INLINE_FRAGMENT, it is NOT selected`, { ancestor, });
             const newInlineFragmentNode: InlineFragmentNode = {

@@ -36,11 +36,11 @@ export const Argument = ({
   removeArg: ({ argToRemove }: { argToRemove: GraphQLArgument }) => void;
   selection: FieldNode | null;
 }) => {
-  // console.log('Argument', {
-  //   name: arg.name,
-  //   arg,
-  //   // 'isRequiredArgument(arg)': isRequiredArgument(arg),
-  // });
+  console.log('Argument', {
+    name: arg.name,
+    arg,
+    // 'isRequiredArgument(arg)': isRequiredArgument(arg),
+  });
 
   let render: React.ReactNode | null = null;
 

@@ -14,16 +14,22 @@ type ObjectTypeProps = {
   ancestors: AncestorMap;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fields: GraphQLFieldMap<any, any> | null;
+  parentType: 'FIELD' | 'INLINE_FRAGMENT';
   selection: FieldNode | InlineFragmentNode | undefined;
 };
 
-export const ObjectType = ({ ancestors, fields, selection }: ObjectTypeProps) => {
+export const ObjectType = ({
+  ancestors,
+  fields,
+  parentType,
+  selection,
+}: ObjectTypeProps) => {
   const hash = cuid();
 
   console.log('rendering ObjectType', { fields, selection });
 
   return (
-    <ObjectTypeWrap>
+    <ObjectTypeWrap parentType={parentType}>
       {fields &&
         Object.keys(fields).map((f) => {
           return (

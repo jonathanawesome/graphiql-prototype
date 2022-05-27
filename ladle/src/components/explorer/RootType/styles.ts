@@ -24,4 +24,6 @@ export const Content = styled(Collapsible.Content, {
   borderLeft: '1px solid $scale400',
 });
 
-export const Root = styled(Collapsible.Root, {});
+export const Root = styled(Collapsible.Root, {
+  marginBottom: 24,
+});

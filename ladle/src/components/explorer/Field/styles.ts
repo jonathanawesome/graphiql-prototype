@@ -5,6 +5,14 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 
 export const Content = styled(Collapsible.Content, {
   marginLeft: 20,
+  // borderLeft: `1px solid red`,
+});
+
+export const ChildFields = styled('div', {
+  borderLeft: `1px solid $scale400`,
+  // marginTop: 8,
+  marginLeft: 7,
+  paddingLeft: 12,
 });
 
 export const IndicatorWrap = styled('button', {
@@ -32,8 +40,9 @@ export const TriggerWrap = styled('div', {
   width: '100%',
   display: 'grid',
   gridTemplateColumns: '15px 1fr',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   gap: 6,
+  // paddingBottom: 12,
 
   variants: {
     isCollapsible: {
@@ -45,17 +54,12 @@ export const TriggerWrap = styled('div', {
 });
 
 export const Trigger = styled(Collapsible.Trigger, {
-  // width: '100%',
-  // display: 'grid',
-  // gridTemplateColumns: '15px 1fr',
-  // alignItems: 'center',
-  // gap: 6,
-  // cursor: 'pointer',
+  marginTop: 1,
 });
 
 export const Root = styled(Collapsible.Root, {
   position: 'relative',
-  padding: `8px 0`,
+  marginTop: 8,
 
   variants: {
     offset: {

@@ -24,7 +24,14 @@ import { ObjectType } from '../ObjectType';
 import { UnionType } from '../UnionType';
 
 /** styles */
-import { Content, IndicatorWrap, Trigger, TriggerWrap, Root } from './styles';
+import {
+  ChildFields,
+  Content,
+  IndicatorWrap,
+  Trigger,
+  TriggerWrap,
+  Root,
+} from './styles';
 
 /** utils */
 import { findSelection, getTypeFields, unwrapType } from '@/utils';
@@ -69,6 +76,7 @@ export const Field = ({ ancestors }: FieldProps) => {
       <ObjectType
         ancestors={ancestors}
         fields={getTypeFields({ type: unwrappedType })}
+        parentType="FIELD"
         selection={selection}
       />
     );
@@ -80,7 +88,7 @@ export const Field = ({ ancestors }: FieldProps) => {
 
   return (
     <Root offset={!isObjectType(parent)} open={isExpanded} onOpenChange={setIsExpanded}>
-      <p style={{ fontSize: '8px' }}>{hash}</p>
+      {/* <p style={{ fontSize: '8px' }}>{hash}</p> */}
       <TriggerWrap isCollapsible={isCollapsible}>
         <IndicatorWrap isActive={!!selection} onClick={() => toggleField({ ancestors })}>
           <IndicatorField active={!!selection} />
@@ -90,18 +98,25 @@ export const Field = ({ ancestors }: FieldProps) => {
             <Caret isExpanded={isExpanded} />
           </Trigger>
         )}
-        <FieldDetails fieldOrArg={field} isSelected={!!selection} />
+        <FieldDetails
+          // fieldOrArg={field}
+          name={field.name}
+          description={field.description || null}
+          isSelected={!!selection}
+          typeName={field.type.toString()}
+          variant="FIELD"
+        />
       </TriggerWrap>
       <Content>
-        <>
-          {/* <Arguments
+        {field.args.length > 0 && (
+          <Arguments
             args={[...field.args]}
             // onEdit={onEdit}
             onFieldName={field.name}
             // onFieldSelection={fieldSelection}
-          /> */}
-          {childFieldsToRender}
-        </>
+          />
+        )}
+        <ChildFields>{childFieldsToRender}</ChildFields>
       </Content>
     </Root>
   );

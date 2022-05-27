@@ -8,16 +8,19 @@ export const StyledShowArguments = styled('div', {
   alignItems: 'center',
   gap: 8,
   cursor: 'pointer',
+  height: 16,
+  marginTop: 10,
 
   svg: {
-    height: 30,
-    width: 30,
+    height: 24,
+    width: 24,
   },
 
   span: {
     fontWeight: `$medium`,
-    fontSize: '$body',
+    fontSize: 12,
     color: `$scale700`,
+    marginTop: -3,
   },
 });
 

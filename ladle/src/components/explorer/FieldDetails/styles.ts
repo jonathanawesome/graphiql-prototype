@@ -12,14 +12,6 @@ export const NameAndTypeName = styled('div', {
     fontWeight: `$regular`,
     color: `$scale700`,
   },
-
-  // variants: {
-  //   pointer: {
-  //     true: {
-  //       // cursor: 'pointer',
-  //     },
-  //   },
-  // },
 });
 
 export const Description = styled('div', {
@@ -28,6 +20,7 @@ export const Description = styled('div', {
   justifyContent: 'flex-start',
   textAlign: 'left',
   gap: 8,
+  fontSize: 11,
   color: `$scale600`,
   fontWeight: `$regular`,
 
@@ -39,9 +32,11 @@ export const Description = styled('div', {
 
 export const FieldDetailsStyled = styled('div', {
   display: 'flex',
-  alignItems: 'center',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
   gap: 6,
   fontSize: '$body',
+  // paddingBottom: 12,
 
   '&:hover': {},
 
@@ -62,14 +57,16 @@ export const FieldDetailsStyled = styled('div', {
       true: {},
     },
     type: {
-      field: {},
-      argument: {},
+      FIELD: {},
+      INLINE_FRAGMENT: {},
+      ARGUMENT: {},
+      INPUT_TYPE: {},
     },
   },
 
   compoundVariants: [
     {
-      type: 'field',
+      type: 'FIELD',
       active: true,
       css: {
         [`& ${NameAndTypeName}`]: {
@@ -83,7 +80,21 @@ export const FieldDetailsStyled = styled('div', {
       },
     },
     {
-      type: 'argument',
+      type: 'INLINE_FRAGMENT',
+      active: true,
+      css: {
+        [`& ${NameAndTypeName}`]: {
+          '& span:nth-of-type(1)': {
+            color: '$accentInfo',
+          },
+          '& span:nth-of-type(2)': {
+            color: '$accentInfo',
+          },
+        },
+      },
+    },
+    {
+      type: 'ARGUMENT' || 'INPUT_TYPE',
       active: true,
       css: {
         [`& ${NameAndTypeName}`]: {
