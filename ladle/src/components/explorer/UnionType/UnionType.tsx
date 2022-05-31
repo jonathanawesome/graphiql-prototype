@@ -22,7 +22,7 @@ import {
   NestedObjectType,
 } from './styles';
 /** types */
-import { AncestorMap } from '../Field/toggleField';
+import { AncestorMap } from '@/hooks';
 
 /** utils */
 import { getTypeFields } from '../../../utils';
@@ -36,7 +36,7 @@ type UnionTypeProps = {
 };
 
 export const UnionType = ({ ancestors, selection, unionType }: UnionTypeProps) => {
-  console.log('rendering UnionType', { selection });
+  // console.log('rendering UnionType', { selection });
 
   const array = unionType.getTypes();
 
@@ -60,6 +60,7 @@ const UnionMember = ({
   selection,
 }: {
   ancestors: AncestorMap;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   objectMember: GraphQLObjectType<any, any>;
   selection: FieldNode | InlineFragmentNode | undefined;
 }) => {
@@ -99,7 +100,7 @@ const UnionMember = ({
                   {
                     onType: objectMember.name,
                     selectionSet: selection?.selectionSet,
-                    selection: inlineFragmentNode,
+                    selection: inlineFragmentNode || null,
                   },
                 ],
                 ...ancestors,

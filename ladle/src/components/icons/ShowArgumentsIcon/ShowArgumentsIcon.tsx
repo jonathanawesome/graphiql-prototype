@@ -1,10 +1,10 @@
 import { styled } from '@stitches/react';
 
-const StyledArguments = styled('div', {});
+const StyledShowArgumentsIcon = styled('div', {});
 
-export const Arguments = () => {
+export const ShowArgumentsIcon = () => {
   return (
-    <StyledArguments>
+    <StyledShowArgumentsIcon>
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           fillRule="evenodd"
@@ -33,6 +33,6 @@ export const Arguments = () => {
           fill="#A3A9B5"
         />
       </svg>
-    </StyledArguments>
+    </StyledShowArgumentsIcon>
   );
 };

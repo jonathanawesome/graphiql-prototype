@@ -24,7 +24,7 @@ export const Explorer = () => {
   }
 
   const queryType = schema.getQueryType();
-  const mutationType = schema.getMutationType();
+  // const mutationType = schema.getMutationType();
 
   return (
     <ExplorerStyled>
@@ -45,7 +45,7 @@ export const Explorer = () => {
       <ExplorerContentWrap>
         <ExplorerContent>
           {queryType ? <RootType rootType={queryType} /> : null}
-          {mutationType ? <RootType rootType={mutationType} /> : null}
+          {/* {mutationType ? <RootType rootType={mutationType} /> : null} */}
         </ExplorerContent>
       </ExplorerContentWrap>
     </ExplorerStyled>

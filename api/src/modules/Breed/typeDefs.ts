@@ -43,7 +43,9 @@ export const BreedTypeDefs = gql`
 
   "Required arguments when adding a new Breed to the system."
   input CreateBreedInput {
+    "A unique name for this breed"
     name: String!
+    "An enum indicating the species."
     species: Species!
   }
 
@@ -86,9 +88,14 @@ export const BreedTypeDefs = gql`
 
   extend type Query {
     "Finds a Breed given a name. Returns a Breed object or an ErrorForUI."
-    breed(name: String!, notRequiredFakeArg: String): BreedResult!
+    breed(
+      "A unique name for this breed"
+      name: String!
+      "A fake String argument used for testing."
+      fakeArg: String
+    ): BreedResult!
 
     "Finds Breeds given specific input arguments. Returns an array of Breeds matching the input filters or an empty array."
-    breeds(input: BreedsFilters!): [Breed]!
+    breeds(input: BreedsFilters!, test: String): [Breed]!
   }
 `;

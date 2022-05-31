@@ -1,14 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import {
   ArgumentNode,
   FieldNode,
   GraphQLArgument,
-  GraphQLInputFieldMap,
-  isRequiredArgument,
+  GraphQLInputObjectType,
   Kind,
   ObjectFieldNode,
-  ObjectValueNode,
+  // ObjectValueNode,
 } from 'graphql';
 
 /** components */
@@ -17,184 +16,52 @@ import { Argument, Caret, FieldDetails } from '@/components';
 /** styles */
 import { Content, Root, Trigger, TriggerWrap, InputTypeChildArguments } from './styles';
 
-/** types */
-import { OnEditSignature } from '@/types';
-
-/* utils */
-import {
-  capitalize,
-  buildNewVariableDefinition,
-  buildVariableNameValue,
-  generateAndSetEasyVariable,
-  unwrapInputType,
-} from '@/utils';
+import { AncestorInputType, AncestorMap } from '@/hooks';
 
 export const InputType = ({
-  inputTypeArg,
-  fields,
-  onEdit,
-  selection,
+  ancestors,
+  inputType,
+  isRequired,
+  onFieldName,
 }: {
-  inputTypeArg: GraphQLArgument;
-  fields: GraphQLInputFieldMap;
-  onEdit: OnEditSignature;
-  selection: FieldNode | null;
+  ancestors: AncestorMap;
+  inputType: GraphQLInputObjectType;
+  isRequired: boolean;
+  onFieldName: string;
 }) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
-  const argSelection =
-    selection?.arguments?.find((a) => a.name.value === inputTypeArg.name) || null;
+  const fields = inputType.getFields();
 
-  useEffect(() => {
-    if (argSelection) {
-      setIsExpanded(true);
-    }
+  const { onInputType, selection } = ancestors.values().next().value as AncestorInputType;
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // console.log('rendering InputType', {
+  //   inputType,
+  //   ancestors,
+  //   onInputType,
+  //   selection,
+  // });
 
-  console.log('rendering InputType', {
-    inputTypeArg,
-    fields,
-    // arg,
+  const getChildSelection = ({
+    arg,
     selection,
-  });
+  }: {
+    arg: GraphQLArgument;
+    selection: ArgumentNode | undefined;
+  }) => {
+    let childSelection: FieldNode | ObjectFieldNode | null = null;
 
-  const addNestedArg = ({ argToAdd }: { argToAdd: GraphQLArgument }) => {
-    const variableName = buildVariableNameValue({
-      fieldName: selection?.name.value as string,
-      parentArgName: inputTypeArg.name,
-      argName: argToAdd.name,
-    });
-
-    const ourNewObjectField: ObjectFieldNode = {
-      kind: Kind.OBJECT_FIELD,
-      name: {
-        kind: Kind.NAME,
-        value: argToAdd.name,
-      },
-      value: {
-        kind: Kind.VARIABLE,
-        name: {
-          kind: Kind.NAME,
-          value: variableName,
-        },
-      },
-    };
-
-    let newArg: ArgumentNode | null = null;
-    let newArguments: ArgumentNode[] | null = null;
-
-    if (argSelection) {
-      newArg = {
-        ...argSelection,
-        value: {
-          kind: Kind.OBJECT,
-          fields: [...(argSelection.value as ObjectValueNode).fields, ourNewObjectField],
-        },
-      };
-
-      newArguments = [
-        ...(selection?.arguments?.filter((a) => a.name.value !== inputTypeArg.name) ||
-          []),
-        newArg,
-      ];
-    } else {
-      newArg = {
-        kind: Kind.ARGUMENT,
-        name: { kind: Kind.NAME, value: inputTypeArg.name },
-        value: {
-          kind: Kind.OBJECT,
-          fields: [ourNewObjectField],
-        },
-      };
-      newArguments = [...(selection?.arguments || []), newArg];
+    if (!selection) {
+      childSelection = null;
+    } else if (selection.value.kind === Kind.OBJECT) {
+      const hasSelection = selection.value.fields.find((f) => f.name.value === arg.name);
+      if (hasSelection) {
+        return hasSelection;
+      } else {
+        return null;
+      }
     }
-
-    const newFieldNode: FieldNode = {
-      ...(selection as FieldNode),
-      arguments: newArguments,
-    };
-
-    generateAndSetEasyVariable({
-      variableName,
-      unwrappedType: unwrapInputType({ inputType: argToAdd.type }),
-    });
-
-    return onEdit({
-      input: {
-        type: 'updateField',
-        payloads: {
-          field: newFieldNode,
-          newVariableDefinition: buildNewVariableDefinition({
-            fieldName: selection?.name.value as string,
-            parentArgName: inputTypeArg.name,
-            forArg: argToAdd,
-          }),
-          variableNameToRemove: null,
-        },
-      },
-    });
-  };
-
-  const removeNestedArg = ({ argToRemove }: { argToRemove: GraphQLArgument }) => {
-    let newArgs: ArgumentNode[] | null = null;
-
-    if ((argSelection?.value as ObjectValueNode).fields.length === 1) {
-      newArgs =
-        selection?.arguments?.filter((a) => a.name.value !== inputTypeArg.name) || null;
-    } else {
-      const newInputObjectArgument = (
-        argSelection?.value as ObjectValueNode
-      ).fields.flatMap((field) => {
-        if (field.name.value !== argToRemove.name) {
-          return field;
-        } else {
-          return [];
-        }
-      });
-
-      const newArg: ArgumentNode = {
-        ...(argSelection as ArgumentNode),
-        value: {
-          kind: Kind.OBJECT,
-          fields: newInputObjectArgument,
-        },
-      };
-
-      newArgs = [
-        ...(selection?.arguments?.filter((a) => a.name.value !== inputTypeArg.name) ||
-          []),
-        newArg,
-      ];
-    }
-
-    console.log('i want to remove this NESTED arg', {
-      argToRemove,
-      fields,
-      selection,
-      newArgs,
-    });
-
-    // console.log({ newArgs, origArgs: selection?.arguments });
-
-    const newFieldNode: FieldNode = {
-      ...(selection as FieldNode),
-      arguments: newArgs || undefined,
-    };
-
-    return onEdit({
-      input: {
-        type: 'updateField',
-        payloads: {
-          field: newFieldNode,
-          variableNameToRemove: `${selection?.name.value}${capitalize({
-            string: inputTypeArg.name,
-          })}${capitalize({ string: argToRemove.name })}`,
-          newVariableDefinition: null,
-        },
-      },
-    });
+    return childSelection;
   };
 
   return (
@@ -204,13 +71,11 @@ export const InputType = ({
           <Caret isExpanded={isExpanded} />
         </Trigger>
         <FieldDetails
-          name={`${inputTypeArg.name}${isRequiredArgument(inputTypeArg) ? '*' : ''}`}
-          description={
-            unwrapInputType({ inputType: inputTypeArg.type }).description || null
-          }
-          typeName={inputTypeArg.type.toString()}
+          name={`${onInputType}${isRequired ? '*' : ''}`}
+          description={inputType.description || null}
+          typeName={inputType.name}
           variant="INPUT_TYPE"
-          isSelected={!!argSelection}
+          isSelected={!!selection}
         />
       </TriggerWrap>
       <Content>
@@ -220,12 +85,10 @@ export const InputType = ({
               return (
                 <Argument
                   key={a}
-                  addArg={addNestedArg}
+                  ancestors={ancestors}
                   arg={fields[a]}
-                  onInputTypeArg={inputTypeArg.name}
-                  removeArg={removeNestedArg}
-                  selection={selection}
-                  onEdit={onEdit}
+                  onFieldName={onFieldName}
+                  selection={getChildSelection({ arg: fields[a], selection })}
                 />
               );
             })}

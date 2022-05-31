@@ -3,7 +3,7 @@ import {
   useState,
 } from 'react';
 
-import cuid from 'cuid';
+// import cuid from 'cuid';
 
 import {
   FieldNode,
@@ -35,14 +35,16 @@ import {
 
 /** utils */
 import { findSelection, getTypeFields, unwrapType } from '@/utils';
-import { AncestorField, AncestorMap, toggleField } from './toggleField';
+import { AncestorField, AncestorMap, useToggler } from '@/hooks';
 
 type FieldProps = {
   ancestors: AncestorMap;
 };
 
+const toggle = useToggler.getState().toggle;
+
 export const Field = ({ ancestors }: FieldProps) => {
-  const hash = cuid();
+  // const hash = cuid();
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const { field, selectionSet } = ancestors.values().next().value as AncestorField;
@@ -60,14 +62,14 @@ export const Field = ({ ancestors }: FieldProps) => {
     });
   }
 
-  console.log('rendering Field', {
-    hash,
-    field,
-    selection,
-    selectionSet,
-    // ancestors,
-    // unwrappedType: unwrapType(field.type),
-  });
+  // console.log('rendering Field', {
+  //   // hash,
+  //   field,
+  //   selection,
+  //   selectionSet,
+  //   // ancestors,
+  //   // unwrappedType: unwrapType(field.type),
+  // });
 
   let childFieldsToRender: React.ReactNode = null;
 
@@ -90,7 +92,7 @@ export const Field = ({ ancestors }: FieldProps) => {
     <Root offset={!isObjectType(parent)} open={isExpanded} onOpenChange={setIsExpanded}>
       {/* <p style={{ fontSize: '8px' }}>{hash}</p> */}
       <TriggerWrap isCollapsible={isCollapsible}>
-        <IndicatorWrap isActive={!!selection} onClick={() => toggleField({ ancestors })}>
+        <IndicatorWrap isActive={!!selection} onClick={() => toggle({ ancestors })}>
           <IndicatorField active={!!selection} />
         </IndicatorWrap>
         {isCollapsible && (
@@ -99,7 +101,6 @@ export const Field = ({ ancestors }: FieldProps) => {
           </Trigger>
         )}
         <FieldDetails
-          // fieldOrArg={field}
           name={field.name}
           description={field.description || null}
           isSelected={!!selection}
@@ -110,10 +111,9 @@ export const Field = ({ ancestors }: FieldProps) => {
       <Content>
         {field.args.length > 0 && (
           <Arguments
-            args={[...field.args]}
-            // onEdit={onEdit}
+            ancestors={ancestors}
+            onFieldSelection={selection as FieldNode}
             onFieldName={field.name}
-            // onFieldSelection={fieldSelection}
           />
         )}
         <ChildFields>{childFieldsToRender}</ChildFields>

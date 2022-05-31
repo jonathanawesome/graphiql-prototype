@@ -5,7 +5,8 @@ export const NameAndTypeName = styled('div', {
   alignItems: 'center',
   gap: 4,
   '& span:nth-of-type(1)': {
-    fontWeight: `$medium`,
+    // fontWeight: `$medium`,
+    fontWeight: `$regular`,
     color: `$scale800`,
   },
   '& span:nth-of-type(2)': {
@@ -21,7 +22,7 @@ export const Description = styled('div', {
   textAlign: 'left',
   gap: 8,
   fontSize: 11,
-  color: `$scale600`,
+  color: `$scale700`,
   fontWeight: `$regular`,
 
   '& svg': {
@@ -36,7 +37,6 @@ export const FieldDetailsStyled = styled('div', {
   alignItems: 'flex-start',
   gap: 6,
   fontSize: '$body',
-  // paddingBottom: 12,
 
   '&:hover': {},
 
@@ -53,7 +53,7 @@ export const FieldDetailsStyled = styled('div', {
         },
       },
     },
-    active: {
+    isSelected: {
       true: {},
     },
     type: {
@@ -67,7 +67,7 @@ export const FieldDetailsStyled = styled('div', {
   compoundVariants: [
     {
       type: 'FIELD',
-      active: true,
+      isSelected: true,
       css: {
         [`& ${NameAndTypeName}`]: {
           '& span:nth-of-type(1)': {
@@ -81,7 +81,7 @@ export const FieldDetailsStyled = styled('div', {
     },
     {
       type: 'INLINE_FRAGMENT',
-      active: true,
+      isSelected: true,
       css: {
         [`& ${NameAndTypeName}`]: {
           '& span:nth-of-type(1)': {
@@ -94,8 +94,22 @@ export const FieldDetailsStyled = styled('div', {
       },
     },
     {
-      type: 'ARGUMENT' || 'INPUT_TYPE',
-      active: true,
+      type: 'ARGUMENT',
+      isSelected: true,
+      css: {
+        [`& ${NameAndTypeName}`]: {
+          '& span:nth-of-type(1)': {
+            color: '$accentArgument',
+          },
+          '& span:nth-of-type(2)': {
+            color: '$accentArgument',
+          },
+        },
+      },
+    },
+    {
+      type: 'INPUT_TYPE',
+      isSelected: true,
       css: {
         [`& ${NameAndTypeName}`]: {
           '& span:nth-of-type(1)': {

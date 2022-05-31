@@ -1,3 +1,4 @@
+import cuid from 'cuid';
 import {
   FieldNode,
   GraphQLArgument,
@@ -6,7 +7,10 @@ import {
   isLeafType,
   isListType,
   isNonNullType,
+  isRequiredArgument,
   isScalarType,
+  Kind,
+  ObjectFieldNode,
 } from 'graphql';
 
 /** components */
@@ -15,94 +19,118 @@ import { InputType, ScalarArg } from '@/components';
 /** styles */
 import { ArgumentStyled } from './styles';
 
-/** types */
-import { OnEditSignature } from '@/types';
-
 /** utils */
-import { unwrapInputType } from '@/utils';
+import { capitalize, unwrapInputType } from '@/utils';
+import { AncestorArgument, AncestorField, AncestorInputType, AncestorMap } from '@/hooks';
 
 export const Argument = ({
+  ancestors,
   arg,
-  addArg,
-  onEdit,
-  onInputTypeArg,
-  removeArg,
+  onFieldName,
   selection,
 }: {
+  ancestors: AncestorMap;
   arg: GraphQLArgument;
-  addArg: ({ argToAdd }: { argToAdd: GraphQLArgument }) => void;
-  onEdit: OnEditSignature;
-  onInputTypeArg: string | null;
-  removeArg: ({ argToRemove }: { argToRemove: GraphQLArgument }) => void;
-  selection: FieldNode | null;
+  onFieldName: string;
+  selection: FieldNode | ObjectFieldNode | null;
 }) => {
-  console.log('Argument', {
-    name: arg.name,
-    arg,
-    // 'isRequiredArgument(arg)': isRequiredArgument(arg),
-  });
+  const hash = cuid();
+  let toRender: React.ReactNode | null = null;
 
-  let render: React.ReactNode | null = null;
+  const parentAncestor: AncestorField | AncestorInputType = ancestors
+    .values()
+    .next().value;
+
+  const variableName = () => {
+    if ('onInputType' in parentAncestor) {
+      return `${onFieldName}${capitalize({
+        string: parentAncestor.onInputType,
+      })}${capitalize({ string: arg.name })}`;
+    } else if ('field' in parentAncestor) {
+      return `${onFieldName}${capitalize({ string: arg.name })}`;
+    }
+    return ``;
+  };
+
+  // console.log('Argument', {
+  //   ancestors,
+  //   arg,
+  //   onFieldName,
+  //   selection,
+  //   parentAncestor,
+  // });
+
+  const newInputTypeArgumentMap = new Map([
+    [
+      // hash = safety first!
+      `${arg.name}-${hash}`,
+      {
+        onInputType: arg.name,
+        parent: parentAncestor.selection,
+        selection:
+          selection?.kind === Kind.FIELD
+            ? selection?.arguments?.find((a) => a.name.value === arg.name)
+            : undefined,
+      } as AncestorInputType,
+    ],
+    ...ancestors,
+  ]);
+
+  const newScalarArgAncestorMap = new Map([
+    [
+      // hash = safety first!
+      `${arg.name}-${hash}`,
+      {
+        arg,
+        onInputTypeName:
+          'onInputType' in parentAncestor ? parentAncestor.onInputType : 'null',
+        parentSelection: parentAncestor.selection,
+        placement: 'onInputType' in parentAncestor ? 'ON_INPUT_TYPE' : 'ON_FIELD',
+        selection:
+          selection?.kind === Kind.OBJECT_FIELD
+            ? selection
+            : selection?.arguments?.find((a) => a.name.value === arg.name),
+        variableName: variableName(),
+      } as AncestorArgument,
+    ],
+    ...ancestors,
+  ]);
 
   if (isInputObjectType(arg.type)) {
-    render = (
+    toRender = (
       <InputType
-        inputTypeArg={arg}
-        fields={arg.type.getFields()}
-        selection={selection}
-        onEdit={onEdit}
+        ancestors={newInputTypeArgumentMap}
+        inputType={arg.type}
+        isRequired={isRequiredArgument(arg)}
+        onFieldName={onFieldName}
       />
     );
   } else if (isNonNullType(arg.type) || isListType(arg.type)) {
-    const unwrappedType = unwrapInputType({ inputType: arg.type });
-    // console.log({ unwrappedType });
-    if (isScalarType(unwrappedType)) {
-      render = (
-        <ScalarArg
-          arg={arg}
-          addArg={addArg}
-          onInputTypeArg={onInputTypeArg}
-          removeArg={removeArg}
-          selection={selection}
-        />
-      );
-    } else if (isInputObjectType(unwrappedType)) {
-      render = (
+    const unwrappedInputType = unwrapInputType({ inputType: arg.type });
+    if (isScalarType(unwrappedInputType)) {
+      toRender = <ScalarArg ancestors={newScalarArgAncestorMap} />;
+    } else if (isInputObjectType(unwrappedInputType)) {
+      console.log({ unwrappedInputType });
+      toRender = (
         <InputType
-          inputTypeArg={arg}
-          fields={unwrappedType.getFields()}
-          selection={selection}
-          onEdit={onEdit}
+          ancestors={newInputTypeArgumentMap}
+          inputType={unwrappedInputType}
+          isRequired={isRequiredArgument(arg)}
+          onFieldName={onFieldName}
         />
       );
-    } else if (isEnumType(unwrappedType)) {
+    } else if (isEnumType(unwrappedInputType)) {
       //TODO handle EnumType
-      render = (
-        <ScalarArg
-          arg={arg}
-          selection={selection}
-          addArg={addArg}
-          removeArg={removeArg}
-          onInputTypeArg={onInputTypeArg}
-        />
-      );
+      toRender = <ScalarArg ancestors={newScalarArgAncestorMap} />;
     }
   } else if (isLeafType(arg.type)) {
-    render = (
-      <ScalarArg
-        arg={arg}
-        selection={selection}
-        addArg={addArg}
-        removeArg={removeArg}
-        onInputTypeArg={onInputTypeArg}
-      />
-    );
+    toRender = <ScalarArg ancestors={newScalarArgAncestorMap} />;
   } else {
-    render = (
+    toRender = (
       <p style={{ color: 'red' }}>
         {`yikes...something went wrong with this type ${arg.type}`}
       </p>
     );
   }
-  return <ArgumentStyled>{render}</ArgumentStyled>;
+  return <ArgumentStyled>{toRender}</ArgumentStyled>;
 };

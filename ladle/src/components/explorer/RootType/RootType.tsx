@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { FieldNode, GraphQLObjectType, SelectionNode } from 'graphql';
+import { FieldNode, GraphQLObjectType } from 'graphql';
 
 /** components */
 import { Caret, Field } from '@/components';
 
 /** hooks */
-import { useOperation } from '@/hooks';
+import { useOperation, useVariables } from '@/hooks';
 
 /** styles */
 import { Content, Root as RootWrap, Trigger } from './styles';
@@ -19,9 +19,11 @@ export const RootType = ({
   rootType: GraphQLObjectType<any, any>;
 }) => {
   const { operationDefinition } = useOperation();
+  const { variables } = useVariables();
 
   console.log('rendering RootType', {
     operationDefinition,
+    variables,
   });
 
   const fields = rootType.getFields();
@@ -48,10 +50,11 @@ export const RootType = ({
                     {
                       field: fields[field],
                       selectionSet: operationDefinition?.selectionSet,
-                      selection: operationDefinition?.selectionSet?.selections.find(
-                        (selection) =>
-                          (selection as FieldNode).name.value === fields[field].name
-                      ) as SelectionNode | undefined,
+                      selection:
+                        operationDefinition?.selectionSet?.selections.find(
+                          (selection) =>
+                            (selection as FieldNode).name.value === fields[field].name
+                        ) || null,
                     },
                   ],
                   [`${rootType.name}`, { rootTypeName: rootType.name }],

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   FieldNode,
-  GraphQLField,
   GraphQLFieldMap,
   GraphQLOutputType,
   InlineFragmentNode,
@@ -51,19 +50,16 @@ export const findSelection = ({
   fieldName: string;
   selections: SelectionNode[];
 }): InlineFragmentNode | FieldNode | undefined => {
-  const selectionNode = selections?.find(
-    // (selection) => selection.name.value === field.name
-    (selection) => {
-      if (selection.kind === Kind.INLINE_FRAGMENT) {
-        return selection.typeCondition?.name.value === fieldName;
-      } else if (selection.kind === Kind.FRAGMENT_SPREAD) {
-        //TODO handle fragment spreads
-        // return null;
-      }
-      // otherwise, it's a FIELD
-      return selection.name.value === fieldName;
+  const selectionNode = selections?.find((selection) => {
+    if (selection.kind === Kind.INLINE_FRAGMENT) {
+      return selection.typeCondition?.name.value === fieldName;
+    } else if (selection.kind === Kind.FRAGMENT_SPREAD) {
+      //TODO handle fragment spreads
+      // return null;
     }
-  );
+    // otherwise, it's a FIELD
+    return selection.name.value === fieldName;
+  });
 
   if (selectionNode) {
     if (selectionNode.kind === Kind.INLINE_FRAGMENT) {

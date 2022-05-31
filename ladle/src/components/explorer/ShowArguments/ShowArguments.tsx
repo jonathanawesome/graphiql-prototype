@@ -1,7 +1,8 @@
 import { styled } from '@stitches/react';
+import { ShowArgumentsIcon } from '../../icons';
 
 /** components */
-import { Arguments } from '@/components';
+// import { Arguments } from '../Arguments';
 
 export const StyledShowArguments = styled('div', {
   display: 'flex',
@@ -9,7 +10,7 @@ export const StyledShowArguments = styled('div', {
   gap: 8,
   cursor: 'pointer',
   height: 16,
-  marginTop: 10,
+  // marginTop: 10,
 
   svg: {
     height: 24,
@@ -25,19 +26,19 @@ export const StyledShowArguments = styled('div', {
 });
 
 export const ShowArguments = ({
-  isArgsExpanded,
+  isOpen,
   optionalArgsCount,
   requiredArgsCount,
 }: {
-  isArgsExpanded: boolean;
+  isOpen: boolean;
   optionalArgsCount: number;
   requiredArgsCount: number;
 }) => {
   return (
     <StyledShowArguments>
-      <Arguments />
+      <ShowArgumentsIcon />
       {/* //TODO fix this nested ternary */}
-      {isArgsExpanded ? (
+      {isOpen ? (
         <span>Hide Arguments</span>
       ) : requiredArgsCount > 0 ? (
         <span>{optionalArgsCount.toString()} more arguments</span>

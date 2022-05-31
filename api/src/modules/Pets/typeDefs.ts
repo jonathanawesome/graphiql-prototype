@@ -85,6 +85,6 @@ export const PetsTypeDefs = gql`
     """
     Finds Pets given specific input arguments. Returns an array of Pets matching the input filters or an empty array.
     """
-    pets(input: PetsFilters!): [Pet]!
+    pets(input: PetsFilters): [Pet]!
   }
 `;

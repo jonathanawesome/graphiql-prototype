@@ -14,7 +14,8 @@
     "api:prisma:push": "pnpm run prisma:db:push --filter api",
     "api:prisma:reset": "pnpm run prisma:reset --filter api",
     "api:prisma:studio": "pnpm run prisma:studio --filter api",
-    "api:tsc": "pnpm run tsc --filter api"
+    "api:tsc": "pnpm run tsc --filter api",
+    "tsc": "pnpm run ladle:tsc && pnpm run api:tsc"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.20.0",

@@ -2,22 +2,18 @@
 import {
   ArgumentNode,
   DocumentNode,
-  FieldNode,
-  GraphQLArgument,
+  GraphQLField,
+  GraphQLInputField,
+  isInputObjectType,
   isRequiredArgument,
   Kind,
+  ObjectFieldNode,
   parse,
-  SelectionNode,
-  SelectionSetNode,
-  VariableNode,
 } from 'graphql';
-
-/** types */
-import { EditFieldAction } from '@/types';
 
 /** utils */
 import { capitalize } from './misc';
-import { getObjectType } from './schema';
+import { unwrapInputType } from './arg';
 
 export const parseQuery = (queryText: string): DocumentNode | null | Error => {
   try {
@@ -31,131 +27,118 @@ export const parseQuery = (queryText: string): DocumentNode | null | Error => {
   }
 };
 
-export const editFieldSelection = ({
-  original,
-  action,
+// const buildArgumentNode = ({
+//   argumentName,
+//   variableName,
+// }: {
+//   argumentName: string;
+//   variableName: string;
+// }): ArgumentNode => ({
+//   kind: Kind.ARGUMENT,
+//   name: {
+//     kind: Kind.NAME,
+//     value: argumentName,
+//   },
+//   value: {
+//     ...buildVariableNode({ name: variableName }),
+//   },
+// });
+
+// const buildVariableNode = ({ name }: { name: string }): VariableNode => ({
+//   kind: Kind.VARIABLE,
+//   name: {
+//     kind: Kind.NAME,
+//     value: name,
+//   },
+// });
+
+const buildObjectFields = ({
+  argName,
+  childFields,
+  parentFieldName,
 }: {
-  original: readonly SelectionNode[];
-  action: EditFieldAction;
-}): SelectionNode[] => {
-  switch (action.type) {
-    case 'addField': {
-      console.log(`running addField in editFieldSelection, action:`, { action });
-
-      const field = action.payloads;
-      const fieldObjectType = getObjectType(field.type);
-
-      const subSelectionSet: SelectionSetNode | undefined = (() => {
-        if (!fieldObjectType) {
-          return undefined;
-        }
-
-        const typeFields = fieldObjectType.getFields();
-        const autoField = typeFields['id'] ? 'id' : Object.keys(typeFields)[0];
-
-        return {
-          kind: Kind.SELECTION_SET,
-          selections: [
-            {
-              kind: Kind.FIELD,
-              name: {
-                kind: Kind.NAME,
-                value: autoField,
-              },
-            },
-          ],
-        };
-      })();
-
-      return [
-        ...original,
-        {
-          kind: Kind.FIELD,
-          name: {
-            kind: Kind.NAME,
-            value: action.payloads.name,
-          },
-          arguments: getArgumentNodes({
-            args: action.payloads.args as GraphQLArgument[],
-            fieldName: action.payloads.name,
-            onlyRequired: true,
-          }),
-          selectionSet: subSelectionSet,
-        },
-      ];
-    }
-    case 'removeField': {
-      console.log(`running removeField in editFieldSelection:`, { action });
-
-      return (original as FieldNode[]).filter(
-        (item) => item.name.value !== action.payloads.name
-      );
-    }
-    case 'updateField': {
-      console.log(`running updateField in editFieldSelection:`, { action });
-      const fieldNodes = (original as FieldNode[]).map((item) => {
-        if (item.name.value === action.payloads.field.name.value) {
-          return action.payloads.field;
-        }
-        return item;
-      });
-      return fieldNodes;
-    }
-    default: {
-      return [...original];
-    }
-  }
+  argName: string;
+  childFields: GraphQLInputField[];
+  parentFieldName: string;
+}): ObjectFieldNode[] => {
+  return childFields.map((f) => ({
+    // readonly value: ValueNode;
+    kind: Kind.OBJECT_FIELD,
+    name: {
+      kind: Kind.NAME,
+      value: f.name,
+    },
+    value: {
+      kind: Kind.VARIABLE,
+      name: {
+        kind: Kind.NAME,
+        value: `${parentFieldName}${capitalize({
+          string: argName,
+        })}${capitalize({ string: f.name })}`,
+      },
+    },
+  }));
 };
 
-export const buildArgumentNode = ({
-  argumentName,
-  variableName,
+export const getRequiredArgumentNodesForField = ({
+  field,
 }: {
-  argumentName: string;
-  variableName: string;
-}): ArgumentNode => ({
-  kind: Kind.ARGUMENT,
-  name: {
-    kind: Kind.NAME,
-    value: argumentName,
-  },
-  value: {
-    ...buildVariableNode({ name: variableName }),
-  },
-});
+  field: GraphQLField<any, any>;
+}): ArgumentNode[] => {
+  const { args, name: fieldName } = field;
 
-const buildVariableNode = ({ name }: { name: string }): VariableNode => ({
-  kind: Kind.VARIABLE,
-  name: {
-    kind: Kind.NAME,
-    value: name,
-  },
-});
-
-export const getArgumentNodes = ({
-  args,
-  fieldName,
-  onlyRequired,
-}: {
-  args: Array<GraphQLArgument>;
-  fieldName: string;
-  onlyRequired: boolean;
-}): readonly ArgumentNode[] => {
   return args.flatMap((arg) => {
-    if (onlyRequired) {
-      if (isRequiredArgument(arg)) {
-        return buildArgumentNode({
-          argumentName: arg.name,
-          variableName: `${fieldName}${capitalize({ string: arg.name })}`,
+    const unwrappedInputType = unwrapInputType({ inputType: arg.type });
+
+    // console.log({ arg, unwrappedInputType });
+
+    //return only required ArgumentNodes
+    if (isRequiredArgument(arg)) {
+      if (isInputObjectType(unwrappedInputType)) {
+        const fieldsOnInputObjectType = unwrappedInputType.getFields();
+        const requiredChildFields = Object.keys(fieldsOnInputObjectType).flatMap((f) => {
+          if (isRequiredArgument(fieldsOnInputObjectType[f])) {
+            return fieldsOnInputObjectType[f];
+          } else {
+            return [];
+          }
         });
+
+        // this is a required input object, so we return it and any of it's required fields
+        return {
+          kind: Kind.ARGUMENT,
+          name: {
+            kind: Kind.NAME,
+            value: arg.name,
+          },
+          value: {
+            kind: Kind.OBJECT,
+            fields: buildObjectFields({
+              argName: arg.name,
+              parentFieldName: fieldName,
+              childFields: requiredChildFields,
+            }),
+          },
+        };
       } else {
-        return [];
+        // not an inputObject, let's return an argumentNode
+        return {
+          kind: Kind.ARGUMENT,
+          name: {
+            kind: Kind.NAME,
+            value: arg.name,
+          },
+          value: {
+            kind: Kind.VARIABLE,
+            name: {
+              kind: Kind.NAME,
+              value: `${fieldName}${capitalize({ string: arg.name })}`,
+            },
+          },
+        };
       }
     } else {
-      return buildArgumentNode({
-        argumentName: arg.name,
-        variableName: `${fieldName}${capitalize({ string: arg.name })}`,
-      });
+      return [];
     }
   });
 };

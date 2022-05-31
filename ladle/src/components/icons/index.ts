@@ -1,4 +1,4 @@
-export * from './Arguments';
+export * from './ShowArgumentsIcon';
 export * from './Caret';
 export * from './Chevron';
 export * from './Command';

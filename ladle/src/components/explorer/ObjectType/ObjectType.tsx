@@ -8,7 +8,7 @@ import { Field } from '../Field';
 import { ObjectTypeWrap } from './styles';
 
 /** types */
-import type { AncestorMap } from '../Field/toggleField';
+import type { AncestorMap } from '@/hooks';
 
 type ObjectTypeProps = {
   ancestors: AncestorMap;
@@ -26,7 +26,7 @@ export const ObjectType = ({
 }: ObjectTypeProps) => {
   const hash = cuid();
 
-  console.log('rendering ObjectType', { fields, selection });
+  // console.log('rendering ObjectType', { fields, selection });
 
   return (
     <ObjectTypeWrap parentType={parentType}>
@@ -43,9 +43,10 @@ export const ObjectType = ({
                     {
                       field: fields[f],
                       selectionSet: selection?.selectionSet,
-                      selection: selection?.selectionSet?.selections?.find(
-                        (s) => s.kind === Kind.FIELD && s.name.value === fields[f].name
-                      ),
+                      selection:
+                        selection?.selectionSet?.selections?.find(
+                          (s) => s.kind === Kind.FIELD && s.name.value === fields[f].name
+                        ) || null,
                     },
                   ],
                   ...ancestors,

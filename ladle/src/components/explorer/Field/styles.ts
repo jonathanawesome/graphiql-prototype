@@ -59,7 +59,7 @@ export const Trigger = styled(Collapsible.Trigger, {
 
 export const Root = styled(Collapsible.Root, {
   position: 'relative',
-  marginTop: 8,
+  marginBottom: 8,
 
   variants: {
     offset: {

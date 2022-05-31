@@ -1,33 +1,24 @@
 import {
   GraphQLArgument,
-  // ConstValueNode,
-  // FloatValueNode,
-  // GraphQLArgument,
-  // GraphQLEnumType,
   GraphQLField,
   GraphQLNamedType,
-  // GraphQLScalarType,
-  // IntValueNode,
   isEnumType,
+  isInputObjectType,
   isRequiredArgument,
-  // isScalarType,
   Kind,
   ListTypeNode,
   NamedTypeNode,
   NonNullTypeNode,
-  // NullValueNode,
   parseType,
-  // StringValueNode,
   TypeNode,
-  // ValueNode,
   VariableDefinitionNode,
-  // VariableNode,
 } from 'graphql';
 import { EasyVariable } from '../hooks/useVariables/useVariables';
 import { useVariables } from '@/hooks';
 
 /** utils */
 import { capitalize } from './misc';
+import { unwrapInputType } from './arg';
 
 const buildNamedTypeNode = ({ typeNode }: { typeNode: NamedTypeNode }): NamedTypeNode => {
   // console.log('running buildNamedTypeNode', typeNode);
@@ -114,6 +105,8 @@ export const buildVariableNameValue = ({
   parentArgName: string | null;
   argName: string;
 }): string => {
+  // console.log('running buildVariableNameValue:', { fieldName, parentArgName, argName });
+
   const parentArgOrEmptyString = parentArgName
     ? capitalize({
         string: parentArgName,
@@ -123,12 +116,10 @@ export const buildVariableNameValue = ({
 };
 
 export const buildNewVariableDefinition = ({
-  fieldName,
-  parentArgName,
+  variableName,
   forArg,
 }: {
-  fieldName: string;
-  parentArgName: string | null;
+  variableName: string;
   forArg: GraphQLArgument;
 }): VariableDefinitionNode => {
   const argPrintedType = forArg.type.toString();
@@ -139,11 +130,7 @@ export const buildNewVariableDefinition = ({
       kind: Kind.VARIABLE,
       name: {
         kind: Kind.NAME,
-        value: buildVariableNameValue({
-          fieldName,
-          parentArgName,
-          argName: forArg.name,
-        }),
+        value: variableName,
       },
     },
     type: buildTypeNode({ typeNode }),
@@ -158,23 +145,55 @@ export const getRequiredVariableDefinitionsForField = ({
 }): VariableDefinitionNode[] => {
   return field.args.flatMap((arg) => {
     if (isRequiredArgument(arg)) {
-      const argPrintedType = arg.type.toString();
-      const typeNode = parseType(argPrintedType);
-      return {
-        kind: Kind.VARIABLE_DEFINITION,
-        variable: {
-          kind: Kind.VARIABLE,
-          name: {
-            kind: Kind.NAME,
-            value: buildVariableNameValue({
-              fieldName: field.name,
-              parentArgName: null,
-              argName: arg.name,
-            }),
+      const unwrappedInputType = unwrapInputType({ inputType: arg.type });
+
+      if (isInputObjectType(unwrappedInputType)) {
+        const fields = unwrappedInputType.getFields();
+        const requiredChildFields = Object.keys(fields).flatMap((rCF) => {
+          if (isRequiredArgument(fields[rCF])) {
+            return fields[rCF];
+          } else {
+            return [];
+          }
+        });
+        return requiredChildFields.map((f) => {
+          const argPrintedType = f.type.toString();
+          const typeNode = parseType(argPrintedType);
+          return {
+            kind: Kind.VARIABLE_DEFINITION,
+            variable: {
+              kind: Kind.VARIABLE,
+              name: {
+                kind: Kind.NAME,
+                value: buildVariableNameValue({
+                  fieldName: field.name,
+                  parentArgName: arg.name,
+                  argName: f.name,
+                }),
+              },
+            },
+            type: buildTypeNode({ typeNode }),
+          };
+        });
+      } else {
+        const argPrintedType = arg.type.toString();
+        const typeNode = parseType(argPrintedType);
+        return {
+          kind: Kind.VARIABLE_DEFINITION,
+          variable: {
+            kind: Kind.VARIABLE,
+            name: {
+              kind: Kind.NAME,
+              value: buildVariableNameValue({
+                fieldName: field.name,
+                parentArgName: null,
+                argName: arg.name,
+              }),
+            },
           },
-        },
-        type: buildTypeNode({ typeNode }),
-      };
+          type: buildTypeNode({ typeNode }),
+        };
+      }
     } else {
       return [];
     }

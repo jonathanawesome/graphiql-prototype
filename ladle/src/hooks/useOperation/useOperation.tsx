@@ -1,5 +1,6 @@
 import create from 'zustand';
 import { editor, KeyCode, KeyMod } from 'monaco-editor';
+import * as JSONC from 'jsonc-parser';
 
 import {
   isExecutableDefinitionNode,
@@ -81,13 +82,10 @@ export const useOperation = create<OperationStore>((set, get) => ({
     const variables = useVariables.getState().variables;
     const setResults = useResults.getState().setResults;
 
-    console.log('operation being submitted', operation);
-    console.log('variables being submitted', variables);
-
     const result = await fetcher({
       operationName: operationDefinition?.name?.value || '',
       query: operation,
-      variables,
+      variables: JSONC.parse(variables),
     });
 
     // TODO: this demo only supports a single iteration for http GET/POST,
@@ -116,13 +114,15 @@ export const useOperation = create<OperationStore>((set, get) => ({
     const setVariables = useVariables.getState().setVariables;
 
     if (nextDefinition) {
-      console.log("let's set this operation:", {
-        nextDefinition,
-        // printResult: print({
-        //   kind: Kind.DOCUMENT,
-        //   definitions: [nextDefinition],
-        // }),
-      });
+      console.log("let's set this operation:", { nextDefinition });
+
+      // onEditVariables(
+      //   JSON.stringify(
+      //     getArgumentsVariableExample(input.payloads.args),
+      //     null,
+      //     2
+      //   )
+      // );
 
       setOperation({
         value: print({

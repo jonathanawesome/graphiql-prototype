@@ -1,41 +1,31 @@
-// import { GraphQLArgument, GraphQLField, isRequiredArgument } from 'graphql';
-
 /** styles */
 import { Description, FieldDetailsStyled, NameAndTypeName } from './styles';
 
 type FieldDetailsProps = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // fieldOrArg: GraphQLField<any, any> | GraphQLArgument;
-  // inlineDescription?: boolean;
   name: string;
   description: string | null;
-  // isRequired: boolean;
+  isSelected: boolean;
   typeName: string | null;
   variant: 'FIELD' | 'INLINE_FRAGMENT' | 'ARGUMENT' | 'INPUT_TYPE';
-  isSelected: boolean;
 };
 
 export const FieldDetails = ({
   name,
   description = null,
-  // isRequired,
+  isSelected,
   typeName,
   variant,
-  // fieldOrArg,
-  // inlineDescription = true,
-  isSelected,
 }: FieldDetailsProps) => {
+  // console.log('rendering FieldDetails', { name, isSelected, variant });
+
   return (
     <FieldDetailsStyled
-      active={isSelected}
+      isSelected={isSelected}
       // inlineDescription={inlineDescription}
       type={variant}
     >
       <NameAndTypeName>
-        <span>
-          {name}
-          {/* {!(variant === 'ARGUMENT') && isRequired && '*'} */}
-        </span>
+        <span>{name}</span>
         {typeName && <span>{typeName}</span>}
       </NameAndTypeName>
       {description && (
