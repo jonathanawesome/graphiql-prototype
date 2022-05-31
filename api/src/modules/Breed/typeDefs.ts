@@ -3,17 +3,17 @@ import { gql } from 'graphql-modules';
 export const BreedTypeDefs = gql`
   "A group of usually domesticated animals presumably related by descent from common ancestors and visibly similar in most characters."
   type Breed {
-    "A unique identifier for this Breed within the MeowWoof system."
+    "A unique identifier for a Breed within the MeowWoof system."
     name: String!
     "A Breed is of a single Species."
     species: Species
-    "A list of Pets of this breed."
+    "A list of Pets of a breed."
     pets: [Pet]
-    "A list of SubBreeds of this Breed"
+    "A list of SubBreeds of a Breed"
     subBreeds: [SubBreed]
-    "An ISO 8601-formatted string representing the time this Breed was added to the system."
+    "An ISO 8601-formatted string representing the time a Breed was added to the system."
     createdAt: DateTime
-    "An ISO 8601-formatted string representing the time this Breed record was last updated."
+    "An ISO 8601-formatted string representing the time a Breed record was last updated."
     updatedAt: DateTime
   }
 
@@ -23,15 +23,15 @@ export const BreedTypeDefs = gql`
   }
 
   type SubBreed {
-    "A unique identifier for this SubBreed within the MeowWoof system."
-    id: String!
-    "A non-unique name for this SubBreed."
+    "A unique identifier for a SubBreed within the MeowWoof system."
+    id: ID!
+    "A non-unique name for a SubBreed."
     name: String
-    "The Breed to which this SubBreed belongs."
+    "The Breed to which a SubBreed belongs."
     breed: Breed
-    "An ISO 8601-formatted string representing the time this SubBreed was added to the system."
+    "An ISO 8601-formatted string representing the time a SubBreed was added to the system."
     createdAt: DateTime
-    "An ISO 8601-formatted string representing the time this SubBreed record was last updated."
+    "An ISO 8601-formatted string representing the time a SubBreed record was last updated."
     updatedAt: DateTime
   }
 
@@ -59,6 +59,8 @@ export const BreedTypeDefs = gql`
     dummy2: Int
     "A dummy3 argument of type String."
     dummy3: String
+    "A dummy4 argument of type ID."
+    dummy4: ID
   }
 
   # error types

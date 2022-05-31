@@ -15,7 +15,7 @@ export namespace PersonsModule {
     CreatePersonError: 'message' | 'path';
     PersonError: 'message' | 'path';
     Mutation: 'createPerson';
-    Query: 'person' | 'persons';
+    Query: 'person' | 'persons' | 'employees' | 'petOwners';
     Pet: 'owner';
   }
 
@@ -119,6 +119,8 @@ export namespace PersonsModule {
       '*'?: gm.Middleware[];
       person?: gm.Middleware[];
       persons?: gm.Middleware[];
+      employees?: gm.Middleware[];
+      petOwners?: gm.Middleware[];
     };
   }
 }

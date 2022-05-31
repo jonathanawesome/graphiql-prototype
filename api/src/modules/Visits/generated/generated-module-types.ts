@@ -30,7 +30,7 @@ export namespace VisitsModule {
 
   interface DefinedInputFields {
     VisitCreateInput: 'personId' | 'petId' | 'scheduledStart' | 'type';
-    VisitsFilters: 'visitStatus' | 'visitType';
+    VisitsFilters: 'visitStatus' | 'visitType' | 'limit';
   }
 
   export type Visit = Pick<Types.Visit, DefinedFields['Visit']>;

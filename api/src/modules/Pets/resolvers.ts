@@ -102,34 +102,32 @@ export const PetsResolvers: {
       };
     },
     pets: async (_, { input }, context) => {
-      const { breedName, ownerId } = input;
-
       let where: Prisma.PetWhereInput = {};
 
-      if (breedName) {
+      if (input?.breedName) {
         where = {
           breed: {
-            name: breedName,
+            name: input?.breedName,
           },
         };
       }
 
-      if (ownerId) {
+      if (input?.ownerId) {
         where = {
-          ownerId,
+          ownerId: input?.ownerId,
         };
       }
 
-      if (breedName && ownerId) {
+      if (input?.breedName && input?.ownerId) {
         where = {
           AND: [
             {
               breed: {
-                name: breedName,
+                name: input.breedName,
               },
             },
             {
-              ownerId,
+              ownerId: input.ownerId,
             },
           ],
         };

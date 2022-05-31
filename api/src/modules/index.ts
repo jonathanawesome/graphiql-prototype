@@ -9,10 +9,5 @@ import { VisitsModule } from './Visits';
 
 // This is your application, it contains your GraphQL schema and the implementation of it.
 export const graphqlModules = createApplication({
-  modules: [
-    BaseModule,
-    BreedModule,
-    PetsModule,
-    // PersonsModule, VisitsModule
-  ],
+  modules: [BaseModule, BreedModule, PetsModule, PersonsModule, VisitsModule],
 });

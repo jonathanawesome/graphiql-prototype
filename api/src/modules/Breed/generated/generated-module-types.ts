@@ -18,7 +18,7 @@ export namespace BreedModule {
 
   interface DefinedInputFields {
     CreateBreedInput: 'name' | 'species';
-    BreedsFilters: 'species';
+    BreedsFilters: 'species' | 'dummy1' | 'dummy2' | 'dummy3' | 'dummy4';
   }
 
   export type Breed = Pick<Types.Breed, DefinedFields['Breed']>;

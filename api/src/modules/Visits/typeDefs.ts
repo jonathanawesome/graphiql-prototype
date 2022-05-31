@@ -1,9 +1,9 @@
 import { gql } from 'graphql-modules';
 
 export const VisitsTypeDefs = gql`
-  # base types
   type Visit {
-    id: String!
+    "A unique identifier for this Breed within the MeowWoof system."
+    id: ID!
     scheduledStart: DateTime
     scheduledEnd: DateTime
     checkInTime: DateTime
@@ -18,9 +18,7 @@ export const VisitsTypeDefs = gql`
   }
 
   extend type Pet {
-    """
-    A Pet has possibly visited the MeowWoof veterinary clinic.
-    """
+    "A Pet has possibly visited the MeowWoof veterinary clinic."
     visits: [Visit]
   }
 
@@ -38,8 +36,8 @@ export const VisitsTypeDefs = gql`
 
   # inputs
   input VisitCreateInput {
-    personId: String!
-    petId: String!
+    personId: ID!
+    petId: ID!
     scheduledStart: String!
     type: VisitType!
   }
@@ -47,6 +45,7 @@ export const VisitsTypeDefs = gql`
   input VisitsFilters {
     visitStatus: VisitStatus
     visitType: VisitType
+    limit: Int
   }
 
   # error types
@@ -70,7 +69,7 @@ export const VisitsTypeDefs = gql`
   }
 
   extend type Query {
-    visit(id: String!): VisitResult!
-    visits(input: VisitsFilters!): [Visit]!
+    visit(id: ID!): VisitResult!
+    visits(input: VisitsFilters): [Visit]!
   }
 `;

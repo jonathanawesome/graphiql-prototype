@@ -99,20 +99,12 @@ export const VisitsResolvers: {
       };
     },
     visits: async (_, { input }, context) => {
-      const { visitStatus, visitType, filters } = input;
-
-      const where = filters
-        ? {
-            OR: [{ status: visitStatus || undefined }, { type: visitType || undefined }],
-          }
-        : {};
-
       const visits = await context.prisma.visit.findMany({
         where: {
-          status: visitStatus || undefined,
-          type: visitType || undefined,
+          status: input?.visitStatus || undefined,
+          type: input?.visitType || undefined,
         },
-        take: filters?.limit || undefined,
+        take: input?.limit || undefined,
       });
 
       return visits.map((visit) => ({

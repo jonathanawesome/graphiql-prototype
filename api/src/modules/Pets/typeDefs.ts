@@ -8,7 +8,7 @@ export const PetsTypeDefs = gql`
     """
     A unique identifier for this Pet within the MeowWoof system.
     """
-    id: String!
+    id: ID!
     """
     A Pet has a name that is not unique in the MeowWoof system.
     """

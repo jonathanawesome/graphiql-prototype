@@ -23,25 +23,29 @@ export type Scalars = {
   DateTime: any;
 };
 
+/** A group of usually domesticated animals presumably related by descent from common ancestors and visibly similar in most characters. */
 export type Breed = {
   __typename: 'Breed';
-  /** An ISO 8601-formatted string representing the time this Breed was added to the system. */
+  /** An ISO 8601-formatted string representing the time a Breed was added to the system. */
   createdAt?: Maybe<Scalars['DateTime']>;
-  /** A unique identifier for this Breed within the MeowWoof system. */
+  /** A unique identifier for a Breed within the MeowWoof system. */
   name: Scalars['String'];
-  /** A list of Pets of this breed. */
+  /** A list of Pets of a breed. */
   pets?: Maybe<Array<Maybe<Pet>>>;
   /** A Breed is of a single Species. */
   species?: Maybe<Species>;
-  /** A list of SubBreeds of this Breed */
+  /** A list of SubBreeds of a Breed */
   subBreeds?: Maybe<Array<Maybe<SubBreed>>>;
-  /** An ISO 8601-formatted string representing the time this Breed record was last updated. */
+  /** An ISO 8601-formatted string representing the time a Breed record was last updated. */
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
+/** A UI error used when a breed query fails to complete. */
 export type BreedError = ErrorForUi & {
   __typename: 'BreedError';
+  /** A message specific to this error case. */
   message: Scalars['String'];
+  /** The path from which this error originated. */
   path: Scalars['String'];
 };
 
@@ -49,9 +53,19 @@ export type BreedResult = Breed | BreedError;
 
 /** Arguments used when searching and/or filtering Breeds. */
 export type BreedsFilters = {
+  /** A dummy1 argument of type Boolean. */
+  dummy1?: InputMaybe<Scalars['Boolean']>;
+  /** A dummy2 argument of type Int. */
+  dummy2?: InputMaybe<Scalars['Int']>;
+  /** A dummy3 argument of type String. */
+  dummy3?: InputMaybe<Scalars['String']>;
+  /** A dummy4 argument of type ID. */
+  dummy4?: InputMaybe<Scalars['ID']>;
+  /** An enum indicating the species. */
   species: Species;
 };
 
+/** A UI error used when a createBreed mutation fails to complete. */
 export type CreateBreedError = ErrorForUi & {
   __typename: 'CreateBreedError';
   message: Scalars['String'];
@@ -60,7 +74,9 @@ export type CreateBreedError = ErrorForUi & {
 
 /** Required arguments when adding a new Breed to the system. */
 export type CreateBreedInput = {
+  /** A unique name for this breed */
   name: Scalars['String'];
+  /** An enum indicating the species. */
   species: Species;
 };
 
@@ -103,16 +119,17 @@ export type CreateVisitError = ErrorForUi & {
 
 export type CreateVisitResult = CreateVisitError | Visit;
 
-/** A common error interface to expose to clients */
+/** A common error interface to expose to clients. */
 export type ErrorForUi = {
+  /** A message specific to this error case. */
   message: Scalars['String'];
+  /** The path from which this error originated. */
   path: Scalars['String'];
 };
 
 export type Mutation = {
   __typename: 'Mutation';
-  _?: Maybe<Scalars['String']>;
-  /** Adds a Breed to the MeowWoof system, */
+  /** Adds a Breed to the MeowWoof system. */
   createBreed: CreateBreedResult;
   /** Adds a Person to the MeowWoof system, */
   createPerson: CreatePersonResult;
@@ -180,7 +197,7 @@ export type PersonsFilters = {
   type: PersonType;
 };
 
-/** A Pet has an owner, is of a specific breed, and possibly has visited MeowWoof. */
+/** A domesticated animal kept for pleasure rather than utility. A Pet has an owner, is of a specific breed, and possibly has visited MeowWoof. */
 export type Pet = {
   __typename: 'Pet';
   /** A Pet is of a breed. */
@@ -188,7 +205,7 @@ export type Pet = {
   /** An ISO 8601-formatted string representing the time this Pet was added to the system. */
   createdAt?: Maybe<Scalars['DateTime']>;
   /** A unique identifier for this Pet within the MeowWoof system. */
-  id: Scalars['String'];
+  id: Scalars['ID'];
   /** A Pet has a name that is not unique in the MeowWoof system. */
   name?: Maybe<Scalars['String']>;
   /** A Pet has one owner. */
@@ -215,17 +232,20 @@ export type PetsFilters = {
 
 export type Query = {
   __typename: 'Query';
-  _?: Maybe<Scalars['String']>;
   /** Finds a Breed given a name. Returns a Breed object or an ErrorForUI. */
   breed: BreedResult;
   /** Finds Breeds given specific input arguments. Returns an array of Breeds matching the input filters or an empty array. */
   breeds: Array<Maybe<Breed>>;
+  /** Retrives EMPLOYEEs only */
+  employees: Array<Maybe<Person>>;
   /** Finds a Person given an ID. Returns a Person object or an ErrorForUI. */
   person: PersonResult;
   /** Finds Persons given specific input arguments. Returns an array of Persons matching the input filters or an empty array. */
   persons: Array<Maybe<Person>>;
   /** Finds a Pet given a name. Returns a Pet object or an ErrorForUI. */
   pet: PetResult;
+  /** Retrieves PET_OWNERs only */
+  petOwners: Array<Maybe<Person>>;
   /** Finds Pets given specific input arguments. Returns an array of Pets matching the input filters or an empty array. */
   pets: Array<Maybe<Pet>>;
   visit: VisitResult;
@@ -233,11 +253,17 @@ export type Query = {
 };
 
 export type QueryBreedArgs = {
+  fakeArg?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
 };
 
 export type QueryBreedsArgs = {
   input: BreedsFilters;
+  test?: InputMaybe<Scalars['String']>;
+};
+
+export type QueryEmployeesArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 export type QueryPersonArgs = {
@@ -252,16 +278,20 @@ export type QueryPetArgs = {
   id: Scalars['ID'];
 };
 
+export type QueryPetOwnersArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
 export type QueryPetsArgs = {
-  input: PetsFilters;
+  input?: InputMaybe<PetsFilters>;
 };
 
 export type QueryVisitArgs = {
-  id: Scalars['String'];
+  id: Scalars['ID'];
 };
 
 export type QueryVisitsArgs = {
-  input: VisitsFilters;
+  input?: InputMaybe<VisitsFilters>;
 };
 
 /** An enum of possible Species */
@@ -269,15 +299,15 @@ export type Species = 'CAT' | 'DOG';
 
 export type SubBreed = {
   __typename: 'SubBreed';
-  /** The Breed to which this SubBreed belongs. */
+  /** The Breed to which a SubBreed belongs. */
   breed?: Maybe<Breed>;
-  /** An ISO 8601-formatted string representing the time this SubBreed was added to the system. */
+  /** An ISO 8601-formatted string representing the time a SubBreed was added to the system. */
   createdAt?: Maybe<Scalars['DateTime']>;
-  /** A unique identifier for this SubBreed within the MeowWoof system. */
-  id: Scalars['String'];
-  /** A non-unique name for this SubBreed. */
+  /** A unique identifier for a SubBreed within the MeowWoof system. */
+  id: Scalars['ID'];
+  /** A non-unique name for a SubBreed. */
   name?: Maybe<Scalars['String']>;
-  /** An ISO 8601-formatted string representing the time this SubBreed record was last updated. */
+  /** An ISO 8601-formatted string representing the time a SubBreed record was last updated. */
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
@@ -286,7 +316,8 @@ export type Visit = {
   checkInTime?: Maybe<Scalars['DateTime']>;
   checkOutTime?: Maybe<Scalars['DateTime']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  id: Scalars['String'];
+  /** A unique identifier for this Breed within the MeowWoof system. */
+  id: Scalars['ID'];
   person?: Maybe<Person>;
   pet?: Maybe<Pet>;
   scheduledEnd?: Maybe<Scalars['DateTime']>;
@@ -298,8 +329,8 @@ export type Visit = {
 };
 
 export type VisitCreateInput = {
-  personId: Scalars['String'];
-  petId: Scalars['String'];
+  personId: Scalars['ID'];
+  petId: Scalars['ID'];
   scheduledStart: Scalars['String'];
   type: VisitType;
 };
@@ -317,6 +348,7 @@ export type VisitStatus = 'COMPLETE' | 'IN_PROGRESS' | 'SCHEDULED';
 export type VisitType = 'CHECKUP' | 'EMERGENCY';
 
 export type VisitsFilters = {
+  limit?: InputMaybe<Scalars['Int']>;
   visitStatus?: InputMaybe<VisitStatus>;
   visitType?: InputMaybe<VisitType>;
 };
@@ -438,6 +470,7 @@ export type ResolversTypes = {
     | ResolversTypes['VisitError'];
   Float: ResolverTypeWrapper<Scalars['Float']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
   Person: ResolverTypeWrapper<Person>;
   PersonError: ResolverTypeWrapper<PersonError>;
@@ -498,6 +531,7 @@ export type ResolversParentTypes = {
     | ResolversParentTypes['VisitError'];
   Float: Scalars['Float'];
   ID: Scalars['ID'];
+  Int: Scalars['Int'];
   Mutation: {};
   Person: Person;
   PersonError: PersonError;
@@ -644,7 +678,6 @@ export type MutationResolvers<
   ContextType = Context,
   ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
 > = {
-  _: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   createBreed: Resolver<
     ResolversTypes['CreateBreedResult'],
     ParentType,
@@ -708,7 +741,7 @@ export type PetResolvers<
 > = {
   breed: Resolver<Maybe<ResolversTypes['Breed']>, ParentType, ContextType>;
   createdAt: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
-  id: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   owner: Resolver<Maybe<ResolversTypes['Person']>, ParentType, ContextType>;
   updatedAt: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
@@ -736,7 +769,6 @@ export type QueryResolvers<
   ContextType = Context,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
-  _: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   breed: Resolver<
     ResolversTypes['BreedResult'],
     ParentType,
@@ -748,6 +780,12 @@ export type QueryResolvers<
     ParentType,
     ContextType,
     RequireFields<QueryBreedsArgs, 'input'>
+  >;
+  employees: Resolver<
+    Array<Maybe<ResolversTypes['Person']>>,
+    ParentType,
+    ContextType,
+    Partial<QueryEmployeesArgs>
   >;
   person: Resolver<
     ResolversTypes['PersonResult'],
@@ -767,11 +805,17 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryPetArgs, 'id'>
   >;
+  petOwners: Resolver<
+    Array<Maybe<ResolversTypes['Person']>>,
+    ParentType,
+    ContextType,
+    Partial<QueryPetOwnersArgs>
+  >;
   pets: Resolver<
     Array<Maybe<ResolversTypes['Pet']>>,
     ParentType,
     ContextType,
-    RequireFields<QueryPetsArgs, 'input'>
+    Partial<QueryPetsArgs>
   >;
   visit: Resolver<
     ResolversTypes['VisitResult'],
@@ -783,7 +827,7 @@ export type QueryResolvers<
     Array<Maybe<ResolversTypes['Visit']>>,
     ParentType,
     ContextType,
-    RequireFields<QueryVisitsArgs, 'input'>
+    Partial<QueryVisitsArgs>
   >;
 };
 
@@ -793,7 +837,7 @@ export type SubBreedResolvers<
 > = {
   breed: Resolver<Maybe<ResolversTypes['Breed']>, ParentType, ContextType>;
   createdAt: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
-  id: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updatedAt: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -806,7 +850,7 @@ export type VisitResolvers<
   checkInTime: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   checkOutTime: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   createdAt: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
-  id: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   person: Resolver<Maybe<ResolversTypes['Person']>, ParentType, ContextType>;
   pet: Resolver<Maybe<ResolversTypes['Pet']>, ParentType, ContextType>;
   scheduledEnd: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;

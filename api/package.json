@@ -2,7 +2,7 @@
   "name": "api",
   "version": "0.0.1",
   "scripts": {
-    "start": "nodemon src/server.ts",
+    "dev": " NODE_ENV=development nodemon src/server.ts",
     "codegen": "graphql-codegen",
     "codegen:watch": "graphql-codegen --watch",
     "db:up": "cd db && docker-compose up",

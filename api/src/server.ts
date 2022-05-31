@@ -21,7 +21,6 @@ const graphQLServer = createServer({
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useGraphQLModules(graphqlModules),
   ],
-  logging: true,
 });
 
 app.use('/graphql', graphQLServer);

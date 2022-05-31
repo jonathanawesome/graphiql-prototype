@@ -109,5 +109,13 @@ export const PersonsTypeDefs = gql`
     Finds Persons given specific input arguments. Returns an array of Persons matching the input filters or an empty array.
     """
     persons(input: PersonsFilters!): [Person]!
+    """
+    Retrives EMPLOYEEs only
+    """
+    employees(limit: Int): [Person]!
+    """
+    Retrieves PET_OWNERs only
+    """
+    petOwners(limit: Int): [Person]!
   }
 `;

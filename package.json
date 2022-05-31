@@ -5,7 +5,7 @@
     "ladle:serve": "pnpm run serve --filter ladle",
     "ladle:build": "pnpm run build --filter ladle",
     "ladle:tsc": "pnpm run tsc --filter ladle",
-    "api:start": "pnpm run start --filter api",
+    "api:dev": "pnpm run dev --filter api",
     "api:codegen": "pnpm run codegen --filter api",
     "api:codegen:watch": "pnpm run codegen:watch --filter api",
     "api:db:up": "pnpm run db:up --filter api",

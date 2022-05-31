@@ -90,5 +90,29 @@ export const PersonsResolvers: {
         ...person,
       }));
     },
+    employees: async (_, { limit }, context) => {
+      const persons = await context.prisma.person.findMany({
+        where: {
+          type: 'EMPLOYEE',
+        },
+        take: limit || undefined,
+      });
+      return persons.map((person) => ({
+        __typename: 'Person',
+        ...person,
+      }));
+    },
+    petOwners: async (_, { limit }, context) => {
+      const persons = await context.prisma.person.findMany({
+        where: {
+          type: 'PET_OWNER',
+        },
+        take: limit || undefined,
+      });
+      return persons.map((person) => ({
+        __typename: 'Person',
+        ...person,
+      }));
+    },
   },
 };

@@ -1,16 +1,19 @@
+"""
+A group of usually domesticated animals presumably related by descent from common ancestors and visibly similar in most characters.
+"""
 type Breed {
   """
-  An ISO 8601-formatted string representing the time this Breed was added to the system.
+  An ISO 8601-formatted string representing the time a Breed was added to the system.
   """
   createdAt: DateTime
 
   """
-  A unique identifier for this Breed within the MeowWoof system.
+  A unique identifier for a Breed within the MeowWoof system.
   """
   name: String!
 
   """
-  A list of Pets of this breed.
+  A list of Pets of a breed.
   """
   pets: [Pet]
 
@@ -20,18 +23,28 @@ type Breed {
   species: Species
 
   """
-  A list of SubBreeds of this Breed
+  A list of SubBreeds of a Breed
   """
   subBreeds: [SubBreed]
 
   """
-  An ISO 8601-formatted string representing the time this Breed record was last updated.
+  An ISO 8601-formatted string representing the time a Breed record was last updated.
   """
   updatedAt: DateTime
 }
 
+"""
+A UI error used when a breed query fails to complete.
+"""
 type BreedError implements ErrorForUI {
+  """
+  A message specific to this error case.
+  """
   message: String!
+
+  """
+  The path from which this error originated.
+  """
   path: String!
 }
 
@@ -41,9 +54,35 @@ union BreedResult = Breed | BreedError
 Arguments used when searching and/or filtering Breeds.
 """
 input BreedsFilters {
+  """
+  A dummy1 argument of type Boolean.
+  """
+  dummy1: Boolean
+
+  """
+  A dummy2 argument of type Int.
+  """
+  dummy2: Int
+
+  """
+  A dummy3 argument of type String.
+  """
+  dummy3: String
+
+  """
+  A dummy4 argument of type ID.
+  """
+  dummy4: ID
+
+  """
+  An enum indicating the species.
+  """
   species: Species!
 }
 
+"""
+A UI error used when a createBreed mutation fails to complete.
+"""
 type CreateBreedError implements ErrorForUI {
   message: String!
   path: String!
@@ -53,7 +92,14 @@ type CreateBreedError implements ErrorForUI {
 Required arguments when adding a new Breed to the system.
 """
 input CreateBreedInput {
+  """
+  A unique name for this breed
+  """
   name: String!
+
+  """
+  An enum indicating the species.
+  """
   species: Species!
 }
 
@@ -100,18 +146,23 @@ union CreateVisitResult = CreateVisitError | Visit
 scalar DateTime
 
 """
-A common error interface to expose to clients
+A common error interface to expose to clients.
 """
 interface ErrorForUI {
+  """
+  A message specific to this error case.
+  """
   message: String!
+
+  """
+  The path from which this error originated.
+  """
   path: String!
 }
 
 type Mutation {
-  _: String
-
   """
-  Adds a Breed to the MeowWoof system,
+  Adds a Breed to the MeowWoof system.
   """
   createBreed(input: CreateBreedInput!): CreateBreedResult!
 
@@ -203,7 +254,7 @@ input PersonsFilters {
 }
 
 """
-A Pet has an owner, is of a specific breed, and possibly has visited MeowWoof.
+A domesticated animal kept for pleasure rather than utility. A Pet has an owner, is of a specific breed, and possibly has visited MeowWoof.
 """
 type Pet {
   """
@@ -219,7 +270,7 @@ type Pet {
   """
   A unique identifier for this Pet within the MeowWoof system.
   """
-  id: String!
+  id: ID!
 
   """
   A Pet has a name that is not unique in the MeowWoof system.
@@ -258,17 +309,30 @@ input PetsFilters {
 }
 
 type Query {
-  _: String
-
   """
   Finds a Breed given a name. Returns a Breed object or an ErrorForUI.
   """
-  breed(name: String!): BreedResult!
+  breed(
+    """
+    A fake String argument used for testing.
+    """
+    fakeArg: String
+
+    """
+    A unique name for this breed
+    """
+    name: String!
+  ): BreedResult!
 
   """
   Finds Breeds given specific input arguments. Returns an array of Breeds matching the input filters or an empty array.
   """
-  breeds(input: BreedsFilters!): [Breed]!
+  breeds(input: BreedsFilters!, test: String): [Breed]!
+
+  """
+  Retrives EMPLOYEEs only
+  """
+  employees(limit: Int): [Person]!
 
   """
   Finds a Person given an ID. Returns a Person object or an ErrorForUI.
@@ -286,11 +350,16 @@ type Query {
   pet(id: ID!): PetResult!
 
   """
+  Retrieves PET_OWNERs only
+  """
+  petOwners(limit: Int): [Person]!
+
+  """
   Finds Pets given specific input arguments. Returns an array of Pets matching the input filters or an empty array.
   """
-  pets(input: PetsFilters!): [Pet]!
-  visit(id: String!): VisitResult!
-  visits(input: VisitsFilters!): [Visit]!
+  pets(input: PetsFilters): [Pet]!
+  visit(id: ID!): VisitResult!
+  visits(input: VisitsFilters): [Visit]!
 }
 
 """
@@ -303,27 +372,27 @@ enum Species {
 
 type SubBreed {
   """
-  The Breed to which this SubBreed belongs.
+  The Breed to which a SubBreed belongs.
   """
   breed: Breed
 
   """
-  An ISO 8601-formatted string representing the time this SubBreed was added to the system.
+  An ISO 8601-formatted string representing the time a SubBreed was added to the system.
   """
   createdAt: DateTime
 
   """
-  A unique identifier for this SubBreed within the MeowWoof system.
+  A unique identifier for a SubBreed within the MeowWoof system.
   """
-  id: String!
+  id: ID!
 
   """
-  A non-unique name for this SubBreed.
+  A non-unique name for a SubBreed.
   """
   name: String
 
   """
-  An ISO 8601-formatted string representing the time this SubBreed record was last updated.
+  An ISO 8601-formatted string representing the time a SubBreed record was last updated.
   """
   updatedAt: DateTime
 }
@@ -332,7 +401,11 @@ type Visit {
   checkInTime: DateTime
   checkOutTime: DateTime
   createdAt: DateTime
-  id: String!
+
+  """
+  A unique identifier for this Breed within the MeowWoof system.
+  """
+  id: ID!
   person: Person
   pet: Pet
   scheduledEnd: DateTime
@@ -344,8 +417,8 @@ type Visit {
 }
 
 input VisitCreateInput {
-  personId: String!
-  petId: String!
+  personId: ID!
+  petId: ID!
   scheduledStart: String!
   type: VisitType!
 }
@@ -369,6 +442,7 @@ enum VisitType {
 }
 
 input VisitsFilters {
+  limit: Int
   visitStatus: VisitStatus
   visitType: VisitType
 }
