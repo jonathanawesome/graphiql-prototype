@@ -7,7 +7,7 @@ export const Handle = styled('div', {
   backgroundColor: '#C9CFD7',
   borderRadius: 4,
   position: 'absolute',
-  zIndex: 100,
+  zIndex: 1,
   left: 8,
   top: '50%',
   transform: 'translateY(-50%)',

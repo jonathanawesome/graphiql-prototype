@@ -14,7 +14,7 @@ export const Provider = ({ children}: {children: React.ReactNode}) => {
   const { initSchema } = useGraphiQL();
 
   useEffect(() => {
-    initSchema();
+    initSchema({url: 'https://api.spacex.land/graphql/'});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

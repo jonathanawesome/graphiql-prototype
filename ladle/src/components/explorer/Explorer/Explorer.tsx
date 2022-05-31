@@ -20,7 +20,7 @@ export const Explorer = () => {
 
   if (!schema) {
     //TODO: some loading skeleton
-    return <p>loading...</p>;
+    return <p>loading schema...</p>;
   }
 
   const queryType = schema.getQueryType();

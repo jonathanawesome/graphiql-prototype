@@ -1,6 +1,7 @@
 export * from './ShowArgumentsIcon';
 export * from './Caret';
 export * from './Chevron';
+export * from './Close';
 export * from './Command';
 export * from './Docs';
 export * from './Ellipsis';

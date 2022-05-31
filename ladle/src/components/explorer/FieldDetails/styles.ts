@@ -22,7 +22,7 @@ export const Description = styled('div', {
   textAlign: 'left',
   gap: 8,
   fontSize: 11,
-  color: `$scale700`,
+  color: `$scale600`,
   fontWeight: `$regular`,
 
   '& svg': {

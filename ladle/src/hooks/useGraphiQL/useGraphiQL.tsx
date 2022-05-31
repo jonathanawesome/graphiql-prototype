@@ -12,11 +12,11 @@ import { AvailableEditors, defaultOperation } from '@/constants';
 import { useOperation } from '@/hooks';
 
 /** utils */
-import { fetcher } from '@/utils';
+import { createFetcher } from '@/utils';
 
 export type GraphiQLStore = {
   schema: GraphQLSchema | null;
-  initSchema: () => Promise<void>;
+  initSchema: ({ url }: { url: string }) => Promise<void>;
   editors: Array<{ editor: editor.IStandaloneCodeEditor; uri: AvailableEditors }>;
   setEditors: ({
     editor,
@@ -37,8 +37,9 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
     }
   },
   schema: null,
-  initSchema: async () => {
+  initSchema: async ({ url }) => {
     // console.log('initializing schema');
+    const fetcher = createFetcher({ url });
     const result = await fetcher({
       query: getIntrospectionQuery(),
       operationName: 'IntrospectionQuery',

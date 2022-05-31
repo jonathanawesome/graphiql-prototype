@@ -1,5 +1,6 @@
 /** components */
-import { Command, Docs, Gear, History } from '@/components';
+import { Command, Docs, History } from '@/components';
+import { SettingsDialog } from '../SettingsDialog';
 
 /** styles */
 import { Controls, Links, NavigationStyled } from './styles';
@@ -18,9 +19,7 @@ export const Navigation = () => {
         <div onClick={() => alert('Todo: Keyboard shortcuts')}>
           <Command />
         </div>
-        <div onClick={() => alert('Todo: Settings')}>
-          <Gear />
-        </div>
+        <SettingsDialog />
       </Controls>
     </NavigationStyled>
   );

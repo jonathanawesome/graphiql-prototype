@@ -10,6 +10,7 @@
     "@graphiql/toolkit": "0.4.2",
     "@radix-ui/colors": "^0.1.8",
     "@radix-ui/react-collapsible": "^0.1.6",
+    "@radix-ui/react-dialog": "^0.1.7",
     "@radix-ui/react-tabs": "^0.1.5",
     "@stitches/react": "1.2.8",
     "graphql": "16.1.0",
