@@ -1,3 +1,5 @@
 packages:
-  - 'api'
-  - 'ladle'
+  - 'apps/api'
+  - 'apps/ladle'
+  - 'graphiql-plugin-pathfinder'
+  - 'graphiql-v2'
