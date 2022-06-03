@@ -1,1 +1,0 @@
-export { Prettier } from './Prettier';

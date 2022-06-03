@@ -49,11 +49,11 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
     });
   }
 
-  console.log('rendering Field', {
-    field,
-    selection,
-    selectionSet,
-  });
+  // console.log('rendering Field', {
+  //   field,
+  //   selection,
+  //   selectionSet,
+  // });
 
   let childFieldsToRender: React.ReactNode = null;
 
@@ -75,7 +75,18 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
   return (
     <Root offset={!isObjectType(parent)} open={isExpanded} onOpenChange={setIsExpanded}>
       <TriggerWrap isCollapsible={isCollapsible}>
-        <IndicatorWrap isActive={!!selection} onClick={() => toggle({ ancestors })}>
+        <IndicatorWrap
+          isActive={!!selection}
+          onClick={() => {
+            if (!selection && !isExpanded) {
+              setIsExpanded(true);
+            }
+            if (!!selection && isExpanded) {
+              setIsExpanded(false);
+            }
+            return toggle({ ancestors });
+          }}
+        >
           <IndicatorField active={!!selection} />
         </IndicatorWrap>
         {isCollapsible && (

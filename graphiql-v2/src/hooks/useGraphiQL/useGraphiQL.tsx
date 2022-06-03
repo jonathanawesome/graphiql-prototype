@@ -1,6 +1,5 @@
 import create from 'zustand';
 import { KeyCode, KeyMod } from 'monaco-editor';
-import { createGraphiQLFetcher } from '@graphiql/toolkit';
 import * as JSONC from 'jsonc-parser';
 
 import {
@@ -21,10 +20,10 @@ import { defaultOperation, defaultResults, defaultVariables } from '../../consta
 import { GraphiQLStore } from './types';
 
 /** utils */
-import { parseQuery } from '../../utils';
+import { fetcher, parseQuery } from '../../utils';
 
 /** test schema */
-// import testSchema from './testSchema.js';
+import testSchema from './testSchema.js';
 
 export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
   results: defaultResults,
@@ -36,7 +35,6 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
     console.log('setVariables', value);
     set({ variables: value });
   },
-  fetcher: null,
   editors: [],
   setEditors: ({ editor, uri }) => {
     const editors = get().editors;
@@ -45,34 +43,37 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
       set({ editors: [...editors, { editor, uri }] });
     }
   },
-  // schema: testSchema,
+  schemaUrl: null,
   schema: null,
-  createFetcher: async ({ url }) => {
-    // console.log('initializing schema');
-    const fetcher = createGraphiQLFetcher({ url });
-    set({
-      fetcher,
-    });
-    const result = await fetcher({
-      query: getIntrospectionQuery(),
-      operationName: 'IntrospectionQuery',
-    });
-    console.log('running createFetcher:', { result });
+  initSchema: async ({ url }) => {
+    //TODO clear editors/models
+    if (!url) {
+      set({ schema: testSchema });
+      console.log('no URL provided, setting testSchema');
+    } else {
+      console.log('initializing schema:', { url });
+      set({ schemaUrl: url });
+      const setOperation = get().setOperation;
 
-    if (!('data' in result)) {
-      throw Error('this demo does not support subscriptions or http multipart yet');
+      const result = await fetcher({ url })({
+        query: getIntrospectionQuery(),
+        operationName: 'IntrospectionQuery',
+      });
+
+      if (!('data' in result)) {
+        throw Error('this demo does not support subscriptions or http multipart yet');
+      }
+
+      set({ schema: buildClientSchema(result.data as unknown as IntrospectionQuery) });
+      setOperation({ value: defaultOperation });
     }
-
-    const setOperation = get().setOperation;
-    set({ schema: buildClientSchema(result.data as unknown as IntrospectionQuery) });
-    setOperation({ value: defaultOperation });
   },
   operation: defaultOperation,
   setOperation: ({ value }) => {
-    // console.log('running setOperation:', { value });
     set({ operation: value });
 
     const parsedQuery = parseQuery(value);
+    console.log('running setOperation:', { parsedQuery, value });
 
     if (!(parsedQuery instanceof Error)) {
       const setOperationDefinition = get().setOperationDefinition;
@@ -94,9 +95,9 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
   },
   operationDefinition: null,
   setOperationDefinition: ({ operationDefinition }) => {
-    // console.log('running setOperationDefinition:', {
-    //   operationDefinition,
-    // });
+    console.log('running setOperationDefinition:', {
+      operationDefinition,
+    });
     set({ operationDefinition });
   },
   executeOperation: async () => {
@@ -104,23 +105,18 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
     const operationDefinition = get().operationDefinition;
     const setResults = get().setResults;
     const variables = get().variables;
-    const fetcher = get().fetcher;
+    const schemaUrl = get().schemaUrl;
 
-    if (fetcher) {
-      const result = await fetcher({
+    if (schemaUrl) {
+      const result = await fetcher({ url: schemaUrl })({
         operationName: operationDefinition?.name?.value || '',
         query: operation,
         variables: JSONC.parse(variables),
       });
 
-      // TODO: this demo only supports a single iteration for http GET/POST,
-      // no multipart or subscriptions yet.
-      //@ts-expect-error FIXME
-      const data = await result.next();
-
-      setResults({ value: JSON.stringify(data.value, null, 2) });
+      setResults({ value: JSON.stringify(result.data, null, 2) });
     } else {
-      console.log(`cannot execute operation...fetcher is null`);
+      alert(`schemaUrl not provided, can't run operations`);
     }
   },
   operationAction: () => ({

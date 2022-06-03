@@ -1,1 +1,0 @@
-export { ShowArgumentsIcon } from './ShowArgumentsIcon';

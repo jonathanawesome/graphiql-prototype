@@ -1,7 +1,7 @@
 import { Pathfinder } from '@graphiql-v2-prototype/graphiql-plugin-pathfinder';
 
 /** components */
-import { EditorGroup, Navigation } from '../index';
+import { InlineEditor, Navigation } from '../index';
 
 /** constants */
 import { defaultResults } from '../../constants';
@@ -15,10 +15,12 @@ import { HorizontallyResizableContainer } from '../../layouts';
 /** styles */
 import { GraphiQLStyled } from './styles';
 
-// type GraphiQLProps = {};
+type GraphiQLProps = {
+  sidebarPlugins?: React.ReactElement[];
+};
 
-export const GraphiQL = () => {
-  const { results, setResults, schema } = useGraphiQL();
+export const GraphiQL = ({ sidebarPlugins }: GraphiQLProps) => {
+  const { schema } = useGraphiQL();
 
   if (!schema) {
     return <p>loading schema...</p>;
@@ -30,21 +32,14 @@ export const GraphiQL = () => {
         leftPane={{
           component: (
             <>
-              <Navigation />
+              <Navigation sidebarPlugins={sidebarPlugins} />
               <Pathfinder />
             </>
           ),
           initialWidthPercent: 40,
         }}
         rightPane={{
-          component: (
-            <EditorGroup
-              defaultResults={defaultResults}
-              results={results}
-              schema={schema}
-              setResults={setResults}
-            />
-          ),
+          component: <InlineEditor defaultResults={defaultResults} />,
           initialWidthPercent: 60,
         }}
       />

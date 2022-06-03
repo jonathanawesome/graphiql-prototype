@@ -1,1 +1,0 @@
-export { useResults } from './useResults';

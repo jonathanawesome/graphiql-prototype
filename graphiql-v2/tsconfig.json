@@ -2,28 +2,7 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "lib": ["DOM", "DOM.Iterable"],
-    // "baseUrl": "src",
-    // "paths": {
-    //   "@components": [
-    //     "components"
-    //   ],  
-    //   "@constants": [
-    //     "constants"
-    //   ],           
-    //   "@hooks": [
-    //     "hooks"
-    //   ],  
-    //   "@layouts": [
-    //     "layouts"
-    //   ],  
-    //   "@theme": [
-    //     "theme"
-    //   ],        
-    //   "@utils": [
-    //     "utils"
-    //   ],               
-    // },    
+    "lib": ["DOM", "DOM.Iterable"]   
   },
   "include": ["src"],
 }

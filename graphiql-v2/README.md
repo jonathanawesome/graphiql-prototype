@@ -1,3 +1,3 @@
-# graphiql-v2-prototype
+# graphiql-v2
 
 ## TODO

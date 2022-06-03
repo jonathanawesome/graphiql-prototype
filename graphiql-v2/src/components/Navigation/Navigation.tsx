@@ -4,7 +4,11 @@ import { Command, Docs, History, SettingsDialog } from '../index';
 /** styles */
 import { Controls, Links, NavigationStyled } from './styles';
 
-export const Navigation = () => {
+export const Navigation = ({
+  sidebarPlugins,
+}: {
+  sidebarPlugins?: React.ReactElement[];
+}) => {
   return (
     <NavigationStyled>
       <Links>
@@ -15,6 +19,7 @@ export const Navigation = () => {
       </Links>
 
       <Controls>
+        {sidebarPlugins && sidebarPlugins.map((s) => <div key={s?.toString()}>{s}</div>)}
         <div onClick={() => alert('Todo: Keyboard shortcuts')}>
           <Command />
         </div>

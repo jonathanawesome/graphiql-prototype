@@ -1,5 +1,7 @@
 import { styled } from '@stitches/react';
 
+import { theme } from '@graphiql-v2-prototype/graphiql-v2';
+
 import * as Collapsible from '@radix-ui/react-collapsible';
 
 export const Content = styled(Collapsible.Content, {
@@ -8,7 +10,7 @@ export const Content = styled(Collapsible.Content, {
 });
 
 export const ChildFields = styled('div', {
-  borderLeft: `1px solid $scale400`,
+  borderLeft: `1px solid ${theme.colors.scale400.value}`,
   // marginTop: 8,
   marginLeft: 7,
   paddingLeft: 12,
@@ -41,7 +43,6 @@ export const TriggerWrap = styled('div', {
   gridTemplateColumns: '15px 1fr',
   alignItems: 'flex-start',
   gap: 6,
-  // paddingBottom: 12,
 
   variants: {
     isCollapsible: {

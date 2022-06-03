@@ -1,5 +1,7 @@
 import { styled } from '@stitches/react';
 
+import { theme } from '@graphiql-v2-prototype/graphiql-v2';
+
 import * as Collapsible from '@radix-ui/react-collapsible';
 
 export const Trigger = styled(Collapsible.Trigger, {
@@ -10,9 +12,9 @@ export const Trigger = styled(Collapsible.Trigger, {
   userSelect: 'none',
 
   '& span': {
-    color: `$scale800`,
-    fontSize: '$body',
-    fontWeight: `$semiBold`,
+    color: theme.colors.scale800.value,
+    fontSize: theme.fontSizes.body.value,
+    fontWeight: theme.fontWeights.semiBold.value,
   },
 });
 
@@ -21,7 +23,7 @@ export const Content = styled(Collapsible.Content, {
   paddingTop: 8,
   paddingLeft: 10,
   marginLeft: 7,
-  borderLeft: '1px solid $scale400',
+  borderLeft: `1px solid ${theme.colors.scale400.value}`,
 });
 
 export const Root = styled(Collapsible.Root, {

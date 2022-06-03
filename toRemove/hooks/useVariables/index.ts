@@ -1,1 +1,0 @@
-export { useVariables } from './useVariables';

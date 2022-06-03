@@ -14,6 +14,9 @@ import { Context } from './types';
 const app = express();
 
 const graphQLServer = createServer({
+  cors: {
+    origin: ['http://localhost:61000'],
+  },
   context: async ({ request }): Promise<Context> => {
     return { request, prisma };
   },

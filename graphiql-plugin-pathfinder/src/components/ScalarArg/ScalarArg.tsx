@@ -14,14 +14,14 @@ const toggle = usePathfinder.getState().toggle;
 export const ScalarArg = ({ ancestors }: { ancestors: AncestorMap }) => {
   const { argument, selection } = ancestors.values().next().value as AncestorArgument;
 
-  console.log('ScalarArg', {
-    // arg,
-    ancestors,
-    self,
-    argument,
-    selection,
-    // selection,
-  });
+  // console.log('ScalarArg', {
+  //   // arg,
+  //   ancestors,
+  //   self,
+  //   argument,
+  //   selection,
+  //   // selection,
+  // });
 
   return (
     <ScalarArgStyled>

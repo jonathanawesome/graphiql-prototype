@@ -1,5 +1,7 @@
 import { styled } from '@stitches/react';
 
+import { theme } from '@graphiql-v2-prototype/graphiql-v2';
+
 /** components */
 import { ShowArgumentsIcon } from '../index';
 
@@ -17,9 +19,9 @@ export const StyledShowArguments = styled('div', {
   },
 
   span: {
-    fontWeight: `$medium`,
+    fontWeight: theme.fontWeights.medium.value,
     fontSize: 12,
-    color: `$scale700`,
+    color: theme.colors.scale700.value,
     marginTop: -3,
   },
 });

@@ -1,4 +1,3 @@
-import { Fetcher } from '@graphiql/toolkit';
 import {
   ExecutableDefinitionNode,
   GraphQLSchema,
@@ -13,9 +12,8 @@ export type GraphiQLStore = {
   variables: string;
   setVariables: ({ value }: { value: string }) => void;
   schema: GraphQLSchema | null;
-  fetcher: Fetcher | null;
-  createFetcher: ({ url }: { url: string }) => Promise<void>;
-  // initSchema: ({ url }: { url: string }) => Promise<void>;
+  schemaUrl: string | null;
+  initSchema: ({ url }: { url?: string }) => Promise<void>;
   editors: Array<{ editor: editor.IStandaloneCodeEditor; uri: AvailableEditors }>;
   setEditors: ({
     editor,

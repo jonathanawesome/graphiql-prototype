@@ -1,5 +1,7 @@
 import { styled } from '@stitches/react';
 
+import { theme } from '@graphiql-v2-prototype/graphiql-v2';
+
 export const StyledCaret = styled('div', {
   display: 'flex',
   alignContent: 'center',
@@ -14,7 +16,7 @@ export const StyledCaret = styled('div', {
     width: '50%',
 
     path: {
-      fill: `$scale600`,
+      fill: theme.colors.scale600.value,
     },
   },
 
@@ -24,7 +26,7 @@ export const StyledCaret = styled('div', {
         svg: {
           transform: 'rotate(90deg)',
           path: {
-            fill: `$accentField`,
+            fill: theme.colors.accentField.value,
           },
         },
       },

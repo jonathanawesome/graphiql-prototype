@@ -1,1 +1,0 @@
-export { IndicatorArgument } from './IndicatorArgument';

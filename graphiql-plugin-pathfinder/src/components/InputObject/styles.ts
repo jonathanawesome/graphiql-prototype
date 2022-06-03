@@ -1,4 +1,5 @@
 import { styled } from '@stitches/react';
+import { theme } from '@graphiql-v2-prototype/graphiql-v2';
 
 import * as Collapsible from '@radix-ui/react-collapsible';
 
@@ -28,8 +29,7 @@ export const InputFields = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: 4,
-  // borderLeft: `1px solid $scale300`,
-  borderLeft: `1px solid $accentArgument`,
+  borderLeft: `1px solid ${theme.colors.accentArgument.value}`,
   paddingLeft: 16,
   marginTop: 12,
   marginLeft: 7,

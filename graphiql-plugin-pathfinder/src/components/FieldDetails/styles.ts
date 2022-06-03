@@ -1,17 +1,18 @@
 import { styled } from '@stitches/react';
 
+import { theme } from '@graphiql-v2-prototype/graphiql-v2';
+
 export const NameAndTypeName = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: 4,
   '& span:nth-of-type(1)': {
-    // fontWeight: `$medium`,
-    fontWeight: `$regular`,
-    color: `$scale800`,
+    fontWeight: theme.fontWeights.regular,
+    color: theme.colors.scale800.value,
   },
   '& span:nth-of-type(2)': {
-    fontWeight: `$regular`,
-    color: `$scale700`,
+    fontWeight: theme.fontWeights.regular,
+    color: theme.colors.scale700.value,
   },
 });
 
@@ -22,8 +23,8 @@ export const Description = styled('div', {
   textAlign: 'left',
   gap: 8,
   fontSize: 11,
-  color: `$scale600`,
-  fontWeight: `$regular`,
+  color: theme.colors.scale600.value,
+  fontWeight: theme.fontWeights.regular,
 
   '& svg': {
     height: 2,
@@ -36,7 +37,7 @@ export const FieldDetailsStyled = styled('div', {
   flexDirection: 'column',
   alignItems: 'flex-start',
   gap: 6,
-  fontSize: '$body',
+  fontSize: theme.fontSizes.body.value,
 
   '&:hover': {},
 
@@ -71,10 +72,10 @@ export const FieldDetailsStyled = styled('div', {
       css: {
         [`& ${NameAndTypeName}`]: {
           '& span:nth-of-type(1)': {
-            color: '$accentField',
+            color: theme.colors.accentField.value,
           },
           '& span:nth-of-type(2)': {
-            color: '$accentField',
+            color: theme.colors.accentField.value,
           },
         },
       },
@@ -85,10 +86,10 @@ export const FieldDetailsStyled = styled('div', {
       css: {
         [`& ${NameAndTypeName}`]: {
           '& span:nth-of-type(1)': {
-            color: '$accentInfo',
+            color: theme.colors.accentInfo.value,
           },
           '& span:nth-of-type(2)': {
-            color: '$accentInfo',
+            color: theme.colors.accentInfo.value,
           },
         },
       },
@@ -99,10 +100,10 @@ export const FieldDetailsStyled = styled('div', {
       css: {
         [`& ${NameAndTypeName}`]: {
           '& span:nth-of-type(1)': {
-            color: '$accentArgument',
+            color: theme.colors.accentArgument.value,
           },
           '& span:nth-of-type(2)': {
-            color: '$accentArgument',
+            color: theme.colors.accentArgument.value,
           },
         },
       },
@@ -113,10 +114,10 @@ export const FieldDetailsStyled = styled('div', {
       css: {
         [`& ${NameAndTypeName}`]: {
           '& span:nth-of-type(1)': {
-            color: '$accentArgument',
+            color: theme.colors.accentArgument.value,
           },
           '& span:nth-of-type(2)': {
-            color: '$accentArgument',
+            color: theme.colors.accentArgument.value,
           },
         },
       },

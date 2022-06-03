@@ -1,4 +1,27 @@
-export const baseColors = {
+export type BaseColors = {
+  scale: {
+    black: string;
+    800: string;
+    700: string;
+    600: string;
+    500: string;
+    400: string;
+    300: string;
+    200: string;
+    100: string;
+    white: string;
+  };
+  accent: {
+    error: string;
+    success: string;
+    warning: string;
+    info: string;
+    field: string;
+    argument: string;
+  };
+};
+
+export const baseColors: BaseColors = {
   scale: {
     black: '#000000',
     800: '#3B4C6A',

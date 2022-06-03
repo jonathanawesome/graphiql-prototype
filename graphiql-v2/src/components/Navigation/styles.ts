@@ -1,4 +1,4 @@
-import { styled } from '@stitches/react';
+import { styled, theme } from '../../theme';
 
 //TODO: this is mostly placeholder styling...just getting something on the screen
 export const NavigationStyled = styled('div', {
@@ -9,7 +9,7 @@ export const NavigationStyled = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  borderRight: 'solid 1px $scale400',
+  borderRight: `solid 1px ${theme.colors.scale400.value}`,
 });
 
 export const Links = styled('div', {
