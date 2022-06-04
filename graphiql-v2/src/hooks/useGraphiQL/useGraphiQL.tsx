@@ -48,7 +48,7 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
   initSchema: async ({ url }) => {
     //TODO clear editors/models
     if (!url) {
-      set({ schema: testSchema });
+      set({ schema: testSchema, schemaUrl: null });
       console.log('no URL provided, setting testSchema');
     } else {
       console.log('initializing schema:', { url });

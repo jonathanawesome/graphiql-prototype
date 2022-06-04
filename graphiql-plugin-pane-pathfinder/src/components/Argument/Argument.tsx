@@ -16,9 +16,6 @@ import { InputObject, ScalarArg } from '../index';
 /** hooks */
 import type { AncestorArgument, AncestorInputObject, AncestorMap } from '../../hooks';
 
-/** styles */
-import { ArgumentStyled } from './styles';
-
 /** utils */
 import {
   capitalize,
@@ -35,15 +32,11 @@ export const Argument = ({
   argument: GraphQLArgument;
   selection: FieldNode | null;
 }) => {
-  const hash = cuid.slug();
-  let toRender: React.ReactNode | null = null;
-
   // console.log('Argument', {
-  //   ancestors,
   //   argument,
-  //   onFieldName,
-  //   selection,
   // });
+
+  const hash = cuid.slug();
 
   const newInputObjectMap = new Map([
     [
@@ -73,6 +66,9 @@ export const Argument = ({
     ],
     ...ancestors,
   ]);
+
+  //TODO fix this 👇
+  let toRender: React.ReactNode | null = null;
 
   if (isInputObjectType(argument.type)) {
     // rendering top-level InputObject that is NOT required
@@ -109,5 +105,5 @@ export const Argument = ({
       </p>
     );
   }
-  return <ArgumentStyled>{toRender}</ArgumentStyled>;
+  return <>{toRender}</>;
 };

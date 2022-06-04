@@ -4,8 +4,7 @@ node_modules
 # testing
 /coverage
 
-# production
-/build
+
 
 # misc
 .DS_Store
@@ -25,6 +24,9 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# ladle
+/apps/ladle/build
 
 # prisma
 /apps/api/src/prisma/generated

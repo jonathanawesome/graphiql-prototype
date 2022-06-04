@@ -1,10 +1,11 @@
 import { SidebarDialog, useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
+import { useEffect, useState } from 'react';
 
 /** components */
 import { GraphQLIcon } from '../GraphQLIcon';
 
 /** styles */
-import { Flex, Label, RadioGroup, RadioGroupIndicator, RadioGroupRadio } from './styles';
+import { RadioWrap, RadioGroup, RadioGroupIndicator, RadioGroupRadio } from './styles';
 
 type ApiUrls = Record<string, { aboutUrl: string; apiUrl: string }>;
 
@@ -16,10 +17,6 @@ const apiUrls: ApiUrls = {
   [`SpaceX`]: {
     aboutUrl: 'https://spacex.land/',
     apiUrl: 'https://api.spacex.land/graphql',
-  },
-  [`Local Dev API @ http://localhost:4000/graphql`]: {
-    aboutUrl: 'http://localhost:4000/graphql', // lol
-    apiUrl: 'http://localhost:4000/graphql',
   },
 };
 
@@ -34,21 +31,25 @@ const Radio = ({
   id: string;
   name: string;
 }) => (
-  <Flex>
+  <RadioWrap>
     <RadioGroupRadio value={apiUrl} id={id}>
       <RadioGroupIndicator />
     </RadioGroupRadio>
-    <Label htmlFor={id}>
+    <label htmlFor={id}>
+      <span>{name}</span>
       <a href={aboutUrl} target="_blank" rel="noreferrer">
-        {name}
+        [more info]
       </a>
-    </Label>
-  </Flex>
+    </label>
+  </RadioWrap>
 );
 
 const SchemaSelectorContent = () => {
-  const handleValueChange = (value: string) => {
-    const initSchema = useGraphiQL.getState().initSchema;
+  const [loading, setLoading] = useState<boolean>(false);
+  const { initSchema, schemaUrl, schema } = useGraphiQL();
+
+  const handleSchemaChange = (value: string) => {
+    setLoading(true);
     if (value === 'testSchema') {
       initSchema({});
     } else {
@@ -56,38 +57,59 @@ const SchemaSelectorContent = () => {
     }
   };
 
+  useEffect(() => {
+    if (schema) {
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+  }, [schema]);
+
+  const value = () => {
+    let value: string | undefined = undefined;
+    if (schemaUrl) {
+      value = schemaUrl;
+    } else if (!schemaUrl) {
+      value = 'testSchema';
+    }
+    return value;
+  };
+
   return (
     <RadioGroup
       defaultValue="testSchema"
+      value={value()}
       aria-label="Choose schema"
-      onValueChange={(value) => handleValueChange(value)}
+      onValueChange={(value) => handleSchemaChange(value)}
     >
-      <Flex>
-        <RadioGroupRadio value="testSchema" id="1">
-          <RadioGroupIndicator />
-        </RadioGroupRadio>
-        <Label htmlFor="1">
-          <a
-            href="https://github.com/graphql/graphiql/blob/main/packages/graphiql/test/schema.js"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Test Schema
-          </a>
-        </Label>
-      </Flex>
-      {Object.keys(apiUrls).map((x, i) => {
-        const id = (i + 2).toString();
-        return (
+      <fieldset disabled={loading}>
+        {import.meta.env.MODE === 'development' && (
           <Radio
-            key={id}
-            aboutUrl={apiUrls[x].aboutUrl}
-            apiUrl={apiUrls[x].apiUrl}
-            id={id}
-            name={x}
+            aboutUrl="http://localhost:4000/graphql"
+            apiUrl="http://localhost:4000/graphql"
+            id="2"
+            name="Local Dev API"
           />
-        );
-      })}
+        )}
+        <Radio
+          aboutUrl="https://github.com/graphql/graphiql/blob/main/packages/graphiql/test/schema.js"
+          apiUrl="testSchema"
+          id="1"
+          name="Official GraphiQL Test Schema"
+        />
+        {Object.keys(apiUrls).map((x, i) => {
+          const id = (i + 3).toString();
+          return (
+            <Radio
+              key={id}
+              aboutUrl={apiUrls[x].aboutUrl}
+              apiUrl={apiUrls[x].apiUrl}
+              id={id}
+              name={x}
+            />
+          );
+        })}
+      </fieldset>
     </RadioGroup>
   );
 };

@@ -11,7 +11,7 @@ import {
 } from 'graphql';
 
 /** components */
-import { Collapsible, Describe, InputField } from '../index';
+import { Collapsible, Describe, ScalarArg } from '../index';
 
 /** hooks */
 import {
@@ -22,7 +22,7 @@ import {
 } from '../../hooks';
 
 /** styles */
-import { InputFields } from './styles';
+import { Arguments } from './styles';
 
 /** utils */
 import { capitalize, generateVariableNameFromAncestorMap } from '../../utils';
@@ -59,7 +59,7 @@ export const InputObject = ({
       content={
         <>
           {isExpanded && (
-            <InputFields>
+            <Arguments>
               {Object.keys(fields).map((f) => {
                 if (isInputObjectType(fields[f].type)) {
                   // rendering nested InputObject
@@ -91,7 +91,7 @@ export const InputObject = ({
                   );
                 } else {
                   return (
-                    <InputField
+                    <ScalarArg
                       key={fields[f].name}
                       ancestors={
                         new Map([
@@ -113,12 +113,11 @@ export const InputObject = ({
                           ...ancestors,
                         ])
                       }
-                      inputField={fields[f]}
                     />
                   );
                 }
               })}
-            </InputFields>
+            </Arguments>
           )}
         </>
       }

@@ -1,11 +1,8 @@
 import { styled } from '@graphiql-v2-prototype/graphiql-v2';
+import { SharedLeadGrid } from '../ui';
 
 export const NotCollapsible = styled('div', {
-  width: '100%',
-  display: 'grid',
-  gridTemplateColumns: '15px 1fr',
-  alignItems: 'flex-start',
-  gap: 6,
+  ...SharedLeadGrid,
 });
 
 export const ChildFields = styled('div', {

@@ -1,6 +1,6 @@
 import { styled } from '@graphiql-v2-prototype/graphiql-v2';
 
-export const InputFields = styled('div', {
+export const Arguments = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: 4,

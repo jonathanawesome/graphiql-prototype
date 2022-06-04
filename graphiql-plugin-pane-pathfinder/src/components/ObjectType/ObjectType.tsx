@@ -26,7 +26,7 @@ export const ObjectType = ({
 }: ObjectTypeProps) => {
   const hash = cuid.slug();
 
-  console.log('rendering ObjectType', { fields });
+  // console.log('rendering ObjectType', { fields });
 
   return (
     <ObjectTypeWrap parentType={parentType}>

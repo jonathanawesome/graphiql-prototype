@@ -22,5 +22,4 @@ export const Root = styled(Collapsible.Root, {
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  padding: '8px 0',
 });

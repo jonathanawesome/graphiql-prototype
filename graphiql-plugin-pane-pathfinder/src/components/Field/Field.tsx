@@ -40,7 +40,8 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
   const isCollapsible =
     isObjectType(unwrappedType) ||
     isUnionType(unwrappedType) ||
-    isInterfaceType(unwrappedType);
+    isInterfaceType(unwrappedType) ||
+    field.args.length > 0;
 
   let selection: FieldNode | InlineFragmentNode | undefined = undefined;
 
@@ -53,6 +54,7 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
 
   // console.log('rendering Field', {
   //   field,
+  //   args: field.args,
   // });
 
   let childFieldsToRender: React.ReactNode = null;

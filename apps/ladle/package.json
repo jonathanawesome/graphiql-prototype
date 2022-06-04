@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "serve": "NODE_ENV=development ladle serve --open=none",
-    "build": "NODE_ENV=production ladle build",
+    "build": "NODE_ENV=production ladle build",    
     "tsc": "tsc --noEmit"
   },
   "dependencies": {

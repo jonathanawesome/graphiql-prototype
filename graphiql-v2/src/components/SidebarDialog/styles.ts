@@ -64,7 +64,7 @@ export const ContentWrap = styled(DialogPrimitive.Content, {
 });
 
 export const Content = styled('div', {
-  padding: 24,
+  padding: '12px 24px',
 });
 
 export const Button = styled('button', {
