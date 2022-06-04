@@ -1,4 +1,4 @@
-import { styled } from '@stitches/react';
+import { styled } from '@graphiql-v2-prototype/graphiql-v2';
 
 import * as Collapsible from '@radix-ui/react-collapsible';
 

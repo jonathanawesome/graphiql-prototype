@@ -1,6 +1,4 @@
-import { styled } from '@stitches/react';
-
-import { theme } from '@graphiql-v2-prototype/graphiql-v2';
+import { styled, theme } from '@graphiql-v2-prototype/graphiql-v2';
 
 const StyledShowArgumentsIcon = styled('div', {});
 

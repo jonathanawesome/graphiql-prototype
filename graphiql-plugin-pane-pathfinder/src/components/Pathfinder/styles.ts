@@ -1,6 +1,4 @@
-import { styled } from '@stitches/react';
-
-import { theme } from '@graphiql-v2-prototype/graphiql-v2';
+import { styled } from '@graphiql-v2-prototype/graphiql-v2';
 
 export const PathfinderStyled = styled('div', {
   display: 'flex',
@@ -18,9 +16,9 @@ export const PathfinderLead = styled('div', {
   alignItems: 'center',
 
   h2: {
-    fontSize: theme.fontSizes.display.value,
-    fontWeight: theme.fontWeights.semiBold.value,
-    color: theme.colors.scale800.value,
+    fontSize: '$display',
+    fontWeight: '$semiBold',
+    color: '$scale800',
     margin: 0,
     padding: 0,
   },
@@ -50,7 +48,7 @@ export const ContainRight = styled('div', {
 });
 
 export const FakeSearch = styled('div', {
-  backgroundColor: theme.colors.scale200.value,
+  backgroundColor: '$scale200',
   borderRadius: 8,
   padding: 12,
   gap: 12,
@@ -58,8 +56,8 @@ export const FakeSearch = styled('div', {
   alignItems: 'center',
 
   span: {
-    fontSize: theme.fontSizes.body.value,
-    color: theme.colors.scale700.value,
+    fontSize: '$body',
+    color: '$scale700',
   },
 
   svg: {

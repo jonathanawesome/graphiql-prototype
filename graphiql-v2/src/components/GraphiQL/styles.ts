@@ -1,7 +1,7 @@
-import { styled, theme } from '../../theme';
+import { styled } from '../../theme';
 
 export const GraphiQLStyled = styled('div', {
-  backgroundColor: theme.colors.scale100.value,
+  backgroundColor: '$scale100',
   height: '100%',
   width: '100%',
 });

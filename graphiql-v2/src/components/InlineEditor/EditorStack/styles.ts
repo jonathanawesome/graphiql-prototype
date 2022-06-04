@@ -1,9 +1,9 @@
-import { styled, theme } from '../../../theme';
+import { styled } from '../../../theme';
 
 export const EditorStackContainer = styled('div', {
   position: 'relative',
   width: '100%',
-  backgroundColor: theme.colors.scale100.value,
+  backgroundColor: '$scale100',
   overflow: 'hidden',
   borderRadius: 16,
   boxShadow:

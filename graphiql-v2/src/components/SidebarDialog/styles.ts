@@ -1,4 +1,4 @@
-import { keyframes, styled, theme } from '../../theme';
+import { keyframes, styled } from '../../theme';
 
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 
@@ -26,7 +26,7 @@ export const Trigger = styled(DialogPrimitive.Trigger, {
   '&:hover': {
     svg: {
       path: {
-        fill: theme.colors.accentArgument.value,
+        fill: '$accentArgument',
       },
     },
   },
@@ -79,7 +79,7 @@ export const DialogLead = styled('div', {
   justifyContent: 'space-between',
   alignItems: 'center',
   padding: `16px 24px`,
-  borderBottom: `1px solid ${theme.colors.scale500.value}`,
+  borderBottom: `1px solid $scale500`,
   fontSize: 14,
 
   svg: {

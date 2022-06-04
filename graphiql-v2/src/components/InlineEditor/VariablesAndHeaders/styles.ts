@@ -1,11 +1,11 @@
-import { styled, theme } from '../../../theme';
+import { styled } from '../../../theme';
 
 import * as Collapsible from '@radix-ui/react-collapsible';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 
 export const CollapsibleRoot = styled(Collapsible.Root, {
-  backgroundColor: theme.colors.scale100.value,
-  borderTop: `1px solid ${theme.colors.scale400.value}`,
+  backgroundColor: '$scale100',
+  borderTop: `1px solid $scale400`,
 });
 
 export const TabsRoot = styled(TabsPrimitive.Root, {});
@@ -24,25 +24,25 @@ export const TabsList = styled(TabsPrimitive.List, {
 
 export const TabsTrigger = styled(TabsPrimitive.Trigger, {
   cursor: 'pointer',
-  fontSize: theme.fontSizes.body.value,
-  lineHeight: theme.fontSizes.body.value,
-  fontWeight: theme.fontWeights.medium.value,
+  fontSize: '$body',
+  lineHeight: '$body',
+  fontWeight: '$medium',
   padding: `10px`,
-  color: theme.colors.scale700.value,
+  color: '$scale700',
 
-  '&:hover': { color: theme.colors.scale800.value },
+  '&:hover': { color: '$scale800' },
   '&[data-state="active"]': {
-    fontWeight: theme.fontWeights.semiBold.value,
-    color: theme.colors.scale800.value,
+    fontWeight: '$semiBold',
+    color: '$scale800',
   },
 
   span: {
     padding: `2px 4px`,
     marginLeft: `4px`,
     borderRadius: `2px`,
-    fontSize: theme.fontSizes.mini.value,
-    backgroundColor: theme.colors.scale300.value,
-    color: theme.colors.scale700.value,
+    fontSize: '$mini',
+    backgroundColor: '$scale300',
+    color: '$scale700',
   },
 });
 

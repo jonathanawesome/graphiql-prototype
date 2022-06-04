@@ -1,4 +1,4 @@
-import { styled } from '@stitches/react';
+import { styled } from '../../../theme';
 
 export const EditorActionsStyled = styled('div', {
   display: 'flex',

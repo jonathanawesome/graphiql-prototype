@@ -1,5 +1,4 @@
-import { styled } from '@stitches/react';
-import { theme } from '@graphiql-v2-prototype/graphiql-v2';
+import { styled, theme } from '@graphiql-v2-prototype/graphiql-v2';
 
 export const StyledIndicatorArgument = styled('div', {
   display: 'flex',
