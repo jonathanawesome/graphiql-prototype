@@ -9,6 +9,6 @@ export {
 
 export { useGraphiQL } from '../src/hooks';
 
-export { globalStyles, styled, theme } from '../src/theme';
+export { globalStyles, keyframes, styled, theme } from '../src/theme';
 
 export { fetcher } from '../src/utils';

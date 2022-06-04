@@ -1,0 +1,1 @@
+export { Pills } from './Pills';

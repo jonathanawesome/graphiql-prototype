@@ -7,10 +7,16 @@ import { editor } from 'monaco-editor';
 import { AvailableEditors } from '../../constants';
 
 export type GraphiQLStore = {
-  results: string;
+  results: string | null;
   setResults: ({ value }: { value: string }) => void;
-  variables: string;
+  variables: string | null;
   setVariables: ({ value }: { value: string }) => void;
+  operationDefinition: ExecutableDefinitionNode | null;
+  setOperationDefinition: ({
+    operationDefinition,
+  }: {
+    operationDefinition: ExecutableDefinitionNode | null;
+  }) => void;
   schema: GraphQLSchema | null;
   schemaUrl: string | null;
   initSchema: ({ url }: { url?: string }) => Promise<void>;
@@ -24,12 +30,6 @@ export type GraphiQLStore = {
   }) => void;
   operation: string;
   setOperation: ({ value }: { value: string }) => void;
-  operationDefinition: ExecutableDefinitionNode | null;
-  setOperationDefinition: ({
-    operationDefinition,
-  }: {
-    operationDefinition: ExecutableDefinitionNode | null;
-  }) => void;
   executeOperation: () => Promise<void>;
   operationAction: () => editor.IActionDescriptor;
   onEditDefinition: ({

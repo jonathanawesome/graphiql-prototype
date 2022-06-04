@@ -1,3 +1,0 @@
-# graphiql-plugin-pathfinder
-
-## TODO

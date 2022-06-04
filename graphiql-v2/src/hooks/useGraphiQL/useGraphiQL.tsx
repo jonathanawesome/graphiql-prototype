@@ -52,20 +52,22 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
       console.log('no URL provided, setting testSchema');
     } else {
       console.log('initializing schema:', { url });
-      set({ schemaUrl: url });
-      const setOperation = get().setOperation;
 
       const result = await fetcher({ url })({
         query: getIntrospectionQuery(),
         operationName: 'IntrospectionQuery',
       });
 
-      if (!('data' in result)) {
-        throw Error('this demo does not support subscriptions or http multipart yet');
-      }
-
-      set({ schema: buildClientSchema(result.data as unknown as IntrospectionQuery) });
-      setOperation({ value: defaultOperation });
+      // TODO 👇 hacky resets...need to fix
+      set({
+        schemaUrl: url,
+        schema: buildClientSchema(result.data as unknown as IntrospectionQuery),
+        operation: defaultOperation,
+        operationDefinition: null,
+        variables: null,
+        results: defaultResults,
+        editors: [],
+      });
     }
   },
   operation: defaultOperation,
@@ -111,7 +113,7 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
       const result = await fetcher({ url: schemaUrl })({
         operationName: operationDefinition?.name?.value || '',
         query: operation,
-        variables: JSONC.parse(variables),
+        variables: variables ? JSONC.parse(variables) : undefined,
       });
 
       setResults({ value: JSON.stringify(result.data, null, 2) });

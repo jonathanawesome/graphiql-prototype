@@ -1,7 +1,7 @@
 import { useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
 
 /** components */
-import { Pathfinder } from '@graphiql-v2-prototype/graphiql-plugin-pathfinder';
+import { Pathfinder } from '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder';
 
 export const PathfinderStory = () => {
   const { operation } = useGraphiQL();

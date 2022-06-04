@@ -63,7 +63,7 @@ export const EditorGroup = ({ defaultResults }: { defaultResults: string }) => {
                   language="json"
                   optionOverrides={{ lineNumbers: 'off' }} // don't display line number in results viewer
                   uri="RESULTS_VIEWER_URI"
-                  value={results}
+                  value={results || ''}
                   valueSetter={setResults}
                 />
               </ResultsViewer>

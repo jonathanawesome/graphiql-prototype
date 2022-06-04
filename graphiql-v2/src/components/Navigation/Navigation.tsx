@@ -2,7 +2,7 @@
 import { Command, Docs, History, SettingsDialog } from '../index';
 
 /** styles */
-import { Controls, Links, NavigationStyled } from './styles';
+import { PanePlugins, SibebarPlugins, NavigationStyled } from './styles';
 
 export const Navigation = ({
   sidebarPlugins,
@@ -11,20 +11,20 @@ export const Navigation = ({
 }) => {
   return (
     <NavigationStyled>
-      <Links>
+      <PanePlugins>
         <Docs />
         <div onClick={() => alert('Todo: History?')}>
           <History />
         </div>
-      </Links>
+      </PanePlugins>
 
-      <Controls>
+      <SibebarPlugins>
         {sidebarPlugins && sidebarPlugins.map((s) => <div key={s?.toString()}>{s}</div>)}
         <div onClick={() => alert('Todo: Keyboard shortcuts')}>
           <Command />
         </div>
         <SettingsDialog />
-      </Controls>
+      </SibebarPlugins>
     </NavigationStyled>
   );
 };

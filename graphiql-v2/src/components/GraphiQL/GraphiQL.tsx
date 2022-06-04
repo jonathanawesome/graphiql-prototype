@@ -1,4 +1,4 @@
-import { Pathfinder } from '@graphiql-v2-prototype/graphiql-plugin-pathfinder';
+import { Pathfinder } from '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder';
 
 /** components */
 import { InlineEditor, Navigation } from '../index';
@@ -16,10 +16,12 @@ import { HorizontallyResizableContainer } from '../../layouts';
 import { GraphiQLStyled } from './styles';
 
 type GraphiQLProps = {
+  //TODO complete "plugin" props APIs
+  panePlugins?: React.ReactElement[];
   sidebarPlugins?: React.ReactElement[];
 };
 
-export const GraphiQL = ({ sidebarPlugins }: GraphiQLProps) => {
+export const GraphiQL = ({ panePlugins, sidebarPlugins }: GraphiQLProps) => {
   const { schema } = useGraphiQL();
 
   if (!schema) {
@@ -33,6 +35,7 @@ export const GraphiQL = ({ sidebarPlugins }: GraphiQLProps) => {
           component: (
             <>
               <Navigation sidebarPlugins={sidebarPlugins} />
+              {panePlugins && panePlugins.map((s) => <div key={s?.toString()}>{s}</div>)}
               <Pathfinder />
             </>
           ),

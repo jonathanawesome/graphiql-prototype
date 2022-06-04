@@ -12,13 +12,13 @@ export const NavigationStyled = styled('div', {
   borderRight: `solid 1px ${theme.colors.scale400.value}`,
 });
 
-export const Links = styled('div', {
+export const PanePlugins = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: 20,
 });
 
-export const Controls = styled('div', {
+export const SibebarPlugins = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: 20,

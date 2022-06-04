@@ -2,5 +2,5 @@ packages:
   - 'apps/api'
   - 'apps/ladle'
   - 'graphiql-v2'
-  - 'graphiql-plugin-pathfinder'
-  - 'graphiql-plugin-schema-selector'
+  - 'graphiql-plugin-pane-pathfinder'
+  - 'graphiql-plugin-sidebar-schema-selector'
