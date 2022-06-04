@@ -5,7 +5,7 @@ export const InputFields = styled('div', {
   flexDirection: 'column',
   gap: 4,
   // TODO needs design
-  borderLeft: `1px solid $accentArgument`,
+  borderLeft: '1px solid $accentArgument',
   paddingLeft: 16,
   marginTop: 12,
   marginLeft: -14,

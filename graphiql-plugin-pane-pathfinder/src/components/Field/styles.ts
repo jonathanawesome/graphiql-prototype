@@ -9,7 +9,7 @@ export const NotCollapsible = styled('div', {
 });
 
 export const ChildFields = styled('div', {
-  borderLeft: `1px solid $scale400`,
+  borderLeft: '1px solid $scale400',
   marginLeft: 7,
   paddingLeft: 12,
 });
@@ -28,7 +28,7 @@ export const IndicatorWrap = styled('button', {
     isActive: {
       false: {
         svg: {
-          transform: `scale(0.85)`,
+          transform: 'scale(0.85)',
         },
       },
     },

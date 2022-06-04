@@ -9,7 +9,7 @@ export const StyledCaret = styled('div', {
 
   '& svg': {
     transformOrigin: 'center center',
-    transition: `all .15s ease`,
+    transition: 'all .15s ease',
     height: '100%',
     width: '50%',
 

@@ -3,7 +3,7 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 
 export const Root = styled(Collapsible.Root, {
   position: 'relative',
-  padding: `8px 0 0`,
+  padding: '8px 0 0',
 });
 
 export const Lead = styled('div', {
@@ -16,7 +16,7 @@ export const Lead = styled('div', {
   variants: {
     hasToggler: {
       true: {
-        gridTemplateColumns: `15px 15px 1fr`,
+        gridTemplateColumns: '15px 15px 1fr',
       },
     },
   },

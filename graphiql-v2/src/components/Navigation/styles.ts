@@ -5,11 +5,11 @@ export const NavigationStyled = styled('div', {
   height: '100%',
   width: 60,
   minWidth: 60,
-  padding: `24px 19px`,
+  padding: '24px 19px',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  borderRight: `solid 1px $scale400`,
+  borderRight: 'solid 1px $scale400',
 });
 
 export const PanePlugins = styled('div', {

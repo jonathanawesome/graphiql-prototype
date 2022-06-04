@@ -4,7 +4,7 @@ import { styled } from '@graphiql-v2-prototype/graphiql-v2';
 
 export const StyledRadio = styled(RadioGroupPrimitive.Item, {
   all: 'unset',
-  border: `1px solid $scale700`,
+  border: '1px solid $scale700',
   width: 16,
   height: 16,
   borderRadius: '100%',
@@ -36,7 +36,7 @@ export const RadioGroupIndicator = StyledIndicator;
 export const Flex = styled('div', {
   display: 'flex',
   alignItems: 'center',
-  margin: `10px 0`,
+  margin: '10px 0',
 });
 
 export const Label = styled('label', {
@@ -46,7 +46,7 @@ export const Label = styled('label', {
   paddingLeft: 15,
 
   a: {
-    color: `$scale800`,
+    color: '$scale800',
     fontSize: 12,
     lineHeight: 1,
   },

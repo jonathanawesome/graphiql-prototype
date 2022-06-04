@@ -5,7 +5,7 @@ import * as TabsPrimitive from '@radix-ui/react-tabs';
 
 export const CollapsibleRoot = styled(Collapsible.Root, {
   backgroundColor: '$scale100',
-  borderTop: `1px solid $scale400`,
+  borderTop: '1px solid $scale400',
 });
 
 export const TabsRoot = styled(TabsPrimitive.Root, {});
@@ -14,7 +14,7 @@ export const TabsAndTrigger = styled('div', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  padding: `8px 30px 8px 12px`,
+  padding: '8px 30px 8px 12px',
 });
 
 export const TabsList = styled(TabsPrimitive.List, {
@@ -27,7 +27,7 @@ export const TabsTrigger = styled(TabsPrimitive.Trigger, {
   fontSize: '$body',
   lineHeight: '$body',
   fontWeight: '$medium',
-  padding: `10px`,
+  padding: '10px',
   color: '$scale700',
 
   '&:hover': { color: '$scale800' },
@@ -37,9 +37,9 @@ export const TabsTrigger = styled(TabsPrimitive.Trigger, {
   },
 
   span: {
-    padding: `2px 4px`,
-    marginLeft: `4px`,
-    borderRadius: `2px`,
+    padding: '2px 4px',
+    marginLeft: '4px',
+    borderRadius: '2px',
     fontSize: '$mini',
     backgroundColor: '$scale300',
     color: '$scale700',
@@ -57,7 +57,7 @@ export const CollapsibleTrigger = styled(Collapsible.Trigger, {
 export const CollapsibleContent = styled(Collapsible.Content, {});
 
 export const TabsContent = styled(TabsPrimitive.Content, {
-  padding: `0 16px 16px 16px`,
+  padding: '0 16px 16px 16px',
 });
 
 export const VariablesEditor = styled('div', {

@@ -7,7 +7,6 @@ export const OptionalArgs = styled('div', {
     isOpen: {
       true: {
         // backgroundColor: 'Red',
-        // margin: `8px 0`,
       },
     },
   },
@@ -23,5 +22,5 @@ export const Root = styled(Collapsible.Root, {
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  padding: `8px 0`,
+  padding: '8px 0',
 });

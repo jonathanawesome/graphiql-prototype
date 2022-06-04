@@ -11,9 +11,9 @@ export const StyledPill = styled('span', {
   alignItems: 'center',
   padding: 2,
   fontSize: 7,
-  textTransform: `uppercase`,
-  color: `$scale700 !important`,
-  backgroundColor: `$scale100`,
-  border: `1px solid $scale500`,
+  textTransform: 'uppercase',
+  color: '$scale700 !important',
+  backgroundColor: '$scale100',
+  border: '1px solid $scale500',
   borderRadius: 2,
 });

@@ -1,7 +1,7 @@
 import { createStitches } from '@stitches/react';
 import { baseColors } from './baseColors';
 
-export const { keyframes, styled, theme } = createStitches({
+export const { globalCss, keyframes, styled, theme } = createStitches({
   theme: {
     colors: {
       scaleBlack: baseColors.scale.black,

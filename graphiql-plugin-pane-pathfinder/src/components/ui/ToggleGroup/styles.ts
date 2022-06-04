@@ -6,7 +6,7 @@ export const StyledToggleGroup = styled(ToggleGroupPrimitive.Root, {
   display: 'inline-flex',
   backgroundColor: '$scale300',
   borderRadius: 8,
-  boxShadow: `0 2px 10px $scaleBlack`,
+  boxShadow: '0 2px 10px $scaleBlack',
 });
 
 export const StyledItem = styled(ToggleGroupPrimitive.Item, {
@@ -22,7 +22,7 @@ export const StyledItem = styled(ToggleGroupPrimitive.Item, {
   userSelect: 'none',
 
   span: {
-    padding: `10px 12px`,
+    padding: '10px 12px',
     fontSize: '$body',
     lineHeight: 1,
   },
@@ -37,7 +37,8 @@ export const StyledItem = styled(ToggleGroupPrimitive.Item, {
     backgroundColor: '$scale100',
     color: '$scale800',
     fontWeight: '$medium',
-    boxShadow: `0px 0.4px 1.9px rgba(59, 76, 106, 0.03), 0px 1.12px 5px rgba(59, 76, 106, 0.04), 0px 2.7px 12.6px rgba(59, 76, 106, 0.05), 0px 2.7px 12.6px rgba(59, 76, 106, 0.08)`,
+    boxShadow:
+      '0px 0.4px 1.9px rgba(59, 76, 106, 0.03), 0px 1.12px 5px rgba(59, 76, 106, 0.04), 0px 2.7px 12.6px rgba(59, 76, 106, 0.05), 0px 2.7px 12.6px rgba(59, 76, 106, 0.08)',
     pointerEvents: 'none',
   },
 });

@@ -1,4 +1,4 @@
-import { styled } from '@stitches/react';
+import { styled } from '../../theme';
 
 export const Handle = styled('div', {
   cursor: 'col-resize',

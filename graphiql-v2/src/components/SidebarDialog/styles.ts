@@ -78,8 +78,8 @@ export const DialogLead = styled('div', {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: `16px 24px`,
-  borderBottom: `1px solid $scale500`,
+  padding: '16px 24px',
+  borderBottom: '1px solid $scale500',
   fontSize: 14,
 
   svg: {

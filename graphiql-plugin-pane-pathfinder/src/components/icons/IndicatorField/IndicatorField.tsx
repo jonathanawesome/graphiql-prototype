@@ -1,7 +1,7 @@
 import { styled, theme } from '@graphiql-v2-prototype/graphiql-v2';
 
 export const Wrap = styled('svg', {
-  transition: `all .12s ease`,
+  transition: 'all .12s ease',
 });
 
 export const IndicatorField = ({ active }: { active: boolean }) => {
