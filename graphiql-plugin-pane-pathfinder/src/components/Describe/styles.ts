@@ -4,6 +4,10 @@ export const NameTypePills = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: 4,
+
+  span: {
+    whiteSpace: 'nowrap',
+  },
 });
 
 export const Name = styled('span', {
