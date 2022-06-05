@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { Uri, editor as monacoEditor } from 'monaco-editor';
+import { editor as monacoEditor } from 'monaco-editor';
 
 /** constants */
-import { AvailableEditors, editorOptions, EDITOR_URIS } from '../../../constants';
+import { editorOptions } from '../../../constants';
 
 /** hooks */
 import { useGraphiQL } from '../../../hooks';
@@ -21,7 +21,7 @@ export const Editor = ({
   defaultValue,
   language,
   optionOverrides,
-  uri,
+  hashedUri,
   value,
   valueSetter,
 }: {
@@ -29,35 +29,28 @@ export const Editor = ({
   defaultValue: string;
   language: 'graphql' | 'json';
   optionOverrides?: monacoEditor.IStandaloneEditorConstructionOptions;
-  uri: AvailableEditors;
+  hashedUri: string;
   value: string;
   valueSetter: ({ value }: { value: string }) => void;
 }) => {
   const editorRef = useRef(null);
   const [editor, setEditor] = useState<monacoEditor.IStandaloneCodeEditor | null>(null);
-  const { editors, setEditors } = useGraphiQL();
+  const { schema, setEditors } = useGraphiQL();
+
+  const model = getOrCreateModel({ uri: hashedUri, value: defaultValue });
 
   useEffect(() => {
-    const editorFromStore = editors.find((e) => e.uri === uri);
-
-    if (!editor && editorFromStore) {
-      // set the editor locally
-      setEditor(editorFromStore.editor);
-    }
-
+    editor?.setModel(model);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editors]);
+  }, [schema]);
 
   useEffect(() => {
-    const model = getOrCreateModel({ uri, value: defaultValue });
-
     model.onDidChangeContent(() => {
-      // console.log({ modelValue: model.getValue() });
       valueSetter({ value: model.getValue() });
     });
 
     if (!editor) {
-      const freshEditor = monacoEditor.create(
+      const newEditor = monacoEditor.create(
         editorRef.current as unknown as HTMLDivElement,
         {
           language,
@@ -66,10 +59,14 @@ export const Editor = ({
           ...(optionOverrides && optionOverrides), // spread any option overrides that were passed in
         }
       );
-      setEditors({ editor: freshEditor, uri });
+      setEditor(newEditor);
+      setEditors({
+        editor: newEditor,
+        name: hashedUri.substring(hashedUri.indexOf('-') + 1, hashedUri.lastIndexOf('.')),
+      });
 
       if (action) {
-        freshEditor?.addAction(action);
+        newEditor?.addAction(action);
       }
 
       monacoEditor.defineTheme('myTheme', editorTheme);
@@ -79,14 +76,18 @@ export const Editor = ({
   }, []);
 
   useEffect(() => {
-    const model = monacoEditor.getModel(Uri.file(EDITOR_URIS[uri]));
-    if (model) {
-      // https://github.com/Microsoft/monaco-editor/issues/1397
-      if (value !== model.getValue()) {
-        // console.log(`setting value for ${uri}`, value);
-        //update the operations editor when our value (either operation or variables) changes
-        //TODO 👇 setValue is the quick way to update the model. pushEditOperations is recommended, but causes text selection on update.
-        model.setValue(value);
+    if (editor) {
+      const selection = editor.getSelection();
+      const m = editor.getModel();
+      if (selection && m) {
+        editor.executeEdits('update-value', [
+          {
+            range: m.getFullModelRange(),
+            text: value,
+            forceMoveMarkers: true,
+          },
+        ]);
+        editor.setSelection(selection);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

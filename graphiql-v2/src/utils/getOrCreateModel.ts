@@ -1,21 +1,8 @@
 import { editor, Uri } from 'monaco-editor';
 
-/** constants */
-import { AvailableEditors, EDITOR_URIS } from '../constants';
-
-export const getOrCreateModel = ({
-  uri,
-  value,
-}: {
-  uri: AvailableEditors;
-  value: string;
-}) => {
+export const getOrCreateModel = ({ uri, value }: { uri: string; value: string }) => {
+  const language = uri.split('.').pop();
   return (
-    editor.getModel(Uri.file(EDITOR_URIS[uri])) ??
-    editor.createModel(
-      value,
-      EDITOR_URIS[uri].split('.').pop(),
-      Uri.file(EDITOR_URIS[uri])
-    )
+    editor.getModel(Uri.file(uri)) ?? editor.createModel(value, language, Uri.file(uri))
   );
 };

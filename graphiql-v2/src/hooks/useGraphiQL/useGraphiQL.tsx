@@ -36,17 +36,16 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
     set({ variables: value });
   },
   editors: [],
-  setEditors: ({ editor, uri }) => {
+  setEditors: ({ editor, name }) => {
     const editors = get().editors;
-    const existingEditor = editors.find((e) => e.uri === uri);
+    const existingEditor = editors.find((e) => e.name === name);
     if (!existingEditor) {
-      set({ editors: [...editors, { editor, uri }] });
+      set({ editors: [...editors, { editor, name }] });
     }
   },
   schemaUrl: null,
   schema: null,
   initSchema: async ({ url }) => {
-    //TODO clear editors/models
     if (!url) {
       set({ schema: testSchema, schemaUrl: null });
       console.log('no URL provided, setting testSchema');
@@ -66,7 +65,7 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
         operationDefinition: null,
         variables: null,
         results: defaultResults,
-        editors: [],
+        // editors: [],
       });
     }
   },
@@ -116,7 +115,7 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
         variables: variables ? JSONC.parse(variables) : undefined,
       });
 
-      setResults({ value: JSON.stringify(result.data, null, 2) });
+      setResults({ value: JSON.stringify(result, null, 2) });
     } else {
       alert(`schemaUrl not provided, can't run operations`);
     }

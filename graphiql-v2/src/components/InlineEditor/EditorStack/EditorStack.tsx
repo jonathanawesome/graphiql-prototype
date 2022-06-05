@@ -19,7 +19,7 @@ import {
   VariablesAndHeadersWrap,
 } from './styles';
 
-export const EditorStack = () => {
+export const EditorStack = ({ opsUri, varsUri }: { opsUri: string; varsUri: string }) => {
   const { operationAction, operation, setOperation } = useGraphiQL();
 
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -54,7 +54,7 @@ export const EditorStack = () => {
           action={operationAction()}
           defaultValue={defaultOperation}
           language="graphql"
-          uri="OPERATIONS_EDITOR_URI"
+          hashedUri={opsUri}
           value={operation}
           valueSetter={setOperation}
         />
@@ -63,7 +63,7 @@ export const EditorStack = () => {
         </EditorActionsWrap>
       </OperationsEditor>
       <VariablesAndHeadersWrap ref={bottomPaneRef}>
-        <VariablesAndHeaders setHeight={setHeight} />
+        <VariablesAndHeaders setHeight={setHeight} varsUri={varsUri} />
       </VariablesAndHeadersWrap>
     </EditorStackContainer>
   );

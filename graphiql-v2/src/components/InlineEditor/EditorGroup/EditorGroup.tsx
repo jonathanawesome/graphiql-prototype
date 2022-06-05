@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { Uri } from 'monaco-editor';
 import { initializeMode } from 'monaco-graphql/esm/initializeMode';
 
 /** components */
@@ -7,7 +6,7 @@ import { Editor } from '../Editor';
 import { EditorStack } from '../EditorStack';
 
 /** constants */
-import { EDITOR_URIS, SCHEMA_URI } from '../../../constants';
+import { defaultOperation, defaultVariables } from '../../../constants';
 
 /** hooks */
 import { useGraphiQL } from '../../../hooks';
@@ -18,16 +17,33 @@ import { HorizontallyResizableContainer } from '../../../layouts';
 /** styles */
 import { EditorGroupInner, EditorGroupWrap, ResultsViewer } from './styles';
 
-export const EditorGroup = ({ defaultResults }: { defaultResults: string }) => {
+/** utils */
+import { getOrCreateModel } from '../../../utils';
+
+export const EditorGroup = ({
+  defaultResults,
+  tabName,
+}: {
+  defaultResults: string;
+  tabName: string;
+}) => {
   const { results, schema, setResults } = useGraphiQL();
+
+  // create hashes for our 3 models here
+  const opsUri = `${tabName}-operations.graphql`;
+  const varsUri = `${tabName}-variables.json`;
+  const resultsUri = `${tabName}-results.json`;
+
+  const opsModel = getOrCreateModel({ uri: opsUri, value: defaultOperation });
+  const varsModel = getOrCreateModel({ uri: varsUri, value: defaultVariables });
+  const resultsModel = getOrCreateModel({ uri: resultsUri, value: defaultResults });
+
   useEffect(() => {
     if (schema) {
       initializeMode({
         diagnosticSettings: {
           validateVariablesJSON: {
-            [Uri.file(EDITOR_URIS['OPERATIONS_EDITOR_URI']).toString()]: [
-              Uri.file(EDITOR_URIS['VARIABLES_EDITOR_URI']).toString(),
-            ],
+            [opsModel.uri.toString()]: [varsModel.uri.toString()],
           },
           jsonDiagnosticSettings: {
             validate: true,
@@ -39,11 +55,12 @@ export const EditorGroup = ({ defaultResults }: { defaultResults: string }) => {
         schemas: [
           {
             schema,
-            uri: SCHEMA_URI,
+            uri: 'schema.graphql',
           },
         ],
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [schema]);
 
   return (
@@ -52,7 +69,7 @@ export const EditorGroup = ({ defaultResults }: { defaultResults: string }) => {
         {/* <Tabs /> */}
         <HorizontallyResizableContainer
           leftPane={{
-            component: <EditorStack />,
+            component: <EditorStack opsUri={opsUri} varsUri={varsUri} />,
             initialWidthPercent: 50,
           }}
           rightPane={{
@@ -62,7 +79,7 @@ export const EditorGroup = ({ defaultResults }: { defaultResults: string }) => {
                   defaultValue={defaultResults}
                   language="json"
                   optionOverrides={{ lineNumbers: 'off' }} // don't display line number in results viewer
-                  uri="RESULTS_VIEWER_URI"
+                  hashedUri={resultsUri}
                   value={results || ''}
                   valueSetter={setResults}
                 />

@@ -23,7 +23,13 @@ import {
   VariablesEditor,
 } from './styles';
 
-export const VariablesAndHeaders = ({ setHeight }: { setHeight: () => void }) => {
+export const VariablesAndHeaders = ({
+  setHeight,
+  varsUri,
+}: {
+  setHeight: () => void;
+  varsUri: string;
+}) => {
   const [isVariablesOpen, setIsVariablesOpen] = useState<boolean>(false);
 
   const { operationDefinition, operationAction, variables, setVariables } = useGraphiQL();
@@ -67,7 +73,7 @@ export const VariablesAndHeaders = ({ setHeight }: { setHeight: () => void }) =>
                 action={operationAction()}
                 defaultValue={defaultVariables}
                 language="json"
-                uri="VARIABLES_EDITOR_URI"
+                hashedUri={varsUri}
                 value={variables}
                 valueSetter={setVariables}
               />

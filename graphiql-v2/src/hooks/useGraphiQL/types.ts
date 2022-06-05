@@ -4,7 +4,6 @@ import {
   OperationDefinitionNode,
 } from 'graphql';
 import { editor } from 'monaco-editor';
-import { AvailableEditors } from '../../constants';
 
 export type GraphiQLStore = {
   results: string | null;
@@ -20,13 +19,15 @@ export type GraphiQLStore = {
   schema: GraphQLSchema | null;
   schemaUrl: string | null;
   initSchema: ({ url }: { url?: string }) => Promise<void>;
-  editors: Array<{ editor: editor.IStandaloneCodeEditor; uri: AvailableEditors }>;
+  // editors bits are here only to offer editors and their actions across components (see PrettierButton)
+  // there's probably a better way to do this
+  editors: Array<{ editor: editor.IStandaloneCodeEditor; name: string }>;
   setEditors: ({
     editor,
-    uri,
+    name,
   }: {
     editor: editor.IStandaloneCodeEditor;
-    uri: AvailableEditors;
+    name: string;
   }) => void;
   operation: string;
   setOperation: ({ value }: { value: string }) => void;

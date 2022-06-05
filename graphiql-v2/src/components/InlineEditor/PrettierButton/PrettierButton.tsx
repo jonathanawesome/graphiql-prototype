@@ -10,13 +10,11 @@ import { PrettierButtonStyled } from './styles';
 export const PrettierButton = () => {
   const { editors } = useGraphiQL();
 
-  const operationsEditor = editors.find((e) => e.uri === 'OPERATIONS_EDITOR_URI');
+  const operationsEditor = editors.find((e) => e.name === 'operations');
 
   return (
     <PrettierButtonStyled
       onClick={() => {
-        // console.log('prettier button');
-        //TODO: execute formatter
         operationsEditor?.editor.getAction('editor.action.formatDocument').run();
       }}
     >

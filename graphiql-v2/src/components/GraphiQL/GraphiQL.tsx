@@ -42,7 +42,9 @@ export const GraphiQL = ({ panePlugins, sidebarPlugins }: GraphiQLProps) => {
           initialWidthPercent: 40,
         }}
         rightPane={{
-          component: <InlineEditor defaultResults={defaultResults} />,
+          component: (
+            <InlineEditor defaultResults={defaultResults} tabName="default_tab" />
+          ),
           initialWidthPercent: 60,
         }}
       />
