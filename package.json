@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "ladle:serve": "pnpm run serve --filter ladle",
-    "ladle:build": "npm run build --filter ladle",
+    "ladle:build": "cd apps/ladle && npm run build",
     "ladle:tsc": "pnpm run tsc --filter ladle",
     "api:dev": "pnpm run dev --filter api",
     "api:codegen": "pnpm run codegen --filter api",
