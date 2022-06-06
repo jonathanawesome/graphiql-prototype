@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 /** components */
 import { Chevron } from '../../icons';
@@ -24,6 +24,10 @@ import {
 } from './styles';
 import { EasyVars } from '../EasyVars';
 
+const Headers = () => {
+  return <span style={{ fontSize: '10px' }}>TODO: Headers...please send help 🦺</span>;
+};
+
 export const VariablesAndHeaders = ({
   setHeight,
   varsUri,
@@ -44,6 +48,14 @@ export const VariablesAndHeaders = ({
       setHeight();
     }, 150);
   };
+
+  useEffect(() => {
+    if (variablesCount > 0) {
+      setIsVariablesOpen(true);
+    } else {
+      setIsVariablesOpen(false);
+    }
+  }, [variablesCount]);
 
   return (
     <CollapsibleRoot open={isVariablesOpen} onOpenChange={handleOpenChange}>
@@ -81,7 +93,9 @@ export const VariablesAndHeaders = ({
               />
             </VariablesEditor> */}
           </TabsContent>
-          <TabsContent value="tab2">TODO: Headers</TabsContent>
+          <TabsContent value="tab2">
+            <Headers />
+          </TabsContent>
         </CollapsibleContent>
       </TabsRoot>
     </CollapsibleRoot>

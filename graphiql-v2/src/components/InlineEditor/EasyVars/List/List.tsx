@@ -15,6 +15,20 @@ import { defaultInputValue } from '../../../../utils';
 
 const StyledList = styled('div', {
   width: '100%',
+  padding: '4px 0',
+});
+
+const StyledListItem = styled('div', {
+  borderBottom: '1px solid $scale400 !important',
+  marginBottom: '4px !important',
+});
+
+const AddItemButton = styled('button', {
+  width: '100%',
+  textAlign: 'right',
+  padding: '4px 0',
+  fontSize: '$mini',
+  color: '$scale700',
 });
 
 export const List = ({
@@ -95,8 +109,12 @@ export const List = ({
   return (
     <StyledList>
       {listItems.length > 0 &&
-        listItems.map((l, index) => <div key={`${l.key}-${index}`}>{l}</div>)}
-      <button onClick={() => handleAddItem()}>Add {unwrappedInputType.name} +</button>
+        listItems.map((l, index) => (
+          <StyledListItem key={`${l.key}-${index}`}>{l}</StyledListItem>
+        ))}
+      <AddItemButton onClick={() => handleAddItem()}>{`Add ${
+        listItems.length > 0 ? 'another' : ''
+      } ${unwrappedInputType.name} +`}</AddItemButton>
     </StyledList>
   );
 };

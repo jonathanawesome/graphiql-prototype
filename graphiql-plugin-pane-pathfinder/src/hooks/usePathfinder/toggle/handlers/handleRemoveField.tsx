@@ -24,6 +24,7 @@ export const handleRemoveField = ({
 }) => {
   const operationDefinition = useGraphiQL.getState().operationDefinition;
   const variableDefinitions = operationDefinition?.variableDefinitions;
+  const removeVariables = useGraphiQL.getState().removeVariables;
 
   console.log('running handleRemoveField', {
     ancestor,
@@ -62,6 +63,9 @@ export const handleRemoveField = ({
     );
 
     console.log('handleRemoveField', { variableNamesToRemove, remainingVarDefs });
+
+    // clear easyVars
+    removeVariables({ variableNames: variableNamesToRemove });
 
     if (variableNamesToRemove && remainingVarDefs) {
       setNextVariableDefinitions({

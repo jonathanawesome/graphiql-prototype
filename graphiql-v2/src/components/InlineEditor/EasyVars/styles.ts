@@ -28,7 +28,7 @@ export const NameAndType = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: 4,
-  height: 'inherit',
+  height: '100%',
   borderRight: '1px solid $scale400',
   paddingRight: 8,
 });

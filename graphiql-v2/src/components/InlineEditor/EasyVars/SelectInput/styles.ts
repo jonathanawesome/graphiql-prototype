@@ -4,14 +4,15 @@ import * as SelectPrimitive from '@radix-ui/react-select';
 export const SelectTrigger = styled(SelectPrimitive.SelectTrigger, {
   all: 'unset',
   boxSizing: 'border-box',
-  // width: '100%',
+  width: '100%',
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-end',
   gap: 12,
   lineHeight: 1,
   cursor: 'pointer',
   color: '$accentSuccess',
+  padding: '6px 0',
 
   svg: {
     height: 9,

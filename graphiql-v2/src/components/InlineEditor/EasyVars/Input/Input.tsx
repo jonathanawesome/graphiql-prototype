@@ -11,8 +11,9 @@ const StyledInput = styled('div', {
     boxSizing: 'border-box',
     width: '100%',
     textAlign: 'right',
-    padding: 4,
+    paddingRight: 4,
     color: '$accentWarning',
+    minHeight: 24,
   },
 });
 
