@@ -5,10 +5,11 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
-    "object-shorthand": ["error", "always"],
+    "consistent-return": ["error"],
     "no-unused-vars": "off",
     "no-unneeded-ternary": "error",
-    "@typescript-eslint/no-unused-vars": ["warn"],
-    "consistent-return": ["error"]
+    "object-shorthand": ["error", "always"],
+    "prefer-const": ["warn"],    
+    "@typescript-eslint/no-unused-vars": ["warn"]
   }
 }

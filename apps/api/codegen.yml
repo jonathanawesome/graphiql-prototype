@@ -1,0 +1,31 @@
+overwrite: true
+schema: 'src/modules/**/typeDefs.ts'
+generates: 
+  src/generated/schema.graphql:
+    plugins:
+      - schema-ast
+  src/modules:
+    preset: graphql-modules
+    presetConfig:
+      importBaseTypesFrom: '../../../generated/generated'
+      baseTypesPath: '../generated/generated.ts'     
+      filename: './generated/generated-module-types.ts'  
+    plugins:
+      - add:
+          content: '/* eslint-disable */'
+      # typescript: https://www.graphql-code-generator.com/plugins/typescript
+      - typescript
+      # https://github.com/dotansimha/graphql-code-generator/issues/6280
+      - typescript-resolvers:      
+          avoidOptionals: true
+    config:
+      useImplementingTypes: true    
+      # avoidOptionals:
+        # resolvers: true          
+      contextType: "../types#Context"   
+      maybeValue: T | null
+      nonOptionalTypename: true        
+
+hooks:
+  afterAllFileWrite:
+    - npx prettier --write     

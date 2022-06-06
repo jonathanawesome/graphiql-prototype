@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,    
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "lib": [ "ESNext"],
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ESNext",
+    "noImplicitAny": false
+  }
+}

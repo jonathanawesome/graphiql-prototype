@@ -1,1 +1,0 @@
-export { useGraphiQL } from './useGraphiQL';
