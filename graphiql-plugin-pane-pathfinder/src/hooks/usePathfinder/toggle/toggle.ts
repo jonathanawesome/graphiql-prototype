@@ -53,11 +53,10 @@ export const toggle = ({
     } else {
       /** begin handle TARGET */
       if (ancestor === target) {
-        // console.log('on TARGET, clearing nextSelectionSet', {
+        // console.log('on TARGET', {
         //   ancestor,
         //   target,
         // });
-        setNextSelectionSet({ nextSelectionSet: null });
 
         /** begin handle ARGUMENT */
         if (isArgument) {
@@ -78,12 +77,15 @@ export const toggle = ({
           }
         } /** end handle ARGUMENT */
 
+        //TODO 👆👇 these may be able to get combined into one
+
         /** begin handle INPUT_FIELD */
         if (isInputField) {
           // console.log('isInputField');
           if (!ancestor.selection) {
             handleAddInputField({
               ancestor,
+              nextVariableDefinitions: get().nextVariableDefinitions,
               setNextAction,
               setNextVariableDefinitions,
             });
@@ -205,9 +207,12 @@ export const toggle = ({
       selections: [],
     },
   };
-
   onEditDefinition({
     nextDefinition:
       nextSelectionSet && nextSelectionSet.selections.length > 0 ? nextDefinition : null,
   });
+  // clear state for next toggle
+  // setNextAction(null);
+  setNextSelectionSet({ nextSelectionSet: null });
+  // setNextVariableDefinitions({ nextVariableDefinitions: [] });
 };

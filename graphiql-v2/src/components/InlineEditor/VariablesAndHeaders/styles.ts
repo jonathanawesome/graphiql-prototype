@@ -14,7 +14,7 @@ export const TabsAndTrigger = styled('div', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  padding: '8px 30px 8px 12px',
+  padding: '8px 24px 8px 12px',
 });
 
 export const TabsList = styled(TabsPrimitive.List, {
@@ -48,6 +48,7 @@ export const TabsTrigger = styled(TabsPrimitive.Trigger, {
 
 export const CollapsibleTrigger = styled(Collapsible.Trigger, {
   all: 'reset',
+  boxSizing: 'border-box',
   cursor: 'pointer',
   marginBottom: 8,
   width: 12,

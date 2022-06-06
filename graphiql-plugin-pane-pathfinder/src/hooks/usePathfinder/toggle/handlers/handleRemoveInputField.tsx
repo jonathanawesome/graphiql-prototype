@@ -20,6 +20,7 @@ export const handleRemoveInputField = ({
 
   const operationDefinition = useGraphiQL.getState().operationDefinition;
   const variableDefinitions = operationDefinition?.variableDefinitions;
+  const removeVariables = useGraphiQL.getState().removeVariables;
 
   const newVarDefs = variableDefinitions?.filter(
     (v) => v.variable.name.value !== ancestor.variableName
@@ -30,6 +31,8 @@ export const handleRemoveInputField = ({
       nextVariableDefinitions: newVarDefs,
     });
   }
+
+  removeVariables({ variableNames: [ancestor.variableName] });
 
   setNextAction({
     type: 'REMOVE',

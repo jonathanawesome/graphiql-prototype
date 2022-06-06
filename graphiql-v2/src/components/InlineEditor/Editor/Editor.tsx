@@ -40,12 +40,22 @@ export const Editor = ({
   const model = getOrCreateModel({ uri: hashedUri, value: defaultValue });
 
   useEffect(() => {
-    editor?.setModel(model);
+    if (editor) {
+      console.log('setting new editor model', {
+        editor,
+        editorValue: editor.getValue(),
+        model,
+        modelValue: model.getValue(),
+      });
+      editor.setModel(model);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [schema]);
 
   useEffect(() => {
     model.onDidChangeContent(() => {
+      // TODO is this breaking on schema switch...need to clear these models on schema switch?
+      console.log('is this running?');
       valueSetter({ value: model.getValue() });
     });
 

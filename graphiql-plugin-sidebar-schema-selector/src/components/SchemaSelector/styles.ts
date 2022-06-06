@@ -4,6 +4,7 @@ import { styled } from '@graphiql-v2-prototype/graphiql-v2';
 
 export const RadioGroupRadio = styled(RadioGroupPrimitive.Item, {
   all: 'unset',
+  boxSizing: 'border-box',
   border: '1px solid $scale500',
   width: 16,
   height: 16,
@@ -36,6 +37,7 @@ export const RadioGroupIndicator = styled(RadioGroupPrimitive.Indicator, {
 export const RadioGroup = styled(RadioGroupPrimitive.Root, {
   fieldset: {
     all: 'unset',
+    boxSizing: 'border-box',
 
     '&:disabled': {
       opacity: 0.5,

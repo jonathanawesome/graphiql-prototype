@@ -28,7 +28,7 @@ export const handleAddField = ({
   setNextSelectionSet: SetNextSelectionSetSignature;
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
 }) => {
-  // console.log('running handleAddField', { ancestor });
+  console.log('running handleAddField', { ancestor, nextVariableDefinitions });
 
   const siblings = findFieldSiblings({ ancestor });
 
@@ -39,23 +39,23 @@ export const handleAddField = ({
       kind: Kind.NAME,
       value: ancestor.field.name,
     },
-    arguments: getRequiredArgumentNodesForField({
-      field: ancestor.field,
-    }),
+    // arguments: getRequiredArgumentNodesForField({
+    //   field: ancestor.field,
+    // }),
   };
 
   /** if we have required args for this field we need to get the variable definitions */
-  const requiredVariableDefinitions = getRequiredVariableDefinitionsForField({
-    field: ancestor.field,
-  });
+  // const requiredVariableDefinitions = getRequiredVariableDefinitionsForField({
+  //   field: ancestor.field,
+  // });
 
-  /** set the variable defintions */
-  if (requiredVariableDefinitions.length > 0) {
-    const nextVarDefs = nextVariableDefinitions ? [...nextVariableDefinitions] : [];
-    setNextVariableDefinitions({
-      nextVariableDefinitions: [...nextVarDefs, ...requiredVariableDefinitions],
-    });
-  }
+  // /** set the variable defintions */
+  // if (requiredVariableDefinitions.length > 0) {
+  //   const nextVarDefs = nextVariableDefinitions ? [...nextVariableDefinitions] : [];
+  //   setNextVariableDefinitions({
+  //     nextVariableDefinitions: [...nextVarDefs, ...requiredVariableDefinitions],
+  //   });
+  // }
 
   /** update the nextSelectionSet to include our new field node and any sibling selections */
   return setNextSelectionSet({

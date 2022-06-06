@@ -4,6 +4,7 @@ import { useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
 /** types */
 import {
   AncestorInputField,
+  NextVariableDefinitions,
   SetNextActionSignature,
   SetNextVariableDefinitionsSignature,
 } from '../../types';
@@ -14,18 +15,20 @@ import { buildNewVariableDefinition } from '../../../../utils';
 export const handleAddInputField = ({
   ancestor,
   setNextAction,
+  nextVariableDefinitions,
   setNextVariableDefinitions,
 }: {
   ancestor: AncestorInputField;
+  nextVariableDefinitions: NextVariableDefinitions;
   setNextAction: SetNextActionSignature;
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
 }) => {
-  const operationDefinition = useGraphiQL.getState().operationDefinition;
-  const variableDefinitions = operationDefinition?.variableDefinitions;
+  const addVariable = useGraphiQL.getState().addVariable;
 
-  // console.log('running handleAddInputField', {
-  //   ancestor,
-  // });
+  console.log('running handleAddInputField', {
+    type: ancestor.inputField.type,
+    variableName: ancestor.variableName,
+  });
 
   const newVarDef = buildNewVariableDefinition({
     type: ancestor.inputField.type,
@@ -34,9 +37,17 @@ export const handleAddInputField = ({
 
   setNextVariableDefinitions({
     nextVariableDefinitions: [
-      ...(variableDefinitions ? variableDefinitions : []),
+      ...(nextVariableDefinitions ? nextVariableDefinitions : []),
       newVarDef,
     ],
+  });
+
+  addVariable({
+    easyVar: {
+      variableName: ancestor.variableName,
+      variableType: ancestor.inputField.type,
+      variableValue: '',
+    },
   });
 
   const newObjectFieldNode: ObjectFieldNode = {

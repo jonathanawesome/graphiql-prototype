@@ -25,9 +25,9 @@ export const handleRemoveField = ({
   const operationDefinition = useGraphiQL.getState().operationDefinition;
   const variableDefinitions = operationDefinition?.variableDefinitions;
 
-  // console.log('running handleRemoveField', {
-  //   ancestor,
-  // });
+  console.log('running handleRemoveField', {
+    ancestor,
+  });
 
   /** begin handle removing variable definitions */
   // TODO: this is pretty gross (👇), but my brain hurts so i'm going to fix it later
@@ -37,17 +37,19 @@ export const handleRemoveField = ({
     ancestor.selection.arguments &&
     ancestor.selection.arguments?.length > 0
   ) {
-    const argNamesToRemove: string[] = ancestor.selection.arguments.flatMap(
+    const variableNamesToRemove: string[] = ancestor.selection.arguments.flatMap(
       (a: ArgumentNode) => {
         if (a.value.kind === Kind.VARIABLE) {
           return a.value.name.value;
         } else if (a.value.kind === Kind.OBJECT) {
-          return a.value.fields.map(
-            (f) =>
-              `${ancestor.field.name}${capitalize(a.name.value)}${capitalize(
-                f.name.value
-              )}`
-          );
+          return a.value.fields.map((f) => {
+            console.log('f', f);
+            //TODO nested input variables
+            // if (f.value.kind === Kind.OBJECT) {}
+            return `${ancestor.field.name}${capitalize(a.name.value)}${capitalize(
+              f.name.value
+            )}`;
+          });
         } else {
           return [];
         }
@@ -55,10 +57,12 @@ export const handleRemoveField = ({
     );
 
     const remainingVarDefs = variableDefinitions?.filter(
-      (v) => !argNamesToRemove.includes(v.variable.name.value)
+      (v) => !variableNamesToRemove.includes(v.variable.name.value)
     );
 
-    if (argNamesToRemove && remainingVarDefs) {
+    console.log('handleRemoveField', { variableNamesToRemove, remainingVarDefs });
+
+    if (variableNamesToRemove && remainingVarDefs) {
       setNextVariableDefinitions({
         nextVariableDefinitions: remainingVarDefs,
       });

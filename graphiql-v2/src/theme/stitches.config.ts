@@ -24,6 +24,7 @@ export const { globalCss, keyframes, styled, theme } = createStitches({
     fonts: {
       stack:
         'Inter, -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif',
+      mono: '"Hack", "Fira Code", Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace',
     },
     fontSizes: {
       10: '10px',

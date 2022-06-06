@@ -1,3 +1,4 @@
+export * from './Check';
 export * from './Chevron';
 export * from './Close';
 export * from './Command';

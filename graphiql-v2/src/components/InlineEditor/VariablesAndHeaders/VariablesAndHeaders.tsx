@@ -2,10 +2,10 @@ import { useState } from 'react';
 
 /** components */
 import { Chevron } from '../../icons';
-import { Editor } from '../Editor';
+// import { Editor } from '../Editor';
 
 /** constants */
-import { defaultVariables } from '../../../constants';
+// import { defaultVariables } from '../../../constants';
 
 /** hooks */
 import { useGraphiQL } from '../../../hooks';
@@ -20,8 +20,9 @@ import {
   TabsList,
   TabsRoot,
   TabsTrigger,
-  VariablesEditor,
+  // VariablesEditor,
 } from './styles';
+import { EasyVars } from '../EasyVars';
 
 export const VariablesAndHeaders = ({
   setHeight,
@@ -32,7 +33,11 @@ export const VariablesAndHeaders = ({
 }) => {
   const [isVariablesOpen, setIsVariablesOpen] = useState<boolean>(false);
 
-  const { operationDefinition, operationAction, variables, setVariables } = useGraphiQL();
+  const {
+    operationDefinition,
+    //  operationAction,
+    variables,
+  } = useGraphiQL();
 
   const variablesCount = operationDefinition?.variableDefinitions?.length || 0;
 
@@ -68,7 +73,8 @@ export const VariablesAndHeaders = ({
         </TabsAndTrigger>
         <CollapsibleContent>
           <TabsContent value="tab1">
-            <VariablesEditor>
+            <EasyVars easyVars={variables} />
+            {/* <VariablesEditor>
               <Editor
                 action={operationAction()}
                 defaultValue={defaultVariables}
@@ -77,7 +83,7 @@ export const VariablesAndHeaders = ({
                 value={variables}
                 valueSetter={setVariables}
               />
-            </VariablesEditor>
+            </VariablesEditor> */}
           </TabsContent>
           <TabsContent value="tab2">TODO: Headers</TabsContent>
         </CollapsibleContent>

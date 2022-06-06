@@ -1,4 +1,5 @@
-import { ArgumentNode, Kind } from 'graphql';
+import { ArgumentNode, isEnumType, Kind } from 'graphql';
+import { useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
 
 /** types */
 import {
@@ -22,6 +23,8 @@ export const handleAddArgument = ({
   setNextAction: SetNextActionSignature;
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
 }) => {
+  const addVariable = useGraphiQL.getState().addVariable;
+
   // console.log('running handleAddArgument', {
   //   ancestor,
   // });
@@ -37,6 +40,14 @@ export const handleAddArgument = ({
       ...(nextVariableDefinitions ? nextVariableDefinitions : []),
       newVarDef,
     ],
+  });
+
+  addVariable({
+    easyVar: {
+      variableName: ancestor.variableName,
+      variableType: ancestor.argument.type,
+      variableValue: '',
+    },
   });
 
   const newArgumentNode: ArgumentNode = {
