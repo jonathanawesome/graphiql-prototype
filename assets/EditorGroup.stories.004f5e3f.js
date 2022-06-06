@@ -1,1 +1,0 @@
-import{E as e}from"./EditorGroup.eab32804.js";import{u as a,j as s,d as i}from"./index.192ea3d1.js";import"./styles.812fe9cb.js";import"./index.module.c94f0ad7.js";const u=()=>{const{results:t,schema:r,setResults:o}=a();return r?s(e,{defaultResults:i,results:t,schema:r,setResults:o}):s("p",{children:"loading schema..."})};u.storyName="EditorGroup ";export{u as Story};

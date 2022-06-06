@@ -5,44 +5,24 @@
     "version": 1
   },
   "stories": {
-    "editor-group--editor-group": {
-      "name": "Editor group",
+    "pathfinder--pathfinder": {
+      "name": "Pathfinder",
       "levels": [
-        "Editor group"
+        "Pathfinder"
       ],
-      "locStart": 10,
-      "locEnd": 25,
-      "filePath": "src/components/editor/EditorGroup/EditorGroup.stories.tsx",
+      "locStart": 6,
+      "locEnd": 15,
+      "filePath": "src/Pathfinder.stories.tsx",
       "meta": {}
     },
-    "explorer--explorer": {
-      "name": "Explorer",
-      "levels": [
-        "Explorer"
-      ],
-      "locStart": 7,
-      "locEnd": 16,
-      "filePath": "src/components/explorer/Explorer/explorer.stories.tsx",
-      "meta": {}
-    },
-    "app--reference": {
+    "reference--reference": {
       "name": "Reference",
       "levels": [
-        "App"
+        "Reference"
       ],
-      "locStart": 4,
-      "locEnd": 6,
-      "filePath": "src/components/reference/ReferenceApp/App.stories.tsx",
-      "meta": {}
-    },
-    "navigation--navigation": {
-      "name": "Navigation",
-      "levels": [
-        "Navigation"
-      ],
-      "locStart": 4,
-      "locEnd": 6,
-      "filePath": "src/components/shell/Navigation/Navigation.stories.tsx",
+      "locStart": 3,
+      "locEnd": 7,
+      "filePath": "src/Reference.stories.tsx",
       "meta": {}
     }
   }
