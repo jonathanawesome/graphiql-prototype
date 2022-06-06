@@ -11,6 +11,7 @@ export const StyledToggleGroup = styled(ToggleGroupPrimitive.Root, {
 
 export const StyledItem = styled(ToggleGroupPrimitive.Item, {
   all: 'unset',
+  boxSizing: 'border-box',
   margin: 4,
   color: '$scale700',
   borderRadius: 6,

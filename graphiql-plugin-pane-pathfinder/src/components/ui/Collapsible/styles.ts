@@ -18,7 +18,13 @@ export const Lead = styled('div', {
   },
 });
 
-export const Trigger = styled(Collapsible.Trigger, {});
+export const Trigger = styled(Collapsible.Trigger, {
+  height: 15,
+  width: 15,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
 
 export const Content = styled(Collapsible.Content, {
   marginLeft: 20,

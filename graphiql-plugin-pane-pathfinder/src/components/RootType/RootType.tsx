@@ -15,12 +15,9 @@ export const RootType = ({
   rootType: GraphQLObjectType<any, any>;
 }) => {
   const { operationDefinition } = useGraphiQL();
-  // const { variables } = useVariables();
 
   // console.log('rendering RootType', {
   //   operationDefinition,
-  //   variableDefinitions: operationDefinition?.variableDefinitions,
-  //   variables,
   // });
 
   const fields = rootType.getFields();

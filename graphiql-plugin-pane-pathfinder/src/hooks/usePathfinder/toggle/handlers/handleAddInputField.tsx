@@ -20,12 +20,14 @@ export const handleAddInputField = ({
   setNextAction: SetNextActionSignature;
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
 }) => {
+  const addVariable = useGraphiQL.getState().addVariable;
   const operationDefinition = useGraphiQL.getState().operationDefinition;
   const variableDefinitions = operationDefinition?.variableDefinitions;
 
-  // console.log('running handleAddInputField', {
-  //   ancestor,
-  // });
+  console.log('running handleAddInputField', {
+    type: ancestor.inputField.type,
+    variableName: ancestor.variableName,
+  });
 
   const newVarDef = buildNewVariableDefinition({
     type: ancestor.inputField.type,
@@ -37,6 +39,15 @@ export const handleAddInputField = ({
       ...(variableDefinitions ? variableDefinitions : []),
       newVarDef,
     ],
+  });
+
+  addVariable({
+    easyVar: {
+      argument: ancestor.inputField,
+      variableName: ancestor.variableName,
+      variableType: ancestor.inputField.type,
+      variableValue: '',
+    },
   });
 
   const newObjectFieldNode: ObjectFieldNode = {

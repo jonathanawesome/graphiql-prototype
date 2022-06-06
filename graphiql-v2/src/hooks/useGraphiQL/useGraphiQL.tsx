@@ -1,12 +1,14 @@
 import create from 'zustand';
 import { KeyCode, KeyMod } from 'monaco-editor';
-import * as JSONC from 'jsonc-parser';
+import { initializeMode } from 'monaco-graphql/esm/initializeMode';
+import cuid from 'cuid';
 
 import {
   buildClientSchema,
   ExecutableDefinitionNode,
   getIntrospectionQuery,
   IntrospectionQuery,
+  isEnumType,
   isExecutableDefinitionNode,
   Kind,
   OperationDefinitionNode,
@@ -14,13 +16,13 @@ import {
 } from 'graphql';
 
 /** constants */
-import { defaultOperation, defaultResults, defaultVariables } from '../../constants';
+import { defaultOperation, defaultResults } from '../../constants';
 
 /** types */
 import { GraphiQLStore } from './types';
 
 /** utils */
-import { fetcher, parseQuery } from '../../utils';
+import { fetcher, parseEasyVars, parseQuery, unwrapInputType } from '../../utils';
 
 /** test schema */
 import testSchema from './testSchema.js';
@@ -30,10 +32,45 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
   setResults: ({ value }) => {
     set({ results: value });
   },
-  variables: defaultVariables,
-  setVariables: ({ value }) => {
-    console.log('setVariables', value);
-    set({ variables: value });
+  variables: [],
+  addVariable: ({ easyVar }) => {
+    const variables = get().variables;
+    const existingEasyVar = variables.find(
+      (v) => v.variableName === easyVar.variableName
+    );
+    // console.log('addVariable', easyVar);
+    if (!existingEasyVar) {
+      // doesn't exist, let's add it
+      const unwrappedInputType = unwrapInputType({ inputType: easyVar.variableType });
+      if (isEnumType(unwrappedInputType)) {
+        const defaultValue = unwrappedInputType.getValues()[0].value;
+        easyVar.variableValue = defaultValue;
+        set({ variables: [...variables, easyVar] });
+      } else if (unwrappedInputType.name === 'Boolean') {
+        easyVar.variableValue = true;
+        set({ variables: [...variables, easyVar] });
+      } else {
+        set({ variables: [...variables, easyVar] });
+      }
+    }
+  },
+  updateVariable: ({ variableName, variableValue }) => {
+    const variables = get().variables;
+    const newVariables = variables.map((v) =>
+      v.variableName === variableName ? { ...v, variableValue } : v
+    );
+    // console.log('updateVariable', { variableName, variableValue, newVariables });
+    set({ variables: newVariables });
+  },
+  removeVariables: ({ variableNames }) => {
+    const variables = get().variables;
+    // console.log('removeVariable', { variableNames, variables });
+
+    const remainingVariables = variables.filter(
+      (v) => !variableNames.includes(v.variableName)
+    );
+
+    set({ variables: remainingVariables });
   },
   editors: [],
   setEditors: ({ editor, name }) => {
@@ -46,9 +83,29 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
   schemaUrl: null,
   schema: null,
   initSchema: async ({ url }) => {
+    // TODO 👇 hacky resets...need to fix
+    // also, reinitializing here seems to work intermittently...operations editor still gets confused sometime about what schema it's on
+    // i think this might be solved when tabs are in and we're keep model states globally
+    set({
+      schemaUrl: url,
+      operation: defaultOperation,
+      operationDefinition: null,
+      variables: [],
+      results: defaultResults,
+      // editors: [],
+    });
+
     if (!url) {
       set({ schema: testSchema, schemaUrl: null });
       console.log('no URL provided, setting testSchema');
+      initializeMode({
+        schemas: [
+          {
+            schema: testSchema,
+            uri: `testSchema-schema.graphql`,
+          },
+        ],
+      });
     } else {
       console.log('initializing schema:', { url });
 
@@ -57,15 +114,15 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
         operationName: 'IntrospectionQuery',
       });
 
-      // TODO 👇 hacky resets...need to fix
-      set({
-        schemaUrl: url,
-        schema: buildClientSchema(result.data as unknown as IntrospectionQuery),
-        operation: defaultOperation,
-        operationDefinition: null,
-        variables: null,
-        results: defaultResults,
-        // editors: [],
+      const schema = buildClientSchema(result.data as unknown as IntrospectionQuery);
+      set({ schema });
+      initializeMode({
+        schemas: [
+          {
+            schema,
+            uri: `${cuid.slug()}-schema.graphql`,
+          },
+        ],
       });
     }
   },
@@ -74,7 +131,7 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
     set({ operation: value });
 
     const parsedQuery = parseQuery(value);
-    console.log('running setOperation:', { parsedQuery, value });
+    // console.log('running setOperation:', { parsedQuery, value });
 
     if (!(parsedQuery instanceof Error)) {
       const setOperationDefinition = get().setOperationDefinition;
@@ -96,9 +153,9 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
   },
   operationDefinition: null,
   setOperationDefinition: ({ operationDefinition }) => {
-    console.log('running setOperationDefinition:', {
-      operationDefinition,
-    });
+    // console.log('running setOperationDefinition:', {
+    //   operationDefinition,
+    // });
     set({ operationDefinition });
   },
   executeOperation: async () => {
@@ -108,11 +165,17 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
     const variables = get().variables;
     const schemaUrl = get().schemaUrl;
 
+    console.log('running executeOperation', {
+      operationName: operationDefinition?.name?.value || '',
+      query: operation,
+      variables: variables ? parseEasyVars({ easyVars: variables }) : undefined,
+    });
+
     if (schemaUrl) {
       const result = await fetcher({ url: schemaUrl })({
         operationName: operationDefinition?.name?.value || '',
         query: operation,
-        variables: variables ? JSONC.parse(variables) : undefined,
+        variables: variables ? parseEasyVars({ easyVars: variables }) : undefined,
       });
 
       setResults({ value: JSON.stringify(result, null, 2) });
@@ -137,8 +200,6 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
     // const setVariables = useVariables.getState().setVariables;
 
     if (nextDefinition) {
-      // console.log('setting operation:', { nextDefinition });
-
       setOperation({
         value: print({
           kind: Kind.DOCUMENT,

@@ -1,8 +1,7 @@
 import { Command, useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
 
 /** components */
-import { Search, RootType } from '../index';
-import { Options } from '../Options';
+import { Options, Search, RootType } from '../index';
 
 /** styles */
 import {
@@ -22,7 +21,7 @@ export const Pathfinder = () => {
   }
 
   const queryType = schema.getQueryType();
-  const mutationType = schema.getMutationType();
+  // const mutationType = schema.getMutationType();
 
   return (
     <PathfinderStyled>
@@ -40,7 +39,8 @@ export const Pathfinder = () => {
       </PathfinderLead>
       <PathfinderContent>
         {queryType ? <RootType rootType={queryType} /> : null}
-        {mutationType ? <RootType rootType={mutationType} /> : null}
+        {/* // TODO */}
+        {/* {mutationType ? <RootType rootType={mutationType} /> : null} */}
       </PathfinderContent>
     </PathfinderStyled>
   );

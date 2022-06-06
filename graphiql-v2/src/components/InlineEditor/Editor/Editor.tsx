@@ -40,7 +40,9 @@ export const Editor = ({
   const model = getOrCreateModel({ uri: hashedUri, value: defaultValue });
 
   useEffect(() => {
-    editor?.setModel(model);
+    if (editor) {
+      editor.setModel(model);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [schema]);
 

@@ -16,6 +16,7 @@ export const globalStyles = globalCss({
   button: {
     all: 'unset',
     cursor: 'pointer',
+    boxSizing: 'border-box',
   },
   // end global css
   // begin set fonts

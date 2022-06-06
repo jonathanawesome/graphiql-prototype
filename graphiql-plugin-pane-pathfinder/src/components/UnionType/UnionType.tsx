@@ -27,7 +27,8 @@ type UnionTypeProps = {
 export const UnionType = ({ ancestors, selection, unionType }: UnionTypeProps) => {
   const unionMembers = unionType.getTypes();
 
-  console.log('rendering UnionType', { unionMembers });
+  // console.log('rendering UnionType', { unionMembers });
+
   return (
     <UnionTypeWrap>
       {unionMembers.map((o) => (
