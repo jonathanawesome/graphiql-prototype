@@ -180,7 +180,9 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
 
       setResults({ value: JSON.stringify(result, null, 2) });
     } else {
-      alert(`schemaUrl not provided, can't run operations`);
+      alert(
+        `Schucks...you're trying to run an operation on the test schema, but it's not backed by a server. Try clicking the GraphQL icon in the sidebar to explore publicly available schemas.`
+      );
     }
   },
   operationAction: () => ({

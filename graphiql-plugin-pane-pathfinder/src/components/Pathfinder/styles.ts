@@ -46,7 +46,7 @@ export const FakeSearch = styled('div', {
   gap: 12,
   display: 'flex',
   alignItems: 'center',
-
+  cursor: 'not-allowed',
   span: {
     fontSize: '$body',
     color: '$scale700',
