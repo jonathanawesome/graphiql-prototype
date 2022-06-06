@@ -27,6 +27,7 @@ export const handleRemoveField = ({
 
   console.log('running handleRemoveField', {
     ancestor,
+    variableDefinitions,
   });
 
   /** begin handle removing variable definitions */
@@ -67,6 +68,10 @@ export const handleRemoveField = ({
         nextVariableDefinitions: remainingVarDefs,
       });
     }
+  } else {
+    setNextVariableDefinitions({
+      nextVariableDefinitions: [...(variableDefinitions ? variableDefinitions : [])],
+    });
   }
   /** end handle removing variable definitions */
 

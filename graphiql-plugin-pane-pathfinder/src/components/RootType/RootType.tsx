@@ -14,13 +14,11 @@ export const RootType = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rootType: GraphQLObjectType<any, any>;
 }) => {
-  const { operationDefinition, variables } = useGraphiQL();
+  const { operationDefinition } = useGraphiQL();
 
-  console.log('rendering RootType', {
-    operationDefinition,
-    variableDefinitions: operationDefinition?.variableDefinitions,
-    variables,
-  });
+  // console.log('rendering RootType', {
+  //   operationDefinition,
+  // });
 
   const fields = rootType.getFields();
 

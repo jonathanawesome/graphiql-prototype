@@ -1,6 +1,7 @@
 import create from 'zustand';
 import { KeyCode, KeyMod } from 'monaco-editor';
-// import * as JSONC from 'jsonc-parser';
+import { initializeMode } from 'monaco-graphql/esm/initializeMode';
+import cuid from 'cuid';
 
 import {
   buildClientSchema,
@@ -25,11 +26,10 @@ import {
 import { GraphiQLStore } from './types';
 
 /** utils */
-import { fetcher, parseEasyVars, parseQuery } from '../../utils';
+import { fetcher, parseEasyVars, parseQuery, unwrapInputType } from '../../utils';
 
 /** test schema */
 import testSchema from './testSchema.js';
-import { unwrapInputType } from '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder/src/utils';
 
 export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
   results: defaultResults,
@@ -48,25 +48,10 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
       const unwrappedInputType = unwrapInputType({ inputType: easyVar.variableType });
       if (isEnumType(unwrappedInputType)) {
         const defaultValue = unwrappedInputType.getValues()[0].value;
-        // const newVariables = variables.map((v) =>
-        //   v.variableName === easyVar.variableName
-        //     ? { ...v, variableValue: defaultValue }
-        //     : v
-        // );
-        //set default enum value
         easyVar.variableValue = defaultValue;
-        console.log('addVariable enum', { easyVar });
-        // set({ variables: newVariables });
         set({ variables: [...variables, easyVar] });
       } else if (unwrappedInputType.name === 'Boolean') {
-        //set "true as defualt value"
-
-        // const newVariables = variables.map((v) =>
-        //   v.variableName === easyVar.variableName ? { ...v, variableValue: 'true' } : v
-        // );
         easyVar.variableValue = true;
-        console.log('addVariable boolean', { easyVar });
-        // set({ variables: newVariables });
         set({ variables: [...variables, easyVar] });
       } else {
         console.log('addVariable', { easyVar });
@@ -85,9 +70,15 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
   },
   removeVariables: ({ variableNames }) => {
     const variables = get().variables;
-    const remainingVariables = variables.filter((v) =>
-      variableNames.includes(v.variableName)
+    console.log('removeVariable', { variableNames, variables });
+
+    // let remainingVariables: EasyVar[] = [];
+    // if (variables.length > 1) {
+    const remainingVariables = variables.filter(
+      (v) => !variableNames.includes(v.variableName)
     );
+    // }
+
     // const remainingVariables = variables.filter((v) => v.variableName !== variableName);
     console.log('removeVariable', { variableNames, remainingVariables });
     set({ variables: remainingVariables });
@@ -104,6 +95,8 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
   schema: null,
   initSchema: async ({ url }) => {
     // TODO 👇 hacky resets...need to fix
+    // also, reinitializing here seems to work intermittently...operations editor still gets confused sometime about what schema it's on
+    // i think this might be solved when tabs are in and we're keep model states globally
     set({
       schemaUrl: url,
       operation: defaultOperation,
@@ -112,9 +105,18 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
       results: defaultResults,
       // editors: [],
     });
+
     if (!url) {
       set({ schema: testSchema, schemaUrl: null });
       console.log('no URL provided, setting testSchema');
+      initializeMode({
+        schemas: [
+          {
+            schema: testSchema,
+            uri: `testSchema-schema.graphql`,
+          },
+        ],
+      });
     } else {
       console.log('initializing schema:', { url });
 
@@ -123,9 +125,15 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
         operationName: 'IntrospectionQuery',
       });
 
-      // TODO 👇 hacky resets...need to fix
-      set({
-        schema: buildClientSchema(result.data as unknown as IntrospectionQuery),
+      const schema = buildClientSchema(result.data as unknown as IntrospectionQuery);
+      set({ schema });
+      initializeMode({
+        schemas: [
+          {
+            schema,
+            uri: `${cuid.slug()}-schema.graphql`,
+          },
+        ],
       });
     }
   },

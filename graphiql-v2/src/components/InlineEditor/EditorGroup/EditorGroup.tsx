@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { initializeMode } from 'monaco-graphql/esm/initializeMode';
+// import { useEffect } from 'react';
+// import { initializeMode } from 'monaco-graphql/esm/initializeMode';
 
 /** components */
 import { Editor } from '../Editor';
@@ -27,7 +27,11 @@ export const EditorGroup = ({
   defaultResults: string;
   tabName: string;
 }) => {
-  const { results, schema, setResults } = useGraphiQL();
+  const {
+    results,
+    // schema,
+    setResults,
+  } = useGraphiQL();
 
   // create hashes for our 3 models here
   const opsUri = `${tabName}-operations.graphql`;
@@ -38,30 +42,30 @@ export const EditorGroup = ({
   const varsModel = getOrCreateModel({ uri: varsUri, value: defaultVariables });
   const resultsModel = getOrCreateModel({ uri: resultsUri, value: defaultResults });
 
-  useEffect(() => {
-    if (schema) {
-      initializeMode({
-        diagnosticSettings: {
-          validateVariablesJSON: {
-            [opsModel.uri.toString()]: [varsModel.uri.toString()],
-          },
-          jsonDiagnosticSettings: {
-            validate: true,
-            schemaValidation: 'error',
-            allowComments: true,
-            trailingCommas: 'ignore',
-          },
-        },
-        schemas: [
-          {
-            schema,
-            uri: 'schema.graphql',
-          },
-        ],
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [schema]);
+  // useEffect(() => {
+  //   if (schema) {
+  //     initializeMode({
+  //       diagnosticSettings: {
+  //         validateVariablesJSON: {
+  //           [opsModel.uri.toString()]: [varsModel.uri.toString()],
+  //         },
+  //         jsonDiagnosticSettings: {
+  //           validate: true,
+  //           schemaValidation: 'error',
+  //           allowComments: true,
+  //           trailingCommas: 'ignore',
+  //         },
+  //       },
+  //       // schemas: [
+  //       //   {
+  //       //     schema,
+  //       //     uri: `${tabName}-schema.graphql`,
+  //       //   },
+  //       // ],
+  //     });
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [schema]);
 
   return (
     <EditorGroupWrap>

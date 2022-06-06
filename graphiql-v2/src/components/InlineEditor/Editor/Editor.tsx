@@ -41,12 +41,6 @@ export const Editor = ({
 
   useEffect(() => {
     if (editor) {
-      console.log('setting new editor model', {
-        editor,
-        editorValue: editor.getValue(),
-        model,
-        modelValue: model.getValue(),
-      });
       editor.setModel(model);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -54,8 +48,6 @@ export const Editor = ({
 
   useEffect(() => {
     model.onDidChangeContent(() => {
-      // TODO is this breaking on schema switch...need to clear these models on schema switch?
-      console.log('is this running?');
       valueSetter({ value: model.getValue() });
     });
 

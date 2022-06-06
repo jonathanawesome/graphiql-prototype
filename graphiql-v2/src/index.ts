@@ -11,4 +11,4 @@ export { useGraphiQL } from '../src/hooks';
 
 export { globalStyles, keyframes, styled, theme } from '../src/theme';
 
-export { fetcher } from '../src/utils';
+export { fetcher, unwrapInputType } from '../src/utils';

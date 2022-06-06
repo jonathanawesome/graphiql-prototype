@@ -3,9 +3,12 @@ import { styled } from '../../../theme';
 /** components */
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { Check, Chevron } from '../../icons';
+import { HandleVariableChangeSignature } from './EasyVars';
+import cuid from 'cuid';
+import { useEffect } from 'react';
 
 /** hooks */
-import { useGraphiQL } from '../../../hooks';
+// import { useGraphiQL } from '../../../hooks';
 
 const SelectTrigger = styled(SelectPrimitive.SelectTrigger, {
   all: 'unset',
@@ -103,25 +106,41 @@ const StyledSelect = styled(SelectPrimitive.Root, {
 
 const SelectValue = styled(SelectPrimitive.Value, {});
 
-const updateVariable = useGraphiQL.getState().updateVariable;
+// const updateVariable = useGraphiQL.getState().updateVariable;
 
 export const SelectInput = ({
+  handleVariableChange,
+  onList = false,
   values,
   variableName,
 }: {
+  handleVariableChange: HandleVariableChangeSignature;
+  onList?: boolean;
   values: Array<{ value: string; name: string; description?: string }>;
   variableName: string;
 }) => {
   // console.log('values in SelectInput', values);
+  const id = cuid.slug();
 
-  const handleChange = (value: string) => {
-    updateVariable({ variableName, variableValue: value });
-  };
+  useEffect(() => {
+    if (onList) {
+      handleVariableChange({ id, value: values[0].value, variableName });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <StyledSelect
       defaultValue={values[0].value}
-      onValueChange={(value) => handleChange(value)}
+      name={variableName}
+      onValueChange={(value) => {
+        console.log('value changing in SelectInput, calling handleVariableChange', {
+          id,
+          value,
+          variableName,
+        });
+        return handleVariableChange({ id, value, variableName });
+      }}
     >
       <SelectTrigger aria-label="Values">
         <SelectValue />

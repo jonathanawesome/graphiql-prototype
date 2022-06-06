@@ -5,9 +5,11 @@ import {
   isRequiredArgument,
   Kind,
 } from 'graphql';
+
+/** utils */
+import { unwrapInputType } from '@graphiql-v2-prototype/graphiql-v2';
 import { buildObjectFields } from './buildObjectFields';
 import { capitalize } from './capitalize';
-import { unwrapInputType } from './unwrapInputType';
 
 export const getRequiredArgumentNodesForField = ({
   field,

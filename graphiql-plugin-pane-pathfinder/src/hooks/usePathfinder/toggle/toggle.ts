@@ -64,7 +64,6 @@ export const toggle = ({
           if (!ancestor.selection) {
             handleAddArgument({
               ancestor,
-              nextVariableDefinitions: get().nextVariableDefinitions,
               setNextAction,
               setNextVariableDefinitions,
             });
@@ -85,7 +84,6 @@ export const toggle = ({
           if (!ancestor.selection) {
             handleAddInputField({
               ancestor,
-              nextVariableDefinitions: get().nextVariableDefinitions,
               setNextAction,
               setNextVariableDefinitions,
             });
@@ -214,5 +212,5 @@ export const toggle = ({
   // clear state for next toggle
   // setNextAction(null);
   setNextSelectionSet({ nextSelectionSet: null });
-  // setNextVariableDefinitions({ nextVariableDefinitions: [] });
+  setNextVariableDefinitions({ nextVariableDefinitions: [] });
 };

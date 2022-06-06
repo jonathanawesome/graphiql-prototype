@@ -2,10 +2,10 @@ import { useState } from 'react';
 
 /** components */
 import { Chevron } from '../../icons';
-// import { Editor } from '../Editor';
+import { Editor } from '../Editor';
 
 /** constants */
-// import { defaultVariables } from '../../../constants';
+import { defaultVariables } from '../../../constants';
 
 /** hooks */
 import { useGraphiQL } from '../../../hooks';
@@ -20,7 +20,7 @@ import {
   TabsList,
   TabsRoot,
   TabsTrigger,
-  // VariablesEditor,
+  VariablesEditor,
 } from './styles';
 import { EasyVars } from '../EasyVars';
 
@@ -33,11 +33,7 @@ export const VariablesAndHeaders = ({
 }) => {
   const [isVariablesOpen, setIsVariablesOpen] = useState<boolean>(false);
 
-  const {
-    operationDefinition,
-    //  operationAction,
-    variables,
-  } = useGraphiQL();
+  const { operationDefinition, operationAction, variables } = useGraphiQL();
 
   const variablesCount = operationDefinition?.variableDefinitions?.length || 0;
 

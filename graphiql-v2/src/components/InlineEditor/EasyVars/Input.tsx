@@ -1,9 +1,7 @@
+import cuid from 'cuid';
+import React, { useState, useEffect } from 'react';
 import { styled } from '../../../theme';
-
-/** hooks */
-import { useGraphiQL } from '../../../hooks';
-import React, { useRef } from 'react';
-import { GraphQLInputType } from 'graphql';
+import { defaultInputValue, HandleVariableChangeSignature } from './EasyVars';
 
 const StyledInput = styled('div', {
   width: '100%',
@@ -13,57 +11,59 @@ const StyledInput = styled('div', {
     width: '100%',
     textAlign: 'right',
     padding: 4,
-    // marginRight: 12,
     color: '$accentWarning',
   },
 });
 
-const updateVariable = useGraphiQL.getState().updateVariable;
-
 export const Input = ({
+  defaultValue,
+  handleVariableChange,
+  onList = false,
   variableName,
-  unwrappedTypeName,
 }: {
+  defaultValue: string;
+  handleVariableChange: HandleVariableChangeSignature;
+  onList?: boolean;
   variableName: string;
-  unwrappedTypeName: string;
 }) => {
-  console.log('rendering Input', {
-    variableName,
-    unwrappedTypeName,
-  });
-  const inputRef = useRef<HTMLInputElement>(null);
+  const id = cuid.slug();
+  const [value, setValue] = useState<string>('');
 
-  const handleChange = () => {
-    if (inputRef?.current?.value) {
-      updateVariable({ variableName, variableValue: inputRef.current.value });
-    }
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
   };
 
-  const defaultValue = () => {
-    console.log('unwrappedTypeName', unwrappedTypeName);
-    switch (unwrappedTypeName) {
-      case 'Float':
-        return '1.23';
-      case 'Int':
-        return '123';
-      case 'ID':
-        return 'cl3mbj6ta002z3e0wfn017z27';
-      case 'String':
-        return 'meowwoof';
-      default:
-        return 'Whoops...';
+  useEffect(() => {
+    if (onList) {
+      // handleVariableChange({ id, value: values[0].value, variableName });
+      handleVariableChange({
+        id,
+        value: defaultValue,
+        variableName,
+      });
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    console.log('value changing in Input, calling handleVariableChange', {
+      id,
+      value,
+      variableName,
+    });
+    handleVariableChange({ id, value, variableName });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
 
   return (
     <StyledInput>
       <input
         autoComplete="off"
         name={variableName}
-        onChange={() => handleChange()}
-        ref={inputRef}
+        onChange={(e) => handleInputChange(e)}
+        // ref={inputRef}
         type="text"
-        value={defaultValue()}
+        value={value || defaultValue}
       />
     </StyledInput>
   );

@@ -6,11 +6,8 @@ import {
 } from 'graphql';
 
 /** utils */
-import {
-  buildNewVariableDefinition,
-  buildVariableNameValue,
-  unwrapInputType,
-} from '../utils';
+import { buildNewVariableDefinition, buildVariableNameValue } from '../utils';
+import { unwrapInputType } from '@graphiql-v2-prototype/graphiql-v2';
 
 export const getRequiredVariableDefinitionsForField = ({
   field,

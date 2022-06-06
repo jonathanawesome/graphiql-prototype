@@ -1,4 +1,5 @@
 import { FieldNode, Kind } from 'graphql';
+import { useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
 
 /** helpers */
 import { findFieldSiblings } from '../helpers';
@@ -12,10 +13,10 @@ import {
 } from '../../types';
 
 /** utils */
-import {
-  getRequiredArgumentNodesForField,
-  getRequiredVariableDefinitionsForField,
-} from '../../../../utils';
+// import {
+//   getRequiredArgumentNodesForField,
+//   getRequiredVariableDefinitionsForField,
+// } from '../../../../utils';
 
 export const handleAddField = ({
   ancestor,
@@ -29,6 +30,8 @@ export const handleAddField = ({
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
 }) => {
   console.log('running handleAddField', { ancestor, nextVariableDefinitions });
+  const operationDefinition = useGraphiQL.getState().operationDefinition;
+  const variableDefinitions = operationDefinition?.variableDefinitions;
 
   const siblings = findFieldSiblings({ ancestor });
 
@@ -56,6 +59,10 @@ export const handleAddField = ({
   //     nextVariableDefinitions: [...nextVarDefs, ...requiredVariableDefinitions],
   //   });
   // }
+
+  setNextVariableDefinitions({
+    nextVariableDefinitions: [...(variableDefinitions ? variableDefinitions : [])],
+  });
 
   /** update the nextSelectionSet to include our new field node and any sibling selections */
   return setNextSelectionSet({

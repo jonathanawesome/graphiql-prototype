@@ -1,10 +1,9 @@
-import { ArgumentNode, isEnumType, Kind } from 'graphql';
+import { ArgumentNode, Kind } from 'graphql';
 import { useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
 
 /** types */
 import {
   AncestorArgument,
-  NextVariableDefinitions,
   SetNextActionSignature,
   SetNextVariableDefinitionsSignature,
 } from '../../types';
@@ -14,17 +13,16 @@ import { buildNewVariableDefinition } from '../../../../utils';
 
 export const handleAddArgument = ({
   ancestor,
-  nextVariableDefinitions,
   setNextAction,
   setNextVariableDefinitions,
 }: {
   ancestor: AncestorArgument;
-  nextVariableDefinitions: NextVariableDefinitions;
   setNextAction: SetNextActionSignature;
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
 }) => {
   const addVariable = useGraphiQL.getState().addVariable;
-
+  const operationDefinition = useGraphiQL.getState().operationDefinition;
+  const variableDefinitions = operationDefinition?.variableDefinitions;
   // console.log('running handleAddArgument', {
   //   ancestor,
   // });
@@ -37,13 +35,14 @@ export const handleAddArgument = ({
 
   setNextVariableDefinitions({
     nextVariableDefinitions: [
-      ...(nextVariableDefinitions ? nextVariableDefinitions : []),
+      ...(variableDefinitions ? variableDefinitions : []),
       newVarDef,
     ],
   });
 
   addVariable({
     easyVar: {
+      argument: ancestor.argument,
       variableName: ancestor.variableName,
       variableType: ancestor.argument.type,
       variableValue: '',

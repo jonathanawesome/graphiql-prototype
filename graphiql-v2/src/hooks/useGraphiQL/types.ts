@@ -1,5 +1,6 @@
 import {
   ExecutableDefinitionNode,
+  GraphQLArgument,
   GraphQLInputType,
   GraphQLSchema,
   OperationDefinitionNode,
@@ -10,6 +11,7 @@ export type EasyVar = {
   variableName: string;
   variableType: GraphQLInputType;
   variableValue: string | boolean | number;
+  argument: GraphQLArgument;
 };
 export type EasyVars = Array<EasyVar>;
 

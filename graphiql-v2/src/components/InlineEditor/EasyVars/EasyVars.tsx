@@ -1,88 +1,84 @@
-import { unwrapInputType } from '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder/src/utils';
+import { useEffect, useState } from 'react';
 import {
-  GraphQLEnumValue,
+  GraphQLEnumType,
+  GraphQLInputType,
   isEnumType,
   isListType,
   isNonNullType,
-  isRequiredArgument,
-  isRequiredInputField,
+  isScalarType,
 } from 'graphql';
-import type { EasyVar as EV, EasyVars as EVs } from '../../../hooks/useGraphiQL/types';
 
-import { styled } from '../../../theme';
+/** components */
 import { Input } from './Input';
+import { List } from './List';
 import { SelectInput } from './SelectInput';
 
-const EasyVarsStyled = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 8,
-  fontFamily: '$mono',
-  fontSize: 11,
-});
+/** hooks */
+import type { EasyVar as EV, EasyVars as EVs } from '../../../hooks';
+import { useGraphiQL } from '../../../hooks';
 
-const EasyVarStyled = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  gap: 8,
-  padding: '0 8px',
-  border: '1px solid $scale400',
-  borderRadius: 8,
-  height: 34,
+/** styles */
+import { EasyVarStyled, EasyVarsStyled, Name, NameAndType, Type } from './styles';
 
-  span: {
-    // fontSize: '$body',
-  },
-});
+/** utils */
+import { unwrapInputType } from '../../../utils';
 
-const NameAndType = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  gap: 4,
-  height: 'inherit',
-  borderRight: '1px solid $scale400',
-  paddingRight: 8,
-});
-const Name = styled('span', {
-  color: '$accentField',
-});
-const Type = styled('span', {
-  display: 'flex',
-  color: '$scale700',
-  fontSize: '8px !important',
-  lineHeight: 1,
-  textTransform: 'uppercase',
-  padding: 3,
-  border: '1px solid $scale400',
-  borderRadius: 2,
-});
+export const unwrapNonNull = ({ type }: { type: GraphQLInputType }) => {
+  if (isNonNullType(type)) {
+    return type.ofType;
+  } else {
+    return type;
+  }
+};
 
-const EasyVar = ({ easyVar }: { easyVar: EV }) => {
+export const defaultInputValue = ({ typeNameAsString }: { typeNameAsString: string }) => {
+  console.log('typeNameAsString', typeNameAsString);
+  switch (typeNameAsString) {
+    case 'Float':
+      return '1.23';
+    case 'Int':
+      return '123';
+    case 'ID':
+      return 'cl3mbj6ta002z3e0wfn017z27';
+    case 'String':
+      return 'meowwoof';
+    default:
+      return 'Whoops...';
+  }
+};
+
+const inputToRender = ({
+  easyVar,
+  handleVariableChange,
+}: {
+  easyVar: EV;
+  handleVariableChange: HandleVariableChangeSignature;
+}) => {
   const unwrappedInputType = unwrapInputType({ inputType: easyVar.variableType });
   const name = easyVar.variableName;
-  // let inputToRender: React.ReactElement;
-  // Boolean - select
-  // Enum - select
-  // Float - input number
-  // ID - input string
-  // Int - input number
-  // string - input string
-  // [Boolean] - list
-  // [Enum]- list
-  // [Float]- list
-  // [ID]- list
-  // [Int]- list
-  // [String]- list
+
   let inputToRender: React.ReactElement;
-  if (isListType(easyVar.variableType)) {
-    // rendering top-level InputObject that is NOT required
-    inputToRender = <p>list</p>;
-  } else if (isEnumType(unwrappedInputType)) {
-    const values = unwrappedInputType.getValues();
-    console.log('enum values', values);
+  if (
+    isListType(easyVar.variableType) ||
+    (isNonNullType(easyVar.variableType) && isListType(easyVar.variableType.ofType))
+  ) {
+    // rendering a List
+    inputToRender = (
+      <List
+        handleVariableChange={handleVariableChange}
+        variableName={easyVar.variableName}
+        unwrappedInputType={unwrappedInputType}
+      />
+    );
+  } else if (
+    isEnumType(easyVar.variableType) ||
+    (isNonNullType(easyVar.variableType) && isEnumType(easyVar.variableType.ofType))
+  ) {
+    // it's an enum, let's setup the SelectInput
+    const values = (easyVar.variableType as GraphQLEnumType).getValues();
     inputToRender = (
       <SelectInput
+        handleVariableChange={handleVariableChange}
         variableName={name}
         values={values.map((val) => ({
           value: val.value,
@@ -91,9 +87,14 @@ const EasyVar = ({ easyVar }: { easyVar: EV }) => {
         }))}
       />
     );
-  } else if (unwrappedInputType.name === 'Boolean') {
+  } else if (
+    isScalarType(easyVar.variableType) &&
+    easyVar.variableType.name === 'Boolean'
+  ) {
+    // we want to show a SelectInput for Boolean scalars
     inputToRender = (
       <SelectInput
+        handleVariableChange={handleVariableChange}
         variableName={name}
         values={[
           {
@@ -110,24 +111,80 @@ const EasyVar = ({ easyVar }: { easyVar: EV }) => {
   } else {
     inputToRender = (
       <Input
+        defaultValue={defaultInputValue({ typeNameAsString: unwrappedInputType.name })}
+        handleVariableChange={handleVariableChange}
         variableName={easyVar.variableName}
-        unwrappedTypeName={unwrappedInputType.name}
+        // unwrappedTypeName={unwrappedInputType.name}
       />
     );
   }
+  return inputToRender;
+};
+
+const updateVariable = useGraphiQL.getState().updateVariable;
+
+type HandleVariableChange = {
+  id: string;
+  value: string;
+  variableName: string;
+};
+
+export type HandleVariableChangeSignature = ({
+  id,
+  value,
+  variableName,
+}: HandleVariableChange) => void;
+
+const EasyVar = ({ easyVar }: { easyVar: EV }) => {
+  // console.log('rendering easyVar', { easyVar });
+
+  const [newVariableListValue, setNewVariableListValue] = useState<
+    Array<HandleVariableChange>
+  >([]);
+
+  console.log('value in EasyVar', {
+    newVariableListValue,
+    easyVarType: easyVar.variableType,
+  });
+
+  const handleVariableChange = ({ id, value, variableName }: HandleVariableChange) => {
+    if (isListType(easyVar.variableType)) {
+      setNewVariableListValue((previousListItems) => {
+        if (previousListItems.length === 0) {
+          return [{ id, value, variableName }];
+        } else {
+          const copy = [...previousListItems];
+          const existingValue = copy.findIndex((x) => x.id === id);
+          console.log('copy', { copy });
+          if (existingValue !== -1) {
+            // if argument exists, replace it
+            copy[existingValue] = { id, value, variableName };
+            return copy;
+          } else {
+            return [...previousListItems, { id, value, variableName }];
+          }
+        }
+      });
+    } else {
+      updateVariable({ variableName: easyVar.variableName, variableValue: value });
+    }
+  };
+
+  useEffect(() => {
+    // updateVariable({
+    //   variableName: easyVar.variableName,
+    //   variableValue: newVariableListValue,
+    // });
+  }, [newVariableListValue]);
+
   return (
-    <>
-      <EasyVarStyled>
-        <NameAndType>
-          <Name>{name}</Name>
-          <Type>
-            {unwrappedInputType.toString()}
-            {isNonNullType(easyVar.variableType) && '!'}
-          </Type>
-        </NameAndType>
-        {inputToRender}
-      </EasyVarStyled>
-    </>
+    <EasyVarStyled>
+      <NameAndType>
+        <Name>{easyVar.variableName}</Name>
+        <Type>{easyVar.argument.type.toString()}</Type>
+      </NameAndType>
+      {inputToRender({ easyVar, handleVariableChange })}
+    </EasyVarStyled>
   );
 };
 
@@ -135,8 +192,8 @@ export const EasyVars = ({ easyVars }: { easyVars: EVs }) => {
   console.log('easyVars', easyVars);
   return (
     <EasyVarsStyled>
-      {easyVars.map((eV) => (
-        <EasyVar key={eV.variableName} easyVar={eV} />
+      {easyVars.map((v) => (
+        <EasyVar key={v.variableName} easyVar={v} />
       ))}
     </EasyVarsStyled>
   );
