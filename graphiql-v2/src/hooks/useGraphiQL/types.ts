@@ -10,7 +10,7 @@ import { editor } from 'monaco-editor';
 export type EasyVar = {
   variableName: string;
   variableType: GraphQLInputType;
-  variableValue: string | boolean | number;
+  variableValue: string | boolean | number | string[];
   argument: GraphQLArgument;
 };
 export type EasyVars = Array<EasyVar>;
@@ -18,8 +18,6 @@ export type EasyVars = Array<EasyVar>;
 export type GraphiQLStore = {
   results: string | null;
   setResults: ({ value }: { value: string }) => void;
-  // variables: string | null;
-  // setVariables: ({ value }: { value: string }) => void;
   variables: EasyVars;
   addVariable: ({ easyVar }: { easyVar: EasyVar }) => void;
   updateVariable: ({
@@ -27,7 +25,7 @@ export type GraphiQLStore = {
     variableValue,
   }: {
     variableName: string;
-    variableValue: string;
+    variableValue: string | string[];
   }) => void;
   removeVariables: ({ variableNames }: { variableNames: string[] }) => void;
   operationDefinition: ExecutableDefinitionNode | null;

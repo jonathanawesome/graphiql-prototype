@@ -16,11 +16,7 @@ import {
 } from 'graphql';
 
 /** constants */
-import {
-  defaultOperation,
-  defaultResults,
-  //  defaultVariables
-} from '../../constants';
+import { defaultOperation, defaultResults } from '../../constants';
 
 /** types */
 import { GraphiQLStore } from './types';
@@ -42,7 +38,7 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
     const existingEasyVar = variables.find(
       (v) => v.variableName === easyVar.variableName
     );
-    console.log('addVariable', easyVar);
+    // console.log('addVariable', easyVar);
     if (!existingEasyVar) {
       // doesn't exist, let's add it
       const unwrappedInputType = unwrapInputType({ inputType: easyVar.variableType });
@@ -54,33 +50,26 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
         easyVar.variableValue = true;
         set({ variables: [...variables, easyVar] });
       } else {
-        console.log('addVariable', { easyVar });
-
         set({ variables: [...variables, easyVar] });
       }
     }
   },
   updateVariable: ({ variableName, variableValue }) => {
-    console.log('updateVariable', { variableName, variableValue });
     const variables = get().variables;
     const newVariables = variables.map((v) =>
       v.variableName === variableName ? { ...v, variableValue } : v
     );
+    // console.log('updateVariable', { variableName, variableValue, newVariables });
     set({ variables: newVariables });
   },
   removeVariables: ({ variableNames }) => {
     const variables = get().variables;
-    console.log('removeVariable', { variableNames, variables });
+    // console.log('removeVariable', { variableNames, variables });
 
-    // let remainingVariables: EasyVar[] = [];
-    // if (variables.length > 1) {
     const remainingVariables = variables.filter(
       (v) => !variableNames.includes(v.variableName)
     );
-    // }
 
-    // const remainingVariables = variables.filter((v) => v.variableName !== variableName);
-    console.log('removeVariable', { variableNames, remainingVariables });
     set({ variables: remainingVariables });
   },
   editors: [],
@@ -142,7 +131,7 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
     set({ operation: value });
 
     const parsedQuery = parseQuery(value);
-    console.log('running setOperation:', { parsedQuery, value });
+    // console.log('running setOperation:', { parsedQuery, value });
 
     if (!(parsedQuery instanceof Error)) {
       const setOperationDefinition = get().setOperationDefinition;
@@ -164,9 +153,9 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
   },
   operationDefinition: null,
   setOperationDefinition: ({ operationDefinition }) => {
-    console.log('running setOperationDefinition:', {
-      operationDefinition,
-    });
+    // console.log('running setOperationDefinition:', {
+    //   operationDefinition,
+    // });
     set({ operationDefinition });
   },
   executeOperation: async () => {
@@ -176,8 +165,10 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
     const variables = get().variables;
     const schemaUrl = get().schemaUrl;
 
-    console.log('executeOperation', {
-      variables: parseEasyVars({ easyVars: variables }),
+    console.log('running executeOperation', {
+      operationName: operationDefinition?.name?.value || '',
+      query: operation,
+      variables: variables ? parseEasyVars({ easyVars: variables }) : undefined,
     });
 
     if (schemaUrl) {
@@ -185,7 +176,6 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
         operationName: operationDefinition?.name?.value || '',
         query: operation,
         variables: variables ? parseEasyVars({ easyVars: variables }) : undefined,
-        // variables: variables ? JSONC.parse(variables) : undefined,
       });
 
       setResults({ value: JSON.stringify(result, null, 2) });

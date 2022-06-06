@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import cuid from 'cuid';
 import { styled } from '../../../../theme';
 
 /** types */
@@ -20,20 +19,28 @@ const StyledInput = styled('div', {
 export const Input = ({
   defaultValue,
   handleVariableChange,
+  id,
   onList = false,
   variableName,
 }: {
   defaultValue: string;
   handleVariableChange: HandleVariableChangeSignature;
+  id: string;
   onList?: boolean;
   variableName: string;
 }) => {
-  const id = cuid.slug();
   const [value, setValue] = useState<string>('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
+
+  useEffect(() => {
+    handleVariableChange({ id, value, variableName });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
+  // this order 👆 👇 is critical, don't change it
 
   useEffect(() => {
     // set a default value for inputs on lists
@@ -42,11 +49,6 @@ export const Input = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    handleVariableChange({ id, value, variableName });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
 
   return (
     <StyledInput>

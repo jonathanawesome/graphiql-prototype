@@ -13,6 +13,7 @@ import { HandleVariableChange } from './types';
 
 /** utils */
 import { inputToRender } from './inputToRender';
+import { unwrapNonNullInputType } from '../../../utils';
 
 const updateVariable = useGraphiQL.getState().updateVariable;
 
@@ -23,20 +24,14 @@ const EasyVar = ({ easyVar }: { easyVar: EV }) => {
     Array<HandleVariableChange>
   >([]);
 
-  console.log('value in EasyVar', {
-    newVariableListValue,
-    easyVarType: easyVar.variableType,
-  });
-
   const handleVariableChange = ({ id, value, variableName }: HandleVariableChange) => {
-    if (isListType(easyVar.variableType)) {
+    if (isListType(unwrapNonNullInputType({ type: easyVar.variableType }))) {
       setNewVariableListValue((previousListItems) => {
         if (previousListItems.length === 0) {
           return [{ id, value, variableName }];
         } else {
           const copy = [...previousListItems];
           const existingValue = copy.findIndex((x) => x.id === id);
-          console.log('copy', { copy });
           if (existingValue !== -1) {
             // if argument exists, replace it
             copy[existingValue] = { id, value, variableName };
@@ -52,10 +47,11 @@ const EasyVar = ({ easyVar }: { easyVar: EV }) => {
   };
 
   useEffect(() => {
-    // updateVariable({
-    //   variableName: easyVar.variableName,
-    //   variableValue: newVariableListValue,
-    // });
+    updateVariable({
+      variableName: easyVar.variableName,
+      variableValue: newVariableListValue.map((v) => v.value),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newVariableListValue]);
 
   return (
@@ -70,7 +66,6 @@ const EasyVar = ({ easyVar }: { easyVar: EV }) => {
 };
 
 export const EasyVars = ({ easyVars }: { easyVars: EVs }) => {
-  console.log('easyVars', easyVars);
   return (
     <EasyVarsStyled>
       {easyVars.map((v) => (

@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import cuid from 'cuid';
 
 /** components */
 import { Check, Chevron } from '../../../icons';
@@ -23,17 +22,17 @@ import { HandleVariableChangeSignature } from '../types';
 
 export const SelectInput = ({
   handleVariableChange,
+  id,
   onList = false,
   values,
   variableName,
 }: {
   handleVariableChange: HandleVariableChangeSignature;
+  id: string;
   onList?: boolean;
   values: Array<{ value: string; name: string; description?: string }>;
   variableName: string;
 }) => {
-  const id = cuid.slug();
-
   useEffect(() => {
     if (onList) {
       handleVariableChange({ id, value: values[0].value, variableName });

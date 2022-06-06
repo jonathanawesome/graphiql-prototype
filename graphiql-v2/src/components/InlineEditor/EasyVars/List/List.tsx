@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import cuid from 'cuid';
 import { GraphQLNamedType, isEnumType, isScalarType } from 'graphql';
 import { styled } from '../../../../theme';
 
@@ -44,6 +45,7 @@ export const List = ({
         ...listItems,
         <SelectInput
           handleVariableChange={handleVariableChange}
+          id={cuid.slug()}
           onList={true}
           variableName={variableName}
           values={values}
@@ -57,6 +59,7 @@ export const List = ({
         ...listItems,
         <SelectInput
           handleVariableChange={handleVariableChange}
+          id={cuid.slug()}
           onList={true}
           variableName={variableName}
           values={[
@@ -72,13 +75,16 @@ export const List = ({
         />,
       ]);
     } else {
+      const defaultValue = defaultInputValue({
+        typeNameAsString: unwrappedInputType.name,
+      });
+
       setListItems((listItems) => [
         ...listItems,
         <Input
-          defaultValue={defaultInputValue({
-            typeNameAsString: unwrappedInputType.name,
-          })}
+          defaultValue={defaultValue}
           handleVariableChange={handleVariableChange}
+          id={cuid.slug()}
           onList={true}
           variableName={variableName}
         />,
