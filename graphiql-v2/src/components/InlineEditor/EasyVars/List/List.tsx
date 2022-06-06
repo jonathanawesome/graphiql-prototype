@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { GraphQLNamedType, isEnumType, isScalarType } from 'graphql';
-import { styled } from '../../../theme';
+import { styled } from '../../../../theme';
 
 /** components */
-import { Input } from './Input';
-import { SelectInput } from './SelectInput';
-import { defaultInputValue, HandleVariableChangeSignature } from './EasyVars';
-import cuid from 'cuid';
+import { Input } from '../Input';
+import { SelectInput } from '../SelectInput';
+
+/** types */
+import { HandleVariableChangeSignature } from '../types';
+
+/** utils */
+import { defaultInputValue } from '../../../../utils';
 
 const StyledList = styled('div', {
   width: '100%',
@@ -21,15 +25,13 @@ export const List = ({
   variableName: string;
   unwrappedInputType: GraphQLNamedType;
 }) => {
-  console.log('rendering List', {
-    variableName,
-    unwrappedInputType,
-  });
+  // console.log('rendering List', {
+  //   variableName,
+  //   unwrappedInputType,
+  // });
   const [listItems, setListItems] = useState<React.ReactElement[]>([]);
 
-  const handleAddItem = ({ id }: { id: string }) => {
-    //TODO call handleVariableChange with a defaultValue here
-
+  const handleAddItem = () => {
     if (isEnumType(unwrappedInputType)) {
       // it's an enum, let's setup the SelectInput
       const values = unwrappedInputType.getValues().map((val) => ({
@@ -37,10 +39,6 @@ export const List = ({
         name: val.name,
         description: val.description || undefined,
       }));
-
-      // set an initial/default value
-      // const id = cuid.slug();
-      // handleVariableChange({ id, value: values[0].value, variableName });
 
       setListItems((listItems) => [
         ...listItems,
@@ -55,10 +53,6 @@ export const List = ({
       isScalarType(unwrappedInputType) &&
       unwrappedInputType.name === 'Boolean'
     ) {
-      // set an initial/default value
-      // const id = cuid.slug();
-      // handleVariableChange({ id, value: 'true', variableName });
-
       setListItems((listItems) => [
         ...listItems,
         <SelectInput
@@ -78,9 +72,6 @@ export const List = ({
         />,
       ]);
     } else {
-      // set an initial/default value
-      // const id = cuid.slug();
-      // handleVariableChange({ id, value: defaultValue, variableName });
       setListItems((listItems) => [
         ...listItems,
         <Input
@@ -99,9 +90,7 @@ export const List = ({
     <StyledList>
       {listItems.length > 0 &&
         listItems.map((l, index) => <div key={`${l.key}-${index}`}>{l}</div>)}
-      <button onClick={() => handleAddItem({ id: cuid.slug() })}>
-        Add {unwrappedInputType.name} +
-      </button>
+      <button onClick={() => handleAddItem()}>Add {unwrappedInputType.name} +</button>
     </StyledList>
   );
 };

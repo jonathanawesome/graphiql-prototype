@@ -1,7 +1,9 @@
-import cuid from 'cuid';
 import React, { useState, useEffect } from 'react';
-import { styled } from '../../../theme';
-import { defaultInputValue, HandleVariableChangeSignature } from './EasyVars';
+import cuid from 'cuid';
+import { styled } from '../../../../theme';
+
+/** types */
+import { HandleVariableChangeSignature } from '../types';
 
 const StyledInput = styled('div', {
   width: '100%',
@@ -34,23 +36,14 @@ export const Input = ({
   };
 
   useEffect(() => {
+    // set a default value for inputs on lists
     if (onList) {
-      // handleVariableChange({ id, value: values[0].value, variableName });
-      handleVariableChange({
-        id,
-        value: defaultValue,
-        variableName,
-      });
+      handleVariableChange({ id, value: defaultValue, variableName });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    console.log('value changing in Input, calling handleVariableChange', {
-      id,
-      value,
-      variableName,
-    });
     handleVariableChange({ id, value, variableName });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
@@ -61,7 +54,6 @@ export const Input = ({
         autoComplete="off"
         name={variableName}
         onChange={(e) => handleInputChange(e)}
-        // ref={inputRef}
         type="text"
         value={value || defaultValue}
       />
