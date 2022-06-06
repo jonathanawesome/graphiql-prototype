@@ -28,7 +28,7 @@ export const Pathfinder = () => {
       <PathfinderLead>
         <h2>Pathfinder</h2>
         <ContainRight>
-          <FakeSearch onClick={() => alert('FakeSearch...Todo!')}>
+          <FakeSearch>
             <Search />
             <span>Search</span>
             <Command />

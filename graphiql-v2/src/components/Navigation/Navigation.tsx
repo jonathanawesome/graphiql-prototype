@@ -13,14 +13,14 @@ export const Navigation = ({
     <NavigationStyled>
       <PanePlugins>
         <Docs />
-        <div onClick={() => alert('Todo: History?')}>
+        <div style={{ cursor: 'not-allowed' }}>
           <History />
         </div>
       </PanePlugins>
 
       <SibebarPlugins>
         {sidebarPlugins && sidebarPlugins.map((s) => <div key={s?.toString()}>{s}</div>)}
-        <div onClick={() => alert('Todo: Keyboard shortcuts')}>
+        <div style={{ cursor: 'not-allowed' }}>
           <Command />
         </div>
         <SettingsDialog />
