@@ -27970,9 +27970,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/monaco-graphql@1.0.17_07c2d00612f401424944259f810c5a4e/node_modules/monaco-graphql/dist/schemaLoader.js
+  // ../../node_modules/.pnpm/monaco-graphql@1.1.0_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/schemaLoader.js
   var require_schemaLoader = __commonJS({
-    "../../node_modules/.pnpm/monaco-graphql@1.0.17_07c2d00612f401424944259f810c5a4e/node_modules/monaco-graphql/dist/schemaLoader.js"(exports) {
+    "../../node_modules/.pnpm/monaco-graphql@1.1.0_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/schemaLoader.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.defaultSchemaLoader = void 0;
@@ -28002,9 +28002,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/monaco-graphql@1.0.17_07c2d00612f401424944259f810c5a4e/node_modules/monaco-graphql/dist/LanguageService.js
+  // ../../node_modules/.pnpm/monaco-graphql@1.1.0_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/LanguageService.js
   var require_LanguageService = __commonJS({
-    "../../node_modules/.pnpm/monaco-graphql@1.0.17_07c2d00612f401424944259f810c5a4e/node_modules/monaco-graphql/dist/LanguageService.js"(exports) {
+    "../../node_modules/.pnpm/monaco-graphql@1.1.0_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/LanguageService.js"(exports) {
       "use strict";
       var __assign = exports && exports.__assign || function() {
         __assign = Object.assign || function(t) {
@@ -28134,15 +28134,15 @@ ${operationTypes.join("\n")}
       var LanguageService = function() {
         function LanguageService2(_a3) {
           var _this = this;
-          var parser = _a3.parser, schemas = _a3.schemas, parseOptions = _a3.parseOptions, exteralFragmentDefinitions = _a3.exteralFragmentDefinitions, customValidationRules = _a3.customValidationRules;
+          var parser = _a3.parser, schemas = _a3.schemas, parseOptions = _a3.parseOptions, externalFragmentDefinitions = _a3.externalFragmentDefinitions, customValidationRules = _a3.customValidationRules;
           this._parser = graphql_1.parse;
           this._schemas = [];
           this._schemaCache = schemaCache;
           this._schemaLoader = schemaLoader_1.defaultSchemaLoader;
           this._parseOptions = void 0;
           this._customValidationRules = void 0;
-          this._exteralFragmentDefinitionNodes = null;
-          this._exteralFragmentDefinitionsString = null;
+          this._externalFragmentDefinitionNodes = null;
+          this._externalFragmentDefinitionsString = null;
           this.getCompletion = function(uri, documentText, position) {
             var schema = _this.getSchemaForFile(uri);
             if (!documentText || documentText.length < 1 || !(schema === null || schema === void 0 ? void 0 : schema.schema)) {
@@ -28152,7 +28152,7 @@ ${operationTypes.join("\n")}
           };
           this.getDiagnostics = function(uri, documentText, customRules) {
             var schema = _this.getSchemaForFile(uri);
-            if (!documentText || documentText.length < 1 || !(schema === null || schema === void 0 ? void 0 : schema.schema)) {
+            if (!documentText || documentText.trim().length < 2 || !(schema === null || schema === void 0 ? void 0 : schema.schema)) {
               return [];
             }
             return graphql_language_service_1.getDiagnostics(documentText, schema.schema, customRules !== null && customRules !== void 0 ? customRules : _this._customValidationRules, false, _this.getExternalFragmentDefinitions());
@@ -28191,11 +28191,11 @@ ${operationTypes.join("\n")}
           if (customValidationRules) {
             this._customValidationRules = customValidationRules;
           }
-          if (exteralFragmentDefinitions) {
-            if (Array.isArray(exteralFragmentDefinitions)) {
-              this._exteralFragmentDefinitionNodes = exteralFragmentDefinitions;
+          if (externalFragmentDefinitions) {
+            if (Array.isArray(externalFragmentDefinitions)) {
+              this._externalFragmentDefinitionNodes = externalFragmentDefinitions;
             } else {
-              this._exteralFragmentDefinitionsString = exteralFragmentDefinitions;
+              this._externalFragmentDefinitionsString = externalFragmentDefinitions;
             }
           }
         }
@@ -28236,20 +28236,20 @@ ${operationTypes.join("\n")}
           }
         };
         LanguageService2.prototype.getExternalFragmentDefinitions = function() {
-          if (!this._exteralFragmentDefinitionNodes && this._exteralFragmentDefinitionsString) {
+          if (!this._externalFragmentDefinitionNodes && this._externalFragmentDefinitionsString) {
             var definitionNodes_1 = [];
             try {
-              graphql_1.visit(this._parser(this._exteralFragmentDefinitionsString), {
+              graphql_1.visit(this._parser(this._externalFragmentDefinitionsString), {
                 FragmentDefinition: function(node) {
                   definitionNodes_1.push(node);
                 }
               });
             } catch (err) {
-              throw Error("Failed parsing exteralFragmentDefinitions string:\n" + this._exteralFragmentDefinitionsString);
+              throw Error("Failed parsing externalFragmentDefinitions string:\n" + this._externalFragmentDefinitionsString);
             }
-            this._exteralFragmentDefinitionNodes = definitionNodes_1;
+            this._externalFragmentDefinitionNodes = definitionNodes_1;
           }
-          return this._exteralFragmentDefinitionNodes;
+          return this._externalFragmentDefinitionNodes;
         };
         LanguageService2.prototype.updateSchemas = function(schemas) {
           return __awaiter3(this, void 0, void 0, function() {
@@ -28284,9 +28284,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/monaco-graphql@1.0.17_07c2d00612f401424944259f810c5a4e/node_modules/monaco-graphql/dist/utils.js
+  // ../../node_modules/.pnpm/monaco-graphql@1.1.0_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/utils.js
   var require_utils3 = __commonJS({
-    "../../node_modules/.pnpm/monaco-graphql@1.0.17_07c2d00612f401424944259f810c5a4e/node_modules/monaco-graphql/dist/utils.js"(exports) {
+    "../../node_modules/.pnpm/monaco-graphql@1.1.0_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/utils.js"(exports) {
       "use strict";
       var __assign = exports && exports.__assign || function() {
         __assign = Object.assign || function(t) {
@@ -41099,9 +41099,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/monaco-graphql@1.0.17_07c2d00612f401424944259f810c5a4e/node_modules/monaco-graphql/dist/GraphQLWorker.js
+  // ../../node_modules/.pnpm/monaco-graphql@1.1.0_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/GraphQLWorker.js
   var require_GraphQLWorker = __commonJS({
-    "../../node_modules/.pnpm/monaco-graphql@1.0.17_07c2d00612f401424944259f810c5a4e/node_modules/monaco-graphql/dist/GraphQLWorker.js"(exports) {
+    "../../node_modules/.pnpm/monaco-graphql@1.1.0_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/GraphQLWorker.js"(exports) {
       "use strict";
       var __assign = exports && exports.__assign || function() {
         __assign = Object.assign || function(t) {
@@ -41299,7 +41299,6 @@ ${operationTypes.join("\n")}
                 documentModel = this._getTextModel(uri);
                 document_2 = documentModel === null || documentModel === void 0 ? void 0 : documentModel.getValue();
                 if (!document_2) {
-                  console.log("no document");
                   return [2, []];
                 }
                 graphQLPosition = utils_1.toGraphQLPosition(position);
@@ -41430,9 +41429,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/monaco-graphql@1.0.17_07c2d00612f401424944259f810c5a4e/node_modules/monaco-graphql/dist/graphql.worker.js
+  // ../../node_modules/.pnpm/monaco-graphql@1.1.0_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/graphql.worker.js
   var require_graphql_worker = __commonJS({
-    "../../node_modules/.pnpm/monaco-graphql@1.0.17_07c2d00612f401424944259f810c5a4e/node_modules/monaco-graphql/dist/graphql.worker.js"(exports) {
+    "../../node_modules/.pnpm/monaco-graphql@1.1.0_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/graphql.worker.js"(exports) {
       Object.defineProperty(exports, "__esModule", { value: true });
       var editor_worker_1 = (init_editor_worker(), __toCommonJS(editor_worker_exports));
       var GraphQLWorker_1 = require_GraphQLWorker();
