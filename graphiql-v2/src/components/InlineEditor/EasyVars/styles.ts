@@ -13,16 +13,11 @@ export const EasyVarStyled = styled('div', {
   gridTemplateColumns: '1fr 1fr',
   alignItems: 'center',
   justifyContent: 'space-between',
-  // gap: 8,
   overflow: 'hidden',
   paddingLeft: '8px',
   border: '1px solid $scale400',
   borderRadius: 8,
   minHeight: 34,
-
-  span: {
-    // fontSize: '$body',
-  },
 });
 
 export const NameAndType = styled('div', {
