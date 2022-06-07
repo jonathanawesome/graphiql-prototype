@@ -13,7 +13,9 @@ const StyledInput = styled('div', {
     textAlign: 'right',
     color: '$accentWarning',
     paddingRight: 12,
-
+    '&::placeholder': {
+      color: '$scale600',
+    },
     '&:focus': {
       backgroundColor: '$scale200',
     },
@@ -57,8 +59,9 @@ export const Input = ({
         autoComplete="off"
         name={variableName}
         onChange={(e) => handleInputChange(e)}
+        placeholder={defaultValue}
         type="text"
-        value={value || defaultValue}
+        value={value}
       />
     </StyledInput>
   );
