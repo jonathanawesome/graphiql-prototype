@@ -12,23 +12,58 @@ import { HandleVariableChangeSignature } from '../types';
 
 /** utils */
 import { defaultInputValue } from '../../../../utils';
+import { Close } from '../../../icons';
 
 const StyledList = styled('div', {
   width: '100%',
-  padding: '4px 0',
+  // height: '100%',
+  // padding: '4px 0',
 });
 
 const StyledListItem = styled('div', {
+  display: 'flex',
   borderBottom: '1px solid $scale400 !important',
-  marginBottom: '4px !important',
+  // marginBottom: '4px !important',
+});
+
+const RemoveItemButton = styled('button', {
+  width: 32,
+  textAlign: 'right',
+  padding: '8px 8px 8px 0',
+  fontSize: '$mini',
+  color: '$scale700',
+  borderRight: '1px solid $scale300',
+
+  '&:hover': {
+    backgroundColor: '$scale200',
+    color: '$scale100',
+    svg: {
+      path: {
+        stroke: '$accentError',
+      },
+    },
+  },
+
+  svg: {
+    height: 12,
+    width: 12,
+  },
 });
 
 const AddItemButton = styled('button', {
   width: '100%',
+  // height: '100%',
+  height: 32,
+
   textAlign: 'right',
-  padding: '4px 0',
+  padding: '8px 8px 8px 0',
   fontSize: '$mini',
   color: '$scale700',
+
+  '&:hover': {
+    backgroundColor: '$scale200',
+    color: '$scale900',
+  },
 });
 
 export const List = ({
@@ -40,11 +75,14 @@ export const List = ({
   variableName: string;
   unwrappedInputType: GraphQLNamedType;
 }) => {
-  // console.log('rendering List', {
-  //   variableName,
-  //   unwrappedInputType,
-  // });
-  const [listItems, setListItems] = useState<React.ReactElement[]>([]);
+  const [listItems, setListItems] = useState<
+    Array<{ id: string; component: React.ReactElement }>
+  >([]);
+
+  console.log('rendering List', {
+    variableName,
+    listItems,
+  });
 
   const handleAddItem = () => {
     if (isEnumType(unwrappedInputType)) {
@@ -57,13 +95,17 @@ export const List = ({
 
       setListItems((listItems) => [
         ...listItems,
-        <SelectInput
-          handleVariableChange={handleVariableChange}
-          id={cuid.slug()}
-          onList={true}
-          variableName={variableName}
-          values={values}
-        />,
+        {
+          id: cuid.slug(),
+          component: (
+            <SelectInput
+              handleVariableChange={handleVariableChange}
+              id={cuid.slug()}
+              variableName={variableName}
+              values={values}
+            />
+          ),
+        },
       ]);
     } else if (
       isScalarType(unwrappedInputType) &&
@@ -71,22 +113,26 @@ export const List = ({
     ) {
       setListItems((listItems) => [
         ...listItems,
-        <SelectInput
-          handleVariableChange={handleVariableChange}
-          id={cuid.slug()}
-          onList={true}
-          variableName={variableName}
-          values={[
-            {
-              value: 'true',
-              name: 'True',
-            },
-            {
-              value: 'false',
-              name: 'False',
-            },
-          ]}
-        />,
+        {
+          id: cuid.slug(),
+          component: (
+            <SelectInput
+              handleVariableChange={handleVariableChange}
+              id={cuid.slug()}
+              variableName={variableName}
+              values={[
+                {
+                  value: 'true',
+                  name: 'True',
+                },
+                {
+                  value: 'false',
+                  name: 'False',
+                },
+              ]}
+            />
+          ),
+        },
       ]);
     } else {
       const defaultValue = defaultInputValue({
@@ -95,22 +141,35 @@ export const List = ({
 
       setListItems((listItems) => [
         ...listItems,
-        <Input
-          defaultValue={defaultValue}
-          handleVariableChange={handleVariableChange}
-          id={cuid.slug()}
-          onList={true}
-          variableName={variableName}
-        />,
+        {
+          id: cuid.slug(),
+          component: (
+            <Input
+              defaultValue={defaultValue}
+              handleVariableChange={handleVariableChange}
+              id={cuid.slug()}
+              variableName={variableName}
+            />
+          ),
+        },
       ]);
     }
+  };
+
+  const handleRemoveItem = ({ id }: { id: string }) => {
+    return setListItems((listItems) => listItems.filter((item) => item.id !== id));
   };
 
   return (
     <StyledList>
       {listItems.length > 0 &&
-        listItems.map((l, index) => (
-          <StyledListItem key={`${l.key}-${index}`}>{l}</StyledListItem>
+        listItems.map((l) => (
+          <StyledListItem key={`${l.id}`}>
+            <RemoveItemButton onClick={() => handleRemoveItem({ id: l.id })}>
+              <Close />
+            </RemoveItemButton>
+            {l.component}
+          </StyledListItem>
         ))}
       <AddItemButton onClick={() => handleAddItem()}>{`Add ${
         listItems.length > 0 ? 'another' : ''

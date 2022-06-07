@@ -82,6 +82,7 @@ export const VariablesAndHeaders = ({
         <CollapsibleContent>
           <TabsContent value="tab1">
             <EasyVars easyVars={variables} />
+
             {/* <VariablesEditor>
               <Editor
                 action={operationAction()}

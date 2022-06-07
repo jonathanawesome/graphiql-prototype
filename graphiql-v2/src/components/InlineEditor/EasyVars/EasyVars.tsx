@@ -25,7 +25,14 @@ const EasyVar = ({ easyVar }: { easyVar: EV }) => {
   >([]);
 
   const handleVariableChange = ({ id, value, variableName }: HandleVariableChange) => {
+    console.log('running handleVariableChange', {
+      type: easyVar.variableType,
+      id,
+      value,
+      variableName,
+    });
     if (isListType(unwrapNonNullInputType({ type: easyVar.variableType }))) {
+      console.log('running handleVariableChange...isListType');
       setNewVariableListValue((previousListItems) => {
         if (previousListItems.length === 0) {
           return [{ id, value, variableName }];
@@ -42,15 +49,21 @@ const EasyVar = ({ easyVar }: { easyVar: EV }) => {
         }
       });
     } else {
+      console.log('running handleVariableChange...is NOT ListType', {
+        variableName: easyVar.variableName,
+        variableValue: value,
+      });
       updateVariable({ variableName: easyVar.variableName, variableValue: value });
     }
   };
 
   useEffect(() => {
-    updateVariable({
-      variableName: easyVar.variableName,
-      variableValue: newVariableListValue.map((v) => v.value),
-    });
+    if (isListType(unwrapNonNullInputType({ type: easyVar.variableType }))) {
+      updateVariable({
+        variableName: easyVar.variableName,
+        variableValue: newVariableListValue.map((v) => v.value),
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newVariableListValue]);
 
@@ -66,6 +79,12 @@ const EasyVar = ({ easyVar }: { easyVar: EV }) => {
 };
 
 export const EasyVars = ({ easyVars }: { easyVars: EVs }) => {
+  const { variables } = useGraphiQL();
+
+  console.log('rendering EasyVars', {
+    variables,
+  });
+
   return (
     <EasyVarsStyled>
       {easyVars.map((v) => (
