@@ -11,9 +11,13 @@ const StyledInput = styled('div', {
     boxSizing: 'border-box',
     width: '100%',
     textAlign: 'right',
-    paddingRight: 4,
     color: '$accentWarning',
-    minHeight: 24,
+    paddingRight: 12,
+
+    '&:focus': {
+      backgroundColor: '$scale200',
+    },
+    minHeight: 32,
   },
 });
 
@@ -21,13 +25,11 @@ export const Input = ({
   defaultValue,
   handleVariableChange,
   id,
-  onList = false,
   variableName,
 }: {
   defaultValue: string;
   handleVariableChange: HandleVariableChangeSignature;
   id: string;
-  onList?: boolean;
   variableName: string;
 }) => {
   const [value, setValue] = useState<string>('');
@@ -44,10 +46,8 @@ export const Input = ({
   // this order 👆 👇 is critical, don't change it
 
   useEffect(() => {
-    // set a default value for inputs on lists
-    if (onList) {
-      handleVariableChange({ id, value: defaultValue, variableName });
-    }
+    // set a default value in our variables state
+    handleVariableChange({ id, value: defaultValue, variableName });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

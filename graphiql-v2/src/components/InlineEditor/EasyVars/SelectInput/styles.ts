@@ -12,7 +12,8 @@ export const SelectTrigger = styled(SelectPrimitive.SelectTrigger, {
   lineHeight: 1,
   cursor: 'pointer',
   color: '$accentSuccess',
-  padding: '6px 0',
+  paddingRight: 8,
+  minHeight: 32,
 
   svg: {
     height: 9,
@@ -21,6 +22,10 @@ export const SelectTrigger = styled(SelectPrimitive.SelectTrigger, {
     path: {
       fill: '$scale600',
     },
+  },
+
+  '&:hover': {
+    backgroundColor: '$scale200',
   },
 });
 

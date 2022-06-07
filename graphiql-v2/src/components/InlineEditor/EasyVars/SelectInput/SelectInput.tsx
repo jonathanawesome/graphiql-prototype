@@ -23,28 +23,23 @@ import { HandleVariableChangeSignature } from '../types';
 export const SelectInput = ({
   handleVariableChange,
   id,
-  onList = false,
   values,
   variableName,
 }: {
   handleVariableChange: HandleVariableChangeSignature;
   id: string;
-  onList?: boolean;
   values: Array<{ value: string; name: string; description?: string }>;
   variableName: string;
 }) => {
-  useEffect(() => {
-    if (onList) {
-      handleVariableChange({ id, value: values[0].value, variableName });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <StyledSelect
       defaultValue={values[0].value}
       name={variableName}
-      onValueChange={(value) => handleVariableChange({ id, value, variableName })}
+      onValueChange={(value) => {
+        console.log('using SelectInput', { variableName, value });
+
+        return handleVariableChange({ id, value, variableName });
+      }}
     >
       <SelectTrigger aria-label="Values">
         <SelectValue />

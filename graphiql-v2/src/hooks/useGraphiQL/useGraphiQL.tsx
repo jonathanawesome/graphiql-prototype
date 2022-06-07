@@ -59,7 +59,12 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
     const newVariables = variables.map((v) =>
       v.variableName === variableName ? { ...v, variableValue } : v
     );
-    // console.log('updateVariable', { variableName, variableValue, newVariables });
+    // console.log('updateVariable', {
+    //   variableName,
+    //   variableValue,
+    //   existingVariables: variables,
+    //   newVariables,
+    // });
     set({ variables: newVariables });
   },
   removeVariables: ({ variableNames }) => {

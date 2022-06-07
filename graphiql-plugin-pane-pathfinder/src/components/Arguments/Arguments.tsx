@@ -48,7 +48,7 @@ export const Arguments = ({
             ))
         : null}
       {optionalArgs.length > 0 && (
-        <OptionalArgs isOpen={isOpen}>
+        <OptionalArgs>
           <Trigger>
             <ShowArguments
               isOpen={isOpen}
