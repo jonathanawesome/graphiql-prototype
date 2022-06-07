@@ -5,4 +5,4 @@ export { InlineEditor } from './InlineEditor';
 export { GraphiQL } from './GraphiQL';
 // export { Tabs } from './Tabs';
 
-export * from './icons';
+export * from '../ui';

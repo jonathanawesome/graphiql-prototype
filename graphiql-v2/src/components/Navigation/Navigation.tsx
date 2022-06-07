@@ -1,5 +1,6 @@
 /** components */
-import { Command, Docs, History, SettingsDialog } from '../index';
+import { SettingsDialog } from '../index';
+import { Command, Docs, History } from '../../icons';
 
 /** styles */
 import { PanePlugins, SibebarPlugins, NavigationStyled } from './styles';

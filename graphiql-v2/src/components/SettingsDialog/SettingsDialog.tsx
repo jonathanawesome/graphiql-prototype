@@ -1,7 +1,7 @@
 import { styled } from '../../theme';
 
 /** components */
-import { Gear } from '../icons';
+import { Gear } from '../../icons';
 import { SidebarDialog } from '../SidebarDialog';
 
 const StyledSettingsDialogContent = styled('div', {
