@@ -31,6 +31,12 @@ export const SelectInput = ({
   values: Array<{ value: string; name: string; description?: string }>;
   variableName: string;
 }) => {
+  useEffect(() => {
+    // set a default value in our variables state
+    handleVariableChange({ id, value: values[0].value, variableName });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <StyledSelect
       defaultValue={values[0].value}
