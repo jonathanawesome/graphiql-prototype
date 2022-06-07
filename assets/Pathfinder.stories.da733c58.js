@@ -1,0 +1,1 @@
+import{u as t,j as e,a as i}from"./index.9e40a014.js";import{P as s}from"./RootType.d733b2b6.js";const a=()=>{const{operation:r}=t();return e("div",{style:{display:"grid",gridTemplateColumns:"1fr 200px",height:"100%"},children:[i(s,{}),r&&i("div",{children:r})]})};a.storyName="Pathfinder";export{a as PathfinderStory};
