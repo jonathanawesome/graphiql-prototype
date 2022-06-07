@@ -47,7 +47,7 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
         easyVar.variableValue = defaultValue;
         set({ variables: [...variables, easyVar] });
       } else if (unwrappedInputType.name === 'Boolean') {
-        easyVar.variableValue = true;
+        easyVar.variableValue = 'true';
         set({ variables: [...variables, easyVar] });
       } else {
         set({ variables: [...variables, easyVar] });

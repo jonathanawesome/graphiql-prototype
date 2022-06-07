@@ -10,7 +10,7 @@ import { editor } from 'monaco-editor';
 export type EasyVar = {
   variableName: string;
   variableType: GraphQLInputType;
-  variableValue: string | boolean | number | string[];
+  variableValue: string | string[];
   argument: GraphQLArgument;
 };
 export type EasyVars = Array<EasyVar>;
