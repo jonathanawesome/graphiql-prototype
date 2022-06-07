@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { FieldNode, GraphQLObjectType } from 'graphql';
-import { useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
+import { Collapsible, useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
 
 /** components */
-import { Collapsible, Field } from '../index';
+import { Column, Field } from '../index';
 
 /** styles */
 import { Name } from './styles';
@@ -27,7 +27,7 @@ export const RootType = ({
   return (
     <Collapsible
       content={
-        <>
+        <Column>
           {Object.keys(fields)
             .sort()
             .map((field) => (
@@ -52,7 +52,7 @@ export const RootType = ({
                 }
               />
             ))}
-        </>
+        </Column>
       }
       leadContent={<Name>{rootType.name}</Name>}
       isExpanded={isExpanded}

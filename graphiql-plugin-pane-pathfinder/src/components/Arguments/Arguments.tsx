@@ -2,13 +2,15 @@ import { useState } from 'react';
 import { FieldNode, isRequiredArgument } from 'graphql';
 
 /** components */
-import { Argument, ShowArguments } from '../index';
-
-/** styles */
-import { OptionalArgs, Root, Content, Trigger } from './styles';
+import { Argument, Column } from '../index';
+import { Collapsible } from '@graphiql-v2-prototype/graphiql-v2';
+import { ShowArgumentsIcon } from '../icons';
 
 /** hooks */
 import type { AncestorField, AncestorMap } from '../../hooks';
+
+/** styles */
+import { ArgumentsWrap, IconWrap, RequiredArgumentsWrap, Span } from './styles';
 
 export const Arguments = ({
   ancestors,
@@ -34,45 +36,59 @@ export const Arguments = ({
   const optionalArgs = args.filter((a) => !isRequiredArgument(a));
 
   return (
-    <Root open={isOpen} onOpenChange={setIsOpen}>
-      {requiredArgs.length > 0
-        ? requiredArgs
-            .sort()
-            .map((arg) => (
-              <Argument
-                key={arg.name}
-                ancestors={ancestors}
-                argument={arg}
-                selection={selection}
-              />
-            ))
-        : null}
+    <ArgumentsWrap>
+      <RequiredArgumentsWrap>
+        {requiredArgs.length > 0
+          ? requiredArgs
+              .sort()
+              .map((arg) => (
+                <Argument
+                  key={arg.name}
+                  ancestors={ancestors}
+                  argument={arg}
+                  selection={selection}
+                />
+              ))
+          : null}
+      </RequiredArgumentsWrap>
       {optionalArgs.length > 0 && (
-        <OptionalArgs>
-          <Trigger>
-            <ShowArguments
-              isOpen={isOpen}
-              optionalArgsCount={optionalArgs.length}
-              requiredArgsCount={requiredArgs.length}
-            />
-          </Trigger>
-
-          <Content>
-            {optionalArgs.length > 0
-              ? optionalArgs
-                  .sort()
-                  .map((arg) => (
-                    <Argument
-                      key={arg.name}
-                      ancestors={ancestors}
-                      argument={arg}
-                      selection={selection}
-                    />
-                  ))
-              : null}
-          </Content>
-        </OptionalArgs>
+        <Collapsible
+          content={
+            <Column>
+              {optionalArgs.length > 0
+                ? optionalArgs
+                    .sort()
+                    .map((arg) => (
+                      <Argument
+                        key={arg.name}
+                        ancestors={ancestors}
+                        argument={arg}
+                        selection={selection}
+                      />
+                    ))
+                : null}
+            </Column>
+          }
+          leadContent={
+            <>
+              {isOpen ? (
+                <Span>Hide arguments</Span>
+              ) : requiredArgs.length > 0 ? (
+                <Span>{`${optionalArgs.length.toString()} more arguments`}</Span>
+              ) : (
+                <Span>{`Show ${optionalArgs.length.toString()} optional arguments`}</Span>
+              )}
+            </>
+          }
+          isExpanded={isOpen}
+          setIsExpanded={setIsOpen}
+          trigger={
+            <IconWrap>
+              <ShowArgumentsIcon />
+            </IconWrap>
+          }
+        />
       )}
-    </Root>
+    </ArgumentsWrap>
   );
 };
