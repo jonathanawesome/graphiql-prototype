@@ -5,7 +5,7 @@ export const defaultInputValue = ({ typeNameAsString }: { typeNameAsString: stri
     case 'Int':
       return '123';
     case 'ID':
-      return 'cl3mbj6ta002z3e0wfn017z27';
+      return 'TK421';
     case 'String':
       return 'meowwoof';
     default:
