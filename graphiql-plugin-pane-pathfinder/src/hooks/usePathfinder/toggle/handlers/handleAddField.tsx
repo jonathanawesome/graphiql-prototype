@@ -7,7 +7,6 @@ import { findFieldSiblings } from '../helpers';
 /** types */
 import {
   AncestorField,
-  NextVariableDefinitions,
   SetNextSelectionSetSignature,
   SetNextVariableDefinitionsSignature,
 } from '../../types';
@@ -20,16 +19,14 @@ import {
 
 export const handleAddField = ({
   ancestor,
-  nextVariableDefinitions,
   setNextSelectionSet,
   setNextVariableDefinitions,
 }: {
   ancestor: AncestorField;
-  nextVariableDefinitions: NextVariableDefinitions;
   setNextSelectionSet: SetNextSelectionSetSignature;
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
 }) => {
-  console.log('running handleAddField', { ancestor, nextVariableDefinitions });
+  // console.log('running handleAddField', { ancestor });
   const operationDefinition = useGraphiQL.getState().operationDefinition;
   const variableDefinitions = operationDefinition?.variableDefinitions;
 

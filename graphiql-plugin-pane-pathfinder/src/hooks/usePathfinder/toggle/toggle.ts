@@ -102,7 +102,6 @@ export const toggle = ({
           if (!ancestor.selection) {
             handleAddField({
               ancestor,
-              nextVariableDefinitions: get().nextVariableDefinitions,
               setNextSelectionSet,
               setNextVariableDefinitions,
             });
