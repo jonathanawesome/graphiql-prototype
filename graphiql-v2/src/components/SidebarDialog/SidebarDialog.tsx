@@ -1,7 +1,7 @@
 import React from 'react';
 
 /** components */
-import { Close } from '../icons';
+import { Close } from '../../icons';
 
 /** styles */
 import {

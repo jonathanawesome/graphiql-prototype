@@ -11,7 +11,11 @@ import {
 } from 'graphql';
 
 /** components */
-import { Collapsible, Describe, ScalarArg } from '../index';
+import { Describe, ScalarArg } from '../index';
+import { Collapsible } from '@graphiql-v2-prototype/graphiql-v2';
+
+/** components */
+import { Column } from '../index';
 
 /** hooks */
 import {
@@ -20,9 +24,6 @@ import {
   AncestorInputObject,
   AncestorMap,
 } from '../../hooks';
-
-/** styles */
-import { Arguments } from './styles';
 
 /** utils */
 import { capitalize, generateVariableNameFromAncestorMap } from '../../utils';
@@ -59,7 +60,7 @@ export const InputObject = ({
       content={
         <>
           {isExpanded && (
-            <Arguments>
+            <Column>
               {Object.keys(fields).map((f) => {
                 if (isInputObjectType(fields[f].type)) {
                   // rendering nested InputObject
@@ -117,7 +118,7 @@ export const InputObject = ({
                   );
                 }
               })}
-            </Arguments>
+            </Column>
           )}
         </>
       }

@@ -9,21 +9,15 @@ import {
 } from 'graphql';
 
 /** components */
-import {
-  Arguments,
-  Collapsible,
-  Describe,
-  IndicatorField,
-  ObjectType,
-  UnionType,
-} from '../index';
+import { Arguments, Describe, IndicatorField, ObjectType, UnionType } from '../index';
+import { Collapsible, ItemGrid } from '@graphiql-v2-prototype/graphiql-v2';
 
 /** hooks */
 import type { AncestorField, AncestorMap } from '../../hooks';
 import { usePathfinder } from '../../hooks';
 
 /** styles */
-import { ChildFields, IndicatorWrap, NotCollapsible } from './styles';
+import { FieldChildren, IndicatorWrap } from './styles';
 
 /** utils */
 import { findSelection, unwrapType } from '../../utils';
@@ -64,7 +58,6 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
       <ObjectType
         ancestors={ancestors}
         fields={unwrappedType.getFields()}
-        parentType="FIELD"
         selection={selection}
       />
     );
@@ -73,7 +66,6 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
       <ObjectType
         ancestors={ancestors}
         fields={unwrappedType.getFields()}
-        parentType="FIELD"
         selection={selection}
       />
     );
@@ -85,7 +77,7 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
 
   if (!isCollapsible) {
     return (
-      <NotCollapsible>
+      <ItemGrid>
         <IndicatorWrap
           isActive={!!selection}
           onClick={() => {
@@ -107,18 +99,18 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
           type={field.type}
           variant="FIELD"
         />
-      </NotCollapsible>
+      </ItemGrid>
     );
   } else {
     return (
       <Collapsible
         content={
-          <>
+          <FieldChildren>
             {field.args.length > 0 && (
               <Arguments ancestors={ancestors} selection={selection as FieldNode} />
             )}
-            <ChildFields>{childFieldsToRender}</ChildFields>
-          </>
+            <>{childFieldsToRender}</>
+          </FieldChildren>
         }
         leadContent={
           <Describe

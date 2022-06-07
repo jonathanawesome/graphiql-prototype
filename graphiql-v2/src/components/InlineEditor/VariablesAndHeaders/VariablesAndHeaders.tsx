@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 /** components */
-import { Chevron } from '../../icons';
+import { Chevron } from '../../../icons';
 import { Editor } from '../Editor';
 
 /** constants */

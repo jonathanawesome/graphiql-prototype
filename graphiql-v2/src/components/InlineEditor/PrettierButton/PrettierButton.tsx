@@ -1,5 +1,5 @@
 /** components */
-import { Prettier } from '../../index';
+import { Prettier } from '../../../icons';
 
 /** hooks */
 import { useGraphiQL } from '../../../hooks';

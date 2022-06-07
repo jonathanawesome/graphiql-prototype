@@ -1,5 +1,5 @@
 /** components */
-import { Play } from '../../index';
+import { Play } from '../../../icons';
 
 /** hooks */
 import { useGraphiQL } from '../../../hooks';

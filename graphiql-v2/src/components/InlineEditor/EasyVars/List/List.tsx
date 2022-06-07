@@ -12,7 +12,7 @@ import { HandleVariableChangeSignature } from '../types';
 
 /** utils */
 import { defaultInputValue } from '../../../../utils';
-import { Close } from '../../../icons';
+import { Close } from '../../../../icons';
 
 const StyledList = styled('div', {
   width: '100%',

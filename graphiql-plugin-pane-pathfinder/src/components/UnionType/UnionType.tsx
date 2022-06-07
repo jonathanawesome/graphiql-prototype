@@ -10,10 +10,8 @@ import {
 } from 'graphql';
 
 /** components */
-import { Collapsible, Describe, ObjectType } from '../index';
-
-/** styles */
-import { UnionTypeWrap, NestedObjectType } from './styles';
+import { Column, Describe, ObjectType } from '../index';
+import { Collapsible } from '@graphiql-v2-prototype/graphiql-v2';
 
 /** types */
 import type { AncestorMap } from '../../hooks';
@@ -30,7 +28,7 @@ export const UnionType = ({ ancestors, selection, unionType }: UnionTypeProps) =
   // console.log('rendering UnionType', { unionMembers });
 
   return (
-    <UnionTypeWrap>
+    <Column>
       {unionMembers.map((o) => (
         <UnionMember
           key={o.name}
@@ -39,7 +37,7 @@ export const UnionType = ({ ancestors, selection, unionType }: UnionTypeProps) =
           selection={selection}
         />
       ))}
-    </UnionTypeWrap>
+    </Column>
   );
 };
 
@@ -65,28 +63,25 @@ const UnionMember = ({
   return (
     <Collapsible
       content={
-        <NestedObjectType>
-          <ObjectType
-            ancestors={
-              new Map([
-                // set inline fragment ancestor
-                [
-                  // hash = safety first!
-                  `${objectMember.name}-${hash}`,
-                  {
-                    onType: objectMember.name,
-                    selectionSet: selection?.selectionSet,
-                    selection: inlineFragmentNode || null,
-                  },
-                ],
-                ...ancestors,
-              ])
-            }
-            fields={objectMember.getFields()}
-            parentType="INLINE_FRAGMENT"
-            selection={inlineFragmentNode}
-          />
-        </NestedObjectType>
+        <ObjectType
+          ancestors={
+            new Map([
+              // set inline fragment ancestor
+              [
+                // hash = safety first!
+                `${objectMember.name}-${hash}`,
+                {
+                  onType: objectMember.name,
+                  selectionSet: selection?.selectionSet,
+                  selection: inlineFragmentNode || null,
+                },
+              ],
+              ...ancestors,
+            ])
+          }
+          fields={objectMember.getFields()}
+          selection={inlineFragmentNode}
+        />
       }
       leadContent={
         <Describe

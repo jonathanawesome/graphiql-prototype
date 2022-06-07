@@ -1,24 +1,36 @@
 import { styled } from '@graphiql-v2-prototype/graphiql-v2';
 
-import * as Collapsible from '@radix-ui/react-collapsible';
-
-export const OptionalArgs = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 8,
+export const ArgumentsWrap = styled('div', {
+  marginTop: 12,
 });
 
-export const Content = styled(Collapsible.Content, {
-  // marginLeft: 12,
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 8,
+export const RequiredArgumentsWrap = styled('div', {
+  marginBottom: 8,
 });
 
-export const Trigger = styled(Collapsible.Trigger, {});
+export const Span = styled('span', {
+  display: 'inline-flex',
+  alignContent: 'center',
+  fontWeight: '$medium',
+  fontSize: 12,
+  lineHeight: 1,
+  height: 15,
+  color: '$scale700',
+  marginLeft: 8,
+  marginTop: 2,
+});
 
-export const Root = styled(Collapsible.Root, {
-  display: 'flex',
-  flexDirection: 'column',
-  width: '100%',
+export const IconWrap = styled('div', {
+  height: 15,
+  width: 15,
+  position: 'relative',
+
+  svg: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate3d(-50%, -50%, 0)',
+    height: 24,
+    width: 24,
+  },
 });
