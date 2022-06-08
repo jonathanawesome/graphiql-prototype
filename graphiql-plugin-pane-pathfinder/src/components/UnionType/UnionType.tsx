@@ -10,8 +10,7 @@ import {
 } from 'graphql';
 
 /** components */
-import { Column, Describe, ObjectType } from '../index';
-import { Collapsible } from '@graphiql-v2-prototype/graphiql-v2';
+import { Collapser, Column, Describe, ObjectType } from '../index';
 
 /** types */
 import type { AncestorMap } from '../../hooks';
@@ -61,7 +60,7 @@ const UnionMember = ({
   ) as InlineFragmentNode | undefined;
 
   return (
-    <Collapsible
+    <Collapser
       content={
         <ObjectType
           ancestors={

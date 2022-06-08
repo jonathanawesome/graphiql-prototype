@@ -9,8 +9,15 @@ import {
 } from 'graphql';
 
 /** components */
-import { Arguments, Describe, IndicatorField, ObjectType, UnionType } from '../index';
-import { Collapsible, ItemGrid } from '@graphiql-v2-prototype/graphiql-v2';
+import {
+  Arguments,
+  Collapser,
+  Describe,
+  IndicatorField,
+  ItemGrid,
+  ObjectType,
+  UnionType,
+} from '../index';
 
 /** hooks */
 import type { AncestorField, AncestorMap } from '../../hooks';
@@ -103,7 +110,7 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
     );
   } else {
     return (
-      <Collapsible
+      <Collapser
         content={
           <FieldChildren>
             {field.args.length > 0 && (

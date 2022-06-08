@@ -1,20 +1,22 @@
 import { Pathfinder } from '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder';
+import { Scout } from '@graphiql-v2-prototype/graphiql-scout';
+import { HorizontallyResizableContainer } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 /** components */
-import { InlineEditor, Navigation } from '../index';
+import {
+  // InlineEditor,
+  Navigation,
+} from '../index';
 
 /** constants */
-import { defaultResults } from '../../constants';
+// import { defaultResults } from '../../constants';
 
 /** hooks */
 import { useGraphiQL } from '../../hooks';
 
-/** layouts */
-import { HorizontallyResizableContainer } from '../../layouts';
-
 /** styles */
 import { GraphiQLStyled } from './styles';
-import { TabbedEditors } from '../TabbedEditors';
+// import { TabbedEditors } from '../TabbedEditors';
 
 type GraphiQLProps = {
   //TODO complete "plugin" props APIs
@@ -43,10 +45,7 @@ export const GraphiQL = ({ panePlugins, sidebarPlugins }: GraphiQLProps) => {
           initialWidthPercent: 40,
         }}
         rightPane={{
-          component: (
-            // <InlineEditor defaultResults={defaultResults} tabName="default_tab" />
-            <TabbedEditors />
-          ),
+          component: <Scout />,
           initialWidthPercent: 60,
         }}
       />

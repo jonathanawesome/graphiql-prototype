@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 
 /** components */
-import { Editor } from '../Editor';
+// import { Editor } from '../Editor';
 import { EditorActions } from '../EditorActions';
 import { VariablesAndHeaders } from '../VariablesAndHeaders';
 
 /** constants */
-import { defaultOperation } from '../../../constants';
+// import { defaultOperation } from '../../../constants';
 
 /** hooks */
-import { useGraphiQL } from '../../../hooks';
+// import { useGraphiQL } from '../../../hooks';
 
 /** styles */
 import {
@@ -21,17 +21,17 @@ import {
 import { editor } from 'monaco-editor';
 
 export const EditorStack = ({
-  operationsModel,
+  operationModel,
   variablesModel,
 }: {
-  operationsModel: editor.ITextModel;
+  operationModel: editor.ITextModel;
   variablesModel: editor.ITextModel;
 }) => {
-  const {
-    //  operationAction,
-    operation,
-    setOperation,
-  } = useGraphiQL();
+  // const {
+  //   //  operationAction,
+  //   operation,
+  //   setOperation,
+  // } = useGraphiQL();
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const operationsEditorRef = useRef<HTMLDivElement | null>(null);
@@ -61,7 +61,7 @@ export const EditorStack = ({
   return (
     <EditorStackContainer ref={containerRef}>
       <OperationsEditor ref={operationsEditorRef}>
-        <Editor
+        {/* <Editor
           // action={operationAction()}
           // defaultValue={defaultOperation}
           // language="graphql"
@@ -69,8 +69,8 @@ export const EditorStack = ({
           // value={operation}
           // valueSetter={setOperation}
           editorType="operations"
-          model={operationsModel}
-        />
+          model={operationModel}
+        /> */}
         <EditorActionsWrap>
           <EditorActions />
         </EditorActionsWrap>

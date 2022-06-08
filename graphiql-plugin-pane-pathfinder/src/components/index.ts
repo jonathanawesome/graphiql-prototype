@@ -1,5 +1,6 @@
 export { Argument } from './Argument';
 export { Arguments } from './Arguments';
+export { Collapser, ItemGrid } from './Collapser';
 export { Column } from './Column';
 export { Describe } from './Describe';
 export { Field } from './Field';

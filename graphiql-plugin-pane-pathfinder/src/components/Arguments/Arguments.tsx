@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { FieldNode, isRequiredArgument } from 'graphql';
 
 /** components */
-import { Argument, Column } from '../index';
-import { Collapsible } from '@graphiql-v2-prototype/graphiql-v2';
+import { Argument, Collapser, Column } from '../index';
 import { ShowArgumentsIcon } from '../icons';
 
 /** hooks */
@@ -29,7 +28,7 @@ export const Arguments = ({
 
   const { args } = field;
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   // TODO: this is gross
   const requiredArgs = args.filter((a) => isRequiredArgument(a));
@@ -52,7 +51,7 @@ export const Arguments = ({
           : null}
       </RequiredArgumentsWrap>
       {optionalArgs.length > 0 && (
-        <Collapsible
+        <Collapser
           content={
             <Column>
               {optionalArgs.length > 0
@@ -71,7 +70,7 @@ export const Arguments = ({
           }
           leadContent={
             <>
-              {isOpen ? (
+              {isExpanded ? (
                 <Span>Hide arguments</Span>
               ) : requiredArgs.length > 0 ? (
                 <Span>{`${optionalArgs.length.toString()} more arguments`}</Span>
@@ -80,8 +79,8 @@ export const Arguments = ({
               )}
             </>
           }
-          isExpanded={isOpen}
-          setIsExpanded={setIsOpen}
+          isExpanded={isExpanded}
+          setIsExpanded={setIsExpanded}
           trigger={
             <IconWrap>
               <ShowArgumentsIcon />

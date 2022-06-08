@@ -1,4 +1,5 @@
-import { SidebarDialog, useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
+import { useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
+import { Dialog } from '@graphiql-v2-prototype/graphiql-ui-library';
 import { useEffect, useState } from 'react';
 
 /** components */
@@ -116,7 +117,7 @@ const SchemaSelectorContent = () => {
 
 export const SchemaSelector = () => {
   return (
-    <SidebarDialog
+    <Dialog
       icon={<GraphQLIcon />}
       content={<SchemaSelectorContent />}
       title={`Schema Selector "Plugin"`}

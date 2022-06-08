@@ -2,18 +2,18 @@ import { useEffect, useRef } from 'react';
 import { editor as monacoEditor } from 'monaco-editor';
 
 /** constants */
-import { editorOptions } from '../../../../constants';
+// import { editorOptions } from '../../../../constants';
 
 /** hooks */
-import { useGraphiQL } from '../../../../hooks';
+// import { useGraphiQL } from '../../../../hooks';
 
 /** styles */
 import { EditorStyled, MonacoWrap } from './styles';
 
 /** theme */
-import { editorTheme } from '../../../../theme';
+// import { editorTheme } from '../../../../../../graphiql-ui-library/src/theme';
 
-const editorType = 'operations';
+// const editorType = 'operation';
 
 export const OperationsEditor = ({
   initWithModel,
@@ -21,55 +21,55 @@ export const OperationsEditor = ({
   initWithModel: monacoEditor.ITextModel;
 }) => {
   const editorRef = useRef(null);
-  const { activeTab, tabs, editors, addEditor } = useGraphiQL();
+  // const { activeSurveyor, surveyors, editors, addEditor } = useGraphiQL();
 
-  const editor = editors.find((e) => e.name === editorType);
+  // const editor = editors.find((e) => e.name === editorType);
 
-  const tab = tabs.find((tab) => tab.tabId === activeTab);
+  // const surveyor = surveyors.find((surveyor) => surveyor.surveyorId === activeSurveyor);
 
-  useEffect(() => {
-    if (tab && editor) {
-      const model = editor.editor.getModel();
-      if (model && tab.operations) {
-        model.setValue(tab.operations);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tab]);
+  // useEffect(() => {
+  //   if (surveyor && editor) {
+  //     const model = editor.editor.getModel();
+  //     if (model && surveyor.operation) {
+  //       model.setValue(surveyor.operation);
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [surveyor]);
 
-  console.log('rendering OperationsEditor', {
-    editor,
-  });
+  // console.log('rendering OperationsEditor', {
+  //   editor,
+  // });
 
-  useEffect(() => {
-    if (!editor) {
-      const newEditor = monacoEditor.create(
-        editorRef.current as unknown as HTMLDivElement,
-        {
-          ...editorOptions, // spread our base options
-          language: 'graphql',
-          model: initWithModel,
-        }
-      );
+  // useEffect(() => {
+  //   if (!editor) {
+  //     const newEditor = monacoEditor.create(
+  //       editorRef.current as unknown as HTMLDivElement,
+  //       {
+  //         ...editorOptions, // spread our base options
+  //         language: 'graphql',
+  //         model: initWithModel,
+  //       }
+  //     );
 
-      addEditor({
-        editor: newEditor,
-        name: editorType,
-      });
+  //     addEditor({
+  //       editor: newEditor,
+  //       name: editorType,
+  //     });
 
-      initWithModel.onDidChangeContent(() => {
-        valueSetter({ value: model.getValue() });
-      });
+  //     initWithModel.onDidChangeContent(() => {
+  //       valueSetter({ value: model.getValue() });
+  //     });
 
-      // if (action) {
-      //   newEditor?.addAction(action);
-      // }
+  //     // if (action) {
+  //     //   newEditor?.addAction(action);
+  //     // }
 
-      monacoEditor.defineTheme('myTheme', editorTheme);
-    }
+  //     monacoEditor.defineTheme('myTheme', editorTheme);
+  //   }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <EditorStyled>

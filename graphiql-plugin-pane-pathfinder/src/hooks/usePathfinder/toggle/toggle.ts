@@ -22,8 +22,6 @@ import {
 /** types */
 import { AncestorMap, PathfinderStore } from '../types';
 
-const onEditDefinition = useGraphiQL.getState().onEditDefinition;
-
 export const toggle = ({
   ancestors,
   get,
@@ -31,6 +29,7 @@ export const toggle = ({
   ancestors: AncestorMap;
   get: GetState<PathfinderStore>;
 }) => {
+  const onEditDefinition = useGraphiQL.getState().onEditDefinition;
   const operationDefinition = useGraphiQL.getState().operationDefinition;
 
   const target = ancestors.values().next().value;

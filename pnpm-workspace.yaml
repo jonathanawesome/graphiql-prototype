@@ -1,6 +1,8 @@
 packages:
-  - 'apps/api'
-  - 'apps/ladle'
+  - 'graphiql-ui-library'
   - 'graphiql-v2'
   - 'graphiql-plugin-pane-pathfinder'
+  - 'graphiql-scout'
   - 'graphiql-plugin-sidebar-schema-selector'
+  - 'apps/ladle'
+  - 'apps/api'

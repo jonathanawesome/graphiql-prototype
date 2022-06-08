@@ -1,18 +1,19 @@
 /** components */
-import { Play } from '../../../icons';
+// import { Play } from '../../../icons';
 
 /** hooks */
-import { useGraphiQL } from '../../../hooks';
+// import { useGraphiQL } from '../../../hooks';
 
 /** styles */
 import { PlayButtonStyled } from './styles';
 
 export const PlayButton = () => {
-  const { executeOperation } = useGraphiQL();
+  // const { executeOperation } = useGraphiQL();
 
   return (
-    <PlayButtonStyled onClick={() => executeOperation()}>
-      <Play />
+    <PlayButtonStyled>
+      play
+      {/* <Play /> */}
     </PlayButtonStyled>
   );
 };

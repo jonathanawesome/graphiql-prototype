@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 /** components */
-import { Check, Chevron } from '../../../../icons';
+import { Check, Chevron } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 /** styles */
 import {

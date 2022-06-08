@@ -1,4 +1,4 @@
-import { styled, theme } from '@graphiql-v2-prototype/graphiql-v2';
+import { styled, theme } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 export const Wrap = styled('svg', {
   transition: 'all .12s ease',

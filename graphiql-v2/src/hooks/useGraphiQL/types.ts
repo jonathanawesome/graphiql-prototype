@@ -5,7 +5,7 @@ import {
   GraphQLSchema,
   OperationDefinitionNode,
 } from 'graphql';
-import { editor } from 'monaco-editor';
+// import { editor } from 'monaco-editor';
 
 export type EasyVar = {
   variableName: string;
@@ -15,47 +15,45 @@ export type EasyVar = {
 };
 export type EasyVars = Array<EasyVar>;
 
-type Tab = {
-  tabId: string;
-  tabName: string;
-  operationsModel: editor.ITextModel;
-  variablesModel: editor.ITextModel;
-  resultsModel: editor.ITextModel;
-  operations: string;
-  variables: string;
-  results: string;
-  operationDefinition: ExecutableDefinitionNode | null;
-};
-
-type EditorNames = 'operations' | 'variables' | 'results';
+// type Surveyor = {
+//   surveyorId: string;
+//   surveyorName: string;
+//   operationModel: editor.ITextModel;
+//   variablesModel: editor.ITextModel;
+//   resultsModel: editor.ITextModel;
+//   operation: string;
+//   variables: string;
+//   results: string;
+//   operationDefinition: ExecutableDefinitionNode | null;
+// };
 
 export type GraphiQLStore = {
-  activeTab: string | null;
-  setActiveTab: ({ tabId }: { tabId: string }) => void;
-  tabs: Array<Tab>;
-  addTab: ({ tab }: { tab: Tab }) => void;
-  updateTabData: ({
-    dataType,
-    dataValue,
-  }: {
-    dataType: EditorNames;
-    dataValue: string;
-  }) => void;
-  removeTab: ({ tabId }: { tabId: string }) => void;
+  // activeSurveyor: string | null;
+  // setActiveSurveyor: ({ surveyorId }: { surveyorId: string }) => void;
+  // surveyors: Surveyor[];
+  // addSurveyor: ({ surveyor }: { surveyor: Surveyor }) => void;
+  // updateSurveyorData: ({
+  //   type,
+  //   newValue,
+  // }: {
+  //   type: EditorTypes;
+  //   newValue: string;
+  // }) => void;
+  // removeSurveyor: ({ surveyorId }: { surveyorId: string }) => void;
+  // swapSurveyor: ({ surveyorId }: { surveyorId: string }) => void;
   // editors bits are here only to offer editors and their actions across components (see PrettierButton)
   // there's probably a better way to do this
-  editors: Array<{
-    editor: editor.IStandaloneCodeEditor;
-    name: EditorNames;
-  }>;
-  addEditor: ({
-    editor,
-    name,
-  }: {
-    editor: editor.IStandaloneCodeEditor;
-    name: EditorNames;
-  }) => void;
-  swapEditorModels: ({ tabId }: { tabId: string }) => void;
+  // editors: Array<{
+  //   editor: editor.IStandaloneCodeEditor;
+  //   name: EditorTypes;
+  // }>;
+  // addEditor: ({
+  //   editor,
+  //   name,
+  // }: {
+  //   editor: editor.IStandaloneCodeEditor;
+  //   name: EditorTypes;
+  // }) => void;
   // setResults: ({ value }: { value: string }) => void;
   variables: EasyVars;
   addVariable: ({ easyVar }: { easyVar: EasyVar }) => void;
@@ -73,14 +71,13 @@ export type GraphiQLStore = {
   }: {
     operationDefinition: ExecutableDefinitionNode | null;
   }) => void;
-  schema: GraphQLSchema | null;
-  schemaUrl: string | null;
-  initSchema: ({ url }: { url?: string }) => Promise<void>;
-
+  // schema: GraphQLSchema | null;
+  // schemaUrl: string | null;
+  // initSchema: ({ url }: { url?: string }) => Promise<void>;
   operation: string;
   setOperation: ({ value }: { value: string }) => void;
-  executeOperation: () => Promise<void>;
-  operationAction: () => editor.IActionDescriptor;
+  // executeOperation: () => Promise<void>;
+  // operationAction: () => editor.IActionDescriptor;
   onEditDefinition: ({
     nextDefinition,
   }: {

@@ -11,8 +11,7 @@ import {
 } from 'graphql';
 
 /** components */
-import { Describe, ScalarArg } from '../index';
-import { Collapsible } from '@graphiql-v2-prototype/graphiql-v2';
+import { Collapser, Describe, ScalarArg } from '../index';
 
 /** components */
 import { Column } from '../index';
@@ -56,7 +55,7 @@ export const InputObject = ({
   // });
 
   return (
-    <Collapsible
+    <Collapser
       content={
         <>
           {isExpanded && (

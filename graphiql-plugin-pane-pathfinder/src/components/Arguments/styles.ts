@@ -1,4 +1,4 @@
-import { styled } from '@graphiql-v2-prototype/graphiql-v2';
+import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 export const ArgumentsWrap = styled('div', {
   marginTop: 12,

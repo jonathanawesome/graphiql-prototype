@@ -1,4 +1,4 @@
-import { styled } from '../../../../theme';
+import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 import * as SelectPrimitive from '@radix-ui/react-select';
 
 export const SelectTrigger = styled(SelectPrimitive.SelectTrigger, {

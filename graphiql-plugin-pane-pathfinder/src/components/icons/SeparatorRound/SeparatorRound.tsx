@@ -1,4 +1,4 @@
-import { theme } from '@graphiql-v2-prototype/graphiql-v2';
+import { theme } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 export const SeparatorRound = () => {
   return (

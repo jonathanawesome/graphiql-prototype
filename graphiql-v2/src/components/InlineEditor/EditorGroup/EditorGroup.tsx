@@ -1,12 +1,8 @@
+import { HorizontallyResizableContainer } from '@graphiql-v2-prototype/graphiql-ui-library';
+
 /** components */
 import { Editor } from '../Editor';
 import { EditorStack } from '../EditorStack';
-
-/** hooks */
-import { useGraphiQL } from '../../../hooks';
-
-/** layouts */
-import { HorizontallyResizableContainer } from '../../../layouts';
 
 /** styles */
 import { EditorGroupInner, EditorGroupWrap, ResultsViewer } from './styles';
@@ -14,26 +10,24 @@ import { editor } from 'monaco-editor';
 import { ResultsEditor } from '../editors/ResultsEditor';
 
 export const EditorGroup = ({
-  operationsModel,
+  operationModel,
   variablesModel,
   resultsModel,
 }: {
-  operationsModel: editor.ITextModel;
+  operationModel: editor.ITextModel;
   variablesModel: editor.ITextModel;
   resultsModel: editor.ITextModel;
 }) => {
-  // const { activeTab } = useGraphiQL();
-  // const result
   console.log('rendering EditorGroup', {});
 
   return (
     <EditorGroupWrap>
-      <EditorGroupInner>
+      {/* <EditorGroupInner>
         <HorizontallyResizableContainer
           leftPane={{
             component: (
               <EditorStack
-                operationsModel={operationsModel}
+                operationModel={operationModel}
                 variablesModel={variablesModel}
               />
             ),
@@ -48,7 +42,7 @@ export const EditorGroup = ({
             initialWidthPercent: 50,
           }}
         />
-      </EditorGroupInner>
+      </EditorGroupInner> */}
     </EditorGroupWrap>
   );
 };

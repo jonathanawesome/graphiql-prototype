@@ -1,4 +1,4 @@
-import { styled } from '../../../theme';
+import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 export const PlayButtonStyled = styled('button', {
   cursor: 'pointer',

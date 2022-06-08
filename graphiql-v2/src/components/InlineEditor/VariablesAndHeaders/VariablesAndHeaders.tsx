@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 /** components */
-import { Chevron } from '../../../icons';
+import { Chevron } from '@graphiql-v2-prototype/graphiql-ui-library';
 // import { Editor } from '../Editor';
 
 /** constants */

@@ -1,8 +1,4 @@
-import { styled } from '../../theme';
-
-/** components */
-import { Gear } from '../../icons';
-import { SidebarDialog } from '../SidebarDialog';
+import { styled, Gear, Dialog } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 const StyledSettingsDialogContent = styled('div', {
   fontSize: 10,
@@ -10,7 +6,7 @@ const StyledSettingsDialogContent = styled('div', {
 
 export const SettingsDialog = () => {
   return (
-    <SidebarDialog
+    <Dialog
       icon={<Gear />}
       content={
         <StyledSettingsDialogContent>

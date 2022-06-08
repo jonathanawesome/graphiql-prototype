@@ -1,6 +1,6 @@
 /** components */
 import { SettingsDialog } from '../index';
-import { Command, Docs, History } from '../../icons';
+import { Command, Docs, History } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 /** styles */
 import { PanePlugins, SibebarPlugins, NavigationStyled } from './styles';

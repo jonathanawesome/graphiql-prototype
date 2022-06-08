@@ -1,6 +1,6 @@
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 
-import { styled } from '@graphiql-v2-prototype/graphiql-v2';
+import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 export const RadioGroupRadio = styled(RadioGroupPrimitive.Item, {
   all: 'unset',

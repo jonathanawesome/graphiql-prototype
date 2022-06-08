@@ -6,6 +6,7 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
+    "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",
     "@graphiql-v2-prototype/graphiql-v2": "workspace:*",
     "@radix-ui/react-radio-group": "^0.1.5",
     "@stitches/react": "1.2.8",
@@ -13,6 +14,8 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@types/react": "17.0.2",
+    "@types/react-dom": "17.0.2",    
     "vite": "2.9.6"
   }
 }

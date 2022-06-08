@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import cuid from 'cuid';
 import { GraphQLNamedType, isEnumType, isScalarType } from 'graphql';
-import { styled } from '../../../../theme';
+import { styled, Close } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 /** components */
 import { Input } from '../Input';
@@ -12,7 +12,6 @@ import { HandleVariableChangeSignature } from '../types';
 
 /** utils */
 import { defaultInputValue } from '../../../../utils';
-import { Close } from '../../../../icons';
 
 const StyledList = styled('div', {
   width: '100%',

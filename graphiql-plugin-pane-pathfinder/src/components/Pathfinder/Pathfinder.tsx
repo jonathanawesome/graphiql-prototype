@@ -1,4 +1,5 @@
-import { Command, useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
+import { useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
+import { Command } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 /** components */
 import { Options, Search, RootType } from '../index';

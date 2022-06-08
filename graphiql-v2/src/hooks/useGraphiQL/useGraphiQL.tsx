@@ -16,7 +16,7 @@ import {
 } from 'graphql';
 
 /** constants */
-import { defaultOperation } from '../../constants';
+// import { defaultOperation } from '../../constants';
 
 /** types */
 import { GraphiQLStore } from './types';
@@ -28,68 +28,70 @@ import { fetcher, parseEasyVars, parseQuery, unwrapInputType } from '../../utils
 import testSchema from './testSchema.js';
 
 export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
-  activeTab: null,
-  setActiveTab: ({ tabId }) => {
-    set({ activeTab: tabId });
-  },
-  tabs: [],
-  addTab: ({ tab }) => {
-    const tabs = get().tabs;
-    const existingTab = tabs.find((t) => t.tabId === tab.tabId);
-    // console.log('addTab', {tab});
-    if (!existingTab) {
-      // doesn't exist, let's add it
-      set({ tabs: [...tabs, tab] });
-    }
-  },
-  removeTab: ({ tabId }) => {
-    const tabs = get().tabs;
-    // console.log('removeTab', { tabId });
-    const remainingTabs = tabs.filter((t) => t.tabId === tabId);
-    set({ tabs: remainingTabs });
-  },
-  updateTabData: ({ dataType, dataValue }) => {
-    const tabs = get().tabs;
-    const activeTab = get().activeTab;
+  // activeSurveyor: null,
+  // setActiveSurveyor: ({ surveyorId }) => {
+  //   set({ activeSurveyor: surveyorId });
+  // },
+  // surveyors: [],
+  // addSurveyor: ({ surveyor }) => {
+  //   const surveyors = get().surveyors;
+  //   const existingSurveyor = surveyors.find((t) => t.surveyorId === surveyor.surveyorId);
+  //   // console.log('addSurveyor', {surveyor});
+  //   if (!existingSurveyor) {
+  //     // doesn't exist, let's add it
+  //     set({ surveyors: [...surveyors, surveyor] });
+  //   }
+  // },
+  // removeSurveyor: ({ surveyorId }) => {
+  //   const surveyors = get().surveyors;
+  //   // console.log('removeSurveyor', { surveyorId });
+  //   const remainingSurveyors = surveyors.filter((t) => t.surveyorId === surveyorId);
+  //   set({ surveyors: remainingSurveyors });
+  // },
+  // updateSurveyorData: ({ type, newValue }) => {
+  //   const surveyors = get().surveyors;
+  //   const activeSurveyor = get().activeSurveyor;
 
-    // 👇 safety first
-    const tabsCopy = [...tabs];
-    const existingTab = tabsCopy.findIndex((tab) => tab.tabId === activeTab);
-    if (existingTab !== -1) {
-      tabsCopy[existingTab] = {
-        ...tabsCopy[existingTab],
-        [dataType]: dataValue,
-      };
-      set({ tabs: tabsCopy });
-    } else {
-      console.log("Tab doesn't exist ☠️");
-    }
-  },
-  editors: [],
-  addEditor: ({ editor, name }) => {
-    const editors = get().editors;
-    const existingEditor = editors.find((e) => e.name === name);
-    if (!existingEditor) {
-      set({ editors: [...editors, { editor, name }] });
-    }
-  },
-  swapEditorModels: ({ tabId }) => {
-    const editors = get().editors;
-    const tabs = get().tabs;
+  //   // 👇 safety first
+  //   const surveyorsCopy = [...surveyors];
+  //   const existingSurveyor = surveyorsCopy.findIndex(
+  //     (surveyor) => surveyor.surveyorId === activeSurveyor
+  //   );
+  //   if (existingSurveyor !== -1) {
+  //     surveyorsCopy[existingSurveyor] = {
+  //       ...surveyorsCopy[existingSurveyor],
+  //       [type]: newValue,
+  //     };
+  //     set({ surveyors: surveyorsCopy });
+  //   } else {
+  //     console.log("Surveyor doesn't exist ☠️");
+  //   }
+  // },
+  // editors: [],
+  // addEditor: ({ editor, name }) => {
+  //   const editors = get().editors;
+  //   const existingEditor = editors.find((e) => e.name === name);
+  //   if (!existingEditor) {
+  //     set({ editors: [...editors, { editor, name }] });
+  //   }
+  // },
+  // swapSurveyor: ({ surveyorId }) => {
+  //   const editors = get().editors;
+  //   const surveyors = get().surveyors;
 
-    const tab = tabs.find((t) => t.tabId === tabId);
+  //   const surveyor = surveyors.find((t) => t.surveyorId === surveyorId);
 
-    console.log('running swapEditorModels', { editors, tab });
-    if (tab) {
-      // TODO: there's probably a better way to do this 👇
-      const operationsEditor = editors.find((e) => e.name === 'operations');
-      const variablesEditor = editors.find((e) => e.name === 'variables');
-      const resultsEditor = editors.find((e) => e.name === 'results');
-      operationsEditor?.editor.setModel(tab.operationsModel);
-      variablesEditor?.editor.setModel(tab.variablesModel);
-      resultsEditor?.editor.setModel(tab.resultsModel);
-    }
-  },
+  //   console.log('running swapSurveyor', { editors, surveyor });
+  //   if (surveyor) {
+  //     // TODO: there's probably a better way to do this 👇
+  //     const operationsEditor = editors.find((e) => e.name === 'operation');
+  //     const variablesEditor = editors.find((e) => e.name === 'variables');
+  //     const resultsEditor = editors.find((e) => e.name === 'results');
+  //     operationsEditor?.editor.setModel(surveyor.operationModel);
+  //     variablesEditor?.editor.setModel(surveyor.variablesModel);
+  //     resultsEditor?.editor.setModel(surveyor.resultsModel);
+  //   }
+  // },
   variables: [],
   addVariable: ({ easyVar }) => {
     const variables = get().variables;
@@ -135,53 +137,53 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
 
     set({ variables: remainingVariables });
   },
-  schemaUrl: null,
-  schema: null,
-  initSchema: async ({ url }) => {
-    // TODO 👇 hacky resets...need to fix
-    // also, reinitializing here seems to work intermittently...operations editor still gets confused sometime about what schema it's on
-    // i think this might be solved when tabs are in and we're keep model states globally
-    set({
-      schemaUrl: url,
-      operation: defaultOperation,
-      operationDefinition: null,
-      variables: [],
-      // results: defaultResults,
-      // editors: [],
-    });
+  // schemaUrl: null,
+  // schema: null,
+  // initSchema: async ({ url }) => {
+  //   // TODO 👇 hacky resets...need to fix
+  //   // also, reinitializing here seems to work intermittently...operations editor still gets confused sometime about what schema it's on
+  //   // i think this might be solved when tabs are in and we're keep model states globally
+  //   set({
+  //     schemaUrl: url,
+  //     operation: `{}`,
+  //     operationDefinition: null,
+  //     variables: [],
+  //     // results: defaultResults,
+  //     // editors: [],
+  //   });
 
-    if (!url) {
-      set({ schema: testSchema, schemaUrl: null });
-      console.log('no URL provided, setting testSchema');
-      // initializeMode({
-      //   schemas: [
-      //     {
-      //       schema: testSchema,
-      //       uri: `testSchema-schema.graphql`,
-      //     },
-      //   ],
-      // });
-    } else {
-      console.log('initializing schema:', { url });
+  //   if (!url) {
+  //     set({ schema: testSchema, schemaUrl: null });
+  //     console.log('no URL provided, setting testSchema');
+  //     // initializeMode({
+  //     //   schemas: [
+  //     //     {
+  //     //       schema: testSchema,
+  //     //       uri: `testSchema-schema.graphql`,
+  //     //     },
+  //     //   ],
+  //     // });
+  //   } else {
+  //     console.log('initializing schema:', { url });
 
-      const result = await fetcher({ url })({
-        query: getIntrospectionQuery(),
-        operationName: 'IntrospectionQuery',
-      });
+  //     const result = await fetcher({ url })({
+  //       query: getIntrospectionQuery(),
+  //       operationName: 'IntrospectionQuery',
+  //     });
 
-      const schema = buildClientSchema(result.data as unknown as IntrospectionQuery);
-      set({ schema });
-      // initializeMode({
-      //   schemas: [
-      //     {
-      //       schema,
-      //       uri: `${cuid.slug()}-schema.graphql`,
-      //     },
-      //   ],
-      // });
-    }
-  },
-  operation: defaultOperation,
+  //     const schema = buildClientSchema(result.data as unknown as IntrospectionQuery);
+  //     set({ schema });
+  //     // initializeMode({
+  //     //   schemas: [
+  //     //     {
+  //     //       schema,
+  //     //       uri: `${cuid.slug()}-schema.graphql`,
+  //     //     },
+  //     //   ],
+  //     // });
+  //   }
+  // },
+  operation: `{}`,
   setOperation: ({ value }) => {
     set({ operation: value });
 
@@ -213,42 +215,45 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
     // });
     set({ operationDefinition });
   },
-  executeOperation: async () => {
-    const operation = get().operation;
-    const operationDefinition = get().operationDefinition;
-    const variables = get().variables;
-    const schemaUrl = get().schemaUrl;
-    const updateTabData = get().updateTabData;
+  // executeOperation: async () => {
+  //   const operation = get().operation;
+  //   const operationDefinition = get().operationDefinition;
+  //   const variables = get().variables;
+  //   const schemaUrl = get().schemaUrl;
+  //   const updateSurveyorData = get().updateSurveyorData;
 
-    if (schemaUrl) {
-      const result = await fetcher({ url: schemaUrl })({
-        operationName: operationDefinition?.name?.value || '',
-        query: operation,
-        variables: variables ? parseEasyVars({ easyVars: variables }) : undefined,
-      });
+  //   if (schemaUrl) {
+  //     const result = await fetcher({ url: schemaUrl })({
+  //       operationName: operationDefinition?.name?.value || '',
+  //       query: operation,
+  //       variables: variables ? parseEasyVars({ easyVars: variables }) : undefined,
+  //     });
 
-      console.log('running executeOperation', {
-        operationName: operationDefinition?.name?.value || '',
-        query: operation,
-        variables: variables ? parseEasyVars({ easyVars: variables }) : undefined,
-        result,
-      });
+  //     console.log('running executeOperation', {
+  //       operationName: operationDefinition?.name?.value || '',
+  //       query: operation,
+  //       variables: variables ? parseEasyVars({ easyVars: variables }) : undefined,
+  //       result,
+  //     });
 
-      updateTabData({ dataType: 'results', dataValue: JSON.stringify(result, null, 2) });
-    } else {
-      alert(
-        `Schucks...you're trying to run an operation on the test schema, but it's not backed by a server. Try clicking the GraphQL icon in the sidebar to explore publicly available schemas.`
-      );
-    }
-  },
-  operationAction: () => ({
-    id: 'graphql-run',
-    label: 'Run Operation',
-    contextMenuOrder: 0,
-    contextMenuGroupId: 'graphql',
-    keybindings: [KeyMod.CtrlCmd | KeyCode.Enter],
-    run: get().executeOperation,
-  }),
+  //     updateSurveyorData({
+  //       type: 'results',
+  //       newValue: JSON.stringify(result, null, 2),
+  //     });
+  //   } else {
+  //     alert(
+  //       `Schucks...you're trying to run an operation on the test schema, but it's not backed by a server. Try clicking the GraphQL icon in the sidebar to explore publicly available schemas.`
+  //     );
+  //   }
+  // },
+  // operationAction: () => ({
+  //   id: 'graphql-run',
+  //   label: 'Run Operation',
+  //   contextMenuOrder: 0,
+  //   contextMenuGroupId: 'graphql',
+  //   keybindings: [KeyMod.CtrlCmd | KeyCode.Enter],
+  //   run: get().executeOperation,
+  // }),
   onEditDefinition: ({
     nextDefinition,
   }: {

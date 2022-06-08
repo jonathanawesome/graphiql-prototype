@@ -1,5 +1,5 @@
-import { styled } from '@graphiql-v2-prototype/graphiql-v2';
 import React from 'react';
+import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 export const StyledColumn = styled('div', {
   display: 'flex',

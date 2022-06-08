@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { styled } from '../../../../theme';
+import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 /** types */
 import { HandleVariableChangeSignature } from '../types';

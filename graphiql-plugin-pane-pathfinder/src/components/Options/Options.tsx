@@ -1,16 +1,16 @@
 import React from 'react';
-
-/** components */
-import { Ellipsis, Popover, ToggleGroup } from '@graphiql-v2-prototype/graphiql-v2';
+import {
+  Ellipsis,
+  Popover,
+  ToggleGroup,
+  ToggleGroupProps,
+} from '@graphiql-v2-prototype/graphiql-ui-library';
 
 /** hooks */
 import { DescriptionsVisibility, PillsVisibility, usePathfinder } from '../../hooks';
 
 /** styles */
 import { OptionsContentStyled, OptionRowStyled, OptionRowDetails } from './styles';
-
-/** types */
-import type { ToggleGroupProps } from '@graphiql-v2-prototype/graphiql-v2';
 
 const OptionRow = ({
   title,

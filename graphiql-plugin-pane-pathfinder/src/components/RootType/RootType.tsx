@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { FieldNode, GraphQLObjectType } from 'graphql';
-import { Collapsible, useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
+import { useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
 
 /** components */
-import { Column, Field } from '../index';
+import { Collapser, Column, Field } from '../index';
 
 /** styles */
 import { Name } from './styles';
@@ -25,7 +25,7 @@ export const RootType = ({
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
 
   return (
-    <Collapsible
+    <Collapser
       content={
         <Column>
           {Object.keys(fields)

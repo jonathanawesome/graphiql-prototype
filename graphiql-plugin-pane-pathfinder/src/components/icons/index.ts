@@ -1,3 +1,4 @@
+export * from './Caret';
 export * from './IndicatorArgument';
 export * from './IndicatorField';
 export * from './IndicatorInputType';

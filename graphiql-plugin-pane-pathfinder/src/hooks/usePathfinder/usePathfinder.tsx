@@ -1,5 +1,5 @@
 import create from 'zustand';
-import { useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
+import { useGraphiQL } from '../../../../graphiql-v2/src/hooks/useGraphiQL/useGraphiQL';
 
 /** toggle */
 import { toggle } from './toggle';
