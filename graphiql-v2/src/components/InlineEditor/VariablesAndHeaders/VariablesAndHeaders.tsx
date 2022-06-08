@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 
 /** components */
 import { Chevron } from '../../../icons';
-import { Editor } from '../Editor';
+// import { Editor } from '../Editor';
 
 /** constants */
-import { defaultVariables } from '../../../constants';
+// import { defaultVariables } from '../../../constants';
 
 /** hooks */
 import { useGraphiQL } from '../../../hooks';
@@ -23,21 +23,20 @@ import {
   VariablesEditor,
 } from './styles';
 import { EasyVars } from '../EasyVars';
+// import { parseEasyVars } from '../../../utils';
 
 const Headers = () => {
   return <span style={{ fontSize: '10px' }}>TODO: Headers...please send help 🦺</span>;
 };
 
-export const VariablesAndHeaders = ({
-  setHeight,
-  varsUri,
-}: {
-  setHeight: () => void;
-  varsUri: string;
-}) => {
+export const VariablesAndHeaders = ({ setHeight }: { setHeight: () => void }) => {
   const [isVariablesOpen, setIsVariablesOpen] = useState<boolean>(false);
 
-  const { operationDefinition, operationAction, variables } = useGraphiQL();
+  const {
+    operationDefinition,
+    // operationAction,
+    variables,
+  } = useGraphiQL();
 
   const variablesCount = operationDefinition?.variableDefinitions?.length || 0;
 
@@ -61,15 +60,21 @@ export const VariablesAndHeaders = ({
     <CollapsibleRoot open={isVariablesOpen} onOpenChange={handleOpenChange}>
       <TabsRoot defaultValue="tab1">
         <TabsAndTrigger>
-          <TabsList aria-label="Manage your account">
+          <TabsList aria-label="Operations Tools">
             <TabsTrigger
               value="tab1"
+              onClick={() => setIsVariablesOpen(!isVariablesOpen)}
+            >
+              EasyVars
+            </TabsTrigger>
+            <TabsTrigger
+              value="tab2"
               onClick={() => setIsVariablesOpen(!isVariablesOpen)}
             >
               Variables {variablesCount > 0 && <span>{variablesCount}</span>}
             </TabsTrigger>
             <TabsTrigger
-              value="tab2"
+              value="tab3"
               onClick={() => setIsVariablesOpen(!isVariablesOpen)}
             >
               Headers
@@ -82,17 +87,16 @@ export const VariablesAndHeaders = ({
         <CollapsibleContent>
           <TabsContent value="tab1">
             <EasyVars easyVars={variables} />
-
-            {/* <VariablesEditor>
-              <Editor
-                action={operationAction()}
-                defaultValue={defaultVariables}
-                language="json"
-                hashedUri={varsUri}
-                value={variables}
+          </TabsContent>
+          <TabsContent value="tab2">
+            <VariablesEditor>
+              Variables Editor...TODO
+              {/* <Editor
+                editorType="variables"
+                value={JSON.stringify(parseEasyVars({ easyVars: variables }))}
                 valueSetter={setVariables}
-              />
-            </VariablesEditor> */}
+              /> */}
+            </VariablesEditor>
           </TabsContent>
           <TabsContent value="tab2">
             <Headers />

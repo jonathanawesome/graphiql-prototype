@@ -1,5 +1,5 @@
 import create from 'zustand';
-import { KeyCode, KeyMod } from 'monaco-editor';
+import { editor, KeyCode, KeyMod } from 'monaco-editor';
 import { initializeMode } from 'monaco-graphql/esm/initializeMode';
 import cuid from 'cuid';
 
@@ -28,10 +28,75 @@ import { fetcher, parseEasyVars, parseQuery, unwrapInputType } from '../../utils
 import testSchema from './testSchema.js';
 
 export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
-  results: defaultResults,
-  setResults: ({ value }) => {
-    set({ results: value });
+  activeTab: null,
+  setActiveTab: ({ tabId }) => {
+    set({ activeTab: tabId });
   },
+  tabs: [],
+  addTab: ({ tab }) => {
+    const tabs = get().tabs;
+    const existingTab = tabs.find((t) => t.tabId === tab.tabId);
+    // console.log('addTab', {tab});
+    if (!existingTab) {
+      // doesn't exist, let's add it
+      set({ tabs: [...tabs, tab] });
+    }
+  },
+  removeTab: ({ tabId }) => {
+    const tabs = get().tabs;
+    // console.log('removeTab', { tabId });
+    const remainingTabs = tabs.filter((t) => t.tabId === tabId);
+    set({ tabs: remainingTabs });
+  },
+  // updateTabResults: ({ tabId, value }) => {
+  //   const tabs = get().tabs;
+  //   const existingTab = tabs.find((tab) => tab.tabId === tabId);
+  // },
+  editors: [],
+  addEditor: ({ editor, name }) => {
+    const editors = get().editors;
+    const existingEditor = editors.find((e) => e.name === name);
+    if (!existingEditor) {
+      set({ editors: [...editors, { editor, name }] });
+    }
+  },
+  updateSingleEditorModel: ({ editorName, tabId }) => {
+    const editors = get().editors;
+    const tabs = get().tabs;
+
+    const tab = tabs.find((t) => t.tabId === tabId);
+    const targetEditor = editors.find((e) => e.name === editorName);
+
+    if (targetEditor && tab) {
+      if (editorName === 'operations') {
+        targetEditor.editor.setModel(tab.operationsModel);
+      }
+      if (editorName === 'variables') {
+        targetEditor.editor.setModel(tab.variablesModel);
+      }
+      if (editorName === 'results') {
+        targetEditor.editor.setModel(tab.resultsModel);
+      }
+    }
+  },
+  updateEditorModels: ({ tabId }) => {
+    const editors = get().editors;
+    const tabs = get().tabs;
+
+    const tab = tabs.find((t) => t.tabId === tabId);
+
+    console.log('running updateEditorModels', { editors, tab });
+    if (tab) {
+      // TODO: there's a better way to do this 👇
+      const operationsEditor = editors.find((e) => e.name === 'operations');
+      const variablesEditor = editors.find((e) => e.name === 'variables');
+      const resultsEditor = editors.find((e) => e.name === 'results');
+      operationsEditor?.editor.setModel(tab.operationsModel);
+      variablesEditor?.editor.setModel(tab.variablesModel);
+      resultsEditor?.editor.setModel(tab.resultsModel);
+    }
+  },
+  // results: defaultResults,
   variables: [],
   addVariable: ({ easyVar }) => {
     const variables = get().variables;
@@ -77,14 +142,6 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
 
     set({ variables: remainingVariables });
   },
-  editors: [],
-  setEditors: ({ editor, name }) => {
-    const editors = get().editors;
-    const existingEditor = editors.find((e) => e.name === name);
-    if (!existingEditor) {
-      set({ editors: [...editors, { editor, name }] });
-    }
-  },
   schemaUrl: null,
   schema: null,
   initSchema: async ({ url }) => {
@@ -96,21 +153,21 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
       operation: defaultOperation,
       operationDefinition: null,
       variables: [],
-      results: defaultResults,
+      // results: defaultResults,
       // editors: [],
     });
 
     if (!url) {
       set({ schema: testSchema, schemaUrl: null });
       console.log('no URL provided, setting testSchema');
-      initializeMode({
-        schemas: [
-          {
-            schema: testSchema,
-            uri: `testSchema-schema.graphql`,
-          },
-        ],
-      });
+      // initializeMode({
+      //   schemas: [
+      //     {
+      //       schema: testSchema,
+      //       uri: `testSchema-schema.graphql`,
+      //     },
+      //   ],
+      // });
     } else {
       console.log('initializing schema:', { url });
 
@@ -121,14 +178,14 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
 
       const schema = buildClientSchema(result.data as unknown as IntrospectionQuery);
       set({ schema });
-      initializeMode({
-        schemas: [
-          {
-            schema,
-            uri: `${cuid.slug()}-schema.graphql`,
-          },
-        ],
-      });
+      // initializeMode({
+      //   schemas: [
+      //     {
+      //       schema,
+      //       uri: `${cuid.slug()}-schema.graphql`,
+      //     },
+      //   ],
+      // });
     }
   },
   operation: defaultOperation,
@@ -166,15 +223,10 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
   executeOperation: async () => {
     const operation = get().operation;
     const operationDefinition = get().operationDefinition;
-    const setResults = get().setResults;
     const variables = get().variables;
     const schemaUrl = get().schemaUrl;
-
-    console.log('running executeOperation', {
-      operationName: operationDefinition?.name?.value || '',
-      query: operation,
-      variables: variables ? parseEasyVars({ easyVars: variables }) : undefined,
-    });
+    const tabs = get().tabs;
+    const activeTab = get().activeTab;
 
     if (schemaUrl) {
       const result = await fetcher({ url: schemaUrl })({
@@ -183,7 +235,24 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
         variables: variables ? parseEasyVars({ easyVars: variables }) : undefined,
       });
 
-      setResults({ value: JSON.stringify(result, null, 2) });
+      console.log('running executeOperation', {
+        operationName: operationDefinition?.name?.value || '',
+        query: operation,
+        variables: variables ? parseEasyVars({ easyVars: variables }) : undefined,
+        result,
+      });
+
+      const tabsCopy = [...tabs];
+      const existingTab = tabsCopy.findIndex((tab) => tab.tabId === activeTab);
+      if (existingTab !== -1) {
+        tabsCopy[existingTab] = {
+          ...tabsCopy[existingTab],
+          results: JSON.stringify(result, null, 2),
+        };
+        set({ tabs: tabsCopy });
+      } else {
+        console.log("tab doesn't exist...you did something wrong, jon.");
+      }
     } else {
       alert(
         `Schucks...you're trying to run an operation on the test schema, but it's not backed by a server. Try clicking the GraphQL icon in the sidebar to explore publicly available schemas.`

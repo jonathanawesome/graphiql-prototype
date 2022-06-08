@@ -14,6 +14,7 @@ import { HorizontallyResizableContainer } from '../../layouts';
 
 /** styles */
 import { GraphiQLStyled } from './styles';
+import { TabbedEditors } from '../TabbedEditors';
 
 type GraphiQLProps = {
   //TODO complete "plugin" props APIs
@@ -43,7 +44,8 @@ export const GraphiQL = ({ panePlugins, sidebarPlugins }: GraphiQLProps) => {
         }}
         rightPane={{
           component: (
-            <InlineEditor defaultResults={defaultResults} tabName="default_tab" />
+            // <InlineEditor defaultResults={defaultResults} tabName="default_tab" />
+            <TabbedEditors />
           ),
           initialWidthPercent: 60,
         }}

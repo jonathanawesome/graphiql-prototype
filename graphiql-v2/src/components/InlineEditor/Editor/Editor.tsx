@@ -13,63 +13,139 @@ import { EditorStyled, MonacoWrap } from './styles';
 /** theme */
 import { editorTheme } from '../../../theme';
 
-/** utils */
-import { getOrCreateModel } from '../../../utils';
-
 export const Editor = ({
-  action,
-  defaultValue,
-  language,
   optionOverrides,
-  hashedUri,
-  value,
-  valueSetter,
+  // value,
+  // valueSetter,
+  editorType,
+  model,
 }: {
-  action?: monacoEditor.IActionDescriptor;
-  defaultValue: string;
-  language: 'graphql' | 'json';
   optionOverrides?: monacoEditor.IStandaloneEditorConstructionOptions;
-  hashedUri: string;
-  value: string;
-  valueSetter: ({ value }: { value: string }) => void;
+  // value: string;
+  // valueSetter: ({ value }: { value: string }) => void;
+  editorType: 'operations' | 'variables' | 'results';
+  model: monacoEditor.ITextModel;
 }) => {
   const editorRef = useRef(null);
-  const [editor, setEditor] = useState<monacoEditor.IStandaloneCodeEditor | null>(null);
-  const { schema, setEditors } = useGraphiQL();
+  const {
+    // schema,
+    activeTab,
+    tabs,
+    editors,
+    addEditor,
+    // updateSingleEditorModel,
+  } = useGraphiQL();
 
-  const model = getOrCreateModel({ uri: hashedUri, value: defaultValue });
+  const [value, setValue] = useState<string | null>(null);
 
+  const editor = editors.find((e) => e.name === editorType);
+  // const model = editor?.editor.getModel();
+
+  const tab = tabs.find((tab) => tab.tabId === activeTab);
+
+  // let val: string;
+  // if (tab) {
+  //   val = tab[editorType];
+  // }
   useEffect(() => {
-    if (editor) {
-      editor.setModel(model);
+    if (tab) {
+      console.log('SETTING VALUE', { 'tab[editorType]': tab[editorType] });
+      // setValue(tab[editorType] as string);
+      if (editor) {
+        const selection = editor.editor.getSelection();
+        const m = editor.editor.getModel();
+        console.log('value changing in editor', { value, selection, m });
+        if (selection && m) {
+          editor.editor.executeEdits('update-value', [
+            {
+              range: m.getFullModelRange(),
+              text: editorType === 'results' ? tab.results : 'puppy food',
+              forceMoveMarkers: true,
+            },
+          ]);
+          editor.editor.setSelection(selection);
+        }
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [schema]);
+  }, [tab]);
+
+  console.log('rendering Editor', {
+    // editors,
+    value,
+    editorType,
+    editor,
+    editorInfo: {
+      // id: editor?.editor.getId(),
+      name: editor?.name,
+      editor: editor?.editor,
+      editorValue: editor?.editor.getValue(),
+      model: editor?.editor.getModel(),
+      modelValue: editor?.editor.getModel()?.getValue(),
+    },
+    // model: {
+    //   model,
+    //   value: model?.getValue(),
+    //   uri: model?.uri,
+    // },
+  });
+
+  // useEffect(() => {
+  //   if (editor) {
+  //     editor.setModel(model);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [schema]);
+
+  // useEffect(() => {
+  //   console.log('rendering Editor, model is changing', {
+  //     // editors,
+  //     editorType,
+  //     editorInfo: {
+  //       // id: editor?.editor.getId(),
+  //       name: editor?.name,
+  //       editor: editor?.editor,
+  //       model: editor?.editor.getModel(),
+  //     },
+  //     model: {
+  //       model,
+  //       value: model?.getValue(),
+  //       uri: model?.uri,
+  //     },
+  //   });
+  //   //TODO can we set the initial model here?
+  //   // if (editor && model) {
+  //   //   editor.editor.setModel(model);
+  //   // }
+  //   // if (model) {
+  //   //   model.onDidChangeContent(() => {
+  //   //     valueSetter({ value: model.getValue() });
+  //   //   });
+  //   // }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [model]);
 
   useEffect(() => {
-    model.onDidChangeContent(() => {
-      valueSetter({ value: model.getValue() });
-    });
-
     if (!editor) {
+      // console.log('help', { model });
       const newEditor = monacoEditor.create(
         editorRef.current as unknown as HTMLDivElement,
         {
-          language,
+          language: editorType === 'operations' ? 'graphql' : 'json',
           model,
           ...editorOptions, // spread our base options
           ...(optionOverrides && optionOverrides), // spread any option overrides that were passed in
         }
       );
-      setEditor(newEditor);
-      setEditors({
+
+      addEditor({
         editor: newEditor,
-        name: hashedUri.substring(hashedUri.indexOf('-') + 1, hashedUri.lastIndexOf('.')),
+        name: editorType,
       });
 
-      if (action) {
-        newEditor?.addAction(action);
-      }
+      // if (action) {
+      //   newEditor?.addAction(action);
+      // }
 
       monacoEditor.defineTheme('myTheme', editorTheme);
     }
@@ -77,23 +153,40 @@ export const Editor = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (editor) {
-      const selection = editor.getSelection();
-      const m = editor.getModel();
-      if (selection && m) {
-        editor.executeEdits('update-value', [
-          {
-            range: m.getFullModelRange(),
-            text: value,
-            forceMoveMarkers: true,
-          },
-        ]);
-        editor.setSelection(selection);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  // useEffect(() => {
+  //   if (editor && model) {
+  //     editor.editor.setModel(model);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [model]);
+
+  //   useEffect(() => {
+  //   if (editor) {
+  //     updateSingleEditorModel({editorName: editorType, })
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [editor]);
+
+  // useEffect(() => {
+  //   console.log('value changing in editor', { value });
+
+  //   if (editor) {
+  //     const selection = editor.editor.getSelection();
+  //     const m = editor.editor.getModel();
+  //     console.log('value changing in editor', { value, selection, m });
+  //     if (selection && m) {
+  //       editor.editor.executeEdits('update-value', [
+  //         {
+  //           range: m.getFullModelRange(),
+  //           text: value,
+  //           forceMoveMarkers: true,
+  //         },
+  //       ]);
+  //       editor.editor.setSelection(selection);
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [value]);
 
   return (
     <EditorStyled>

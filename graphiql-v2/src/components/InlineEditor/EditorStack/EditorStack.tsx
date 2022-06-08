@@ -18,9 +18,20 @@ import {
   OperationsEditor,
   VariablesAndHeadersWrap,
 } from './styles';
+import { editor } from 'monaco-editor';
 
-export const EditorStack = ({ opsUri, varsUri }: { opsUri: string; varsUri: string }) => {
-  const { operationAction, operation, setOperation } = useGraphiQL();
+export const EditorStack = ({
+  operationsModel,
+  variablesModel,
+}: {
+  operationsModel: editor.ITextModel;
+  variablesModel: editor.ITextModel;
+}) => {
+  const {
+    //  operationAction,
+    operation,
+    setOperation,
+  } = useGraphiQL();
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const operationsEditorRef = useRef<HTMLDivElement | null>(null);
@@ -51,19 +62,21 @@ export const EditorStack = ({ opsUri, varsUri }: { opsUri: string; varsUri: stri
     <EditorStackContainer ref={containerRef}>
       <OperationsEditor ref={operationsEditorRef}>
         <Editor
-          action={operationAction()}
-          defaultValue={defaultOperation}
-          language="graphql"
-          hashedUri={opsUri}
-          value={operation}
-          valueSetter={setOperation}
+          // action={operationAction()}
+          // defaultValue={defaultOperation}
+          // language="graphql"
+          // hashedUri={opsUri}
+          // value={operation}
+          // valueSetter={setOperation}
+          editorType="operations"
+          model={operationsModel}
         />
         <EditorActionsWrap>
           <EditorActions />
         </EditorActionsWrap>
       </OperationsEditor>
       <VariablesAndHeadersWrap ref={bottomPaneRef}>
-        <VariablesAndHeaders setHeight={setHeight} varsUri={varsUri} />
+        <VariablesAndHeaders setHeight={setHeight} />
       </VariablesAndHeadersWrap>
     </EditorStackContainer>
   );

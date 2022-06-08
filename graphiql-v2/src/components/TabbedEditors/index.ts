@@ -1,0 +1,1 @@
+export { TabbedEditors } from './TabbedEditors';

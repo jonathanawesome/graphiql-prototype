@@ -15,9 +15,49 @@ export type EasyVar = {
 };
 export type EasyVars = Array<EasyVar>;
 
+type Tab = {
+  tabId: string;
+  tabName: string;
+  operationsModel: editor.ITextModel;
+  variablesModel: editor.ITextModel;
+  resultsModel: editor.ITextModel;
+  operations?: string;
+  variables?: string;
+  results?: string;
+};
+
+type EditorNames = 'operations' | 'variables' | 'results';
+
 export type GraphiQLStore = {
-  results: string | null;
-  setResults: ({ value }: { value: string }) => void;
+  activeTab: string | null;
+  setActiveTab: ({ tabId }: { tabId: string }) => void;
+  tabs: Array<Tab>;
+  addTab: ({ tab }: { tab: Tab }) => void;
+  // updateTabResults: ({ tabId, value }: { tabId: string; value: string }) => void;
+  removeTab: ({ tabId }: { tabId: string }) => void;
+  // editors bits are here only to offer editors and their actions across components (see PrettierButton)
+  // there's probably a better way to do this
+  editors: Array<{
+    editor: editor.IStandaloneCodeEditor;
+    name: EditorNames;
+  }>;
+  addEditor: ({
+    editor,
+    name,
+  }: {
+    editor: editor.IStandaloneCodeEditor;
+    name: EditorNames;
+  }) => void;
+  updateSingleEditorModel: ({
+    editorName,
+    tabId,
+  }: {
+    editorName: EditorNames;
+    tabId: string;
+  }) => void;
+  updateEditorModels: ({ tabId }: { tabId: string }) => void;
+  // results: string | null;
+  // setResults: ({ value }: { value: string }) => void;
   variables: EasyVars;
   addVariable: ({ easyVar }: { easyVar: EasyVar }) => void;
   updateVariable: ({
@@ -37,16 +77,7 @@ export type GraphiQLStore = {
   schema: GraphQLSchema | null;
   schemaUrl: string | null;
   initSchema: ({ url }: { url?: string }) => Promise<void>;
-  // editors bits are here only to offer editors and their actions across components (see PrettierButton)
-  // there's probably a better way to do this
-  editors: Array<{ editor: editor.IStandaloneCodeEditor; name: string }>;
-  setEditors: ({
-    editor,
-    name,
-  }: {
-    editor: editor.IStandaloneCodeEditor;
-    name: string;
-  }) => void;
+
   operation: string;
   setOperation: ({ value }: { value: string }) => void;
   executeOperation: () => Promise<void>;
