@@ -1,5 +1,5 @@
 import { ArgumentNode, Kind } from 'graphql';
-import { useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
+import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 
 /** types */
 import {
@@ -20,9 +20,10 @@ export const handleAddArgument = ({
   setNextAction: SetNextActionSignature;
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
 }) => {
-  const addVariable = useGraphiQL.getState().addVariable;
-  const operationDefinition = useGraphiQL.getState().operationDefinition;
-  const variableDefinitions = operationDefinition?.variableDefinitions;
+  const activeEditorTab = getActiveEditorTab();
+  // const addVariable = useGraphiQL.getState().addVariable;
+  const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
+
   // console.log('running handleAddArgument', {
   //   ancestor,
   // });
@@ -40,14 +41,14 @@ export const handleAddArgument = ({
     ],
   });
 
-  addVariable({
-    easyVar: {
-      argument: ancestor.argument,
-      variableName: ancestor.variableName,
-      variableType: ancestor.argument.type,
-      variableValue: '',
-    },
-  });
+  // addVariable({
+  //   easyVar: {
+  //     argument: ancestor.argument,
+  //     variableName: ancestor.variableName,
+  //     variableType: ancestor.argument.type,
+  //     variableValue: '',
+  //   },
+  // });
 
   const newArgumentNode: ArgumentNode = {
     kind: Kind.ARGUMENT,

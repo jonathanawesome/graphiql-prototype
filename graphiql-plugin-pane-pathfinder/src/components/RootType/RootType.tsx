@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FieldNode, GraphQLObjectType } from 'graphql';
-import { useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
+import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 
 /** components */
 import { Collapser, Column, Field } from '../index';
@@ -14,11 +14,14 @@ export const RootType = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rootType: GraphQLObjectType<any, any>;
 }) => {
-  const { operationDefinition } = useGraphiQL();
+  const activeEditorTab = getActiveEditorTab();
 
-  // console.log('rendering RootType', {
-  //   operationDefinition,
-  // });
+  const operationDefinition = activeEditorTab?.operationDefinition;
+
+  console.log('rendering RootType', {
+    operationDefinition,
+    activeEditorTab,
+  });
 
   const fields = rootType.getFields();
 

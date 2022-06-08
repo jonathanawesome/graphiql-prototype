@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { editor as MONACO_EDITOR } from 'monaco-editor';
 
 /** components */
 // import { Editor } from '../Editor';
@@ -18,14 +19,13 @@ import {
   OperationsEditor,
   VariablesAndHeadersWrap,
 } from './styles';
-import { editor } from 'monaco-editor';
 
 export const EditorStack = ({
   operationModel,
   variablesModel,
 }: {
-  operationModel: editor.ITextModel;
-  variablesModel: editor.ITextModel;
+  operationModel: MONACO_EDITOR.ITextModel;
+  variablesModel: MONACO_EDITOR.ITextModel;
 }) => {
   // const {
   //   //  operationAction,

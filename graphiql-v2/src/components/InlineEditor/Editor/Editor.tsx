@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { editor as monacoEditor } from 'monaco-editor';
+import { editor as MONACO_EDITOR } from 'monaco-editor';
 
 /** constants */
 // import { editorOptions } from '../../../constants';
@@ -20,11 +20,11 @@ export const Editor = ({
   editorType,
   model,
 }: {
-  optionOverrides?: monacoEditor.IStandaloneEditorConstructionOptions;
+  optionOverrides?: MONACO_EDITOR.IStandaloneEditorConstructionOptions;
   // value: string;
   // valueSetter: ({ value }: { value: string }) => void;
   editorType: 'operation' | 'variables' | 'results';
-  model: monacoEditor.ITextModel;
+  model: MONACO_EDITOR.ITextModel;
 }) => {
   const editorRef = useRef(null);
   // const {

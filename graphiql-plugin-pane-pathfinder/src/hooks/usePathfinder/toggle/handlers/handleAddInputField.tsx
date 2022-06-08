@@ -1,5 +1,5 @@
 import { Kind, ObjectFieldNode } from 'graphql';
-import { useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
+import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 
 /** types */
 import {
@@ -20,9 +20,9 @@ export const handleAddInputField = ({
   setNextAction: SetNextActionSignature;
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
 }) => {
-  const addVariable = useGraphiQL.getState().addVariable;
-  const operationDefinition = useGraphiQL.getState().operationDefinition;
-  const variableDefinitions = operationDefinition?.variableDefinitions;
+  // const addVariable = useGraphiQL.getState().addVariable;
+  const activeEditorTab = getActiveEditorTab();
+  const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
 
   // console.log('running handleAddInputField', {
   //   type: ancestor.inputField.type,
@@ -41,14 +41,14 @@ export const handleAddInputField = ({
     ],
   });
 
-  addVariable({
-    easyVar: {
-      argument: ancestor.inputField,
-      variableName: ancestor.variableName,
-      variableType: ancestor.inputField.type,
-      variableValue: '',
-    },
-  });
+  // addVariable({
+  //   easyVar: {
+  //     argument: ancestor.inputField,
+  //     variableName: ancestor.variableName,
+  //     variableType: ancestor.inputField.type,
+  //     variableValue: '',
+  //   },
+  // });
 
   const newObjectFieldNode: ObjectFieldNode = {
     kind: Kind.OBJECT_FIELD,

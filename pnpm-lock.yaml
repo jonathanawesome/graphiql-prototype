@@ -67,9 +67,9 @@ importers:
 
   apps/ladle:
     specifiers:
+      '@graphiql-v2-prototype/graphiql-editor': workspace:*
       '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder': workspace:*
       '@graphiql-v2-prototype/graphiql-plugin-sidebar-schema-selector': workspace:*
-      '@graphiql-v2-prototype/graphiql-scout': workspace:*
       '@graphiql-v2-prototype/graphiql-ui-library': workspace:*
       '@graphiql-v2-prototype/graphiql-v2': workspace:*
       '@ladle/react': ^0.14.1
@@ -80,9 +80,9 @@ importers:
       vite: 2.9.6
       vite-plugin-monaco-editor: 1.0.10
     dependencies:
+      '@graphiql-v2-prototype/graphiql-editor': link:../../graphiql-editor
       '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder': link:../../graphiql-plugin-pane-pathfinder
       '@graphiql-v2-prototype/graphiql-plugin-sidebar-schema-selector': link:../../graphiql-plugin-sidebar-schema-selector
-      '@graphiql-v2-prototype/graphiql-scout': link:../../graphiql-scout
       '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql-ui-library
       '@graphiql-v2-prototype/graphiql-v2': link:../../graphiql-v2
       react: 17.0.2
@@ -94,55 +94,7 @@ importers:
       vite: 2.9.6
       vite-plugin-monaco-editor: 1.0.10
 
-  graphiql-plugin-pane-pathfinder:
-    specifiers:
-      '@graphiql-v2-prototype/graphiql-ui-library': workspace:*
-      '@graphiql-v2-prototype/graphiql-v2': workspace:*
-      '@radix-ui/react-collapsible': ^0.1.6
-      '@types/react': 17.0.2
-      '@types/react-dom': 17.0.2
-      cuid: ^2.1.8
-      graphql: ^16.5.0
-      react: 17.0.2
-      react-dom: 17.0.2
-      zustand: ^4.0.0-rc.1
-    dependencies:
-      '@graphiql-v2-prototype/graphiql-ui-library': link:../graphiql-ui-library
-      '@graphiql-v2-prototype/graphiql-v2': link:../graphiql-v2
-      '@radix-ui/react-collapsible': 0.1.6_react@17.0.2
-      cuid: 2.1.8
-      graphql: 16.5.0
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      zustand: 4.0.0-rc.1_react@17.0.2
-    devDependencies:
-      '@types/react': 17.0.2
-      '@types/react-dom': 17.0.2
-
-  graphiql-plugin-sidebar-schema-selector:
-    specifiers:
-      '@graphiql-v2-prototype/graphiql-ui-library': workspace:*
-      '@graphiql-v2-prototype/graphiql-v2': workspace:*
-      '@radix-ui/react-radio-group': ^0.1.5
-      '@stitches/react': 1.2.8
-      '@types/react': 17.0.2
-      '@types/react-dom': 17.0.2
-      react: 17.0.2
-      react-dom: 17.0.2
-      vite: 2.9.6
-    dependencies:
-      '@graphiql-v2-prototype/graphiql-ui-library': link:../graphiql-ui-library
-      '@graphiql-v2-prototype/graphiql-v2': link:../graphiql-v2
-      '@radix-ui/react-radio-group': 0.1.5_react@17.0.2
-      '@stitches/react': 1.2.8_react@17.0.2
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-    devDependencies:
-      '@types/react': 17.0.2
-      '@types/react-dom': 17.0.2
-      vite: 2.9.6
-
-  graphiql-scout:
+  graphiql-editor:
     specifiers:
       '@graphiql-v2-prototype/graphiql-ui-library': workspace:*
       '@graphiql-v2-prototype/graphiql-v2': workspace:*
@@ -183,6 +135,54 @@ importers:
       '@types/react-dom': 17.0.2
       vite: 2.9.6
 
+  graphiql-plugin-pane-pathfinder:
+    specifiers:
+      '@graphiql-v2-prototype/graphiql-editor': workspace:*
+      '@graphiql-v2-prototype/graphiql-ui-library': workspace:*
+      '@radix-ui/react-collapsible': ^0.1.6
+      '@types/react': 17.0.2
+      '@types/react-dom': 17.0.2
+      cuid: ^2.1.8
+      graphql: ^16.5.0
+      react: 17.0.2
+      react-dom: 17.0.2
+      zustand: ^4.0.0-rc.1
+    dependencies:
+      '@graphiql-v2-prototype/graphiql-editor': link:../graphiql-editor
+      '@graphiql-v2-prototype/graphiql-ui-library': link:../graphiql-ui-library
+      '@radix-ui/react-collapsible': 0.1.6_react@17.0.2
+      cuid: 2.1.8
+      graphql: 16.5.0
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      zustand: 4.0.0-rc.1_react@17.0.2
+    devDependencies:
+      '@types/react': 17.0.2
+      '@types/react-dom': 17.0.2
+
+  graphiql-plugin-sidebar-schema-selector:
+    specifiers:
+      '@graphiql-v2-prototype/graphiql-ui-library': workspace:*
+      '@graphiql-v2-prototype/graphiql-v2': workspace:*
+      '@radix-ui/react-radio-group': ^0.1.5
+      '@stitches/react': 1.2.8
+      '@types/react': 17.0.2
+      '@types/react-dom': 17.0.2
+      react: 17.0.2
+      react-dom: 17.0.2
+      vite: 2.9.6
+    dependencies:
+      '@graphiql-v2-prototype/graphiql-ui-library': link:../graphiql-ui-library
+      '@graphiql-v2-prototype/graphiql-v2': link:../graphiql-v2
+      '@radix-ui/react-radio-group': 0.1.5_react@17.0.2
+      '@stitches/react': 1.2.8_react@17.0.2
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    devDependencies:
+      '@types/react': 17.0.2
+      '@types/react-dom': 17.0.2
+      vite: 2.9.6
+
   graphiql-ui-library:
     specifiers:
       '@radix-ui/react-collapsible': ^0.1.6
@@ -212,9 +212,9 @@ importers:
 
   graphiql-v2:
     specifiers:
+      '@graphiql-v2-prototype/graphiql-editor': workspace:*
       '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder': workspace:*
       '@graphiql-v2-prototype/graphiql-plugin-sidebar-schema-selector': workspace:*
-      '@graphiql-v2-prototype/graphiql-scout': workspace:*
       '@graphiql-v2-prototype/graphiql-ui-library': workspace:*
       '@graphiql/toolkit': ^0.6.0
       '@radix-ui/react-collapsible': ^0.1.6
@@ -236,9 +236,9 @@ importers:
       react-dom: 17.0.2
       zustand: ^4.0.0-rc.1
     dependencies:
+      '@graphiql-v2-prototype/graphiql-editor': link:../graphiql-editor
       '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder': link:../graphiql-plugin-pane-pathfinder
       '@graphiql-v2-prototype/graphiql-plugin-sidebar-schema-selector': link:../graphiql-plugin-sidebar-schema-selector
-      '@graphiql-v2-prototype/graphiql-scout': link:../graphiql-scout
       '@graphiql-v2-prototype/graphiql-ui-library': link:../graphiql-ui-library
       '@graphiql/toolkit': 0.6.0_qcd7j5vnu4k3y4xk3nokbhh7hu
       '@radix-ui/react-collapsible': 0.1.6_react@17.0.2

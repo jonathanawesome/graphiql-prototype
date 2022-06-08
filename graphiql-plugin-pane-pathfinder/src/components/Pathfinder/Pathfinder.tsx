@@ -1,4 +1,4 @@
-import { useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
+import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
 import { Command } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 /** components */
@@ -14,7 +14,7 @@ import {
 } from './styles';
 
 export const Pathfinder = () => {
-  const { schema } = useGraphiQL();
+  const { schema } = useGraphiQLEditor();
 
   if (!schema) {
     //TODO: some loading skeleton

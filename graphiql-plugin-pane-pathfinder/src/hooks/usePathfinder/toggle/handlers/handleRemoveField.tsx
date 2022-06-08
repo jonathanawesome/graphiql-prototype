@@ -1,5 +1,5 @@
 import { ArgumentNode, FieldNode, Kind, SelectionNode } from 'graphql';
-import { useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
+import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 
 /** types */
 import {
@@ -22,14 +22,16 @@ export const handleRemoveField = ({
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
   target: AncestorField;
 }) => {
-  const operationDefinition = useGraphiQL.getState().operationDefinition;
-  const variableDefinitions = operationDefinition?.variableDefinitions;
-  const removeVariables = useGraphiQL.getState().removeVariables;
+  // const operationDefinition = useGraphiQL.getState().operationDefinition;
+  // const variableDefinitions = operationDefinition?.variableDefinitions;
+  // const removeVariables = useGraphiQL.getState().removeVariables;
+  const activeEditorTab = getActiveEditorTab();
+  const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
 
-  // console.log('running handleRemoveField', {
-  //   ancestor,
-  //   variableDefinitions,
-  // });
+  console.log('running handleRemoveField', {
+    ancestor,
+    variableDefinitions,
+  });
 
   /** begin handle removing variable definitions */
   // TODO: this is pretty gross (👇), but my brain hurts so i'm going to fix it later
@@ -63,7 +65,7 @@ export const handleRemoveField = ({
     );
 
     // clear easyVars
-    removeVariables({ variableNames: variableNamesToRemove });
+    // removeVariables({ variableNames: variableNamesToRemove });
 
     if (variableNamesToRemove && remainingVarDefs) {
       setNextVariableDefinitions({

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { useGraphiQLScout } from '@graphiql-v2-prototype/graphiql-scout'
+import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor'
 import { globalStyles } from '@graphiql-v2-prototype/graphiql-ui-library'
 
 export const Provider = ({ children}: {children: React.ReactNode}) => {
   globalStyles();
 
-  const { initSchema } = useGraphiQLScout();
+  const { initSchema } = useGraphiQLEditor();
 
   useEffect(() => {
     initSchema({url: "https://rickandmortyapi.com/graphql"});

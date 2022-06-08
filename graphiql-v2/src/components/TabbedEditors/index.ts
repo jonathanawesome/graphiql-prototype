@@ -1,1 +1,0 @@
-export { TabbedEditors } from './TabbedEditors';

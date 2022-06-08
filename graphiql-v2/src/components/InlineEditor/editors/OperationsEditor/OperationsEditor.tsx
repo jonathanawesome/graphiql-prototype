@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { editor as monacoEditor } from 'monaco-editor';
+import { editor as MONACO_EDITOR } from 'monaco-editor';
 
 /** constants */
 // import { editorOptions } from '../../../../constants';
@@ -18,7 +18,7 @@ import { EditorStyled, MonacoWrap } from './styles';
 export const OperationsEditor = ({
   initWithModel,
 }: {
-  initWithModel: monacoEditor.ITextModel;
+  initWithModel: MONACO_EDITOR.ITextModel;
 }) => {
   const editorRef = useRef(null);
   // const { activeSurveyor, surveyors, editors, addEditor } = useGraphiQL();

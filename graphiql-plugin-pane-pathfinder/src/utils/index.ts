@@ -10,4 +10,5 @@ export { findSelection } from './findSelection';
 export { generateVariableNameFromAncestorMap } from './generateVariableNameFromAncestorMap';
 export { getRequiredArgumentNodesForField } from './getRequiredArgumentNodesForField';
 export { getRequiredVariableDefinitionsForField } from './getRequiredVariableDefinitionsForField';
+export { unwrapInputType } from './unwrapInputType';
 export { unwrapType } from './unwrapType';

@@ -1,5 +1,5 @@
 import { FieldNode, Kind } from 'graphql';
-import { useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
+import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 
 /** helpers */
 import { findFieldSiblings } from '../helpers';
@@ -27,8 +27,10 @@ export const handleAddField = ({
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
 }) => {
   // console.log('running handleAddField', { ancestor });
-  const operationDefinition = useGraphiQL.getState().operationDefinition;
-  const variableDefinitions = operationDefinition?.variableDefinitions;
+  // const operationDefinition = useGraphiQL.getState().operationDefinition;
+  // const variableDefinitions = operationDefinition?.variableDefinitions;
+  const activeEditorTab = getActiveEditorTab();
+  const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
 
   const siblings = findFieldSiblings({ ancestor });
 

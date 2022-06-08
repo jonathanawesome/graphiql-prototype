@@ -1,5 +1,5 @@
 import create from 'zustand';
-import { useGraphiQL } from '../../../../graphiql-v2/src/hooks/useGraphiQL/useGraphiQL';
+import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 
 /** toggle */
 import { toggle } from './toggle';
@@ -7,8 +7,9 @@ import { toggle } from './toggle';
 /** types */
 import { PathfinderStore } from './types';
 
-const operationDefinition = useGraphiQL.getState().operationDefinition;
-const variableDefinitions = operationDefinition?.variableDefinitions;
+const activeEditorTab = getActiveEditorTab();
+
+const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
 
 export const usePathfinder = create<PathfinderStore>((set, get) => ({
   /** begin controls */

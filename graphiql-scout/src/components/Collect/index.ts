@@ -1,1 +1,0 @@
-export { Collect } from './Collect';

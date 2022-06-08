@@ -1,6 +1,9 @@
-import { Kind, OperationDefinitionNode } from 'graphql';
+import { Kind, OperationDefinitionNode, print } from 'graphql';
 import { GetState } from 'zustand';
-import { useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
+import {
+  getActiveEditorTab,
+  useGraphiQLEditor,
+} from '@graphiql-v2-prototype/graphiql-editor';
 
 /** handlers */
 import {
@@ -29,8 +32,9 @@ export const toggle = ({
   ancestors: AncestorMap;
   get: GetState<PathfinderStore>;
 }) => {
-  const onEditDefinition = useGraphiQL.getState().onEditDefinition;
-  const operationDefinition = useGraphiQL.getState().operationDefinition;
+  const updateEditorTabData = useGraphiQLEditor.getState().updateEditorTabData;
+  const activeEditorTab = getActiveEditorTab();
+  const operationDefinition = activeEditorTab?.operationDefinition;
 
   const target = ancestors.values().next().value;
   const setNextSelectionSet = get().setNextSelectionSet;
@@ -190,7 +194,7 @@ export const toggle = ({
       ? operationDefinition
       : {
           kind: Kind.OPERATION_DEFINITION,
-          // TODO: ROOT <OPERATION></OPERATION>
+          // TODO: ROOT
           operation: 'query',
           name: {
             kind: Kind.NAME,
@@ -203,10 +207,25 @@ export const toggle = ({
       selections: [],
     },
   };
-  onEditDefinition({
-    nextDefinition:
-      nextSelectionSet && nextSelectionSet.selections.length > 0 ? nextDefinition : null,
-  });
+  // onEditDefinition({
+  //   nextDefinition:
+  //     nextSelectionSet && nextSelectionSet.selections.length > 0 ? nextDefinition : null,
+  // });
+  if (nextSelectionSet && nextSelectionSet.selections.length > 0) {
+    updateEditorTabData({
+      dataType: 'operation',
+      newValue: print({
+        kind: Kind.DOCUMENT,
+        definitions: [nextDefinition],
+      }),
+    });
+  } else {
+    updateEditorTabData({
+      dataType: 'operation',
+      newValue: '',
+    });
+  }
+
   // clear state for next toggle
   // setNextAction(null);
   setNextSelectionSet({ nextSelectionSet: null });

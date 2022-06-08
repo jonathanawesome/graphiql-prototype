@@ -79,10 +79,10 @@ const EasyVar = ({ easyVar }: { easyVar: EV }) => {
 };
 
 export const EasyVars = ({ easyVars }: { easyVars: EVs }) => {
-  const { variables } = useGraphiQL();
+  // const { variables } = useGraphiQL();
 
   console.log('rendering EasyVars', {
-    variables,
+    // variables,
   });
 
   return (

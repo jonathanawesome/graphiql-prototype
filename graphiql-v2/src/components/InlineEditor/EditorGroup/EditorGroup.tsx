@@ -6,7 +6,7 @@ import { EditorStack } from '../EditorStack';
 
 /** styles */
 import { EditorGroupInner, EditorGroupWrap, ResultsViewer } from './styles';
-import { editor } from 'monaco-editor';
+import { editor as MONACO_EDITOR } from 'monaco-editor';
 import { ResultsEditor } from '../editors/ResultsEditor';
 
 export const EditorGroup = ({
@@ -14,9 +14,9 @@ export const EditorGroup = ({
   variablesModel,
   resultsModel,
 }: {
-  operationModel: editor.ITextModel;
-  variablesModel: editor.ITextModel;
-  resultsModel: editor.ITextModel;
+  operationModel: MONACO_EDITOR.ITextModel;
+  variablesModel: MONACO_EDITOR.ITextModel;
+  resultsModel: MONACO_EDITOR.ITextModel;
 }) => {
   console.log('rendering EditorGroup', {});
 

@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",
-    "@graphiql-v2-prototype/graphiql-scout": "workspace:*",
+    "@graphiql-v2-prototype/graphiql-editor": "workspace:*",
     "@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder": "workspace:*",
     "@graphiql-v2-prototype/graphiql-plugin-sidebar-schema-selector": "workspace:*",
     "@graphiql/toolkit": "^0.6.0",

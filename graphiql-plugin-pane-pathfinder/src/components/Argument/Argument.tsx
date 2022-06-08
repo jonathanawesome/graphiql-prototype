@@ -17,8 +17,11 @@ import { InputObject, ScalarArg } from '../index';
 import type { AncestorArgument, AncestorInputObject, AncestorMap } from '../../hooks';
 
 /** utils */
-import { capitalize, generateVariableNameFromAncestorMap } from '../../utils';
-import { unwrapInputType } from '@graphiql-v2-prototype/graphiql-v2';
+import {
+  capitalize,
+  generateVariableNameFromAncestorMap,
+  unwrapInputType,
+} from '../../utils';
 
 export const Argument = ({
   ancestors,

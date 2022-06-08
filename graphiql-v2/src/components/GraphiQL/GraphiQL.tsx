@@ -1,22 +1,11 @@
-import { Pathfinder } from '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder';
-import { Scout } from '@graphiql-v2-prototype/graphiql-scout';
-import { HorizontallyResizableContainer } from '@graphiql-v2-prototype/graphiql-ui-library';
-
 /** components */
-import {
-  // InlineEditor,
-  Navigation,
-} from '../index';
-
-/** constants */
-// import { defaultResults } from '../../constants';
-
-/** hooks */
-import { useGraphiQL } from '../../hooks';
+import { Navigation } from '../index';
+import { Pathfinder } from '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder';
+import { GraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
+import { HorizontallyResizableContainer } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 /** styles */
 import { GraphiQLStyled } from './styles';
-// import { TabbedEditors } from '../TabbedEditors';
 
 type GraphiQLProps = {
   //TODO complete "plugin" props APIs
@@ -25,12 +14,6 @@ type GraphiQLProps = {
 };
 
 export const GraphiQL = ({ panePlugins, sidebarPlugins }: GraphiQLProps) => {
-  const { schema } = useGraphiQL();
-
-  if (!schema) {
-    return <p>loading schema...</p>;
-  }
-
   return (
     <GraphiQLStyled>
       <HorizontallyResizableContainer
@@ -45,7 +28,7 @@ export const GraphiQL = ({ panePlugins, sidebarPlugins }: GraphiQLProps) => {
           initialWidthPercent: 40,
         }}
         rightPane={{
-          component: <Scout />,
+          component: <GraphiQLEditor />,
           initialWidthPercent: 60,
         }}
       />
