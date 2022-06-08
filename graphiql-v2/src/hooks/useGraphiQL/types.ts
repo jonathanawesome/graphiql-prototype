@@ -21,9 +21,10 @@ type Tab = {
   operationsModel: editor.ITextModel;
   variablesModel: editor.ITextModel;
   resultsModel: editor.ITextModel;
-  operations?: string;
-  variables?: string;
-  results?: string;
+  operations: string;
+  variables: string;
+  results: string;
+  operationDefinition: ExecutableDefinitionNode | null;
 };
 
 type EditorNames = 'operations' | 'variables' | 'results';
@@ -33,7 +34,13 @@ export type GraphiQLStore = {
   setActiveTab: ({ tabId }: { tabId: string }) => void;
   tabs: Array<Tab>;
   addTab: ({ tab }: { tab: Tab }) => void;
-  // updateTabResults: ({ tabId, value }: { tabId: string; value: string }) => void;
+  updateTabData: ({
+    dataType,
+    dataValue,
+  }: {
+    dataType: EditorNames;
+    dataValue: string;
+  }) => void;
   removeTab: ({ tabId }: { tabId: string }) => void;
   // editors bits are here only to offer editors and their actions across components (see PrettierButton)
   // there's probably a better way to do this
@@ -48,15 +55,7 @@ export type GraphiQLStore = {
     editor: editor.IStandaloneCodeEditor;
     name: EditorNames;
   }) => void;
-  updateSingleEditorModel: ({
-    editorName,
-    tabId,
-  }: {
-    editorName: EditorNames;
-    tabId: string;
-  }) => void;
-  updateEditorModels: ({ tabId }: { tabId: string }) => void;
-  // results: string | null;
+  swapEditorModels: ({ tabId }: { tabId: string }) => void;
   // setResults: ({ value }: { value: string }) => void;
   variables: EasyVars;
   addVariable: ({ easyVar }: { easyVar: EasyVar }) => void;

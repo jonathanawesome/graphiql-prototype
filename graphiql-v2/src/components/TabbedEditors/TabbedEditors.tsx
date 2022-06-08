@@ -20,7 +20,7 @@ const defaultTabId = cuid.slug();
 
 export const TabbedEditors = () => {
   // const [activeTab, setActiveTab] = useState<string>(defaultTabId);
-  const { activeTab, setActiveTab, editors, tabs, addTab, updateEditorModels } =
+  const { activeTab, setActiveTab, editors, tabs, addTab, swapEditorModels } =
     useGraphiQL();
 
   // const opsUri = `${tabName}-operations.graphql`;
@@ -64,9 +64,9 @@ export const TabbedEditors = () => {
     });
     setActiveTab({ tabId: defaultTabId });
 
-    // updateEditorModels({ tabId: defaultTabId });
+    // swapEditorModels({ tabId: defaultTabId });
 
-    // updateEditorModels({ tabId: defaultTabId });
+    // swapEditorModels({ tabId: defaultTabId });
     // operationsEditor?.editor.setModel(operationsModel);
     // variablesEditor?.editor.setModel(variablesModel);
     // resultsEditor?.editor.setModel(resultsModel);
@@ -99,7 +99,7 @@ export const TabbedEditors = () => {
 
   const handleTabChange = ({ tabId }: { tabId: string }) => {
     setActiveTab({ tabId });
-    updateEditorModels({ tabId });
+    swapEditorModels({ tabId });
   };
 
   if (tabs.length === 0) {

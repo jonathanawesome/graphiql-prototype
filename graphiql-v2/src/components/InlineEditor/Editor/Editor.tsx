@@ -33,7 +33,7 @@ export const Editor = ({
     tabs,
     editors,
     addEditor,
-    // updateSingleEditorModel,
+    // ,
   } = useGraphiQL();
 
   const [value, setValue] = useState<string | null>(null);
@@ -159,13 +159,6 @@ export const Editor = ({
   //   }
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [model]);
-
-  //   useEffect(() => {
-  //   if (editor) {
-  //     updateSingleEditorModel({editorName: editorType, })
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [editor]);
 
   // useEffect(() => {
   //   console.log('value changing in editor', { value });

@@ -16,7 +16,7 @@ import {
 } from 'graphql';
 
 /** constants */
-import { defaultOperation, defaultResults } from '../../constants';
+import { defaultOperation } from '../../constants';
 
 /** types */
 import { GraphiQLStore } from './types';
@@ -48,10 +48,23 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
     const remainingTabs = tabs.filter((t) => t.tabId === tabId);
     set({ tabs: remainingTabs });
   },
-  // updateTabResults: ({ tabId, value }) => {
-  //   const tabs = get().tabs;
-  //   const existingTab = tabs.find((tab) => tab.tabId === tabId);
-  // },
+  updateTabData: ({ dataType, dataValue }) => {
+    const tabs = get().tabs;
+    const activeTab = get().activeTab;
+
+    // 👇 safety first
+    const tabsCopy = [...tabs];
+    const existingTab = tabsCopy.findIndex((tab) => tab.tabId === activeTab);
+    if (existingTab !== -1) {
+      tabsCopy[existingTab] = {
+        ...tabsCopy[existingTab],
+        [dataType]: dataValue,
+      };
+      set({ tabs: tabsCopy });
+    } else {
+      console.log("Tab doesn't exist ☠️");
+    }
+  },
   editors: [],
   addEditor: ({ editor, name }) => {
     const editors = get().editors;
@@ -60,34 +73,15 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
       set({ editors: [...editors, { editor, name }] });
     }
   },
-  updateSingleEditorModel: ({ editorName, tabId }) => {
-    const editors = get().editors;
-    const tabs = get().tabs;
-
-    const tab = tabs.find((t) => t.tabId === tabId);
-    const targetEditor = editors.find((e) => e.name === editorName);
-
-    if (targetEditor && tab) {
-      if (editorName === 'operations') {
-        targetEditor.editor.setModel(tab.operationsModel);
-      }
-      if (editorName === 'variables') {
-        targetEditor.editor.setModel(tab.variablesModel);
-      }
-      if (editorName === 'results') {
-        targetEditor.editor.setModel(tab.resultsModel);
-      }
-    }
-  },
-  updateEditorModels: ({ tabId }) => {
+  swapEditorModels: ({ tabId }) => {
     const editors = get().editors;
     const tabs = get().tabs;
 
     const tab = tabs.find((t) => t.tabId === tabId);
 
-    console.log('running updateEditorModels', { editors, tab });
+    console.log('running swapEditorModels', { editors, tab });
     if (tab) {
-      // TODO: there's a better way to do this 👇
+      // TODO: there's probably a better way to do this 👇
       const operationsEditor = editors.find((e) => e.name === 'operations');
       const variablesEditor = editors.find((e) => e.name === 'variables');
       const resultsEditor = editors.find((e) => e.name === 'results');
@@ -96,7 +90,6 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
       resultsEditor?.editor.setModel(tab.resultsModel);
     }
   },
-  // results: defaultResults,
   variables: [],
   addVariable: ({ easyVar }) => {
     const variables = get().variables;
@@ -225,8 +218,7 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
     const operationDefinition = get().operationDefinition;
     const variables = get().variables;
     const schemaUrl = get().schemaUrl;
-    const tabs = get().tabs;
-    const activeTab = get().activeTab;
+    const updateTabData = get().updateTabData;
 
     if (schemaUrl) {
       const result = await fetcher({ url: schemaUrl })({
@@ -242,17 +234,7 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
         result,
       });
 
-      const tabsCopy = [...tabs];
-      const existingTab = tabsCopy.findIndex((tab) => tab.tabId === activeTab);
-      if (existingTab !== -1) {
-        tabsCopy[existingTab] = {
-          ...tabsCopy[existingTab],
-          results: JSON.stringify(result, null, 2),
-        };
-        set({ tabs: tabsCopy });
-      } else {
-        console.log("tab doesn't exist...you did something wrong, jon.");
-      }
+      updateTabData({ dataType: 'results', dataValue: JSON.stringify(result, null, 2) });
     } else {
       alert(
         `Schucks...you're trying to run an operation on the test schema, but it's not backed by a server. Try clicking the GraphQL icon in the sidebar to explore publicly available schemas.`

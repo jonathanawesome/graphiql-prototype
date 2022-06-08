@@ -30,8 +30,8 @@ export const OperationsEditor = ({
   useEffect(() => {
     if (tab && editor) {
       const model = editor.editor.getModel();
-      if (model && tab.results) {
-        model.setValue(tab.results);
+      if (model && tab.operations) {
+        model.setValue(tab.operations);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -47,10 +47,8 @@ export const OperationsEditor = ({
         editorRef.current as unknown as HTMLDivElement,
         {
           ...editorOptions, // spread our base options
-          language: 'json',
+          language: 'graphql',
           model: initWithModel,
-          lineNumbers: 'off',
-          readOnly: true,
         }
       );
 
@@ -59,7 +57,7 @@ export const OperationsEditor = ({
         name: editorType,
       });
 
-      model.onDidChangeContent(() => {
+      initWithModel.onDidChangeContent(() => {
         valueSetter({ value: model.getValue() });
       });
 
