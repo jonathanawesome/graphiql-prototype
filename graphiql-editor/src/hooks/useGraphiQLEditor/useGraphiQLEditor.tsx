@@ -29,7 +29,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     const existingEditorTab = editorTabs.find(
       (t) => t.editorTabId === editorTab.editorTabId
     );
-    // console.log('addEditorTab', {scout});
+    // console.log('addEditorTab', {existingEditorTab});
     if (!existingEditorTab) {
       // doesn't exist, let's add it
       set({ editorTabs: [...editorTabs, editorTab] });
@@ -51,7 +51,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     // 👇 safety first
     const editorTabsCopy = [...editorTabs];
     const existingEditorTab = editorTabsCopy.findIndex(
-      (scout) => scout.editorTabId === activeEditorTabId
+      (editorTab) => editorTab.editorTabId === activeEditorTabId
     );
     if (existingEditorTab !== -1) {
       let operationDefinitionUpdate: ExecutableDefinitionNode | null =
@@ -99,17 +99,17 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     const monacoEditors = get().monacoEditors;
     const editorTabs = get().editorTabs;
 
-    const scout = editorTabs.find((t) => t.editorTabId === editorTabId);
+    const editorTab = editorTabs.find((t) => t.editorTabId === editorTabId);
 
-    console.log('running swapEditorTab', { monacoEditors, scout });
-    if (scout) {
+    console.log('running swapEditorTab', { monacoEditors, editorTab });
+    if (editorTab) {
       // TODO: there's probably a better way to do this 👇
       const operationsEditor = monacoEditors.find((e) => e.name === 'operation');
       const variablesEditor = monacoEditors.find((e) => e.name === 'variables');
       const resultsEditor = monacoEditors.find((e) => e.name === 'results');
-      operationsEditor?.editor.setModel(scout.operationModel);
-      variablesEditor?.editor.setModel(scout.variablesModel);
-      resultsEditor?.editor.setModel(scout.resultsModel);
+      operationsEditor?.editor.setModel(editorTab.operationModel);
+      variablesEditor?.editor.setModel(editorTab.variablesModel);
+      resultsEditor?.editor.setModel(editorTab.resultsModel);
     }
   },
   monacoEditors: [],
@@ -135,7 +135,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     // 👇 safety first
     const editorTabsCopy = [...editorTabs];
     const activeEditor = editorTabsCopy.find(
-      (scout) => scout.editorTabId === activeEditorTabId
+      (editorTab) => editorTab.editorTabId === activeEditorTabId
     );
 
     if (schemaUrl && activeEditor) {
