@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   FieldNode,
@@ -53,6 +53,11 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
     });
   }
 
+  useEffect(() => {
+    //
+    setIsExpanded(!!selection);
+  }, [selection]);
+
   // console.log('rendering Field', {
   //   field,
   //   args: field.args,
@@ -85,18 +90,7 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
   if (!isCollapsible) {
     return (
       <ItemGrid>
-        <IndicatorWrap
-          isActive={!!selection}
-          onClick={() => {
-            if (!selection && !isExpanded) {
-              setIsExpanded(true);
-            }
-            if (!!selection && isExpanded) {
-              setIsExpanded(false);
-            }
-            return toggle({ ancestors });
-          }}
-        >
+        <IndicatorWrap isActive={!!selection} onClick={() => toggle({ ancestors })}>
           <IndicatorField active={!!selection} />
         </IndicatorWrap>
         <Describe
@@ -134,12 +128,12 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
           <IndicatorWrap
             isActive={!!selection}
             onClick={() => {
-              if (!selection && !isExpanded) {
-                setIsExpanded(true);
-              }
-              if (!!selection && isExpanded) {
-                setIsExpanded(false);
-              }
+              // if (!selection && !isExpanded) {
+              //   setIsExpanded(true);
+              // }
+              // if (!!selection && isExpanded) {
+              //   setIsExpanded(false);
+              // }
               return toggle({ ancestors });
             }}
           >

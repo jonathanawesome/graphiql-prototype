@@ -38,34 +38,15 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   removeEditorTab: ({ editorTabId }) => {
     const editorTabs = get().editorTabs;
     // console.log('removeEditorTab', { editorTabId });
-    const remainingEditors = editorTabs.filter((t) => t.editorTabId === editorTabId);
-    set({ editorTabs: remainingEditors });
+    const remainingEditors = editorTabs.filter((t) => t.editorTabId !== editorTabId);
+    set({
+      editorTabs: remainingEditors,
+      activeEditorTabId: remainingEditors[0].editorTabId,
+    });
   },
   updateEditorTabData: ({ dataType, newValue }) => {
     const editorTabs = get().editorTabs;
     const activeEditorTabId = get().activeEditorTabId;
-
-    let operationDefinitionUpdate: ExecutableDefinitionNode | null = null;
-
-    if (dataType === 'operation') {
-      const parsedQuery = parseQuery(newValue);
-      if (!(parsedQuery instanceof Error)) {
-        const operationDefinition = (): ExecutableDefinitionNode | null => {
-          const firstDefinition = parsedQuery?.definitions[0];
-
-          if (!firstDefinition) {
-            return null;
-          }
-
-          if (isExecutableDefinitionNode(firstDefinition)) {
-            return firstDefinition;
-          }
-
-          return null;
-        };
-        operationDefinitionUpdate = operationDefinition();
-      }
-    }
 
     // 👇 safety first
     const editorTabsCopy = [...editorTabs];
@@ -73,12 +54,37 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       (scout) => scout.editorTabId === activeEditorTabId
     );
     if (existingEditorTab !== -1) {
+      let operationDefinitionUpdate: ExecutableDefinitionNode | null =
+        editorTabsCopy[existingEditorTab].operationDefinition;
+
+      if (dataType === 'operation') {
+        const parsedQuery = parseQuery(newValue);
+        if (!(parsedQuery instanceof Error)) {
+          const operationDefinition = (): ExecutableDefinitionNode | null => {
+            const firstDefinition = parsedQuery?.definitions[0];
+
+            if (!firstDefinition) {
+              return null;
+            }
+
+            if (isExecutableDefinitionNode(firstDefinition)) {
+              return firstDefinition;
+            }
+
+            return null;
+          };
+          operationDefinitionUpdate = operationDefinition();
+        }
+      }
+
       editorTabsCopy[existingEditorTab] = {
         ...editorTabsCopy[existingEditorTab],
         [dataType]: newValue,
-        operationDefinition: operationDefinitionUpdate ? operationDefinitionUpdate : null,
+        operationDefinition: operationDefinitionUpdate,
       };
+
       set({ editorTabs: editorTabsCopy });
+
       console.log('running updateEditorTabData', {
         newEditorsData: editorTabsCopy,
         dataType,
@@ -86,7 +92,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
         existingEditorTab,
       });
     } else {
-      console.log("Editor doesn't exist ☠️");
+      console.log("editorTab doesn't exist ☠️");
     }
   },
   swapEditorTab: ({ editorTabId }) => {

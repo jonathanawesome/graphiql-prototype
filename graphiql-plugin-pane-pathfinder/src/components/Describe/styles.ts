@@ -11,7 +11,7 @@ export const NameTypePills = styled('div', {
 });
 
 export const Name = styled('span', {
-  fontWeight: '$regular',
+  fontWeight: '$semiBold',
   color: '$scale800',
 });
 

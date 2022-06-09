@@ -1,8 +1,4 @@
-import {
-  ExecutableDefinitionNode,
-  GraphQLSchema,
-  OperationDefinitionNode,
-} from 'graphql';
+import { ExecutableDefinitionNode, GraphQLSchema } from 'graphql';
 import { editor as MONACO_EDITOR } from 'monaco-editor';
 
 type EditorTab = {

@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import cuid from 'cuid';
-import { defaultOperation, defaultResults, defaultVariables } from '../../constants';
 
 /** components */
-import {
-  Close,
-  HorizontallyResizableContainer,
-} from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Header } from '../Header';
+import { HorizontallyResizableContainer } from '@graphiql-v2-prototype/graphiql-ui-library';
 import { Operate } from '../Operate';
 import { Analyze } from '../Analyze/Analyze';
+
+/** constants */
+import { defaultOperation, defaultResults, defaultVariables } from '../../constants';
 
 /** hooks */
 import { useGraphiQLEditor } from '../../hooks';
@@ -17,28 +17,16 @@ import { useGraphiQLEditor } from '../../hooks';
 import { getOrCreateModel } from '../../utils';
 
 /** styles */
-import {
-  AddTabButton,
-  GraphiQLLink,
-  EditorTabControls,
-  EditorWrap,
-  EditorInner,
-  TabButton,
-  TabButtonRow,
-} from './styles';
+import { EditorWrap, EditorInner } from './styles';
 
-const defaultTabName = 'DEFAULT_TAB';
+const defaultTabName = '<untitled>';
 const defaultTabId = cuid.slug();
 
 export const GraphiQLEditor = () => {
-  const {
-    activeEditorTabId,
-    setActiveEditorTabId,
-    monacoEditors,
-    editorTabs,
-    addEditorTab,
-    swapEditorTab,
-  } = useGraphiQLEditor();
+  const { activeEditorTabId, setActiveEditorTabId, addEditorTab, editorTabs, schemaUrl } =
+    useGraphiQLEditor();
+
+  console.log('rendering GraphiQLEditor', { editorTabs, activeEditorTabId });
 
   // create the models for our initial tab
   const operationModel = getOrCreateModel({
@@ -54,13 +42,8 @@ export const GraphiQLEditor = () => {
     value: defaultResults,
   });
 
-  console.log('rendering Editor', {
-    monacoEditors: monacoEditors.map((e) => e.editor.getModel()?.getValue()),
-    editorTabs,
-    activeEditorTabId,
-  });
-
-  useEffect(() => {
+  const initEditor = () => {
+    // initialize a starting tab
     addEditorTab({
       editorTab: {
         editorTabId: defaultTabId,
@@ -74,72 +57,27 @@ export const GraphiQLEditor = () => {
         operationDefinition: null,
       },
     });
-    setActiveEditorTabId({ editorTabId: defaultTabId });
 
+    //set it active
+    setActiveEditorTabId({ editorTabId: defaultTabId });
+  };
+
+  // useEffect(() => {
+  //   // schemaUrl is changing, do something drastic
+  //   initEditor();
+
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [schemaUrl]);
+
+  useEffect(() => {
+    initEditor();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const doAddTab = () => {
-    const editorTabId = cuid.slug();
-    addEditorTab({
-      editorTab: {
-        editorTabId,
-        editorTabName: editorTabId,
-        operationModel: getOrCreateModel({
-          uri: `${editorTabId}-operations.graphql`,
-          value: defaultOperation,
-        }),
-        variablesModel: getOrCreateModel({
-          uri: `${editorTabId}-variables.json`,
-          value: defaultVariables,
-        }),
-        resultsModel: getOrCreateModel({
-          uri: `${editorTabId}-results.json`,
-          value: defaultResults,
-        }),
-        operation: defaultOperation,
-        variables: defaultVariables,
-        results: defaultResults,
-        operationDefinition: null,
-      },
-    });
-  };
-
-  const handleTabChange = ({ editorTabId }: { editorTabId: string }) => {
-    setActiveEditorTabId({ editorTabId });
-    swapEditorTab({ editorTabId });
-  };
-
-  if (editorTabs.length === 0) {
-    return <p>loading...</p>;
-  }
 
   return (
     <EditorWrap>
       <EditorInner>
-        <EditorTabControls>
-          <TabButtonRow>
-            {editorTabs.map((t) => (
-              <TabButton
-                key={t.editorTabId}
-                disabled={t.editorTabId === activeEditorTabId}
-                onClick={() => handleTabChange({ editorTabId: t.editorTabId })}
-                isActive={t.editorTabId === activeEditorTabId}
-              >
-                {t.editorTabName}
-              </TabButton>
-            ))}
-            <AddTabButton onClick={() => doAddTab()}>
-              Add Tab <Close />
-            </AddTabButton>
-          </TabButtonRow>
-          <GraphiQLLink>
-            <a>
-              Graph<i>i</i>
-              QL
-            </a>
-          </GraphiQLLink>
-        </EditorTabControls>
+        <Header />
         <HorizontallyResizableContainer
           leftPane={{
             component: (

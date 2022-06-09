@@ -1,4 +1,4 @@
-import { useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
+import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
 import { Dialog } from '@graphiql-v2-prototype/graphiql-ui-library';
 import { useEffect, useState } from 'react';
 
@@ -47,7 +47,7 @@ const Radio = ({
 
 const SchemaSelectorContent = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const { initSchema, schemaUrl, schema } = useGraphiQL();
+  const { initSchema, schemaUrl, schema } = useGraphiQLEditor();
 
   const handleSchemaChange = (value: string) => {
     setLoading(true);

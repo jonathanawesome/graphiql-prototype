@@ -44,16 +44,39 @@ export const MonacoEditor = ({
       const model = monacoEditor.editor.getModel();
 
       if (model && model.getValue() !== editorTab[editorType]) {
+        /** there's conflicting information about which of these options is "best", so leaving them both here. */
+        /** begin option 1: execute edits through the editor
+         * https://github.com/microsoft/monaco-editor/issues/1811#issuecomment-582612219
+         * ! using option 1 doesn't update the results editor
+         */
+        // const selection = monacoEditor.editor.getSelection();
+        // if (selection && model) {
+        //   monacoEditor.editor.executeEdits('update-value', [
+        //     {
+        //       range: model.getFullModelRange(),
+        //       text: editorTab[editorType],
+        //       forceMoveMarkers: true,
+        //     },
+        //   ]);
+        //   monacoEditor.editor.setSelection(selection);
+        // }
+        /** end option 1 */
+
+        /** begin option 2: execute edits through the model
+         * https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.ITextModel.html#pushEditOperations
+         */
         model.pushEditOperations(
           [],
           [
             {
               range: model.getFullModelRange(),
               text: editorTab[editorType],
+              forceMoveMarkers: true,
             },
           ],
-          () => null
+          () => []
         );
+        /** end option 2 */
       }
     }
 
