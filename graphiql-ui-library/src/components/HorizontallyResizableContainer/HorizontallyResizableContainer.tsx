@@ -30,6 +30,9 @@ export const HorizontallyResizableContainer: React.FC<
       if (!leftPaneWidth) {
         return setLeftPaneWidth(leftPaneRef.current.clientWidth);
       }
+      console.log('widths', {
+        'containerRef.current.clientWidth': containerRef.current.clientWidth,
+      });
 
       leftPaneRef.current.style.width = `${leftPaneWidth}px`;
       rightPaneRef.current.style.width = `${

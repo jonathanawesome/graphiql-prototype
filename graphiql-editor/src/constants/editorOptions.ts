@@ -5,7 +5,7 @@ export const editorOptions: MONACO_EDITOR.IStandaloneEditorConstructionOptions =
   minimap: {
     enabled: false, // disable the minimap
   },
-  folding: false, // disable folding
+  // folding: false, // disable folding
   fontFamily: "'Fira Code', monospace", // TODO: set the font (this is problematic because the font has to be installed locally)
   theme: 'myTheme',
   scrollbar: {

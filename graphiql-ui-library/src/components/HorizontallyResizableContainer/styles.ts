@@ -35,4 +35,5 @@ export const Container = styled('div', {
   width: '100%',
   display: 'flex',
   alignItems: 'flex-start',
+  overflow: 'hidden',
 });

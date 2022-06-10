@@ -4,8 +4,15 @@ export const AnalyzeWrap = styled('div', {
   display: 'flex',
   height: '100%',
   width: '100%',
-  paddingTop: 8,
-  paddingRight: 12,
-  paddingBottom: 12,
-  paddingLeft: 24,
+  position: 'relative',
+
+  '&::after': {
+    content: '',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    width: 24,
+    height: '100%',
+    background: 'linear-gradient(90deg, rgba(0,0,0,0) 0%, $scale300 100%)',
+  },
 });

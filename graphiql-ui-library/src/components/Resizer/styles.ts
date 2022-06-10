@@ -82,21 +82,16 @@ export const Handle = styled('div', {
   ],
 });
 
-export const Pane1 = styled('div', {
+export const Pane = styled('div', {
   height: '100%',
   flex: '1 1 0%',
-});
-
-export const Pane2 = styled('div', {
-  height: '100%',
-  flex: '1 1 0%',
+  position: 'relative',
 });
 
 export const Container = styled('div', {
   height: '100%',
   width: '100%',
   display: 'flex',
-  overflow: 'hidden',
 
   variants: {
     direction: {

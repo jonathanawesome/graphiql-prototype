@@ -3,7 +3,10 @@ import cuid from 'cuid';
 
 /** components */
 import { Header } from '../Header';
-import { HorizontallyResizableContainer } from '@graphiql-v2-prototype/graphiql-ui-library';
+import {
+  HorizontallyResizableContainer,
+  Resizer,
+} from '@graphiql-v2-prototype/graphiql-ui-library';
 import { Operate } from '../Operate';
 import { Analyze } from '../Analyze/Analyze';
 
@@ -78,7 +81,7 @@ export const GraphiQLEditor = () => {
     <EditorWrap>
       <EditorInner>
         <Header />
-        <HorizontallyResizableContainer
+        {/* <HorizontallyResizableContainer
           leftPane={{
             component: (
               <Operate operationModel={operationModel} variablesModel={variablesModel} />
@@ -89,6 +92,14 @@ export const GraphiQLEditor = () => {
             component: <Analyze resultsModel={resultsModel} />,
             initialWidthPercent: 50,
           }}
+        /> */}
+        <Resizer
+          direction="horizontal"
+          handleStyle="bar"
+          pane1={
+            <Operate operationModel={operationModel} variablesModel={variablesModel} />
+          }
+          pane2={<Analyze resultsModel={resultsModel} />}
         />
       </EditorInner>
     </EditorWrap>

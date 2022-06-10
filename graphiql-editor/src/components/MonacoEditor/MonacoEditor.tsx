@@ -115,7 +115,7 @@ export const MonacoEditor = ({
 
   return (
     <EditorStyled>
-      <MonacoWrap ref={editorRef} />
+      <MonacoWrap ref={editorRef} editorType={editorType} />
     </EditorStyled>
   );
 };

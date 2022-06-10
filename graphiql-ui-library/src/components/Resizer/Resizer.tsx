@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 
 /** styles */
-import { Container, Handle, Pane1, Pane2 } from './styles';
+import { Container, Handle, Pane } from './styles';
 
 export type ResizerProps = {
   direction: 'horizontal' | 'vertical';
@@ -27,7 +27,6 @@ export const Resizer: React.FC<ResizerProps> = ({
   const sizeProperty = direction === 'horizontal' ? 'clientWidth' : 'clientHeight';
 
   const onMouseDown = (e: React.MouseEvent) => {
-    console.log('onMouseDown');
     e.preventDefault();
 
     let offset: number;
@@ -36,12 +35,6 @@ export const Resizer: React.FC<ResizerProps> = ({
     }
 
     const onMouseMove = (e: MouseEvent) => {
-      // console.log('onMouseMove', {
-      //   'handleRef.current': handleRef.current,
-      //   'pane1Ref.current': pane1Ref.current,
-      //   'containerRef.current': containerRef.current,
-      //   offset,
-      // });
       const handle = handleRef.current;
       const pane1 = pane1Ref.current;
       const container = containerRef.current;
@@ -61,8 +54,6 @@ export const Resizer: React.FC<ResizerProps> = ({
     };
 
     const onMouseUp = () => {
-      console.log('onMouseUp');
-      // containerRef?.current?.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };
@@ -73,14 +64,14 @@ export const Resizer: React.FC<ResizerProps> = ({
 
   return (
     <Container ref={containerRef} direction={direction}>
-      <Pane1 ref={pane1Ref}>{pane1}</Pane1>
+      <Pane ref={pane1Ref}>{pane1}</Pane>
       <Handle
         ref={handleRef}
         onMouseDown={onMouseDown}
         handleStyle={handleStyle}
         direction={direction}
       />
-      <Pane2 ref={pane2Ref}>{pane2}</Pane2>
+      <Pane ref={pane2Ref}>{pane2}</Pane>
     </Container>
   );
 };
