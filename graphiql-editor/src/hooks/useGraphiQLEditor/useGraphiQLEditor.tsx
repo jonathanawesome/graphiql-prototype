@@ -46,7 +46,13 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   },
   updateEditorTabData: ({ dataType, newValue }) => {
     const editorTabs = get().editorTabs;
+
     const activeEditorTabId = get().activeEditorTabId;
+
+    // console.log('running updateEditorTabData', {
+    //   dataType,
+    //   newValue,
+    // });
 
     // 👇 safety first
     const editorTabsCopy = [...editorTabs];
@@ -84,13 +90,6 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       };
 
       set({ editorTabs: editorTabsCopy });
-
-      console.log('running updateEditorTabData', {
-        newEditorsData: editorTabsCopy,
-        dataType,
-        newValue,
-        existingEditorTab,
-      });
     } else {
       console.log("editorTab doesn't exist ☠️");
     }
@@ -101,7 +100,8 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
 
     const editorTab = editorTabs.find((t) => t.editorTabId === editorTabId);
 
-    console.log('running swapEditorTab', { monacoEditors, editorTab });
+    // console.log('running swapEditorTab', { monacoEditors, editorTab });
+
     if (editorTab) {
       // TODO: there's probably a better way to do this 👇
       const operationsEditor = monacoEditors.find((e) => e.name === 'operation');
@@ -116,12 +116,12 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   addMonacoEditor: ({ editor, name }) => {
     const monacoEditors = get().monacoEditors;
     const existingEditor = monacoEditors.find((e) => e.name === name);
-    console.log('running addMonacoEditor', {
-      existingEditor,
-      monacoEditors,
-      editor,
-      name,
-    });
+    // console.log('running addMonacoEditor', {
+    //   existingEditor,
+    //   monacoEditors,
+    //   editor,
+    //   name,
+    // });
     if (!existingEditor) {
       set({ monacoEditors: [...monacoEditors, { editor, name }] });
     }

@@ -6,10 +6,13 @@ import { MonacoEditor } from '../MonacoEditor';
 import { OperationActions } from '../OperationActions';
 import { OperationTools } from '../OperationTools';
 
+/** hooks */
+import { useGraphiQLEditor } from '../../hooks';
+
 /** styles */
 import {
   OperationActionsWrap,
-  OperationWrap,
+  OperateWrap,
   OperationEditor,
   OperationToolsWrap,
 } from './styles';
@@ -21,6 +24,8 @@ export const Operate = ({
   operationModel: MONACO_EDITOR.ITextModel;
   variablesModel: MONACO_EDITOR.ITextModel;
 }) => {
+  const { editorTabs } = useGraphiQLEditor();
+
   const containerRef = useRef<HTMLDivElement | null>(null);
   const operationsEditorRef = useRef<HTMLDivElement | null>(null);
   const bottomPaneRef = useRef<HTMLDivElement | null>(null);
@@ -45,7 +50,7 @@ export const Operate = ({
   };
 
   return (
-    <OperationWrap ref={containerRef}>
+    <OperateWrap ref={containerRef} expanded={editorTabs.length === 1}>
       <OperationEditor ref={operationsEditorRef}>
         <MonacoEditor editorType="operation" initWithModel={operationModel} />
         <OperationActionsWrap>
@@ -55,6 +60,6 @@ export const Operate = ({
       <OperationToolsWrap ref={bottomPaneRef}>
         <OperationTools setHeight={setHeight} variablesModel={variablesModel} />
       </OperationToolsWrap>
-    </OperationWrap>
+    </OperateWrap>
   );
 };

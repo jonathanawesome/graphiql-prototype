@@ -1,7 +1,8 @@
 import cuid from 'cuid';
 
 /** components */
-import { Plus, Close } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Plus } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Tab } from '../Tab';
 
 /** constants */
 import { defaultResults, defaultVariables } from '../../constants';
@@ -10,15 +11,7 @@ import { defaultResults, defaultVariables } from '../../constants';
 import { useGraphiQLEditor } from '../../hooks';
 
 /** styles */
-import {
-  AddTabButton,
-  EditorHeader,
-  TabRow,
-  TabControlsWrap,
-  TabButton,
-  RemoveTabButton,
-  GraphiQLLink,
-} from './styles';
+import { AddTabButton, HeaderWrap, TabsRow, GraphiQLLink } from './styles';
 
 /** utils */
 import { getOrCreateModel } from '../../utils';
@@ -32,21 +25,15 @@ const AddTab = ({ doAddTab }: { doAddTab: () => void }) => {
 };
 
 export const Header = () => {
-  const {
-    activeEditorTabId,
-    setActiveEditorTabId,
-    editorTabs,
-    addEditorTab,
-    removeEditorTab,
-    swapEditorTab,
-  } = useGraphiQLEditor();
+  const { activeEditorTabId, setActiveEditorTabId, editorTabs, addEditorTab } =
+    useGraphiQLEditor();
 
   const doAddTab = () => {
     const editorTabId = cuid.slug();
     addEditorTab({
       editorTab: {
         editorTabId,
-        editorTabName: editorTabId,
+        editorTabName: '<untitled>',
         operationModel: getOrCreateModel({
           uri: `${editorTabId}-operations.graphql`,
           value: '',
@@ -68,44 +55,20 @@ export const Header = () => {
     setActiveEditorTabId({ editorTabId });
   };
 
-  const doRemoveTab = (editorTabId: string) => {
-    removeEditorTab({ editorTabId });
-  };
-
-  const handleTabChange = (editorTabId: string) => {
-    setActiveEditorTabId({ editorTabId });
-    swapEditorTab({ editorTabId });
-  };
-
   return (
-    <EditorHeader>
-      <TabRow>
+    <HeaderWrap>
+      <TabsRow>
         {editorTabs.length === 1
           ? null
-          : editorTabs.map((t) => (
-              <TabControlsWrap
-                key={t.editorTabId}
-                isActive={t.editorTabId === activeEditorTabId}
-              >
-                <TabButton
-                  disabled={t.editorTabId === activeEditorTabId}
-                  onClick={() => handleTabChange(t.editorTabId)}
-                  isActive={t.editorTabId === activeEditorTabId}
-                >
-                  {t.editorTabName}
-                </TabButton>
-                {activeEditorTabId === t.editorTabId && (
-                  <RemoveTabButton
-                    aria-label="Close Tab"
-                    onClick={() => doRemoveTab(t.editorTabId)}
-                  >
-                    <Close />
-                  </RemoveTabButton>
-                )}
-              </TabControlsWrap>
+          : editorTabs.map((tab) => (
+              <Tab
+                key={tab.editorTabId}
+                editorTabId={tab.editorTabId}
+                isActive={activeEditorTabId === tab.editorTabId}
+              />
             ))}
         {editorTabs.length > 1 && <AddTab doAddTab={doAddTab} />}
-      </TabRow>
+      </TabsRow>
       {editorTabs.length === 1 && <AddTab doAddTab={doAddTab} />}
       <GraphiQLLink>
         <a>
@@ -113,6 +76,6 @@ export const Header = () => {
           QL
         </a>
       </GraphiQLLink>
-    </EditorHeader>
+    </HeaderWrap>
   );
 };
