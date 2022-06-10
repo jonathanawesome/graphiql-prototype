@@ -34,10 +34,10 @@ export const MonacoEditor = ({
 
   const editorTab = editorTabs.find((editor) => editor.editorTabId === activeEditorTabId);
 
-  // console.log('rendering MonacoEditor', {
-  //   editorType,
-  //   editorTab,
-  // });
+  console.log('rendering MonacoEditor', {
+    editorType,
+    editorTab,
+  });
 
   useEffect(() => {
     if (editorTab && monacoEditor) {
@@ -47,7 +47,7 @@ export const MonacoEditor = ({
         /** there's conflicting information about which of these options is "best", so leaving them both here. */
         /** begin option 1: execute edits through the editor
          * https://github.com/microsoft/monaco-editor/issues/1811#issuecomment-582612219
-         * ! using option 1 doesn't update the results editor
+         * ! using option 1 doesn't update the results editor...leaving this code here for reference
          */
         // const selection = monacoEditor.editor.getSelection();
         // if (selection && model) {
@@ -85,7 +85,7 @@ export const MonacoEditor = ({
 
   useEffect(() => {
     if (!monacoEditor) {
-      const newEditor = MONACO_EDITOR.create(
+      const editor = MONACO_EDITOR.create(
         editorRef.current as unknown as HTMLDivElement,
         {
           language: editorType === 'operation' ? 'graphql' : 'json',
@@ -96,20 +96,15 @@ export const MonacoEditor = ({
       );
 
       addMonacoEditor({
-        editor: newEditor,
+        editor,
         name: editorType,
       });
 
-      initWithModel.onDidChangeContent(() => {
-        if (editorTab) {
-          const editorValue = newEditor.getModel()?.getValue();
-          if (editorValue) {
-            updateEditorTabData({
-              dataType: editorType,
-              newValue: editorValue,
-            });
-          }
-        }
+      editor.onDidChangeModelContent(() => {
+        updateEditorTabData({
+          dataType: editorType,
+          newValue: editor.getValue(),
+        });
       });
 
       MONACO_EDITOR.defineTheme('myTheme', editorTheme);
