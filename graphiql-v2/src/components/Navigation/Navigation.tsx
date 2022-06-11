@@ -1,11 +1,9 @@
 /** components */
-import { SettingsDialog } from '../index';
-import {
-  Command,
-  // Docs,
-  GraphQLIcon,
-  // History
-} from '@graphiql-v2-prototype/graphiql-ui-library';
+// import { SettingsDialog } from '../index';
+import { Command, GraphQLIcon } from '@graphiql-v2-prototype/graphiql-ui-library';
+
+/** hooks */
+import { useGraphiQL } from '../../hooks';
 
 /** styles */
 import {
@@ -14,8 +12,9 @@ import {
   PanePluginNavigationItem,
   SibebarPlugins,
 } from './styles';
+
+/** types */
 import { PanePluginsArray } from '../PanePlugins/types';
-import { useGraphiQL } from '../../hooks';
 
 export const Navigation = ({
   panePlugins,
@@ -29,20 +28,20 @@ export const Navigation = ({
   return (
     <NavigationStyled showBorder={activePane !== 'GraphiQL'}>
       <PanePluginNavigation>
-        <PanePluginNavigationItem onClick={() => setActivePane('GraphiQL')}>
+        <PanePluginNavigationItem
+          isActive={activePane === 'GraphiQL'}
+          onClick={() => setActivePane('GraphiQL')}
+          title="SomeTitle Here"
+        >
           <GraphQLIcon />
         </PanePluginNavigationItem>
-
-        {/* <Docs /> */}
-        {/* <div style={{ cursor: 'not-allowed' }}>
-          <History />
-        </div> */}
         {panePlugins?.map((panePlugin) => (
           <PanePluginNavigationItem
             key={panePlugin.panePluginName}
+            isActive={activePane === panePlugin.panePluginName}
             onClick={() => setActivePane(panePlugin.panePluginName)}
           >
-            {panePlugin.panePluginIcon}
+            <panePlugin.panePluginIcon />
           </PanePluginNavigationItem>
         ))}
       </PanePluginNavigation>
@@ -52,7 +51,7 @@ export const Navigation = ({
         <div style={{ cursor: 'not-allowed' }}>
           <Command />
         </div>
-        <SettingsDialog />
+        {/* <SettingsDialog /> */}
       </SibebarPlugins>
     </NavigationStyled>
   );

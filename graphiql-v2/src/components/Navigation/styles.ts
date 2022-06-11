@@ -32,6 +32,18 @@ export const PanePluginNavigationItem = styled('button', {
       },
     },
   },
+
+  variants: {
+    isActive: {
+      true: {
+        svg: {
+          path: {
+            fill: '$accentArgument',
+          },
+        },
+      },
+    },
+  },
 });
 
 export const SibebarPlugins = styled('div', {

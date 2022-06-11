@@ -1,0 +1,1017 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 11,
+    "total": 11,
+    "workspacePrefix": "/Users/jonathanbrennan/projects/graphiql-v2-prototype"
+  },
+  "1 warn pnpm": {
+    "message": "There are cyclic workspace dependencies",
+    "prefix": "/Users/jonathanbrennan/projects/graphiql-v2-prototype"
+  },
+  "2 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "api",
+      "version": "0.0.1",
+      "scripts": {
+        "dev": " NODE_ENV=development nodemon src/server.ts",
+        "codegen": "graphql-codegen",
+        "codegen:watch": "graphql-codegen --watch",
+        "db:up": "cd db && docker-compose up",
+        "db:down": "cd db && docker-compose down",
+        "prisma:db:push": "pnpm prisma db push --schema src/prisma/schema.prisma",
+        "prisma:format": "pnpm prisma format --schema src/prisma/schema.prisma",
+        "prisma:generate": "pnpm prisma generate --schema src/prisma/schema.prisma",
+        "prisma:migrate:reset": "pnpm prisma migrate reset --skip-seed --schema src/prisma/schema.prisma",
+        "prisma:reset": "pnpm prisma:migrate:reset && pnpm prisma:db:push && ts-node --transpile-only src/prisma/seed/index.ts",
+        "prisma:studio": "pnpm prisma studio --schema src/prisma/schema.prisma",
+        "tsc": "tsc --noEmit"
+      },
+      "prisma": {
+        "seed": "ts-node --transpile-only src/prisma/seed/index.ts"
+      },
+      "dependencies": {
+        "@envelop/graphql-modules": "^3.3.2",
+        "@graphql-yoga/node": "^2.8.0",
+        "cuid": "^2.1.8",
+        "dayjs": "^1.11.2",
+        "express": "^4.18.1",
+        "graphql": "^16.1.0",
+        "graphql-modules": "^2.0.0"
+      },
+      "devDependencies": {
+        "@faker-js/faker": "^6.1.1",
+        "@graphql-codegen/add": "^3.1.1",
+        "@graphql-codegen/cli": "^2.4.0",
+        "@graphql-codegen/graphql-modules-preset": "^2.3.2",
+        "@graphql-codegen/schema-ast": "^2.4.1",
+        "@graphql-codegen/typescript": "^2.4.2",
+        "@graphql-codegen/typescript-resolvers": "^2.4.3",
+        "@prisma/client": "^3.14.0",
+        "@types/express": "^4.17.13",
+        "nodemon": "^2.0.16",
+        "prisma": "^3.14.0",
+        "ts-node": "^10.8.0"
+      }
+    },
+    "prefix": "/Users/jonathanbrennan/projects/graphiql-v2-prototype/apps/api"
+  },
+  "3 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "@graphiql-v2-prototype/graphiql-plugin-operations-tools-easy-vars",
+      "version": "0.0.1",
+      "main": "index.ts",
+      "scripts": {
+        "tsc": "tsc --noEmit"
+      },
+      "dependencies": {
+        "react": "17.0.2"
+      },
+      "devDependencies": {
+        "@types/react": "17.0.2"
+      }
+    },
+    "prefix": "/Users/jonathanbrennan/projects/graphiql-v2-prototype/plugins/graphiql-plugin-operations-tools-easy-vars"
+  },
+  "4 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "@graphiql-v2-prototype/graphiql-ui-library",
+      "version": "0.0.1",
+      "main": "index.ts",
+      "scripts": {
+        "tsc": "tsc --noEmit"
+      },
+      "dependencies": {
+        "@radix-ui/react-collapsible": "^0.1.6",
+        "@radix-ui/react-dialog": "^0.1.7",
+        "@radix-ui/react-popover": "^0.1.6",
+        "@radix-ui/react-tabs": "^0.1.5",
+        "@radix-ui/react-toggle-group": "^0.1.5",
+        "@stitches/react": "1.2.8",
+        "react": "17.0.2",
+        "react-dom": "17.0.2"
+      },
+      "devDependencies": {
+        "@types/react": "17.0.2",
+        "@types/react-dom": "17.0.2",
+        "vite": "2.9.6"
+      }
+    },
+    "prefix": "/Users/jonathanbrennan/projects/graphiql-v2-prototype/graphiql-ui-library"
+  },
+  "5 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "@graphiql-v2-prototype/graphiql-plugin-dialog-settings",
+      "version": "0.0.1",
+      "main": "index.ts",
+      "scripts": {
+        "tsc": "tsc --noEmit"
+      },
+      "dependencies": {
+        "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",
+        "react": "17.0.2"
+      },
+      "devDependencies": {
+        "@types/react": "17.0.2"
+      }
+    },
+    "prefix": "/Users/jonathanbrennan/projects/graphiql-v2-prototype/plugins/graphiql-plugin-dialog-settings"
+  },
+  "6 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "@graphiql-v2-prototype/graphiql-plugin-pane-history",
+      "version": "0.0.1",
+      "main": "index.ts",
+      "scripts": {
+        "tsc": "tsc --noEmit"
+      },
+      "dependencies": {
+        "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",
+        "react": "17.0.2"
+      },
+      "devDependencies": {
+        "@types/react": "17.0.2"
+      }
+    },
+    "prefix": "/Users/jonathanbrennan/projects/graphiql-v2-prototype/plugins/graphiql-plugin-pane-history"
+  },
+  "7 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "@graphiql-v2-prototype/graphiql-v2",
+      "version": "0.0.1",
+      "main": "index.ts",
+      "scripts": {
+        "tsc": "tsc --noEmit"
+      },
+      "dependencies": {
+        "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",
+        "@graphiql-v2-prototype/graphiql-editor": "workspace:*",
+        "@graphiql/toolkit": "^0.6.0",
+        "graphql": "^16.5.0",
+        "jsonc-parser": "3.0.0",
+        "monaco-editor": "^0.33.0",
+        "react": "17.0.2",
+        "zustand": "^4.0.0-rc.1"
+      },
+      "devDependencies": {
+        "@types/react": "17.0.2"
+      }
+    },
+    "prefix": "/Users/jonathanbrennan/projects/graphiql-v2-prototype/graphiql-v2"
+  },
+  "8 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "@graphiql-v2-prototype/graphiql-editor",
+      "version": "0.0.1",
+      "main": "index.ts",
+      "scripts": {
+        "tsc": "tsc --noEmit"
+      },
+      "dependencies": {
+        "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",
+        "@graphiql-v2-prototype/graphiql-v2": "workspace:*",
+        "@graphiql/toolkit": "^0.6.0",
+        "@radix-ui/react-collapsible": "^0.1.6",
+        "@radix-ui/react-radio-group": "^0.1.5",
+        "@radix-ui/react-tabs": "^0.1.5",
+        "@stitches/react": "1.2.8",
+        "cuid": "^2.1.8",
+        "graphql": "^16.5.0",
+        "jsonc-parser": "3.0.0",
+        "monaco-editor": "^0.33.0",
+        "monaco-graphql": "^1.0.17",
+        "react": "17.0.2",
+        "react-dom": "17.0.2",
+        "zustand": "^4.0.0-rc.1"
+      },
+      "devDependencies": {
+        "@types/react": "17.0.2",
+        "@types/react-dom": "17.0.2",
+        "vite": "2.9.6"
+      }
+    },
+    "prefix": "/Users/jonathanbrennan/projects/graphiql-v2-prototype/graphiql-editor"
+  },
+  "9 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "@graphiql-v2-prototype/graphiql-plugin-dialog-schema-selector",
+      "version": "0.0.1",
+      "main": "index.ts",
+      "scripts": {
+        "tsc": "tsc --noEmit"
+      },
+      "dependencies": {
+        "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",
+        "@graphiql-v2-prototype/graphiql-editor": "workspace:*",
+        "@radix-ui/react-radio-group": "^0.1.5",
+        "react": "17.0.2"
+      },
+      "devDependencies": {
+        "@types/react": "17.0.2",
+        "vite": "2.9.6"
+      }
+    },
+    "prefix": "/Users/jonathanbrennan/projects/graphiql-v2-prototype/plugins/graphiql-plugin-dialog-schema-selector"
+  },
+  "10 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder",
+      "version": "0.0.1",
+      "main": "index.ts",
+      "scripts": {
+        "tsc": "tsc --noEmit"
+      },
+      "dependencies": {
+        "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",
+        "@graphiql-v2-prototype/graphiql-editor": "workspace:*",
+        "@radix-ui/react-collapsible": "^0.1.6",
+        "cuid": "^2.1.8",
+        "graphql": "^16.5.0",
+        "react": "17.0.2",
+        "react-dom": "17.0.2",
+        "zustand": "^4.0.0-rc.1"
+      },
+      "devDependencies": {
+        "@types/react": "17.0.2",
+        "@types/react-dom": "17.0.2"
+      }
+    },
+    "prefix": "/Users/jonathanbrennan/projects/graphiql-v2-prototype/plugins/graphiql-plugin-pane-pathfinder"
+  },
+  "11 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "ladle",
+      "version": "0.0.1",
+      "scripts": {
+        "serve": "NODE_ENV=development ladle serve --open=none",
+        "build": "NODE_ENV=production ladle build",
+        "tsc": "tsc --noEmit"
+      },
+      "dependencies": {
+        "@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder": "workspace:*",
+        "@graphiql-v2-prototype/graphiql-plugin-sidebar-schema-selector": "workspace:*",
+        "@graphiql-v2-prototype/graphiql-editor": "workspace:*",
+        "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",
+        "@graphiql-v2-prototype/graphiql-v2": "workspace:*",
+        "react": "17.0.2",
+        "react-dom": "17.0.2"
+      },
+      "devDependencies": {
+        "@ladle/react": "^0.14.1",
+        "@types/react": "^18.0.9",
+        "@vitejs/plugin-react": "1.3.1",
+        "vite": "2.9.6",
+        "vite-plugin-monaco-editor": "1.0.10"
+      }
+    },
+    "prefix": "/Users/jonathanbrennan/projects/graphiql-v2-prototype/apps/ladle"
+  },
+  "12 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "graphiql-v2-prototype",
+      "version": "0.0.1",
+      "scripts": {
+        "ladle:serve": "pnpm --filter ladle serve",
+        "ladle:build": "pnpm --filter ladle build",
+        "ladle:tsc": "pnpm --filter ladle tsc",
+        "api:dev": "pnpm --filter api dev",
+        "api:codegen": "pnpm --filter api codegen",
+        "api:codegen:watch": "pnpm --filter api codegen:watch ",
+        "api:db:up": "pnpm --filter api db:up",
+        "api:db:down": "pnpm --filter api db:down",
+        "api:prisma:generate": "pnpm --filter api prisma:generate",
+        "api:prisma:push": "pnpm --filter api prisma:db:push",
+        "api:prisma:reset": "pnpm --filter api prisma:reset",
+        "api:prisma:studio": "pnpm --filter api prisma:studio",
+        "api:tsc": "pnpm --filter api tsc",
+        "graphiql-v2:tsc": "pnpm --filter @graphiql-v2-prototype/graphiql-v2 tsc ",
+        "graphiql-plugin-pane-pathfinder:tsc": "pnpm --filter @graphiql-v2-prototype/graphiql-plugin-pane-pathfinder tsc",
+        "tsc": "pnpm api:tsc && pnpm graphiql-v2:tsc && pnpm graphiql-plugin-pane-pathfinder:tsc"
+      },
+      "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.27.0",
+        "@typescript-eslint/parser": "^5.27.0",
+        "eslint": "^8.16.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "eslint-plugin-react-hooks": "^4.5.0",
+        "prettier": "^2.6.2",
+        "typescript": "^4.7.2"
+      }
+    },
+    "prefix": "/Users/jonathanbrennan/projects/graphiql-v2-prototype"
+  },
+  "13 debug pnpm:context": {
+    "currentLockfileExists": false,
+    "storeDir": "/Users/jonathanbrennan/Library/pnpm/store/v3",
+    "virtualStoreDir": "/Users/jonathanbrennan/projects/graphiql-v2-prototype/node_modules/.pnpm"
+  },
+  "14 debug pnpm:stage": {
+    "prefix": "/Users/jonathanbrennan/projects/graphiql-v2-prototype",
+    "stage": "resolution_started"
+  },
+  "15 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@faker-js/faker/6.3.1",
+    "wanted": {
+      "dependentId": "apps/api",
+      "name": "@faker-js/faker",
+      "rawSpec": "^6.1.1"
+    }
+  },
+  "16 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@graphql-codegen/add/3.1.1",
+    "wanted": {
+      "dependentId": "apps/api",
+      "name": "@graphql-codegen/add",
+      "rawSpec": "^3.1.1"
+    }
+  },
+  "17 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@graphql-codegen/cli/2.6.2",
+    "wanted": {
+      "dependentId": "apps/api",
+      "name": "@graphql-codegen/cli",
+      "rawSpec": "^2.4.0"
+    }
+  },
+  "18 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@graphql-codegen/graphql-modules-preset/2.3.11",
+    "wanted": {
+      "dependentId": "apps/api",
+      "name": "@graphql-codegen/graphql-modules-preset",
+      "rawSpec": "^2.3.2"
+    }
+  },
+  "19 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@graphql-codegen/schema-ast/2.4.1",
+    "wanted": {
+      "dependentId": "apps/api",
+      "name": "@graphql-codegen/schema-ast",
+      "rawSpec": "^2.4.1"
+    }
+  },
+  "20 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@graphql-codegen/typescript/2.4.11",
+    "wanted": {
+      "dependentId": "apps/api",
+      "name": "@graphql-codegen/typescript",
+      "rawSpec": "^2.4.2"
+    }
+  },
+  "21 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@graphql-codegen/typescript-resolvers/2.6.4",
+    "wanted": {
+      "dependentId": "apps/api",
+      "name": "@graphql-codegen/typescript-resolvers",
+      "rawSpec": "^2.4.3"
+    }
+  },
+  "22 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@prisma/client/3.14.0",
+    "wanted": {
+      "dependentId": "apps/api",
+      "name": "@prisma/client",
+      "rawSpec": "^3.14.0"
+    }
+  },
+  "23 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@types/express/4.17.13",
+    "wanted": {
+      "dependentId": "apps/api",
+      "name": "@types/express",
+      "rawSpec": "^4.17.13"
+    }
+  },
+  "24 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/nodemon/2.0.16",
+    "wanted": {
+      "dependentId": "apps/api",
+      "name": "nodemon",
+      "rawSpec": "^2.0.16"
+    }
+  },
+  "25 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/prisma/3.14.0",
+    "wanted": {
+      "dependentId": "apps/api",
+      "name": "prisma",
+      "rawSpec": "^3.14.0"
+    }
+  },
+  "26 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/ts-node/10.8.1",
+    "wanted": {
+      "dependentId": "apps/api",
+      "name": "ts-node",
+      "rawSpec": "^10.8.0"
+    }
+  },
+  "27 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@envelop/graphql-modules/3.3.3",
+    "wanted": {
+      "dependentId": "apps/api",
+      "name": "@envelop/graphql-modules",
+      "rawSpec": "^3.3.2"
+    }
+  },
+  "28 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@graphql-yoga/node/2.9.0",
+    "wanted": {
+      "dependentId": "apps/api",
+      "name": "@graphql-yoga/node",
+      "rawSpec": "^2.8.0"
+    }
+  },
+  "29 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/cuid/2.1.8",
+    "wanted": {
+      "dependentId": "apps/api",
+      "name": "cuid",
+      "rawSpec": "^2.1.8"
+    }
+  },
+  "30 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/dayjs/1.11.3",
+    "wanted": {
+      "dependentId": "apps/api",
+      "name": "dayjs",
+      "rawSpec": "^1.11.2"
+    }
+  },
+  "31 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/express/4.18.1",
+    "wanted": {
+      "dependentId": "apps/api",
+      "name": "express",
+      "rawSpec": "^4.18.1"
+    }
+  },
+  "32 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/graphql/16.5.0",
+    "wanted": {
+      "dependentId": "apps/api",
+      "name": "graphql",
+      "rawSpec": "^16.1.0"
+    }
+  },
+  "33 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/graphql-modules/2.0.0",
+    "wanted": {
+      "dependentId": "apps/api",
+      "name": "graphql-modules",
+      "rawSpec": "^2.0.0"
+    }
+  },
+  "34 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@types/react/17.0.2",
+    "wanted": {
+      "dependentId": "graphiql-ui-library",
+      "name": "@types/react",
+      "rawSpec": "17.0.2"
+    }
+  },
+  "35 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@types/react-dom/17.0.2",
+    "wanted": {
+      "dependentId": "graphiql-ui-library",
+      "name": "@types/react-dom",
+      "rawSpec": "17.0.2"
+    }
+  },
+  "36 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/vite/2.9.6",
+    "wanted": {
+      "dependentId": "graphiql-ui-library",
+      "name": "vite",
+      "rawSpec": "2.9.6"
+    }
+  },
+  "37 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@radix-ui/react-collapsible/0.1.6",
+    "wanted": {
+      "dependentId": "graphiql-ui-library",
+      "name": "@radix-ui/react-collapsible",
+      "rawSpec": "^0.1.6"
+    }
+  },
+  "38 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@radix-ui/react-dialog/0.1.7",
+    "wanted": {
+      "dependentId": "graphiql-ui-library",
+      "name": "@radix-ui/react-dialog",
+      "rawSpec": "^0.1.7"
+    }
+  },
+  "39 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@radix-ui/react-popover/0.1.6",
+    "wanted": {
+      "dependentId": "graphiql-ui-library",
+      "name": "@radix-ui/react-popover",
+      "rawSpec": "^0.1.6"
+    }
+  },
+  "40 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@radix-ui/react-tabs/0.1.5",
+    "wanted": {
+      "dependentId": "graphiql-ui-library",
+      "name": "@radix-ui/react-tabs",
+      "rawSpec": "^0.1.5"
+    }
+  },
+  "41 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@radix-ui/react-toggle-group/0.1.5",
+    "wanted": {
+      "dependentId": "graphiql-ui-library",
+      "name": "@radix-ui/react-toggle-group",
+      "rawSpec": "^0.1.5"
+    }
+  },
+  "42 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@stitches/react/1.2.8",
+    "wanted": {
+      "dependentId": "graphiql-ui-library",
+      "name": "@stitches/react",
+      "rawSpec": "1.2.8"
+    }
+  },
+  "43 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/react/17.0.2",
+    "wanted": {
+      "dependentId": "graphiql-ui-library",
+      "name": "react",
+      "rawSpec": "17.0.2"
+    }
+  },
+  "44 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/react-dom/17.0.2",
+    "wanted": {
+      "dependentId": "graphiql-ui-library",
+      "name": "react-dom",
+      "rawSpec": "17.0.2"
+    }
+  },
+  "45 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@types/react/17.0.2",
+    "wanted": {
+      "dependentId": "graphiql-v2",
+      "name": "@types/react",
+      "rawSpec": "17.0.2"
+    }
+  },
+  "46 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@graphiql/toolkit/0.6.0",
+    "wanted": {
+      "dependentId": "graphiql-v2",
+      "name": "@graphiql/toolkit",
+      "rawSpec": "^0.6.0"
+    }
+  },
+  "47 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/graphql/16.5.0",
+    "wanted": {
+      "dependentId": "graphiql-v2",
+      "name": "graphql",
+      "rawSpec": "^16.5.0"
+    }
+  },
+  "48 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/jsonc-parser/3.0.0",
+    "wanted": {
+      "dependentId": "graphiql-v2",
+      "name": "jsonc-parser",
+      "rawSpec": "3.0.0"
+    }
+  },
+  "49 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/monaco-editor/0.33.0",
+    "wanted": {
+      "dependentId": "graphiql-v2",
+      "name": "monaco-editor",
+      "rawSpec": "^0.33.0"
+    }
+  },
+  "50 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/react/17.0.2",
+    "wanted": {
+      "dependentId": "graphiql-v2",
+      "name": "react",
+      "rawSpec": "17.0.2"
+    }
+  },
+  "51 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/zustand/4.0.0-rc.1",
+    "wanted": {
+      "dependentId": "graphiql-v2",
+      "name": "zustand",
+      "rawSpec": "^4.0.0-rc.1"
+    }
+  },
+  "52 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@types/react/17.0.2",
+    "wanted": {
+      "dependentId": "graphiql-editor",
+      "name": "@types/react",
+      "rawSpec": "17.0.2"
+    }
+  },
+  "53 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@types/react-dom/17.0.2",
+    "wanted": {
+      "dependentId": "graphiql-editor",
+      "name": "@types/react-dom",
+      "rawSpec": "17.0.2"
+    }
+  },
+  "54 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/vite/2.9.6",
+    "wanted": {
+      "dependentId": "graphiql-editor",
+      "name": "vite",
+      "rawSpec": "2.9.6"
+    }
+  },
+  "55 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@graphiql/toolkit/0.6.0",
+    "wanted": {
+      "dependentId": "graphiql-editor",
+      "name": "@graphiql/toolkit",
+      "rawSpec": "^0.6.0"
+    }
+  },
+  "56 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@radix-ui/react-collapsible/0.1.6",
+    "wanted": {
+      "dependentId": "graphiql-editor",
+      "name": "@radix-ui/react-collapsible",
+      "rawSpec": "^0.1.6"
+    }
+  },
+  "57 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@radix-ui/react-radio-group/0.1.5",
+    "wanted": {
+      "dependentId": "graphiql-editor",
+      "name": "@radix-ui/react-radio-group",
+      "rawSpec": "^0.1.5"
+    }
+  },
+  "58 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@radix-ui/react-tabs/0.1.5",
+    "wanted": {
+      "dependentId": "graphiql-editor",
+      "name": "@radix-ui/react-tabs",
+      "rawSpec": "^0.1.5"
+    }
+  },
+  "59 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@stitches/react/1.2.8",
+    "wanted": {
+      "dependentId": "graphiql-editor",
+      "name": "@stitches/react",
+      "rawSpec": "1.2.8"
+    }
+  },
+  "60 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/cuid/2.1.8",
+    "wanted": {
+      "dependentId": "graphiql-editor",
+      "name": "cuid",
+      "rawSpec": "^2.1.8"
+    }
+  },
+  "61 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/graphql/16.5.0",
+    "wanted": {
+      "dependentId": "graphiql-editor",
+      "name": "graphql",
+      "rawSpec": "^16.5.0"
+    }
+  },
+  "62 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/jsonc-parser/3.0.0",
+    "wanted": {
+      "dependentId": "graphiql-editor",
+      "name": "jsonc-parser",
+      "rawSpec": "3.0.0"
+    }
+  },
+  "63 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/monaco-editor/0.33.0",
+    "wanted": {
+      "dependentId": "graphiql-editor",
+      "name": "monaco-editor",
+      "rawSpec": "^0.33.0"
+    }
+  },
+  "64 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/monaco-graphql/1.1.0",
+    "wanted": {
+      "dependentId": "graphiql-editor",
+      "name": "monaco-graphql",
+      "rawSpec": "^1.0.17"
+    }
+  },
+  "65 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/react/17.0.2",
+    "wanted": {
+      "dependentId": "graphiql-editor",
+      "name": "react",
+      "rawSpec": "17.0.2"
+    }
+  },
+  "66 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/react-dom/17.0.2",
+    "wanted": {
+      "dependentId": "graphiql-editor",
+      "name": "react-dom",
+      "rawSpec": "17.0.2"
+    }
+  },
+  "67 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/zustand/4.0.0-rc.1",
+    "wanted": {
+      "dependentId": "graphiql-editor",
+      "name": "zustand",
+      "rawSpec": "^4.0.0-rc.1"
+    }
+  },
+  "68 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@ladle/react/0.14.1",
+    "wanted": {
+      "dependentId": "apps/ladle",
+      "name": "@ladle/react",
+      "rawSpec": "^0.14.1"
+    }
+  },
+  "69 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@types/react/18.0.12",
+    "wanted": {
+      "dependentId": "apps/ladle",
+      "name": "@types/react",
+      "rawSpec": "^18.0.9"
+    }
+  },
+  "70 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@vitejs/plugin-react/1.3.1",
+    "wanted": {
+      "dependentId": "apps/ladle",
+      "name": "@vitejs/plugin-react",
+      "rawSpec": "1.3.1"
+    }
+  },
+  "71 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/vite/2.9.6",
+    "wanted": {
+      "dependentId": "apps/ladle",
+      "name": "vite",
+      "rawSpec": "2.9.6"
+    }
+  },
+  "72 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/vite-plugin-monaco-editor/1.0.10",
+    "wanted": {
+      "dependentId": "apps/ladle",
+      "name": "vite-plugin-monaco-editor",
+      "rawSpec": "1.0.10"
+    }
+  },
+  "73 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/react/17.0.2",
+    "wanted": {
+      "dependentId": "apps/ladle",
+      "name": "react",
+      "rawSpec": "17.0.2"
+    }
+  },
+  "74 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/react-dom/17.0.2",
+    "wanted": {
+      "dependentId": "apps/ladle",
+      "name": "react-dom",
+      "rawSpec": "17.0.2"
+    }
+  },
+  "75 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@typescript-eslint/eslint-plugin/5.27.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@typescript-eslint/eslint-plugin",
+      "rawSpec": "^5.27.0"
+    }
+  },
+  "76 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@typescript-eslint/parser/5.27.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@typescript-eslint/parser",
+      "rawSpec": "^5.27.0"
+    }
+  },
+  "77 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/eslint/8.17.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint",
+      "rawSpec": "^8.16.0"
+    }
+  },
+  "78 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/eslint-config-prettier/8.5.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint-config-prettier",
+      "rawSpec": "^8.5.0"
+    }
+  },
+  "79 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/eslint-plugin-prettier/4.0.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint-plugin-prettier",
+      "rawSpec": "^4.0.0"
+    }
+  },
+  "80 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/eslint-plugin-react-hooks/4.5.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint-plugin-react-hooks",
+      "rawSpec": "^4.5.0"
+    }
+  },
+  "81 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/prettier/2.6.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "prettier",
+      "rawSpec": "^2.6.2"
+    }
+  },
+  "82 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/typescript/4.7.3",
+    "wanted": {
+      "dependentId": ".",
+      "name": "typescript",
+      "rawSpec": "^4.7.2"
+    }
+  },
+  "83 debug pnpm:_dependency_resolved": {
+    "resolution": "link:../../graphiql-ui-library",
+    "wanted": {
+      "dependentId": "plugins/graphiql-plugin-dialog-settings",
+      "name": "@graphiql-v2-prototype/graphiql-ui-library",
+      "rawSpec": "workspace:*"
+    }
+  },
+  "84 debug pnpm:_dependency_resolved": {
+    "resolution": "link:../../graphiql-ui-library",
+    "wanted": {
+      "dependentId": "plugins/graphiql-plugin-pane-history",
+      "name": "@graphiql-v2-prototype/graphiql-ui-library",
+      "rawSpec": "workspace:*"
+    }
+  },
+  "85 debug pnpm:_dependency_resolved": {
+    "resolution": "link:../graphiql-ui-library",
+    "wanted": {
+      "dependentId": "graphiql-v2",
+      "name": "@graphiql-v2-prototype/graphiql-ui-library",
+      "rawSpec": "workspace:*"
+    }
+  },
+  "86 debug pnpm:_dependency_resolved": {
+    "resolution": "link:../graphiql-editor",
+    "wanted": {
+      "dependentId": "graphiql-v2",
+      "name": "@graphiql-v2-prototype/graphiql-editor",
+      "rawSpec": "workspace:*"
+    }
+  },
+  "87 debug pnpm:_dependency_resolved": {
+    "resolution": "link:../graphiql-ui-library",
+    "wanted": {
+      "dependentId": "graphiql-editor",
+      "name": "@graphiql-v2-prototype/graphiql-ui-library",
+      "rawSpec": "workspace:*"
+    }
+  },
+  "88 debug pnpm:_dependency_resolved": {
+    "resolution": "link:../graphiql-v2",
+    "wanted": {
+      "dependentId": "graphiql-editor",
+      "name": "@graphiql-v2-prototype/graphiql-v2",
+      "rawSpec": "workspace:*"
+    }
+  },
+  "89 debug pnpm:_dependency_resolved": {
+    "resolution": "link:../../graphiql-ui-library",
+    "wanted": {
+      "dependentId": "plugins/graphiql-plugin-dialog-schema-selector",
+      "name": "@graphiql-v2-prototype/graphiql-ui-library",
+      "rawSpec": "workspace:*"
+    }
+  },
+  "90 debug pnpm:_dependency_resolved": {
+    "resolution": "link:../../graphiql-editor",
+    "wanted": {
+      "dependentId": "plugins/graphiql-plugin-dialog-schema-selector",
+      "name": "@graphiql-v2-prototype/graphiql-editor",
+      "rawSpec": "workspace:*"
+    }
+  },
+  "91 debug pnpm:_dependency_resolved": {
+    "resolution": "link:../../graphiql-ui-library",
+    "wanted": {
+      "dependentId": "plugins/graphiql-plugin-pane-pathfinder",
+      "name": "@graphiql-v2-prototype/graphiql-ui-library",
+      "rawSpec": "workspace:*"
+    }
+  },
+  "92 debug pnpm:_dependency_resolved": {
+    "resolution": "link:../../graphiql-editor",
+    "wanted": {
+      "dependentId": "plugins/graphiql-plugin-pane-pathfinder",
+      "name": "@graphiql-v2-prototype/graphiql-editor",
+      "rawSpec": "workspace:*"
+    }
+  },
+  "93 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@types/react/17.0.2",
+    "wanted": {
+      "dependentId": "plugins/graphiql-plugin-operations-tools-easy-vars",
+      "name": "@types/react",
+      "rawSpec": "17.0.2"
+    }
+  },
+  "94 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@types/react/17.0.2",
+    "requester": "/Users/jonathanbrennan/projects/graphiql-v2-prototype",
+    "status": "resolved"
+  },
+  "95 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@types/react-dom/17.0.2",
+    "wanted": {
+      "dependentId": "plugins/graphiql-plugin-pane-pathfinder",
+      "name": "@types/react-dom",
+      "rawSpec": "17.0.2"
+    }
+  },
+  "96 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@types/react-dom/17.0.2",
+    "requester": "/Users/jonathanbrennan/projects/graphiql-v2-prototype",
+    "status": "resolved"
+  },
+  "97 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/vite/2.9.6",
+    "wanted": {
+      "dependentId": "plugins/graphiql-plugin-dialog-schema-selector",
+      "name": "vite",
+      "rawSpec": "2.9.6"
+    }
+  },
+  "98 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/vite/2.9.6",
+    "requester": "/Users/jonathanbrennan/projects/graphiql-v2-prototype",
+    "status": "resolved"
+  },
+  "99 debug pnpm:_dependency_resolved": {
+    "resolution": "link:../../plugins/graphiql-plugin-pane-pathfinder",
+    "wanted": {
+      "dependentId": "apps/ladle",
+      "name": "@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder",
+      "rawSpec": "workspace:*"
+    }
+  },
+  "100 debug pnpm:_dependency_resolved": {
+    "resolution": "link:../../graphiql-editor",
+    "wanted": {
+      "dependentId": "apps/ladle",
+      "name": "@graphiql-v2-prototype/graphiql-editor",
+      "rawSpec": "workspace:*"
+    }
+  },
+  "101 debug pnpm:_dependency_resolved": {
+    "resolution": "link:../../graphiql-ui-library",
+    "wanted": {
+      "dependentId": "apps/ladle",
+      "name": "@graphiql-v2-prototype/graphiql-ui-library",
+      "rawSpec": "workspace:*"
+    }
+  },
+  "102 debug pnpm:_dependency_resolved": {
+    "resolution": "link:../../graphiql-v2",
+    "wanted": {
+      "dependentId": "apps/ladle",
+      "name": "@graphiql-v2-prototype/graphiql-v2",
+      "rawSpec": "workspace:*"
+    }
+  },
+  "103 error pnpm": {
+    "code": "ERR_PNPM_NO_MATCHING_VERSION_INSIDE_WORKSPACE",
+    "pkgsStack": [],
+    "err": {
+      "name": "pnpm",
+      "message": "In apps/ladle: No matching version found for @graphiql-v2-prototype/graphiql-plugin-sidebar-schema-selector@* inside the workspace",
+      "code": "ERR_PNPM_NO_MATCHING_VERSION_INSIDE_WORKSPACE",
+      "stack": "pnpm: In apps/ladle: No matching version found for @graphiql-v2-prototype/graphiql-plugin-sidebar-schema-selector@* inside the workspace\n    at tryResolveFromWorkspace (/Users/jonathanbrennan/.nvm/versions/node/v16.15.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.1.9/node_modules/pnpm/dist/pnpm.cjs:84775:15)\n    at resolveNpm (/Users/jonathanbrennan/.nvm/versions/node/v16.15.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.1.9/node_modules/pnpm/dist/pnpm.cjs:84667:39)\n    at Object.resolve (/Users/jonathanbrennan/.nvm/versions/node/v16.15.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.1.9/node_modules/pnpm/dist/pnpm.cjs:84897:34)\n    at ctx.requestsQueue.add.priority (/Users/jonathanbrennan/.nvm/versions/node/v16.15.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.1.9/node_modules/pnpm/dist/pnpm.cjs:91598:75)\n    at run (/Users/jonathanbrennan/.nvm/versions/node/v16.15.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.1.9/node_modules/pnpm/dist/pnpm.cjs:91359:90)\n    at PQueue._tryToStartAnother (/Users/jonathanbrennan/.nvm/versions/node/v16.15.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.1.9/node_modules/pnpm/dist/pnpm.cjs:91313:13)\n    at PQueue._next (/Users/jonathanbrennan/.nvm/versions/node/v16.15.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.1.9/node_modules/pnpm/dist/pnpm.cjs:91262:14)\n    at run (/Users/jonathanbrennan/.nvm/versions/node/v16.15.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.1.9/node_modules/pnpm/dist/pnpm.cjs:91369:18)"
+    }
+  }
+}

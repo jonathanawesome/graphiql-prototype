@@ -8,5 +8,11 @@ export const PanePluginContainerWrap = styled('div', {
 
 export const PanePluginContainer = styled('div', {
   height: '100%',
-  // position: 'absolute',
+
+  variants: {
+    isActive: {
+      true: { opacity: 1, visibility: 'visible' },
+      false: { opacity: 0, visibility: 'hidden' },
+    },
+  },
 });

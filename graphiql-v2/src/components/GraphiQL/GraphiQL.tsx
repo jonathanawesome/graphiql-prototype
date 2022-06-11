@@ -33,7 +33,7 @@ export const GraphiQL = ({ panePlugins, sidebarPlugins }: GraphiQLProps) => {
             initialFlexGrowValue: activePane === 'GraphiQL' ? undefined : 0.4,
             component:
               activePane === 'GraphiQL' ? null : (
-                <PanePlugins panePlugins={panePlugins} />
+                <PanePlugins activePane={activePane} panePlugins={panePlugins} />
               ),
           }}
           pane2={{ component: <GraphiQLEditor /> }}

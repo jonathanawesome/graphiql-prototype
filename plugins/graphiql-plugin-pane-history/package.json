@@ -1,0 +1,15 @@
+{
+  "name": "@graphiql-v2-prototype/graphiql-plugin-pane-history",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "scripts": {
+    "tsc": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",
+    "react": "17.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.2"
+  }
+}

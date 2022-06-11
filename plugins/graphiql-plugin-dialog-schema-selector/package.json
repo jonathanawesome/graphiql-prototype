@@ -1,5 +1,5 @@
 {
-  "name": "@graphiql-v2-prototype/graphiql-v2",
+  "name": "@graphiql-v2-prototype/graphiql-plugin-dialog-schema-selector",
   "version": "0.0.1",
   "main": "index.ts",
   "scripts": {
@@ -8,14 +8,11 @@
   "dependencies": {
     "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",
     "@graphiql-v2-prototype/graphiql-editor": "workspace:*",
-    "@graphiql/toolkit": "^0.6.0",
-    "graphql": "^16.5.0",
-    "jsonc-parser": "3.0.0",
-    "monaco-editor": "^0.33.0",
-    "react": "17.0.2",
-    "zustand": "^4.0.0-rc.1"
+    "@radix-ui/react-radio-group": "^0.1.5",
+    "react": "17.0.2"
   },
   "devDependencies": {
-    "@types/react": "17.0.2"
+    "@types/react": "17.0.2",
+    "vite": "2.9.6"
   }
 }
