@@ -33,7 +33,9 @@ export const Trigger = styled(DialogPrimitive.Trigger, {
     },
   },
 });
+
 export const Portal = styled(DialogPrimitive.Portal, {});
+
 export const CloseWrap = styled(DialogPrimitive.Close, {});
 
 export const Overlay = styled(DialogPrimitive.Overlay, {

@@ -1,15 +1,15 @@
-import { useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
+import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 
 /** components */
 import { Pathfinder } from '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder';
 
 export const PathfinderStory = () => {
-  const { operation } = useGraphiQL();
+  const activeEditorTab = getActiveEditorTab();
 
   return (
     <div style={{ display: 'grid', gridTemplateColumns: `1fr 200px`, height: `100%` }}>
       <Pathfinder />
-      {operation && <div>{operation}</div>}
+      {activeEditorTab?.operation && <div>{activeEditorTab?.operation}</div>}
     </div>
   );
 };

@@ -6,7 +6,6 @@ export * from './Docs';
 export * from './Ellipsis';
 export * from './Gear';
 export * from './GraphQLIcon';
-export * from './History';
 export * from './Play';
 export * from './Plus';
 export * from './Prettier';

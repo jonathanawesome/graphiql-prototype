@@ -1,6 +1,6 @@
-import { theme } from '../../theme';
+import { theme } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-export const History = () => {
+export const HistoryIcon = () => {
   return (
     <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path

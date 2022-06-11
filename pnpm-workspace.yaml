@@ -2,6 +2,7 @@ packages:
   - 'graphiql-ui-library'
   - 'graphiql-v2'
   - 'graphiql-plugin-pane-pathfinder'
+  - 'graphiql-plugin-pane-history'
   - 'graphiql-editor'
   - 'graphiql-plugin-sidebar-schema-selector'
   - 'apps/ladle'

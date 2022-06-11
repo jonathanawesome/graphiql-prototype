@@ -34,10 +34,10 @@ export const MonacoEditor = ({
 
   const editorTab = editorTabs.find((editor) => editor.editorTabId === activeEditorTabId);
 
-  console.log('rendering MonacoEditor', {
-    editorType,
-    editorTab,
-  });
+  // console.log('rendering MonacoEditor', {
+  //   editorType,
+  //   editorTab,
+  // });
 
   useEffect(() => {
     if (editorTab && monacoEditor) {

@@ -14,9 +14,3 @@ export const Wrap = styled('div', {
   paddingBottom: 16,
   paddingLeft: 0,
 });
-
-export const PanePluginContainer = styled('div', {
-  height: '100%',
-  width: '100%',
-  position: 'relative',
-});

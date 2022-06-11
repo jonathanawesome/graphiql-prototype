@@ -135,6 +135,21 @@ importers:
       '@types/react-dom': 17.0.2
       vite: 2.9.6
 
+  graphiql-plugin-pane-history:
+    specifiers:
+      '@graphiql-v2-prototype/graphiql-ui-library': workspace:*
+      '@types/react': 17.0.2
+      '@types/react-dom': 17.0.2
+      react: 17.0.2
+      react-dom: 17.0.2
+    dependencies:
+      '@graphiql-v2-prototype/graphiql-ui-library': link:../graphiql-ui-library
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    devDependencies:
+      '@types/react': 17.0.2
+      '@types/react-dom': 17.0.2
+
   graphiql-plugin-pane-pathfinder:
     specifiers:
       '@graphiql-v2-prototype/graphiql-editor': workspace:*
