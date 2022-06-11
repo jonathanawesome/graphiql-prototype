@@ -6,6 +6,8 @@ import { Pathfinder } from '@graphiql-v2-prototype/graphiql-plugin-pane-pathfind
 export const PathfinderStory = () => {
   const activeEditorTab = getActiveEditorTab();
 
+  console.log(activeEditorTab);
+
   return (
     <div style={{ display: 'grid', gridTemplateColumns: `1fr 200px`, height: `100%` }}>
       <Pathfinder />

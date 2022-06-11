@@ -1,1 +1,1 @@
-export { SchemaSelector } from './components';
+export { SchemaSelector, Switcher } from './components';

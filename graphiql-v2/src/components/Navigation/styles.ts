@@ -45,9 +45,3 @@ export const PanePluginNavigationItem = styled('button', {
     },
   },
 });
-
-export const SibebarPlugins = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 20,
-});

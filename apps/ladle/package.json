@@ -10,6 +10,7 @@
     "@graphiql-v2-prototype/graphiql-plugin-pane-history": "workspace:*",
     "@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder": "workspace:*",
     "@graphiql-v2-prototype/graphiql-plugin-dialog-schema-selector": "workspace:*",
+    "@graphiql-v2-prototype/graphiql-plugin-dialog-settings": "workspace:*",
     "@graphiql-v2-prototype/graphiql-editor": "workspace:*",
     "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",
     "@graphiql-v2-prototype/graphiql-v2": "workspace:*",

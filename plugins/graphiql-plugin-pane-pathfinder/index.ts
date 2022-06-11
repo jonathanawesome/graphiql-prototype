@@ -1,7 +1,9 @@
-import { Compass, Pathfinder as PathfinderUI } from './src';
+import { Compass, Pathfinder } from './src';
 
-export const Pathfinder = {
-  panePluginContent: PathfinderUI,
+export { Pathfinder };
+
+export const PanePluginPathfinder = {
+  panePluginContent: Pathfinder,
   panePluginIcon: Compass,
   panePluginName: 'Pathfinder',
 };

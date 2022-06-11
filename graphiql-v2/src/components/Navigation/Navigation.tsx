@@ -1,6 +1,6 @@
 /** components */
-// import { SettingsDialog } from '../index';
-import { Command, GraphQLIcon } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { GraphQLIcon } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { DialogPlugins } from '../DialogPlugins';
 
 /** hooks */
 import { useGraphiQL } from '../../hooks';
@@ -10,18 +10,18 @@ import {
   NavigationStyled,
   PanePluginNavigation,
   PanePluginNavigationItem,
-  SibebarPlugins,
 } from './styles';
 
 /** types */
 import { PanePluginsArray } from '../PanePlugins/types';
+import { DialogPluginsArray } from '../DialogPlugins/types';
 
 export const Navigation = ({
   panePlugins,
-  sidebarPlugins,
+  dialogPlugins,
 }: {
   panePlugins: PanePluginsArray;
-  sidebarPlugins?: React.ReactElement[];
+  dialogPlugins: DialogPluginsArray;
 }) => {
   const { activePane, setActivePane } = useGraphiQL();
 
@@ -31,6 +31,7 @@ export const Navigation = ({
         <PanePluginNavigationItem
           isActive={activePane === 'GraphiQL'}
           onClick={() => setActivePane('GraphiQL')}
+          //TODO remove/replace
           title="SomeTitle Here"
         >
           <GraphQLIcon />
@@ -40,19 +41,16 @@ export const Navigation = ({
             key={panePlugin.panePluginName}
             isActive={activePane === panePlugin.panePluginName}
             onClick={() => setActivePane(panePlugin.panePluginName)}
+            title={`${activePane === panePlugin.panePluginName ? 'Close' : 'Show'} ${
+              panePlugin.panePluginName
+            }`}
           >
             <panePlugin.panePluginIcon />
           </PanePluginNavigationItem>
         ))}
       </PanePluginNavigation>
 
-      <SibebarPlugins>
-        {sidebarPlugins && sidebarPlugins.map((s) => <div key={s?.toString()}>{s}</div>)}
-        <div style={{ cursor: 'not-allowed' }}>
-          <Command />
-        </div>
-        {/* <SettingsDialog /> */}
-      </SibebarPlugins>
+      <DialogPlugins dialogPlugins={dialogPlugins} />
     </NavigationStyled>
   );
 };

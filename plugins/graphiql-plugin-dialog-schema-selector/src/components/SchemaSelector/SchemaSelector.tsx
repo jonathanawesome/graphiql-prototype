@@ -1,9 +1,7 @@
-import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
-import { Dialog } from '@graphiql-v2-prototype/graphiql-ui-library';
 import { useEffect, useState } from 'react';
 
-/** components */
-import { Switcher } from '../Switcher';
+/** hooks */
+import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
 
 /** styles */
 import {
@@ -51,7 +49,7 @@ const Radio = ({
   </RadioWrap>
 );
 
-const SchemaSelectorContent = () => {
+export const SchemaSelector = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const { initSchema, schemaUrl, schema } = useGraphiQLEditor();
 
@@ -119,15 +117,5 @@ const SchemaSelectorContent = () => {
         })}
       </fieldset>
     </RadioGroup>
-  );
-};
-
-export const SchemaSelector = () => {
-  return (
-    <Dialog
-      icon={<Switcher />}
-      content={<SchemaSelectorContent />}
-      title={`Schema Selector "Plugin"`}
-    />
   );
 };

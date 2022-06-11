@@ -1,7 +1,7 @@
 export type PanePlugin = {
+  panePluginContent: () => React.ReactElement;
   panePluginIcon: () => React.ReactElement;
   panePluginName: string;
-  panePluginContent: () => React.ReactElement;
 };
 
 export type PanePluginsArray = PanePlugin[];

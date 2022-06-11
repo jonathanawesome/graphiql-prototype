@@ -1,30 +1,30 @@
 /** components */
-import { Navigation } from '../index';
-// import { Pathfinder } from '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder';
+import { Navigation } from '../Navigation';
 import { GraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
 import { PanePlugins } from '../PanePlugins';
 import { Resizer } from '@graphiql-v2-prototype/graphiql-ui-library';
+
+/** hooks */
+import { useGraphiQL } from '../../hooks';
 
 /** styles */
 import { GraphiQLStyled, Wrap } from './styles';
 
 /** types */
 import type { PanePluginsArray } from '../PanePlugins/types';
-import { useGraphiQL } from '../../hooks';
-
-type SidebarPlugin = React.ReactElement;
+import { DialogPluginsArray } from '../DialogPlugins/types';
 
 type GraphiQLProps = {
   //TODO complete "plugin" props APIs
   panePlugins: PanePluginsArray;
-  sidebarPlugins?: SidebarPlugin[];
+  dialogPlugins: DialogPluginsArray;
 };
 
-export const GraphiQL = ({ panePlugins, sidebarPlugins }: GraphiQLProps) => {
+export const GraphiQL = ({ panePlugins, dialogPlugins }: GraphiQLProps) => {
   const { activePane } = useGraphiQL();
   return (
     <GraphiQLStyled>
-      <Navigation panePlugins={panePlugins} sidebarPlugins={sidebarPlugins} />
+      <Navigation panePlugins={panePlugins} dialogPlugins={dialogPlugins} />
       <Wrap>
         <Resizer
           direction="horizontal"

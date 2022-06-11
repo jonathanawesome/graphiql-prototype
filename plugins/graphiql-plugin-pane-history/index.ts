@@ -1,7 +1,9 @@
-import { History as HistoryUI, HistoryIcon } from './src';
+import { History, HistoryIcon } from './src';
 
-export const History = {
-  panePluginContent: HistoryUI,
+export { History };
+
+export const PanePluginHistory = {
+  panePluginContent: History,
   panePluginIcon: HistoryIcon,
   panePluginName: 'History',
 };
