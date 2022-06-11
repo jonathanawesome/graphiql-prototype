@@ -1,5 +1,4 @@
 import { Resizer } from '@graphiql-v2-prototype/graphiql-ui-library';
-import { HorizontallyResizableContainer } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 const Pane1 = () => {
   return <div style={{ height: ' 100%', backgroundColor: 'orange' }}>Pane1</div>;
@@ -9,27 +8,14 @@ const Pane2 = () => {
   return <div style={{ height: ' 100%', backgroundColor: 'lime' }}>Pane2</div>;
 };
 
-export const HorizontallyResizableContainerStory = () => {
-  return (
-    <div style={{ padding: '20px', backgroundColor: 'antiquewhite', height: '100%' }}>
-      <HorizontallyResizableContainer
-        leftPane={{ component: <Pane1 />, initialWidthPercent: 50 }}
-        rightPane={{ component: <Pane2 />, initialWidthPercent: 50 }}
-      />
-    </div>
-  );
-};
-
-HorizontallyResizableContainerStory.storyName = 'Resizer HorizontallyResizableContainer';
-
 export const ResizerHorizontalBar = () => {
   return (
     <div style={{ padding: '20px', backgroundColor: 'antiquewhite', height: '100%' }}>
       <Resizer
         direction="horizontal"
         handleStyle="bar"
-        pane1={<Pane1 />}
-        pane2={<Pane2 />}
+        pane1={{ initialFlexGrowValue: 0.5, component: <Pane1 /> }}
+        pane2={{ component: <Pane2 /> }}
       />
     </div>
   );
@@ -43,8 +29,8 @@ export const ResizerHorizontalGhost = () => {
       <Resizer
         direction="horizontal"
         handleStyle="ghost"
-        pane1={<Pane1 />}
-        pane2={<Pane2 />}
+        pane1={{ initialFlexGrowValue: 1, component: <Pane1 /> }}
+        pane2={{ component: <Pane2 /> }}
       />
     </div>
   );
@@ -58,8 +44,8 @@ export const ResizerVerticalBar = () => {
       <Resizer
         direction="vertical"
         handleStyle="bar"
-        pane1={<Pane1 />}
-        pane2={<Pane2 />}
+        pane1={{ initialFlexGrowValue: 1.25, component: <Pane1 /> }}
+        pane2={{ component: <Pane2 /> }}
       />
     </div>
   );
@@ -73,8 +59,8 @@ export const ResizerVerticalGhost = () => {
       <Resizer
         direction="vertical"
         handleStyle="ghost"
-        pane1={<Pane1 />}
-        pane2={<Pane2 />}
+        pane1={{ initialFlexGrowValue: 0.5, component: <Pane1 /> }}
+        pane2={{ component: <Pane2 /> }}
       />
     </div>
   );

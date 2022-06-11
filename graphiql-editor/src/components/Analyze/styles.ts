@@ -5,6 +5,7 @@ export const AnalyzeWrap = styled('div', {
   height: '100%',
   width: '100%',
   position: 'relative',
+  paddingTop: 8,
 
   '&::after': {
     content: '',

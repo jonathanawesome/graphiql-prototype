@@ -13,6 +13,6 @@ export const EditorInner = styled('div', {
 export const EditorWrap = styled('div', {
   height: '100%',
   width: '100%',
-  padding: 16,
+  // padding: 16,
   overflow: 'hidden',
 });
