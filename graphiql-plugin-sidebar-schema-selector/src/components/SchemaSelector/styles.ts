@@ -2,6 +2,15 @@ import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 
 import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
+export const Note = styled('span', {
+  display: 'block',
+  fontSize: '$mini',
+  color: '$accentArgument',
+  marginBottom: 12,
+  marginTop: 4,
+  fontStyle: 'italic',
+});
+
 export const RadioGroupRadio = styled(RadioGroupPrimitive.Item, {
   all: 'unset',
   boxSizing: 'border-box',

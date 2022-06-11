@@ -4,10 +4,22 @@ export const PathfinderStyled = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: 34,
-  padding: '30px 0 32px 32px',
-  width: '100%',
-  //TODO 👇 this works, but it's kinda weird... might be a better solution
-  minWidth: 300,
+  paddingTop: 14,
+  paddingRight: 0,
+  paddingBottom: 0,
+  paddingLeft: 32,
+  height: '100%',
+  // position: 'relative',
+
+  // '&::after': {
+  //   content: '',
+  //   position: 'absolute',
+  //   bottom: 0,
+  //   left: 0,
+  //   height: 48,
+  //   width: '100%',
+  //   background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, $scale100 100%)',
+  // },
 });
 
 export const PathfinderLead = styled('div', {
@@ -24,11 +36,19 @@ export const PathfinderLead = styled('div', {
   },
 });
 
-export const PathfinderContent = styled('div', {
+export const PathfinderContentWrap = styled('div', {
   position: 'relative',
   height: '100%',
   width: '100%',
   overflowY: 'auto',
+});
+
+export const PathfinderContent = styled('div', {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  height: '100%',
+  width: '100%',
   overflowX: 'hidden',
 });
 

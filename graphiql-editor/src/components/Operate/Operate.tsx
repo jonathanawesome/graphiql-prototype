@@ -50,7 +50,7 @@ export const Operate = ({
   };
 
   return (
-    <OperateWrap ref={containerRef} expanded={editorTabs.length === 1}>
+    <OperateWrap ref={containerRef} expanded={editorTabs.length < 2}>
       <OperationEditor ref={operationsEditorRef}>
         <MonacoEditor editorType="operation" initWithModel={operationModel} />
         <OperationActionsWrap>

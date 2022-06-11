@@ -3,10 +3,16 @@ import { Dialog } from '@graphiql-v2-prototype/graphiql-ui-library';
 import { useEffect, useState } from 'react';
 
 /** components */
-import { GraphQLIcon } from '../GraphQLIcon';
+import { Switcher } from '../Switcher';
 
 /** styles */
-import { RadioWrap, RadioGroup, RadioGroupIndicator, RadioGroupRadio } from './styles';
+import {
+  Note,
+  RadioWrap,
+  RadioGroup,
+  RadioGroupIndicator,
+  RadioGroupRadio,
+} from './styles';
 
 type ApiUrls = Record<string, { aboutUrl: string; apiUrl: string }>;
 
@@ -83,6 +89,7 @@ const SchemaSelectorContent = () => {
       aria-label="Choose schema"
       onValueChange={(value) => handleSchemaChange(value)}
     >
+      <Note>Note: switching schemas will reset existing tab instances</Note>
       <fieldset disabled={loading}>
         {import.meta.env.MODE === 'development' && (
           <Radio
@@ -118,7 +125,7 @@ const SchemaSelectorContent = () => {
 export const SchemaSelector = () => {
   return (
     <Dialog
-      icon={<GraphQLIcon />}
+      icon={<Switcher />}
       content={<SchemaSelectorContent />}
       title={`Schema Selector "Plugin"`}
     />

@@ -12,8 +12,7 @@ export const TabsRow = styled('div', {
   width: '100%',
   display: 'flex',
   alignItems: 'center',
-  gap: 12,
-  // backgroundColor: 'orange',
+  gap: 4,
 });
 
 export const HeaderWrap = styled('div', {
@@ -26,11 +25,11 @@ export const HeaderWrap = styled('div', {
   gap: 12,
   margin: '4px 0 12px',
   paddingRight: '16px',
-  // backgroundColor: 'red',
 });
 
 export const AddTabButton = styled('button', {
   userSelect: 'none',
+  marginLeft: 12,
 
   svg: {
     width: 11,

@@ -58,7 +58,7 @@ export const Header = () => {
   return (
     <HeaderWrap>
       <TabsRow>
-        {editorTabs.length === 1
+        {editorTabs.length < 2
           ? null
           : editorTabs.map((tab) => (
               <Tab
@@ -69,7 +69,7 @@ export const Header = () => {
             ))}
         {editorTabs.length > 1 && <AddTab doAddTab={doAddTab} />}
       </TabsRow>
-      {editorTabs.length === 1 && <AddTab doAddTab={doAddTab} />}
+      {editorTabs.length < 2 && <AddTab doAddTab={doAddTab} />}
       <GraphiQLLink>
         <a>
           Graph<i>i</i>

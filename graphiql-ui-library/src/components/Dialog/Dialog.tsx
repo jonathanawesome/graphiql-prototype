@@ -16,15 +16,10 @@ import {
   Trigger,
 } from './styles';
 
-export const Dialog = ({
-  icon,
-  content,
-  title,
-}: {
-  icon: React.ReactElement;
-  content: React.ReactElement;
-  title: string;
-}) => {
+/** types */
+import { DialogProps } from './types';
+
+export const Dialog = ({ icon, content, title }: DialogProps) => {
   return (
     <Root>
       <Trigger asChild>

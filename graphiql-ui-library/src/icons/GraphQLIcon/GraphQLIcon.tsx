@@ -1,4 +1,4 @@
-import { theme } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { theme } from '../../theme';
 
 export const GraphQLIcon = () => {
   return (

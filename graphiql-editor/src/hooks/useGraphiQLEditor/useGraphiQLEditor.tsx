@@ -203,10 +203,18 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
         schemas: [
           {
             schema,
-            uri: 'schema.graphql',
+            uri: `${url}-schema.graphql`,
           },
         ],
       });
     }
   },
+  // operationAction: () => ({
+  //   id: 'graphql-run',
+  //   label: 'Run Operation',
+  //   contextMenuOrder: 0,
+  //   contextMenuGroupId: 'graphql',
+  //   keybindings: [KeyMod.CtrlCmd | KeyCode.Enter],
+  //   run: get().executeOperation,
+  // }),
 }));

@@ -6,8 +6,13 @@ import { Container, Handle, Pane } from './styles';
 export type ResizerProps = {
   direction: 'horizontal' | 'vertical';
   handleStyle: 'bar' | 'ghost';
-  pane1: React.ReactElement;
-  pane2: React.ReactElement;
+  pane1: {
+    initialFlexGrowValue: number;
+    component: React.ReactElement;
+  };
+  pane2: {
+    component: React.ReactElement;
+  };
 };
 
 export const Resizer: React.FC<ResizerProps> = ({
@@ -64,14 +69,16 @@ export const Resizer: React.FC<ResizerProps> = ({
 
   return (
     <Container ref={containerRef} direction={direction}>
-      <Pane ref={pane1Ref}>{pane1}</Pane>
+      <Pane ref={pane1Ref} style={{ flex: `${pane1.initialFlexGrowValue} 1 0%` }}>
+        {pane1.component}
+      </Pane>
       <Handle
         ref={handleRef}
         onMouseDown={onMouseDown}
         handleStyle={handleStyle}
         direction={direction}
       />
-      <Pane ref={pane2Ref}>{pane2}</Pane>
+      <Pane ref={pane2Ref}>{pane2.component}</Pane>
     </Container>
   );
 };

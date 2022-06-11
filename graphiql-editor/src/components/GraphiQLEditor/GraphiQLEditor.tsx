@@ -3,10 +3,7 @@ import cuid from 'cuid';
 
 /** components */
 import { Header } from '../Header';
-import {
-  HorizontallyResizableContainer,
-  Resizer,
-} from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Resizer } from '@graphiql-v2-prototype/graphiql-ui-library';
 import { Operate } from '../Operate';
 import { Analyze } from '../Analyze/Analyze';
 
@@ -65,12 +62,12 @@ export const GraphiQLEditor = () => {
     setActiveEditorTabId({ editorTabId: defaultTabId });
   };
 
-  // useEffect(() => {
-  //   // schemaUrl is changing, do something drastic
-  //   initEditor();
+  useEffect(() => {
+    // schemaUrl is changing, do something drastic
+    initEditor();
 
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [schemaUrl]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [schemaUrl]);
 
   useEffect(() => {
     initEditor();
@@ -81,25 +78,16 @@ export const GraphiQLEditor = () => {
     <EditorWrap>
       <EditorInner>
         <Header />
-        {/* <HorizontallyResizableContainer
-          leftPane={{
-            component: (
-              <Operate operationModel={operationModel} variablesModel={variablesModel} />
-            ),
-            initialWidthPercent: 50,
-          }}
-          rightPane={{
-            component: <Analyze resultsModel={resultsModel} />,
-            initialWidthPercent: 50,
-          }}
-        /> */}
         <Resizer
           direction="horizontal"
           handleStyle="bar"
-          pane1={
-            <Operate operationModel={operationModel} variablesModel={variablesModel} />
-          }
-          pane2={<Analyze resultsModel={resultsModel} />}
+          pane1={{
+            initialFlexGrowValue: 1,
+            component: (
+              <Operate operationModel={operationModel} variablesModel={variablesModel} />
+            ),
+          }}
+          pane2={{ component: <Analyze resultsModel={resultsModel} /> }}
         />
       </EditorInner>
     </EditorWrap>

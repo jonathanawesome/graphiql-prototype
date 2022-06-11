@@ -26,7 +26,9 @@ export const Trigger = styled(DialogPrimitive.Trigger, {
   '&:hover': {
     svg: {
       path: {
+        // TODO 👇 this is going to break some icons
         fill: '$accentArgument',
+        stroke: '$accentArgument',
       },
     },
   },
@@ -81,9 +83,10 @@ export const DialogLead = styled('div', {
   padding: '16px 24px',
   borderBottom: '1px solid $scale500',
   fontSize: 14,
+  color: '$scale800',
 
   svg: {
-    width: 24,
-    height: 24,
+    width: 20,
+    height: 20,
   },
 });

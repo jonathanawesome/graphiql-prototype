@@ -8,6 +8,7 @@ import { Options, Search, RootType } from '../index';
 import {
   ContainRight,
   PathfinderContent,
+  PathfinderContentWrap,
   PathfinderLead,
   PathfinderStyled,
   FakeSearch,
@@ -38,11 +39,13 @@ export const Pathfinder = () => {
           <Options />
         </ContainRight>
       </PathfinderLead>
-      <PathfinderContent>
-        {queryType ? <RootType rootType={queryType} /> : null}
-        {/* // TODO */}
-        {/* {mutationType ? <RootType rootType={mutationType} /> : null} */}
-      </PathfinderContent>
+      <PathfinderContentWrap>
+        <PathfinderContent>
+          {queryType ? <RootType rootType={queryType} /> : null}
+          {/* // TODO */}
+          {/* {mutationType ? <RootType rootType={mutationType} /> : null} */}
+        </PathfinderContent>
+      </PathfinderContentWrap>
     </PathfinderStyled>
   );
 };
