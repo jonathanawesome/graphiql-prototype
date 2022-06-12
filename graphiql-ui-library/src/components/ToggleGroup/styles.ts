@@ -7,14 +7,23 @@ export const StyledToggleGroup = styled(ToggleGroupPrimitive.Root, {
   backgroundColor: '$scale300',
   borderRadius: 8,
   boxShadow: '0 2px 10px $scaleBlack',
+
+  variants: {
+    size: {
+      regular: {
+        borderRadius: 8,
+      },
+      mini: {
+        borderRadius: 5,
+      },
+    },
+  },
 });
 
-export const StyledItem = styled(ToggleGroupPrimitive.Item, {
+export const StyledToggleItem = styled(ToggleGroupPrimitive.Item, {
   all: 'unset',
   boxSizing: 'border-box',
-  margin: 4,
   color: '$scale700',
-  borderRadius: 6,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -41,5 +50,40 @@ export const StyledItem = styled(ToggleGroupPrimitive.Item, {
     boxShadow:
       '0px 0.4px 1.9px rgba(59, 76, 106, 0.03), 0px 1.12px 5px rgba(59, 76, 106, 0.04), 0px 2.7px 12.6px rgba(59, 76, 106, 0.05), 0px 2.7px 12.6px rgba(59, 76, 106, 0.08)',
     pointerEvents: 'none',
+    svg: {
+      path: {
+        fill: '$scale800',
+      },
+    },
+  },
+
+  variants: {
+    size: {
+      regular: {
+        margin: 4,
+        borderRadius: 6,
+        span: {
+          padding: '10px 12px',
+          fontSize: '$body',
+        },
+        svg: {
+          height: 20,
+          width: 20,
+        },
+      },
+      mini: {
+        margin: 4,
+        borderRadius: 4,
+        span: {
+          padding: '8px 10px',
+          fontSize: '$mini',
+        },
+        svg: {
+          padding: 3,
+          height: 24,
+          width: 24,
+        },
+      },
+    },
   },
 });

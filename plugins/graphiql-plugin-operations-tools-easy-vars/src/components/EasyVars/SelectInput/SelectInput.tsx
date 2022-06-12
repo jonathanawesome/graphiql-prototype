@@ -18,7 +18,7 @@ import {
 } from './styles';
 
 /** types */
-import { HandleVariableChangeSignature } from '../types';
+import { HandleVariableChangeSignature, SelectInputValue } from '../types';
 
 export const SelectInput = ({
   handleVariableChange,
@@ -28,9 +28,10 @@ export const SelectInput = ({
 }: {
   handleVariableChange: HandleVariableChangeSignature;
   id: string;
-  values: Array<{ value: string; name: string; description?: string }>;
+  values: SelectInputValue[];
   variableName: string;
 }) => {
+  console.log('rendering SelectInput', { values });
   useEffect(() => {
     // set a default value in our variables state
     handleVariableChange({ id, value: values[0].value, variableName });

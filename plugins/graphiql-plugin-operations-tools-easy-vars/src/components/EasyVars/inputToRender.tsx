@@ -1,59 +1,44 @@
 import cuid from 'cuid';
-import { isListType, isEnumType, isScalarType } from 'graphql';
+import { VariableDefinitionNode } from 'graphql';
 
 /** components */
 import { Input } from './Input/Input';
 import { List } from './List';
 import { SelectInput } from './SelectInput';
 
+/** constants */
+import { INPUT_TYPES } from './constants';
+
 /** types */
 import { HandleVariableChangeSignature } from './types';
-import type { EasyVar } from '../../hooks';
 
 /** utils */
-import { unwrapInputType, defaultInputValue, unwrapNonNullInputType } from '../../utils';
+import { defaultInputValue, getReadyEnumValues } from '../../utils';
 
 export const inputToRender = ({
-  easyVar,
   handleVariableChange,
+  isList,
+  typeNameValue,
+  variableDefinition,
 }: {
-  easyVar: EasyVar;
   handleVariableChange: HandleVariableChangeSignature;
+  isList: boolean;
+  typeNameValue: string;
+  variableDefinition: VariableDefinitionNode;
 }) => {
-  const unwrappedInputType = unwrapInputType({ inputType: easyVar.variableType });
-  const unwrappedNonNullType = unwrapNonNullInputType({ type: easyVar.variableType });
-  const name = easyVar.variableName;
+  const name = variableDefinition.variable.name.value;
 
   let inputToRender: React.ReactElement;
-  if (isListType(unwrappedNonNullType)) {
+  if (isList) {
     // rendering a List
     inputToRender = (
       <List
         handleVariableChange={handleVariableChange}
-        variableName={easyVar.variableName}
-        unwrappedInputType={unwrappedInputType}
+        variableName={variableDefinition.variable.name.value}
+        typeNameValue={typeNameValue}
       />
     );
-  } else if (isEnumType(unwrappedNonNullType)) {
-    // it's an enum, let's setup the SelectInput
-    const values = unwrappedNonNullType.getValues();
-    inputToRender = (
-      <SelectInput
-        handleVariableChange={handleVariableChange}
-        id={cuid.slug()}
-        variableName={name}
-        values={values.map((val) => ({
-          value: val.value,
-          name: val.name,
-          description: val.description || undefined,
-        }))}
-      />
-    );
-  } else if (
-    isScalarType(easyVar.variableType) &&
-    easyVar.variableType.name === 'Boolean'
-  ) {
-    // we want to show a SelectInput for Boolean scalars
+  } else if (typeNameValue === 'Boolean') {
     inputToRender = (
       <SelectInput
         handleVariableChange={handleVariableChange}
@@ -71,15 +56,67 @@ export const inputToRender = ({
         ]}
       />
     );
-  } else {
+  } else if (INPUT_TYPES.includes(typeNameValue)) {
     inputToRender = (
       <Input
-        defaultValue={defaultInputValue({ typeNameAsString: unwrappedInputType.name })}
+        defaultValue={defaultInputValue({ typeNameAsString: typeNameValue })}
         handleVariableChange={handleVariableChange}
         id={cuid.slug()}
-        variableName={easyVar.variableName}
+        variableName={variableDefinition.variable.name.value}
+      />
+    );
+  } else {
+    // it's an enum, let's setup the SelectInput
+    // const values = unwrappedNonNullType.getValues();
+    inputToRender = (
+      <SelectInput
+        handleVariableChange={handleVariableChange}
+        id={cuid.slug()}
+        variableName={name}
+        values={
+          getReadyEnumValues({
+            enumTypeName: typeNameValue,
+          }) || []
+        }
+        // values={values.map((val) => ({
+        //   value: val.value,
+        //   name: val.name,
+        //   description: val.description || undefined,
+        // }))}
       />
     );
   }
+  // } else if (
+  //   isScalarType(easyVar.variableType) &&
+  //   easyVar.variableType.name === 'Boolean'
+  // ) {
+  //   // we want to show a SelectInput for Boolean scalars
+  //   inputToRender = (
+  //     <SelectInput
+  //       handleVariableChange={handleVariableChange}
+  //       id={cuid.slug()}
+  //       variableName={name}
+  //       values={[
+  //         {
+  //           value: 'true',
+  //           name: 'True',
+  //         },
+  //         {
+  //           value: 'false',
+  //           name: 'False',
+  //         },
+  //       ]}
+  //     />
+  //   );
+  // } else {
+  //   inputToRender = (
+  //     <Input
+  //       defaultValue={defaultInputValue({ typeNameAsString: unwrappedInputType.name })}
+  //       handleVariableChange={handleVariableChange}
+  //       id={cuid.slug()}
+  //       variableName={easyVar.variableName}
+  //     />
+  //   );
+  // }
   return inputToRender;
 };

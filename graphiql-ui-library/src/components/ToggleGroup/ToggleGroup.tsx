@@ -1,9 +1,10 @@
 /** styles */
-import { StyledItem, StyledToggleGroup } from './styles';
+import { StyledToggleGroup, StyledToggleItem } from './styles';
 
 type ToggleGroupItem = {
-  value: string;
   ariaLabel: string;
+  icon?: React.ReactElement;
+  value: string;
 };
 
 export type ToggleGroupProps = {
@@ -11,6 +12,7 @@ export type ToggleGroupProps = {
   defaultValue: string;
   items: ToggleGroupItem[];
   onChange: (value: string) => void;
+  size: 'regular' | 'mini';
   value: string;
 };
 
@@ -19,19 +21,27 @@ export const ToggleGroup = ({
   defaultValue,
   items,
   onChange,
+  size = 'regular',
   value,
 }: ToggleGroupProps) => (
   <StyledToggleGroup
     type="single"
-    defaultValue={defaultValue}
-    value={value}
     aria-label={ariaLabel}
+    defaultValue={defaultValue}
     onValueChange={(value) => onChange(value)}
+    size={size}
+    value={value}
   >
     {items.map((item) => (
-      <StyledItem key={item.value} value={item.value} aria-label={item.ariaLabel}>
-        <span>{item.value}</span>
-      </StyledItem>
+      <StyledToggleItem
+        key={item.value}
+        aria-label={item.ariaLabel}
+        size={size}
+        title={item.ariaLabel}
+        value={item.value}
+      >
+        {item.icon ? item.icon : <span>{item.value}</span>}
+      </StyledToggleItem>
     ))}
   </StyledToggleGroup>
 );

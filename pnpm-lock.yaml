@@ -102,43 +102,35 @@ importers:
 
   graphiql-editor:
     specifiers:
+      '@graphiql-v2-prototype/graphiql-plugin-operations-tools-easy-vars': workspace:*
       '@graphiql-v2-prototype/graphiql-ui-library': workspace:*
-      '@graphiql-v2-prototype/graphiql-v2': workspace:*
       '@graphiql/toolkit': ^0.6.0
       '@radix-ui/react-collapsible': ^0.1.6
-      '@radix-ui/react-radio-group': ^0.1.5
       '@radix-ui/react-tabs': 0.2.0-rc.17
-      '@stitches/react': 1.2.8
       '@types/react': 17.0.2
-      '@types/react-dom': 17.0.2
       cuid: ^2.1.8
       graphql: ^16.5.0
       jsonc-parser: 3.0.0
       monaco-editor: ^0.33.0
       monaco-graphql: ^1.0.17
       react: 17.0.2
-      react-dom: 17.0.2
       vite: 2.9.6
       zustand: ^4.0.0-rc.1
     dependencies:
+      '@graphiql-v2-prototype/graphiql-plugin-operations-tools-easy-vars': link:../plugins/graphiql-plugin-operations-tools-easy-vars
       '@graphiql-v2-prototype/graphiql-ui-library': link:../graphiql-ui-library
-      '@graphiql-v2-prototype/graphiql-v2': link:../graphiql-v2
       '@graphiql/toolkit': 0.6.0_graphql@16.5.0
       '@radix-ui/react-collapsible': 0.1.6_react@17.0.2
-      '@radix-ui/react-radio-group': 0.1.5_react@17.0.2
-      '@radix-ui/react-tabs': 0.2.0-rc.17_sfoxds7t5ydpegc3knd667wn6m
-      '@stitches/react': 1.2.8_react@17.0.2
+      '@radix-ui/react-tabs': 0.2.0-rc.17_react@17.0.2
       cuid: 2.1.8
       graphql: 16.5.0
       jsonc-parser: 3.0.0
       monaco-editor: 0.33.0
       monaco-graphql: 1.1.0_a7bnabqs6qaueskeewpycdc2jy
       react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
       zustand: 4.0.0-rc.1_react@17.0.2
     devDependencies:
       '@types/react': 17.0.2
-      '@types/react-dom': 17.0.2
       vite: 2.9.6
 
   graphiql-ui-library:
@@ -221,9 +213,19 @@ importers:
 
   plugins/graphiql-plugin-operations-tools-easy-vars:
     specifiers:
+      '@graphiql-v2-prototype/graphiql-editor': workspace:*
+      '@graphiql-v2-prototype/graphiql-ui-library': workspace:*
+      '@radix-ui/react-select': ^0.1.1
       '@types/react': 17.0.2
+      cuid: ^2.1.8
+      graphql: ^16.5.0
       react: 17.0.2
     dependencies:
+      '@graphiql-v2-prototype/graphiql-editor': link:../../graphiql-editor
+      '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql-ui-library
+      '@radix-ui/react-select': 0.1.1_7u6mpky5dbb5b3hgdescs5ficq
+      cuid: 2.1.8
+      graphql: 16.5.0
       react: 17.0.2
     devDependencies:
       '@types/react': 17.0.2
@@ -2367,6 +2369,12 @@ packages:
     requiresBuild: true
     dev: true
 
+  /@radix-ui/number/0.1.0:
+    resolution: {integrity: sha512-rpf6QiOWLHAkM4FEMYu9i+5Jr8cKT893+R4mPpcdsy4LD7omr9JfdOqj/h/xPA5+EcVrpMMlU6rrRYpUB5UI8g==}
+    dependencies:
+      '@babel/runtime': 7.18.3
+    dev: false
+
   /@radix-ui/popper/0.1.0:
     resolution: {integrity: sha512-uzYeElL3w7SeNMuQpXiFlBhTT+JyaNMCwDfjKkrzugEcYrf5n52PHqncNdQPUtR42hJh8V9FsqyEDbDxkeNjJQ==}
     dependencies:
@@ -2417,6 +2425,20 @@ packages:
       '@radix-ui/react-context': 0.1.1_react@17.0.2
       '@radix-ui/react-primitive': 0.1.4_react@17.0.2
       '@radix-ui/react-slot': 0.1.2_react@17.0.2
+      react: 17.0.2
+    dev: false
+
+  /@radix-ui/react-collection/0.1.5-rc.37_react@17.0.2:
+    resolution: {integrity: sha512-LMcYls9Njh10jqg89rCObMntWQBtKI5/EhtQvzWyE3zKc78IhODk+DN0lKNmB2i4rEjmfY9z/CItmVvfcl8ViQ==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    dependencies:
+      '@babel/runtime': 7.18.3
+      '@radix-ui/react-compose-refs': 0.1.1-rc.37_react@17.0.2
+      '@radix-ui/react-context': 0.1.2-rc.37_react@17.0.2
+      '@radix-ui/react-primitive': 0.1.5-rc.37_react@17.0.2
+      '@radix-ui/react-slot': 0.1.3-rc.37_react@17.0.2
       react: 17.0.2
     dev: false
 
@@ -2620,6 +2642,18 @@ packages:
       react: 17.0.2
     dev: false
 
+  /@radix-ui/react-portal/0.1.4_react@17.0.2:
+    resolution: {integrity: sha512-MO0wRy2eYRTZ/CyOri9NANCAtAtq89DEtg90gicaTlkCfdqCLEBsLb+/q66BZQTr3xX/Vq01nnVfc/TkCqoqvw==}
+    peerDependencies:
+      react: ^16.8 || ^17.0
+      react-dom: ^16.8 || ^17.0
+    dependencies:
+      '@babel/runtime': 7.18.3
+      '@radix-ui/react-primitive': 0.1.4_react@17.0.2
+      '@radix-ui/react-use-layout-effect': 0.1.0_react@17.0.2
+      react: 17.0.2
+    dev: false
+
   /@radix-ui/react-portal/0.1.4_sfoxds7t5ydpegc3knd667wn6m:
     resolution: {integrity: sha512-MO0wRy2eYRTZ/CyOri9NANCAtAtq89DEtg90gicaTlkCfdqCLEBsLb+/q66BZQTr3xX/Vq01nnVfc/TkCqoqvw==}
     peerDependencies:
@@ -2644,6 +2678,18 @@ packages:
       react: 17.0.2
     dev: false
 
+  /@radix-ui/react-presence/0.1.3-rc.37_react@17.0.2:
+    resolution: {integrity: sha512-m6LY7TTYh/W0Pm8huCOxLBo74GHUz5yXgKpqGFyB0Uvow75GLSnHdmzr/mgrxr/hune8NYVpHRYAe9VtJEy8vQ==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    dependencies:
+      '@babel/runtime': 7.18.3
+      '@radix-ui/react-compose-refs': 0.1.1-rc.37_react@17.0.2
+      '@radix-ui/react-use-layout-effect': 0.1.1-rc.37_react@17.0.2
+      react: 17.0.2
+    dev: false
+
   /@radix-ui/react-presence/0.1.3-rc.37_sfoxds7t5ydpegc3knd667wn6m:
     resolution: {integrity: sha512-m6LY7TTYh/W0Pm8huCOxLBo74GHUz5yXgKpqGFyB0Uvow75GLSnHdmzr/mgrxr/hune8NYVpHRYAe9VtJEy8vQ==}
     peerDependencies:
@@ -2664,6 +2710,17 @@ packages:
     dependencies:
       '@babel/runtime': 7.18.3
       '@radix-ui/react-slot': 0.1.2_react@17.0.2
+      react: 17.0.2
+    dev: false
+
+  /@radix-ui/react-primitive/0.1.5-rc.37_react@17.0.2:
+    resolution: {integrity: sha512-Yt2r9zUnYNYmvV82Y2xoKG32oOrPdSJ7woI0DH/zc/0tsQqsyQhqkxnCa/lVTjFB8xai+RTfn29SR88fYEtr4w==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    dependencies:
+      '@babel/runtime': 7.18.3
+      '@radix-ui/react-slot': 0.1.3-rc.37_react@17.0.2
       react: 17.0.2
     dev: false
 
@@ -2715,6 +2772,25 @@ packages:
       react: 17.0.2
     dev: false
 
+  /@radix-ui/react-roving-focus/0.1.6-rc.40_react@17.0.2:
+    resolution: {integrity: sha512-pMwcR+WFIOvLM5q6SkA+PgBgcdqNUqcgYhUIAZxPhDdp2omAvPmcG9jmVII+iAAFvRtiL3ZwepavrzNkDMTKIA==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    dependencies:
+      '@babel/runtime': 7.18.3
+      '@radix-ui/primitive': 0.1.0
+      '@radix-ui/react-collection': 0.1.5-rc.37_react@17.0.2
+      '@radix-ui/react-compose-refs': 0.1.1-rc.37_react@17.0.2
+      '@radix-ui/react-context': 0.1.2-rc.37_react@17.0.2
+      '@radix-ui/react-direction': 0.1.0-rc.40_react@17.0.2
+      '@radix-ui/react-id': 0.1.6-rc.37_react@17.0.2
+      '@radix-ui/react-primitive': 0.1.5-rc.37_react@17.0.2
+      '@radix-ui/react-use-callback-ref': 0.1.1-rc.37_react@17.0.2
+      '@radix-ui/react-use-controllable-state': 0.1.1-rc.37_react@17.0.2
+      react: 17.0.2
+    dev: false
+
   /@radix-ui/react-roving-focus/0.1.6-rc.40_sfoxds7t5ydpegc3knd667wn6m:
     resolution: {integrity: sha512-pMwcR+WFIOvLM5q6SkA+PgBgcdqNUqcgYhUIAZxPhDdp2omAvPmcG9jmVII+iAAFvRtiL3ZwepavrzNkDMTKIA==}
     peerDependencies:
@@ -2735,6 +2811,36 @@ packages:
       react-dom: 17.0.2_react@17.0.2
     dev: false
 
+  /@radix-ui/react-select/0.1.1_7u6mpky5dbb5b3hgdescs5ficq:
+    resolution: {integrity: sha512-xY3jLz2c6ZBHflldGsA79bE/swUfRMpiRPQf+JDihOufsd3z5uW22PFe0MS5bGZiIpK6aAZAvwqEd2Bu7hqp8w==}
+    peerDependencies:
+      react: ^16.8 || ^17.0
+      react-dom: ^16.8 || ^17.0
+    dependencies:
+      '@babel/runtime': 7.18.3
+      '@radix-ui/number': 0.1.0
+      '@radix-ui/primitive': 0.1.0
+      '@radix-ui/react-collection': 0.1.4_react@17.0.2
+      '@radix-ui/react-compose-refs': 0.1.0_react@17.0.2
+      '@radix-ui/react-context': 0.1.1_react@17.0.2
+      '@radix-ui/react-dismissable-layer': 0.1.5_react@17.0.2
+      '@radix-ui/react-focus-scope': 0.1.4_react@17.0.2
+      '@radix-ui/react-id': 0.1.5_react@17.0.2
+      '@radix-ui/react-label': 0.1.5_react@17.0.2
+      '@radix-ui/react-portal': 0.1.4_react@17.0.2
+      '@radix-ui/react-primitive': 0.1.4_react@17.0.2
+      '@radix-ui/react-use-callback-ref': 0.1.0_react@17.0.2
+      '@radix-ui/react-use-controllable-state': 0.1.0_react@17.0.2
+      '@radix-ui/react-use-layout-effect': 0.1.0_react@17.0.2
+      '@radix-ui/react-use-previous': 0.1.1_react@17.0.2
+      '@radix-ui/react-visually-hidden': 0.1.4_react@17.0.2
+      aria-hidden: 1.1.3
+      react: 17.0.2
+      react-remove-scroll: 2.5.4_7u6mpky5dbb5b3hgdescs5ficq
+    transitivePeerDependencies:
+      - '@types/react'
+    dev: false
+
   /@radix-ui/react-slot/0.1.2_react@17.0.2:
     resolution: {integrity: sha512-ADkqfL+agEzEguU3yS26jfB50hRrwf7U4VTwAOZEmi/g+ITcBWe12yM46ueS/UCIMI9Py+gFUaAdxgxafFvY2Q==}
     peerDependencies:
@@ -2752,6 +2858,24 @@ packages:
     dependencies:
       '@babel/runtime': 7.18.3
       '@radix-ui/react-compose-refs': 0.1.1-rc.37_react@17.0.2
+      react: 17.0.2
+    dev: false
+
+  /@radix-ui/react-tabs/0.2.0-rc.17_react@17.0.2:
+    resolution: {integrity: sha512-hotbmCnXJetzysFq1sob3N7YEq4VY+vpFw0exVtAiHM+E8e/BGv+i8JP4iXYqGYqwzXVG5r+dUvNylQwGMte5Q==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    dependencies:
+      '@babel/runtime': 7.18.3
+      '@radix-ui/primitive': 0.1.0
+      '@radix-ui/react-context': 0.1.2-rc.37_react@17.0.2
+      '@radix-ui/react-direction': 0.1.0-rc.40_react@17.0.2
+      '@radix-ui/react-id': 0.1.6-rc.37_react@17.0.2
+      '@radix-ui/react-presence': 0.1.3-rc.37_react@17.0.2
+      '@radix-ui/react-primitive': 0.1.5-rc.37_react@17.0.2
+      '@radix-ui/react-roving-focus': 0.1.6-rc.40_react@17.0.2
+      '@radix-ui/react-use-controllable-state': 0.1.1-rc.37_react@17.0.2
       react: 17.0.2
     dev: false
 
@@ -2902,6 +3026,16 @@ packages:
       react: ^16.8 || ^17.0
     dependencies:
       '@babel/runtime': 7.18.3
+      react: 17.0.2
+    dev: false
+
+  /@radix-ui/react-visually-hidden/0.1.4_react@17.0.2:
+    resolution: {integrity: sha512-K/q6AEEzqeeEq/T0NPChvBqnwlp8Tl4NnQdrI/y8IOY7BRR+Ug0PEsVk6g48HJ7cA1//COugdxXXVVK/m0X1mA==}
+    peerDependencies:
+      react: ^16.8 || ^17.0
+    dependencies:
+      '@babel/runtime': 7.18.3
+      '@radix-ui/react-primitive': 0.1.4_react@17.0.2
       react: 17.0.2
     dev: false
 

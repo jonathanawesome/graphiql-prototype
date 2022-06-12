@@ -1,6 +1,8 @@
 export { Dialog } from './Dialog';
 export type { DialogProps } from './Dialog';
 
+export { OptionItem } from './OptionItem';
+
 export { Popover } from './Popover';
 
 export { Resizer } from './Resizer';

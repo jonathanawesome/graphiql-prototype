@@ -1,37 +1,16 @@
-import React from 'react';
+/** components */
 import {
   Ellipsis,
+  OptionItem,
   Popover,
   ToggleGroup,
-  ToggleGroupProps,
 } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 /** hooks */
 import { DescriptionsVisibility, PillsVisibility, usePathfinder } from '../../hooks';
 
-/** styles */
-import { OptionsContentStyled, OptionRowStyled, OptionRowDetails } from './styles';
-
-const OptionRow = ({
-  title,
-  description,
-  control,
-}: {
-  title: string;
-  description: string;
-  control: React.ReactElement<ToggleGroupProps>;
-}) => {
-  // TODO should this be a DL?
-  return (
-    <OptionRowStyled>
-      <OptionRowDetails>
-        <span>{title}</span>
-        <span>{description}</span>
-      </OptionRowDetails>
-      {control}
-    </OptionRowStyled>
-  );
-};
+// /** styles */
+import { OptionsContentStyled } from './styles';
 
 const OptionsContent = () => {
   const {
@@ -43,7 +22,7 @@ const OptionsContent = () => {
 
   return (
     <OptionsContentStyled>
-      <OptionRow
+      <OptionItem
         title="Type Pills"
         description="Show or hide type pills"
         control={
@@ -59,7 +38,7 @@ const OptionsContent = () => {
           />
         }
       />
-      <OptionRow
+      <OptionItem
         title="Descriptions"
         description="Adjust visibility and display of descriptions"
         control={

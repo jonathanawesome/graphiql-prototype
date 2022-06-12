@@ -17,3 +17,5 @@ export type HandleVariableChangeSignature = ({
 //   argument: GraphQLArgument;
 // };
 // export type EasyVars = Array<EasyVar>;
+
+export type SelectInputValue = { value: string; name: string; description?: string };

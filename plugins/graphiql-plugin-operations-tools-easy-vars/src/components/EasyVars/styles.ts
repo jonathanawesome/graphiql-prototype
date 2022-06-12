@@ -6,6 +6,7 @@ export const EasyVarsStyled = styled('div', {
   gap: 8,
   fontFamily: '$mono',
   fontSize: 11,
+  marginBottom: 12,
 });
 
 export const EasyVarStyled = styled('div', {

@@ -14,7 +14,7 @@ export const TabsAndTrigger = styled('div', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  padding: '8px 24px 8px 12px',
+  padding: '8px 24px 8px 4px',
 });
 
 export const TabsList = styled(Tabs.List, {
@@ -58,9 +58,5 @@ export const CollapsibleTrigger = styled(Collapsible.Trigger, {
 export const CollapsibleContent = styled(Collapsible.Content, {});
 
 export const TabsContent = styled(Tabs.Content, {
-  padding: '0 16px 16px 16px',
-});
-
-export const VariablesEditor = styled('div', {
-  height: 150,
+  // padding: '0 16px 16px 16px',
 });

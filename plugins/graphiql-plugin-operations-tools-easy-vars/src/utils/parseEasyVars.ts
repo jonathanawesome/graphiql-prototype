@@ -1,4 +1,4 @@
-import { EasyVars } from '../hooks/useGraphiQL/types';
+import { EasyVars } from '../hooks/types';
 
 export const prepValue = ({
   type,

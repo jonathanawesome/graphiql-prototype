@@ -48,7 +48,6 @@ export const Input = ({
   // this order 👆 👇 is critical, don't change it
 
   useEffect(() => {
-    // set a default value in our variables state
     handleVariableChange({ id, value: defaultValue, variableName });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
