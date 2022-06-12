@@ -207,10 +207,7 @@ export const toggle = ({
       selections: [],
     },
   };
-  // onEditDefinition({
-  //   nextDefinition:
-  //     nextSelectionSet && nextSelectionSet.selections.length > 0 ? nextDefinition : null,
-  // });
+
   if (nextSelectionSet && nextSelectionSet.selections.length > 0) {
     updateEditorTabData({
       dataType: 'operation',
@@ -227,7 +224,6 @@ export const toggle = ({
   }
 
   // clear state for next toggle
-  // setNextAction(null);
   setNextSelectionSet({ nextSelectionSet: null });
   setNextVariableDefinitions({ nextVariableDefinitions: [] });
 };
