@@ -33,7 +33,7 @@ export const OperationTools = ({
   variablesModel: MONACO_EDITOR.ITextModel;
 }) => {
   const [isVariablesOpen, setIsVariablesOpen] = useState<boolean>(false);
-
+  const [openTab, setOpenTab] = useState('tab1');
   const activeEditorTab = getActiveEditorTab();
 
   const variablesCount =
@@ -57,7 +57,7 @@ export const OperationTools = ({
 
   return (
     <CollapsibleRoot open={isVariablesOpen} onOpenChange={handleOpenChange}>
-      <TabsRoot defaultValue="tab1">
+      <TabsRoot value={openTab} onValueChange={setOpenTab}>
         <TabsAndTrigger>
           <TabsList aria-label="Operations Tools">
             <TabsTrigger
@@ -88,7 +88,7 @@ export const OperationTools = ({
             <p>easy vars here</p>
             {/* <EasyVars easyVars={variables} /> */}
           </TabsContent>
-          <TabsContent value="tab2">
+          <TabsContent value="tab2" forceMount hidden={openTab !== 'tab2'}>
             <VariablesEditor>
               <MonacoEditor editorType="variables" initWithModel={variablesModel} />
             </VariablesEditor>

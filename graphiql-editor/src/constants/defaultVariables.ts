@@ -1,3 +1,1 @@
-export const defaultVariables = `{
-  "addYour": "variablesHere"
-}`;
+export const defaultVariables = ``;

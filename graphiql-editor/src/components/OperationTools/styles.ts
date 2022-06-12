@@ -1,14 +1,14 @@
 import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 import * as Collapsible from '@radix-ui/react-collapsible';
-import * as TabsPrimitive from '@radix-ui/react-tabs';
+import * as Tabs from '@radix-ui/react-tabs';
 
 export const CollapsibleRoot = styled(Collapsible.Root, {
   backgroundColor: '$scale100',
   borderTop: '1px solid $scale400',
 });
 
-export const TabsRoot = styled(TabsPrimitive.Root, {});
+export const TabsRoot = styled(Tabs.Root, {});
 
 export const TabsAndTrigger = styled('div', {
   display: 'flex',
@@ -17,12 +17,12 @@ export const TabsAndTrigger = styled('div', {
   padding: '8px 24px 8px 12px',
 });
 
-export const TabsList = styled(TabsPrimitive.List, {
+export const TabsList = styled(Tabs.List, {
   display: 'flex',
   gap: 8,
 });
 
-export const TabsTrigger = styled(TabsPrimitive.Trigger, {
+export const TabsTrigger = styled(Tabs.Trigger, {
   cursor: 'pointer',
   fontSize: '$body',
   lineHeight: '$body',
@@ -57,7 +57,7 @@ export const CollapsibleTrigger = styled(Collapsible.Trigger, {
 
 export const CollapsibleContent = styled(Collapsible.Content, {});
 
-export const TabsContent = styled(TabsPrimitive.Content, {
+export const TabsContent = styled(Tabs.Content, {
   padding: '0 16px 16px 16px',
 });
 
