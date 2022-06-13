@@ -40,6 +40,7 @@ export const MonacoEditor = ({
   // });
 
   useEffect(() => {
+    console.log('rendering MonacoEditor, editorTab changing', { editorTab });
     if (editorTab && monacoEditor) {
       const model = monacoEditor.editor.getModel();
 
@@ -71,11 +72,14 @@ export const MonacoEditor = ({
             {
               range: model.getFullModelRange(),
               text: editorTab[editorType],
-              forceMoveMarkers: true,
+              // 👇 setting forceMoveMarkers to true will prevent the operations editor from bulk-selecting while using Pathfinder,
+              // but breaks the interaction of editing variables definitions within the operations editor
+              // forceMoveMarkers: true,
             },
           ],
           () => []
         );
+        monacoEditor.editor.getAction('editor.action.formatDocument').run();
         /** end option 2 */
       }
     }

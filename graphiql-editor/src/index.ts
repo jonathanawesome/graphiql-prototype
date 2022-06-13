@@ -1,3 +1,7 @@
 export { GraphiQLEditor } from './components';
 export { useGraphiQLEditor } from './hooks';
-export { getActiveEditorTab, parseQuery } from './utils';
+export {
+  getDisplayStringFromVariableDefinitionTypeNode,
+  getActiveEditorTab,
+  parseQuery,
+} from './utils';

@@ -1,1 +1,3 @@
-export const defaultVariables = ``;
+export const defaultVariables = `{
+  
+}`;

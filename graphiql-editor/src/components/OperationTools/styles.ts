@@ -4,7 +4,7 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 import * as Tabs from '@radix-ui/react-tabs';
 
 export const CollapsibleRoot = styled(Collapsible.Root, {
-  backgroundColor: '$scale100',
+  backgroundColor: 'white',
   borderTop: '1px solid $scale400',
 });
 

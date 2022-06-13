@@ -1,4 +1,7 @@
-import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
+import {
+  getActiveEditorTab,
+  useGraphiQLEditor,
+} from '@graphiql-v2-prototype/graphiql-editor';
 
 /** types */
 import {
@@ -6,6 +9,8 @@ import {
   SetNextActionSignature,
   SetNextVariableDefinitionsSignature,
 } from '../../types';
+
+const removeVariables = useGraphiQLEditor.getState().removeVariables;
 
 export const handleRemoveArgument = ({
   ancestor,
@@ -20,10 +25,6 @@ export const handleRemoveArgument = ({
   //   ancestor,
   // });
 
-  // const operationDefinition = useGraphiQL.getState().operationDefinition;
-  // const variableDefinitions = operationDefinition?.variableDefinitions;
-  // const removeVariables = useGraphiQL.getState().removeVariables;
-
   const activeEditorTab = getActiveEditorTab();
   const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
 
@@ -35,7 +36,7 @@ export const handleRemoveArgument = ({
     nextVariableDefinitions: newVarDefs ?? [],
   });
 
-  // removeVariables({ variableNames: [ancestor.variableName] });
+  removeVariables({ variableNames: [ancestor.variableName] });
 
   return setNextAction({
     type: 'REMOVE',

@@ -4,10 +4,12 @@ import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 export const Note = styled('span', {
   display: 'block',
-  fontSize: '$mini',
-  color: '$accentArgument',
-  marginBottom: 12,
-  marginTop: 4,
+  fontSize: '$body',
+  color: '$accentError',
+  backgroundColor: '$scale200',
+  border: '1px solid $accentError',
+  marginBottom: 24,
+  padding: 12,
   fontStyle: 'italic',
 });
 
@@ -44,9 +46,13 @@ export const RadioGroupIndicator = styled(RadioGroupPrimitive.Indicator, {
 });
 
 export const RadioGroup = styled(RadioGroupPrimitive.Root, {
+  margin: '12px 0',
   fieldset: {
     all: 'unset',
     boxSizing: 'border-box',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 12,
 
     '&:disabled': {
       opacity: 0.5,
@@ -57,7 +63,6 @@ export const RadioGroup = styled(RadioGroupPrimitive.Root, {
 export const RadioWrap = styled('div', {
   display: 'flex',
   alignItems: 'center',
-  margin: '10px 0',
 
   label: {
     display: 'flex',
@@ -68,13 +73,13 @@ export const RadioWrap = styled('div', {
 
     span: {
       color: '$scale800',
-      fontSize: 12,
+      fontSize: '$body',
       lineHeight: 1,
     },
 
     a: {
       color: '$scale800',
-      fontSize: 12,
+      fontSize: '$body',
       lineHeight: 1,
     },
   },

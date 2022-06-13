@@ -16,7 +16,13 @@ import { GraphiQLEditorStore } from './types';
 import testSchema from './testSchema.js';
 
 /** utils */
-import { fetcher, parseQuery } from '../../utils';
+import {
+  fetcher,
+  getActiveEditorTab,
+  getDisplayStringFromVariableDefinitionTypeNode,
+  parseQuery,
+  pushEditOperationsToModel,
+} from '../../utils';
 
 export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   activeEditorTabId: null,
@@ -31,7 +37,6 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     );
     // console.log('addEditorTab', {existingEditorTab});
     if (!existingEditorTab) {
-      // doesn't exist, let's add it
       set({ editorTabs: [...editorTabs, editorTab] });
     }
   },
@@ -44,24 +49,65 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       activeEditorTabId: remainingEditors[0].editorTabId,
     });
   },
+  removeVariables: ({ variableNames }) => {
+    const activeEditorTab = getActiveEditorTab();
+
+    if (activeEditorTab) {
+      // 1. parse the existing variables string to an object
+      const parsedVariables = JSON.parse(activeEditorTab.variables);
+      // 2. remove the variables
+      variableNames.forEach((v) => {
+        delete parsedVariables[v];
+      });
+      // 3. return to string
+      const newVariablesString = JSON.stringify(parsedVariables);
+      // 4. update the model
+      pushEditOperationsToModel({
+        model: activeEditorTab.variablesModel,
+        text: newVariablesString,
+      });
+    } else {
+      console.log("editorTab doesn't exist ☠️");
+    }
+  },
+  updateVariable: ({ variableName, variableValue }) => {
+    const activeEditorTab = getActiveEditorTab();
+
+    if (activeEditorTab) {
+      // 1. parse the existing variables string to an object
+      const parsedVariables = JSON.parse(activeEditorTab.variables);
+      // 2. set the variableName and/or variableValue
+      parsedVariables[variableName] = variableValue;
+      // 3. return to string
+      const newVariablesString = JSON.stringify(parsedVariables);
+      // 4. update the model
+      pushEditOperationsToModel({
+        model: activeEditorTab.variablesModel,
+        text: newVariablesString,
+      });
+    } else {
+      console.log("editorTab doesn't exist ☠️");
+    }
+  },
   updateEditorTabData: ({ dataType, newValue }) => {
+    // TODO: lots to improve here.
+    console.log('running updateEditorTabData', {
+      dataType,
+      newValue,
+    });
+
     const editorTabs = get().editorTabs;
-
     const activeEditorTabId = get().activeEditorTabId;
-
-    // console.log('running updateEditorTabData', {
-    //   dataType,
-    //   newValue,
-    // });
+    const updateVariable = get().updateVariable;
 
     // 👇 safety first
     const editorTabsCopy = [...editorTabs];
-    const existingEditorTab = editorTabsCopy.findIndex(
+    const existingEditorTabIndex = editorTabsCopy.findIndex(
       (editorTab) => editorTab.editorTabId === activeEditorTabId
     );
-    if (existingEditorTab !== -1) {
+    if (existingEditorTabIndex !== -1) {
       let operationDefinitionUpdate: ExecutableDefinitionNode | null =
-        editorTabsCopy[existingEditorTab].operationDefinition;
+        editorTabsCopy[existingEditorTabIndex].operationDefinition;
 
       if (dataType === 'operation') {
         const parsedQuery = parseQuery(newValue);
@@ -74,6 +120,17 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
             }
 
             if (isExecutableDefinitionNode(firstDefinition)) {
+              const variableDefinitions = firstDefinition.variableDefinitions;
+              if (variableDefinitions && variableDefinitions?.length > 0) {
+                variableDefinitions.forEach((v) =>
+                  updateVariable({
+                    variableName: v.variable.name.value,
+                    variableValue: getDisplayStringFromVariableDefinitionTypeNode({
+                      type: v.type,
+                    }),
+                  })
+                );
+              }
               return firstDefinition;
             }
 
@@ -83,8 +140,8 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
         }
       }
 
-      editorTabsCopy[existingEditorTab] = {
-        ...editorTabsCopy[existingEditorTab],
+      editorTabsCopy[existingEditorTabIndex] = {
+        ...editorTabsCopy[existingEditorTabIndex],
         [dataType]: newValue,
         operationDefinition: operationDefinitionUpdate,
       };
@@ -97,7 +154,6 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   swapEditorTab: ({ editorTabId }) => {
     const monacoEditors = get().monacoEditors;
     const editorTabs = get().editorTabs;
-
     const editorTab = editorTabs.find((t) => t.editorTabId === editorTabId);
 
     // console.log('running swapEditorTab', { monacoEditors, editorTab });
@@ -114,29 +170,17 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   },
   monacoEditors: [],
   addMonacoEditor: ({ editor, name }) => {
+    // console.log('running addMonacoEditor', { editor });
     const monacoEditors = get().monacoEditors;
     const existingEditor = monacoEditors.find((e) => e.name === name);
-    // console.log('running addMonacoEditor', {
-    //   existingEditor,
-    //   monacoEditors,
-    //   editor,
-    //   name,
-    // });
     if (!existingEditor) {
       set({ monacoEditors: [...monacoEditors, { editor, name }] });
     }
   },
   executeOperation: async () => {
+    const activeEditor = getActiveEditorTab();
     const updateEditorTabData = get().updateEditorTabData;
-    const activeEditorTabId = get().activeEditorTabId;
-    const editorTabs = get().editorTabs;
     const schemaUrl = get().schemaUrl;
-
-    // 👇 safety first
-    const editorTabsCopy = [...editorTabs];
-    const activeEditor = editorTabsCopy.find(
-      (editorTab) => editorTab.editorTabId === activeEditorTabId
-    );
 
     if (schemaUrl && activeEditor) {
       const result = await fetcher({ url: schemaUrl })({
@@ -148,11 +192,6 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       });
 
       console.log('running executeOperation', {
-        operationName: activeEditor.operationDefinition?.name?.value || '',
-        query: activeEditor.operation,
-        variables: activeEditor.variables
-          ? JSONC.parse(activeEditor.variables)
-          : undefined,
         result,
       });
 
@@ -198,7 +237,9 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       });
 
       const schema = buildClientSchema(result.data as unknown as IntrospectionQuery);
+
       set({ schema });
+
       initializeMode({
         schemas: [
           {

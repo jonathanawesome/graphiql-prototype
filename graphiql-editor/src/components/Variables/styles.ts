@@ -28,18 +28,14 @@ export const VariablesEditor = styled('div', {
 
 export const EditorOptionWrap = styled('div', {
   padding: '8px 16px',
-  borderTop: '1px solid $scale400',
-  // backgroundColor: '$scale200',
+  borderTop: '1px solid $scale300',
+  backgroundColor: '$scale100',
 });
 
 export const Note = styled('span', {
   display: 'flex',
-  margin: 12,
-  width: '100%',
-  fontSize: '$body',
+  margin: '0px 12px 12px 12px',
+  fontSize: '$mini',
   fontStyle: 'italic',
-  padding: '8px 16px',
-  border: '1px solid $scale400',
-  backgroundColor: '$scale100',
-  color: '$scale700',
+  color: '$accentWarning',
 });

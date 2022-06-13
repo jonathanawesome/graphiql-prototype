@@ -20,6 +20,14 @@ export type GraphiQLEditorStore = {
   setActiveEditorTabId: ({ editorTabId }: { editorTabId: string }) => void;
   editorTabs: EditorTab[];
   addEditorTab: ({ editorTab }: { editorTab: EditorTab }) => void;
+  removeVariables: ({ variableNames }: { variableNames: string[] }) => void;
+  updateVariable: ({
+    variableName,
+    variableValue,
+  }: {
+    variableName: string;
+    variableValue: string | string[];
+  }) => void;
   updateEditorTabData: ({
     dataType,
     newValue,

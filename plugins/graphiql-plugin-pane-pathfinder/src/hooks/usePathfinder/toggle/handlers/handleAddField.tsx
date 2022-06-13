@@ -11,12 +11,6 @@ import {
   SetNextVariableDefinitionsSignature,
 } from '../../types';
 
-/** utils */
-// import {
-//   getRequiredArgumentNodesForField,
-//   getRequiredVariableDefinitionsForField,
-// } from '../../../../utils';
-
 export const handleAddField = ({
   ancestor,
   setNextSelectionSet,
@@ -27,8 +21,6 @@ export const handleAddField = ({
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
 }) => {
   // console.log('running handleAddField', { ancestor });
-  // const operationDefinition = useGraphiQL.getState().operationDefinition;
-  // const variableDefinitions = operationDefinition?.variableDefinitions;
   const activeEditorTab = getActiveEditorTab();
   const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
 

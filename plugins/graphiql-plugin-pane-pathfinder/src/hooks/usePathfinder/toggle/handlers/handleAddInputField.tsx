@@ -1,5 +1,9 @@
 import { Kind, ObjectFieldNode } from 'graphql';
-import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
+import {
+  getActiveEditorTab,
+  getDisplayStringFromVariableDefinitionTypeNode,
+  useGraphiQLEditor,
+} from '@graphiql-v2-prototype/graphiql-editor';
 
 /** types */
 import {
@@ -11,6 +15,8 @@ import {
 /** utils */
 import { buildNewVariableDefinition } from '../../../../utils';
 
+const updateVariable = useGraphiQLEditor.getState().updateVariable;
+
 export const handleAddInputField = ({
   ancestor,
   setNextAction,
@@ -20,7 +26,6 @@ export const handleAddInputField = ({
   setNextAction: SetNextActionSignature;
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
 }) => {
-  // const addVariable = useGraphiQL.getState().addVariable;
   const activeEditorTab = getActiveEditorTab();
   const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
 
@@ -41,14 +46,12 @@ export const handleAddInputField = ({
     ],
   });
 
-  // addVariable({
-  //   easyVar: {
-  //     argument: ancestor.inputField,
-  //     variableName: ancestor.variableName,
-  //     variableType: ancestor.inputField.type,
-  //     variableValue: '',
-  //   },
-  // });
+  updateVariable({
+    variableName: ancestor.variableName,
+    variableValue: getDisplayStringFromVariableDefinitionTypeNode({
+      type: newVarDef.type,
+    }),
+  });
 
   const newObjectFieldNode: ObjectFieldNode = {
     kind: Kind.OBJECT_FIELD,

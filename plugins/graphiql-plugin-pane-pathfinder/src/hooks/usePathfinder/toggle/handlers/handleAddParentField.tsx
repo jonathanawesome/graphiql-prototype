@@ -12,12 +12,6 @@ import {
   SetNextSelectionSetSignature,
 } from '../../types';
 
-/** utils */
-// import {
-//   getRequiredArgumentNodesForField,
-//   getRequiredVariableDefinitionsForField,
-// } from '@/utils';
-
 export const handleAddParentField = ({
   ancestor,
   nextAction,

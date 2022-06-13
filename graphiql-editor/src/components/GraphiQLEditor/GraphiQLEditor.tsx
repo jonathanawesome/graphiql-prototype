@@ -23,10 +23,15 @@ const defaultTabName = '<untitled>';
 const defaultTabId = cuid.slug();
 
 export const GraphiQLEditor = () => {
-  const { activeEditorTabId, setActiveEditorTabId, addEditorTab, editorTabs, schemaUrl } =
-    useGraphiQLEditor();
+  const {
+    // activeEditorTabId,
+    setActiveEditorTabId,
+    addEditorTab,
+    //  editorTabs,
+    schemaUrl,
+  } = useGraphiQLEditor();
 
-  console.log('rendering GraphiQLEditor', { editorTabs, activeEditorTabId });
+  // console.log('rendering GraphiQLEditor', { editorTabs, activeEditorTabId });
 
   // create the models for our initial tab
   const operationModel = getOrCreateModel({

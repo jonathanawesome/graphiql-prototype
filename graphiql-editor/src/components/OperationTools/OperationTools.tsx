@@ -28,11 +28,9 @@ export const OperationTools = ({
   setHeight: () => void;
   variablesModel: MONACO_EDITOR.ITextModel;
 }) => {
-  const [isOperationToolsOpen, setIsOperationToolsOpen] = useState<boolean>(true);
+  const [isOperationToolsOpen, setIsOperationToolsOpen] = useState<boolean>(false);
   const [openTab, setOpenTab] = useState('VariablesTab');
   const activeEditorTab = getActiveEditorTab();
-
-  console.log('isOperationToolsOpen', isOperationToolsOpen);
 
   const variablesCount =
     activeEditorTab?.operationDefinition?.variableDefinitions?.length || 0;
@@ -44,14 +42,6 @@ export const OperationTools = ({
       setHeight();
     }, 150);
   };
-
-  // useEffect(() => {
-  //   if (variablesCount > 0) {
-  //     setIsOperationToolsOpen(true);
-  //   } else {
-  //     setIsOperationToolsOpen(false);
-  //   }
-  // }, [variablesCount]);
 
   return (
     <CollapsibleRoot open={isOperationToolsOpen} onOpenChange={handleOpenChange}>

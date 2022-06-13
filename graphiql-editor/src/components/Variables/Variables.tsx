@@ -41,41 +41,43 @@ export const Variables = ({
       <VariablesEditor isVisible={editorType === 'CodeEditor'}>
         <MonacoEditor editorType="variables" initWithModel={variablesModel} />
       </VariablesEditor>
+
       {variableDefinitions &&
-        variableDefinitions?.length > 0 &&
+        variableDefinitions.length > 0 &&
         editorType === 'InputEditor' && (
           <EasyVarsWrap>
             <EasyVars />
           </EasyVarsWrap>
         )}
-      {!variableDefinitions && editorType === 'InputEditor' && (
-        <Note>Input editors will appear here after you've selected variables.</Note>
-      )}
 
-      {variableDefinitions && variableDefinitions.length > 0 && (
-        <EditorOptionWrap>
-          <OptionItem
-            title="Select an editor type"
-            control={
-              <ToggleGroup
-                ariaLabel="Enable or disable EasyVars"
-                defaultValue={`InputEditor`}
-                items={[
-                  {
-                    ariaLabel: 'Use input editor',
-                    value: 'InputEditor',
-                    icon: <Input />,
-                  },
-                  { ariaLabel: 'Use code editor', value: 'CodeEditor', icon: <Code /> },
-                ]}
-                onChange={(value) => setEditorTtype(value as EditorType)}
-                size="mini"
-                value={editorType}
-              />
-            }
-          />
-        </EditorOptionWrap>
-      )}
+      {editorType === 'InputEditor' &&
+        ((variableDefinitions && variableDefinitions?.length === 0) ||
+          !variableDefinitions) && <Note>There are no active variable definitions.</Note>}
+
+      {/* {variableDefinitions && variableDefinitions.length > 0 && ( */}
+      <EditorOptionWrap>
+        <OptionItem
+          title="Select an editor type"
+          control={
+            <ToggleGroup
+              ariaLabel="Enable or disable EasyVars"
+              defaultValue={`InputEditor`}
+              items={[
+                {
+                  ariaLabel: 'Use input editor',
+                  value: 'InputEditor',
+                  icon: <Input />,
+                },
+                { ariaLabel: 'Use code editor', value: 'CodeEditor', icon: <Code /> },
+              ]}
+              onChange={(value) => setEditorTtype(value as EditorType)}
+              size="mini"
+              value={editorType}
+            />
+          }
+        />
+      </EditorOptionWrap>
+      {/* )} */}
     </VariablesWrap>
   );
 };

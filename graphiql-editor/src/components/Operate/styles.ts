@@ -4,7 +4,7 @@ export const OperateWrap = styled('div', {
   position: 'relative',
   width: '100%',
   // height: '100%',
-  backgroundColor: '$scale100',
+  backgroundColor: 'white',
   overflow: 'hidden',
   borderRadius: 16,
   boxShadow:

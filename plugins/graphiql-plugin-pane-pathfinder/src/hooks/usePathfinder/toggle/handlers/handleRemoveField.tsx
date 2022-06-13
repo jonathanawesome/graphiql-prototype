@@ -1,5 +1,8 @@
 import { ArgumentNode, FieldNode, Kind, SelectionNode } from 'graphql';
-import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
+import {
+  getActiveEditorTab,
+  useGraphiQLEditor,
+} from '@graphiql-v2-prototype/graphiql-editor';
 
 /** types */
 import {
@@ -10,6 +13,8 @@ import {
 
 /** utils */
 import { capitalize } from '../../../../utils';
+
+const removeVariables = useGraphiQLEditor.getState().removeVariables;
 
 export const handleRemoveField = ({
   ancestor,
@@ -22,9 +27,6 @@ export const handleRemoveField = ({
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
   target: AncestorField;
 }) => {
-  // const operationDefinition = useGraphiQL.getState().operationDefinition;
-  // const variableDefinitions = operationDefinition?.variableDefinitions;
-  // const removeVariables = useGraphiQL.getState().removeVariables;
   const activeEditorTab = getActiveEditorTab();
   const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
 
@@ -65,7 +67,7 @@ export const handleRemoveField = ({
     );
 
     // clear easyVars
-    // removeVariables({ variableNames: variableNamesToRemove });
+    removeVariables({ variableNames: variableNamesToRemove });
 
     if (variableNamesToRemove && remainingVarDefs) {
       setNextVariableDefinitions({

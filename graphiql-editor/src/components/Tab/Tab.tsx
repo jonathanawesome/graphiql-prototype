@@ -17,10 +17,10 @@ export const Tab = ({
   const { editorTabs, removeEditorTab, setActiveEditorTabId, swapEditorTab } =
     useGraphiQLEditor();
 
-  const thisTab = editorTabs.find((tab) => tab.editorTabId === editorTabId);
-  const name = thisTab?.operationDefinition?.name;
+  const tab = editorTabs.find((tab) => tab.editorTabId === editorTabId);
+  const name = tab?.operationDefinition?.name;
 
-  console.log('rendering Tab', { thisTab, name });
+  // console.log('rendering Tab', { tab, name });
 
   const handleTabChange = () => {
     setActiveEditorTabId({ editorTabId });

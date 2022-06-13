@@ -32,7 +32,7 @@ export const Navigation = ({
           isActive={activePane === 'GraphiQL'}
           onClick={() => setActivePane('GraphiQL')}
           //TODO remove/replace
-          title="SomeTitle Here"
+          title="GraphiQL"
         >
           <GraphQLIcon />
         </PanePluginNavigationItem>

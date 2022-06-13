@@ -87,7 +87,7 @@ export const SchemaSelector = () => {
       aria-label="Choose schema"
       onValueChange={(value) => handleSchemaChange(value)}
     >
-      <Note>Note: switching schemas will reset existing tab instances</Note>
+      <Note>Switching schemas will reset existing tab instances</Note>
       <fieldset disabled={loading}>
         {import.meta.env.MODE === 'development' && (
           <Radio

@@ -4,7 +4,8 @@ import create from 'zustand';
 import { GraphiQLStore } from './types';
 
 export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
-  activePane: 'GraphiQL',
+  // activePane: 'GraphiQL',
+  activePane: 'Pathfinder',
   setActivePane: (activePane) => {
     set({ activePane });
   },

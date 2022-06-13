@@ -1,5 +1,9 @@
 import { ArgumentNode, Kind } from 'graphql';
-import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
+import {
+  getActiveEditorTab,
+  getDisplayStringFromVariableDefinitionTypeNode,
+  useGraphiQLEditor,
+} from '@graphiql-v2-prototype/graphiql-editor';
 
 /** types */
 import {
@@ -11,6 +15,8 @@ import {
 /** utils */
 import { buildNewVariableDefinition } from '../../../../utils';
 
+const updateVariable = useGraphiQLEditor.getState().updateVariable;
+
 export const handleAddArgument = ({
   ancestor,
   setNextAction,
@@ -21,7 +27,6 @@ export const handleAddArgument = ({
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
 }) => {
   const activeEditorTab = getActiveEditorTab();
-  // const addVariable = useGraphiQL.getState().addVariable;
   const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
 
   // console.log('running handleAddArgument', {
@@ -41,14 +46,12 @@ export const handleAddArgument = ({
     ],
   });
 
-  // addVariable({
-  //   easyVar: {
-  //     argument: ancestor.argument,
-  //     variableName: ancestor.variableName,
-  //     variableType: ancestor.argument.type,
-  //     variableValue: '',
-  //   },
-  // });
+  updateVariable({
+    variableName: ancestor.variableName,
+    variableValue: getDisplayStringFromVariableDefinitionTypeNode({
+      type: newVarDef.type,
+    }),
+  });
 
   const newArgumentNode: ArgumentNode = {
     kind: Kind.ARGUMENT,

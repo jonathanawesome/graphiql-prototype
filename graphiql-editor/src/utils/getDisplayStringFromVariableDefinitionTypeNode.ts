@@ -1,7 +1,11 @@
 import { Kind, TypeNode } from 'graphql';
 
 // returns display type, such as "[ID!]!"
-export const getDisplayString = ({ type }: { type: TypeNode }) => {
+export const getDisplayStringFromVariableDefinitionTypeNode = ({
+  type,
+}: {
+  type: TypeNode;
+}) => {
   let str = '';
   if (type.kind === Kind.NON_NULL_TYPE) {
     if (type.type.kind === Kind.LIST_TYPE) {
