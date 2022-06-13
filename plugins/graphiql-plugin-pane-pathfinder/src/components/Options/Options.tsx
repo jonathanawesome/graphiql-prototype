@@ -29,12 +29,13 @@ const OptionsContent = () => {
           <ToggleGroup
             ariaLabel="Type pills visibility"
             defaultValue={`Off`}
-            value={pillsVisibility}
             items={[
               { ariaLabel: 'Do not display type pills', value: 'Off' },
               { ariaLabel: 'Display type pills', value: 'On' },
             ]}
             onChange={(value) => setPillsVisibility(value as PillsVisibility)}
+            size="regular"
+            value={pillsVisibility}
           />
         }
       />
@@ -45,7 +46,6 @@ const OptionsContent = () => {
           <ToggleGroup
             ariaLabel="Description visibility"
             defaultValue={`Inline`}
-            value={descriptionsVisibility}
             items={[
               { ariaLabel: 'Descriptions below item details', value: 'Below' },
               { ariaLabel: 'Descriptions inline with item details', value: 'Inline' },
@@ -54,6 +54,8 @@ const OptionsContent = () => {
             onChange={(value) =>
               setDescriptionsVisibility(value as DescriptionsVisibility)
             }
+            size="regular"
+            value={descriptionsVisibility}
           />
         }
       />

@@ -6,6 +6,7 @@ import { OperationActionsWrap, PlayButton, PrettierButton } from './styles';
 
 export const OperationActions = () => {
   const { executeOperation } = useGraphiQLEditor();
+
   return (
     <OperationActionsWrap>
       <PlayButton

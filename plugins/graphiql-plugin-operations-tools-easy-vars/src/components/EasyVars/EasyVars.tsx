@@ -25,12 +25,6 @@ const EasyVar = ({
 }) => {
   // console.log('rendering easyVar', {
   //   variableDefinition,
-  //   getTypeNameValue: getTypeNameValue({
-  //     type: variableDefinition.type,
-  //   }),
-  //   getDisplayString: getDisplayString({
-  //     type: variableDefinition.type,
-  //   }),
   // });
 
   const [newVariableListValue, setNewVariableListValue] = useState<

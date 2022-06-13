@@ -28,7 +28,7 @@ export const Operate = ({
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const operationsEditorRef = useRef<HTMLDivElement | null>(null);
-  const bottomPaneRef = useRef<HTMLDivElement | null>(null);
+  const operationsToolsRef = useRef<HTMLDivElement | null>(null);
 
   const [operationEditorHeight, setOperationEditorHeight] = useState<null | number>(null);
 
@@ -38,12 +38,16 @@ export const Operate = ({
   }, [operationEditorHeight]);
 
   const setHeight = () => {
-    if (operationsEditorRef.current && bottomPaneRef.current && containerRef.current) {
+    if (
+      operationsEditorRef.current &&
+      operationsToolsRef.current &&
+      containerRef.current
+    ) {
       if (!operationEditorHeight) {
         return setOperationEditorHeight(operationsEditorRef.current.clientHeight);
       }
       operationsEditorRef.current.style.height = `${
-        containerRef.current.clientHeight - bottomPaneRef.current.clientHeight
+        containerRef.current.clientHeight - operationsToolsRef.current.clientHeight
       }px`;
     }
     return undefined;
@@ -57,7 +61,7 @@ export const Operate = ({
           <OperationActions />
         </OperationActionsWrap>
       </OperationEditor>
-      <OperationToolsWrap ref={bottomPaneRef}>
+      <OperationToolsWrap ref={operationsToolsRef}>
         <OperationTools setHeight={setHeight} variablesModel={variablesModel} />
       </OperationToolsWrap>
     </OperateWrap>

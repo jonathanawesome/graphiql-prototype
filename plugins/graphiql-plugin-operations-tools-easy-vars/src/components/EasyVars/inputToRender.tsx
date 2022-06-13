@@ -67,7 +67,6 @@ export const inputToRender = ({
     );
   } else {
     // it's an enum, let's setup the SelectInput
-    // const values = unwrappedNonNullType.getValues();
     inputToRender = (
       <SelectInput
         handleVariableChange={handleVariableChange}
@@ -78,45 +77,9 @@ export const inputToRender = ({
             enumTypeName: typeNameValue,
           }) || []
         }
-        // values={values.map((val) => ({
-        //   value: val.value,
-        //   name: val.name,
-        //   description: val.description || undefined,
-        // }))}
       />
     );
   }
-  // } else if (
-  //   isScalarType(easyVar.variableType) &&
-  //   easyVar.variableType.name === 'Boolean'
-  // ) {
-  //   // we want to show a SelectInput for Boolean scalars
-  //   inputToRender = (
-  //     <SelectInput
-  //       handleVariableChange={handleVariableChange}
-  //       id={cuid.slug()}
-  //       variableName={name}
-  //       values={[
-  //         {
-  //           value: 'true',
-  //           name: 'True',
-  //         },
-  //         {
-  //           value: 'false',
-  //           name: 'False',
-  //         },
-  //       ]}
-  //     />
-  //   );
-  // } else {
-  //   inputToRender = (
-  //     <Input
-  //       defaultValue={defaultInputValue({ typeNameAsString: unwrappedInputType.name })}
-  //       handleVariableChange={handleVariableChange}
-  //       id={cuid.slug()}
-  //       variableName={easyVar.variableName}
-  //     />
-  //   );
-  // }
+
   return inputToRender;
 };
