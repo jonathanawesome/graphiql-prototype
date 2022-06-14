@@ -1,1 +1,0 @@
-import{u as t,j as e,a as i}from"./index.a3df4ec8.js";import{P as s}from"./ToggleGroup.4f49178e.js";const a=()=>{const{operation:r}=t();return e("div",{style:{display:"grid",gridTemplateColumns:"1fr 200px",height:"100%"},children:[i(s,{}),r&&i("div",{children:r})]})};a.storyName="Pathfinder";export{a as PathfinderStory};

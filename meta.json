@@ -5,13 +5,23 @@
     "version": 1
   },
   "stories": {
+    "editor--graphi-q-l-editor": {
+      "name": "Graphi q l editor",
+      "levels": [
+        "Editor"
+      ],
+      "locStart": 3,
+      "locEnd": 5,
+      "filePath": "src/Editor.stories.tsx",
+      "meta": {}
+    },
     "pathfinder--pathfinder": {
       "name": "Pathfinder",
       "levels": [
         "Pathfinder"
       ],
       "locStart": 6,
-      "locEnd": 15,
+      "locEnd": 17,
       "filePath": "src/Pathfinder.stories.tsx",
       "meta": {}
     },
@@ -20,9 +30,57 @@
       "levels": [
         "Reference"
       ],
-      "locStart": 3,
-      "locEnd": 7,
+      "locStart": 11,
+      "locEnd": 18,
       "filePath": "src/Reference.stories.tsx",
+      "meta": {}
+    },
+    "resizer--resizer---horizontal---bar": {
+      "name": " bar",
+      "levels": [
+        "Resizer",
+        "Resizer",
+        " horizontal"
+      ],
+      "locStart": 11,
+      "locEnd": 22,
+      "filePath": "src/Resizer.stories.tsx",
+      "meta": {}
+    },
+    "resizer--resizer---horizontal---ghost": {
+      "name": " ghost",
+      "levels": [
+        "Resizer",
+        "Resizer",
+        " horizontal"
+      ],
+      "locStart": 26,
+      "locEnd": 37,
+      "filePath": "src/Resizer.stories.tsx",
+      "meta": {}
+    },
+    "resizer--resizer---vertical---bar": {
+      "name": " bar",
+      "levels": [
+        "Resizer",
+        "Resizer",
+        " vertical"
+      ],
+      "locStart": 41,
+      "locEnd": 52,
+      "filePath": "src/Resizer.stories.tsx",
+      "meta": {}
+    },
+    "resizer--resizer---vertical---ghost": {
+      "name": " ghost",
+      "levels": [
+        "Resizer",
+        "Resizer",
+        " vertical"
+      ],
+      "locStart": 56,
+      "locEnd": 67,
+      "filePath": "src/Resizer.stories.tsx",
       "meta": {}
     }
   }
