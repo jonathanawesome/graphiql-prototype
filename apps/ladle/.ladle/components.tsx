@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
-import { globalStyles, useGraphiQL } from '@graphiql-v2-prototype/graphiql-v2'
+import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor'
+import { globalStyles } from '@graphiql-v2-prototype/graphiql-ui-library'
 
 export const Provider = ({ children}: {children: React.ReactNode}) => {
   globalStyles();
 
-  const {  initSchema } = useGraphiQL();
+  const { initSchema } = useGraphiQLEditor();
 
   useEffect(() => {
-    initSchema({});
+    initSchema({url: "https://rickandmortyapi.com/graphql"});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   return children
 };

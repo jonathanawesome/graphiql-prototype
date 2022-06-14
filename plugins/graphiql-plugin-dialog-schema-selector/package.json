@@ -1,0 +1,18 @@
+{
+  "name": "@graphiql-v2-prototype/graphiql-plugin-dialog-schema-selector",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "scripts": {
+    "tsc": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",
+    "@graphiql-v2-prototype/graphiql-editor": "workspace:*",
+    "@radix-ui/react-radio-group": "^0.1.5",
+    "react": "17.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.2",
+    "vite": "2.9.6"
+  }
+}

@@ -1,31 +1,56 @@
 /** components */
-import { SettingsDialog } from '../index';
-import { Command, Docs, History } from '../../icons';
+import { GraphQLIcon } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { DialogPlugins } from '../DialogPlugins';
+
+/** hooks */
+import { useGraphiQL } from '../../hooks';
 
 /** styles */
-import { PanePlugins, SibebarPlugins, NavigationStyled } from './styles';
+import {
+  NavigationStyled,
+  PanePluginNavigation,
+  PanePluginNavigationItem,
+} from './styles';
+
+/** types */
+import { PanePluginsArray } from '../PanePlugins/types';
+import { DialogPluginsArray } from '../DialogPlugins/types';
 
 export const Navigation = ({
-  sidebarPlugins,
+  panePlugins,
+  dialogPlugins,
 }: {
-  sidebarPlugins?: React.ReactElement[];
+  panePlugins: PanePluginsArray;
+  dialogPlugins: DialogPluginsArray;
 }) => {
-  return (
-    <NavigationStyled>
-      <PanePlugins>
-        <Docs />
-        <div style={{ cursor: 'not-allowed' }}>
-          <History />
-        </div>
-      </PanePlugins>
+  const { activePane, setActivePane } = useGraphiQL();
 
-      <SibebarPlugins>
-        {sidebarPlugins && sidebarPlugins.map((s) => <div key={s?.toString()}>{s}</div>)}
-        <div style={{ cursor: 'not-allowed' }}>
-          <Command />
-        </div>
-        <SettingsDialog />
-      </SibebarPlugins>
+  return (
+    <NavigationStyled showBorder={activePane !== 'GraphiQL'}>
+      <PanePluginNavigation>
+        <PanePluginNavigationItem
+          isActive={activePane === 'GraphiQL'}
+          onClick={() => setActivePane('GraphiQL')}
+          //TODO remove/replace
+          title="GraphiQL"
+        >
+          <GraphQLIcon />
+        </PanePluginNavigationItem>
+        {panePlugins?.map((panePlugin) => (
+          <PanePluginNavigationItem
+            key={panePlugin.panePluginName}
+            isActive={activePane === panePlugin.panePluginName}
+            onClick={() => setActivePane(panePlugin.panePluginName)}
+            title={`${activePane === panePlugin.panePluginName ? 'Close' : 'Show'} ${
+              panePlugin.panePluginName
+            }`}
+          >
+            <panePlugin.panePluginIcon />
+          </PanePluginNavigationItem>
+        ))}
+      </PanePluginNavigation>
+
+      <DialogPlugins dialogPlugins={dialogPlugins} />
     </NavigationStyled>
   );
 };

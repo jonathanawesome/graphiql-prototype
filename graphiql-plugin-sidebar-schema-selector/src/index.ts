@@ -1,1 +1,0 @@
-export { SchemaSelector } from './components';
