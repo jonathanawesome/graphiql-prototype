@@ -1,0 +1,1 @@
+import{g as e,a as s,j as o}from"./index.085a0b00.js";import{P as t}from"./UnionType.d977259f.js";const n=()=>{const r=e();return console.log(r),s("div",{style:{display:"grid",gridTemplateColumns:"1fr 200px",height:"100%"},children:[o(t,{}),(r==null?void 0:r.operation)&&o("div",{children:r==null?void 0:r.operation})]})};n.storyName="Pathfinder";export{n as PathfinderStory};

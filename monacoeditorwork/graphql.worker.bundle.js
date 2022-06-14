@@ -33202,7 +33202,7 @@ spurious results.`);
     return new GraphQLSchema({ ...config, directives });
   }
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5/node_modules/graphql-language-service/esm/interface/autocompleteUtils.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/esm/interface/autocompleteUtils.js
   var import_introspection8 = __toESM(require_introspection());
   function getDefinitionState(tokenState) {
     let definitionState;
@@ -34749,7 +34749,7 @@ spurious results.`);
     Is2.typedArray = typedArray;
   })(Is || (Is = {}));
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5/node_modules/graphql-language-service/esm/parser/CharacterStream.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/esm/parser/CharacterStream.js
   var CharacterStream = class {
     constructor(sourceText) {
       this.getStartOfToken = () => this._start;
@@ -34856,7 +34856,7 @@ spurious results.`);
     }
   };
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5/node_modules/graphql-language-service/esm/parser/RuleHelpers.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/esm/parser/RuleHelpers.js
   function opt(ofRule) {
     return { ofRule };
   }
@@ -34884,7 +34884,7 @@ spurious results.`);
     };
   }
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5/node_modules/graphql-language-service/esm/parser/Rules.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/esm/parser/Rules.js
   var isIgnored = (ch) => ch === " " || ch === "	" || ch === "," || ch === "\n" || ch === "\r" || ch === "\uFEFF" || ch === "\xA0";
   var LexRules = {
     Name: /^[_A-Za-z][_0-9A-Za-z]*/,
@@ -35150,7 +35150,7 @@ spurious results.`);
     };
   }
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5/node_modules/graphql-language-service/esm/parser/onlineParser.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/esm/parser/onlineParser.js
   function onlineParser(options = {
     eatWhitespace: (stream) => stream.eatWhile(isIgnored),
     lexRules: LexRules,
@@ -35347,7 +35347,7 @@ spurious results.`);
     }
   }
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5/node_modules/graphql-language-service/esm/parser/types.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/esm/parser/types.js
   var AdditionalRuleKinds = {
     ALIASED_FIELD: "AliasedField",
     ARGUMENTS: "Arguments",
@@ -35379,7 +35379,7 @@ spurious results.`);
   };
   var RuleKinds = Object.assign(Object.assign({}, Kind), AdditionalRuleKinds);
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5/node_modules/graphql-language-service/esm/interface/getAutocompleteSuggestions.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/esm/interface/getAutocompleteSuggestions.js
   var SuggestionCommand = {
     command: "editor.action.triggerSuggest",
     title: "Suggestions"
@@ -36021,10 +36021,10 @@ spurious results.`);
     };
   }
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5/node_modules/graphql-language-service/esm/utils/fragmentDependencies.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/esm/utils/fragmentDependencies.js
   var import_nullthrows = __toESM(require_nullthrows());
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5/node_modules/graphql-language-service/esm/utils/getVariablesJSONSchema.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/esm/utils/getVariablesJSONSchema.js
   function text(into, newText) {
     into.push(newText);
   }
@@ -36177,7 +36177,7 @@ spurious results.`);
     return jsonSchema;
   }
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5/node_modules/graphql-language-service/esm/utils/Range.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/esm/utils/Range.js
   var Range3 = class {
     constructor(start, end) {
       this.containsPosition = (position) => {
@@ -36213,7 +36213,7 @@ spurious results.`);
     }
   };
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5/node_modules/graphql-language-service/esm/utils/validateWithCustomRules.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/esm/utils/validateWithCustomRules.js
   var specifiedSDLRules2 = [
     LoneSchemaDefinitionRule,
     UniqueOperationTypesRule,
@@ -36259,7 +36259,7 @@ spurious results.`);
     });
   }
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5/node_modules/graphql-language-service/esm/utils/collectVariables.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/esm/utils/collectVariables.js
   function collectVariables(schema, documentAST) {
     const variableToType = /* @__PURE__ */ Object.create(null);
     documentAST.definitions.forEach((definition) => {
@@ -36282,7 +36282,7 @@ spurious results.`);
     return variableToType;
   }
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5/node_modules/graphql-language-service/esm/utils/getOperationFacts.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/esm/utils/getOperationFacts.js
   function getOperationASTFacts(documentAST, schema) {
     const variableToType = schema ? collectVariables(schema, documentAST) : void 0;
     const operations = [];
@@ -36294,7 +36294,7 @@ spurious results.`);
     return { variableToType, operations };
   }
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5/node_modules/graphql-language-service/esm/interface/getDiagnostics.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/esm/interface/getDiagnostics.js
   var SEVERITY = {
     Error: "Error",
     Warning: "Warning",
@@ -36400,10 +36400,10 @@ spurious results.`);
     return location;
   }
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5/node_modules/graphql-language-service/esm/interface/getOutline.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/esm/interface/getOutline.js
   var { INLINE_FRAGMENT } = Kind;
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5/node_modules/graphql-language-service/esm/interface/getHoverInformation.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/esm/interface/getHoverInformation.js
   function getHoverInformation(schema, queryText, cursor, contextToken, config) {
     const token = contextToken || getTokenAtPosition(queryText, cursor);
     if (!schema || !token || !token.state) {
@@ -36554,7 +36554,7 @@ spurious results.`);
     into.push(content);
   }
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5/node_modules/graphql-language-service/esm/types.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/esm/types.js
   var CompletionItemKind3;
   (function(CompletionItemKind4) {
     CompletionItemKind4.Text = 1;
@@ -36584,10 +36584,10 @@ spurious results.`);
     CompletionItemKind4.TypeParameter = 25;
   })(CompletionItemKind3 || (CompletionItemKind3 = {}));
 
-  // ../../node_modules/.pnpm/monaco-graphql@1.0.17/node_modules/monaco-graphql/esm/LanguageService.js
+  // ../../node_modules/.pnpm/monaco-graphql@1.1.1_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/esm/LanguageService.js
   var import_picomatch_browser = __toESM(require_picomatch_browser());
 
-  // ../../node_modules/.pnpm/monaco-graphql@1.0.17/node_modules/monaco-graphql/esm/schemaLoader.js
+  // ../../node_modules/.pnpm/monaco-graphql@1.1.1_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/esm/schemaLoader.js
   var defaultSchemaLoader = (schemaConfig, parser) => {
     const { schema, documentAST, introspectionJSON, introspectionJSONString, buildSchemaOptions, documentString } = schemaConfig;
     if (schema) {
@@ -36610,18 +36610,18 @@ spurious results.`);
     throw Error("no schema supplied");
   };
 
-  // ../../node_modules/.pnpm/monaco-graphql@1.0.17/node_modules/monaco-graphql/esm/LanguageService.js
+  // ../../node_modules/.pnpm/monaco-graphql@1.1.1_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/esm/LanguageService.js
   var schemaCache = /* @__PURE__ */ new Map();
   var LanguageService = class {
-    constructor({ parser, schemas, parseOptions, exteralFragmentDefinitions, customValidationRules }) {
+    constructor({ parser, schemas, parseOptions, externalFragmentDefinitions, customValidationRules }) {
       this._parser = parse;
       this._schemas = [];
       this._schemaCache = schemaCache;
       this._schemaLoader = defaultSchemaLoader;
       this._parseOptions = void 0;
       this._customValidationRules = void 0;
-      this._exteralFragmentDefinitionNodes = null;
-      this._exteralFragmentDefinitionsString = null;
+      this._externalFragmentDefinitionNodes = null;
+      this._externalFragmentDefinitionsString = null;
       this.getCompletion = (uri, documentText, position) => {
         const schema = this.getSchemaForFile(uri);
         if (!documentText || documentText.length < 1 || !schema?.schema) {
@@ -36631,7 +36631,7 @@ spurious results.`);
       };
       this.getDiagnostics = (uri, documentText, customRules) => {
         const schema = this.getSchemaForFile(uri);
-        if (!documentText || documentText.length < 1 || !schema?.schema) {
+        if (!documentText || documentText.trim().length < 2 || !schema?.schema) {
           return [];
         }
         return getDiagnostics(documentText, schema.schema, customRules ?? this._customValidationRules, false, this.getExternalFragmentDefinitions());
@@ -36673,11 +36673,11 @@ spurious results.`);
       if (customValidationRules) {
         this._customValidationRules = customValidationRules;
       }
-      if (exteralFragmentDefinitions) {
-        if (Array.isArray(exteralFragmentDefinitions)) {
-          this._exteralFragmentDefinitionNodes = exteralFragmentDefinitions;
+      if (externalFragmentDefinitions) {
+        if (Array.isArray(externalFragmentDefinitions)) {
+          this._externalFragmentDefinitionNodes = externalFragmentDefinitions;
         } else {
-          this._exteralFragmentDefinitionsString = exteralFragmentDefinitions;
+          this._externalFragmentDefinitionsString = externalFragmentDefinitions;
         }
       }
     }
@@ -36718,21 +36718,21 @@ spurious results.`);
       }
     }
     getExternalFragmentDefinitions() {
-      if (!this._exteralFragmentDefinitionNodes && this._exteralFragmentDefinitionsString) {
+      if (!this._externalFragmentDefinitionNodes && this._externalFragmentDefinitionsString) {
         const definitionNodes = [];
         try {
-          visit(this._parser(this._exteralFragmentDefinitionsString), {
+          visit(this._parser(this._externalFragmentDefinitionsString), {
             FragmentDefinition(node) {
               definitionNodes.push(node);
             }
           });
         } catch (err) {
-          throw Error(`Failed parsing exteralFragmentDefinitions string:
-${this._exteralFragmentDefinitionsString}`);
+          throw Error(`Failed parsing externalFragmentDefinitions string:
+${this._externalFragmentDefinitionsString}`);
         }
-        this._exteralFragmentDefinitionNodes = definitionNodes;
+        this._externalFragmentDefinitionNodes = definitionNodes;
       }
-      return this._exteralFragmentDefinitionNodes;
+      return this._externalFragmentDefinitionNodes;
     }
     async updateSchemas(schemas) {
       this._schemas = schemas;
@@ -36756,7 +36756,7 @@ ${this._exteralFragmentDefinitionsString}`);
     }
   };
 
-  // ../../node_modules/.pnpm/monaco-graphql@1.0.17/node_modules/monaco-graphql/esm/utils.js
+  // ../../node_modules/.pnpm/monaco-graphql@1.1.1_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/esm/utils.js
   function toMonacoRange(range) {
     return {
       startLineNumber: range.start.line + 1,
@@ -36800,7 +36800,7 @@ ${this._exteralFragmentDefinitionsString}`);
     };
   }
 
-  // ../../node_modules/.pnpm/monaco-graphql@1.0.17/node_modules/monaco-graphql/esm/GraphQLWorker.js
+  // ../../node_modules/.pnpm/monaco-graphql@1.1.1_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/esm/GraphQLWorker.js
   var GraphQLWorker = class {
     constructor(ctx, createData) {
       this._ctx = ctx;
@@ -36826,7 +36826,6 @@ ${this._exteralFragmentDefinitionsString}`);
         const documentModel = this._getTextModel(uri);
         const document = documentModel?.getValue();
         if (!document) {
-          console.log("no document");
           return [];
         }
         const graphQLPosition = toGraphQLPosition(position);
@@ -36903,7 +36902,7 @@ ${this._exteralFragmentDefinitionsString}`);
     }
   };
 
-  // ../../node_modules/.pnpm/monaco-graphql@1.0.17/node_modules/monaco-graphql/esm/graphql.worker.js
+  // ../../node_modules/.pnpm/monaco-graphql@1.1.1_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/esm/graphql.worker.js
   self.onmessage = () => {
     try {
       initialize((ctx, createData) => {
