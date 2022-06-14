@@ -24,9 +24,10 @@ export const MonacoEditor = ({
 
   const {
     activeEditorTabId,
+    addMonacoEditor,
     editorTabs,
     monacoEditors,
-    addMonacoEditor,
+    operationAction,
     updateEditorTabData,
   } = useGraphiQLEditor();
 
@@ -79,7 +80,8 @@ export const MonacoEditor = ({
           ],
           () => []
         );
-        monacoEditor.editor.getAction('editor.action.formatDocument').run();
+        // TODO...if we can format here, why do we need a prettier button?
+        // monacoEditor.editor.getAction('editor.action.formatDocument').run();
         /** end option 2 */
       }
     }
@@ -110,6 +112,10 @@ export const MonacoEditor = ({
           newValue: editor.getValue(),
         });
       });
+
+      if (editorType !== 'results') {
+        editor.addAction(operationAction());
+      }
 
       MONACO_EDITOR.defineTheme('myTheme', editorTheme);
     }
