@@ -23,6 +23,7 @@ import {
   parseQuery,
   pushEditOperationsToModel,
 } from '../../utils';
+import { KeyCode, KeyMod } from 'monaco-editor';
 
 export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   activeEditorTabId: null,
@@ -250,12 +251,12 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       });
     }
   },
-  // operationAction: () => ({
-  //   id: 'graphql-run',
-  //   label: 'Run Operation',
-  //   contextMenuOrder: 0,
-  //   contextMenuGroupId: 'graphql',
-  //   keybindings: [KeyMod.CtrlCmd | KeyCode.Enter],
-  //   run: get().executeOperation,
-  // }),
+  operationAction: () => ({
+    id: 'graphql-run-operation',
+    label: 'Run Operation',
+    contextMenuOrder: 0,
+    contextMenuGroupId: 'graphql',
+    keybindings: [KeyMod.CtrlCmd | KeyCode.Enter],
+    run: get().executeOperation,
+  }),
 }));

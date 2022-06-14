@@ -49,6 +49,7 @@ export type GraphiQLEditorStore = {
     name: MonacoEditorTypes;
   }) => void;
   executeOperation: () => Promise<void>;
+  operationAction: () => MONACO_EDITOR.IActionDescriptor;
   schema: GraphQLSchema | null;
   schemaUrl: string | null;
   initSchema: ({ url }: { url?: string }) => Promise<void>;

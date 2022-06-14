@@ -5,7 +5,9 @@ import { useGraphiQLEditor } from '../../hooks';
 import { OperationActionsWrap, PlayButton, PrettierButton } from './styles';
 
 export const OperationActions = () => {
-  const { executeOperation } = useGraphiQLEditor();
+  const { executeOperation, monacoEditors } = useGraphiQLEditor();
+
+  const operationEditor = monacoEditors.find((e) => e.name === 'operation');
 
   return (
     <OperationActionsWrap>
@@ -17,9 +19,9 @@ export const OperationActions = () => {
         <Play />
       </PlayButton>
       <PrettierButton
-        onClick={() => {
-          // operationsEditor?.editor.getAction('editor.action.formatDocument').run();
-        }}
+        onClick={() =>
+          operationEditor?.editor.getAction('editor.action.formatDocument').run()
+        }
       >
         <Prettier />
       </PrettierButton>
