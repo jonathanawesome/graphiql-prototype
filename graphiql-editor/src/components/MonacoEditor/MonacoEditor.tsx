@@ -41,7 +41,6 @@ export const MonacoEditor = ({
   // });
 
   useEffect(() => {
-    console.log('rendering MonacoEditor, editorTab changing', { editorTab });
     if (editorTab && monacoEditor) {
       const model = monacoEditor.editor.getModel();
 
