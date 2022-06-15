@@ -13,7 +13,10 @@ import { INPUT_TYPES } from './constants';
 import { HandleVariableChangeSignature } from './types';
 
 /** utils */
-import { defaultInputValue, getReadyEnumValues } from '../../utils';
+import {
+  getDefaultInputValue,
+  getEnumValues,
+} from '@graphiql-v2-prototype/graphiql-editor';
 
 export const inputToRender = ({
   handleVariableChange,
@@ -59,7 +62,7 @@ export const inputToRender = ({
   } else if (INPUT_TYPES.includes(typeNameValue)) {
     inputToRender = (
       <Input
-        defaultValue={defaultInputValue({ typeNameAsString: typeNameValue })}
+        defaultValue={getDefaultInputValue({ typeNameAsString: typeNameValue })}
         handleVariableChange={handleVariableChange}
         id={cuid.slug()}
         variableName={variableDefinition.variable.name.value}
@@ -73,7 +76,7 @@ export const inputToRender = ({
         id={cuid.slug()}
         variableName={name}
         values={
-          getReadyEnumValues({
+          getEnumValues({
             enumTypeName: typeNameValue,
           }) || []
         }

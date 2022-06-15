@@ -1,27 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { useState, useEffect } from 'react';
+import { FieldInput, HandleChange } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 /** types */
-import { HandleVariableChangeSignature } from '../types';
-
-const StyledInput = styled('div', {
-  width: '100%',
-  input: {
-    all: 'unset',
-    boxSizing: 'border-box',
-    width: '100%',
-    textAlign: 'right',
-    color: '$accentWarning',
-    paddingRight: 12,
-    '&::placeholder': {
-      color: '$scale600',
-    },
-    '&:focus': {
-      backgroundColor: '$scale200',
-    },
-    minHeight: 32,
-  },
-});
+import { HandleVariableChange, HandleVariableChangeSignature } from '../types';
 
 export const Input = ({
   defaultValue,
@@ -34,16 +15,16 @@ export const Input = ({
   id: string;
   variableName: string;
 }) => {
-  const [value, setValue] = useState<string>('');
+  const [val, setVal] = useState<string>('');
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+  const handleChange = ({ name, value }: HandleChange) => {
+    setVal(value);
   };
 
   useEffect(() => {
-    handleVariableChange({ id, value, variableName });
+    handleVariableChange({ id, value: val, variableName });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  }, [val]);
 
   // this order 👆 👇 is critical, don't change it
 
@@ -53,15 +34,12 @@ export const Input = ({
   }, []);
 
   return (
-    <StyledInput>
-      <input
-        autoComplete="off"
-        name={variableName}
-        onChange={(e) => handleInputChange(e)}
-        placeholder={defaultValue}
-        type="text"
-        value={value}
-      />
-    </StyledInput>
+    <FieldInput
+      handleChange={handleChange}
+      // id={id}
+      name={variableName}
+      placeholder={defaultValue}
+      value={val}
+    />
   );
 };

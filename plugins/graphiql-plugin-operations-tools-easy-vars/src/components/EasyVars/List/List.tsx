@@ -16,7 +16,10 @@ import { AddItemButton, RemoveItemButton, StyledList, StyledListItem } from './s
 import { HandleVariableChangeSignature } from '../types';
 
 /** utils */
-import { defaultInputValue, getReadyEnumValues } from '../../../utils';
+import {
+  getDefaultInputValue,
+  getEnumValues,
+} from '@graphiql-v2-prototype/graphiql-editor';
 
 export const List = ({
   handleVariableChange,
@@ -44,7 +47,7 @@ export const List = ({
           id: cuid.slug(),
           component: (
             <Input
-              defaultValue={defaultInputValue({
+              defaultValue={getDefaultInputValue({
                 typeNameAsString: typeNameValue,
               })}
               handleVariableChange={handleVariableChange}
@@ -89,7 +92,7 @@ export const List = ({
               id={cuid.slug()}
               variableName={variableName}
               values={
-                getReadyEnumValues({
+                getEnumValues({
                   enumTypeName: typeNameValue,
                 }) || []
               }
