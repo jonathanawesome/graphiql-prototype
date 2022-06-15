@@ -53,10 +53,9 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
     });
   }
 
-  useEffect(() => {
-    //
-    setIsExpanded(!!selection);
-  }, [selection]);
+  // useEffect(() => {
+  //   setIsExpanded(!!selection);
+  // }, [selection]);
 
   // console.log('rendering Field', {
   //   field,
