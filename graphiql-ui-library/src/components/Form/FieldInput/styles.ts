@@ -13,6 +13,7 @@ export const StyledFieldInput = styled('div', {
     paddingRight: 12,
     height: 32,
     fontSize: 11,
+    borderRadius: '0 7px 7px 0',
 
     '&::placeholder': {
       color: '$scale600',

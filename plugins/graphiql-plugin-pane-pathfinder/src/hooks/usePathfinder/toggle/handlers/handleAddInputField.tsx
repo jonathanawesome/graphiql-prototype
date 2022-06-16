@@ -46,12 +46,12 @@ export const handleAddInputField = ({
     ],
   });
 
-  updateVariable({
-    variableName: ancestor.variableName,
-    variableValue: getDisplayStringFromVariableDefinitionTypeNode({
-      type: newVarDef.type,
-    }),
-  });
+  // updateVariable({
+  //   variableName: ancestor.variableName,
+  //   variableValue: getDisplayStringFromVariableDefinitionTypeNode({
+  //     type: newVarDef.type,
+  //   }),
+  // });
 
   const newObjectFieldNode: ObjectFieldNode = {
     kind: Kind.OBJECT_FIELD,

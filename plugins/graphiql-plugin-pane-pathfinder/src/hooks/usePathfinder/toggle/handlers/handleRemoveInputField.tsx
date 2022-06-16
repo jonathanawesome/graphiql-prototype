@@ -36,7 +36,7 @@ export const handleRemoveInputField = ({
     });
   }
 
-  removeVariables({ variableNames: [ancestor.variableName] });
+  // removeVariables({ variableNames: [ancestor.variableName] });
 
   setNextAction({
     type: 'REMOVE',

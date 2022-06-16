@@ -36,7 +36,7 @@ export const handleRemoveArgument = ({
     nextVariableDefinitions: newVarDefs ?? [],
   });
 
-  removeVariables({ variableNames: [ancestor.variableName] });
+  // removeVariables({ variableNames: [ancestor.variableName] });
 
   return setNextAction({
     type: 'REMOVE',

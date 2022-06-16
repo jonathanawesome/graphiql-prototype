@@ -140,6 +140,22 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
           operationDefinition: null,
         };
       } else if (isExecutableDefinitionNode(newDefinition)) {
+        // TODO: do we want to populate the variables editor here?
+        // const variableDefinitions = newDefinition.variableDefinitions;
+
+        // if (variableDefinitions && variableDefinitions?.length > 0) {
+        //   const activeEditorTab = editorTabsCopy.find(
+        //     (eT) => eT.editorTabId === activeEditorTabId
+        //   );
+
+        //   const variablesString = activeEditorTab?.variablesModel.getValue();
+
+        //   let parsed: Record<any, any> = {};
+        //   if (variablesString) {
+        //     parsed = JSON.parse(variablesString);
+        //   }
+        // }
+
         editorTabsCopy[existingEditorTabIndex] = {
           ...editorTabsCopy[existingEditorTabIndex],
           operationDefinition: newDefinition,
