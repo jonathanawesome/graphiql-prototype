@@ -35,6 +35,7 @@ export const inputToRender = ({
 
   let inputToRender: React.ReactElement;
   if (isList) {
+    // control is FieldList
     inputToRender = (
       <Form
         formType={{ type: 'DYNAMIC' }}
@@ -53,6 +54,7 @@ export const inputToRender = ({
       />
     );
   } else if (typeNameValue === 'Boolean') {
+    // control is FieldSelect
     inputToRender = (
       <Form
         formType={{ type: 'DYNAMIC' }}
@@ -80,6 +82,7 @@ export const inputToRender = ({
       />
     );
   } else if (INPUT_TYPES.includes(typeNameValue)) {
+    // control is FieldInput
     inputToRender = (
       <Form
         formType={{ type: 'DYNAMIC' }}
@@ -98,6 +101,7 @@ export const inputToRender = ({
       />
     );
   } else {
+    // control is FieldSelect
     inputToRender = (
       <Form
         formType={{ type: 'DYNAMIC' }}
