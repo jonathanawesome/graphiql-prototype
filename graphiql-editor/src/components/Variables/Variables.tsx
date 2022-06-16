@@ -46,7 +46,10 @@ export const Variables = ({
         variableDefinitions.length > 0 &&
         editorType === 'InputEditor' && (
           <EasyVarsWrap>
-            <EasyVars />
+            <EasyVars
+              variableDefinitions={[...variableDefinitions]}
+              variables={activeEditorTab?.variables}
+            />
           </EasyVarsWrap>
         )}
 
@@ -54,7 +57,6 @@ export const Variables = ({
         ((variableDefinitions && variableDefinitions?.length === 0) ||
           !variableDefinitions) && <Note>There are no active variable definitions.</Note>}
 
-      {/* {variableDefinitions && variableDefinitions.length > 0 && ( */}
       <EditorOptionWrap>
         <OptionItem
           title="Select an editor type"
@@ -77,7 +79,6 @@ export const Variables = ({
           }
         />
       </EditorOptionWrap>
-      {/* )} */}
     </VariablesWrap>
   );
 };

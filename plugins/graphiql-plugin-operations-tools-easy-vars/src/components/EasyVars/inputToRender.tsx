@@ -1,16 +1,14 @@
-import cuid from 'cuid';
 import { VariableDefinitionNode } from 'graphql';
 
 /** components */
-import { Input } from './Input/Input';
-import { List } from './List';
-import { SelectInput } from './SelectInput';
+import {
+  Form,
+  HandleChangeSignature,
+  Pill,
+} from '@graphiql-v2-prototype/graphiql-ui-library';
 
 /** constants */
 import { INPUT_TYPES } from './constants';
-
-/** types */
-import { HandleVariableChangeSignature } from './types';
 
 /** utils */
 import {
@@ -19,12 +17,16 @@ import {
 } from '@graphiql-v2-prototype/graphiql-editor';
 
 export const inputToRender = ({
-  handleVariableChange,
+  currentValue,
+  displayString,
+  handleChange,
   isList,
   typeNameValue,
   variableDefinition,
 }: {
-  handleVariableChange: HandleVariableChangeSignature;
+  currentValue: string | string[];
+  displayString: string;
+  handleChange: HandleChangeSignature;
   isList: boolean;
   typeNameValue: string;
   variableDefinition: VariableDefinitionNode;
@@ -33,53 +35,87 @@ export const inputToRender = ({
 
   let inputToRender: React.ReactElement;
   if (isList) {
-    // rendering a List
     inputToRender = (
-      <List
-        handleVariableChange={handleVariableChange}
-        variableName={variableDefinition.variable.name.value}
-        typeNameValue={typeNameValue}
+      <Form
+        formType={{ type: 'DYNAMIC' }}
+        formControls={[
+          {
+            control: {
+              currentValue: currentValue as string[],
+              handleChange,
+              name,
+              typeNameValue,
+            },
+            label: name,
+            labelAddOn: <Pill copy={displayString} />,
+          },
+        ]}
       />
     );
   } else if (typeNameValue === 'Boolean') {
     inputToRender = (
-      <SelectInput
-        handleVariableChange={handleVariableChange}
-        id={cuid.slug()}
-        variableName={name}
-        values={[
+      <Form
+        formType={{ type: 'DYNAMIC' }}
+        formControls={[
           {
-            value: 'true',
-            name: 'True',
-          },
-          {
-            value: 'false',
-            name: 'False',
+            control: {
+              currentValue: currentValue as string,
+              handleChange,
+              name,
+              options: [
+                {
+                  value: 'true',
+                  name: 'True',
+                },
+                {
+                  value: 'false',
+                  name: 'False',
+                },
+              ],
+            },
+            label: name,
+            labelAddOn: <Pill copy={displayString} />,
           },
         ]}
       />
     );
   } else if (INPUT_TYPES.includes(typeNameValue)) {
     inputToRender = (
-      <Input
-        defaultValue={getDefaultInputValue({ typeNameAsString: typeNameValue })}
-        handleVariableChange={handleVariableChange}
-        id={cuid.slug()}
-        variableName={variableDefinition.variable.name.value}
+      <Form
+        formType={{ type: 'DYNAMIC' }}
+        formControls={[
+          {
+            control: {
+              currentValue: currentValue as string,
+              handleChange,
+              name,
+              placeholder: getDefaultInputValue({ typeNameAsString: typeNameValue }),
+            },
+            label: name,
+            labelAddOn: <Pill copy={displayString} />,
+          },
+        ]}
       />
     );
   } else {
-    // it's an enum, let's setup the SelectInput
     inputToRender = (
-      <SelectInput
-        handleVariableChange={handleVariableChange}
-        id={cuid.slug()}
-        variableName={name}
-        values={
-          getEnumValues({
-            enumTypeName: typeNameValue,
-          }) || []
-        }
+      <Form
+        formType={{ type: 'DYNAMIC' }}
+        formControls={[
+          {
+            control: {
+              currentValue: currentValue as string,
+              handleChange,
+              name,
+              options:
+                getEnumValues({
+                  enumTypeName: typeNameValue,
+                }) || [],
+            },
+            label: name,
+            labelAddOn: <Pill copy={displayString} />,
+          },
+        ]}
       />
     );
   }

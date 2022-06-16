@@ -61,7 +61,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
         delete parsedVariables[v];
       });
       // 3. return to string
-      const newVariablesString = JSON.stringify(parsedVariables);
+      const newVariablesString = JSON.stringify(parsedVariables, null, ' ');
       // 4. update the model
       pushEditOperationsToModel({
         model: activeEditorTab.variablesModel,
@@ -80,7 +80,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       // 2. set the variableName and/or variableValue
       parsedVariables[variableName] = variableValue;
       // 3. return to string
-      const newVariablesString = JSON.stringify(parsedVariables);
+      const newVariablesString = JSON.stringify(parsedVariables, null, ' ');
       // 4. update the model
       pushEditOperationsToModel({
         model: activeEditorTab.variablesModel,
@@ -193,6 +193,11 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       });
 
       console.log('running executeOperation', {
+        operationName: activeEditor.operationDefinition?.name?.value || '',
+        query: activeEditor.operation,
+        variables: activeEditor.variables
+          ? JSONC.parse(activeEditor.variables)
+          : undefined,
         result,
       });
 
@@ -202,7 +207,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       });
     } else {
       alert(
-        `Schucks...you're trying to run an operation on the test schema, but it's not backed by a server. Try clicking the GraphQL icon in the sidebar to explore publicly available schemas.`
+        `Schucks...you're trying to run an operation on the test schema, but it's not backed by a server. Try the 🔀 icon in the sidebar to explore publicly available schemas.`
       );
     }
   },

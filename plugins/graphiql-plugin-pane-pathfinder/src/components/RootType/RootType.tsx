@@ -17,11 +17,13 @@ export const RootType = ({
   const activeEditorTab = getActiveEditorTab();
 
   const operationDefinition = activeEditorTab?.operationDefinition;
+  const variables = activeEditorTab?.variables;
 
-  // console.log('rendering RootType', {
-  //   operationDefinition,
-  //   activeEditorTab,
-  // });
+  console.log('rendering RootType', {
+    operationDefinition,
+    variables,
+    activeEditorTab,
+  });
 
   const fields = rootType.getFields();
 

@@ -1,4 +1,4 @@
-import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { styled } from '../../../theme';
 
 export const StyledList = styled('div', {
   width: '100%',
@@ -36,14 +36,15 @@ export const RemoveItemButton = styled('button', {
 export const AddItemButton = styled('button', {
   width: '100%',
   height: 32,
-
   textAlign: 'right',
   padding: '8px 8px 8px 0',
   fontSize: '$mini',
   color: '$scale700',
+  // fontSize: 12,
+  fontFamily: '$mono',
 
   '&:hover': {
     backgroundColor: '$scale200',
-    color: '$scale900',
+    color: '$scale800',
   },
 });

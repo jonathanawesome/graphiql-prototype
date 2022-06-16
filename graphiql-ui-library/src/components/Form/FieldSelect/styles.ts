@@ -1,4 +1,4 @@
-import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { styled } from '../../../theme';
 import * as SelectPrimitive from '@radix-ui/react-select';
 
 export const SelectTrigger = styled(SelectPrimitive.SelectTrigger, {
@@ -14,6 +14,8 @@ export const SelectTrigger = styled(SelectPrimitive.SelectTrigger, {
   color: '$accentSuccess',
   paddingRight: 8,
   minHeight: 32,
+  fontSize: 12,
+  fontFamily: '$mono',
 
   svg: {
     height: 9,
@@ -32,6 +34,8 @@ export const SelectTrigger = styled(SelectPrimitive.SelectTrigger, {
 export const SelectContent = styled(SelectPrimitive.Content, {
   overflow: 'hidden',
   backgroundColor: '$scale100',
+  fontSize: 12,
+  fontFamily: '$mono',
   borderRadius: 6,
   boxShadow:
     '0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2)',
@@ -44,8 +48,6 @@ export const SelectViewport = styled(SelectPrimitive.Viewport, {
 export const SelectItem = styled(SelectPrimitive.Item, {
   all: 'unset',
   boxSizing: 'border-box',
-  fontSize: 12,
-  fontFamily: '$mono',
   lineHeight: 1,
   color: '$accentSuccess',
   borderRadius: 3,
@@ -97,8 +99,6 @@ export const SelectItemIndicator = styled(StyledItemIndicator, {
   },
 });
 
-export const StyledSelect = styled(SelectPrimitive.Root, {
-  width: '100%',
-});
+export const StyledSelect = styled(SelectPrimitive.Root, {});
 
 export const SelectValue = styled(SelectPrimitive.Value, {});
