@@ -15,12 +15,12 @@ export const FieldInputStory = () => {
 
   return (
     <FieldInput
+      currentValue={val}
       handleChange={({ name, value }: HandleChange) => {
         setVal(value);
       }}
       name={`FormControl FieldInput`}
       placeholder="placeholder"
-      value={val}
     />
   );
 };
@@ -30,9 +30,10 @@ FieldInputStory.storyName = 'FieldInput';
 export const FieldSelectStory = () => {
   return (
     <FieldSelect
+      currentValue="false"
       handleChange={({ name, value }) => console.log({ name, value })}
       name={`FormControl FieldSelect`}
-      values={[
+      options={[
         {
           value: 'true',
           name: 'True',
@@ -51,6 +52,7 @@ FieldSelectStory.storyName = 'FieldSelect';
 export const FieldListIntStory = () => {
   return (
     <FieldList
+      currentValue={[1, 2, 3, 4]}
       handleChange={({ name, value }: HandleChange) => {
         console.log(value);
       }}
@@ -65,6 +67,7 @@ FieldListIntStory.storyName = 'FieldList - Int';
 export const FieldListStringStory = () => {
   return (
     <FieldList
+      currentValue={['strings', 'are', 'fun']}
       handleChange={({ name, value }: HandleChange) => {
         console.log(value);
       }}
@@ -79,6 +82,7 @@ FieldListStringStory.storyName = 'FieldList - String';
 export const FieldListFloatStory = () => {
   return (
     <FieldList
+      currentValue={[1.2, 1.23, 1.234]}
       handleChange={({ name, value }: HandleChange) => {
         console.log(value);
       }}
@@ -93,6 +97,7 @@ FieldListFloatStory.storyName = 'FieldList - Float';
 export const FieldListIDStory = () => {
   return (
     <FieldList
+      currentValue={['cwef7w38ncfgwingh', '934wmgh283w7gnw8374gc', '2q7cfgn9n237g8qgcf']}
       handleChange={({ name, value }: HandleChange) => {
         console.log(value);
       }}
@@ -107,6 +112,7 @@ FieldListIDStory.storyName = 'FieldList - Id';
 export const FieldListEnumStory = () => {
   return (
     <FieldList
+      currentValue={['RED', 'GREEN', 'BLUE']}
       handleChange={({ name, value }: HandleChange) => {
         console.log(value);
       }}

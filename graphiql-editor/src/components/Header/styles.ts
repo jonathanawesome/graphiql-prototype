@@ -8,7 +8,7 @@ export const GraphiQLLink = styled('div', {
   },
 });
 
-export const TabsRow = styled('div', {
+export const TabList = styled('div', {
   width: '100%',
   display: 'flex',
   alignItems: 'center',

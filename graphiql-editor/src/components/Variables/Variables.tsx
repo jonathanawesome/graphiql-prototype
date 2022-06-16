@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { editor as MONACO_EDITOR } from 'monaco-editor';
 
 /** components */
-import { EasyVars } from '@graphiql-v2-prototype/graphiql-plugin-operations-tools-easy-vars';
 import {
   Code,
   Input,
   OptionItem,
   ToggleGroup,
 } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { EasyVars } from '@graphiql-v2-prototype/graphiql-plugin-operations-tools-easy-vars';
 import { MonacoEditor } from '../MonacoEditor';
 
 /** styles */
@@ -39,7 +39,7 @@ export const Variables = ({
   return (
     <VariablesWrap>
       <VariablesEditor isVisible={editorType === 'CodeEditor'}>
-        <MonacoEditor editorType="variables" initWithModel={variablesModel} />
+        <MonacoEditor editorType="variables" model={variablesModel} />
       </VariablesEditor>
 
       {variableDefinitions &&
@@ -48,7 +48,7 @@ export const Variables = ({
           <EasyVarsWrap>
             <EasyVars
               variableDefinitions={[...variableDefinitions]}
-              variables={activeEditorTab?.variables}
+              variables={activeEditorTab?.variablesModel.getValue()}
             />
           </EasyVarsWrap>
         )}

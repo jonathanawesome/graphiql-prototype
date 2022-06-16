@@ -16,6 +16,29 @@ import { isVariableDefinitionListType, getTypeNameValue } from '../../utils';
 
 const updateVariable = useGraphiQLEditor.getState().updateVariable;
 
+export const parseValue = ({
+  typeNameValue,
+  value,
+}: {
+  typeNameValue: string;
+  value: string | string[];
+}) => {
+  if (Array.isArray(value)) {
+    return value.map((v) => {
+      return parseValue({ typeNameValue, value: v });
+    });
+  } else if (typeNameValue === 'Int') {
+    return parseInt(value);
+  } else if (typeNameValue === 'Float') {
+    return parseFloat(value);
+  } else if (typeNameValue === 'Boolean') {
+    return !!value;
+  } else {
+    //it's an enum, "String", or "ID"
+    return value;
+  }
+};
+
 const EasyVar = ({
   currentValue,
   variableDefinition,
@@ -39,7 +62,7 @@ const EasyVar = ({
   const handleChange = ({ value }: HandleChange) => {
     updateVariable({
       variableName: variableDefinition.variable.name.value,
-      variableValue: value,
+      variableValue: parseValue({ typeNameValue, value }),
     });
   };
 

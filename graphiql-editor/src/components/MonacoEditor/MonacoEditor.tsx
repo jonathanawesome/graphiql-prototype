@@ -11,29 +11,25 @@ import type { MonacoEditorTypes } from '../../hooks';
 /** styles */
 import { EditorStyled, MonacoWrap } from './styles';
 
+const addMonacoEditor = useGraphiQLEditor.getState().addMonacoEditor;
+const runOperationAction = useGraphiQLEditor.getState().runOperationAction;
+const updateOperationDefinitionFromModelValue =
+  useGraphiQLEditor.getState().updateOperationDefinitionFromModelValue;
+
 export const MonacoEditor = ({
   editorType,
-  initWithModel,
+  model,
   optionOverrides,
 }: {
   editorType: MonacoEditorTypes;
-  initWithModel: MONACO_EDITOR.ITextModel;
+  model: MONACO_EDITOR.ITextModel;
   optionOverrides?: MONACO_EDITOR.IStandaloneEditorConstructionOptions;
 }) => {
   const editorRef = useRef(null);
 
-  const {
-    activeEditorTabId,
-    addMonacoEditor,
-    editorTabs,
-    monacoEditors,
-    operationAction,
-    updateEditorTabData,
-  } = useGraphiQLEditor();
+  const { monacoEditors } = useGraphiQLEditor();
 
   const monacoEditor = monacoEditors.find((e) => e.name === editorType);
-
-  const editorTab = editorTabs.find((editor) => editor.editorTabId === activeEditorTabId);
 
   // console.log('rendering MonacoEditor', {
   //   editorType,
@@ -41,79 +37,34 @@ export const MonacoEditor = ({
   // });
 
   useEffect(() => {
-    if (editorTab && monacoEditor) {
-      const model = monacoEditor.editor.getModel();
-
-      if (model && model.getValue() !== editorTab[editorType]) {
-        /** there's conflicting information about which of these options is "best", so leaving them both here. */
-        /** begin option 1: execute edits through the editor
-         * https://github.com/microsoft/monaco-editor/issues/1811#issuecomment-582612219
-         * ! using option 1 doesn't update the results editor...leaving this code here for reference
-         */
-        // const selection = monacoEditor.editor.getSelection();
-        // if (selection && model) {
-        //   monacoEditor.editor.executeEdits('update-value', [
-        //     {
-        //       range: model.getFullModelRange(),
-        //       text: editorTab[editorType],
-        //       forceMoveMarkers: true,
-        //     },
-        //   ]);
-        //   monacoEditor.editor.setSelection(selection);
-        // }
-        /** end option 1 */
-
-        /** begin option 2: execute edits through the model
-         * https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.ITextModel.html#pushEditOperations
-         */
-        model.pushEditOperations(
-          [],
-          [
-            {
-              range: model.getFullModelRange(),
-              text: editorTab[editorType],
-              // 👇 setting forceMoveMarkers to true will prevent the operations editor from bulk-selecting while using Pathfinder,
-              // but breaks the interaction of editing variables definitions within the operations editor
-              // forceMoveMarkers: true,
-            },
-          ],
-          () => []
-        );
-        // TODO...if we can format here, why do we need a prettier button?
-        // monacoEditor.editor.getAction('editor.action.formatDocument').run();
-        /** end option 2 */
-      }
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editorTab]);
-
-  useEffect(() => {
     if (!monacoEditor) {
       const editor = MONACO_EDITOR.create(
         editorRef.current as unknown as HTMLDivElement,
         {
           language: editorType === 'operation' ? 'graphql' : 'json',
-          model: initWithModel,
+          model,
           ...editorOptions, // spread our base options
           ...(optionOverrides && optionOverrides), // spread any option overrides that were passed in
         }
       );
 
+      // add this editor to our editors state array
       addMonacoEditor({
         editor,
         name: editorType,
       });
 
-      editor.onDidChangeModelContent(() => {
-        updateEditorTabData({
-          dataType: editorType,
-          newValue: editor.getValue(),
+      // listen for changes to the model content only on the operation editor
+      if (editorType === 'operation') {
+        editor.onDidChangeModelContent(() => {
+          // when our operation editor model changes, update the operationDefinition
+          updateOperationDefinitionFromModelValue({ value: editor.getValue() });
         });
-      });
+      }
 
+      // add the runOperationAction to the operation and variables editors
       if (editorType !== 'results') {
-        editor.addAction(operationAction());
+        editor.addAction(runOperationAction());
       }
 
       MONACO_EDITOR.defineTheme('myTheme', editorTheme);

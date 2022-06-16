@@ -78,7 +78,7 @@ export const FieldList = ({
               name={name}
               placeholder={getDefaultInputValue({
                 typeNameAsString: typeNameValue,
-              })}
+              }).toString()}
             />
           ),
         },

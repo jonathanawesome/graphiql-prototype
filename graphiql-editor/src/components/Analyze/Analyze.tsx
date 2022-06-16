@@ -11,7 +11,7 @@ export const Analyze = ({ resultsModel }: { resultsModel: MONACO_EDITOR.ITextMod
     <AnalyzeWrap>
       <MonacoEditor
         editorType="results"
-        initWithModel={resultsModel}
+        model={resultsModel}
         optionOverrides={{
           lineNumbers: 'off',
           readOnly: true,

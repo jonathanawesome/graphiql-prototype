@@ -32,7 +32,10 @@ export const toggle = ({
   ancestors: AncestorMap;
   get: GetState<PathfinderStore>;
 }) => {
-  const updateEditorTabData = useGraphiQLEditor.getState().updateEditorTabData;
+  // const updateEditorTabData = useGraphiQLEditor.getState().updateEditorTabData;
+  const updateModel = useGraphiQLEditor.getState().updateModel;
+  const updateOperationDefinition =
+    useGraphiQLEditor.getState().updateOperationDefinition;
   const activeEditorTab = getActiveEditorTab();
   const operationDefinition = activeEditorTab?.operationDefinition;
 
@@ -209,16 +212,18 @@ export const toggle = ({
   };
 
   if (nextSelectionSet && nextSelectionSet.selections.length > 0) {
-    updateEditorTabData({
-      dataType: 'operation',
+    updateOperationDefinition({ newDefinition: nextDefinition });
+    updateModel({
+      modelType: 'operationModel',
       newValue: print({
         kind: Kind.DOCUMENT,
         definitions: [nextDefinition],
       }),
     });
   } else {
-    updateEditorTabData({
-      dataType: 'operation',
+    updateOperationDefinition({ newDefinition: null });
+    updateModel({
+      modelType: 'operationModel',
       newValue: '',
     });
   }

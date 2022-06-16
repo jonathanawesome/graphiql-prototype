@@ -46,12 +46,13 @@ export const handleAddArgument = ({
     ],
   });
 
-  updateVariable({
-    variableName: ancestor.variableName,
-    variableValue: getDisplayStringFromVariableDefinitionTypeNode({
-      type: newVarDef.type,
-    }),
-  });
+  // updateVariable({
+  //   variableName: ancestor.variableName,
+  //   variableValue: 123,
+  //   // variableValue: getDisplayStringFromVariableDefinitionTypeNode({
+  //   //   type: newVarDef.type,
+  //   // }),
+  // });
 
   const newArgumentNode: ArgumentNode = {
     kind: Kind.ARGUMENT,

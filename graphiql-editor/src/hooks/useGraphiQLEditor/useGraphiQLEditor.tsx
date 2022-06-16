@@ -7,6 +7,7 @@ import {
   getIntrospectionQuery,
   IntrospectionQuery,
   isExecutableDefinitionNode,
+  Kind,
 } from 'graphql';
 
 /** types */
@@ -19,7 +20,6 @@ import testSchema from './testSchema.js';
 import {
   fetcher,
   getActiveEditorTab,
-  getDisplayStringFromVariableDefinitionTypeNode,
   parseQuery,
   pushEditOperationsToModel,
 } from '../../utils';
@@ -42,20 +42,28 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     }
   },
   removeEditorTab: ({ editorTabId }) => {
-    const editorTabs = get().editorTabs;
     // console.log('removeEditorTab', { editorTabId });
+    const editorTabs = get().editorTabs;
+    const swapEditorTab = get().swapEditorTab;
+    // filter the tab we're removing from our editorTabs array
     const remainingEditors = editorTabs.filter((t) => t.editorTabId !== editorTabId);
+
     set({
+      // replace our editorTabs array with our remaining editors
       editorTabs: remainingEditors,
+      // set the new active tab to the first tab
       activeEditorTabId: remainingEditors[0].editorTabId,
     });
+
+    // replace the models within our editors
+    swapEditorTab({ editorTabId: remainingEditors[0].editorTabId });
   },
   removeVariables: ({ variableNames }) => {
     const activeEditorTab = getActiveEditorTab();
 
     if (activeEditorTab) {
       // 1. parse the existing variables string to an object
-      const parsedVariables = JSON.parse(activeEditorTab.variables);
+      const parsedVariables = JSON.parse(activeEditorTab.variablesModel.getValue());
       // 2. remove the variables
       variableNames.forEach((v) => {
         delete parsedVariables[v];
@@ -73,10 +81,13 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   },
   updateVariable: ({ variableName, variableValue }) => {
     const activeEditorTab = getActiveEditorTab();
-
+    console.log('running updateVariable', {
+      variableName,
+      variableValue,
+    });
     if (activeEditorTab) {
       // 1. parse the existing variables string to an object
-      const parsedVariables = JSON.parse(activeEditorTab.variables);
+      const parsedVariables = JSON.parse(activeEditorTab.variablesModel.getValue());
       // 2. set the variableName and/or variableValue
       parsedVariables[variableName] = variableValue;
       // 3. return to string
@@ -90,66 +101,77 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       console.log("editorTab doesn't exist ☠️");
     }
   },
-  updateEditorTabData: ({ dataType, newValue }) => {
-    // TODO: lots to improve here.
-    console.log('running updateEditorTabData', {
-      dataType,
-      newValue,
-    });
-
+  updateModel: ({ modelType, newValue }) => {
     const editorTabs = get().editorTabs;
     const activeEditorTabId = get().activeEditorTabId;
-    const updateVariable = get().updateVariable;
+
+    const activeEditorTab = editorTabs.find(
+      (editorTab) => editorTab.editorTabId === activeEditorTabId
+    );
+
+    if (activeEditorTab) {
+      const model = activeEditorTab[modelType];
+      model.pushEditOperations(
+        [],
+        [
+          {
+            range: model.getFullModelRange(),
+            text: newValue,
+          },
+        ],
+        () => []
+      );
+    }
+  },
+  updateOperationDefinition: ({ newDefinition }) => {
+    const editorTabs = get().editorTabs;
+    const activeEditorTabId = get().activeEditorTabId;
 
     // 👇 safety first
     const editorTabsCopy = [...editorTabs];
     const existingEditorTabIndex = editorTabsCopy.findIndex(
       (editorTab) => editorTab.editorTabId === activeEditorTabId
     );
+
     if (existingEditorTabIndex !== -1) {
-      let operationDefinitionUpdate: ExecutableDefinitionNode | null =
-        editorTabsCopy[existingEditorTabIndex].operationDefinition;
-
-      if (dataType === 'operation') {
-        const parsedQuery = parseQuery(newValue);
-        if (!(parsedQuery instanceof Error)) {
-          const operationDefinition = (): ExecutableDefinitionNode | null => {
-            const firstDefinition = parsedQuery?.definitions[0];
-
-            if (!firstDefinition) {
-              return null;
-            }
-
-            if (isExecutableDefinitionNode(firstDefinition)) {
-              const variableDefinitions = firstDefinition.variableDefinitions;
-              if (variableDefinitions && variableDefinitions?.length > 0) {
-                variableDefinitions.forEach((v) =>
-                  updateVariable({
-                    variableName: v.variable.name.value,
-                    variableValue: getDisplayStringFromVariableDefinitionTypeNode({
-                      type: v.type,
-                    }),
-                  })
-                );
-              }
-              return firstDefinition;
-            }
-
-            return null;
-          };
-          operationDefinitionUpdate = operationDefinition();
-        }
+      if (!newDefinition) {
+        editorTabsCopy[existingEditorTabIndex] = {
+          ...editorTabsCopy[existingEditorTabIndex],
+          operationDefinition: null,
+        };
+      } else if (isExecutableDefinitionNode(newDefinition)) {
+        editorTabsCopy[existingEditorTabIndex] = {
+          ...editorTabsCopy[existingEditorTabIndex],
+          operationDefinition: newDefinition,
+        };
       }
+      set({ editorTabs: editorTabsCopy });
+    }
+  },
+  updateOperationDefinitionFromModelValue: ({ value }) => {
+    const updateOperationDefinition = get().updateOperationDefinition;
 
-      editorTabsCopy[existingEditorTabIndex] = {
-        ...editorTabsCopy[existingEditorTabIndex],
-        [dataType]: newValue,
-        operationDefinition: operationDefinitionUpdate,
+    const parsedQuery = parseQuery(value);
+    if (!(parsedQuery instanceof Error)) {
+      const operationDefinition = (): ExecutableDefinitionNode | null => {
+        const firstDefinition = parsedQuery?.definitions[0];
+
+        if (!firstDefinition) {
+          return null;
+        }
+
+        if (isExecutableDefinitionNode(firstDefinition)) {
+          return firstDefinition;
+        }
+
+        return null;
       };
 
-      set({ editorTabs: editorTabsCopy });
-    } else {
-      console.log("editorTab doesn't exist ☠️");
+      const newDefinition = operationDefinition();
+
+      if (newDefinition?.kind === Kind.OPERATION_DEFINITION) {
+        updateOperationDefinition({ newDefinition });
+      }
     }
   },
   swapEditorTab: ({ editorTabId }) => {
@@ -157,7 +179,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     const editorTabs = get().editorTabs;
     const editorTab = editorTabs.find((t) => t.editorTabId === editorTabId);
 
-    // console.log('running swapEditorTab', { monacoEditors, editorTab });
+    console.log('running swapEditorTab', { monacoEditors, editorTab });
 
     if (editorTab) {
       // TODO: there's probably a better way to do this 👇
@@ -180,29 +202,28 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   },
   executeOperation: async () => {
     const activeEditor = getActiveEditorTab();
-    const updateEditorTabData = get().updateEditorTabData;
+    const updateModel = get().updateModel;
     const schemaUrl = get().schemaUrl;
 
     if (schemaUrl && activeEditor) {
+      const operationModelValue = activeEditor.operationModel.getValue();
+      const variablesModelValue = activeEditor.variablesModel.getValue();
+
       const result = await fetcher({ url: schemaUrl })({
         operationName: activeEditor.operationDefinition?.name?.value || '',
-        query: activeEditor.operation,
-        variables: activeEditor.variables
-          ? JSONC.parse(activeEditor.variables)
-          : undefined,
+        query: operationModelValue,
+        variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
       });
 
       console.log('running executeOperation', {
         operationName: activeEditor.operationDefinition?.name?.value || '',
-        query: activeEditor.operation,
-        variables: activeEditor.variables
-          ? JSONC.parse(activeEditor.variables)
-          : undefined,
+        query: operationModelValue,
+        variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
         result,
       });
 
-      updateEditorTabData({
-        dataType: 'results',
+      updateModel({
+        modelType: 'resultsModel',
         newValue: JSON.stringify(result, null, 2),
       });
     } else {
@@ -214,9 +235,6 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   schemaUrl: null,
   schema: null,
   initSchema: async ({ url }) => {
-    // TODO 👇 hacky resets...need to fix
-    // also, reinitializing here seems to work intermittently...operations editor still gets confused sometimes about what schema it's on
-    // i think this might be solved when tabs are in and we're keep model states globally
     set({
       schemaUrl: url,
       editorTabs: [],
@@ -256,7 +274,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       });
     }
   },
-  operationAction: () => ({
+  runOperationAction: () => ({
     id: 'graphql-run-operation',
     label: 'Run Operation',
     contextMenuOrder: 0,

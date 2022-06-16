@@ -1,4 +1,4 @@
-import { ExecutableDefinitionNode, GraphQLSchema } from 'graphql';
+import { GraphQLSchema, OperationDefinitionNode } from 'graphql';
 import { editor as MONACO_EDITOR } from 'monaco-editor';
 
 type EditorTab = {
@@ -7,10 +7,7 @@ type EditorTab = {
   operationModel: MONACO_EDITOR.ITextModel;
   variablesModel: MONACO_EDITOR.ITextModel;
   resultsModel: MONACO_EDITOR.ITextModel;
-  operation: string;
-  variables: string;
-  results: string;
-  operationDefinition: ExecutableDefinitionNode | null;
+  operationDefinition: OperationDefinitionNode | null;
 };
 
 export type MonacoEditorTypes = 'operation' | 'variables' | 'results';
@@ -20,6 +17,20 @@ export type GraphiQLEditorStore = {
   setActiveEditorTabId: ({ editorTabId }: { editorTabId: string }) => void;
   editorTabs: EditorTab[];
   addEditorTab: ({ editorTab }: { editorTab: EditorTab }) => void;
+  updateModel: ({
+    modelType,
+    newValue,
+  }: {
+    modelType: 'operationModel' | 'variablesModel' | 'resultsModel';
+    newValue: string;
+  }) => void;
+
+  updateOperationDefinition: ({
+    newDefinition,
+  }: {
+    newDefinition: OperationDefinitionNode | null;
+  }) => void;
+  updateOperationDefinitionFromModelValue: ({ value }: { value: string }) => void;
   removeVariables: ({ variableNames }: { variableNames: string[] }) => void;
   updateVariable: ({
     variableName,
@@ -27,13 +38,6 @@ export type GraphiQLEditorStore = {
   }: {
     variableName: string;
     variableValue: string | string[];
-  }) => void;
-  updateEditorTabData: ({
-    dataType,
-    newValue,
-  }: {
-    dataType: MonacoEditorTypes;
-    newValue: string;
   }) => void;
   removeEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
   swapEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
@@ -49,7 +53,7 @@ export type GraphiQLEditorStore = {
     name: MonacoEditorTypes;
   }) => void;
   executeOperation: () => Promise<void>;
-  operationAction: () => MONACO_EDITOR.IActionDescriptor;
+  runOperationAction: () => MONACO_EDITOR.IActionDescriptor;
   schema: GraphQLSchema | null;
   schemaUrl: string | null;
   initSchema: ({ url }: { url?: string }) => Promise<void>;

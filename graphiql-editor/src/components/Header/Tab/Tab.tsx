@@ -1,8 +1,10 @@
+import { useEffect, useState } from 'react';
+
 /** components */
 import { Close } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 /** hooks */
-import { useGraphiQLEditor } from '../../hooks';
+import { useGraphiQLEditor } from '../../../hooks';
 
 /** styles */
 import { RemoveTabButton, TabButton, TabWrap } from './styles';
@@ -17,10 +19,20 @@ export const Tab = ({
   const { editorTabs, removeEditorTab, setActiveEditorTabId, swapEditorTab } =
     useGraphiQLEditor();
 
-  const tab = editorTabs.find((tab) => tab.editorTabId === editorTabId);
-  const name = tab?.operationDefinition?.name;
+  const [tabName, setTabName] = useState<string | null>(null);
 
-  // console.log('rendering Tab', { tab, name });
+  // console.log('rendering Tab', { editorTabs });
+
+  const tab = editorTabs.find((tab) => tab.editorTabId === editorTabId);
+
+  useEffect(() => {
+    if (tab?.operationDefinition?.name) {
+      if (tab.operationDefinition.name.value !== tabName) {
+        setTabName(tab?.operationDefinition?.name?.value);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab]);
 
   const handleTabChange = () => {
     setActiveEditorTabId({ editorTabId });
@@ -38,7 +50,7 @@ export const Tab = ({
         onClick={() => handleTabChange()}
         isActive={isActive}
       >
-        {name?.value || `<untitled>`}
+        {tabName || `<untitled>`}
       </TabButton>
 
       {isActive && (

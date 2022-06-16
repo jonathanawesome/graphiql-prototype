@@ -23,13 +23,7 @@ const defaultTabName = '<untitled>';
 const defaultTabId = cuid.slug();
 
 export const GraphiQLEditor = () => {
-  const {
-    // activeEditorTabId,
-    setActiveEditorTabId,
-    addEditorTab,
-    //  editorTabs,
-    schemaUrl,
-  } = useGraphiQLEditor();
+  const { setActiveEditorTabId, addEditorTab, schemaUrl } = useGraphiQLEditor();
 
   // console.log('rendering GraphiQLEditor', { editorTabs, activeEditorTabId });
 
@@ -56,9 +50,6 @@ export const GraphiQLEditor = () => {
         operationModel,
         variablesModel,
         resultsModel,
-        operation: defaultOperation,
-        variables: defaultVariables,
-        results: defaultResults,
         operationDefinition: null,
       },
     });
