@@ -13,6 +13,7 @@ export type DynamicFormProps = {
 
 export type StaticFormProps = {
   type: 'STATIC';
+  buttonCopy?: string;
   submitHandler: (event: React.SyntheticEvent<HTMLButtonElement>) => void;
 };
 

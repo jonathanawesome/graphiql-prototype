@@ -22,4 +22,5 @@ export const LabelWrap = styled('div', {
 export const Label = styled('label', {
   color: '$accentField',
   fontSize: 11,
+  whiteSpace: 'nowrap',
 });

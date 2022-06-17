@@ -28,7 +28,7 @@ export const Form = ({
       ))}
       {formType.type === 'STATIC' && (
         <StaticSubmitHandler onClick={(e) => formType.submitHandler(e)}>
-          submit
+          {formType.buttonCopy ? formType.buttonCopy : 'Submit'}
         </StaticSubmitHandler>
       )}
     </FormStyled>

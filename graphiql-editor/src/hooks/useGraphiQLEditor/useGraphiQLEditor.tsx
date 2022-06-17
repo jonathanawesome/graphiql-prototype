@@ -32,8 +32,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   monacoGraphQLAPI: initializeMode({
     formattingOptions: {
       prettierConfig: {
-        //TODO FIXME
-        printWidth: 20,
+        printWidth: 90,
       },
     },
   }),
@@ -316,7 +315,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       set({ schema: testSchema, schemaUrl: null });
       console.log('no URL provided, setting testSchema');
 
-      monacoGraphQLAPI.setSchemaConfig([
+      return monacoGraphQLAPI.setSchemaConfig([
         {
           schema: testSchema,
           uri: `testSchema-schema.graphql`,
@@ -326,22 +325,25 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     } else {
       console.log('initializing schema:', { url });
 
-      const result = await fetcher({ url })({
-        query: getIntrospectionQuery(),
-        operationName: 'IntrospectionQuery',
-      });
+      try {
+        const result = await fetcher({ url })({
+          query: getIntrospectionQuery(),
+          operationName: 'IntrospectionQuery',
+        });
+        const schema = buildClientSchema(result.data as unknown as IntrospectionQuery);
 
-      const schema = buildClientSchema(result.data as unknown as IntrospectionQuery);
+        set({ schema });
 
-      set({ schema });
-
-      monacoGraphQLAPI.setSchemaConfig([
-        {
-          schema,
-          uri: `${url}-schema.graphql`,
-          fileMatch: [operationModelUri],
-        },
-      ]);
+        return monacoGraphQLAPI.setSchemaConfig([
+          {
+            schema,
+            uri: `${url}-schema.graphql`,
+            fileMatch: [operationModelUri],
+          },
+        ]);
+      } catch (error) {
+        return set({ schema: { error } });
+      }
     }
   },
   runOperationAction: () => ({

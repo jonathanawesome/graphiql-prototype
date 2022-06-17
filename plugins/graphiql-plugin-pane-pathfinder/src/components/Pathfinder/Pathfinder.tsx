@@ -21,6 +21,10 @@ export const Pathfinder = () => {
     //TODO: some loading skeleton
     return <p>loading schema...</p>;
   }
+  if ('error' in schema) {
+    //TODO: some loading skeleton
+    return <p>error loading schema.</p>;
+  }
 
   const queryType = schema.getQueryType();
   // const mutationType = schema.getMutationType();
