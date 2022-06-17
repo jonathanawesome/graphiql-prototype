@@ -1,9 +1,4 @@
 import { ArgumentNode, Kind } from 'graphql';
-import {
-  getActiveEditorTab,
-  getDisplayStringFromVariableDefinitionTypeNode,
-  useGraphiQLEditor,
-} from '@graphiql-v2-prototype/graphiql-editor';
 
 /** types */
 import {
@@ -14,8 +9,7 @@ import {
 
 /** utils */
 import { buildNewVariableDefinition } from '../../../../utils';
-
-const updateVariable = useGraphiQLEditor.getState().updateVariable;
+import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 
 export const handleAddArgument = ({
   ancestor,
@@ -45,14 +39,6 @@ export const handleAddArgument = ({
       newVarDef,
     ],
   });
-
-  // updateVariable({
-  //   variableName: ancestor.variableName,
-  //   variableValue: 123,
-  //   // variableValue: getDisplayStringFromVariableDefinitionTypeNode({
-  //   //   type: newVarDef.type,
-  //   // }),
-  // });
 
   const newArgumentNode: ArgumentNode = {
     kind: Kind.ARGUMENT,

@@ -10,16 +10,16 @@ export const A = () => {
   const [val, setVal] = useState<string>('');
 
   const handleChange = ({ name, value }: HandleChange) => {
-    setVal(value);
+    setVal(value as string);
   };
 
   return (
     <FormControl
       control={{
+        currentValue: val,
         handleChange,
         name: `FormControl FieldInput`,
         placeholder: 'placeholder value',
-        value: val,
       }}
       label={`variableName`}
       labelAddOn={<Pill copy={`[String!]!`} />}
@@ -33,16 +33,16 @@ export const B = () => {
   const [val, setVal] = useState<string>('');
 
   const handleChange = ({ name, value }: HandleChange) => {
-    setVal(value);
+    setVal(value as string);
   };
 
   return (
     <FormControl
       control={{
+        currentValue: val,
         handleChange,
         name: `FormControl FieldInput`,
         placeholder: 'placeholder value',
-        value: val,
       }}
       label={`variableName`}
     />
@@ -55,14 +55,15 @@ export const C = () => {
   const [val, setVal] = useState<string>('');
 
   const handleChange = ({ name, value }: HandleChange) => {
-    setVal(value);
+    setVal(value as string);
   };
   return (
     <FormControl
       control={{
+        currentValue: val,
         handleChange,
         name: `FormControl FieldSelect`,
-        values: [
+        options: [
           {
             value: 'true',
             name: 'True',
@@ -82,18 +83,19 @@ export const C = () => {
 C.storyName = 'FieldSelect with labelAddOn';
 
 export const D = () => {
-  // const [val, setVal] = useState<string>('');
+  const [val, setVal] = useState<string>('');
 
   const handleChange = ({ name, value }: HandleChange) => {
-    // setVal(value);
+    setVal(value as string);
   };
 
   return (
     <FormControl
       control={{
+        currentValue: val,
         handleChange,
         name: `FormControl FieldSelect`,
-        values: [
+        options: [
           {
             value: 'true',
             name: 'True',

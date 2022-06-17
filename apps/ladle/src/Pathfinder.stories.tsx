@@ -11,7 +11,9 @@ export const PathfinderStory = () => {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: `1fr 200px`, height: `100%` }}>
       <Pathfinder />
-      {activeEditorTab?.operation && <div>{activeEditorTab?.operation}</div>}
+      {activeEditorTab?.operationModel && (
+        <div>{activeEditorTab?.operationModel.getValue()}</div>
+      )}
     </div>
   );
 };
