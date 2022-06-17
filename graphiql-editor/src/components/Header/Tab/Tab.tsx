@@ -16,7 +16,7 @@ export const Tab = ({
   isActive: boolean;
   editorTabId: string;
 }) => {
-  const { editorTabs, removeEditorTab, setActiveEditorTabId, swapEditorTab } =
+  const { editorTabs, removeEditorTab, setActiveEditorTabId, switchEditorTab } =
     useGraphiQLEditor();
 
   const [tabName, setTabName] = useState<string | null>(null);
@@ -36,7 +36,7 @@ export const Tab = ({
 
   const handleTabChange = () => {
     setActiveEditorTabId({ editorTabId });
-    swapEditorTab({ editorTabId });
+    switchEditorTab({ editorTabId });
   };
 
   const doRemoveTab = (editorTabId: string) => {

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { editor as MONACO_EDITOR } from 'monaco-editor';
 
 /** components */
 import { MonacoEditor } from '../MonacoEditor';
@@ -17,13 +16,7 @@ import {
   OperationToolsWrap,
 } from './styles';
 
-export const Operate = ({
-  operationModel,
-  variablesModel,
-}: {
-  operationModel: MONACO_EDITOR.ITextModel;
-  variablesModel: MONACO_EDITOR.ITextModel;
-}) => {
+export const Operate = () => {
   const { editorTabs } = useGraphiQLEditor();
 
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -56,13 +49,13 @@ export const Operate = ({
   return (
     <OperateWrap ref={containerRef} expanded={editorTabs.length < 2}>
       <OperationEditor ref={operationsEditorRef}>
-        <MonacoEditor editorType="operation" model={operationModel} />
+        <MonacoEditor editorType="operation" />
         <OperationActionsWrap>
           <OperationActions />
         </OperationActionsWrap>
       </OperationEditor>
       <OperationToolsWrap ref={operationsToolsRef}>
-        <OperationTools setHeight={setHeight} variablesModel={variablesModel} />
+        <OperationTools setHeight={setHeight} />
       </OperationToolsWrap>
     </OperateWrap>
   );

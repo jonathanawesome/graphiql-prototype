@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { editor as MONACO_EDITOR } from 'monaco-editor';
 
 /** components */
 import {
@@ -25,11 +24,7 @@ import { getActiveEditorTab } from '../../utils';
 
 type EditorType = 'CodeEditor' | 'InputEditor';
 
-export const Variables = ({
-  variablesModel,
-}: {
-  variablesModel: MONACO_EDITOR.ITextModel;
-}) => {
+export const Variables = () => {
   const [editorType, setEditorTtype] = useState<EditorType>('CodeEditor');
 
   const activeEditorTab = getActiveEditorTab();
@@ -39,17 +34,14 @@ export const Variables = ({
   return (
     <VariablesWrap>
       <VariablesEditor isVisible={editorType === 'CodeEditor'}>
-        <MonacoEditor editorType="variables" model={variablesModel} />
+        <MonacoEditor editorType="variables" />
       </VariablesEditor>
 
       {variableDefinitions &&
         variableDefinitions.length > 0 &&
         editorType === 'InputEditor' && (
           <EasyVarsWrap>
-            <EasyVars
-              variableDefinitions={[...variableDefinitions]}
-              variables={activeEditorTab?.variablesModel.getValue()}
-            />
+            <EasyVars variableDefinitions={[...variableDefinitions]} />
           </EasyVarsWrap>
         )}
 

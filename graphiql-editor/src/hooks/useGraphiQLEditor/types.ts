@@ -1,5 +1,6 @@
 import { GraphQLSchema, OperationDefinitionNode } from 'graphql';
 import { editor as MONACO_EDITOR } from 'monaco-editor';
+import type { MonacoGraphQLAPI } from 'monaco-graphql';
 
 type EditorTab = {
   editorTabId: string;
@@ -13,10 +14,14 @@ type EditorTab = {
 export type MonacoEditorTypes = 'operation' | 'variables' | 'results';
 
 export type GraphiQLEditorStore = {
+  monacoGraphQLAPI: MonacoGraphQLAPI;
   activeEditorTabId: string | null;
   setActiveEditorTabId: ({ editorTabId }: { editorTabId: string }) => void;
   editorTabs: EditorTab[];
+  initializeAndActivateEditorTab: () => { operationModelUri: string };
   addEditorTab: ({ editorTab }: { editorTab: EditorTab }) => void;
+  removeEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
+  switchEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
   updateModel: ({
     modelType,
     newValue,
@@ -24,14 +29,13 @@ export type GraphiQLEditorStore = {
     modelType: 'operationModel' | 'variablesModel' | 'resultsModel';
     newValue: string;
   }) => void;
-
   updateOperationDefinition: ({
     newDefinition,
   }: {
     newDefinition: OperationDefinitionNode | null;
   }) => void;
   updateOperationDefinitionFromModelValue: ({ value }: { value: string }) => void;
-  removeVariables: ({ variableNames }: { variableNames: string[] }) => void;
+  // removeVariables: ({ variableNames }: { variableNames: string[] }) => void;
   updateVariable: ({
     variableName,
     variableValue,
@@ -39,8 +43,7 @@ export type GraphiQLEditorStore = {
     variableName: string;
     variableValue: string | string[];
   }) => void;
-  removeEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
-  swapEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
+
   monacoEditors: Array<{
     editor: MONACO_EDITOR.IStandaloneCodeEditor;
     name: MonacoEditorTypes;

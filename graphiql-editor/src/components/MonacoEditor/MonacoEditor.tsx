@@ -18,11 +18,9 @@ const updateOperationDefinitionFromModelValue =
 
 export const MonacoEditor = ({
   editorType,
-  model,
   optionOverrides,
 }: {
   editorType: MonacoEditorTypes;
-  model: MONACO_EDITOR.ITextModel;
   optionOverrides?: MONACO_EDITOR.IStandaloneEditorConstructionOptions;
 }) => {
   const editorRef = useRef(null);
@@ -42,7 +40,6 @@ export const MonacoEditor = ({
         editorRef.current as unknown as HTMLDivElement,
         {
           language: editorType === 'operation' ? 'graphql' : 'json',
-          model,
           ...editorOptions, // spread our base options
           ...(optionOverrides && optionOverrides), // spread any option overrides that were passed in
         }

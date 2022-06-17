@@ -30,7 +30,7 @@ export const Header = () => {
     setActiveEditorTabId,
     editorTabs,
     addEditorTab,
-    swapEditorTab,
+    switchEditorTab,
   } = useGraphiQLEditor();
 
   const doAddTab = () => {
@@ -55,7 +55,7 @@ export const Header = () => {
       },
     });
     setActiveEditorTabId({ editorTabId });
-    swapEditorTab({ editorTabId });
+    switchEditorTab({ editorTabId });
   };
 
   return (

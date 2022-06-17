@@ -20,18 +20,62 @@ import testSchema from './testSchema.js';
 import {
   fetcher,
   getActiveEditorTab,
+  getOrCreateModel,
   parseQuery,
   pushEditOperationsToModel,
 } from '../../utils';
 import { KeyCode, KeyMod } from 'monaco-editor';
-import { defaultVariables } from '../../constants';
+import { defaultOperation, defaultResults, defaultVariables } from '../../constants';
+import cuid from 'cuid';
 
 export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
+  monacoGraphQLAPI: initializeMode({
+    formattingOptions: {
+      prettierConfig: {
+        //TODO FIXME
+        printWidth: 20,
+      },
+    },
+  }),
   activeEditorTabId: null,
   setActiveEditorTabId: ({ editorTabId }) => {
     set({ activeEditorTabId: editorTabId });
   },
   editorTabs: [],
+  initializeAndActivateEditorTab: () => {
+    const addEditorTab = get().addEditorTab;
+    const switchEditorTab = get().switchEditorTab;
+
+    const editorTabId = cuid.slug();
+
+    const operationModel = getOrCreateModel({
+      uri: `${editorTabId}-operations.graphql`,
+      value: defaultOperation,
+    });
+    const variablesModel = getOrCreateModel({
+      uri: `${editorTabId}-variables.json`,
+      value: defaultVariables,
+    });
+    const resultsModel = getOrCreateModel({
+      uri: `${editorTabId}-results.json`,
+      value: defaultResults,
+    });
+
+    addEditorTab({
+      editorTab: {
+        editorTabId,
+        editorTabName: '<untitled>',
+        operationModel,
+        variablesModel,
+        resultsModel,
+        operationDefinition: null,
+      },
+    });
+
+    set({ activeEditorTabId: editorTabId });
+    switchEditorTab({ editorTabId });
+    return { operationModelUri: `${editorTabId}-operations.graphql` };
+  },
   addEditorTab: ({ editorTab }) => {
     const editorTabs = get().editorTabs;
     const existingEditorTab = editorTabs.find(
@@ -45,7 +89,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   removeEditorTab: ({ editorTabId }) => {
     // console.log('removeEditorTab', { editorTabId });
     const editorTabs = get().editorTabs;
-    const swapEditorTab = get().swapEditorTab;
+    const switchEditorTab = get().switchEditorTab;
     // filter the tab we're removing from our editorTabs array
     const remainingEditors = editorTabs.filter((t) => t.editorTabId !== editorTabId);
 
@@ -57,29 +101,46 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     });
 
     // replace the models within our editors
-    swapEditorTab({ editorTabId: remainingEditors[0].editorTabId });
+    switchEditorTab({ editorTabId: remainingEditors[0].editorTabId });
   },
-  removeVariables: ({ variableNames }) => {
-    const activeEditorTab = getActiveEditorTab();
+  switchEditorTab: ({ editorTabId }) => {
+    const monacoEditors = get().monacoEditors;
+    const editorTabs = get().editorTabs;
+    const editorTab = editorTabs.find((t) => t.editorTabId === editorTabId);
 
-    if (activeEditorTab) {
-      // 1. parse the existing variables string to an object
-      const parsedVariables = JSON.parse(activeEditorTab.variablesModel.getValue());
-      // 2. remove the variables
-      variableNames.forEach((v) => {
-        delete parsedVariables[v];
-      });
-      // 3. return to string
-      const newVariablesString = JSON.stringify(parsedVariables, null, ' ');
-      // 4. update the model
-      pushEditOperationsToModel({
-        model: activeEditorTab.variablesModel,
-        text: newVariablesString,
-      });
-    } else {
-      console.log("editorTab doesn't exist ☠️");
+    console.log('running switchEditorTab', { monacoEditors, editorTab });
+
+    if (editorTab) {
+      // TODO: there's probably a better way to do this 👇
+      const operationsEditor = monacoEditors.find((e) => e.name === 'operation');
+      const variablesEditor = monacoEditors.find((e) => e.name === 'variables');
+      const resultsEditor = monacoEditors.find((e) => e.name === 'results');
+      operationsEditor?.editor.setModel(editorTab.operationModel);
+      variablesEditor?.editor.setModel(editorTab.variablesModel);
+      resultsEditor?.editor.setModel(editorTab.resultsModel);
     }
   },
+  // removeVariables: ({ variableNames }) => {
+  //   const activeEditorTab = getActiveEditorTab();
+
+  //   if (activeEditorTab) {
+  //     // 1. parse the existing variables string to an object
+  //     const parsedVariables = JSON.parse(activeEditorTab.variablesModel.getValue());
+  //     // 2. remove the variables
+  //     variableNames.forEach((v) => {
+  //       delete parsedVariables[v];
+  //     });
+  //     // 3. return to string
+  //     const newVariablesString = JSON.stringify(parsedVariables, null, ' ');
+  //     // 4. update the model
+  //     pushEditOperationsToModel({
+  //       model: activeEditorTab.variablesModel,
+  //       text: newVariablesString,
+  //     });
+  //   } else {
+  //     console.log("editorTab doesn't exist ☠️");
+  //   }
+  // },
   updateVariable: ({ variableName, variableValue }) => {
     const activeEditorTab = getActiveEditorTab();
     console.log('running updateVariable', {
@@ -194,23 +255,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       }
     }
   },
-  swapEditorTab: ({ editorTabId }) => {
-    const monacoEditors = get().monacoEditors;
-    const editorTabs = get().editorTabs;
-    const editorTab = editorTabs.find((t) => t.editorTabId === editorTabId);
 
-    console.log('running swapEditorTab', { monacoEditors, editorTab });
-
-    if (editorTab) {
-      // TODO: there's probably a better way to do this 👇
-      const operationsEditor = monacoEditors.find((e) => e.name === 'operation');
-      const variablesEditor = monacoEditors.find((e) => e.name === 'variables');
-      const resultsEditor = monacoEditors.find((e) => e.name === 'results');
-      operationsEditor?.editor.setModel(editorTab.operationModel);
-      variablesEditor?.editor.setModel(editorTab.variablesModel);
-      resultsEditor?.editor.setModel(editorTab.resultsModel);
-    }
-  },
   monacoEditors: [],
   addMonacoEditor: ({ editor, name }) => {
     // console.log('running addMonacoEditor', { editor });
@@ -255,23 +300,29 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   schemaUrl: null,
   schema: null,
   initSchema: async ({ url }) => {
+    const monacoGraphQLAPI = get().monacoGraphQLAPI;
+
+    const initializeAndActivateEditorTab = get().initializeAndActivateEditorTab;
+
     set({
       schemaUrl: url,
+      // "reset" editorTabs
       editorTabs: [],
     });
+
+    const { operationModelUri } = initializeAndActivateEditorTab();
 
     if (!url) {
       set({ schema: testSchema, schemaUrl: null });
       console.log('no URL provided, setting testSchema');
 
-      initializeMode({
-        schemas: [
-          {
-            schema: testSchema,
-            uri: `testSchema-schema.graphql`,
-          },
-        ],
-      });
+      monacoGraphQLAPI.setSchemaConfig([
+        {
+          schema: testSchema,
+          uri: `testSchema-schema.graphql`,
+          fileMatch: [operationModelUri],
+        },
+      ]);
     } else {
       console.log('initializing schema:', { url });
 
@@ -284,14 +335,13 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
 
       set({ schema });
 
-      initializeMode({
-        schemas: [
-          {
-            schema,
-            uri: `${url}-schema.graphql`,
-          },
-        ],
-      });
+      monacoGraphQLAPI.setSchemaConfig([
+        {
+          schema,
+          uri: `${url}-schema.graphql`,
+          fileMatch: [operationModelUri],
+        },
+      ]);
     }
   },
   runOperationAction: () => ({
