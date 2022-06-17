@@ -5,11 +5,17 @@ import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 export const Note = styled('span', {
   display: 'block',
   fontSize: '$body',
-  color: '$accentError',
-  backgroundColor: '$scale200',
-  border: '1px solid $accentError',
+  color: '$accentInfo',
   marginBottom: 24,
-  padding: 12,
+});
+
+export const Error = styled('span', {
+  display: 'block',
+  fontSize: '$body',
+  color: '$accentError',
+  backgroundColor: '$scale100',
+  marginTop: 12,
+  padding: 8,
   fontStyle: 'italic',
 });
 

@@ -8,7 +8,8 @@ export const Provider = ({ children}: {children: React.ReactNode}) => {
   const { initSchema } = useGraphiQLEditor();
 
   useEffect(() => {
-    initSchema({url: "https://rickandmortyapi.com/graphql"});
+    initSchema({});
+    // initSchema({url: "https://rickandmortyapi.com/graphql"});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -1,9 +1,4 @@
 import { Kind, ObjectFieldNode } from 'graphql';
-import {
-  getActiveEditorTab,
-  getDisplayStringFromVariableDefinitionTypeNode,
-  useGraphiQLEditor,
-} from '@graphiql-v2-prototype/graphiql-editor';
 
 /** types */
 import {
@@ -14,8 +9,7 @@ import {
 
 /** utils */
 import { buildNewVariableDefinition } from '../../../../utils';
-
-const updateVariable = useGraphiQLEditor.getState().updateVariable;
+import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 
 export const handleAddInputField = ({
   ancestor,
@@ -44,13 +38,6 @@ export const handleAddInputField = ({
       ...(variableDefinitions ? variableDefinitions : []),
       newVarDef,
     ],
-  });
-
-  updateVariable({
-    variableName: ancestor.variableName,
-    variableValue: getDisplayStringFromVariableDefinitionTypeNode({
-      type: newVarDef.type,
-    }),
   });
 
   const newObjectFieldNode: ObjectFieldNode = {

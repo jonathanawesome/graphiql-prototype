@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 /** components */
-import { Check, Chevron } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Check, Chevron } from '../../../icons';
 
 /** styles */
 import {
@@ -18,37 +18,35 @@ import {
 } from './styles';
 
 /** types */
-import { HandleVariableChangeSignature, SelectInputValue } from '../types';
+import type { FieldSelectProps } from '../types';
 
-export const SelectInput = ({
-  handleVariableChange,
-  id,
-  values,
-  variableName,
-}: {
-  handleVariableChange: HandleVariableChangeSignature;
-  id: string;
-  values: SelectInputValue[];
-  variableName: string;
-}) => {
-  console.log('rendering SelectInput', { values });
+export const FieldSelect = ({
+  currentValue,
+  handleChange,
+  name,
+  options,
+}: FieldSelectProps) => {
+  // console.log('rendering FieldSelect', { currentValue, options });
+
+  const [value, setValue] = useState<string>(currentValue || options[0].value);
+
   useEffect(() => {
-    // set a default value in our variables state
-    handleVariableChange({ id, value: values[0].value, variableName });
+    if (value) {
+      handleChange({
+        name,
+        value,
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [value]);
 
   return (
     <StyledSelect
-      defaultValue={values[0].value}
-      name={variableName}
-      onValueChange={(value) => {
-        console.log('using SelectInput', { variableName, value });
-
-        return handleVariableChange({ id, value, variableName });
-      }}
+      defaultValue={value}
+      name={name}
+      onValueChange={(value: string) => setValue(value)}
     >
-      <SelectTrigger aria-label="Values">
+      <SelectTrigger>
         <SelectValue />
         <SelectIcon>
           <Chevron />
@@ -56,7 +54,7 @@ export const SelectInput = ({
       </SelectTrigger>
       <SelectContent>
         <SelectViewport>
-          {values.map((v) => {
+          {options.map((v) => {
             return (
               <SelectItem key={v.name} value={v.value}>
                 <SelectItemText>{v.name}</SelectItemText>

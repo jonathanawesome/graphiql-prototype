@@ -1,9 +1,13 @@
-export const defaultInputValue = ({ typeNameAsString }: { typeNameAsString: string }) => {
+export const getDefaultInputValue = ({
+  typeNameAsString,
+}: {
+  typeNameAsString: string;
+}) => {
   switch (typeNameAsString) {
     case 'Float':
-      return '1.23';
+      return 1.23;
     case 'Int':
-      return '123';
+      return 123;
     case 'ID':
       return 'TK421';
     case 'String':

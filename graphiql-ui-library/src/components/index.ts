@@ -3,6 +3,9 @@ export type { DialogProps } from './Dialog';
 
 export { OptionItem } from './OptionItem';
 
+export { Pill } from './Pill';
+export * from './Form';
+
 export { Popover } from './Popover';
 
 export { Resizer } from './Resizer';

@@ -1,14 +1,13 @@
 import { useState } from 'react';
-import { editor as MONACO_EDITOR } from 'monaco-editor';
 
 /** components */
-import { EasyVars } from '@graphiql-v2-prototype/graphiql-plugin-operations-tools-easy-vars';
 import {
   Code,
   Input,
   OptionItem,
   ToggleGroup,
 } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { EasyVars } from '@graphiql-v2-prototype/graphiql-plugin-operations-tools-easy-vars';
 import { MonacoEditor } from '../MonacoEditor';
 
 /** styles */
@@ -25,11 +24,7 @@ import { getActiveEditorTab } from '../../utils';
 
 type EditorType = 'CodeEditor' | 'InputEditor';
 
-export const Variables = ({
-  variablesModel,
-}: {
-  variablesModel: MONACO_EDITOR.ITextModel;
-}) => {
+export const Variables = () => {
   const [editorType, setEditorTtype] = useState<EditorType>('CodeEditor');
 
   const activeEditorTab = getActiveEditorTab();
@@ -39,14 +34,14 @@ export const Variables = ({
   return (
     <VariablesWrap>
       <VariablesEditor isVisible={editorType === 'CodeEditor'}>
-        <MonacoEditor editorType="variables" initWithModel={variablesModel} />
+        <MonacoEditor editorType="variables" />
       </VariablesEditor>
 
       {variableDefinitions &&
         variableDefinitions.length > 0 &&
         editorType === 'InputEditor' && (
           <EasyVarsWrap>
-            <EasyVars />
+            <EasyVars variableDefinitions={[...variableDefinitions]} />
           </EasyVarsWrap>
         )}
 
@@ -54,7 +49,6 @@ export const Variables = ({
         ((variableDefinitions && variableDefinitions?.length === 0) ||
           !variableDefinitions) && <Note>There are no active variable definitions.</Note>}
 
-      {/* {variableDefinitions && variableDefinitions.length > 0 && ( */}
       <EditorOptionWrap>
         <OptionItem
           title="Select an editor type"
@@ -77,7 +71,6 @@ export const Variables = ({
           }
         />
       </EditorOptionWrap>
-      {/* )} */}
     </VariablesWrap>
   );
 };

@@ -2,7 +2,7 @@ import cuid from 'cuid';
 
 /** components */
 import { Plus } from '@graphiql-v2-prototype/graphiql-ui-library';
-import { Tab } from '../Tab';
+import { Tab } from './Tab';
 
 /** constants */
 import { defaultResults, defaultVariables } from '../../constants';
@@ -11,7 +11,7 @@ import { defaultResults, defaultVariables } from '../../constants';
 import { useGraphiQLEditor } from '../../hooks';
 
 /** styles */
-import { AddTabButton, HeaderWrap, TabsRow, GraphiQLLink } from './styles';
+import { AddTabButton, HeaderWrap, TabList, GraphiQLLink } from './styles';
 
 /** utils */
 import { getOrCreateModel } from '../../utils';
@@ -25,8 +25,13 @@ const AddTab = ({ doAddTab }: { doAddTab: () => void }) => {
 };
 
 export const Header = () => {
-  const { activeEditorTabId, setActiveEditorTabId, editorTabs, addEditorTab } =
-    useGraphiQLEditor();
+  const {
+    activeEditorTabId,
+    setActiveEditorTabId,
+    editorTabs,
+    addEditorTab,
+    switchEditorTab,
+  } = useGraphiQLEditor();
 
   const doAddTab = () => {
     const editorTabId = cuid.slug();
@@ -46,18 +51,16 @@ export const Header = () => {
           uri: `${editorTabId}-results.json`,
           value: defaultResults,
         }),
-        operation: '',
-        variables: defaultVariables,
-        results: defaultResults,
         operationDefinition: null,
       },
     });
     setActiveEditorTabId({ editorTabId });
+    switchEditorTab({ editorTabId });
   };
 
   return (
     <HeaderWrap>
-      <TabsRow>
+      <TabList>
         {editorTabs.length < 2
           ? null
           : editorTabs.map((tab) => (
@@ -68,10 +71,10 @@ export const Header = () => {
               />
             ))}
         {editorTabs.length > 1 && <AddTab doAddTab={doAddTab} />}
-      </TabsRow>
+      </TabList>
       {editorTabs.length < 2 && <AddTab doAddTab={doAddTab} />}
       <GraphiQLLink>
-        <a>
+        <a href="https://github.com/graphql/graphiql" target="_blank" rel="noreferrer">
           Graph<i>i</i>
           QL
         </a>

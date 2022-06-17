@@ -1,16 +1,13 @@
 import { isEnumType } from 'graphql';
 
 /** hooks */
-import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
+import { useGraphiQLEditor } from '../hooks';
 
-/** types */
-import { SelectInputValue } from '../components/EasyVars/types';
-
-export const getReadyEnumValues = ({
+export const getEnumValues = ({
   enumTypeName,
 }: {
   enumTypeName: string;
-}): SelectInputValue[] | undefined => {
+}): Array<{ value: string; name: string; description?: string }> | undefined => {
   const schema = useGraphiQLEditor.getState().schema;
 
   if (!schema) {

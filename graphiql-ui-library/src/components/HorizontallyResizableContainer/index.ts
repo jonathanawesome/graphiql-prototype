@@ -1,1 +1,0 @@
-export { HorizontallyResizableContainer } from './HorizontallyResizableContainer';

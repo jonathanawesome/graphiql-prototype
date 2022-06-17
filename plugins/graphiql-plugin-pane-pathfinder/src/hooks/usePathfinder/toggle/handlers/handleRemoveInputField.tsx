@@ -1,8 +1,3 @@
-import {
-  getActiveEditorTab,
-  useGraphiQLEditor,
-} from '@graphiql-v2-prototype/graphiql-editor';
-
 /** types */
 import {
   AncestorInputField,
@@ -10,7 +5,8 @@ import {
   SetNextVariableDefinitionsSignature,
 } from '../../types';
 
-const removeVariables = useGraphiQLEditor.getState().removeVariables;
+/** utils */
+import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 
 export const handleRemoveInputField = ({
   ancestor,
@@ -35,8 +31,6 @@ export const handleRemoveInputField = ({
       nextVariableDefinitions: newVarDefs,
     });
   }
-
-  removeVariables({ variableNames: [ancestor.variableName] });
 
   setNextAction({
     type: 'REMOVE',

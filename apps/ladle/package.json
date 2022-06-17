@@ -10,11 +10,13 @@
     "@graphiql-v2-prototype/graphiql-editor": "workspace:*",
     "@graphiql-v2-prototype/graphiql-plugin-dialog-schema-selector": "workspace:*",
     "@graphiql-v2-prototype/graphiql-plugin-dialog-settings": "workspace:*",
+    "@graphiql-v2-prototype/graphiql-plugin-operations-tools-easy-vars": "workspace:*",
     "@graphiql-v2-prototype/graphiql-plugin-pane-history": "workspace:*",
     "@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder": "workspace:*",
     "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",
     "@graphiql-v2-prototype/graphiql-v2": "workspace:*",
     "@ladle/react": "1.1.0",
+    "graphql": "^16.5.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "vite-plugin-monaco-editor": "^1.0.10"

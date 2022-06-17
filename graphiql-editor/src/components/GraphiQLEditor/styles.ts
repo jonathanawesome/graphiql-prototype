@@ -10,9 +10,8 @@ export const EditorInner = styled('div', {
   borderRadius: 20,
 });
 
-export const EditorWrap = styled('div', {
+export const EditorWrap = styled('section', {
   height: '100%',
   width: '100%',
-  // padding: 16,
   overflow: 'hidden',
 });

@@ -1,35 +1,38 @@
-import { useEffect, useState } from 'react';
 import { VariableDefinitionNode } from 'graphql';
+import {
+  getActiveEditorTab,
+  getDisplayStringFromVariableDefinitionTypeNode,
+  useGraphiQLEditor,
+} from '@graphiql-v2-prototype/graphiql-editor';
 
 /** styles */
-import { EasyVarStyled, EasyVarsStyled, Name, NameAndType, Type } from './styles';
+import { EasyVarsStyled } from './styles';
 
 /** types */
-import { HandleVariableChange } from './types';
+import type { HandleChange } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 /** utils */
 import { inputToRender } from './inputToRender';
 import {
-  getDisplayStringFromVariableDefinitionTypeNode,
-  getActiveEditorTab,
-  useGraphiQLEditor,
-} from '@graphiql-v2-prototype/graphiql-editor';
-import { isVariableDefinitionListType, getTypeNameValue } from '../../utils';
+  isVariableDefinitionListType,
+  getTypeNameValue,
+  parseOutgoingVariableValue,
+  parseIncomingVariableValue,
+} from '../../utils';
 
 const updateVariable = useGraphiQLEditor.getState().updateVariable;
 
 const EasyVar = ({
+  currentValue,
   variableDefinition,
 }: {
+  currentValue: string;
   variableDefinition: VariableDefinitionNode;
 }) => {
   // console.log('rendering easyVar', {
   //   variableDefinition,
+  //   currentValue,
   // });
-
-  const [newVariableListValue, setNewVariableListValue] = useState<
-    Array<HandleVariableChange>
-  >([]);
 
   const isList = isVariableDefinitionListType({ type: variableDefinition.type });
   const typeNameValue = getTypeNameValue({
@@ -39,82 +42,48 @@ const EasyVar = ({
     type: variableDefinition.type,
   });
 
-  const handleVariableChange = ({ id, value, variableName }: HandleVariableChange) => {
-    if (isList) {
-      console.log('running handleVariableChange...isListType');
-      setNewVariableListValue((previousListItems) => {
-        if (previousListItems.length === 0) {
-          return [{ id, value, variableName }];
-        } else {
-          const copy = [...previousListItems];
-          const existingValue = copy.findIndex((x) => x.id === id);
-          if (existingValue !== -1) {
-            // if variable exists, replace it
-            copy[existingValue] = { id, value, variableName };
-            return copy;
-          } else {
-            return [...previousListItems, { id, value, variableName }];
-          }
-        }
-      });
-    } else {
-      console.log('running handleVariableChange...is NOT ListType', {
-        variableName: variableDefinition.variable.name.value,
-        variableValue: value,
-      });
-      updateVariable({
-        variableName: variableDefinition.variable.name.value,
-        variableValue: value,
-      });
-    }
+  const handleChange = ({ value }: HandleChange) => {
+    updateVariable({
+      variableName: variableDefinition.variable.name.value,
+      variableValue: parseOutgoingVariableValue({ typeNameValue, value }),
+    });
   };
 
-  useEffect(() => {
-    if (isList) {
-      updateVariable({
-        variableName: variableDefinition.variable.name.value,
-        variableValue: newVariableListValue.map((v) => v.value),
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [newVariableListValue]);
-
-  return (
-    <EasyVarStyled>
-      <NameAndType>
-        <Name>{variableDefinition.variable.name.value}</Name>
-        <Type>{displayString}</Type>
-      </NameAndType>
-      {inputToRender({
-        handleVariableChange,
-        isList,
-        typeNameValue,
-        variableDefinition,
-      })}
-    </EasyVarStyled>
-  );
+  return inputToRender({
+    currentValue: parseIncomingVariableValue(currentValue),
+    displayString,
+    handleChange,
+    isList,
+    typeNameValue,
+    variableDefinition,
+  });
 };
 
-export const EasyVars = () => {
+export const EasyVars = ({
+  variableDefinitions,
+}: {
+  variableDefinitions: VariableDefinitionNode[];
+}) => {
   const activeEditorTab = getActiveEditorTab();
+  const variablesModelValue = activeEditorTab?.variablesModel.getValue();
 
-  if (!activeEditorTab) {
-    //TODO
-    return <p>loading...</p>;
+  let parsedVariables: Record<any, any> = {};
+
+  if (variablesModelValue) {
+    // TODO catch parse errors
+    parsedVariables = JSON.parse(variablesModelValue);
   }
-
-  const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
-  const variables = activeEditorTab?.variables;
-
-  console.log('rendering EasyVars', {
-    variableDefinitions,
-    variables,
-  });
 
   return (
     <EasyVarsStyled>
       {variableDefinitions?.map((v) => {
-        return <EasyVar key={v.variable.name.value} variableDefinition={v} />;
+        return (
+          <EasyVar
+            key={v.variable.name.value}
+            variableDefinition={v}
+            currentValue={parsedVariables[v.variable.name.value]}
+          />
+        );
       })}
     </EasyVarsStyled>
   );

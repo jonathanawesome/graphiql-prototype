@@ -1,7 +1,11 @@
 export { GraphiQLEditor } from './components';
+
 export { useGraphiQLEditor } from './hooks';
+
 export {
-  getDisplayStringFromVariableDefinitionTypeNode,
   getActiveEditorTab,
+  getDefaultInputValue,
+  getDisplayStringFromVariableDefinitionTypeNode,
+  getEnumValues,
   parseQuery,
 } from './utils';

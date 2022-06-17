@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { editor as MONACO_EDITOR } from 'monaco-editor';
+import { useState } from 'react';
 
 /** components */
 import { Chevron } from '@graphiql-v2-prototype/graphiql-ui-library';
@@ -21,13 +20,7 @@ import {
 /** utils */
 import { getActiveEditorTab } from '../../utils';
 
-export const OperationTools = ({
-  setHeight,
-  variablesModel,
-}: {
-  setHeight: () => void;
-  variablesModel: MONACO_EDITOR.ITextModel;
-}) => {
+export const OperationTools = ({ setHeight }: { setHeight: () => void }) => {
   const [isOperationToolsOpen, setIsOperationToolsOpen] = useState<boolean>(false);
   const [openTab, setOpenTab] = useState('VariablesTab');
   const activeEditorTab = getActiveEditorTab();
@@ -71,7 +64,7 @@ export const OperationTools = ({
             forceMount
             hidden={openTab !== 'VariablesTab'}
           >
-            <Variables variablesModel={variablesModel} />
+            <Variables />
           </TabsContent>
           <TabsContent value="HeadersTab">
             <Headers />

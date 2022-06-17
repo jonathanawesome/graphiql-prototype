@@ -1,5 +1,4 @@
 import { FieldNode, Kind } from 'graphql';
-import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 
 /** helpers */
 import { findFieldSiblings } from '../helpers';
@@ -10,6 +9,9 @@ import {
   SetNextSelectionSetSignature,
   SetNextVariableDefinitionsSignature,
 } from '../../types';
+
+/** utils */
+import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 
 export const handleAddField = ({
   ancestor,
