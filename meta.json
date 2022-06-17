@@ -5,6 +5,16 @@
     "version": 1
   },
   "stories": {
+    "easy-vars--easy-vars": {
+      "name": "Easy vars",
+      "levels": [
+        "Easy vars"
+      ],
+      "locStart": 5,
+      "locEnd": 11,
+      "filePath": "src/EasyVars.stories.tsx",
+      "meta": {}
+    },
     "editor--graphi-q-l-editor": {
       "name": "Graphi q l editor",
       "levels": [
@@ -15,14 +25,172 @@
       "filePath": "src/Editor.stories.tsx",
       "meta": {}
     },
+    "forms---fields--field-input": {
+      "name": "Field input",
+      "levels": [
+        "Forms",
+        " fields"
+      ],
+      "locStart": 13,
+      "locEnd": 26,
+      "filePath": "src/Forms--Fields.stories.tsx",
+      "meta": {}
+    },
+    "forms---fields--field-select": {
+      "name": "Field select",
+      "levels": [
+        "Forms",
+        " fields"
+      ],
+      "locStart": 30,
+      "locEnd": 48,
+      "filePath": "src/Forms--Fields.stories.tsx",
+      "meta": {}
+    },
+    "forms---fields--field-list---int": {
+      "name": " int",
+      "levels": [
+        "Forms",
+        " fields",
+        "Field list"
+      ],
+      "locStart": 52,
+      "locEnd": 63,
+      "filePath": "src/Forms--Fields.stories.tsx",
+      "meta": {}
+    },
+    "forms---fields--field-list---string": {
+      "name": " string",
+      "levels": [
+        "Forms",
+        " fields",
+        "Field list"
+      ],
+      "locStart": 67,
+      "locEnd": 78,
+      "filePath": "src/Forms--Fields.stories.tsx",
+      "meta": {}
+    },
+    "forms---fields--field-list---float": {
+      "name": " float",
+      "levels": [
+        "Forms",
+        " fields",
+        "Field list"
+      ],
+      "locStart": 82,
+      "locEnd": 93,
+      "filePath": "src/Forms--Fields.stories.tsx",
+      "meta": {}
+    },
+    "forms---fields--field-list---id": {
+      "name": " id",
+      "levels": [
+        "Forms",
+        " fields",
+        "Field list"
+      ],
+      "locStart": 97,
+      "locEnd": 108,
+      "filePath": "src/Forms--Fields.stories.tsx",
+      "meta": {}
+    },
+    "forms---fields--field-list---enum": {
+      "name": " enum",
+      "levels": [
+        "Forms",
+        " fields",
+        "Field list"
+      ],
+      "locStart": 112,
+      "locEnd": 123,
+      "filePath": "src/Forms--Fields.stories.tsx",
+      "meta": {}
+    },
+    "forms---form--static-form": {
+      "name": "Static form",
+      "levels": [
+        "Forms",
+        " form"
+      ],
+      "locStart": 9,
+      "locEnd": 88,
+      "filePath": "src/Forms--Form.stories.tsx",
+      "meta": {}
+    },
+    "forms---form--dynamic-form": {
+      "name": "Dynamic form",
+      "levels": [
+        "Forms",
+        " form"
+      ],
+      "locStart": 92,
+      "locEnd": 163,
+      "filePath": "src/Forms--Form.stories.tsx",
+      "meta": {}
+    },
+    "forms---form-control--field-input-with-label-add-on": {
+      "name": "Field input with label add on",
+      "levels": [
+        "Forms",
+        " form control"
+      ],
+      "locStart": 9,
+      "locEnd": 28,
+      "filePath": "src/Forms--FormControl.stories.tsx",
+      "meta": {}
+    },
+    "forms---form-control--field-input-without-label-add-on": {
+      "name": "Field input without label add on",
+      "levels": [
+        "Forms",
+        " form control"
+      ],
+      "locStart": 32,
+      "locEnd": 50,
+      "filePath": "src/Forms--FormControl.stories.tsx",
+      "meta": {}
+    },
+    "forms---form-control--field-select-with-label-add-on": {
+      "name": "Field select with label add on",
+      "levels": [
+        "Forms",
+        " form control"
+      ],
+      "locStart": 54,
+      "locEnd": 81,
+      "filePath": "src/Forms--FormControl.stories.tsx",
+      "meta": {}
+    },
+    "forms---form-control--field-select-without-label-add-on": {
+      "name": "Field select without label add on",
+      "levels": [
+        "Forms",
+        " form control"
+      ],
+      "locStart": 85,
+      "locEnd": 112,
+      "filePath": "src/Forms--FormControl.stories.tsx",
+      "meta": {}
+    },
     "pathfinder--pathfinder": {
       "name": "Pathfinder",
       "levels": [
         "Pathfinder"
       ],
       "locStart": 6,
-      "locEnd": 17,
+      "locEnd": 19,
       "filePath": "src/Pathfinder.stories.tsx",
+      "meta": {}
+    },
+    "pill--pill": {
+      "name": "Pill",
+      "levels": [
+        "Pill"
+      ],
+      "locStart": 3,
+      "locEnd": 5,
+      "filePath": "src/Pill.stories.tsx",
       "meta": {}
     },
     "reference--reference": {
