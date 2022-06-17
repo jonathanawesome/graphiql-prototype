@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 /** components */
 import { Check, Chevron } from '../../../icons';
@@ -28,24 +28,23 @@ export const FieldSelect = ({
 }: FieldSelectProps) => {
   // console.log('rendering FieldSelect', { currentValue, options });
 
+  const [value, setValue] = useState<string>(currentValue || options[0].value);
+
   useEffect(() => {
-    handleChange({
-      name,
-      value: options[0].value,
-    });
+    if (value) {
+      handleChange({
+        name,
+        value,
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [value]);
 
   return (
     <StyledSelect
-      defaultValue={currentValue || options[0].value}
+      defaultValue={value}
       name={name}
-      onValueChange={(value: string) => {
-        return handleChange({
-          name,
-          value,
-        });
-      }}
+      onValueChange={(value: string) => setValue(value)}
     >
       <SelectTrigger>
         <SelectValue />

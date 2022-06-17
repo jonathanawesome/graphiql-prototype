@@ -33,6 +33,8 @@ export const inputToRender = ({
 }) => {
   const name = variableDefinition.variable.name.value;
 
+  // console.log('inputToRender', { currentValue });
+
   let inputToRender: React.ReactElement;
   if (isList) {
     // control is FieldList
@@ -92,7 +94,9 @@ export const inputToRender = ({
               currentValue: currentValue as string,
               handleChange,
               name,
-              placeholder: getDefaultInputValue({ typeNameAsString: typeNameValue }),
+              placeholder: getDefaultInputValue({
+                typeNameAsString: typeNameValue,
+              }) as string,
             },
             label: name,
             labelAddOn: <Pill copy={displayString} />,

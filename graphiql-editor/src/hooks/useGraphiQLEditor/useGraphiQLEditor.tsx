@@ -24,6 +24,7 @@ import {
   pushEditOperationsToModel,
 } from '../../utils';
 import { KeyCode, KeyMod } from 'monaco-editor';
+import { defaultVariables } from '../../constants';
 
 export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   activeEditorTabId: null,
@@ -87,7 +88,10 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     });
     if (activeEditorTab) {
       // 1. parse the existing variables string to an object
-      const parsedVariables = JSON.parse(activeEditorTab.variablesModel.getValue());
+      // if the current variables model is undefined, use an empty object string
+      const parsedVariables = JSON.parse(
+        activeEditorTab.variablesModel.getValue() || '{}'
+      );
       // 2. set the variableName and/or variableValue
       parsedVariables[variableName] = variableValue;
       // 3. return to string

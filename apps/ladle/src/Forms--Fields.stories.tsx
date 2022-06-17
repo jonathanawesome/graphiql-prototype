@@ -17,7 +17,7 @@ export const FieldInputStory = () => {
     <FieldInput
       currentValue={val}
       handleChange={({ name, value }: HandleChange) => {
-        setVal(value);
+        setVal(value as string);
       }}
       name={`FormControl FieldInput`}
       placeholder="placeholder"
@@ -52,7 +52,7 @@ FieldSelectStory.storyName = 'FieldSelect';
 export const FieldListIntStory = () => {
   return (
     <FieldList
-      currentValue={[1, 2, 3, 4]}
+      currentValue={['1', '2', '3', '4']}
       handleChange={({ name, value }: HandleChange) => {
         console.log(value);
       }}
@@ -82,7 +82,7 @@ FieldListStringStory.storyName = 'FieldList - String';
 export const FieldListFloatStory = () => {
   return (
     <FieldList
-      currentValue={[1.2, 1.23, 1.234]}
+      currentValue={['1.2', '1.23', '1.234']}
       handleChange={({ name, value }: HandleChange) => {
         console.log(value);
       }}

@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 /** styles */
 import { StyledFieldInput } from './styles';
 
@@ -10,22 +12,29 @@ export const FieldInput = ({
   name,
   placeholder,
 }: FieldInputProps) => {
-  // console.log('rendering FieldInput', { value, name });
+  // console.log('rendering FieldInput', { currentValue, name });
+
+  const [value, setValue] = useState<string | undefined>(currentValue || '');
+
+  useEffect(() => {
+    if (value) {
+      handleChange({
+        name,
+        value,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
 
   return (
     <StyledFieldInput>
       <input
         autoComplete="off"
         name={name}
-        onChange={(e) =>
-          handleChange({
-            name,
-            value: e.target.value,
-          })
-        }
+        onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
         type="text"
-        value={currentValue}
+        value={value}
       />
     </StyledFieldInput>
   );

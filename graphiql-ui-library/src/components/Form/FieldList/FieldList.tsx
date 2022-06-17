@@ -52,11 +52,11 @@ export const FieldList = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values]);
 
-  console.log('rendering FieldList', {
-    name,
-    fieldListItems,
-    currentValue,
-  });
+  // console.log('rendering FieldList', {
+  //   name,
+  //   fieldListItems,
+  //   currentValue,
+  // });
 
   const handleAddItem = ({
     currentValue,
@@ -66,7 +66,6 @@ export const FieldList = ({
     name: string;
   }) => {
     if (['ID', 'String', 'Int', 'Float'].includes(typeNameValue)) {
-      console.log('currentValue for a FieldInput', { 'values[name]': values[name] });
       setFieldListItems((prev) => [
         ...prev,
         {

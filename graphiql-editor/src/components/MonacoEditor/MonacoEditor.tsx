@@ -54,17 +54,13 @@ export const MonacoEditor = ({
         name: editorType,
       });
 
-      // listen for changes to the model content only on the operation editor
-      if (editorType === 'operation') {
-        editor.onDidChangeModelContent(() => {
-          // when our operation editor model changes, update the operationDefinition
-          updateOperationDefinitionFromModelValue({ value: editor.getValue() });
-        });
-      }
-
       // add the runOperationAction to the operation and variables editors
       if (editorType !== 'results') {
         editor.addAction(runOperationAction());
+        // when our operation or variables editor models change, update the operationDefinition
+        editor.onDidChangeModelContent(() => {
+          updateOperationDefinitionFromModelValue({ value: editor.getValue() });
+        });
       }
 
       MONACO_EDITOR.defineTheme('myTheme', editorTheme);

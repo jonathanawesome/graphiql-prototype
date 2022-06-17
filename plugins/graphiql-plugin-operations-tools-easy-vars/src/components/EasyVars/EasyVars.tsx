@@ -1,5 +1,6 @@
 import { VariableDefinitionNode } from 'graphql';
 import {
+  getActiveEditorTab,
   getDisplayStringFromVariableDefinitionTypeNode,
   useGraphiQLEditor,
 } from '@graphiql-v2-prototype/graphiql-editor';
@@ -12,32 +13,14 @@ import type { HandleChange } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 /** utils */
 import { inputToRender } from './inputToRender';
-import { isVariableDefinitionListType, getTypeNameValue } from '../../utils';
+import {
+  isVariableDefinitionListType,
+  getTypeNameValue,
+  parseOutgoingVariableValue,
+  parseIncomingVariableValue,
+} from '../../utils';
 
 const updateVariable = useGraphiQLEditor.getState().updateVariable;
-
-export const parseValue = ({
-  typeNameValue,
-  value,
-}: {
-  typeNameValue: string;
-  value: string | string[];
-}) => {
-  if (Array.isArray(value)) {
-    return value.map((v) => {
-      return parseValue({ typeNameValue, value: v });
-    });
-  } else if (typeNameValue === 'Int') {
-    return parseInt(value);
-  } else if (typeNameValue === 'Float') {
-    return parseFloat(value);
-  } else if (typeNameValue === 'Boolean') {
-    return !!value;
-  } else {
-    //it's an enum, "String", or "ID"
-    return value;
-  }
-};
 
 const EasyVar = ({
   currentValue,
@@ -62,12 +45,12 @@ const EasyVar = ({
   const handleChange = ({ value }: HandleChange) => {
     updateVariable({
       variableName: variableDefinition.variable.name.value,
-      variableValue: parseValue({ typeNameValue, value }),
+      variableValue: parseOutgoingVariableValue({ typeNameValue, value }),
     });
   };
 
   return inputToRender({
-    currentValue,
+    currentValue: parseIncomingVariableValue(currentValue),
     displayString,
     handleChange,
     isList,
@@ -78,12 +61,18 @@ const EasyVar = ({
 
 export const EasyVars = ({
   variableDefinitions,
-  variables,
 }: {
   variableDefinitions: VariableDefinitionNode[];
-  variables: string;
 }) => {
-  const parsedVariables = JSON.parse(variables);
+  const activeEditorTab = getActiveEditorTab();
+  const variablesModelValue = activeEditorTab?.variablesModel.getValue();
+
+  let parsedVariables: Record<any, any> = {};
+
+  if (variablesModelValue) {
+    // TODO catch parse errors
+    parsedVariables = JSON.parse(variablesModelValue);
+  }
 
   return (
     <EasyVarsStyled>
