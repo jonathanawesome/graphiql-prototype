@@ -57,6 +57,7 @@ export type GraphiQLEditorStore = {
   }) => void;
   executeOperation: () => Promise<void>;
   runOperationAction: () => MONACO_EDITOR.IActionDescriptor;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   schema: GraphQLSchema | null | { error: any };
   schemaUrl: string | null;
   initSchema: ({ url }: { url?: string }) => Promise<void>;

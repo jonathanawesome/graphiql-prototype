@@ -112,7 +112,7 @@ export const SchemaSelector = () => {
       value={radioValue}
       aria-label="Choose schema"
       onValueChange={(value) => {
-        console.log('value', { value });
+        // console.log('value', { value });
         setRadioValue(value);
         if (value === 'testSchema') {
           return setTargetSchemaUrl('testSchema');

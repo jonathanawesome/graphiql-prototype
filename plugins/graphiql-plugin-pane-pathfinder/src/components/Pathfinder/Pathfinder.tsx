@@ -22,7 +22,7 @@ export const Pathfinder = () => {
     return <p>loading schema...</p>;
   }
   if ('error' in schema) {
-    //TODO: some loading skeleton
+    //TODO: some error skeleton
     return <p>error loading schema.</p>;
   }
 

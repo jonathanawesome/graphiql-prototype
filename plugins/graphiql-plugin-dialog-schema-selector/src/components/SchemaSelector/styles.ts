@@ -6,11 +6,7 @@ export const Note = styled('span', {
   display: 'block',
   fontSize: '$body',
   color: '$accentInfo',
-  // backgroundColor: '$scale300',
-  // border: '1px solid $accentInfo',
   marginBottom: 24,
-  // padding: 8,
-  // fontStyle: 'italic',
 });
 
 export const Error = styled('span', {
@@ -18,7 +14,6 @@ export const Error = styled('span', {
   fontSize: '$body',
   color: '$accentError',
   backgroundColor: '$scale100',
-  // border: '1px solid $accentError',
   marginTop: 12,
   padding: 8,
   fontStyle: 'italic',
