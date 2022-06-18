@@ -103,6 +103,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     switchEditorTab({ editorTabId: remainingEditors[0].editorTabId });
   },
   switchEditorTab: ({ editorTabId }) => {
+    const monacoGraphQLAPI = get().monacoGraphQLAPI;
     const monacoEditors = get().monacoEditors;
     const editorTabs = get().editorTabs;
     const editorTab = editorTabs.find((t) => t.editorTabId === editorTabId);
@@ -117,6 +118,20 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       operationsEditor?.editor.setModel(editorTab.operationModel);
       variablesEditor?.editor.setModel(editorTab.variablesModel);
       resultsEditor?.editor.setModel(editorTab.resultsModel);
+      monacoGraphQLAPI.setDiagnosticSettings({
+        validateVariablesJSON: {
+          [editorTab.operationModel.uri.toString()]: [
+            editorTab.variablesModel.uri.toString(),
+          ],
+        },
+        jsonDiagnosticSettings: {
+          // jsonc tip!
+          allowComments: true,
+          schemaValidation: 'error',
+          // this is nice too
+          trailingCommas: 'warning',
+        },
+      });
     }
   },
   // removeVariables: ({ variableNames }) => {
@@ -310,6 +325,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     });
 
     const { operationModelUri } = initializeAndActivateEditorTab();
+    console.log('operationModelUri', operationModelUri);
 
     if (!url) {
       set({ schema: testSchema, schemaUrl: null });
@@ -319,7 +335,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
         {
           schema: testSchema,
           uri: `testSchema-schema.graphql`,
-          fileMatch: [operationModelUri],
+          // fileMatch: [operationModelUri],
         },
       ]);
     } else {
@@ -338,7 +354,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
           {
             schema,
             uri: `${url}-schema.graphql`,
-            fileMatch: [operationModelUri],
+            // fileMatch: [operationModelUri],
           },
         ]);
       } catch (error) {
