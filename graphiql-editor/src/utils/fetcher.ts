@@ -1,12 +1,21 @@
+// import { createGraphiQLFetcher } from '@graphiql/toolkit';
 import { FetcherParams } from '@graphiql/toolkit';
 
 export const fetcher =
-  ({ url }: { url: string }) =>
+  ({ headers, url }: { headers?: HeadersInit; url: string }) =>
   async (graphQLParams: FetcherParams) => {
     const response = await fetch(url, {
       method: 'POST',
-      headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        ...headers,
+      },
       body: JSON.stringify(graphQLParams),
     });
     return response.json().catch(() => response.text());
   };
+
+// export const fetcher = ({ url }: { url: string }) =>
+//   createGraphiQLFetcher({
+//     url,
+//   });

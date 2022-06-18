@@ -1,16 +1,15 @@
-import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
+/** components */
+import { MonacoEditor } from '../MonacoEditor';
 
-const HeadersWrap = styled('div', {
-  height: 150,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-});
+/** styles */
+import { HeadersEditor, HeadersWrap } from './styles';
 
 export const Headers = () => {
   return (
     <HeadersWrap>
-      <span style={{ fontSize: '10px' }}>TODO: Headers...please send help 🦺</span>
+      <HeadersEditor isVisible={true}>
+        <MonacoEditor editorType="headers" />
+      </HeadersEditor>
     </HeadersWrap>
   );
 };

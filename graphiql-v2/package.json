@@ -6,12 +6,9 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",
     "@graphiql-v2-prototype/graphiql-editor": "workspace:*",
-    "@graphiql/toolkit": "^0.6.0",
+    "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",
     "graphql": "^16.5.0",
-    "jsonc-parser": "3.0.0",
-    "monaco-editor": "^0.33.0",
     "react": "17.0.2",
     "zustand": "^4.0.0-rc.1"
   },
