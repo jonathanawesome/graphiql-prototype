@@ -22280,9 +22280,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/autocompleteUtils.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/autocompleteUtils.js
   var require_autocompleteUtils = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/autocompleteUtils.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/autocompleteUtils.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.hintList = exports.objectValues = exports.forEachState = exports.getFieldDef = exports.getDefinitionState = void 0;
@@ -22311,7 +22311,7 @@ ${operationTypes.join("\n")}
         if (fieldName === introspection_1.TypeMetaFieldDef.name && schema.getQueryType() === type) {
           return introspection_1.TypeMetaFieldDef;
         }
-        if (fieldName === introspection_1.TypeNameMetaFieldDef.name && graphql_1.isCompositeType(type)) {
+        if (fieldName === introspection_1.TypeNameMetaFieldDef.name && (0, graphql_1.isCompositeType)(type)) {
           return introspection_1.TypeNameMetaFieldDef;
         }
         if ("getFields" in type) {
@@ -22323,7 +22323,7 @@ ${operationTypes.join("\n")}
       function forEachState(stack, fn) {
         const reverseStateStack = [];
         let state = stack;
-        while (state && state.kind) {
+        while (state === null || state === void 0 ? void 0 : state.kind) {
           reverseStateStack.push(state);
           state = state.prevState;
         }
@@ -23859,9 +23859,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/CharacterStream.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/CharacterStream.js
   var require_CharacterStream = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/CharacterStream.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/CharacterStream.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       var CharacterStream = class {
@@ -23917,7 +23917,7 @@ ${operationTypes.join("\n")}
               token = pattern;
             } else if (pattern instanceof RegExp) {
               match = this._sourceText.slice(this._pos).match(pattern);
-              token = match && match[0];
+              token = match === null || match === void 0 ? void 0 : match[0];
             }
             if (match != null) {
               if (typeof pattern === "string" || match instanceof Array && this._sourceText.startsWith(match[0], this._pos)) {
@@ -23973,9 +23973,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/RuleHelpers.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/RuleHelpers.js
   var require_RuleHelpers = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/RuleHelpers.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/RuleHelpers.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.p = exports.t = exports.butNot = exports.list = exports.opt = void 0;
@@ -24013,9 +24013,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/Rules.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/Rules.js
   var require_Rules = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/Rules.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/Rules.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.ParseRules = exports.LexRules = exports.isIgnored = void 0;
@@ -24031,7 +24031,7 @@ ${operationTypes.join("\n")}
         Comment: /^#.*/
       };
       exports.ParseRules = {
-        Document: [RuleHelpers_1.list("Definition")],
+        Document: [(0, RuleHelpers_1.list)("Definition")],
         Definition(token) {
           switch (token.value) {
             case "{":
@@ -24067,61 +24067,61 @@ ${operationTypes.join("\n")}
         ShortQuery: ["SelectionSet"],
         Query: [
           word("query"),
-          RuleHelpers_1.opt(name("def")),
-          RuleHelpers_1.opt("VariableDefinitions"),
-          RuleHelpers_1.list("Directive"),
+          (0, RuleHelpers_1.opt)(name("def")),
+          (0, RuleHelpers_1.opt)("VariableDefinitions"),
+          (0, RuleHelpers_1.list)("Directive"),
           "SelectionSet"
         ],
         Mutation: [
           word("mutation"),
-          RuleHelpers_1.opt(name("def")),
-          RuleHelpers_1.opt("VariableDefinitions"),
-          RuleHelpers_1.list("Directive"),
+          (0, RuleHelpers_1.opt)(name("def")),
+          (0, RuleHelpers_1.opt)("VariableDefinitions"),
+          (0, RuleHelpers_1.list)("Directive"),
           "SelectionSet"
         ],
         Subscription: [
           word("subscription"),
-          RuleHelpers_1.opt(name("def")),
-          RuleHelpers_1.opt("VariableDefinitions"),
-          RuleHelpers_1.list("Directive"),
+          (0, RuleHelpers_1.opt)(name("def")),
+          (0, RuleHelpers_1.opt)("VariableDefinitions"),
+          (0, RuleHelpers_1.list)("Directive"),
           "SelectionSet"
         ],
-        VariableDefinitions: [RuleHelpers_1.p("("), RuleHelpers_1.list("VariableDefinition"), RuleHelpers_1.p(")")],
-        VariableDefinition: ["Variable", RuleHelpers_1.p(":"), "Type", RuleHelpers_1.opt("DefaultValue")],
-        Variable: [RuleHelpers_1.p("$", "variable"), name("variable")],
-        DefaultValue: [RuleHelpers_1.p("="), "Value"],
-        SelectionSet: [RuleHelpers_1.p("{"), RuleHelpers_1.list("Selection"), RuleHelpers_1.p("}")],
+        VariableDefinitions: [(0, RuleHelpers_1.p)("("), (0, RuleHelpers_1.list)("VariableDefinition"), (0, RuleHelpers_1.p)(")")],
+        VariableDefinition: ["Variable", (0, RuleHelpers_1.p)(":"), "Type", (0, RuleHelpers_1.opt)("DefaultValue")],
+        Variable: [(0, RuleHelpers_1.p)("$", "variable"), name("variable")],
+        DefaultValue: [(0, RuleHelpers_1.p)("="), "Value"],
+        SelectionSet: [(0, RuleHelpers_1.p)("{"), (0, RuleHelpers_1.list)("Selection"), (0, RuleHelpers_1.p)("}")],
         Selection(token, stream) {
           return token.value === "..." ? stream.match(/[\s\u00a0,]*(on\b|@|{)/, false) ? "InlineFragment" : "FragmentSpread" : stream.match(/[\s\u00a0,]*:/, false) ? "AliasedField" : "Field";
         },
         AliasedField: [
           name("property"),
-          RuleHelpers_1.p(":"),
+          (0, RuleHelpers_1.p)(":"),
           name("qualifier"),
-          RuleHelpers_1.opt("Arguments"),
-          RuleHelpers_1.list("Directive"),
-          RuleHelpers_1.opt("SelectionSet")
+          (0, RuleHelpers_1.opt)("Arguments"),
+          (0, RuleHelpers_1.list)("Directive"),
+          (0, RuleHelpers_1.opt)("SelectionSet")
         ],
         Field: [
           name("property"),
-          RuleHelpers_1.opt("Arguments"),
-          RuleHelpers_1.list("Directive"),
-          RuleHelpers_1.opt("SelectionSet")
+          (0, RuleHelpers_1.opt)("Arguments"),
+          (0, RuleHelpers_1.list)("Directive"),
+          (0, RuleHelpers_1.opt)("SelectionSet")
         ],
-        Arguments: [RuleHelpers_1.p("("), RuleHelpers_1.list("Argument"), RuleHelpers_1.p(")")],
-        Argument: [name("attribute"), RuleHelpers_1.p(":"), "Value"],
-        FragmentSpread: [RuleHelpers_1.p("..."), name("def"), RuleHelpers_1.list("Directive")],
+        Arguments: [(0, RuleHelpers_1.p)("("), (0, RuleHelpers_1.list)("Argument"), (0, RuleHelpers_1.p)(")")],
+        Argument: [name("attribute"), (0, RuleHelpers_1.p)(":"), "Value"],
+        FragmentSpread: [(0, RuleHelpers_1.p)("..."), name("def"), (0, RuleHelpers_1.list)("Directive")],
         InlineFragment: [
-          RuleHelpers_1.p("..."),
-          RuleHelpers_1.opt("TypeCondition"),
-          RuleHelpers_1.list("Directive"),
+          (0, RuleHelpers_1.p)("..."),
+          (0, RuleHelpers_1.opt)("TypeCondition"),
+          (0, RuleHelpers_1.list)("Directive"),
           "SelectionSet"
         ],
         FragmentDefinition: [
           word("fragment"),
-          RuleHelpers_1.opt(RuleHelpers_1.butNot(name("def"), [word("on")])),
+          (0, RuleHelpers_1.opt)((0, RuleHelpers_1.butNot)(name("def"), [word("on")])),
           "TypeCondition",
-          RuleHelpers_1.list("Directive"),
+          (0, RuleHelpers_1.list)("Directive"),
           "SelectionSet"
         ],
         TypeCondition: [word("on"), "NamedType"],
@@ -24155,7 +24155,7 @@ ${operationTypes.join("\n")}
               return "EnumValue";
           }
         },
-        NumberValue: [RuleHelpers_1.t("Number", "number")],
+        NumberValue: [(0, RuleHelpers_1.t)("Number", "number")],
         StringValue: [
           {
             style: "string",
@@ -24167,95 +24167,95 @@ ${operationTypes.join("\n")}
             }
           }
         ],
-        BooleanValue: [RuleHelpers_1.t("Name", "builtin")],
-        NullValue: [RuleHelpers_1.t("Name", "keyword")],
+        BooleanValue: [(0, RuleHelpers_1.t)("Name", "builtin")],
+        NullValue: [(0, RuleHelpers_1.t)("Name", "keyword")],
         EnumValue: [name("string-2")],
-        ListValue: [RuleHelpers_1.p("["), RuleHelpers_1.list("Value"), RuleHelpers_1.p("]")],
-        ObjectValue: [RuleHelpers_1.p("{"), RuleHelpers_1.list("ObjectField"), RuleHelpers_1.p("}")],
-        ObjectField: [name("attribute"), RuleHelpers_1.p(":"), "Value"],
+        ListValue: [(0, RuleHelpers_1.p)("["), (0, RuleHelpers_1.list)("Value"), (0, RuleHelpers_1.p)("]")],
+        ObjectValue: [(0, RuleHelpers_1.p)("{"), (0, RuleHelpers_1.list)("ObjectField"), (0, RuleHelpers_1.p)("}")],
+        ObjectField: [name("attribute"), (0, RuleHelpers_1.p)(":"), "Value"],
         Type(token) {
           return token.value === "[" ? "ListType" : "NonNullType";
         },
-        ListType: [RuleHelpers_1.p("["), "Type", RuleHelpers_1.p("]"), RuleHelpers_1.opt(RuleHelpers_1.p("!"))],
-        NonNullType: ["NamedType", RuleHelpers_1.opt(RuleHelpers_1.p("!"))],
+        ListType: [(0, RuleHelpers_1.p)("["), "Type", (0, RuleHelpers_1.p)("]"), (0, RuleHelpers_1.opt)((0, RuleHelpers_1.p)("!"))],
+        NonNullType: ["NamedType", (0, RuleHelpers_1.opt)((0, RuleHelpers_1.p)("!"))],
         NamedType: [type("atom")],
-        Directive: [RuleHelpers_1.p("@", "meta"), name("meta"), RuleHelpers_1.opt("Arguments")],
+        Directive: [(0, RuleHelpers_1.p)("@", "meta"), name("meta"), (0, RuleHelpers_1.opt)("Arguments")],
         DirectiveDef: [
           word("directive"),
-          RuleHelpers_1.p("@", "meta"),
+          (0, RuleHelpers_1.p)("@", "meta"),
           name("meta"),
-          RuleHelpers_1.opt("ArgumentsDef"),
+          (0, RuleHelpers_1.opt)("ArgumentsDef"),
           word("on"),
-          RuleHelpers_1.list("DirectiveLocation", RuleHelpers_1.p("|"))
+          (0, RuleHelpers_1.list)("DirectiveLocation", (0, RuleHelpers_1.p)("|"))
         ],
         InterfaceDef: [
           word("interface"),
           name("atom"),
-          RuleHelpers_1.opt("Implements"),
-          RuleHelpers_1.list("Directive"),
-          RuleHelpers_1.p("{"),
-          RuleHelpers_1.list("FieldDef"),
-          RuleHelpers_1.p("}")
+          (0, RuleHelpers_1.opt)("Implements"),
+          (0, RuleHelpers_1.list)("Directive"),
+          (0, RuleHelpers_1.p)("{"),
+          (0, RuleHelpers_1.list)("FieldDef"),
+          (0, RuleHelpers_1.p)("}")
         ],
-        Implements: [word("implements"), RuleHelpers_1.list("NamedType", RuleHelpers_1.p("&"))],
+        Implements: [word("implements"), (0, RuleHelpers_1.list)("NamedType", (0, RuleHelpers_1.p)("&"))],
         DirectiveLocation: [name("string-2")],
         SchemaDef: [
           word("schema"),
-          RuleHelpers_1.list("Directive"),
-          RuleHelpers_1.p("{"),
-          RuleHelpers_1.list("OperationTypeDef"),
-          RuleHelpers_1.p("}")
+          (0, RuleHelpers_1.list)("Directive"),
+          (0, RuleHelpers_1.p)("{"),
+          (0, RuleHelpers_1.list)("OperationTypeDef"),
+          (0, RuleHelpers_1.p)("}")
         ],
-        OperationTypeDef: [name("keyword"), RuleHelpers_1.p(":"), name("atom")],
-        ScalarDef: [word("scalar"), name("atom"), RuleHelpers_1.list("Directive")],
+        OperationTypeDef: [name("keyword"), (0, RuleHelpers_1.p)(":"), name("atom")],
+        ScalarDef: [word("scalar"), name("atom"), (0, RuleHelpers_1.list)("Directive")],
         ObjectTypeDef: [
           word("type"),
           name("atom"),
-          RuleHelpers_1.opt("Implements"),
-          RuleHelpers_1.list("Directive"),
-          RuleHelpers_1.p("{"),
-          RuleHelpers_1.list("FieldDef"),
-          RuleHelpers_1.p("}")
+          (0, RuleHelpers_1.opt)("Implements"),
+          (0, RuleHelpers_1.list)("Directive"),
+          (0, RuleHelpers_1.p)("{"),
+          (0, RuleHelpers_1.list)("FieldDef"),
+          (0, RuleHelpers_1.p)("}")
         ],
         FieldDef: [
           name("property"),
-          RuleHelpers_1.opt("ArgumentsDef"),
-          RuleHelpers_1.p(":"),
+          (0, RuleHelpers_1.opt)("ArgumentsDef"),
+          (0, RuleHelpers_1.p)(":"),
           "Type",
-          RuleHelpers_1.list("Directive")
+          (0, RuleHelpers_1.list)("Directive")
         ],
-        ArgumentsDef: [RuleHelpers_1.p("("), RuleHelpers_1.list("InputValueDef"), RuleHelpers_1.p(")")],
+        ArgumentsDef: [(0, RuleHelpers_1.p)("("), (0, RuleHelpers_1.list)("InputValueDef"), (0, RuleHelpers_1.p)(")")],
         InputValueDef: [
           name("attribute"),
-          RuleHelpers_1.p(":"),
+          (0, RuleHelpers_1.p)(":"),
           "Type",
-          RuleHelpers_1.opt("DefaultValue"),
-          RuleHelpers_1.list("Directive")
+          (0, RuleHelpers_1.opt)("DefaultValue"),
+          (0, RuleHelpers_1.list)("Directive")
         ],
         UnionDef: [
           word("union"),
           name("atom"),
-          RuleHelpers_1.list("Directive"),
-          RuleHelpers_1.p("="),
-          RuleHelpers_1.list("UnionMember", RuleHelpers_1.p("|"))
+          (0, RuleHelpers_1.list)("Directive"),
+          (0, RuleHelpers_1.p)("="),
+          (0, RuleHelpers_1.list)("UnionMember", (0, RuleHelpers_1.p)("|"))
         ],
         UnionMember: ["NamedType"],
         EnumDef: [
           word("enum"),
           name("atom"),
-          RuleHelpers_1.list("Directive"),
-          RuleHelpers_1.p("{"),
-          RuleHelpers_1.list("EnumValueDef"),
-          RuleHelpers_1.p("}")
+          (0, RuleHelpers_1.list)("Directive"),
+          (0, RuleHelpers_1.p)("{"),
+          (0, RuleHelpers_1.list)("EnumValueDef"),
+          (0, RuleHelpers_1.p)("}")
         ],
-        EnumValueDef: [name("string-2"), RuleHelpers_1.list("Directive")],
+        EnumValueDef: [name("string-2"), (0, RuleHelpers_1.list)("Directive")],
         InputDef: [
           word("input"),
           name("atom"),
-          RuleHelpers_1.list("Directive"),
-          RuleHelpers_1.p("{"),
-          RuleHelpers_1.list("InputValueDef"),
-          RuleHelpers_1.p("}")
+          (0, RuleHelpers_1.list)("Directive"),
+          (0, RuleHelpers_1.p)("{"),
+          (0, RuleHelpers_1.list)("InputValueDef"),
+          (0, RuleHelpers_1.p)("}")
         ],
         ExtendDef: [word("extend"), "ObjectTypeDef"]
       };
@@ -24279,7 +24279,8 @@ ${operationTypes.join("\n")}
           style,
           match: (token) => token.kind === "Name",
           update(state, token) {
-            if (state.prevState && state.prevState.prevState) {
+            var _a3;
+            if ((_a3 = state.prevState) === null || _a3 === void 0 ? void 0 : _a3.prevState) {
               state.name = token.value;
               state.prevState.prevState.type = token.value;
             }
@@ -24289,9 +24290,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/onlineParser.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/onlineParser.js
   var require_onlineParser = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/onlineParser.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/onlineParser.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       var Rules_1 = require_Rules();
@@ -24324,6 +24325,7 @@ ${operationTypes.join("\n")}
       }
       exports.default = onlineParser;
       function getToken(stream, state, options) {
+        var _a3;
         if (state.inBlockstring) {
           if (stream.match(/.*"""/)) {
             state.inBlockstring = false;
@@ -24341,7 +24343,7 @@ ${operationTypes.join("\n")}
           advanceRule(state, true);
         }
         if (stream.sol()) {
-          const tabSize = editorConfig && editorConfig.tabSize || 2;
+          const tabSize = (editorConfig === null || editorConfig === void 0 ? void 0 : editorConfig.tabSize) || 2;
           state.indentLevel = Math.floor(stream.indentation() / tabSize);
         }
         if (eatWhitespace(stream)) {
@@ -24378,7 +24380,7 @@ ${operationTypes.join("\n")}
         while (state.rule) {
           let expected = typeof state.rule === "function" ? state.step === 0 ? state.rule(token, stream) : null : state.rule[state.step];
           if (state.needsSeperator) {
-            expected = expected && (expected === null || expected === void 0 ? void 0 : expected.separator);
+            expected = expected === null || expected === void 0 ? void 0 : expected.separator;
           }
           if (expected) {
             if (expected.ofRule) {
@@ -24388,7 +24390,7 @@ ${operationTypes.join("\n")}
               pushRule(parseRules, state, expected);
               continue;
             }
-            if (expected.match && expected.match(token)) {
+            if ((_a3 = expected.match) === null || _a3 === void 0 ? void 0 : _a3.call(expected, token)) {
               if (expected.update) {
                 expected.update(state, token);
               }
@@ -24442,6 +24444,7 @@ ${operationTypes.join("\n")}
         state.prevState = state.prevState.prevState;
       }
       function advanceRule(state, successful) {
+        var _a3;
         if (isList(state) && state.rule) {
           const step = state.rule[state.step];
           if (step.separator) {
@@ -24461,7 +24464,7 @@ ${operationTypes.join("\n")}
           popRule(state);
           if (state.rule) {
             if (isList(state)) {
-              if (state.rule && state.rule[state.step].separator) {
+              if ((_a3 = state.rule) === null || _a3 === void 0 ? void 0 : _a3[state.step].separator) {
                 state.needsSeperator = !state.needsSeperator;
               }
             } else {
@@ -24495,9 +24498,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/types.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/types.js
   var require_types = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/types.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/types.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.RuleKinds = exports.AdditionalRuleKinds = void 0;
@@ -24535,16 +24538,20 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/index.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/index.js
   var require_parser2 = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/index.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/parser/index.js"(exports) {
       "use strict";
       var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0)
           k2 = k;
-        Object.defineProperty(o, k2, { enumerable: true, get: function() {
-          return m[k];
-        } });
+        var desc = Object.getOwnPropertyDescriptor(m, k);
+        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m[k];
+          } };
+        }
+        Object.defineProperty(o, k2, desc);
       } : function(o, m, k, k2) {
         if (k2 === void 0)
           k2 = k;
@@ -24598,9 +24605,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getAutocompleteSuggestions.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getAutocompleteSuggestions.js
   var require_getAutocompleteSuggestions = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getAutocompleteSuggestions.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getAutocompleteSuggestions.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.getTypeInfo = exports.canUseDirective = exports.runOnlineParser = exports.getTokenAtPosition = exports.getFragmentDefinitions = exports.getVariableCompletions = exports.getAutocompleteSuggestions = exports.SuggestionCommand = void 0;
@@ -24617,7 +24624,7 @@ ${operationTypes.join("\n")}
         const externalFragments = [];
         if (op) {
           try {
-            graphql_2.visit(graphql_2.parse(op), {
+            (0, graphql_2.visit)((0, graphql_2.parse)(op), {
               FragmentDefinition(def) {
                 externalFragments.push(def);
               }
@@ -24640,7 +24647,7 @@ ${operationTypes.join("\n")}
         const step = state.step;
         const typeInfo = getTypeInfo(schema, token.state);
         if (kind === parser_1.RuleKinds.DOCUMENT) {
-          return autocompleteUtils_1.hintList(token, [
+          return (0, autocompleteUtils_1.hintList)(token, [
             { label: "query", kind: vscode_languageserver_types_1.CompletionItemKind.Function },
             { label: "mutation", kind: vscode_languageserver_types_1.CompletionItemKind.Function },
             { label: "subscription", kind: vscode_languageserver_types_1.CompletionItemKind.Function },
@@ -24657,7 +24664,7 @@ ${operationTypes.join("\n")}
         if (kind === parser_1.RuleKinds.ARGUMENTS || kind === parser_1.RuleKinds.ARGUMENT && step === 0) {
           const argDefs = typeInfo.argDefs;
           if (argDefs) {
-            return autocompleteUtils_1.hintList(token, argDefs.map((argDef) => {
+            return (0, autocompleteUtils_1.hintList)(token, argDefs.map((argDef) => {
               var _a4;
               return {
                 label: argDef.name,
@@ -24673,9 +24680,9 @@ ${operationTypes.join("\n")}
         }
         if (kind === parser_1.RuleKinds.OBJECT_VALUE || kind === parser_1.RuleKinds.OBJECT_FIELD && step === 0) {
           if (typeInfo.objectFieldDefs) {
-            const objectFields = autocompleteUtils_1.objectValues(typeInfo.objectFieldDefs);
+            const objectFields = (0, autocompleteUtils_1.objectValues)(typeInfo.objectFieldDefs);
             const completionKind = kind === parser_1.RuleKinds.OBJECT_VALUE ? vscode_languageserver_types_1.CompletionItemKind.Value : vscode_languageserver_types_1.CompletionItemKind.Field;
-            return autocompleteUtils_1.hintList(token, objectFields.map((field) => {
+            return (0, autocompleteUtils_1.hintList)(token, objectFields.map((field) => {
               var _a4;
               return {
                 label: field.name,
@@ -24691,9 +24698,9 @@ ${operationTypes.join("\n")}
           return getSuggestionsForInputValues(token, typeInfo, queryText, schema);
         }
         if (kind === parser_1.RuleKinds.VARIABLE && step === 1) {
-          const namedInputType = graphql_2.getNamedType(typeInfo.inputType);
+          const namedInputType = (0, graphql_2.getNamedType)(typeInfo.inputType);
           const variableDefinitions = getVariableCompletions(queryText, schema, token);
-          return autocompleteUtils_1.hintList(token, variableDefinitions.filter((v) => v.detail === (namedInputType === null || namedInputType === void 0 ? void 0 : namedInputType.name)));
+          return (0, autocompleteUtils_1.hintList)(token, variableDefinitions.filter((v) => v.detail === (namedInputType === null || namedInputType === void 0 ? void 0 : namedInputType.name)));
         }
         if (kind === parser_1.RuleKinds.TYPE_CONDITION && step === 1 || kind === parser_1.RuleKinds.NAMED_TYPE && state.prevState != null && state.prevState.kind === parser_1.RuleKinds.TYPE_CONDITION) {
           return getSuggestionsForFragmentTypeConditions(token, typeInfo, schema, kind);
@@ -24715,17 +24722,17 @@ ${operationTypes.join("\n")}
 }`;
       var getInsertText = (field) => {
         const type = field.type;
-        if (graphql_2.isCompositeType(type)) {
+        if ((0, graphql_2.isCompositeType)(type)) {
           return insertSuffix;
         }
-        if (graphql_1.isListType(type) && graphql_2.isCompositeType(type.ofType)) {
+        if ((0, graphql_1.isListType)(type) && (0, graphql_2.isCompositeType)(type.ofType)) {
           return insertSuffix;
         }
-        if (graphql_1.isNonNullType(type)) {
-          if (graphql_2.isCompositeType(type.ofType)) {
+        if ((0, graphql_1.isNonNullType)(type)) {
+          if ((0, graphql_2.isCompositeType)(type.ofType)) {
             return insertSuffix;
           }
-          if (graphql_1.isListType(type.ofType) && graphql_2.isCompositeType(type.ofType.ofType)) {
+          if ((0, graphql_1.isListType)(type.ofType) && (0, graphql_2.isCompositeType)(type.ofType.ofType)) {
             return insertSuffix;
           }
         }
@@ -24737,15 +24744,15 @@ ${operationTypes.join("\n")}
           const parentType = typeInfo.parentType;
           let fields = [];
           if ("getFields" in parentType) {
-            fields = autocompleteUtils_1.objectValues(parentType.getFields());
+            fields = (0, autocompleteUtils_1.objectValues)(parentType.getFields());
           }
-          if (graphql_2.isCompositeType(parentType)) {
+          if ((0, graphql_2.isCompositeType)(parentType)) {
             fields.push(graphql_2.TypeNameMetaFieldDef);
           }
           if (parentType === ((_a3 = options === null || options === void 0 ? void 0 : options.schema) === null || _a3 === void 0 ? void 0 : _a3.getQueryType())) {
             fields.push(graphql_2.SchemaMetaFieldDef, graphql_2.TypeMetaFieldDef);
           }
-          return autocompleteUtils_1.hintList(token, fields.map((field, index) => {
+          return (0, autocompleteUtils_1.hintList)(token, fields.map((field, index) => {
             var _a4;
             const suggestion = {
               sortText: String(index) + field.name,
@@ -24770,11 +24777,11 @@ ${operationTypes.join("\n")}
         return [];
       }
       function getSuggestionsForInputValues(token, typeInfo, queryText, schema) {
-        const namedInputType = graphql_2.getNamedType(typeInfo.inputType);
+        const namedInputType = (0, graphql_2.getNamedType)(typeInfo.inputType);
         const queryVariables = getVariableCompletions(queryText, schema, token).filter((v) => v.detail === namedInputType.name);
         if (namedInputType instanceof graphql_2.GraphQLEnumType) {
           const values = namedInputType.getValues();
-          return autocompleteUtils_1.hintList(token, values.map((value) => {
+          return (0, autocompleteUtils_1.hintList)(token, values.map((value) => {
             var _a3;
             return {
               label: value.name,
@@ -24788,7 +24795,7 @@ ${operationTypes.join("\n")}
             };
           }).concat(queryVariables));
         } else if (namedInputType === graphql_2.GraphQLBoolean) {
-          return autocompleteUtils_1.hintList(token, queryVariables.concat([
+          return (0, autocompleteUtils_1.hintList)(token, queryVariables.concat([
             {
               label: "true",
               detail: String(graphql_2.GraphQLBoolean),
@@ -24812,7 +24819,7 @@ ${operationTypes.join("\n")}
           return [];
         }
         const typeMap = schema.getTypeMap();
-        const schemaInterfaces = autocompleteUtils_1.objectValues(typeMap).filter(graphql_1.isInterfaceType);
+        const schemaInterfaces = (0, autocompleteUtils_1.objectValues)(typeMap).filter(graphql_1.isInterfaceType);
         const schemaInterfaceNames = schemaInterfaces.map(({ name }) => name);
         const inlineInterfaces = /* @__PURE__ */ new Set();
         runOnlineParser(documentText, (_, state) => {
@@ -24852,7 +24859,7 @@ ${operationTypes.join("\n")}
         const siblingInterfaces = (currentTypeToExtend === null || currentTypeToExtend === void 0 ? void 0 : currentTypeToExtend.getInterfaces()) || [];
         const siblingInterfaceNames = siblingInterfaces.map(({ name }) => name);
         const possibleInterfaces = schemaInterfaces.concat([...inlineInterfaces].map((name) => ({ name }))).filter(({ name }) => name !== (currentTypeToExtend === null || currentTypeToExtend === void 0 ? void 0 : currentTypeToExtend.name) && !siblingInterfaceNames.includes(name));
-        return autocompleteUtils_1.hintList(token, possibleInterfaces.map((type) => {
+        return (0, autocompleteUtils_1.hintList)(token, possibleInterfaces.map((type) => {
           const result = {
             label: type.name,
             kind: vscode_languageserver_types_1.CompletionItemKind.Interface,
@@ -24867,8 +24874,8 @@ ${operationTypes.join("\n")}
       function getSuggestionsForFragmentTypeConditions(token, typeInfo, schema, _kind) {
         let possibleTypes;
         if (typeInfo.parentType) {
-          if (graphql_2.isAbstractType(typeInfo.parentType)) {
-            const abstractType = graphql_2.assertAbstractType(typeInfo.parentType);
+          if ((0, graphql_2.isAbstractType)(typeInfo.parentType)) {
+            const abstractType = (0, graphql_2.assertAbstractType)(typeInfo.parentType);
             const possibleObjTypes = schema.getPossibleTypes(abstractType);
             const possibleIfaceMap = /* @__PURE__ */ Object.create(null);
             possibleObjTypes.forEach((type) => {
@@ -24876,19 +24883,19 @@ ${operationTypes.join("\n")}
                 possibleIfaceMap[iface.name] = iface;
               });
             });
-            possibleTypes = possibleObjTypes.concat(autocompleteUtils_1.objectValues(possibleIfaceMap));
+            possibleTypes = possibleObjTypes.concat((0, autocompleteUtils_1.objectValues)(possibleIfaceMap));
           } else {
             possibleTypes = [typeInfo.parentType];
           }
         } else {
           const typeMap = schema.getTypeMap();
-          possibleTypes = autocompleteUtils_1.objectValues(typeMap).filter(graphql_2.isCompositeType);
+          possibleTypes = (0, autocompleteUtils_1.objectValues)(typeMap).filter(graphql_2.isCompositeType);
         }
-        return autocompleteUtils_1.hintList(token, possibleTypes.map((type) => {
-          const namedType = graphql_2.getNamedType(type);
+        return (0, autocompleteUtils_1.hintList)(token, possibleTypes.map((type) => {
+          const namedType = (0, graphql_2.getNamedType)(type);
           return {
             label: String(type),
-            documentation: namedType && namedType.description || "",
+            documentation: (namedType === null || namedType === void 0 ? void 0 : namedType.description) || "",
             kind: vscode_languageserver_types_1.CompletionItemKind.Field
           };
         }));
@@ -24898,13 +24905,13 @@ ${operationTypes.join("\n")}
           return [];
         }
         const typeMap = schema.getTypeMap();
-        const defState = autocompleteUtils_1.getDefinitionState(token.state);
+        const defState = (0, autocompleteUtils_1.getDefinitionState)(token.state);
         const fragments = getFragmentDefinitions(queryText);
         if (fragmentDefs && fragmentDefs.length > 0) {
           fragments.push(...fragmentDefs);
         }
-        const relevantFrags = fragments.filter((frag) => typeMap[frag.typeCondition.name.value] && !(defState && defState.kind === parser_1.RuleKinds.FRAGMENT_DEFINITION && defState.name === frag.name.value) && graphql_2.isCompositeType(typeInfo.parentType) && graphql_2.isCompositeType(typeMap[frag.typeCondition.name.value]) && graphql_2.doTypesOverlap(schema, typeInfo.parentType, typeMap[frag.typeCondition.name.value]));
-        return autocompleteUtils_1.hintList(token, relevantFrags.map((frag) => ({
+        const relevantFrags = fragments.filter((frag) => typeMap[frag.typeCondition.name.value] && !(defState && defState.kind === parser_1.RuleKinds.FRAGMENT_DEFINITION && defState.name === frag.name.value) && (0, graphql_2.isCompositeType)(typeInfo.parentType) && (0, graphql_2.isCompositeType)(typeMap[frag.typeCondition.name.value]) && (0, graphql_2.doTypesOverlap)(schema, typeInfo.parentType, typeMap[frag.typeCondition.name.value]));
+        return (0, autocompleteUtils_1.hintList)(token, relevantFrags.map((frag) => ({
           label: frag.name.value,
           detail: String(typeMap[frag.typeCondition.name.value]),
           documentation: `fragment ${frag.name.value} on ${frag.typeCondition.name.value}`,
@@ -24955,7 +24962,7 @@ ${operationTypes.join("\n")}
             }
           }
         });
-        return autocompleteUtils_1.objectValues(definitions);
+        return (0, autocompleteUtils_1.objectValues)(definitions);
       }
       exports.getVariableCompletions = getVariableCompletions;
       function getFragmentDefinitions(queryText) {
@@ -24987,17 +24994,18 @@ ${operationTypes.join("\n")}
       exports.getFragmentDefinitions = getFragmentDefinitions;
       function getSuggestionsForVariableDefinition(token, schema, _kind) {
         const inputTypeMap = schema.getTypeMap();
-        const inputTypes = autocompleteUtils_1.objectValues(inputTypeMap).filter(graphql_2.isInputType);
-        return autocompleteUtils_1.hintList(token, inputTypes.map((type) => ({
+        const inputTypes = (0, autocompleteUtils_1.objectValues)(inputTypeMap).filter(graphql_2.isInputType);
+        return (0, autocompleteUtils_1.hintList)(token, inputTypes.map((type) => ({
           label: type.name,
           documentation: type.description,
           kind: vscode_languageserver_types_1.CompletionItemKind.Variable
         })));
       }
       function getSuggestionsForDirective(token, state, schema, _kind) {
-        if (state.prevState && state.prevState.kind) {
+        var _a3;
+        if ((_a3 = state.prevState) === null || _a3 === void 0 ? void 0 : _a3.kind) {
           const directives = schema.getDirectives().filter((directive) => canUseDirective(state.prevState, directive));
-          return autocompleteUtils_1.hintList(token, directives.map((directive) => ({
+          return (0, autocompleteUtils_1.hintList)(token, directives.map((directive) => ({
             label: directive.name,
             documentation: directive.description || "",
             kind: vscode_languageserver_types_1.CompletionItemKind.Function
@@ -25030,7 +25038,7 @@ ${operationTypes.join("\n")}
       exports.getTokenAtPosition = getTokenAtPosition;
       function runOnlineParser(queryText, callback) {
         const lines = queryText.split("\n");
-        const parser = parser_1.onlineParser();
+        const parser = (0, parser_1.onlineParser)();
         let state = parser.startState();
         let style = "";
         let stream = new parser_1.CharacterStream("");
@@ -25058,6 +25066,7 @@ ${operationTypes.join("\n")}
       }
       exports.runOnlineParser = runOnlineParser;
       function canUseDirective(state, directive) {
+        var _a3;
         if (!state || !state.kind) {
           return false;
         }
@@ -25098,7 +25107,7 @@ ${operationTypes.join("\n")}
           case parser_1.RuleKinds.INPUT_DEF:
             return locations.indexOf(graphql_1.DirectiveLocation.INPUT_OBJECT) !== -1;
           case parser_1.RuleKinds.INPUT_VALUE_DEF:
-            const prevStateKind = state.prevState && state.prevState.kind;
+            const prevStateKind = (_a3 = state.prevState) === null || _a3 === void 0 ? void 0 : _a3.kind;
             switch (prevStateKind) {
               case parser_1.RuleKinds.ARGUMENTS_DEF:
                 return locations.indexOf(graphql_1.DirectiveLocation.ARGUMENT_DEFINITION) !== -1;
@@ -25121,7 +25130,8 @@ ${operationTypes.join("\n")}
         let parentType;
         let type;
         let interfaceDef;
-        autocompleteUtils_1.forEachState(tokenState, (state) => {
+        (0, autocompleteUtils_1.forEachState)(tokenState, (state) => {
+          var _a3;
           switch (state.kind) {
             case parser_1.RuleKinds.QUERY:
             case "ShortQuery":
@@ -25144,13 +25154,13 @@ ${operationTypes.join("\n")}
               if (!type || !state.name) {
                 fieldDef = null;
               } else {
-                fieldDef = parentType ? autocompleteUtils_1.getFieldDef(schema, parentType, state.name) : null;
+                fieldDef = parentType ? (0, autocompleteUtils_1.getFieldDef)(schema, parentType, state.name) : null;
                 type = fieldDef ? fieldDef.type : null;
               }
               break;
             }
             case parser_1.RuleKinds.SELECTION_SET:
-              parentType = graphql_2.getNamedType(type);
+              parentType = (0, graphql_2.getNamedType)(type);
               break;
             case parser_1.RuleKinds.DIRECTIVE:
               directiveDef = state.name ? schema.getDirective(state.name) : null;
@@ -25187,12 +25197,12 @@ ${operationTypes.join("\n")}
                     argDefs = directiveDef && directiveDef.args;
                     break;
                   case parser_1.RuleKinds.ALIASED_FIELD: {
-                    const name = state.prevState && state.prevState.name;
+                    const name = (_a3 = state.prevState) === null || _a3 === void 0 ? void 0 : _a3.name;
                     if (!name) {
                       argDefs = null;
                       break;
                     }
-                    const field = parentType ? autocompleteUtils_1.getFieldDef(schema, parentType, name) : null;
+                    const field = parentType ? (0, autocompleteUtils_1.getFieldDef)(schema, parentType, name) : null;
                     if (!field) {
                       argDefs = null;
                       break;
@@ -25216,23 +25226,23 @@ ${operationTypes.join("\n")}
                   }
                 }
               }
-              inputType = argDef && argDef.type;
+              inputType = argDef === null || argDef === void 0 ? void 0 : argDef.type;
               break;
             case parser_1.RuleKinds.ENUM_VALUE:
-              const enumType = graphql_2.getNamedType(inputType);
+              const enumType = (0, graphql_2.getNamedType)(inputType);
               enumValue = enumType instanceof graphql_2.GraphQLEnumType ? enumType.getValues().find((val) => val.value === state.name) : null;
               break;
             case parser_1.RuleKinds.LIST_VALUE:
-              const nullableType = graphql_2.getNullableType(inputType);
+              const nullableType = (0, graphql_2.getNullableType)(inputType);
               inputType = nullableType instanceof graphql_2.GraphQLList ? nullableType.ofType : null;
               break;
             case parser_1.RuleKinds.OBJECT_VALUE:
-              const objectType = graphql_2.getNamedType(inputType);
+              const objectType = (0, graphql_2.getNamedType)(inputType);
               objectFieldDefs = objectType instanceof graphql_2.GraphQLInputObjectType ? objectType.getFields() : null;
               break;
             case parser_1.RuleKinds.OBJECT_FIELD:
               const objectField = state.name && objectFieldDefs ? objectFieldDefs[state.name] : null;
-              inputType = objectField && objectField.type;
+              inputType = objectField === null || objectField === void 0 ? void 0 : objectField.type;
               break;
             case parser_1.RuleKinds.NAMED_TYPE:
               if (state.name) {
@@ -25277,9 +25287,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/fragmentDependencies.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/fragmentDependencies.js
   var require_fragmentDependencies = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/fragmentDependencies.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/fragmentDependencies.js"(exports) {
       "use strict";
       var __importDefault = exports && exports.__importDefault || function(mod) {
         return mod && mod.__esModule ? mod : { "default": mod };
@@ -25294,11 +25304,11 @@ ${operationTypes.join("\n")}
         }
         let parsedOperation;
         try {
-          parsedOperation = graphql_1.parse(operationString);
+          parsedOperation = (0, graphql_1.parse)(operationString);
         } catch (error) {
           return [];
         }
-        return exports.getFragmentDependenciesForAST(parsedOperation, fragmentDefinitions);
+        return (0, exports.getFragmentDependenciesForAST)(parsedOperation, fragmentDefinitions);
       };
       exports.getFragmentDependencies = getFragmentDependencies;
       var getFragmentDependenciesForAST = (parsedOperation, fragmentDefinitions) => {
@@ -25307,7 +25317,7 @@ ${operationTypes.join("\n")}
         }
         const existingFrags = /* @__PURE__ */ new Map();
         const referencedFragNames = /* @__PURE__ */ new Set();
-        graphql_1.visit(parsedOperation, {
+        (0, graphql_1.visit)(parsedOperation, {
           FragmentDefinition(node) {
             existingFrags.set(node.name.value, true);
           },
@@ -25320,15 +25330,15 @@ ${operationTypes.join("\n")}
         const asts = /* @__PURE__ */ new Set();
         referencedFragNames.forEach((name) => {
           if (!existingFrags.has(name) && fragmentDefinitions.has(name)) {
-            asts.add(nullthrows_1.default(fragmentDefinitions.get(name)));
+            asts.add((0, nullthrows_1.default)(fragmentDefinitions.get(name)));
           }
         });
         const referencedFragments = [];
         asts.forEach((ast) => {
-          graphql_1.visit(ast, {
+          (0, graphql_1.visit)(ast, {
             FragmentSpread(node) {
               if (!referencedFragNames.has(node.name.value) && fragmentDefinitions.get(node.name.value)) {
-                asts.add(nullthrows_1.default(fragmentDefinitions.get(node.name.value)));
+                asts.add((0, nullthrows_1.default)(fragmentDefinitions.get(node.name.value)));
                 referencedFragNames.add(node.name.value);
               }
             }
@@ -25343,9 +25353,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/getVariablesJSONSchema.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/getVariablesJSONSchema.js
   var require_getVariablesJSONSchema = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/getVariablesJSONSchema.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/getVariablesJSONSchema.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.getVariablesJSONSchema = exports.defaultJSONSchemaOptions = void 0;
@@ -25357,10 +25367,10 @@ ${operationTypes.join("\n")}
         into.push(newText);
       }
       function renderType(into, t) {
-        if (graphql_1.isNonNullType(t)) {
+        if ((0, graphql_1.isNonNullType)(t)) {
           renderType(into, t.ofType);
           text(into, "!");
-        } else if (graphql_1.isListType(t)) {
+        } else if ((0, graphql_1.isListType)(t)) {
           text(into, "[");
           renderType(into, t.ofType);
           text(into, "]");
@@ -25395,14 +25405,14 @@ ${operationTypes.join("\n")}
         if ("defaultValue" in type && type.defaultValue !== void 0) {
           definition.default = type.defaultValue;
         }
-        if (graphql_1.isEnumType(type)) {
+        if ((0, graphql_1.isEnumType)(type)) {
           definition.type = "string";
           definition.enum = type.getValues().map((val) => val.name);
         }
-        if (graphql_1.isScalarType(type)) {
+        if ((0, graphql_1.isScalarType)(type)) {
           definition.type = (_a3 = scalarTypesMap[type.name]) !== null && _a3 !== void 0 ? _a3 : "any";
         }
-        if (graphql_1.isListType(type)) {
+        if ((0, graphql_1.isListType)(type)) {
           definition.type = "array";
           const { definition: def, definitions: defs } = getJSONSchemaFromGraphQLType(type.ofType, options);
           if (def.$ref) {
@@ -25416,7 +25426,7 @@ ${operationTypes.join("\n")}
             });
           }
         }
-        if (graphql_1.isNonNullType(type)) {
+        if ((0, graphql_1.isNonNullType)(type)) {
           required = true;
           const { definition: def, definitions: defs } = getJSONSchemaFromGraphQLType(type.ofType, options);
           definition = def;
@@ -25426,7 +25436,7 @@ ${operationTypes.join("\n")}
             });
           }
         }
-        if (graphql_1.isInputObjectType(type)) {
+        if ((0, graphql_1.isInputObjectType)(type)) {
           definition.$ref = `#/definitions/${type.name}`;
           const fields = type.getFields();
           const fieldDef = {
@@ -25469,7 +25479,7 @@ ${operationTypes.join("\n")}
           });
           definitions[type.name] = fieldDef;
         }
-        if ("description" in type && !graphql_1.isScalarType(type) && type.description && !definition.description) {
+        if ("description" in type && !(0, graphql_1.isScalarType)(type) && type.description && !definition.description) {
           definition.description = type.description + "\n" + renderTypeToString(type);
           if (options === null || options === void 0 ? void 0 : options.useMarkdownDescription) {
             definition.markdownDescription = type.description + "\n" + renderTypeToString(type, true);
@@ -25508,9 +25518,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/getASTNodeAtPosition.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/getASTNodeAtPosition.js
   var require_getASTNodeAtPosition = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/getASTNodeAtPosition.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/getASTNodeAtPosition.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.pointToOffset = exports.getASTNodeAtPosition = void 0;
@@ -25518,7 +25528,7 @@ ${operationTypes.join("\n")}
       function getASTNodeAtPosition(query, ast, point) {
         const offset = pointToOffset(query, point);
         let nodeContainingPosition;
-        graphql_1.visit(ast, {
+        (0, graphql_1.visit)(ast, {
           enter(node) {
             if (node.kind !== "Name" && node.loc && node.loc.start <= offset && offset <= node.loc.end) {
               nodeContainingPosition = node;
@@ -25543,9 +25553,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/Range.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/Range.js
   var require_Range = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/Range.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/Range.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.locToRange = exports.offsetToPosition = exports.Position = exports.Range = void 0;
@@ -25602,9 +25612,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/validateWithCustomRules.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/validateWithCustomRules.js
   var require_validateWithCustomRules = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/validateWithCustomRules.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/validateWithCustomRules.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.validateWithCustomRules = void 0;
@@ -25639,7 +25649,7 @@ ${operationTypes.join("\n")}
         if (isSchemaDocument) {
           Array.prototype.push.apply(rules, specifiedSDLRules);
         }
-        const errors = graphql_1.validate(schema, ast, rules);
+        const errors = (0, graphql_1.validate)(schema, ast, rules);
         return errors.filter((error) => {
           if (error.message.indexOf("Unknown directive") !== -1 && error.nodes) {
             const node = error.nodes[0];
@@ -25657,9 +25667,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/collectVariables.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/collectVariables.js
   var require_collectVariables = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/collectVariables.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/collectVariables.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.collectVariables = void 0;
@@ -25671,7 +25681,7 @@ ${operationTypes.join("\n")}
             const variableDefinitions = definition.variableDefinitions;
             if (variableDefinitions) {
               variableDefinitions.forEach(({ variable, type }) => {
-                const inputType = graphql_1.typeFromAST(schema, type);
+                const inputType = (0, graphql_1.typeFromAST)(schema, type);
                 if (inputType) {
                   variableToType[variable.name.value] = inputType;
                 } else if (type.kind === graphql_1.Kind.NAMED_TYPE) {
@@ -25689,18 +25699,18 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/getOperationFacts.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/getOperationFacts.js
   var require_getOperationFacts = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/getOperationFacts.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/getOperationFacts.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.getQueryFacts = exports.getOperationASTFacts = void 0;
       var graphql_1 = require_graphql2();
       var collectVariables_1 = require_collectVariables();
       function getOperationASTFacts(documentAST, schema) {
-        const variableToType = schema ? collectVariables_1.collectVariables(schema, documentAST) : void 0;
+        const variableToType = schema ? (0, collectVariables_1.collectVariables)(schema, documentAST) : void 0;
         const operations = [];
-        graphql_1.visit(documentAST, {
+        (0, graphql_1.visit)(documentAST, {
           OperationDefinition(node) {
             operations.push(node);
           }
@@ -25713,7 +25723,7 @@ ${operationTypes.join("\n")}
           return;
         }
         try {
-          const documentAST = graphql_1.parse(documentString);
+          const documentAST = (0, graphql_1.parse)(documentString);
           return Object.assign(Object.assign({}, getOperationASTFacts(documentAST, schema)), { documentAST });
         } catch (_a3) {
           return;
@@ -25724,9 +25734,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/index.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/index.js
   var require_utils = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/index.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/utils/index.js"(exports) {
       "use strict";
       var __importDefault = exports && exports.__importDefault || function(mod) {
         return mod && mod.__esModule ? mod : { "default": mod };
@@ -25785,9 +25795,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getDefinition.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getDefinition.js
   var require_getDefinition = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getDefinition.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getDefinition.js"(exports) {
       "use strict";
       var __awaiter3 = exports && exports.__awaiter || function(thisArg, _arguments, P, generator) {
         function adopt(value) {
@@ -25828,12 +25838,12 @@ ${operationTypes.join("\n")}
       function getRange(text, node) {
         const location = node.loc;
         assert(location, "Expected ASTNode to have a location.");
-        return utils_1.locToRange(text, location);
+        return (0, utils_1.locToRange)(text, location);
       }
       function getPosition(text, node) {
         const location = node.loc;
         assert(location, "Expected ASTNode to have a location.");
-        return utils_1.offsetToPosition(text, location.start);
+        return (0, utils_1.offsetToPosition)(text, location.start);
       }
       function getDefinitionQueryResultForNamedType(text, node, dependencies) {
         return __awaiter3(this, void 0, void 0, function* () {
@@ -25935,9 +25945,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getDiagnostics.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getDiagnostics.js
   var require_getDiagnostics = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getDiagnostics.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getDiagnostics.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.getRange = exports.validateQuery = exports.getDiagnostics = exports.DIAGNOSTIC_SEVERITY = exports.SEVERITY = void 0;
@@ -25963,29 +25973,33 @@ ${operationTypes.join("\n")}
         }
       };
       function getDiagnostics(query, schema = null, customRules, isRelayCompatMode, externalFragments) {
+        var _a3, _b;
         let ast = null;
         if (externalFragments) {
           if (typeof externalFragments === "string") {
             query += "\n\n" + externalFragments;
           } else {
             query += "\n\n" + externalFragments.reduce((agg, node) => {
-              agg += graphql_1.print(node) + "\n\n";
+              agg += (0, graphql_1.print)(node) + "\n\n";
               return agg;
             }, "");
           }
         }
         try {
-          ast = graphql_2.parse(query);
+          ast = (0, graphql_2.parse)(query);
         } catch (error) {
-          const range = getRange(error.locations[0], query);
-          return [
-            {
-              severity: exports.DIAGNOSTIC_SEVERITY.Error,
-              message: error.message,
-              source: "GraphQL: Syntax",
-              range
-            }
-          ];
+          if (error instanceof graphql_1.GraphQLError) {
+            const range = getRange((_b = (_a3 = error.locations) === null || _a3 === void 0 ? void 0 : _a3[0]) !== null && _b !== void 0 ? _b : { line: 0, column: 0 }, query);
+            return [
+              {
+                severity: exports.DIAGNOSTIC_SEVERITY.Error,
+                message: error.message,
+                source: "GraphQL: Syntax",
+                range
+              }
+            ];
+          }
+          throw error;
         }
         return validateQuery(ast, schema, customRules, isRelayCompatMode);
       }
@@ -25994,8 +26008,8 @@ ${operationTypes.join("\n")}
         if (!schema) {
           return [];
         }
-        const validationErrorAnnotations = mapCat(utils_1.validateWithCustomRules(schema, ast, customRules, isRelayCompatMode), (error) => annotations(error, exports.DIAGNOSTIC_SEVERITY.Error, "Validation"));
-        const deprecationWarningAnnotations = mapCat(graphql_1.validate(schema, ast, [graphql_1.NoDeprecatedCustomRule]), (error) => annotations(error, exports.DIAGNOSTIC_SEVERITY.Warning, "Deprecation"));
+        const validationErrorAnnotations = mapCat((0, utils_1.validateWithCustomRules)(schema, ast, customRules, isRelayCompatMode), (error) => annotations(error, exports.DIAGNOSTIC_SEVERITY.Error, "Validation"));
+        const deprecationWarningAnnotations = mapCat((0, graphql_1.validate)(schema, ast, [graphql_1.NoDeprecatedCustomRule]), (error) => annotations(error, exports.DIAGNOSTIC_SEVERITY.Warning, "Deprecation"));
         return validationErrorAnnotations.concat(deprecationWarningAnnotations);
       }
       exports.validateQuery = validateQuery;
@@ -26025,7 +26039,7 @@ ${operationTypes.join("\n")}
         return highlightedNodes;
       }
       function getRange(location, queryText) {
-        const parser = parser_1.onlineParser();
+        const parser = (0, parser_1.onlineParser)();
         const state = parser.startState();
         const lines = queryText.split("\n");
         invariant(lines.length >= location.line, "Query text must have more lines than where the error happened");
@@ -26055,9 +26069,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getOutline.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getOutline.js
   var require_getOutline = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getOutline.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getOutline.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.getOutline = void 0;
@@ -26067,12 +26081,12 @@ ${operationTypes.join("\n")}
       function getOutline(documentText) {
         let ast;
         try {
-          ast = graphql_1.parse(documentText);
+          ast = (0, graphql_1.parse)(documentText);
         } catch (error) {
           return null;
         }
         const visitorFns = outlineTreeConverter(documentText);
-        const outlineTrees = graphql_1.visit(ast, {
+        const outlineTrees = (0, graphql_1.visit)(ast, {
           leave(node) {
             if (visitorFns !== void 0 && node.kind in visitorFns) {
               return visitorFns[node.kind](node);
@@ -26087,8 +26101,8 @@ ${operationTypes.join("\n")}
         const meta = (node) => {
           return {
             representativeName: node.name,
-            startPosition: utils_1.offsetToPosition(docText, node.loc.start),
-            endPosition: utils_1.offsetToPosition(docText, node.loc.end),
+            startPosition: (0, utils_1.offsetToPosition)(docText, node.loc.start),
+            endPosition: (0, utils_1.offsetToPosition)(docText, node.loc.end),
             kind: node.kind,
             children: node.selectionSet || node.fields || node.values || node.arguments || []
           };
@@ -26166,23 +26180,23 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getHoverInformation.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getHoverInformation.js
   var require_getHoverInformation = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getHoverInformation.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/getHoverInformation.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.getHoverInformation = void 0;
       var graphql_1 = require_graphql2();
       var getAutocompleteSuggestions_1 = require_getAutocompleteSuggestions();
       function getHoverInformation(schema, queryText, cursor, contextToken, config) {
-        const token = contextToken || getAutocompleteSuggestions_1.getTokenAtPosition(queryText, cursor);
+        const token = contextToken || (0, getAutocompleteSuggestions_1.getTokenAtPosition)(queryText, cursor);
         if (!schema || !token || !token.state) {
           return "";
         }
         const state = token.state;
         const kind = state.kind;
         const step = state.step;
-        const typeInfo = getAutocompleteSuggestions_1.getTypeInfo(schema, token.state);
+        const typeInfo = (0, getAutocompleteSuggestions_1.getTypeInfo)(schema, token.state);
         const options = Object.assign(Object.assign({}, config), { schema });
         if (kind === "Field" && step === 0 && typeInfo.fieldDef || kind === "AliasedField" && step === 2 && typeInfo.fieldDef) {
           const into = [];
@@ -26327,16 +26341,20 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/index.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/index.js
   var require_interface = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/index.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/interface/index.js"(exports) {
       "use strict";
       var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0)
           k2 = k;
-        Object.defineProperty(o, k2, { enumerable: true, get: function() {
-          return m[k];
-        } });
+        var desc = Object.getOwnPropertyDescriptor(m, k);
+        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m[k];
+          } };
+        }
+        Object.defineProperty(o, k2, desc);
       } : function(o, m, k, k2) {
         if (k2 === void 0)
           k2 = k;
@@ -26364,9 +26382,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/types.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/types.js
   var require_types2 = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/types.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/types.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.CompletionItemKind = exports.FileChangeTypeKind = void 0;
@@ -26406,9 +26424,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/index.js
+  // ../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/index.js
   var require_dist = __commonJS({
-    "../../node_modules/.pnpm/graphql-language-service@5.0.5_graphql@16.5.0/node_modules/graphql-language-service/dist/index.js"(exports) {
+    "../../node_modules/.pnpm/graphql-language-service@5.0.6_graphql@16.5.0/node_modules/graphql-language-service/dist/index.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.Range = exports.validateWithCustomRules = exports.collectVariables = exports.Position = exports.pointToOffset = exports.offsetToPosition = exports.getVariablesJSONSchema = exports.getQueryFacts = exports.getOperationFacts = exports.getOperationASTFacts = exports.getFragmentDependenciesForAST = exports.getFragmentDependencies = exports.getASTNodeAtPosition = exports.FileChangeTypeKind = exports.CompletionItemKind = exports.opt = exports.t = exports.list = exports.p = exports.isIgnored = exports.LexRules = exports.RuleKinds = exports.CharacterStream = exports.ParseRules = exports.onlineParser = exports.validateQuery = exports.SuggestionCommand = exports.canUseDirective = exports.DIAGNOSTIC_SEVERITY = exports.SEVERITY = exports.getVariableCompletions = exports.getTypeInfo = exports.getTokenAtPosition = exports.getRange = exports.getOutline = exports.getHoverInformation = exports.getFragmentDefinitions = exports.getFieldDef = exports.getDiagnostics = exports.getDefinitionState = exports.getDefinitionQueryResultForField = exports.getDefinitionQueryResultForNamedType = exports.getDefinitionQueryResultForFragmentSpread = exports.getDefinitionQueryResultForDefinitionNode = exports.getAutocompleteSuggestions = void 0;
@@ -28007,9 +28025,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/monaco-graphql@1.1.1_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/schemaLoader.js
+  // ../../node_modules/.pnpm/monaco-graphql@1.1.2_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/schemaLoader.js
   var require_schemaLoader = __commonJS({
-    "../../node_modules/.pnpm/monaco-graphql@1.1.1_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/schemaLoader.js"(exports) {
+    "../../node_modules/.pnpm/monaco-graphql@1.1.2_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/schemaLoader.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.defaultSchemaLoader = void 0;
@@ -28021,17 +28039,17 @@ ${operationTypes.join("\n")}
         }
         if (introspectionJSONString) {
           var introspectionJSONResult = JSON.parse(introspectionJSONString);
-          return graphql_1.buildClientSchema(introspectionJSONResult, buildSchemaOptions);
+          return (0, graphql_1.buildClientSchema)(introspectionJSONResult, buildSchemaOptions);
         }
         if (documentString && parser) {
           var docAST = parser(documentString);
-          return graphql_1.buildASTSchema(docAST, buildSchemaOptions);
+          return (0, graphql_1.buildASTSchema)(docAST, buildSchemaOptions);
         }
         if (introspectionJSON) {
-          return graphql_1.buildClientSchema(introspectionJSON, buildSchemaOptions);
+          return (0, graphql_1.buildClientSchema)(introspectionJSON, buildSchemaOptions);
         }
         if (documentAST) {
-          return graphql_1.buildASTSchema(documentAST, buildSchemaOptions);
+          return (0, graphql_1.buildASTSchema)(documentAST, buildSchemaOptions);
         }
         throw Error("no schema supplied");
       };
@@ -28039,9 +28057,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/monaco-graphql@1.1.1_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/LanguageService.js
+  // ../../node_modules/.pnpm/monaco-graphql@1.1.2_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/LanguageService.js
   var require_LanguageService = __commonJS({
-    "../../node_modules/.pnpm/monaco-graphql@1.1.1_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/LanguageService.js"(exports) {
+    "../../node_modules/.pnpm/monaco-graphql@1.1.2_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/LanguageService.js"(exports) {
       "use strict";
       var __assign = exports && exports.__assign || function() {
         __assign = Object.assign || function(t) {
@@ -28170,8 +28188,8 @@ ${operationTypes.join("\n")}
       var schemaCache = /* @__PURE__ */ new Map();
       var LanguageService = function() {
         function LanguageService2(_a3) {
-          var _this = this;
           var parser = _a3.parser, schemas = _a3.schemas, parseOptions = _a3.parseOptions, externalFragmentDefinitions = _a3.externalFragmentDefinitions, customValidationRules = _a3.customValidationRules;
+          var _this = this;
           this._parser = graphql_1.parse;
           this._schemas = [];
           this._schemaCache = schemaCache;
@@ -28185,19 +28203,19 @@ ${operationTypes.join("\n")}
             if (!documentText || documentText.length < 1 || !(schema === null || schema === void 0 ? void 0 : schema.schema)) {
               return [];
             }
-            return graphql_language_service_1.getAutocompleteSuggestions(schema.schema, documentText, position, void 0, _this.getExternalFragmentDefinitions());
+            return (0, graphql_language_service_1.getAutocompleteSuggestions)(schema.schema, documentText, position, void 0, _this.getExternalFragmentDefinitions());
           };
           this.getDiagnostics = function(uri, documentText, customRules) {
             var schema = _this.getSchemaForFile(uri);
             if (!documentText || documentText.trim().length < 2 || !(schema === null || schema === void 0 ? void 0 : schema.schema)) {
               return [];
             }
-            return graphql_language_service_1.getDiagnostics(documentText, schema.schema, customRules !== null && customRules !== void 0 ? customRules : _this._customValidationRules, false, _this.getExternalFragmentDefinitions());
+            return (0, graphql_language_service_1.getDiagnostics)(documentText, schema.schema, customRules !== null && customRules !== void 0 ? customRules : _this._customValidationRules, false, _this.getExternalFragmentDefinitions());
           };
           this.getHover = function(uri, documentText, position, options) {
             var schema = _this.getSchemaForFile(uri);
             if (schema && (documentText === null || documentText === void 0 ? void 0 : documentText.length) > 3) {
-              return graphql_language_service_1.getHoverInformation(schema.schema, documentText, position, void 0, __assign({ useMarkdown: true }, options));
+              return (0, graphql_language_service_1.getHoverInformation)(schema.schema, documentText, position, void 0, __assign({ useMarkdown: true }, options));
             }
           };
           this.getVariablesJSONSchema = function(uri, documentText, options) {
@@ -28205,9 +28223,9 @@ ${operationTypes.join("\n")}
             if (schema && documentText.length > 3) {
               try {
                 var documentAST = _this.parse(documentText);
-                var operationFacts = graphql_language_service_1.getOperationASTFacts(documentAST, schema.schema);
-                if (operationFacts && operationFacts.variableToType) {
-                  return graphql_language_service_1.getVariablesJSONSchema(operationFacts.variableToType, options);
+                var operationFacts = (0, graphql_language_service_1.getOperationASTFacts)(documentAST, schema.schema);
+                if (operationFacts === null || operationFacts === void 0 ? void 0 : operationFacts.variableToType) {
+                  return (0, graphql_language_service_1.getVariablesJSONSchema)(operationFacts.variableToType, options);
                 }
               } catch (err) {
               }
@@ -28258,7 +28276,7 @@ ${operationTypes.join("\n")}
                 return false;
               }
               return schemaConfig.fileMatch.some(function(glob) {
-                var isMatch = picomatch_browser_1.default(glob);
+                var isMatch = (0, picomatch_browser_1.default)(glob);
                 return isMatch(uri);
               });
             });
@@ -28276,13 +28294,13 @@ ${operationTypes.join("\n")}
           if (!this._externalFragmentDefinitionNodes && this._externalFragmentDefinitionsString) {
             var definitionNodes_1 = [];
             try {
-              graphql_1.visit(this._parser(this._externalFragmentDefinitionsString), {
+              (0, graphql_1.visit)(this._parser(this._externalFragmentDefinitionsString), {
                 FragmentDefinition: function(node) {
                   definitionNodes_1.push(node);
                 }
               });
             } catch (err) {
-              throw Error("Failed parsing externalFragmentDefinitions string:\n" + this._externalFragmentDefinitionsString);
+              throw Error("Failed parsing externalFragmentDefinitions string:\n".concat(this._externalFragmentDefinitionsString));
             }
             this._externalFragmentDefinitionNodes = definitionNodes_1;
           }
@@ -28321,9 +28339,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/monaco-graphql@1.1.1_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/utils.js
+  // ../../node_modules/.pnpm/monaco-graphql@1.1.2_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/utils.js
   var require_utils3 = __commonJS({
-    "../../node_modules/.pnpm/monaco-graphql@1.1.1_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/utils.js"(exports) {
+    "../../node_modules/.pnpm/monaco-graphql@1.1.2_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/utils.js"(exports) {
       "use strict";
       var __assign = exports && exports.__assign || function() {
         __assign = Object.assign || function(t) {
@@ -28409,7 +28427,7 @@ ${operationTypes.join("\n")}
       var getStringSchema = function(schemaConfig) {
         var graphQLSchema = schemaConfig.schema, documentAST = schemaConfig.documentAST, introspectionJSON = schemaConfig.introspectionJSON, introspectionJSONString = schemaConfig.introspectionJSONString, documentString = schemaConfig.documentString, rest = __rest(schemaConfig, ["schema", "documentAST", "introspectionJSON", "introspectionJSONString", "documentString"]);
         if (graphQLSchema) {
-          return __assign(__assign({}, rest), { documentString: graphql_1.printSchema(graphQLSchema) });
+          return __assign(__assign({}, rest), { documentString: (0, graphql_1.printSchema)(graphQLSchema) });
         }
         if (introspectionJSONString) {
           return __assign(__assign({}, rest), { introspectionJSONString });
@@ -28421,8 +28439,8 @@ ${operationTypes.join("\n")}
           return __assign(__assign({}, rest), { introspectionJSONString: JSON.stringify(introspectionJSON) });
         }
         if (documentAST) {
-          var schema = graphql_1.buildASTSchema(documentAST, rest.buildSchemaOptions);
-          return __assign(__assign({}, rest), { documentString: graphql_1.printSchema(schema) });
+          var schema = (0, graphql_1.buildASTSchema)(documentAST, rest.buildSchemaOptions);
+          return __assign(__assign({}, rest), { documentString: (0, graphql_1.printSchema)(schema) });
         }
         throw Error("no schema supplied");
       };
@@ -28430,9 +28448,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/prettier@2.7.0/node_modules/prettier/standalone.js
+  // ../../node_modules/.pnpm/prettier@2.7.1/node_modules/prettier/standalone.js
   var require_standalone = __commonJS({
-    "../../node_modules/.pnpm/prettier@2.7.0/node_modules/prettier/standalone.js"(exports, module) {
+    "../../node_modules/.pnpm/prettier@2.7.1/node_modules/prettier/standalone.js"(exports, module) {
       (function(e) {
         if (typeof exports == "object" && typeof module == "object")
           module.exports = e();
@@ -29203,7 +29221,7 @@ ${operationTypes.join("\n")}
           }, sD = (e, n, t) => (t = e != null ? tD(nD(e)) : {}, ga(n || !e || !e.__esModule ? Br(t, "default", { value: e, enumerable: true }) : t, e)), lt = (e) => ga(Br({}, "__esModule", { value: true }), e), pa, fa, Tt, re = mt({ "<define:process>"() {
             pa = {}, fa = [], Tt = { env: pa, argv: fa };
           } }), ya = Z({ "package.json"(e, n) {
-            n.exports = { version: "2.7.0" };
+            n.exports = { version: "2.7.1" };
           } }), iD = Z({ "node_modules/diff/lib/diff/base.js"(e) {
             "use strict";
             re(), Object.defineProperty(e, "__esModule", { value: true }), e.default = n;
@@ -37389,7 +37407,7 @@ ${operationTypes.join("\n")}
                   if (D.block) {
                     let g = D.value.replace(/"""/g, "\\$&").split(`
 `);
-                    return g.length === 1 && (g[0] = g[0].trim()), t(s, ['"""', ...g.length > 0 ? g : [], '"""'].filter(Boolean));
+                    return g.length === 1 && (g[0] = g[0].trim()), g.every((F) => F === "") && (g.length = 0), t(s, ['"""', ...g, '"""']);
                   }
                   return ['"', D.value.replace(/["\\]/g, "\\$&").replace(/\n/g, "\\n"), '"'];
                 }
@@ -39904,9 +39922,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/prettier@2.7.0/node_modules/prettier/parser-graphql.js
+  // ../../node_modules/.pnpm/prettier@2.7.1/node_modules/prettier/parser-graphql.js
   var require_parser_graphql = __commonJS({
-    "../../node_modules/.pnpm/prettier@2.7.0/node_modules/prettier/parser-graphql.js"(exports, module) {
+    "../../node_modules/.pnpm/prettier@2.7.1/node_modules/prettier/parser-graphql.js"(exports, module) {
       (function(e) {
         if (typeof exports == "object" && typeof module == "object")
           module.exports = e();
@@ -41170,9 +41188,9 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/monaco-graphql@1.1.1_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/GraphQLWorker.js
+  // ../../node_modules/.pnpm/monaco-graphql@1.1.2_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/GraphQLWorker.js
   var require_GraphQLWorker = __commonJS({
-    "../../node_modules/.pnpm/monaco-graphql@1.1.1_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/GraphQLWorker.js"(exports) {
+    "../../node_modules/.pnpm/monaco-graphql@1.1.2_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/GraphQLWorker.js"(exports) {
       "use strict";
       var __assign = exports && exports.__assign || function() {
         __assign = Object.assign || function(t) {
@@ -41189,9 +41207,13 @@ ${operationTypes.join("\n")}
       var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0)
           k2 = k;
-        Object.defineProperty(o, k2, { enumerable: true, get: function() {
-          return m[k];
-        } });
+        var desc = Object.getOwnPropertyDescriptor(m, k);
+        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m[k];
+          } };
+        }
+        Object.defineProperty(o, k2, desc);
       } : function(o, m, k, k2) {
         if (k2 === void 0)
           k2 = k;
@@ -41372,10 +41394,10 @@ ${operationTypes.join("\n")}
                 if (!document_2) {
                   return [2, []];
                 }
-                graphQLPosition = utils_1.toGraphQLPosition(position);
+                graphQLPosition = (0, utils_1.toGraphQLPosition)(position);
                 suggestions = this._languageService.getCompletion(uri, document_2, graphQLPosition);
                 return [2, suggestions.map(function(suggestion) {
-                  return utils_1.toCompletion(suggestion);
+                  return (0, utils_1.toCompletion)(suggestion);
                 })];
               } catch (err) {
                 console.error(err);
@@ -41395,11 +41417,11 @@ ${operationTypes.join("\n")}
                 if (!document_3) {
                   return [2, null];
                 }
-                graphQLPosition = utils_1.toGraphQLPosition(position);
+                graphQLPosition = (0, utils_1.toGraphQLPosition)(position);
                 hover = this._languageService.getHover(uri, document_3, graphQLPosition);
                 return [2, {
                   content: hover,
-                  range: utils_1.toMonacoRange(graphql_language_service_1.getRange({
+                  range: (0, utils_1.toMonacoRange)((0, graphql_language_service_1.getRange)({
                     column: graphQLPosition.character,
                     line: graphQLPosition.line
                   }, document_3))
@@ -41500,20 +41522,16 @@ ${operationTypes.join("\n")}
     }
   });
 
-  // ../../node_modules/.pnpm/monaco-graphql@1.1.1_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/graphql.worker.js
+  // ../../node_modules/.pnpm/monaco-graphql@1.1.2_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/graphql.worker.js
   var require_graphql_worker = __commonJS({
-    "../../node_modules/.pnpm/monaco-graphql@1.1.1_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/graphql.worker.js"(exports) {
+    "../../node_modules/.pnpm/monaco-graphql@1.1.2_a7bnabqs6qaueskeewpycdc2jy/node_modules/monaco-graphql/dist/graphql.worker.js"(exports) {
       Object.defineProperty(exports, "__esModule", { value: true });
       var editor_worker_1 = (init_editor_worker(), __toCommonJS(editor_worker_exports));
       var GraphQLWorker_1 = require_GraphQLWorker();
       self.onmessage = function() {
-        try {
-          editor_worker_1.initialize(function(ctx, createData) {
-            return new GraphQLWorker_1.GraphQLWorker(ctx, createData);
-          });
-        } catch (err) {
-          throw err;
-        }
+        (0, editor_worker_1.initialize)(function(ctx, createData) {
+          return new GraphQLWorker_1.GraphQLWorker(ctx, createData);
+        });
       };
     }
   });
