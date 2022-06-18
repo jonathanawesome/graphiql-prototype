@@ -9,7 +9,7 @@ import { useGraphiQLEditor } from '../../hooks';
 import type { MonacoEditorTypes } from '../../hooks';
 
 /** styles */
-import { EditorStyled, MonacoWrap } from './styles';
+import { MonacoEditorStyled, MonacoWrap } from './styles';
 
 const addMonacoEditor = useGraphiQLEditor.getState().addMonacoEditor;
 const runOperationAction = useGraphiQLEditor.getState().runOperationAction;
@@ -67,8 +67,8 @@ export const MonacoEditor = ({
   }, []);
 
   return (
-    <EditorStyled>
+    <MonacoEditorStyled>
       <MonacoWrap ref={editorRef} editorType={editorType} />
-    </EditorStyled>
+    </MonacoEditorStyled>
   );
 };

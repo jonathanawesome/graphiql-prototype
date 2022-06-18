@@ -25,7 +25,7 @@ import { getActiveEditorTab } from '../../utils';
 type EditorType = 'CodeEditor' | 'InputEditor';
 
 export const Variables = () => {
-  const [editorType, setEditorTtype] = useState<EditorType>('CodeEditor');
+  const [editorType, setEditorType] = useState<EditorType>('CodeEditor');
 
   const activeEditorTab = getActiveEditorTab();
 
@@ -64,7 +64,7 @@ export const Variables = () => {
                 },
                 { ariaLabel: 'Use code editor', value: 'CodeEditor', icon: <Code /> },
               ]}
-              onChange={(value) => setEditorTtype(value as EditorType)}
+              onChange={(value) => setEditorType(value as EditorType)}
               size="mini"
               value={editorType}
             />
