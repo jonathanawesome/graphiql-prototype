@@ -5,12 +5,11 @@ export const FormStyled = styled('form', {
   display: 'flex',
   flexDirection: 'column',
   gap: 12,
-  margin: '12px 0',
 });
 
 export const StaticSubmitHandler = styled('button', {
-  backgroundColor: '$scale100',
-  border: '1px solid $scale500',
+  backgroundColor: '$scale200',
+  border: '1px solid transparent',
   color: '$scale800',
   width: 'auto',
   display: 'flex',
@@ -18,11 +17,12 @@ export const StaticSubmitHandler = styled('button', {
   justifyContent: 'center',
   padding: 12,
   borderRadius: 4,
-  fontSize: 12,
+  fontSize: '$body',
+  fontWeight: '$medium',
   placeSelf: 'flex-end',
 
   '&:hover': {
-    backgroundColor: '$scale200',
-    border: '1px solid $scale600',
+    backgroundColor: '$scale300',
+    border: '1px solid $scale400',
   },
 });

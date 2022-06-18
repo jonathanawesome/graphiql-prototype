@@ -22,14 +22,20 @@ import { getActiveEditorTab } from '../../utils';
 
 export const OperationTools = ({ setHeight }: { setHeight: () => void }) => {
   const [isOperationToolsOpen, setIsOperationToolsOpen] = useState<boolean>(false);
-  const [openTab, setOpenTab] = useState('VariablesTab');
+  const [openTab, setOpenTab] = useState('');
   const activeEditorTab = getActiveEditorTab();
 
   const variablesCount =
     activeEditorTab?.operationDefinition?.variableDefinitions?.length || 0;
 
   const handleOpenChange = () => {
-    setIsOperationToolsOpen(!isOperationToolsOpen);
+    if (!isOperationToolsOpen) {
+      setIsOperationToolsOpen(true);
+      setOpenTab('VariablesTab');
+    } else {
+      setIsOperationToolsOpen(false);
+      setOpenTab('');
+    }
     setTimeout(() => {
       //TODO: trigger editor.layout() to resize the editor
       setHeight();
@@ -43,13 +49,21 @@ export const OperationTools = ({ setHeight }: { setHeight: () => void }) => {
           <TabsList aria-label="Operations Tools">
             <TabsTrigger
               value="VariablesTab"
-              onClick={() => setIsOperationToolsOpen(!isOperationToolsOpen)}
+              onClick={() => {
+                if (!isOperationToolsOpen) {
+                  setIsOperationToolsOpen(true);
+                }
+              }}
             >
               Variables {variablesCount > 0 && <span>{variablesCount}</span>}
             </TabsTrigger>
             <TabsTrigger
               value="HeadersTab"
-              onClick={() => setIsOperationToolsOpen(!isOperationToolsOpen)}
+              onClick={() => {
+                if (!isOperationToolsOpen) {
+                  setIsOperationToolsOpen(true);
+                }
+              }}
             >
               Headers
             </TabsTrigger>
@@ -66,7 +80,7 @@ export const OperationTools = ({ setHeight }: { setHeight: () => void }) => {
           >
             <Variables />
           </TabsContent>
-          <TabsContent value="HeadersTab">
+          <TabsContent value="HeadersTab" forceMount hidden={openTab !== 'HeadersTab'}>
             <Headers />
           </TabsContent>
         </CollapsibleContent>

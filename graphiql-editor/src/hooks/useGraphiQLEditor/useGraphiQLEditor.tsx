@@ -1,5 +1,7 @@
 import create from 'zustand';
 import { initializeMode } from 'monaco-graphql/esm/initializeMode';
+import { KeyCode, KeyMod } from 'monaco-editor';
+import cuid from 'cuid';
 import * as JSONC from 'jsonc-parser';
 import {
   buildClientSchema,
@@ -10,11 +12,14 @@ import {
   Kind,
 } from 'graphql';
 
-/** types */
-import { GraphiQLEditorStore } from './types';
+/** constants */
+import { defaultOperation, defaultResults, defaultVariables } from '../../constants';
 
 /** test schema */
 import testSchema from './testSchema.js';
+
+/** types */
+import { GraphiQLEditorStore } from './types';
 
 /** utils */
 import {
@@ -24,15 +29,13 @@ import {
   parseQuery,
   pushEditOperationsToModel,
 } from '../../utils';
-import { KeyCode, KeyMod } from 'monaco-editor';
-import { defaultOperation, defaultResults, defaultVariables } from '../../constants';
-import cuid from 'cuid';
 
 export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   monacoGraphQLAPI: initializeMode({
     formattingOptions: {
       prettierConfig: {
-        printWidth: 90,
+        // TODO: this could use some tweaking
+        printWidth: 60,
       },
     },
   }),
@@ -45,45 +48,50 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     const addEditorTab = get().addEditorTab;
     const switchEditorTab = get().switchEditorTab;
 
-    const editorTabId = cuid.slug();
+    // generate the tab
+    const newEditorTabId = addEditorTab();
+
+    set({ activeEditorTabId: newEditorTabId });
+    switchEditorTab({ editorTabId: newEditorTabId });
+  },
+  addEditorTab: () => {
+    const editorTabs = get().editorTabs;
+    // const addEditorTab = get().addEditorTab;
+    const switchEditorTab = get().switchEditorTab;
+
+    const newEditorTabId = cuid.slug();
 
     const operationModel = getOrCreateModel({
-      uri: `${editorTabId}-operations.graphql`,
+      uri: `${newEditorTabId}-operations.graphql`,
       value: defaultOperation,
     });
     const variablesModel = getOrCreateModel({
-      uri: `${editorTabId}-variables.json`,
+      uri: `${newEditorTabId}-variables.json`,
+      value: defaultVariables,
+    });
+    const headersModel = getOrCreateModel({
+      uri: `${newEditorTabId}-headers.json`,
       value: defaultVariables,
     });
     const resultsModel = getOrCreateModel({
-      uri: `${editorTabId}-results.json`,
+      uri: `${newEditorTabId}-results.json`,
       value: defaultResults,
     });
 
-    addEditorTab({
-      editorTab: {
-        editorTabId,
-        editorTabName: '<untitled>',
-        operationModel,
-        variablesModel,
-        resultsModel,
-        operationDefinition: null,
-      },
-    });
+    const newEditorTab = {
+      editorTabId: newEditorTabId,
+      editorTabName: '<untitled>',
+      operationModel,
+      variablesModel,
+      headersModel,
+      resultsModel,
+      operationDefinition: null,
+    };
 
-    set({ activeEditorTabId: editorTabId });
-    switchEditorTab({ editorTabId });
-    return { operationModelUri: `${editorTabId}-operations.graphql` };
-  },
-  addEditorTab: ({ editorTab }) => {
-    const editorTabs = get().editorTabs;
-    const existingEditorTab = editorTabs.find(
-      (t) => t.editorTabId === editorTab.editorTabId
-    );
-    // console.log('addEditorTab', {existingEditorTab});
-    if (!existingEditorTab) {
-      set({ editorTabs: [...editorTabs, editorTab] });
-    }
+    set({ activeEditorTabId: newEditorTabId, editorTabs: [...editorTabs, newEditorTab] });
+    switchEditorTab({ editorTabId: newEditorTabId });
+
+    return newEditorTabId;
   },
   removeEditorTab: ({ editorTabId }) => {
     // console.log('removeEditorTab', { editorTabId });
@@ -103,6 +111,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     switchEditorTab({ editorTabId: remainingEditors[0].editorTabId });
   },
   switchEditorTab: ({ editorTabId }) => {
+    const monacoGraphQLAPI = get().monacoGraphQLAPI;
     const monacoEditors = get().monacoEditors;
     const editorTabs = get().editorTabs;
     const editorTab = editorTabs.find((t) => t.editorTabId === editorTabId);
@@ -113,10 +122,29 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       // TODO: there's probably a better way to do this 👇
       const operationsEditor = monacoEditors.find((e) => e.name === 'operation');
       const variablesEditor = monacoEditors.find((e) => e.name === 'variables');
+      const headersEditor = monacoEditors.find((e) => e.name === 'headers');
       const resultsEditor = monacoEditors.find((e) => e.name === 'results');
       operationsEditor?.editor.setModel(editorTab.operationModel);
       variablesEditor?.editor.setModel(editorTab.variablesModel);
+      headersEditor?.editor.setModel(editorTab.headersModel);
       resultsEditor?.editor.setModel(editorTab.resultsModel);
+
+      //TODO there's an uncaught promise in the DiagnosticsAdapter
+      // languageFeatures.ts:124 Uncaught (in promise) TypeError: Cannot read properties of null (reading 'doValidation') at DiagnosticsAdapter._doValidate (languageFeatures.ts:124:38)
+      monacoGraphQLAPI.setDiagnosticSettings({
+        validateVariablesJSON: {
+          [editorTab.operationModel.uri.toString()]: [
+            editorTab.variablesModel.uri.toString(),
+          ],
+        },
+        jsonDiagnosticSettings: {
+          // jsonc tip!
+          allowComments: true,
+          schemaValidation: 'error',
+          // this is nice too
+          trailingCommas: 'warning',
+        },
+      });
     }
   },
   // removeVariables: ({ variableNames }) => {
@@ -272,8 +300,11 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     if (schemaUrl && activeEditor) {
       const operationModelValue = activeEditor.operationModel.getValue();
       const variablesModelValue = activeEditor.variablesModel.getValue();
+      const headersModelValue = activeEditor.headersModel.getValue();
 
-      const result = await fetcher({ url: schemaUrl })({
+      const headers = JSONC.parse(headersModelValue);
+
+      const result = await fetcher({ headers, url: schemaUrl })({
         operationName: activeEditor.operationDefinition?.name?.value || '',
         query: operationModelValue,
         variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
@@ -309,7 +340,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       editorTabs: [],
     });
 
-    const { operationModelUri } = initializeAndActivateEditorTab();
+    initializeAndActivateEditorTab();
 
     if (!url) {
       set({ schema: testSchema, schemaUrl: null });
@@ -319,7 +350,6 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
         {
           schema: testSchema,
           uri: `testSchema-schema.graphql`,
-          fileMatch: [operationModelUri],
         },
       ]);
     } else {
@@ -330,6 +360,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
           query: getIntrospectionQuery(),
           operationName: 'IntrospectionQuery',
         });
+
         const schema = buildClientSchema(result.data as unknown as IntrospectionQuery);
 
         set({ schema });
@@ -338,7 +369,6 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
           {
             schema,
             uri: `${url}-schema.graphql`,
-            fileMatch: [operationModelUri],
           },
         ]);
       } catch (error) {

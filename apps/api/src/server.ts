@@ -18,6 +18,7 @@ const graphQLServer = createServer({
     origin: ['http://localhost:61000'],
   },
   context: async ({ request }): Promise<Context> => {
+    // console.log('request', { request, headers: request.headers });
     return { request, prisma };
   },
   plugins: [

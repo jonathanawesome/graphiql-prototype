@@ -5,6 +5,7 @@ import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
 
 /** styles */
 import {
+  CustomSchemaFormWrap,
   Error,
   Note,
   RadioWrap,
@@ -152,24 +153,26 @@ export const SchemaSelector = () => {
           <Radio value={customSchemaUrlInput} id="4" copy="Custom Schema Url" />
           {schemaError && <Error>{schemaError}</Error>}
           {radioValue === customSchemaUrlInput && (
-            <Form
-              formType={{
-                type: 'STATIC',
-                submitHandler: customSchemaUrlInputSubmitHandler,
-                buttonCopy: 'Use this schema',
-              }}
-              formControls={[
-                {
-                  control: {
-                    currentValue: customSchemaUrl,
-                    handleChange: handleCustomSchemaUrlChange,
-                    name: customSchemaUrlInput,
-                    placeholder: 'http://api.mydomain.com/graphql',
+            <CustomSchemaFormWrap>
+              <Form
+                formType={{
+                  type: 'STATIC',
+                  submitHandler: customSchemaUrlInputSubmitHandler,
+                  buttonCopy: 'Use this schema',
+                }}
+                formControls={[
+                  {
+                    control: {
+                      currentValue: customSchemaUrl,
+                      handleChange: handleCustomSchemaUrlChange,
+                      name: customSchemaUrlInput,
+                      placeholder: 'http://api.mydomain.com/graphql',
+                    },
+                    label: `Your schema URL`,
                   },
-                  label: `Your schema URL`,
-                },
-              ]}
-            />
+                ]}
+              />
+            </CustomSchemaFormWrap>
           )}
         </div>
       </fieldset>

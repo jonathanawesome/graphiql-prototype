@@ -7,19 +7,20 @@ type EditorTab = {
   editorTabName: string;
   operationModel: MONACO_EDITOR.ITextModel;
   variablesModel: MONACO_EDITOR.ITextModel;
+  headersModel: MONACO_EDITOR.ITextModel;
   resultsModel: MONACO_EDITOR.ITextModel;
   operationDefinition: OperationDefinitionNode | null;
 };
 
-export type MonacoEditorTypes = 'operation' | 'variables' | 'results';
+export type MonacoEditorTypes = 'operation' | 'variables' | 'results' | 'headers';
 
 export type GraphiQLEditorStore = {
   monacoGraphQLAPI: MonacoGraphQLAPI;
   activeEditorTabId: string | null;
   setActiveEditorTabId: ({ editorTabId }: { editorTabId: string }) => void;
   editorTabs: EditorTab[];
-  initializeAndActivateEditorTab: () => { operationModelUri: string };
-  addEditorTab: ({ editorTab }: { editorTab: EditorTab }) => void;
+  initializeAndActivateEditorTab: () => void;
+  addEditorTab: () => string;
   removeEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
   switchEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
   updateModel: ({
