@@ -31,7 +31,10 @@ export const FieldInput = ({
       <input
         autoComplete="off"
         name={name}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => {
+          e.preventDefault();
+          setValue(e.target.value);
+        }}
         placeholder={placeholder}
         type="text"
         value={value}

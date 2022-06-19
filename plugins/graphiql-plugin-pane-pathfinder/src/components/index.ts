@@ -4,6 +4,7 @@ export { Collapser, ItemGrid } from './Collapser';
 export { Column } from './Column';
 export { Compass } from './Compass';
 export { Describe } from './Describe';
+export { DocsFlat } from './DocsFlat';
 export { Field } from './Field';
 export { InputObject } from './InputObject';
 export { ObjectType } from './ObjectType';

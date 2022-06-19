@@ -1,1 +1,1 @@
-export { Compass, Pathfinder } from '../src/components';
+export { DocsFlat, Pathfinder } from '../src/components';

@@ -67,6 +67,7 @@ export const EasyVars = ({
   const activeEditorTab = getActiveEditorTab();
   const variablesModelValue = activeEditorTab?.variablesModel.getValue();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let parsedVariables: Record<any, any> = {};
 
   if (variablesModelValue) {
