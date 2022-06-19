@@ -10,14 +10,11 @@ export const MonacoEditorStyled = styled('div', {
 export const MonacoWrap = styled('div', {
   height: '100%',
   width: '100%',
-  overflow: 'hidden',
-  position: 'absolute',
-  minWidth: '300px',
 
   variants: {
     editorType: {
       operation: {
-        paddingRight: 48,
+        // paddingRight: 48,
       },
       variables: {},
       results: {},

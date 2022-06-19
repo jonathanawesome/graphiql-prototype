@@ -29,7 +29,7 @@ export const OperationEditor = styled('div', {
   height: '100%',
   width: '100%',
   paddingTop: 20,
-  paddingRight: 48,
+  paddingRight: 64,
   paddingBottom: 20,
   paddingLeft: 12,
 });
