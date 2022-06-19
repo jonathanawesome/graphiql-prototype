@@ -28,19 +28,25 @@ export const Navigation = ({
   return (
     <NavigationStyled showBorder={activePane !== 'GraphiQL'}>
       <PanePluginNavigation>
-        <PanePluginNavigationItem
+        {/* <PanePluginNavigationItem
           isActive={activePane === 'GraphiQL'}
           onClick={() => setActivePane('GraphiQL')}
           //TODO remove/replace
           title="GraphiQL"
         >
           <GraphQLIcon />
-        </PanePluginNavigationItem>
+        </PanePluginNavigationItem> */}
         {panePlugins?.map((panePlugin) => (
           <PanePluginNavigationItem
             key={panePlugin.panePluginName}
             isActive={activePane === panePlugin.panePluginName}
-            onClick={() => setActivePane(panePlugin.panePluginName)}
+            onClick={() => {
+              if (activePane === panePlugin.panePluginName) {
+                setActivePane('GraphiQL');
+              } else {
+                setActivePane(panePlugin.panePluginName);
+              }
+            }}
             title={`${activePane === panePlugin.panePluginName ? 'Close' : 'Show'} ${
               panePlugin.panePluginName
             }`}

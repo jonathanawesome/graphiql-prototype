@@ -1,9 +1,9 @@
-import { Compass, Pathfinder } from './src';
+import { DocsFlat, Pathfinder } from './src';
 
 export { Pathfinder };
 
 export const PanePluginPathfinder = {
   panePluginContent: Pathfinder,
-  panePluginIcon: Compass,
+  panePluginIcon: DocsFlat,
   panePluginName: 'Pathfinder',
 };

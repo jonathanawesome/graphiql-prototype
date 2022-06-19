@@ -170,10 +170,10 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   // },
   updateVariable: ({ variableName, variableValue }) => {
     const activeEditorTab = getActiveEditorTab();
-    console.log('running updateVariable', {
-      variableName,
-      variableValue,
-    });
+    // console.log('running updateVariable', {
+    //   variableName,
+    //   variableValue,
+    // });
     if (activeEditorTab) {
       // 1. parse the existing variables string to an object
       // if the current variables model is undefined, use an empty object string

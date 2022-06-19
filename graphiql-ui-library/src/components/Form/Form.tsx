@@ -17,7 +17,7 @@ export const Form = ({
   formType: DynamicFormProps | StaticFormProps;
 }) => {
   return (
-    <FormStyled>
+    <FormStyled onSubmit={(e) => e.preventDefault()}>
       {formControls.map((f, i) => (
         <FormControl
           key={`${i}-${f.label}`}
@@ -27,7 +27,12 @@ export const Form = ({
         />
       ))}
       {formType.type === 'STATIC' && (
-        <StaticSubmitHandler onClick={(e) => formType.submitHandler(e)}>
+        <StaticSubmitHandler
+          onClick={(e) => {
+            e.preventDefault();
+            formType.submitHandler(e);
+          }}
+        >
           {formType.buttonCopy ? formType.buttonCopy : 'Submit'}
         </StaticSubmitHandler>
       )}

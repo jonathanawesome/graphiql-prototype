@@ -32,7 +32,7 @@ export const Pathfinder = () => {
   return (
     <PathfinderWrap>
       <PathfinderLead>
-        <h2>Pathfinder</h2>
+        <h2>Docs</h2>
         <ContainRight>
           <FakeSearch>
             <Search />
