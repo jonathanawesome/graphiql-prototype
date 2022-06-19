@@ -5,6 +5,11 @@ export const GraphiQLLink = styled('div', {
     color: '$scale600',
     fontSize: '$body',
     fontWeight: '$semiBold',
+    textDecoration: 'none',
+
+    '&:hover': {
+      color: '$scale700',
+    },
   },
 });
 

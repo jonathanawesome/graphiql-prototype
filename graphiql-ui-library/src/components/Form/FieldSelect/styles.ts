@@ -16,6 +16,7 @@ export const SelectTrigger = styled(SelectPrimitive.SelectTrigger, {
   minHeight: 32,
   fontSize: 12,
   fontFamily: '$mono',
+  borderRadius: '0 7px 7px 0',
 
   svg: {
     height: 9,

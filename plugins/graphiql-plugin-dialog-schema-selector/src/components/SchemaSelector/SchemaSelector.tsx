@@ -65,12 +65,14 @@ export const SchemaSelector = () => {
 
   const [customSchemaUrl, setCustomSchemaUrl] = useState<string>('');
 
-  const [radioValue, setRadioValue] = useState<string>('testSchema');
+  const [radioValue, setRadioValue] = useState<string>(
+    schemaUrl ? schemaUrl : 'testSchema'
+  );
 
   const [targetSchemaUrl, setTargetSchemaUrl] = useState<string>('');
 
+  console.log('SchemaSelector', { schema, schemaUrl });
   useEffect(() => {
-    // console.log('schema', { schema });
     if (schema) {
       if ('error' in schema) {
         setLoading(false);

@@ -28,7 +28,9 @@ export const FieldSelect = ({
 }: FieldSelectProps) => {
   // console.log('rendering FieldSelect', { currentValue, options });
 
-  const [value, setValue] = useState<string>(currentValue || options[0].value);
+  const [value, setValue] = useState<string>(
+    currentValue ? currentValue : options.length > 0 ? options[0].value : ''
+  );
 
   useEffect(() => {
     if (value) {
