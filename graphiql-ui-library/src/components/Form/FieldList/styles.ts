@@ -6,30 +6,33 @@ export const StyledList = styled('div', {
 
 export const StyledListItem = styled('div', {
   display: 'flex',
-  borderBottom: '1px solid $scale400 !important',
+  borderBottom: '1px solid $gray015 !important',
 });
 
 export const RemoveItemButton = styled('button', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   width: 32,
-  textAlign: 'right',
-  padding: '8px 8px 8px 0',
-  fontSize: '$mini',
-  color: '$scale700',
-  borderRight: '1px solid $scale300',
-
-  '&:hover': {
-    backgroundColor: '$scale200',
-    color: '$scale100',
-    svg: {
-      path: {
-        stroke: '$accentError',
-      },
-    },
-  },
+  borderRight: '1px solid $gray010',
 
   svg: {
     height: 12,
     width: 12,
+
+    path: {
+      fill: '$gray015',
+    },
+  },
+
+  '&:hover': {
+    backgroundColor: '$error010',
+    color: '$gray010',
+    svg: {
+      path: {
+        fill: '$error100',
+      },
+    },
   },
 });
 
@@ -39,12 +42,11 @@ export const AddItemButton = styled('button', {
   textAlign: 'right',
   padding: '8px 8px 8px 0',
   fontSize: '$mini',
-  color: '$scale700',
-  // fontSize: 12,
+  color: '$gray060',
   fontFamily: '$mono',
 
   '&:hover': {
-    backgroundColor: '$scale200',
-    color: '$scale800',
+    backgroundColor: '$gray007',
+    color: '$gray100',
   },
 });

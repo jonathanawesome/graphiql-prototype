@@ -12,8 +12,8 @@ export const StyledPill = styled('span', {
   padding: 2,
   fontSize: 7,
   textTransform: 'uppercase',
-  color: '$scale700 !important',
-  backgroundColor: '$scale100',
-  border: '1px solid $scale500',
+  color: '$gray060 !important',
+  // backgroundColor: '$gray007',
+  border: '1px solid $gray015',
   borderRadius: 2,
 });

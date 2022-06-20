@@ -8,9 +8,9 @@ export const FormStyled = styled('form', {
 });
 
 export const StaticSubmitHandler = styled('button', {
-  backgroundColor: '$scale200',
+  backgroundColor: '$gray010',
   border: '1px solid transparent',
-  color: '$scale800',
+  color: '$gray100',
   width: 'auto',
   display: 'flex',
   alignItems: 'center',
@@ -22,7 +22,7 @@ export const StaticSubmitHandler = styled('button', {
   placeSelf: 'flex-end',
 
   '&:hover': {
-    backgroundColor: '$scale300',
-    border: '1px solid $scale400',
+    backgroundColor: '$gray015',
+    border: '1px solid $gray015',
   },
 });

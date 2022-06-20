@@ -27,6 +27,26 @@ export const Trigger = styled(Collapsible.Trigger, {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+
+  svg: {
+    height: 7,
+    width: 7,
+  },
+  variants: {
+    isExpanded: {
+      true: {
+        svg: {
+          transform: 'rotate(90deg)',
+          fill: '$secondary060',
+        },
+      },
+      false: {
+        svg: {
+          fill: '$gray040',
+        },
+      },
+    },
+  },
 });
 
 export const Content = styled(Collapsible.Content, {});

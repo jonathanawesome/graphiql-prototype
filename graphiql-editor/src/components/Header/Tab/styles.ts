@@ -8,9 +8,7 @@ export const TabWrap = styled('div', {
   variants: {
     isActive: {
       true: {
-        backgroundColor: '$scale400',
-        // color: '$scale800',
-        // fontWeight: '$semiBold',
+        backgroundColor: '$gray010',
         paddingRight: 10,
       },
     },
@@ -22,20 +20,20 @@ export const TabButton = styled('button', {
   fontWeight: '$medium',
   padding: '10px 10px 10px 12px',
   borderRadius: 8,
-  color: '$scale700',
+  color: '$gray060',
 
   '&:disabled': {
     // cursor: 'not-allowed',
   },
 
   '&:hover': {
-    color: '$scale800',
+    color: '$gray100',
   },
 
   variants: {
     isActive: {
       true: {
-        color: '$scale800',
+        color: '$gray100',
         fontWeight: '$semiBold',
         paddingRight: 6,
       },
@@ -49,24 +47,24 @@ export const RemoveTabButton = styled('button', {
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: '50%',
-  width: 18,
-  height: 18,
-  transition: 'all .15s ease',
+  width: 16,
+  height: 16,
 
   svg: {
-    width: 14,
-    height: 14,
+    width: 18,
+    height: 18,
     path: {
-      fill: '$scale700',
-      transition: 'fill .15s ease',
+      fill: '$gray040',
     },
   },
 
   '&:hover': {
-    backgroundColor: '$scale600',
+    backgroundColor: '$gray040',
     svg: {
+      width: 12,
+      height: 12,
       path: {
-        fill: '$scale200',
+        fill: '$editorBackground',
       },
     },
   },

@@ -1,25 +1,48 @@
 import { createStitches } from '@stitches/react';
-import { baseColors } from './baseColors';
+import { colors } from './colors';
 
 export const { globalCss, keyframes, styled, theme } = createStitches({
   theme: {
     colors: {
-      scaleBlack: baseColors.scale.black,
-      scale800: baseColors.scale[800],
-      scale700: baseColors.scale[700],
-      scale600: baseColors.scale[600],
-      scale500: baseColors.scale[500],
-      scale400: baseColors.scale[400],
-      scale300: baseColors.scale[300],
-      scale200: baseColors.scale[200],
-      scale100: baseColors.scale[100],
-      scaleWhite: baseColors.scale.white,
-      accentError: baseColors.accent.error,
-      accentSuccess: baseColors.accent.success,
-      accentWarning: baseColors.accent.warning,
-      accentInfo: baseColors.accent.info,
-      accentField: baseColors.accent.field,
-      accentArgument: baseColors.accent.argument,
+      // gray
+      gray007: colors.base.gray.gray007,
+      gray010: colors.base.gray.gray010,
+      gray015: colors.base.gray.gray015,
+      gray040: colors.base.gray.gray040,
+      gray060: colors.base.gray.gray060,
+      gray100: colors.base.gray.gray100,
+      // primary
+      primary010: colors.base.primary.primary010,
+      primary060: colors.base.primary.primary060,
+      primary080: colors.base.primary.primary080,
+      primary100: colors.base.primary.primary100,
+      // secondary
+      secondary010: colors.base.secondary.secondary010,
+      secondary060: colors.base.secondary.secondary060,
+      secondary080: colors.base.secondary.secondary080,
+      secondary100: colors.base.secondary.secondary100,
+      // error
+      error010: colors.accent.error.error010,
+      error060: colors.accent.error.error060,
+      error100: colors.accent.error.error100,
+      // warning
+      warning010: colors.accent.warning.warning010,
+      warning060: colors.accent.warning.warning060,
+      warning100: colors.accent.warning.warning100,
+      // success
+      success010: colors.accent.success.success010,
+      success060: colors.accent.success.success060,
+      success100: colors.accent.success.success100,
+      // info
+      info010: colors.accent.info.info010,
+      info060: colors.accent.info.info060,
+      info100: colors.accent.info.info100,
+      // other
+      appBackground: colors.other.appBackground,
+      editorBackground: colors.other.editorBackground,
+      // pure
+      black: colors.pure.black,
+      white: colors.pure.white,
     },
     fonts: {
       stack:
@@ -38,6 +61,9 @@ export const { globalCss, keyframes, styled, theme } = createStitches({
       regular: 400,
       medium: 500,
       semiBold: 600,
+    },
+    transitions: {
+      authenticMotion: 'cubic-bezier(0.4, 0, 0.2, 1)',
     },
   },
 });

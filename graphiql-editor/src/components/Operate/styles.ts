@@ -3,8 +3,7 @@ import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 export const OperateWrap = styled('div', {
   position: 'relative',
   width: '100%',
-  // height: '100%',
-  backgroundColor: 'white',
+  backgroundColor: '$white',
   overflow: 'hidden',
   borderRadius: 16,
   boxShadow:

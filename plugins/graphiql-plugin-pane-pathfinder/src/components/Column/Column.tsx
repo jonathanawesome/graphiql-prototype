@@ -7,7 +7,7 @@ export const StyledColumn = styled('div', {
   marginTop: 12,
   marginLeft: 8,
   paddingLeft: 12,
-  borderLeft: '1px solid $scale400',
+  borderLeft: '1px solid $gray015',
 
   variants: {
     gap: {

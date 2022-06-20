@@ -23,12 +23,19 @@ export const Root = styled(DialogPrimitive.Root, {
 });
 
 export const Trigger = styled(DialogPrimitive.Trigger, {
+  svg: {
+    path: {
+      // TODO 👇 this is going to break some icons using both fill and stroke
+      fill: '$gray040',
+      stroke: '$gray040',
+    },
+  },
   '&:hover': {
     svg: {
       path: {
-        // TODO 👇 this is going to break some icons
-        fill: '$accentArgument',
-        stroke: '$accentArgument',
+        // TODO 👇 this is going to break some icons using both fill and stroke
+        fill: '$primary100',
+        stroke: '$primary100',
       },
     },
   },
@@ -71,24 +78,31 @@ export const Content = styled('div', {
   padding: '12px 24px',
 });
 
-export const Button = styled('button', {
-  svg: {
-    width: 20,
-    height: 20,
-  },
-});
-
 export const DialogLead = styled('div', {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: '16px 24px',
-  borderBottom: '1px solid $scale500',
-  fontSize: 14,
-  color: '$scale800',
+  padding: '20px 24px',
+  borderBottom: '1px solid $gray015',
+  fontSize: 16,
+  fontWeight: '$medium',
+  color: '$gray100',
 
-  svg: {
-    width: 20,
-    height: 20,
+  button: {
+    display: 'flex',
+    svg: {
+      width: 20,
+      height: 20,
+      path: {
+        fill: '$gray060',
+      },
+    },
+    '&:hover': {
+      svg: {
+        path: {
+          fill: '$gray100',
+        },
+      },
+    },
   },
 });

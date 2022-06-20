@@ -1,7 +1,7 @@
 import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 export const GraphiQLStyled = styled('div', {
-  backgroundColor: '$scale100',
+  backgroundColor: '$appBackground',
   height: '100%',
   width: '100%',
   display: 'grid',

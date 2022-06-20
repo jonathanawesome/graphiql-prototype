@@ -1,5 +1,5 @@
-export { baseColors } from './baseColors';
-export type { BaseColors } from './baseColors';
+export { colors } from './colors';
+// export type { Colors } from './colors';
 
 export { globalStyles } from './globalStyles';
 

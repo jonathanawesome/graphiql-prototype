@@ -19,7 +19,7 @@ export const HistoryLead = styled('div', {
   h2: {
     fontSize: '$display',
     fontWeight: '$semiBold',
-    color: '$scale800',
+    color: '$gray100',
     margin: 0,
     padding: 0,
   },

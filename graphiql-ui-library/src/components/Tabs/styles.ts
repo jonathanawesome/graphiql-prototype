@@ -17,12 +17,12 @@ export const TabsTrigger = styled(TabsPrimitive.Trigger, {
   lineHeight: '$body',
   fontWeight: '$medium',
   padding: '10px',
-  color: '$scale700',
+  color: '$gray060',
 
-  '&:hover': { color: '$scale800' },
+  '&:hover': { color: '$gray100' },
   '&[data-state="active"]': {
     fontWeight: '$semiBold',
-    color: '$scale800',
+    color: '$gray100',
   },
 
   span: {
@@ -30,8 +30,8 @@ export const TabsTrigger = styled(TabsPrimitive.Trigger, {
     marginLeft: '4px',
     borderRadius: '2px',
     fontSize: '$mini',
-    backgroundColor: '$scale300',
-    color: '$scale700',
+    backgroundColor: '$gray015',
+    color: '$gray060',
   },
 });
 

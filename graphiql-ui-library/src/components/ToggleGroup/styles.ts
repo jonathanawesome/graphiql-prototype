@@ -4,7 +4,7 @@ import * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group';
 
 export const StyledToggleGroup = styled(ToggleGroupPrimitive.Root, {
   display: 'inline-flex',
-  backgroundColor: '$scale300',
+  backgroundColor: '$gray007',
   borderRadius: 8,
   boxShadow: '0 2px 10px $scaleBlack',
 
@@ -23,7 +23,7 @@ export const StyledToggleGroup = styled(ToggleGroupPrimitive.Root, {
 export const StyledToggleItem = styled(ToggleGroupPrimitive.Item, {
   all: 'unset',
   boxSizing: 'border-box',
-  color: '$scale700',
+  color: '$gray060',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -41,18 +41,18 @@ export const StyledToggleItem = styled(ToggleGroupPrimitive.Item, {
     marginLeft: 4,
   },
 
-  '&:hover': { backgroundColor: '$scale200' },
+  '&:hover': { backgroundColor: '$gray010' },
 
   '&[data-state=on]': {
-    backgroundColor: '$scale100',
-    color: '$scale800',
+    backgroundColor: '$white',
+    color: '$gray100',
     fontWeight: '$medium',
     boxShadow:
       '0px 0.4px 1.9px rgba(59, 76, 106, 0.03), 0px 1.12px 5px rgba(59, 76, 106, 0.04), 0px 2.7px 12.6px rgba(59, 76, 106, 0.05), 0px 2.7px 12.6px rgba(59, 76, 106, 0.08)',
     pointerEvents: 'none',
     svg: {
       path: {
-        fill: '$scale800',
+        fill: '$gray100',
       },
     },
   },
@@ -82,6 +82,9 @@ export const StyledToggleItem = styled(ToggleGroupPrimitive.Item, {
           padding: 3,
           height: 24,
           width: 24,
+          path: {
+            fill: '$gray060',
+          },
         },
       },
     },

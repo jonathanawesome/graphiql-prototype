@@ -11,7 +11,7 @@ export const SelectTrigger = styled(SelectPrimitive.SelectTrigger, {
   gap: 12,
   lineHeight: 1,
   cursor: 'pointer',
-  color: '$accentSuccess',
+  color: '$success100',
   paddingRight: 8,
   minHeight: 32,
   fontSize: 12,
@@ -21,20 +21,19 @@ export const SelectTrigger = styled(SelectPrimitive.SelectTrigger, {
   svg: {
     height: 9,
     width: 9,
-
     path: {
-      fill: '$scale600',
+      fill: '$gray040',
     },
   },
 
   '&:hover': {
-    backgroundColor: '$scale200',
+    backgroundColor: '$appBackground',
   },
 });
 
 export const SelectContent = styled(SelectPrimitive.Content, {
   overflow: 'hidden',
-  backgroundColor: '$scale100',
+  backgroundColor: '$appBackground',
   fontSize: 12,
   fontFamily: '$mono',
   borderRadius: 6,
@@ -50,7 +49,7 @@ export const SelectItem = styled(SelectPrimitive.Item, {
   all: 'unset',
   boxSizing: 'border-box',
   lineHeight: 1,
-  color: '$accentSuccess',
+  color: '$success100',
   borderRadius: 3,
   display: 'flex',
   alignItems: 'center',
@@ -61,7 +60,7 @@ export const SelectItem = styled(SelectPrimitive.Item, {
   userSelect: 'none',
 
   '&:focus': {
-    backgroundColor: '$scale200',
+    backgroundColor: '$gray007',
   },
 });
 
@@ -79,13 +78,13 @@ export const StyledItemIndicator = styled(SelectPrimitive.ItemIndicator, {
 });
 
 export const Description = styled('span', {
-  color: '$scale700',
+  color: '$gray060',
   fontSize: 10,
 });
 
 export const SelectIcon = styled(SelectPrimitive.Icon, {
   svg: {
-    transform: 'scale(.9) rotate(180deg)',
+    transform: 'scale(.9) rotate(0deg)',
   },
 });
 
@@ -95,7 +94,7 @@ export const SelectItemIndicator = styled(StyledItemIndicator, {
     height: 12,
 
     path: {
-      fill: '$scale700',
+      fill: '$gray040',
     },
   },
 });

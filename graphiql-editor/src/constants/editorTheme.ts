@@ -1,21 +1,21 @@
 import { editor as MONACO_EDITOR } from 'monaco-editor';
 
-/** baseColors */
-import { baseColors } from '@graphiql-v2-prototype/graphiql-ui-library';
+/** colors */
+import { colors } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 export const editorTheme: MONACO_EDITOR.IStandaloneThemeData = {
   base: 'vs',
   inherit: false,
   colors: {
     'editor.background': '#FFFFFF00', // white with a 00 alpha value
-    'editorLineNumber.foreground': baseColors.scale[600], // Color of editor line numbers.
-    'editorLineNumber.activeForeground': baseColors.scale[600], // Color of editor active line number.
-    'editorError.foreground': baseColors.accent.error, // Foreground color of error squigglies in the editor.
-    'editorWarning.foreground': baseColors.accent.error, // Foreground color of warning squigglies in the editor.
+    'editorLineNumber.foreground': colors.editorHex.gray040, // Color of editor line numbers.
+    'editorLineNumber.activeForeground': colors.editorHex.gray040, // Color of editor active line number.
+    'editorError.foreground': colors.editorHex.error100, // Foreground color of error squigglies in the editor.
+    'editorWarning.foreground': colors.editorHex.error100, // Foreground color of warning squigglies in the editor.
     'editor.lineHighlightBorder': '#FFFFFF00', // Background color for the border around the line at the cursor position.
     'editorBracketMatch.background': '#FFFFFF00', // Background color behind matching brackets
     'editorBracketMatch.border': '#FFFFFF00', // Color for matching brackets boxes
-    'editorIndentGuide.background': baseColors.scale[400], // Color of the editor indentation guides.
+    'editorIndentGuide.background': colors.editorHex.gray010, // Color of the editor indentation guides.
     'scrollbar.shadow': '#FFFFFF00', // Scrollbar shadow to indicate that the view is scrolled.
     'editorOverviewRuler.border': '#FFFFFF00', // Color of the overview ruler border.
     // 'editorMarkerNavigationError.background': '#FFFFFF00', // Editor marker navigation widget error color.
@@ -24,65 +24,64 @@ export const editorTheme: MONACO_EDITOR.IStandaloneThemeData = {
   rules: [
     // operations editor (graphql)
     {
-      foreground: baseColors.accent.argument,
+      foreground: colors.editorHex.secondary100,
       token: 'keyword.gql',
     },
     {
-      foreground: baseColors.accent.argument,
+      foreground: colors.editorHex.secondary100,
       token: 'operator.gql',
     },
     {
-      foreground: baseColors.accent.field,
+      foreground: colors.editorHex.primary100,
       token: 'type.identifier.gql',
     },
     {
-      foreground: baseColors.scale[700],
+      foreground: colors.editorHex.gray060,
       token: 'delimiter.curly.gql',
     },
     {
-      foreground: baseColors.accent.info,
+      foreground: colors.editorHex.info100,
       token: 'key.identifier.gql',
     },
     {
-      foreground: baseColors.accent.success,
+      foreground: colors.editorHex.success100,
       token: 'argument.identifier.gql',
     },
     {
-      foreground: baseColors.scale[400],
+      foreground: colors.editorHex.gray010,
       token: 'delimiter.parenthesis.gql',
     },
     {
-      foreground: baseColors.scale[700],
+      foreground: colors.editorHex.gray060,
       token: 'comment.gql',
     },
     // variables editor & results viewer (json)
     {
-      foreground: baseColors.scale[700],
+      foreground: colors.editorHex.gray060,
       token: 'delimiter.bracket.json',
     },
     {
-      foreground: baseColors.scale[700],
+      foreground: colors.editorHex.gray060,
       token: 'delimiter.array.json',
     },
     {
-      foreground: baseColors.scale[700],
+      foreground: colors.editorHex.gray060,
       token: 'delimiter.comma.json',
     },
-
     {
-      foreground: baseColors.accent.field,
+      foreground: colors.editorHex.secondary100,
       token: 'string.key.json',
     },
     {
-      foreground: baseColors.accent.warning,
+      foreground: colors.editorHex.warning100,
       token: 'string.value.json',
     },
     {
-      foreground: baseColors.accent.success,
+      foreground: colors.editorHex.success100,
       token: 'keyword.json',
     },
     {
-      foreground: baseColors.accent.success,
+      foreground: colors.editorHex.success100,
       token: 'number.json',
     },
   ],

@@ -9,20 +9,17 @@ export const StyledFieldInput = styled('div', {
     boxSizing: 'border-box',
     width: '100%',
     textAlign: 'right',
-    color: '$accentWarning',
+    color: '$warning100',
     paddingRight: 12,
     height: 32,
     fontSize: 11,
     borderRadius: '0 7px 7px 0',
 
     '&::placeholder': {
-      color: '$scale600',
+      color: '$gray040',
     },
     '&:focus': {
-      backgroundColor: '$scale200',
+      backgroundColor: '$appBackground',
     },
-    // '&:hover': {
-    // backgroundColor: '$scale200',
-    // },
   },
 });

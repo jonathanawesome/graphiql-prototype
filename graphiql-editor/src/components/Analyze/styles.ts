@@ -14,6 +14,6 @@ export const AnalyzeWrap = styled('div', {
     right: 0,
     width: 24,
     height: '100%',
-    background: 'linear-gradient(90deg, rgba(0,0,0,0) 0%, $scale300 100%)',
+    background: 'linear-gradient(90deg, rgba(0,0,0,0) 0%, $editorBackground 100%)',
   },
 });

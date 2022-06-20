@@ -22,11 +22,11 @@ export const OptionRowDetails = styled('div', {
     '&:nth-of-type(1)': {
       fontSize: 12,
       fontWeight: '$medium',
-      color: '$scale800',
+      color: '$gray100',
     },
     '&:nth-of-type(2)': {
       fontSize: 11,
-      color: '$scale700',
+      color: '$gray060',
       lineHeight: 1.25,
     },
   },

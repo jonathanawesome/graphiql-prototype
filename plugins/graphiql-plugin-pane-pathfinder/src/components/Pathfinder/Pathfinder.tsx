@@ -35,10 +35,14 @@ export const Pathfinder = () => {
         <h2>Docs</h2>
         <ContainRight>
           <FakeSearch>
-            <Search />
-            <span>Search</span>
-            <Command />
-            <span>K</span>
+            <div>
+              <Search />
+              <span>Search</span>
+            </div>
+            <div>
+              <Command />
+              <span>K</span>
+            </div>
           </FakeSearch>
           <Options />
         </ContainRight>

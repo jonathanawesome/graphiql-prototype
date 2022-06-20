@@ -31,7 +31,7 @@ export const Handle = styled('div', {
         },
         '&:hover': {
           '&::after': {
-            backgroundColor: '$scale600',
+            backgroundColor: '$gray040',
           },
         },
       },

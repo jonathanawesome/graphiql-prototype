@@ -17,13 +17,21 @@ export const PlayButton = styled('button', {
   width: 'min-content',
   display: 'flex',
 
-  '&:hover': {
-    opacity: 0.9,
-  },
-
   '& svg': {
     height: 40,
     width: 40,
+    path: {
+      '&:nth-of-type(1)': {
+        fill: '$primary100',
+      },
+      '&:nth-of-type(2)': {
+        fill: '$white',
+      },
+    },
+  },
+
+  '&:hover': {
+    opacity: 0.8,
   },
 });
 
@@ -39,12 +47,20 @@ export const PrettierButton = styled('button', {
   height: '100%',
   width: '100%',
 
-  '&:hover': {
-    opacity: 0.9,
-  },
-
   '& svg': {
     height: 24,
     width: 24,
+
+    path: {
+      fill: '$gray040',
+    },
+  },
+
+  '&:hover': {
+    '& svg': {
+      path: {
+        fill: '$gray060',
+      },
+    },
   },
 });

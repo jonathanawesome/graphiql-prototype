@@ -9,7 +9,12 @@ import { ShowArgumentsIcon } from '../icons';
 import type { AncestorField, AncestorMap } from '../../hooks';
 
 /** styles */
-import { ArgumentsWrap, IconWrap, RequiredArgumentsWrap, Span } from './styles';
+import {
+  ArgumentsWrap,
+  ShowArgumentsIconWrap,
+  RequiredArgumentsWrap,
+  Span,
+} from './styles';
 
 export const Arguments = ({
   ancestors,
@@ -34,6 +39,8 @@ export const Arguments = ({
   const requiredArgs = args.filter((a) => isRequiredArgument(a));
   const optionalArgs = args.filter((a) => !isRequiredArgument(a));
 
+  const optionalArgsLength = optionalArgs.length;
+
   return (
     <ArgumentsWrap>
       <RequiredArgumentsWrap>
@@ -50,11 +57,11 @@ export const Arguments = ({
               ))
           : null}
       </RequiredArgumentsWrap>
-      {optionalArgs.length > 0 && (
+      {optionalArgsLength > 0 && (
         <Collapser
           content={
             <Column>
-              {optionalArgs.length > 0
+              {optionalArgsLength > 0
                 ? optionalArgs
                     .sort()
                     .map((arg) => (
@@ -73,18 +80,22 @@ export const Arguments = ({
               {isExpanded ? (
                 <Span>Hide arguments</Span>
               ) : requiredArgs.length > 0 ? (
-                <Span>{`${optionalArgs.length.toString()} more arguments`}</Span>
+                <Span>{`${optionalArgsLength.toString()} more argument${
+                  optionalArgsLength > 1 ? 's' : ''
+                }`}</Span>
               ) : (
-                <Span>{`Show ${optionalArgs.length.toString()} optional arguments`}</Span>
+                <Span>{`Show ${optionalArgsLength.toString()} optional argument${
+                  optionalArgsLength > 1 ? 's' : ''
+                }`}</Span>
               )}
             </>
           }
           isExpanded={isExpanded}
           setIsExpanded={setIsExpanded}
           trigger={
-            <IconWrap>
+            <ShowArgumentsIconWrap>
               <ShowArgumentsIcon />
-            </IconWrap>
+            </ShowArgumentsIconWrap>
           }
         />
       )}

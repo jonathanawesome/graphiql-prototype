@@ -28,8 +28,9 @@ export const VariablesEditor = styled('div', {
 
 export const EditorOptionWrap = styled('div', {
   padding: '8px 16px',
-  borderTop: '1px solid $scale300',
-  backgroundColor: '$scale100',
+  borderTop: '1px solid $gray015',
+  backgroundColor: '$gray007',
+  color: '$gray015',
 });
 
 export const Note = styled('span', {
@@ -37,5 +38,5 @@ export const Note = styled('span', {
   margin: '0px 12px 12px 12px',
   fontSize: '$mini',
   fontStyle: 'italic',
-  color: '$accentWarning',
+  color: '$warning100',
 });
