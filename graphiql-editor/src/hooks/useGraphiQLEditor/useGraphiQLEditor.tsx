@@ -35,7 +35,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     formattingOptions: {
       prettierConfig: {
         // TODO: this could use some tweaking
-        printWidth: 60,
+        printWidth: 40,
       },
     },
   }),
@@ -116,7 +116,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     const editorTabs = get().editorTabs;
     const editorTab = editorTabs.find((t) => t.editorTabId === editorTabId);
 
-    console.log('running switchEditorTab', { monacoEditors, editorTab });
+    // console.log('running switchEditorTab', { monacoEditors, editorTab });
 
     if (editorTab) {
       // TODO: there's probably a better way to do this 👇
@@ -177,9 +177,13 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     if (activeEditorTab) {
       // 1. parse the existing variables string to an object
       // if the current variables model is undefined, use an empty object string
-      const parsedVariables = JSON.parse(
-        activeEditorTab.variablesModel.getValue() || '{}'
-      );
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let parsedVariables: Record<any, any> = {};
+      try {
+        parsedVariables = JSON.parse(activeEditorTab.variablesModel.getValue() || '{}');
+      } catch (error) {
+        console.warn('error parsing variables in updateVariable');
+      }
       // 2. set the variableName and/or variableValue
       parsedVariables[variableName] = variableValue;
       // 3. return to string
@@ -261,6 +265,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
 
     const parsedQuery = parseQuery(value);
     if (!(parsedQuery instanceof Error)) {
+      console.log('parsedQuery', { parsedQuery });
       const operationDefinition = (): ExecutableDefinitionNode | null => {
         const firstDefinition = parsedQuery?.definitions[0];
 

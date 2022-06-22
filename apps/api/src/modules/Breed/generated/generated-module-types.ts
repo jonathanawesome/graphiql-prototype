@@ -18,7 +18,9 @@ export namespace BreedModule {
 
   interface DefinedInputFields {
     CreateBreedInput: 'name' | 'species';
-    BreedsFilters: 'species' | 'dummy1' | 'dummy2' | 'dummy3' | 'dummy4';
+    TestNotRequired: 'dummy1';
+    BreedsFilters: 'species' | 'dummy1' | 'dummy2' | 'dummy3' | 'dummy4' | 'nested';
+    NestedInput: 'arg1' | 'arg2' | 'arg3' | 'arg4';
   }
 
   export type Breed = Pick<Types.Breed, DefinedFields['Breed']>;
@@ -30,10 +32,15 @@ export namespace BreedModule {
     Types.CreateBreedInput,
     DefinedInputFields['CreateBreedInput']
   >;
+  export type TestNotRequired = Pick<
+    Types.TestNotRequired,
+    DefinedInputFields['TestNotRequired']
+  >;
   export type BreedsFilters = Pick<
     Types.BreedsFilters,
     DefinedInputFields['BreedsFilters']
   >;
+  export type NestedInput = Pick<Types.NestedInput, DefinedInputFields['NestedInput']>;
   export type BreedError = Pick<Types.BreedError, DefinedFields['BreedError']>;
   export type ErrorForUI = Types.ErrorForUi;
   export type CreateBreedError = Pick<

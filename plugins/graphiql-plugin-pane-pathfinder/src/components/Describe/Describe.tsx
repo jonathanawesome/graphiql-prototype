@@ -25,7 +25,7 @@ export const Describe = ({
   type,
   variant,
 }: DescribeProps) => {
-  console.log('rendering Describe', { name, type });
+  // console.log('rendering Describe', { name, type });
 
   const { descriptionsVisibility, pillsVisibility } = usePathfinder();
 

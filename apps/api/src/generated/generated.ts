@@ -61,6 +61,7 @@ export type BreedsFilters = {
   dummy3?: InputMaybe<Scalars['String']>;
   /** A dummy4 argument of type ID. */
   dummy4?: InputMaybe<Scalars['ID']>;
+  nested?: InputMaybe<NestedInput>;
   /** An enum indicating the species. */
   species: Species;
 };
@@ -157,6 +158,18 @@ export type MutationCreatePetArgs = {
 
 export type MutationCreateVisitArgs = {
   input: VisitCreateInput;
+};
+
+/** A nested InputType...do folks do this? */
+export type NestedInput = {
+  /** arg1 argument of type Boolean. */
+  arg1?: InputMaybe<Scalars['Boolean']>;
+  /** arg2 argument of type Int. */
+  arg2?: InputMaybe<Scalars['Int']>;
+  /** arg3 argument of type String. */
+  arg3?: InputMaybe<Scalars['String']>;
+  /** arg4 argument of type ID. */
+  arg4?: InputMaybe<Scalars['ID']>;
 };
 
 /** A Person can be either an employee of MeowWoof or a pet owner that brings their pet to MeowWoof. */
@@ -264,11 +277,12 @@ export type QueryBreedArgs = {
 
 export type QueryBreedsArgs = {
   input: BreedsFilters;
+  notRequiredInput?: InputMaybe<TestNotRequired>;
   test?: InputMaybe<Scalars['String']>;
 };
 
 export type QueryEmployeesArgs = {
-  input?: InputMaybe<EmployeesFilters>;
+  input: EmployeesFilters;
 };
 
 export type QueryPersonArgs = {
@@ -314,6 +328,12 @@ export type SubBreed = {
   name?: Maybe<Scalars['String']>;
   /** An ISO 8601-formatted string representing the time a SubBreed record was last updated. */
   updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+/** Not required Top Level Input Pbject */
+export type TestNotRequired = {
+  /** A dummy1 argument of type Boolean. */
+  dummy1?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type Visit = {
@@ -478,6 +498,7 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
+  NestedInput: NestedInput;
   Person: ResolverTypeWrapper<Person>;
   PersonError: ResolverTypeWrapper<PersonError>;
   PersonName: PersonName;
@@ -492,6 +513,7 @@ export type ResolversTypes = {
   Species: Species;
   String: ResolverTypeWrapper<Scalars['String']>;
   SubBreed: ResolverTypeWrapper<SubBreed>;
+  TestNotRequired: TestNotRequired;
   Visit: ResolverTypeWrapper<Visit>;
   VisitCreateInput: VisitCreateInput;
   VisitError: ResolverTypeWrapper<VisitError>;
@@ -540,6 +562,7 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'];
   Int: Scalars['Int'];
   Mutation: {};
+  NestedInput: NestedInput;
   Person: Person;
   PersonError: PersonError;
   PersonName: PersonName;
@@ -552,6 +575,7 @@ export type ResolversParentTypes = {
   Query: {};
   String: Scalars['String'];
   SubBreed: SubBreed;
+  TestNotRequired: TestNotRequired;
   Visit: Visit;
   VisitCreateInput: VisitCreateInput;
   VisitError: VisitError;
@@ -792,7 +816,7 @@ export type QueryResolvers<
     Array<Maybe<ResolversTypes['Person']>>,
     ParentType,
     ContextType,
-    Partial<QueryEmployeesArgs>
+    RequireFields<QueryEmployeesArgs, 'input'>
   >;
   person: Resolver<
     ResolversTypes['PersonResult'],
