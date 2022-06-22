@@ -63,3 +63,51 @@ export const colors = {
     },
   },
 };
+
+export const lightColors = {
+  // gray
+  gray007: colors.base.gray.gray007,
+  gray010: colors.base.gray.gray010,
+  gray015: colors.base.gray.gray015,
+  gray040: colors.base.gray.gray040,
+  gray060: colors.base.gray.gray060,
+  gray100: colors.base.gray.gray100,
+  // primary
+  primary010: colors.base.primary.primary010,
+  primary060: colors.base.primary.primary060,
+  primary080: colors.base.primary.primary080,
+  primary100: colors.base.primary.primary100,
+  // secondary
+  secondary010: colors.base.secondary.secondary010,
+  secondary060: colors.base.secondary.secondary060,
+  secondary080: colors.base.secondary.secondary080,
+  secondary100: colors.base.secondary.secondary100,
+  // error
+  error010: colors.accent.error.error010,
+  error060: colors.accent.error.error060,
+  error100: colors.accent.error.error100,
+  // warning
+  warning010: colors.accent.warning.warning010,
+  warning060: colors.accent.warning.warning060,
+  warning100: colors.accent.warning.warning100,
+  // success
+  success010: colors.accent.success.success010,
+  success060: colors.accent.success.success060,
+  success100: colors.accent.success.success100,
+  // info
+  info010: colors.accent.info.info010,
+  info060: colors.accent.info.info060,
+  info100: colors.accent.info.info100,
+  // other
+  appBackground: colors.other.appBackground,
+  editorBackground: colors.other.editorBackground,
+  // pure
+  black: colors.pure.black,
+  white: colors.pure.white,
+};
+
+export const darkColors = {
+  // other
+  appBackground: '#222B39',
+  editorBackground: '#1A212D',
+};

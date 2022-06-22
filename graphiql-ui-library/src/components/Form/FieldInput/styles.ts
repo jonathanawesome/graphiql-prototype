@@ -18,7 +18,7 @@ export const StyledFieldInput = styled('div', {
     '&::placeholder': {
       color: '$gray040',
     },
-    '&:focus': {
+    '&:focus, &:hover': {
       backgroundColor: '$appBackground',
     },
   },
