@@ -12,7 +12,7 @@ export const NavigationStyled = styled('div', {
   variants: {
     showBorder: {
       true: {
-        borderRight: 'solid 1px $scale400',
+        borderRight: 'solid 1px $gray015',
       },
     },
   },
@@ -28,7 +28,7 @@ export const PanePluginNavigationItem = styled('button', {
   '&:hover': {
     svg: {
       path: {
-        fill: '$accentArgument',
+        fill: '$primary100',
       },
     },
   },
@@ -38,7 +38,14 @@ export const PanePluginNavigationItem = styled('button', {
       true: {
         svg: {
           path: {
-            fill: '$accentArgument',
+            fill: '$primary100',
+          },
+        },
+      },
+      false: {
+        svg: {
+          path: {
+            fill: '$gray040',
           },
         },
       },

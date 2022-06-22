@@ -12,12 +12,12 @@ export const NameTypePills = styled('div', {
 
 export const Name = styled('span', {
   fontWeight: '$semiBold',
-  color: '$scale800',
+  color: '$gray100',
 });
 
 export const Type = styled('span', {
   fontWeight: '$regular',
-  color: '$scale700',
+  color: '$gray060',
 });
 
 export const Description = styled('div', {
@@ -28,12 +28,15 @@ export const Description = styled('div', {
   gap: 8,
   fontSize: 11,
   lineHeight: 1.3,
-  color: '$scale700',
+  color: '$gray060',
   fontWeight: '$regular',
 
   svg: {
     height: 2,
     width: 2,
+    circle: {
+      fill: '$gray040',
+    },
   },
 });
 
@@ -86,7 +89,7 @@ export const DescribeStyled = styled('div', {
       isSelected: true,
       css: {
         [`& ${Name}, & ${Type}`]: {
-          color: '$accentField',
+          color: '$secondary100',
         },
       },
     },
@@ -95,7 +98,7 @@ export const DescribeStyled = styled('div', {
       isSelected: true,
       css: {
         [`& ${Name}, & ${Type}`]: {
-          color: '$accentInfo',
+          color: '$info100',
         },
       },
     },
@@ -104,7 +107,7 @@ export const DescribeStyled = styled('div', {
       isSelected: true,
       css: {
         [`& ${Name}, & ${Type}`]: {
-          color: '$accentArgument',
+          color: '$primary100',
         },
       },
     },
@@ -113,7 +116,7 @@ export const DescribeStyled = styled('div', {
       isSelected: true,
       css: {
         [`& ${Name}, & ${Type}`]: {
-          color: '$accentArgument',
+          color: '$primary100',
         },
       },
     },

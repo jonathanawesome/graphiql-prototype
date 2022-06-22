@@ -15,22 +15,39 @@ export const Span = styled('span', {
   fontSize: 12,
   lineHeight: 1,
   height: 15,
-  color: '$scale700',
+  color: '$gray060',
   marginLeft: 8,
   marginTop: 2,
 });
 
-export const IconWrap = styled('div', {
-  height: 15,
-  width: 15,
+export const ShowArgumentsIconWrap = styled('div', {
+  height: 24,
+  width: 24,
   position: 'relative',
 
   svg: {
     position: 'absolute',
     top: '50%',
     left: '50%',
-    transform: 'translate3d(-50%, -50%, 0)',
+    transform: 'translate3d(-50%, -50%, 0) rotate(0deg) !important',
     height: 24,
     width: 24,
+    path: {
+      '&:nth-of-type(1)': {
+        fill: '$gray060',
+      },
+      '&:nth-of-type(2)': {
+        fill: '$appBackground',
+      },
+      '&:nth-of-type(3)': {
+        fill: '$gray060',
+      },
+      '&:nth-of-type(4)': {
+        fill: '$appBackground',
+      },
+      '&:nth-of-type(5)': {
+        fill: '$gray060',
+      },
+    },
   },
 });

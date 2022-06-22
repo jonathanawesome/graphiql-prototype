@@ -19,7 +19,7 @@ export const PathfinderLead = styled('div', {
   h2: {
     fontSize: '$display',
     fontWeight: '$semiBold',
-    color: '$scale800',
+    color: '$gray100',
     margin: 0,
     padding: 0,
   },
@@ -46,23 +46,51 @@ export const ContainRight = styled('div', {
   alignItems: 'center',
   gap: 12,
   marginLeft: 'auto',
+  marginRight: 10,
 });
 
 export const FakeSearch = styled('div', {
-  backgroundColor: '$scale200',
+  backgroundColor: '$gray007',
   borderRadius: 8,
   padding: 12,
-  gap: 12,
+  gap: 24,
   display: 'flex',
   alignItems: 'center',
   cursor: 'not-allowed',
-  span: {
-    fontSize: '$body',
-    color: '$scale700',
-  },
 
-  svg: {
-    height: 16,
-    width: 16,
+  div: {
+    display: 'flex',
+    alignItems: 'center',
+
+    svg: {
+      height: 14,
+      width: 14,
+    },
+
+    '&:nth-of-type(1)': {
+      gap: 6,
+      span: {
+        fontSize: '$body',
+        color: '$gray060',
+      },
+      svg: {
+        padding: 1,
+        path: {
+          fill: '$gray060',
+        },
+      },
+    },
+    '&:nth-of-type(2)': {
+      gap: 1,
+      span: {
+        fontSize: '$body',
+        color: '$gray040',
+      },
+      svg: {
+        path: {
+          fill: '$gray040',
+        },
+      },
+    },
   },
 });

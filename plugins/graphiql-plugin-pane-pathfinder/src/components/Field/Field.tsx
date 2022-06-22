@@ -1,4 +1,7 @@
-import { useEffect, useState } from 'react';
+import {
+  // useEffect,
+  useState,
+} from 'react';
 
 import {
   FieldNode,
@@ -90,7 +93,7 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
     return (
       <ItemGrid>
         <IndicatorWrap isActive={!!selection} onClick={() => toggle({ ancestors })}>
-          <IndicatorField active={!!selection} />
+          <IndicatorField />
         </IndicatorWrap>
         <Describe
           name={field.name}
@@ -127,16 +130,16 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
           <IndicatorWrap
             isActive={!!selection}
             onClick={() => {
-              // if (!selection && !isExpanded) {
-              //   setIsExpanded(true);
-              // }
-              // if (!!selection && isExpanded) {
-              //   setIsExpanded(false);
-              // }
+              if (!selection && !isExpanded) {
+                setIsExpanded(true);
+              }
+              if (!!selection && isExpanded) {
+                setIsExpanded(false);
+              }
               return toggle({ ancestors });
             }}
           >
-            <IndicatorField active={!!selection} />
+            <IndicatorField />
           </IndicatorWrap>
         }
       />

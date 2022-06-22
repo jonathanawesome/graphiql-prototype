@@ -5,7 +5,7 @@ import * as Tabs from '@radix-ui/react-tabs';
 
 export const CollapsibleRoot = styled(Collapsible.Root, {
   backgroundColor: 'white',
-  borderTop: '1px solid $scale400',
+  borderTop: '1px solid $gray015',
 });
 
 export const TabsRoot = styled(Tabs.Root, {});
@@ -28,12 +28,12 @@ export const TabsTrigger = styled(Tabs.Trigger, {
   lineHeight: '$body',
   fontWeight: '$medium',
   padding: '10px',
-  color: '$scale700',
+  color: '$gray060',
 
-  '&:hover': { color: '$scale800' },
+  '&:hover': { color: '$gray100' },
   '&[data-state="active"]': {
     fontWeight: '$semiBold',
-    color: '$scale800',
+    color: '$gray100',
   },
 
   span: {
@@ -41,18 +41,33 @@ export const TabsTrigger = styled(Tabs.Trigger, {
     marginLeft: '4px',
     borderRadius: '2px',
     fontSize: '$mini',
-    backgroundColor: '$scale300',
-    color: '$scale700',
+    backgroundColor: '$gray015',
+    color: '$gray060',
   },
 });
 
 export const CollapsibleTrigger = styled(Collapsible.Trigger, {
   all: 'reset',
   boxSizing: 'border-box',
+  display: 'flex',
+  alignItems: 'center',
   cursor: 'pointer',
-  marginBottom: 8,
   width: 12,
   height: 12,
+
+  svg: {
+    path: {
+      fill: '$gray040',
+    },
+  },
+
+  variants: {
+    isOperationToolsOpen: {
+      true: {
+        transform: 'rotate(180deg)',
+      },
+    },
+  },
 });
 
 export const CollapsibleContent = styled(Collapsible.Content, {});

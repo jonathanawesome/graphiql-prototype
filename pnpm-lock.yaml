@@ -153,6 +153,7 @@ importers:
       react: 17.0.2
       react-dom: 17.0.2
       vite: 2.9.6
+      zustand: ^4.0.0-rc.1
     dependencies:
       '@graphiql-v2-prototype/graphiql-editor': link:../graphiql-editor
       '@radix-ui/react-collapsible': 0.1.6_react@17.0.2
@@ -165,6 +166,7 @@ importers:
       cuid: 2.1.8
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
+      zustand: 4.0.0-rc.1_react@17.0.2
     devDependencies:
       '@types/react': 17.0.2
       '@types/react-dom': 17.0.2

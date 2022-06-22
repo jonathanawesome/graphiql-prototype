@@ -71,7 +71,6 @@ export const SchemaSelector = () => {
 
   const [targetSchemaUrl, setTargetSchemaUrl] = useState<string>('');
 
-  console.log('SchemaSelector', { schema, schemaUrl });
   useEffect(() => {
     if (schema) {
       if ('error' in schema) {

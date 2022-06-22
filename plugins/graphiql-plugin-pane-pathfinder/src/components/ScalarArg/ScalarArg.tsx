@@ -12,7 +12,7 @@ import {
 } from '../../hooks';
 
 /** styles */
-import { ScalarArgStyled } from './styles';
+import { IndicatorArgumentWrap, ScalarArgStyled } from './styles';
 
 const toggle = usePathfinder.getState().toggle;
 
@@ -43,7 +43,9 @@ export const ScalarArg = ({ ancestors }: { ancestors: AncestorMap }) => {
   return (
     <ScalarArgStyled>
       <button onClick={() => toggle({ ancestors })}>
-        <IndicatorArgument isSelected={isSelected} />
+        <IndicatorArgumentWrap isSelected={isSelected}>
+          <IndicatorArgument />
+        </IndicatorArgumentWrap>
       </button>
       <Describe
         name={`${argument.name}${isRequiredArgument(argument) ? `*` : ''}`}

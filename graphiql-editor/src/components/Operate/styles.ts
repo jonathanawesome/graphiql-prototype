@@ -3,8 +3,7 @@ import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 export const OperateWrap = styled('div', {
   position: 'relative',
   width: '100%',
-  // height: '100%',
-  backgroundColor: 'white',
+  backgroundColor: '$white',
   overflow: 'hidden',
   borderRadius: 16,
   boxShadow:
@@ -29,7 +28,7 @@ export const OperationEditor = styled('div', {
   height: '100%',
   width: '100%',
   paddingTop: 20,
-  paddingRight: 48,
+  paddingRight: 64,
   paddingBottom: 20,
   paddingLeft: 12,
 });

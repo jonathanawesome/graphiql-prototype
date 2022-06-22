@@ -2,13 +2,13 @@ import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 export const GraphiQLLink = styled('div', {
   a: {
-    color: '$scale600',
+    color: '$gray040',
     fontSize: '$body',
     fontWeight: '$semiBold',
     textDecoration: 'none',
 
     '&:hover': {
-      color: '$scale700',
+      color: '$gray060',
     },
   },
 });
@@ -18,6 +18,7 @@ export const TabList = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: 4,
+  marginLeft: 4,
 });
 
 export const HeaderWrap = styled('div', {
@@ -41,13 +42,14 @@ export const AddTabButton = styled('button', {
     height: 11,
     path: {
       transition: 'fill .15s ease',
+      fill: '$gray040',
     },
   },
 
   '&:hover': {
     svg: {
       path: {
-        fill: '$scale700',
+        fill: '$gray100',
       },
     },
   },

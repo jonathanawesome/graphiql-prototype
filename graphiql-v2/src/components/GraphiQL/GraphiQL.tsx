@@ -8,7 +8,7 @@ import { Resizer } from '@graphiql-v2-prototype/graphiql-ui-library';
 import { useGraphiQL } from '../../hooks';
 
 /** styles */
-import { GraphiQLStyled, Wrap } from './styles';
+import { GraphiQLWrap, ContentWrap } from './styles';
 
 /** types */
 import type { PanePluginsArray } from '../PanePlugins/types';
@@ -23,9 +23,9 @@ type GraphiQLProps = {
 export const GraphiQL = ({ panePlugins, dialogPlugins }: GraphiQLProps) => {
   const { activePane } = useGraphiQL();
   return (
-    <GraphiQLStyled>
+    <GraphiQLWrap>
       <Navigation panePlugins={panePlugins} dialogPlugins={dialogPlugins} />
-      <Wrap>
+      <ContentWrap>
         <Resizer
           direction="horizontal"
           handleStyle="bar"
@@ -38,7 +38,7 @@ export const GraphiQL = ({ panePlugins, dialogPlugins }: GraphiQLProps) => {
           }}
           pane2={{ component: <GraphiQLEditor /> }}
         />
-      </Wrap>
-    </GraphiQLStyled>
+      </ContentWrap>
+    </GraphiQLWrap>
   );
 };

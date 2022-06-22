@@ -5,7 +5,6 @@ import { Close } from '../../icons';
 
 /** styles */
 import {
-  Button,
   CloseWrap,
   Content,
   ContentWrap,
@@ -23,7 +22,7 @@ export const Dialog = ({ icon, content, title }: DialogProps) => {
   return (
     <Root>
       <Trigger asChild>
-        <Button>{icon}</Button>
+        <button>{icon}</button>
       </Trigger>
       <Overlay />
       <Portal>

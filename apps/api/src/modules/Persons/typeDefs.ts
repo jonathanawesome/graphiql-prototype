@@ -119,7 +119,7 @@ export const PersonsTypeDefs = gql`
     """
     Retrieves EMPLOYEEs only
     """
-    employees(input: EmployeesFilters): [Person]!
+    employees(input: EmployeesFilters!): [Person]!
     """
     Retrieves PET_OWNERs only
     """

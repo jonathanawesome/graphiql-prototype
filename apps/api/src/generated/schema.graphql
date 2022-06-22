@@ -73,6 +73,7 @@ input BreedsFilters {
   A dummy4 argument of type ID.
   """
   dummy4: ID
+  nested: NestedInput
 
   """
   An enum indicating the species.
@@ -183,6 +184,31 @@ type Mutation {
   """
   createPet(input: CreatePetInput!): CreatePetResult!
   createVisit(input: VisitCreateInput!): CreateVisitResult!
+}
+
+"""
+A nested InputType...do folks do this?
+"""
+input NestedInput {
+  """
+  arg1 argument of type Boolean.
+  """
+  arg1: Boolean
+
+  """
+  arg2 argument of type Int.
+  """
+  arg2: Int
+
+  """
+  arg3 argument of type String.
+  """
+  arg3: String
+
+  """
+  arg4 argument of type ID.
+  """
+  arg4: ID
 }
 
 """
@@ -334,12 +360,12 @@ type Query {
   """
   Finds Breeds given specific input arguments. Returns an array of Breeds matching the input filters or an empty array.
   """
-  breeds(input: BreedsFilters!, test: String): [Breed]!
+  breeds(input: BreedsFilters!, notRequiredInput: TestNotRequired, test: String): [Breed]!
 
   """
   Retrieves EMPLOYEEs only
   """
-  employees(input: EmployeesFilters): [Person]!
+  employees(input: EmployeesFilters!): [Person]!
 
   """
   Finds a Person given an ID. Returns a Person object or an ErrorForUI.
@@ -402,6 +428,16 @@ type SubBreed {
   An ISO 8601-formatted string representing the time a SubBreed record was last updated.
   """
   updatedAt: DateTime
+}
+
+"""
+Not required Top Level Input Pbject
+"""
+input TestNotRequired {
+  """
+  A dummy1 argument of type Boolean.
+  """
+  dummy1: Boolean
 }
 
 type Visit {

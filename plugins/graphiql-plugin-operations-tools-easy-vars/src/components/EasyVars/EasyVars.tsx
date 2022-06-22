@@ -71,8 +71,12 @@ export const EasyVars = ({
   let parsedVariables: Record<any, any> = {};
 
   if (variablesModelValue) {
-    // TODO catch parse errors
-    parsedVariables = JSON.parse(variablesModelValue);
+    // TODO enhance error handling with a UI
+    try {
+      parsedVariables = JSON.parse(variablesModelValue);
+    } catch (e) {
+      console.warn('error parsing variables in EasyVars');
+    }
   }
 
   return (

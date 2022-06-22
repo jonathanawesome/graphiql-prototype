@@ -34,7 +34,6 @@ export const FieldList = ({
     // on mount, if we have exsiting values for our variable, set the values and add the UI items
     if (Array.isArray(currentValue)) {
       currentValue.forEach((cV) => {
-        console.log({ cV });
         const fieldListItemName = `${name}-${cuid.slug()}`;
         setValues((prev) => ({ ...prev, [fieldListItemName]: cV }));
         handleAddItem({ currentValue: cV, name: fieldListItemName });

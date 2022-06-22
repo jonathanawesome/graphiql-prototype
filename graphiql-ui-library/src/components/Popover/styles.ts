@@ -26,7 +26,7 @@ export const PopoverContent = styled(PopoverPrimitive.Content, {
   borderRadius: 4,
   padding: 20,
   width: 400,
-  backgroundColor: '$scale100',
+  backgroundColor: '$white',
   boxShadow:
     'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
   '@media (prefers-reduced-motion: no-preference)': {
@@ -44,18 +44,24 @@ export const PopoverContent = styled(PopoverPrimitive.Content, {
 });
 
 export const PopoverArrow = styled(PopoverPrimitive.Arrow, {
-  fill: '$scale100',
+  fill: '$gray010',
 });
 
 export const PopoverWrap = styled(PopoverPrimitive.Root, {});
 export const PopoverTrigger = styled(PopoverPrimitive.Trigger, {
-  width: 20,
-  height: 20,
+  width: 18,
+  height: 18,
+
+  svg: {
+    path: {
+      fill: '$gray040',
+    },
+  },
 
   '&:hover': {
     svg: {
       path: {
-        fill: '$accentArgument',
+        fill: '$primary100',
       },
     },
   },

@@ -1,43 +1,62 @@
 import { createStitches } from '@stitches/react';
-import { baseColors } from './baseColors';
+import { darkColors, lightColors } from './colors';
 
-export const { globalCss, keyframes, styled, theme } = createStitches({
+const fonts = {
+  stack:
+    'Inter, -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif',
+  mono: '"Fira Code", Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace',
+  // mono: '"Hack", "Fira Code", Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace',
+};
+const fontSizes = {
+  10: '10px',
+  13: '13px',
+  24: '24px',
+  mini: '$10',
+  body: '$13',
+  display: '$24',
+};
+const fontWeights = {
+  regular: 400,
+  medium: 500,
+  semiBold: 600,
+};
+const transitions = {
+  authenticMotion: 'cubic-bezier(0.4, 0, 0.2, 1)',
+};
+
+const theme = {
+  fonts: {
+    ...fonts,
+  },
+  fontSizes: {
+    ...fontSizes,
+  },
+  fontWeights: {
+    ...fontWeights,
+  },
+  transitions: {
+    ...transitions,
+  },
+};
+
+export const { createTheme, globalCss, keyframes, styled } = createStitches({
   theme: {
+    ...theme,
     colors: {
-      scaleBlack: baseColors.scale.black,
-      scale800: baseColors.scale[800],
-      scale700: baseColors.scale[700],
-      scale600: baseColors.scale[600],
-      scale500: baseColors.scale[500],
-      scale400: baseColors.scale[400],
-      scale300: baseColors.scale[300],
-      scale200: baseColors.scale[200],
-      scale100: baseColors.scale[100],
-      scaleWhite: baseColors.scale.white,
-      accentError: baseColors.accent.error,
-      accentSuccess: baseColors.accent.success,
-      accentWarning: baseColors.accent.warning,
-      accentInfo: baseColors.accent.info,
-      accentField: baseColors.accent.field,
-      accentArgument: baseColors.accent.argument,
+      ...lightColors,
     },
-    fonts: {
-      stack:
-        'Inter, -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif',
-      mono: '"Hack", "Fira Code", Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace',
-    },
-    fontSizes: {
-      10: '10px',
-      13: '13px',
-      24: '24px',
-      mini: '$10',
-      body: '$13',
-      display: '$24',
-    },
-    fontWeights: {
-      regular: 400,
-      medium: 500,
-      semiBold: 600,
-    },
+  },
+});
+
+// export const lightTheme = createTheme('lightTheme', {
+//   colors: {
+//     ...lightColors,
+//   },
+// });
+
+export const darkTheme = createTheme('darktheme', {
+  colors: {
+    ...lightColors,
+    ...darkColors,
   },
 });

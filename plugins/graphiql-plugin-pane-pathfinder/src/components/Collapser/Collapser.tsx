@@ -21,13 +21,13 @@ export const Collapser = ({
   leadContent,
   setIsExpanded,
   toggler,
-  trigger = <Caret isExpanded={isExpanded} />,
+  trigger = <Caret />,
 }: CollapserProps) => {
   return (
     <Root open={isExpanded} onOpenChange={setIsExpanded}>
       <ItemGrid hasToggler={!!toggler}>
         {toggler && toggler}
-        <Trigger>{trigger}</Trigger>
+        <Trigger isExpanded={isExpanded}>{trigger}</Trigger>
         {leadContent}
       </ItemGrid>
       <Content>{content}</Content>

@@ -9,15 +9,15 @@ export const CustomSchemaFormWrap = styled('div', {
 export const Note = styled('span', {
   display: 'block',
   fontSize: '$body',
-  color: '$accentInfo',
+  color: '$info100',
   marginBottom: 24,
 });
 
 export const Error = styled('span', {
   display: 'block',
   fontSize: '$body',
-  color: '$accentError',
-  backgroundColor: '$scale100',
+  color: '$error100',
+  backgroundColor: '$gray010',
   marginTop: 12,
   padding: 8,
   fontStyle: 'italic',
@@ -26,14 +26,14 @@ export const Error = styled('span', {
 export const RadioGroupRadio = styled(RadioGroupPrimitive.Item, {
   all: 'unset',
   boxSizing: 'border-box',
-  border: '1px solid $scale500',
+  border: '1px solid $gray040',
   width: 16,
   height: 16,
   borderRadius: '100%',
   cursor: 'pointer',
 
   '&:hover': {
-    border: '1px solid $scale700',
+    border: '1px solid $gray060',
   },
 });
 
@@ -51,7 +51,7 @@ export const RadioGroupIndicator = styled(RadioGroupPrimitive.Indicator, {
     width: 6,
     height: 6,
     borderRadius: '50%',
-    backgroundColor: '$accentArgument',
+    backgroundColor: '$primary100',
   },
 });
 
@@ -82,13 +82,13 @@ export const RadioWrap = styled('div', {
     paddingLeft: 15,
 
     span: {
-      color: '$scale800',
+      color: '$gray100',
       fontSize: '$body',
       lineHeight: 1,
     },
 
     a: {
-      color: '$scale800',
+      color: '$gray100',
       fontSize: '$body',
       lineHeight: 1,
     },

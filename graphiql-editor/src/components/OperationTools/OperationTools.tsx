@@ -68,8 +68,8 @@ export const OperationTools = ({ setHeight }: { setHeight: () => void }) => {
               Headers
             </TabsTrigger>
           </TabsList>
-          <CollapsibleTrigger>
-            <Chevron active={isOperationToolsOpen} />
+          <CollapsibleTrigger isOperationToolsOpen={isOperationToolsOpen}>
+            <Chevron />
           </CollapsibleTrigger>
         </TabsAndTrigger>
         <CollapsibleContent forceMount hidden={!isOperationToolsOpen}>

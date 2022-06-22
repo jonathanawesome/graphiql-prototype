@@ -2,12 +2,12 @@ import { styled } from '../../theme';
 
 export const PillStyled = styled('span', {
   display: 'inline-flex',
-  color: '$scale700',
+  color: '$gray040',
   fontSize: '8px !important',
   lineHeight: 1,
   textTransform: 'uppercase',
   padding: 3,
-  border: '1px solid $scale400',
+  border: '1px solid $gray010',
   borderRadius: 2,
 });
 
