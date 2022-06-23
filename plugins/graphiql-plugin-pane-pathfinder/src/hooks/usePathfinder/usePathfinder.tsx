@@ -12,10 +12,26 @@ const activeEditorTab = getActiveEditorTab();
 const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
 
 export const usePathfinder = create<PathfinderStore>((set, get) => ({
+  /** begin overlay */
+  overlayVisible: false,
+  overlayType: null,
+  setOverlayType: ({ overlayType }) => {
+    set({ overlayVisible: true, overlayType });
+  },
+  setOverlayVisibility: () => {
+    const overlayVisible = get().overlayVisible;
+    set({ overlayVisible: !overlayVisible });
+  },
+  /** end overlay */
+
   /** begin controls */
   descriptionsVisibility: 'Below',
   setDescriptionsVisibility: (descriptionsVisibility) => {
     set({ descriptionsVisibility });
+  },
+  fieldsVisibility: 'Off',
+  setFieldsVisibility: (fieldsVisibility) => {
+    set({ fieldsVisibility });
   },
   pillsVisibility: 'Off',
   setPillsVisibility: (pillsVisibility) => {

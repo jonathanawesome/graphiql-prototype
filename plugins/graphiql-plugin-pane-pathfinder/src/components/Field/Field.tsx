@@ -35,6 +35,8 @@ import { findSelection, unwrapType } from '../../utils';
 const toggle = usePathfinder.getState().toggle;
 
 export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
+  const { fieldsVisibility } = usePathfinder();
+
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const { field, selectionSet } = ancestors.values().next().value as AncestorField;
@@ -87,6 +89,10 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
     childFieldsToRender = (
       <UnionType ancestors={ancestors} unionType={unwrappedType} selection={selection} />
     );
+  }
+
+  if (fieldsVisibility === 'On' && !selection) {
+    return null;
   }
 
   if (!isCollapsible) {

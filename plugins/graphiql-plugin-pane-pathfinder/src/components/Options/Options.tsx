@@ -7,7 +7,12 @@ import {
 } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 /** hooks */
-import { DescriptionsVisibility, PillsVisibility, usePathfinder } from '../../hooks';
+import {
+  DescriptionsVisibility,
+  FieldsVisibility,
+  PillsVisibility,
+  usePathfinder,
+} from '../../hooks';
 
 // /** styles */
 import { OptionsContentStyled } from './styles';
@@ -15,13 +20,32 @@ import { OptionsContentStyled } from './styles';
 const OptionsContent = () => {
   const {
     descriptionsVisibility,
+    fieldsVisibility,
     pillsVisibility,
     setDescriptionsVisibility,
+    setFieldsVisibility,
     setPillsVisibility,
   } = usePathfinder();
 
   return (
     <OptionsContentStyled>
+      <OptionItem
+        title="Field Visibility"
+        description="Show only selected fields"
+        control={
+          <ToggleGroup
+            ariaLabel="Fields visibility"
+            defaultValue={`Off`}
+            items={[
+              { ariaLabel: 'Show only selected fields', value: 'On' },
+              { ariaLabel: 'Show all fields', value: 'Off' },
+            ]}
+            onChange={(value) => setFieldsVisibility(value as FieldsVisibility)}
+            size="regular"
+            value={fieldsVisibility}
+          />
+        }
+      />
       <OptionItem
         title="Type Pills"
         description="Show or hide type pills"
@@ -30,8 +54,8 @@ const OptionsContent = () => {
             ariaLabel="Type pills visibility"
             defaultValue={`Off`}
             items={[
-              { ariaLabel: 'Do not display type pills', value: 'Off' },
               { ariaLabel: 'Display type pills', value: 'On' },
+              { ariaLabel: 'Do not display type pills', value: 'Off' },
             ]}
             onChange={(value) => setPillsVisibility(value as PillsVisibility)}
             size="regular"

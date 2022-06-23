@@ -4,6 +4,7 @@ import {
   GraphQLField,
   GraphQLInputField,
   GraphQLInputObjectType,
+  GraphQLType,
   ObjectFieldNode,
   SelectionNode,
   SelectionSetNode,
@@ -94,18 +95,29 @@ export type NextAction = AddAction | RemoveAction | null;
 export type SetNextActionSignature = (action: NextAction) => void;
 /** end edit action  */
 
-/** begin controls */
+/** begin options */
 export type DescriptionsVisibility = 'Inline' | 'Below' | 'Off';
+export type FieldsVisibility = 'On' | 'Off';
 export type PillsVisibility = 'On' | 'Off';
-/** end controls */
+/** end options */
 
 export type PathfinderStore = {
-  /** begin controls */
+  /** begin overlay */
+  overlayVisible: boolean;
+  overlayType: GraphQLType | null;
+  setOverlayType: ({ overlayType }: { overlayType: GraphQLType }) => void;
+  setOverlayVisibility: () => void;
+  /** end overlay */
+
+  /** begin options */
   descriptionsVisibility: DescriptionsVisibility;
   setDescriptionsVisibility: (val: DescriptionsVisibility) => void;
+  fieldsVisibility: FieldsVisibility;
+  setFieldsVisibility: (val: FieldsVisibility) => void;
   pillsVisibility: PillsVisibility;
   setPillsVisibility: (val: PillsVisibility) => void;
-  /** end controls */
+  /** end options */
+
   /** begin toggle */
   nextSelectionSet: NextSelectionSet;
   setNextSelectionSet: SetNextSelectionSetSignature;
