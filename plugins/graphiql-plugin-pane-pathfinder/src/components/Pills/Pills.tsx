@@ -10,10 +10,10 @@ import {
   GraphQLUnionType,
 } from 'graphql';
 
-/** styles */
+// styles
 import { StyledPill, StyledPills } from './styles';
 
-/** utils */
+// utils
 import { unwrapType } from '../../utils';
 
 const typer = ({ type }: { type: GraphQLType }) => {

@@ -1,16 +1,16 @@
-/** components */
+// components
 import { Navigation } from '../Navigation';
 import { GraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
 import { PanePlugins } from '../PanePlugins';
 import { Resizer } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-/** hooks */
+// hooks
 import { useGraphiQL } from '../../hooks';
 
-/** styles */
+// styles
 import { GraphiQLWrap, ContentWrap } from './styles';
 
-/** types */
+// types
 import type { PanePluginsArray } from '../PanePlugins/types';
 import { DialogPluginsArray } from '../DialogPlugins/types';
 

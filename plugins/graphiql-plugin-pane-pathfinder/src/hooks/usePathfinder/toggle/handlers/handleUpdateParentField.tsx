@@ -1,9 +1,9 @@
 import { FieldNode, Kind } from 'graphql';
 
-/** helpers */
-import { findFieldSiblings } from '../helpers';
+// helpers
+import { getFieldSiblings } from '../helpers';
 
-/** types */
+// types
 import {
   AncestorField,
   ArgumentAction,
@@ -31,7 +31,7 @@ export const handleUpdateParentField = ({
   //   nextAction,
   // });
 
-  const siblings = findFieldSiblings({ ancestor });
+  const siblings = getFieldSiblings({ ancestor });
   const selection = ancestor.selection as FieldNode;
 
   let newFieldNode: FieldNode = {

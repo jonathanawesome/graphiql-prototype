@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { FieldNode, isRequiredArgument } from 'graphql';
+import { FieldNode, isRequiredArgument, OperationTypeNode } from 'graphql';
 
-/** components */
+// components
 import { Argument, Collapser, Column } from '../index';
 import { ShowArgumentsIcon } from '../icons';
 
-/** hooks */
+// hooks
 import type { AncestorField, AncestorMap } from '../../hooks';
 
-/** styles */
+// styles
 import {
   ArgumentsWrap,
   ShowArgumentsIconWrap,
@@ -18,9 +18,11 @@ import {
 
 export const Arguments = ({
   ancestors,
+  operationType,
   selection,
 }: {
   ancestors: AncestorMap;
+  operationType: OperationTypeNode;
   selection: FieldNode | null;
 }) => {
   // console.log('rendering Arguments', {
@@ -52,6 +54,7 @@ export const Arguments = ({
                   key={arg.name}
                   ancestors={ancestors}
                   argument={arg}
+                  operationType={operationType}
                   selection={selection}
                 />
               ))
@@ -69,6 +72,7 @@ export const Arguments = ({
                         key={arg.name}
                         ancestors={ancestors}
                         argument={arg}
+                        operationType={operationType}
                         selection={selection}
                       />
                     ))

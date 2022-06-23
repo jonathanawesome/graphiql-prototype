@@ -4,7 +4,7 @@ import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 /** toggle */
 import { toggle } from './toggle';
 
-/** types */
+// types
 import { PathfinderStore } from './types';
 
 const activeEditorTab = getActiveEditorTab();
@@ -40,6 +40,11 @@ export const usePathfinder = create<PathfinderStore>((set, get) => ({
   /** end controls */
 
   /** begin toggle */
+  nextRootType: null,
+  setNextRootType: ({ nextRootType }) => {
+    console.log('setNextRootType', nextRootType);
+    set({ nextRootType });
+  },
   nextSelectionSet: null,
   setNextSelectionSet: ({ nextSelectionSet }) => {
     // console.log('setNextSelectionSet', nextSelectionSet);
@@ -55,6 +60,6 @@ export const usePathfinder = create<PathfinderStore>((set, get) => ({
     // console.log('nextAction', { action });
     set({ nextAction: action });
   },
-  toggle: ({ ancestors }) => toggle({ ancestors, get }),
+  toggle: ({ ancestors, operationType }) => toggle({ ancestors, get, operationType }),
   /** end toggle */
 }));

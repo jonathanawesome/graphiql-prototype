@@ -1,9 +1,9 @@
 import { InlineFragmentNode, Kind } from 'graphql';
 
-/** helpers */
-import { findFieldSiblings } from '../helpers';
+// helpers
+import { getFieldSiblings } from '../helpers';
 
-/** types */
+// types
 import {
   AncestorInlineFragment,
   NextSelectionSet,
@@ -35,7 +35,7 @@ export const handleAddParentInlineFragment = ({
     },
   };
 
-  const siblings = findFieldSiblings({ ancestor });
+  const siblings = getFieldSiblings({ ancestor });
 
   /** update the nextSelectionSet */
   return setNextSelectionSet({

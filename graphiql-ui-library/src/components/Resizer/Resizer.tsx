@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-/** styles */
+// styles
 import { Container, Handle, Pane } from './styles';
 
 export type ResizerProps = {

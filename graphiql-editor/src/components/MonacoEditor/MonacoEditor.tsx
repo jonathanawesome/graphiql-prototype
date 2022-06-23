@@ -1,14 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { editor as MONACO_EDITOR } from 'monaco-editor';
 
-/** constants */
+// constants
 import { editorOptions, editorTheme } from '../../constants';
 
-/** hooks */
+// hooks
 import { useGraphiQLEditor } from '../../hooks';
 import type { MonacoEditorTypes } from '../../hooks';
 
-/** styles */
+// styles
 import { MonacoEditorStyled, MonacoWrap } from './styles';
 
 const addMonacoEditor = useGraphiQLEditor.getState().addMonacoEditor;

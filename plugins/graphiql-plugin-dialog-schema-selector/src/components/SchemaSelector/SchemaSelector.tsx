@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
-/** hooks */
+// hooks
 import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
 
-/** styles */
+// styles
 import {
   CustomSchemaFormWrap,
   Error,

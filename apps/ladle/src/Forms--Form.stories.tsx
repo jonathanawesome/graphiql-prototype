@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-/** components */
+// components
 import { Pill, Form } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-/** types */
+// types
 import type { HandleChange } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 export const StaticForm = () => {

@@ -1,6 +1,6 @@
 import { PrismaClient } from '../generated';
 
-/** data */
+// data
 import { Breed } from './Breed';
 import { Person } from './Person';
 import { Pet } from './Pet';

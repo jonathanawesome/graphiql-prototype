@@ -7,21 +7,28 @@ import {
   GraphQLUnionType,
   InlineFragmentNode,
   Kind,
+  OperationTypeNode,
 } from 'graphql';
 
-/** components */
+// components
 import { Collapser, Column, Describe, ObjectType } from '../index';
 
-/** types */
+// types
 import type { AncestorMap } from '../../hooks';
 
 type UnionTypeProps = {
   ancestors: AncestorMap;
+  operationType: OperationTypeNode;
   selection: FieldNode | InlineFragmentNode | undefined;
   unionType: GraphQLUnionType;
 };
 
-export const UnionType = ({ ancestors, selection, unionType }: UnionTypeProps) => {
+export const UnionType = ({
+  ancestors,
+  operationType,
+  selection,
+  unionType,
+}: UnionTypeProps) => {
   const unionMembers = unionType.getTypes();
 
   // console.log('rendering UnionType', { unionMembers });
@@ -33,6 +40,7 @@ export const UnionType = ({ ancestors, selection, unionType }: UnionTypeProps) =
           key={o.name}
           ancestors={ancestors}
           objectMember={o}
+          operationType={operationType}
           selection={selection}
         />
       ))}
@@ -43,11 +51,13 @@ export const UnionType = ({ ancestors, selection, unionType }: UnionTypeProps) =
 const UnionMember = ({
   ancestors,
   objectMember,
+  operationType,
   selection,
 }: {
   ancestors: AncestorMap;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   objectMember: GraphQLObjectType<any, any>;
+  operationType: OperationTypeNode;
   selection: FieldNode | InlineFragmentNode | undefined;
 }) => {
   const hash = cuid.slug();
@@ -79,6 +89,7 @@ const UnionMember = ({
             ])
           }
           fields={objectMember.getFields()}
+          operationType={operationType}
           selection={inlineFragmentNode}
         />
       }

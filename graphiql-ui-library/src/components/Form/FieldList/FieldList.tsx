@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import cuid from 'cuid';
 
-/** components */
+// components
 import { Close } from '../../../icons';
 import { FieldInput } from '../FieldInput';
 import { FieldSelect } from '../FieldSelect';
 
-/** styles */
+// styles
 import { AddItemButton, RemoveItemButton, StyledList, StyledListItem } from './styles';
 
-/** types */
+// types
 import type { FieldListProps, HandleChange } from '../types';
 
-/** utils */
+// utils
 import {
   getDefaultInputValue,
   getEnumValues,

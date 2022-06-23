@@ -1,7 +1,7 @@
-/** components */
+// components
 import { MonacoEditor } from '../MonacoEditor';
 
-/** styles */
+// styles
 import { HeadersEditor, HeadersWrap } from './styles';
 
 export const Headers = () => {

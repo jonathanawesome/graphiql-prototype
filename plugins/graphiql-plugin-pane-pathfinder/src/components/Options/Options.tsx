@@ -1,4 +1,4 @@
-/** components */
+// components
 import {
   Ellipsis,
   OptionItem,
@@ -6,7 +6,7 @@ import {
   ToggleGroup,
 } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-/** hooks */
+// hooks
 import {
   DescriptionsVisibility,
   FieldsVisibility,
@@ -14,7 +14,7 @@ import {
   usePathfinder,
 } from '../../hooks';
 
-// /** styles */
+// styles
 import { OptionsContentStyled } from './styles';
 
 const OptionsContent = () => {

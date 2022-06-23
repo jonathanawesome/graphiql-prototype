@@ -5,13 +5,13 @@ import {
   useGraphiQLEditor,
 } from '@graphiql-v2-prototype/graphiql-editor';
 
-/** styles */
+// styles
 import { EasyVarsStyled } from './styles';
 
-/** types */
+// types
 import type { HandleChange } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-/** utils */
+// utils
 import { inputToRender } from './inputToRender';
 import {
   isVariableDefinitionListType,

@@ -1,7 +1,7 @@
-/** styles */
+// styles
 import { OptionRowStyled, OptionRowDetails } from './styles';
 
-/** types */
+// types
 import type { ToggleGroupProps } from '../ToggleGroup';
 
 export const OptionItem = ({

@@ -1,4 +1,4 @@
-/** styles */
+// styles
 import { StyledToggleGroup, StyledToggleItem } from './styles';
 
 type ToggleGroupItem = {

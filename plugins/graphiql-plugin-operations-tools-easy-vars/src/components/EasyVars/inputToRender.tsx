@@ -1,16 +1,16 @@
 import { VariableDefinitionNode } from 'graphql';
 
-/** components */
+// components
 import {
   Form,
   HandleChangeSignature,
   Pill,
 } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-/** constants */
+// constants
 import { INPUT_TYPES } from './constants';
 
-/** utils */
+// utils
 import {
   getDefaultInputValue,
   getEnumValues,

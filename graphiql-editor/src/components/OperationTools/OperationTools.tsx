@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-/** components */
+// components
 import { Chevron } from '@graphiql-v2-prototype/graphiql-ui-library';
 import { Headers } from '../Headers';
 import { Variables } from '../Variables';
 
-/** styles */
+// styles
 import {
   CollapsibleContent,
   CollapsibleRoot,
@@ -17,7 +17,7 @@ import {
   TabsTrigger,
 } from './styles';
 
-/** utils */
+// utils
 import { getActiveEditorTab } from '../../utils';
 
 export const OperationTools = ({ setHeight }: { setHeight: () => void }) => {

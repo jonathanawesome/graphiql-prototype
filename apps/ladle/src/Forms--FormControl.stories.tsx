@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-/** components */
+// components
 import { FormControl, Pill } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-/** types */
+// types
 import type { HandleChange } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 export const A = () => {

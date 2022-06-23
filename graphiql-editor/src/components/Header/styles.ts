@@ -3,7 +3,7 @@ import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 export const GraphiQLLink = styled('div', {
   a: {
     color: '$gray040',
-    fontSize: '$body',
+    fontSize: 15,
     fontWeight: '$semiBold',
     textDecoration: 'none',
 

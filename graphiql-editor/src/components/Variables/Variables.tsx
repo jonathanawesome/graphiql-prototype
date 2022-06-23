@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-/** components */
+// components
 import {
   Code,
   Input,
@@ -10,7 +10,7 @@ import {
 import { EasyVars } from '@graphiql-v2-prototype/graphiql-plugin-operations-tools-easy-vars';
 import { MonacoEditor } from '../MonacoEditor';
 
-/** styles */
+// styles
 import {
   EasyVarsWrap,
   EditorOptionWrap,
@@ -19,7 +19,7 @@ import {
   VariablesWrap,
 } from './styles';
 
-/** utils */
+// utils
 import { getActiveEditorTab } from '../../utils';
 
 type EditorType = 'CodeEditor' | 'InputEditor';

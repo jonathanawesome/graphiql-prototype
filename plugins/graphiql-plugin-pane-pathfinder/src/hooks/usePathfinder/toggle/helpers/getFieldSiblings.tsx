@@ -1,9 +1,9 @@
 import { FieldNode, InlineFragmentNode, SelectionNode } from 'graphql';
 
-/** types */
+// types
 import { AncestorTypes } from '../../types';
 
-export const findFieldSiblings = ({
+export const getFieldSiblings = ({
   ancestor,
 }: {
   ancestor: AncestorTypes;

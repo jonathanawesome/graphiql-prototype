@@ -1,11 +1,14 @@
-import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
+import { OperationTypeNode } from 'graphql';
+
+// components
+import { BreadcrumbOverlay, Options, Search, RootOperationType } from '../index';
 import { Command } from '@graphiql-v2-prototype/graphiql-ui-library';
+
+// hooks
+import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
 import { usePathfinder } from '../../hooks';
 
-/** components */
-import { BreadcrumbOverlay, Options, Search, RootType } from '../index';
-
-/** styles */
+// styles
 import {
   ContainRight,
   PathfinderContent,
@@ -29,7 +32,7 @@ export const Pathfinder = () => {
   }
 
   const queryType = schema.getQueryType();
-  // const mutationType = schema.getMutationType();
+  const mutationType = schema.getMutationType();
 
   return (
     <PathfinderWrap>
@@ -51,9 +54,18 @@ export const Pathfinder = () => {
       </PathfinderLead>
       <PathfinderContentWrap>
         <PathfinderContent>
-          {queryType ? <RootType rootType={queryType} /> : null}
-          {/* // TODO */}
-          {/* {mutationType ? <RootType rootType={mutationType} /> : null} */}
+          {queryType ? (
+            <RootOperationType
+              rootType={queryType}
+              operationType={OperationTypeNode.QUERY}
+            />
+          ) : null}
+          {mutationType ? (
+            <RootOperationType
+              rootType={mutationType}
+              operationType={OperationTypeNode.MUTATION}
+            />
+          ) : null}
         </PathfinderContent>
         {overlayVisible && <BreadcrumbOverlay />}
       </PathfinderContentWrap>

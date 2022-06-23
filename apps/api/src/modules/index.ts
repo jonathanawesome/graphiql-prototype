@@ -1,6 +1,6 @@
 import { createApplication } from 'graphql-modules';
 
-/** modules */
+// modules
 import { BaseModule } from './Base';
 import { BreedModule } from './Breed';
 import { PersonsModule } from './Persons';

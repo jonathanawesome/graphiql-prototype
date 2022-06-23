@@ -1,11 +1,11 @@
-/** components */
+// components
 import { Plus } from '@graphiql-v2-prototype/graphiql-ui-library';
 import { Tab } from './Tab';
 
-/** hooks */
+// hooks
 import { useGraphiQLEditor } from '../../hooks';
 
-/** styles */
+// styles
 import { AddTabButton, HeaderWrap, TabList, GraphiQLLink } from './styles';
 
 const AddTab = () => {

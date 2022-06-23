@@ -6,7 +6,7 @@ import {
   Kind,
 } from 'graphql';
 
-/** utils */
+// utils
 import { buildObjectFields, capitalize, unwrapInputType } from '../utils';
 
 export const getRequiredArgumentNodesForField = ({

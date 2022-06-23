@@ -1,12 +1,12 @@
 import React from 'react';
 
-/** components */
+// components
 import { FormControl } from './FormControl';
 
-/** styles */
+// styles
 import { FormStyled, StaticSubmitHandler } from './styles';
 
-/** types */
+// types
 import { DynamicFormProps, FormControlProps, StaticFormProps } from './types';
 
 export const Form = ({

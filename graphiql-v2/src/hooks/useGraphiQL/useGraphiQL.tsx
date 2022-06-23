@@ -1,6 +1,6 @@
 import create from 'zustand';
 
-/** types */
+// types
 import { GraphiQLStore } from './types';
 
 export const useGraphiQL = create<GraphiQLStore>((set, get) => ({

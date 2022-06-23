@@ -5,3 +5,7 @@ export const Name = styled('span', {
   fontSize: '$body',
   fontWeight: '$semiBold',
 });
+
+export const RootOperationTypeStyled = styled('div', {
+  marginBottom: 12,
+});

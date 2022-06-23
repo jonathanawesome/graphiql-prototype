@@ -1,4 +1,4 @@
-/** types */
+// types
 import { BreedModule } from './generated/generated-module-types';
 
 export const BreedResolvers: {

@@ -1,6 +1,6 @@
 import { ArgumentNode, Kind, ObjectFieldNode, ObjectValueNode } from 'graphql';
 
-/** types */
+// types
 import { AncestorInputObject, NextAction, SetNextActionSignature } from '../../types';
 
 export const handleUpdateInputObject = ({

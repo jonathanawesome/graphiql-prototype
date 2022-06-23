@@ -8,15 +8,16 @@ import {
   isRequiredArgument,
   isRequiredInputField,
   ObjectValueNode,
+  OperationTypeNode,
 } from 'graphql';
 
-/** components */
+// components
 import { Collapser, Describe, ScalarArg } from '../index';
 
-/** components */
+// components
 import { Column } from '../index';
 
-/** hooks */
+// hooks
 import {
   AncestorArgument,
   AncestorInputField,
@@ -24,17 +25,19 @@ import {
   AncestorMap,
 } from '../../hooks';
 
-/** utils */
+// utils
 import { capitalize, generateVariableNameFromAncestorMap } from '../../utils';
 
 export const InputObject = ({
   ancestors,
-  renderingInputField,
   inputType,
+  operationType,
+  renderingInputField,
 }: {
   ancestors: AncestorMap;
-  renderingInputField: GraphQLInputField;
   inputType: GraphQLInputObjectType;
+  operationType: OperationTypeNode;
+  renderingInputField: GraphQLInputField;
 }) => {
   const hash = cuid.slug();
 
@@ -86,6 +89,7 @@ export const InputObject = ({
                         ])
                       }
                       inputType={fields[f].type as GraphQLInputObjectType}
+                      operationType={operationType}
                       renderingInputField={fields[f]}
                     />
                   );
@@ -113,6 +117,7 @@ export const InputObject = ({
                           ...ancestors,
                         ])
                       }
+                      operationType={operationType}
                     />
                   );
                 }

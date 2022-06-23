@@ -1,7 +1,7 @@
 import { Play, Prettier } from '@graphiql-v2-prototype/graphiql-ui-library';
 import { useGraphiQLEditor } from '../../hooks';
 
-/** styles */
+// styles
 import { OperationActionsWrap, PlayButton, PrettierButton } from './styles';
 
 export const OperationActions = () => {

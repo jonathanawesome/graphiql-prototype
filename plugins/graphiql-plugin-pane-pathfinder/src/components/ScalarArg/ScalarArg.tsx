@@ -1,9 +1,9 @@
-import { GraphQLArgument, isRequiredArgument } from 'graphql';
+import { GraphQLArgument, isRequiredArgument, OperationTypeNode } from 'graphql';
 
-/** components */
+// components
 import { Describe, IndicatorArgument } from '../index';
 
-/** hooks */
+// hooks
 import {
   AncestorArgument,
   AncestorInputField,
@@ -11,12 +11,18 @@ import {
   usePathfinder,
 } from '../../hooks';
 
-/** styles */
+// styles
 import { IndicatorArgumentWrap, ScalarArgStyled } from './styles';
 
 const toggle = usePathfinder.getState().toggle;
 
-export const ScalarArg = ({ ancestors }: { ancestors: AncestorMap }) => {
+export const ScalarArg = ({
+  ancestors,
+  operationType,
+}: {
+  ancestors: AncestorMap;
+  operationType: OperationTypeNode;
+}) => {
   const ancestor = ancestors.values().next().value as
     | AncestorArgument
     | AncestorInputField;
@@ -32,17 +38,13 @@ export const ScalarArg = ({ ancestors }: { ancestors: AncestorMap }) => {
   }
 
   // console.log('ScalarArg', {
-  //   // arg,
   //   ancestors,
-  //   self,
-  //   argument,
-  //   selection,
-  //   // selection,
+  //   operationType,
   // });
 
   return (
     <ScalarArgStyled>
-      <button onClick={() => toggle({ ancestors })}>
+      <button onClick={() => toggle({ ancestors, operationType })}>
         <IndicatorArgumentWrap isSelected={isSelected}>
           <IndicatorArgument />
         </IndicatorArgumentWrap>
