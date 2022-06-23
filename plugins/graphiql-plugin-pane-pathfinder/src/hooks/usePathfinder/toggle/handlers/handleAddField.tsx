@@ -6,7 +6,7 @@ import { getFieldSiblings } from '../helpers';
 // types
 import {
   AncestorField,
-  NextRootType,
+  NextOperationType,
   SetNextSelectionSetSignature,
   SetNextVariableDefinitionsSignature,
 } from '../../types';
@@ -16,12 +16,12 @@ import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 
 export const handleAddField = ({
   ancestor,
-  nextRootType,
+  nextOperationType,
   setNextSelectionSet,
   setNextVariableDefinitions,
 }: {
   ancestor: AncestorField;
-  nextRootType: NextRootType;
+  nextOperationType: NextOperationType;
   setNextSelectionSet: SetNextSelectionSetSignature;
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
 }) => {
@@ -58,7 +58,7 @@ export const handleAddField = ({
   // }
 
   // TODO: if we're toggling a different operation type, we should NOT pass existing variable definitions
-  if (currentOperationType === nextRootType) {
+  if (currentOperationType === nextOperationType) {
     setNextVariableDefinitions({
       nextVariableDefinitions: [...(variableDefinitions ? variableDefinitions : [])],
     });

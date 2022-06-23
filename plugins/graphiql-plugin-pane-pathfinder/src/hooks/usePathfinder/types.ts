@@ -71,11 +71,11 @@ type ToggleSignature = ({
 }) => void;
 
 // begin root type
-export type NextRootType = OperationTypeNode | null;
-export type SetNextRootType = ({
-  nextRootType,
+export type NextOperationType = OperationTypeNode | null;
+export type SetNextOperationType = ({
+  nextOperationType,
 }: {
-  nextRootType: OperationTypeNode | null;
+  nextOperationType: OperationTypeNode | null;
 }) => void;
 // end root type
 
@@ -138,8 +138,8 @@ export type PathfinderStore = {
   // end options
 
   // begin toggle
-  nextRootType: NextRootType;
-  setNextRootType: SetNextRootType;
+  nextOperationType: NextOperationType;
+  setNextOperationType: SetNextOperationType;
   nextSelectionSet: NextSelectionSet;
   setNextSelectionSet: SetNextSelectionSetSignature;
   nextVariableDefinitions: NextVariableDefinitions;

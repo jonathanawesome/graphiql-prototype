@@ -40,10 +40,10 @@ export const usePathfinder = create<PathfinderStore>((set, get) => ({
   /** end controls */
 
   /** begin toggle */
-  nextRootType: null,
-  setNextRootType: ({ nextRootType }) => {
-    console.log('setNextRootType', nextRootType);
-    set({ nextRootType });
+  nextOperationType: null,
+  setNextOperationType: ({ nextOperationType }) => {
+    console.log('setNextOperationType', nextOperationType);
+    set({ nextOperationType });
   },
   nextSelectionSet: null,
   setNextSelectionSet: ({ nextSelectionSet }) => {

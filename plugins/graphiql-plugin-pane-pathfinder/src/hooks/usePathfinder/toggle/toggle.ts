@@ -51,23 +51,23 @@ export const toggle = ({
   const currentOperationType = activeEditorTab?.operationDefinition?.operation;
 
   const target = ancestors.values().next().value;
-  const setNextRootType = get().setNextRootType;
+  const setNextOperationType = get().setNextOperationType;
   const setNextSelectionSet = get().setNextSelectionSet;
   const setNextVariableDefinitions = get().setNextVariableDefinitions;
   const setNextAction = get().setNextAction;
 
-  let incomingRootType: OperationTypeNode;
+  let incomingOperationType: OperationTypeNode;
 
   if (operationType === 'mutation') {
-    incomingRootType = OperationTypeNode.MUTATION;
+    incomingOperationType = OperationTypeNode.MUTATION;
   } else if (operationType === 'subscription') {
-    incomingRootType = OperationTypeNode.SUBSCRIPTION;
+    incomingOperationType = OperationTypeNode.SUBSCRIPTION;
   } else {
-    incomingRootType = OperationTypeNode.QUERY;
+    incomingOperationType = OperationTypeNode.QUERY;
   }
-  console.log('toggle', { incomingRootType });
+  console.log('toggle', { incomingOperationType });
 
-  setNextRootType({ nextRootType: incomingRootType });
+  setNextOperationType({ nextOperationType: incomingOperationType });
 
   ancestors.forEach((ancestor, key) => {
     // console.log('toggle forEach', { name: key, ancestor, ancestors });
@@ -127,7 +127,7 @@ export const toggle = ({
         if (!ancestor.selection) {
           handleAddField({
             ancestor,
-            nextRootType: get().nextRootType,
+            nextOperationType: get().nextOperationType,
             setNextSelectionSet,
             setNextVariableDefinitions,
           });
@@ -210,10 +210,10 @@ export const toggle = ({
   // });
 
   const nextSelectionSet = get().nextSelectionSet;
-  const nextRootType = get().nextRootType;
+  const nextOperationType = get().nextOperationType;
 
-  // console.log('nextRootType', {
-  //   nextRootType,
+  // console.log('nextOperationType', {
+  //   nextOperationType,
   //   currentOperationType,
   //   activeOperationDefinition,
   // });
@@ -222,10 +222,12 @@ export const toggle = ({
 
   const kind = Kind.OPERATION_DEFINITION;
   const operation =
-    nextRootType === 'mutation' ? OperationTypeNode.MUTATION : OperationTypeNode.QUERY;
+    nextOperationType === 'mutation'
+      ? OperationTypeNode.MUTATION
+      : OperationTypeNode.QUERY;
   const name: NameNode = {
     kind: Kind.NAME,
-    value: `Example${nextRootType === 'mutation' ? 'Mutation' : 'Query'}`,
+    value: `Example${nextOperationType === 'mutation' ? 'Mutation' : 'Query'}`,
   };
   const variableDefinitions = get().nextVariableDefinitions;
   const selectionSet = nextSelectionSet ?? {
@@ -235,7 +237,7 @@ export const toggle = ({
 
   // if the rootType is different than currentOperationType,
   // spin up a new tab and do work there
-  if (currentOperationType && nextRootType !== currentOperationType) {
+  if (currentOperationType && nextOperationType !== currentOperationType) {
     addEditorTab();
     nextDefinition = {
       kind,
