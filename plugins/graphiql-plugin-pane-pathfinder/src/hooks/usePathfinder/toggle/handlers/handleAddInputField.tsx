@@ -16,10 +16,10 @@ export const handleAddInputField = ({
   ancestor: AncestorInputField;
   setNextAction: SetNextActionSignature;
 }) => {
-  console.log('running handleAddInputField', {
-    type: ancestor.inputField.type,
-    variableName: ancestor.variableName,
-  });
+  // console.log('running handleAddInputField', {
+  //   type: ancestor.inputField.type,
+  //   variableName: ancestor.variableName,
+  // });
 
   const newVarDef = buildNewVariableDefinition({
     type: ancestor.inputField.type,

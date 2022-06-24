@@ -120,12 +120,20 @@ export type FieldsVisibility = 'On' | 'Off';
 export type PillsVisibility = 'On' | 'Off';
 // end options
 
+// begin overlay
+type Overlay = {
+  currentType?: GraphQLType | null;
+  prevTypes: Array<GraphQLType>;
+  visible: boolean;
+};
+// end overlay
+
 export type PathfinderStore = {
   // begin overlay
-  overlayVisible: boolean;
-  overlayType: GraphQLType | null;
-  setOverlayType: ({ overlayType }: { overlayType: GraphQLType }) => void;
-  setOverlayVisibility: () => void;
+  // overlayType: GraphQLType | null;
+  // setOverlayType: ({ overlayType }: { overlayType: GraphQLType }) => void;
+  overlay: Overlay;
+  setOverlay: ({ currentType, prevTypes, visible }: Overlay) => void;
   // end overlay
 
   // begin options

@@ -30,7 +30,7 @@ export const handleAddField = ({
   const currentOperationType = activeEditorTab?.operationDefinition?.operation;
 
   const siblings = getFieldSiblings({ ancestor });
-  console.log('running handleAddField', { ancestor, siblings });
+  // console.log('running handleAddField', { ancestor, siblings });
 
   /** first, we build a new FieldNode using the field's name */
   const newFieldNode: FieldNode = {

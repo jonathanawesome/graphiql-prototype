@@ -20,7 +20,7 @@ import {
 
 export const Pathfinder = () => {
   const { schema } = useGraphiQLEditor();
-  const { overlayVisible } = usePathfinder();
+  const { overlay } = usePathfinder();
 
   if (!schema) {
     //TODO: some loading skeleton
@@ -67,7 +67,7 @@ export const Pathfinder = () => {
             />
           ) : null}
         </PathfinderContent>
-        {overlayVisible && <BreadcrumbOverlay />}
+        {overlay.visible && <BreadcrumbOverlay />}
       </PathfinderContentWrap>
     </PathfinderWrap>
   );

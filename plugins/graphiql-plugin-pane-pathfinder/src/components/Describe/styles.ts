@@ -1,6 +1,6 @@
 import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-export const NameTypePills = styled('div', {
+export const NameAndType = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: 4,
@@ -18,6 +18,11 @@ export const Name = styled('span', {
 export const Type = styled('span', {
   fontWeight: '$regular',
   color: '$gray060',
+
+  '&:hover': {
+    color: '$gray100',
+    textDecoration: 'underline',
+  },
 });
 
 export const Description = styled('div', {

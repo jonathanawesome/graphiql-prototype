@@ -1,13 +1,13 @@
 import { GraphQLInputType, GraphQLOutputType } from 'graphql';
 
-/** components */
+// components
 import { Pills } from '../Pills';
 
-/** hooks */
+// hooks
 import { usePathfinder } from '../../hooks';
 
-/** styles */
-import { Description, DescribeStyled, NameTypePills, Name, Type } from './styles';
+// styles
+import { Description, DescribeStyled, NameAndType, Name, Type } from './styles';
 import { SeparatorRound } from '../icons';
 
 type DescribeProps = {
@@ -27,7 +27,8 @@ export const Describe = ({
 }: DescribeProps) => {
   // console.log('rendering Describe', { name, type });
 
-  const { descriptionsVisibility, pillsVisibility } = usePathfinder();
+  const { descriptionsVisibility, overlay, setOverlay, pillsVisibility } =
+    usePathfinder();
 
   return (
     <DescribeStyled
@@ -35,11 +36,27 @@ export const Describe = ({
       descriptionsVisibility={descriptionsVisibility}
       type={variant}
     >
-      <NameTypePills>
+      <NameAndType>
         <Name>{name}</Name>
-        {type && <Type>{type.toString()}</Type>}
+        {type && (
+          <Type>
+            <button
+              onClick={() =>
+                setOverlay({
+                  prevTypes: overlay.currentType
+                    ? [...overlay.prevTypes, overlay.currentType]
+                    : [],
+                  currentType: type,
+                  visible: true,
+                })
+              }
+            >
+              {type.toString()}
+            </button>
+          </Type>
+        )}
         {pillsVisibility === 'On' && type && <Pills type={type} />}
-      </NameTypePills>
+      </NameAndType>
       {description && (
         <Description>
           <SeparatorRound />

@@ -13,15 +13,23 @@ const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefini
 
 export const usePathfinder = create<PathfinderStore>((set, get) => ({
   /** begin overlay */
-  overlayVisible: false,
-  overlayType: null,
-  setOverlayType: ({ overlayType }) => {
-    set({ overlayVisible: true, overlayType });
+  // overlayType: null,
+  // setOverlayType: ({ overlayType }) => {
+  //   set({ overlayVisible: true, overlayType });
+  // },
+  overlay: {
+    currentType: null,
+    prevTypes: [],
+    visible: false,
   },
-  setOverlayVisibility: () => {
-    const overlayVisible = get().overlayVisible;
-    set({ overlayVisible: !overlayVisible });
+  setOverlay: ({ currentType, prevTypes, visible }) => {
+    set({ overlay: { currentType, prevTypes, visible } });
   },
+  // overlayVisible: false,
+  // setOverlayVisibility: () => {
+  //   const overlayVisible = get().overlayVisible;
+  //   set({ overlayVisible: !overlayVisible });
+  // },
   /** end overlay */
 
   /** begin controls */
@@ -42,7 +50,7 @@ export const usePathfinder = create<PathfinderStore>((set, get) => ({
   /** begin toggle */
   nextOperationType: null,
   setNextOperationType: ({ nextOperationType }) => {
-    console.log('setNextOperationType', nextOperationType);
+    // console.log('setNextOperationType', nextOperationType);
     set({ nextOperationType });
   },
   nextSelectionSet: null,
