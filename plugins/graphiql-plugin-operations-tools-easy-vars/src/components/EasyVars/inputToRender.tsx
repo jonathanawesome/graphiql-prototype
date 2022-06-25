@@ -1,4 +1,10 @@
-import { VariableDefinitionNode } from 'graphql';
+import {
+  GraphQLType,
+  isEnumType,
+  isListType,
+  isScalarType,
+  VariableDefinitionNode,
+} from 'graphql';
 
 // components
 import {
@@ -8,7 +14,7 @@ import {
 } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 // constants
-import { INPUT_TYPES } from './constants';
+// import { INPUT_TYPES } from './constants';
 
 // utils
 import {
@@ -19,15 +25,15 @@ import {
 export const inputToRender = ({
   currentValue,
   displayString,
+  graphqlType,
   handleChange,
-  isList,
   typeNameValue,
   variableDefinition,
 }: {
   currentValue: string | string[];
   displayString: string;
+  graphqlType: GraphQLType | undefined;
   handleChange: HandleChangeSignature;
-  isList: boolean;
   typeNameValue: string;
   variableDefinition: VariableDefinitionNode;
 }) => {
@@ -35,8 +41,12 @@ export const inputToRender = ({
 
   // console.log('inputToRender', { currentValue });
 
+  if (!graphqlType) {
+    return null;
+  }
+
   let inputToRender: React.ReactElement;
-  if (isList) {
+  if (isListType(graphqlType)) {
     // control is FieldList
     inputToRender = (
       <Form
@@ -55,7 +65,7 @@ export const inputToRender = ({
         ]}
       />
     );
-  } else if (typeNameValue === 'Boolean') {
+  } else if (isScalarType(graphqlType) && graphqlType.name === 'Boolean') {
     // control is FieldSelect
     inputToRender = (
       <Form
@@ -83,28 +93,7 @@ export const inputToRender = ({
         ]}
       />
     );
-  } else if (INPUT_TYPES.includes(typeNameValue)) {
-    // control is FieldInput
-    inputToRender = (
-      <Form
-        formType={{ type: 'DYNAMIC' }}
-        formControls={[
-          {
-            control: {
-              currentValue: currentValue as string,
-              handleChange,
-              name,
-              placeholder: getDefaultInputValue({
-                typeNameAsString: typeNameValue,
-              }) as string,
-            },
-            label: name,
-            labelAddOn: <Pill copy={displayString} />,
-          },
-        ]}
-      />
-    );
-  } else {
+  } else if (isEnumType(graphqlType)) {
     // control is FieldSelect
     inputToRender = (
       <Form
@@ -119,6 +108,27 @@ export const inputToRender = ({
                 getEnumValues({
                   enumTypeName: typeNameValue,
                 }) || [],
+            },
+            label: name,
+            labelAddOn: <Pill copy={displayString} />,
+          },
+        ]}
+      />
+    );
+  } else {
+    // control is FieldInput
+    inputToRender = (
+      <Form
+        formType={{ type: 'DYNAMIC' }}
+        formControls={[
+          {
+            control: {
+              currentValue: currentValue as string,
+              handleChange,
+              name,
+              placeholder: getDefaultInputValue({
+                typeNameAsString: typeNameValue,
+              }) as string,
             },
             label: name,
             labelAddOn: <Pill copy={displayString} />,

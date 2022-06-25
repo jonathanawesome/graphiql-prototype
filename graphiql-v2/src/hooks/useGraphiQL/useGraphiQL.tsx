@@ -9,8 +9,4 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
   setActivePane: (activePane) => {
     set({ activePane });
   },
-  schema: null,
-  setSchema: ({ schema }) => {
-    set({ schema });
-  },
 }));

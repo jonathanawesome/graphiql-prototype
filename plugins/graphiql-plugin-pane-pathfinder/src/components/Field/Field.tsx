@@ -17,11 +17,11 @@ import {
   Arguments,
   Collapser,
   Describe,
-  IndicatorField,
   ItemGrid,
   ObjectType,
   UnionType,
 } from '../index';
+import { IndicatorField } from '../../icons';
 
 // hooks
 import type { AncestorField, AncestorMap } from '../../hooks';
@@ -119,9 +119,9 @@ export const Field = ({
           <IndicatorField />
         </IndicatorWrap>
         <Describe
-          name={field.name}
           description={field.description || null}
           isSelected={!!selection}
+          name={field.name}
           type={field.type}
           variant="FIELD"
         />
@@ -144,9 +144,9 @@ export const Field = ({
         }
         leadContent={
           <Describe
-            name={field.name}
             description={field.description || null}
             isSelected={!!selection}
+            name={field.name}
             type={field.type}
             variant="FIELD"
           />

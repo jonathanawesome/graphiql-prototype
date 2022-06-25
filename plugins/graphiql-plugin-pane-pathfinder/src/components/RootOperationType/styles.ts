@@ -7,5 +7,16 @@ export const Name = styled('span', {
 });
 
 export const RootOperationTypeStyled = styled('div', {
-  marginBottom: 12,
+  marginBottom: 16,
+  marginLeft: 8,
+
+  '&::after': {
+    content: '',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    width: 24,
+    height: '100%',
+    background: 'linear-gradient(90deg, rgba(0,0,0,0) 0%, $appBackground 100%)',
+  },
 });

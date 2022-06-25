@@ -1,4 +1,4 @@
-import { VariableDefinitionNode } from 'graphql';
+import { NamedTypeNode, VariableDefinitionNode } from 'graphql';
 import {
   getActiveEditorTab,
   getDisplayStringFromVariableDefinitionTypeNode,
@@ -14,7 +14,7 @@ import type { HandleChange } from '@graphiql-v2-prototype/graphiql-ui-library';
 // utils
 import { inputToRender } from './inputToRender';
 import {
-  isVariableDefinitionListType,
+  // isVariableDefinitionListType,
   getTypeNameValue,
   parseOutgoingVariableValue,
   parseIncomingVariableValue,
@@ -29,12 +29,14 @@ const EasyVar = ({
   currentValue: string;
   variableDefinition: VariableDefinitionNode;
 }) => {
-  // console.log('rendering easyVar', {
-  //   variableDefinition,
-  //   currentValue,
-  // });
+  const { schema } = useGraphiQLEditor();
 
-  const isList = isVariableDefinitionListType({ type: variableDefinition.type });
+  console.log('rendering easyVar', {
+    variableDefinition,
+    type: variableDefinition.type,
+  });
+
+  // const isList = isVariableDefinitionListType({ type: variableDefinition.type });
   const typeNameValue = getTypeNameValue({
     type: variableDefinition.type,
   });
@@ -49,11 +51,15 @@ const EasyVar = ({
     });
   };
 
+  if (!schema || 'error' in schema) {
+    return null;
+  }
+
   return inputToRender({
     currentValue: parseIncomingVariableValue(currentValue),
     displayString,
+    graphqlType: schema.getType(typeNameValue),
     handleChange,
-    isList,
     typeNameValue,
     variableDefinition,
   });

@@ -334,15 +334,15 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       );
     }
   },
+  schemaName: null,
   schemaUrl: null,
   schema: null,
-  initSchema: async ({ url }) => {
+  initSchema: async ({ name, url }) => {
     const monacoGraphQLAPI = get().monacoGraphQLAPI;
 
     const initializeAndActivateEditorTab = get().initializeAndActivateEditorTab;
 
     set({
-      schemaUrl: url,
       // "reset" editorTabs
       editorTabs: [],
     });
@@ -350,7 +350,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     initializeAndActivateEditorTab();
 
     if (!url) {
-      set({ schema: testSchema, schemaUrl: null });
+      set({ schema: testSchema, schemaName: 'testSchema', schemaUrl: null });
       console.log('no URL provided, setting testSchema');
 
       return monacoGraphQLAPI.setSchemaConfig([
@@ -370,7 +370,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
 
         const schema = buildClientSchema(result.data as unknown as IntrospectionQuery);
 
-        set({ schema });
+        set({ schema, schemaName: name || 'Schema name not provided', schemaUrl: url });
 
         return monacoGraphQLAPI.setSchemaConfig([
           {
@@ -379,7 +379,11 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
           },
         ]);
       } catch (error) {
-        return set({ schema: { error } });
+        return set({
+          schema: { error },
+          schemaName: 'Error fetching schema',
+          schemaUrl: null,
+        });
       }
     }
   },

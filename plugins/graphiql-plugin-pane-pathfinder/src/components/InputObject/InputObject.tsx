@@ -128,14 +128,14 @@ export const InputObject = ({
       }
       leadContent={
         <Describe
+          description={inputType.description || null}
+          isSelected={!!previousAncestor.selection}
           name={`${renderingInputField.name}${
             isRequiredArgument(renderingInputField) ||
             isRequiredInputField(renderingInputField)
               ? `*`
               : ''
           }`}
-          description={inputType.description || null}
-          isSelected={!!previousAncestor.selection}
           type={inputType}
           variant="INPUT_TYPE"
         />

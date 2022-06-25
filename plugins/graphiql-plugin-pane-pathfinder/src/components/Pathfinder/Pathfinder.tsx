@@ -1,8 +1,9 @@
 import { OperationTypeNode } from 'graphql';
 
 // components
-import { BreadcrumbOverlay, Options, Search, RootOperationType } from '../index';
+import { DocsOverlay, Options, RootOperationType } from '../index';
 import { Command } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Search } from '../../icons';
 
 // hooks
 import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
@@ -10,7 +11,6 @@ import { usePathfinder } from '../../hooks';
 
 // styles
 import {
-  ContainRight,
   PathfinderContent,
   PathfinderContentWrap,
   PathfinderLead,
@@ -36,9 +36,8 @@ export const Pathfinder = () => {
 
   return (
     <PathfinderWrap>
-      <PathfinderLead>
-        <h2>Docs</h2>
-        <ContainRight>
+      <PathfinderContentWrap overlayVisible={overlay.visible}>
+        <PathfinderLead>
           <FakeSearch>
             <div>
               <Search />
@@ -50,9 +49,7 @@ export const Pathfinder = () => {
             </div>
           </FakeSearch>
           <Options />
-        </ContainRight>
-      </PathfinderLead>
-      <PathfinderContentWrap>
+        </PathfinderLead>
         <PathfinderContent>
           {queryType ? (
             <RootOperationType
@@ -67,8 +64,8 @@ export const Pathfinder = () => {
             />
           ) : null}
         </PathfinderContent>
-        {overlay.visible && <BreadcrumbOverlay />}
       </PathfinderContentWrap>
+      <DocsOverlay overlayVisible={overlay.visible} />
     </PathfinderWrap>
   );
 };

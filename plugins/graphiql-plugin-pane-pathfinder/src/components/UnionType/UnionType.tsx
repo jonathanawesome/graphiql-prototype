@@ -95,9 +95,9 @@ const UnionMember = ({
       }
       leadContent={
         <Describe
-          name={`... on`}
           description={objectMember.description || null}
           isSelected={!!inlineFragmentNode}
+          name={`... on`}
           type={objectMember}
           variant="INLINE_FRAGMENT"
         />

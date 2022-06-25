@@ -8,14 +8,15 @@ import { usePathfinder } from '../../hooks';
 
 // styles
 import { Description, DescribeStyled, NameAndType, Name, Type } from './styles';
-import { SeparatorRound } from '../icons';
+import { SeparatorRound } from '../../icons';
+import { unwrapType } from '../../utils';
 
 type DescribeProps = {
   name: string;
   description: string | null;
   isSelected: boolean;
   type: GraphQLOutputType | GraphQLInputType | null;
-  variant: 'FIELD' | 'INLINE_FRAGMENT' | 'ARGUMENT' | 'INPUT_TYPE';
+  variant?: 'FIELD' | 'INLINE_FRAGMENT' | 'ARGUMENT' | 'INPUT_TYPE';
 };
 
 export const Describe = ({
@@ -25,10 +26,13 @@ export const Describe = ({
   type,
   variant,
 }: DescribeProps) => {
-  // console.log('rendering Describe', { name, type });
-
   const { descriptionsVisibility, overlay, setOverlay, pillsVisibility } =
     usePathfinder();
+
+  // console.log('rendering Describe', {
+  //   name,
+  //   type,
+  // });
 
   return (
     <DescribeStyled
@@ -36,27 +40,32 @@ export const Describe = ({
       descriptionsVisibility={descriptionsVisibility}
       type={variant}
     >
-      <NameAndType>
-        <Name>{name}</Name>
-        {type && (
-          <Type>
-            <button
-              onClick={() =>
-                setOverlay({
-                  prevTypes: overlay.currentType
-                    ? [...overlay.prevTypes, overlay.currentType]
-                    : [],
-                  currentType: type,
-                  visible: true,
-                })
-              }
-            >
-              {type.toString()}
-            </button>
-          </Type>
-        )}
-        {pillsVisibility === 'On' && type && <Pills type={type} />}
-      </NameAndType>
+      {type &&
+      (!overlay.currentType ||
+        (overlay.currentType && unwrapType(type) !== unwrapType(overlay.currentType))) ? (
+        <button
+          onClick={() =>
+            setOverlay({
+              prevTypes: overlay.currentType
+                ? [...overlay.prevTypes, overlay.currentType]
+                : [],
+              currentType: type,
+              visible: true,
+            })
+          }
+        >
+          <NameAndType hasDocs={true}>
+            <Name>{name}</Name>
+            <Type>{type.toString()}</Type>
+          </NameAndType>
+        </button>
+      ) : (
+        <NameAndType hasDocs={false}>
+          <Name>{name}</Name>
+          {type && <Type>{type.toString()}</Type>}
+        </NameAndType>
+      )}
+      {pillsVisibility === 'On' && type && <Pills type={type} />}
       {description && (
         <Description>
           <SeparatorRound />

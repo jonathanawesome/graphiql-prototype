@@ -3,7 +3,7 @@ import { FieldNode, isRequiredArgument, OperationTypeNode } from 'graphql';
 
 // components
 import { Argument, Collapser, Column } from '../index';
-import { ShowArgumentsIcon } from '../icons';
+import { ShowArgumentsIcon } from '../../icons';
 
 // hooks
 import type { AncestorField, AncestorMap } from '../../hooks';
@@ -79,6 +79,7 @@ export const Arguments = ({
                 : null}
             </Column>
           }
+          isExpanded={isExpanded}
           leadContent={
             <>
               {isExpanded ? (
@@ -94,7 +95,6 @@ export const Arguments = ({
               )}
             </>
           }
-          isExpanded={isExpanded}
           setIsExpanded={setIsExpanded}
           trigger={
             <ShowArgumentsIconWrap>

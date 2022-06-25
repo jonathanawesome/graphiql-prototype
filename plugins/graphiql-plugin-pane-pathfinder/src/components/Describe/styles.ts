@@ -4,14 +4,26 @@ export const NameAndType = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: 4,
+  borderBottom: '1px solid transparent',
 
   span: {
     whiteSpace: 'nowrap',
   },
+
+  variants: {
+    hasDocs: {
+      true: {
+        '&:hover': {
+          borderBottom: '1px solid $gray060',
+        },
+      },
+      false: {},
+    },
+  },
 });
 
 export const Name = styled('span', {
-  fontWeight: '$semiBold',
+  fontWeight: 600,
   color: '$gray100',
 });
 
@@ -19,9 +31,11 @@ export const Type = styled('span', {
   fontWeight: '$regular',
   color: '$gray060',
 
-  '&:hover': {
-    color: '$gray100',
-    textDecoration: 'underline',
+  button: {
+    '&:hover': {
+      color: '$gray100',
+      textDecoration: 'underline',
+    },
   },
 });
 
@@ -31,7 +45,7 @@ export const Description = styled('div', {
   justifyContent: 'flex-start',
   textAlign: 'left',
   gap: 8,
-  fontSize: 11,
+  // fontSize: 11,
   lineHeight: 1.3,
   color: '$gray060',
   fontWeight: '$regular',

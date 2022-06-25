@@ -1,7 +1,8 @@
 import { GraphQLArgument, isRequiredArgument, OperationTypeNode } from 'graphql';
 
 // components
-import { Describe, IndicatorArgument } from '../index';
+import { Describe } from '../index';
+import { IndicatorArgument } from '../../icons';
 
 // hooks
 import {
@@ -50,9 +51,9 @@ export const ScalarArg = ({
         </IndicatorArgumentWrap>
       </button>
       <Describe
-        name={`${argument.name}${isRequiredArgument(argument) ? `*` : ''}`}
         description={argument.description || null}
         isSelected={isSelected}
+        name={`${argument.name}${isRequiredArgument(argument) ? `*` : ''}`}
         type={argument.type}
         variant="ARGUMENT"
       />

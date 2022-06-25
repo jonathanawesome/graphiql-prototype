@@ -49,6 +49,7 @@ export type BreedError = ErrorForUi & {
   path: Scalars['String'];
 };
 
+/** A union representing either a Breed object or a BreedError object that implements a common UI error interface. */
 export type BreedResult = Breed | BreedError;
 
 /** Arguments used when searching and/or filtering Breeds. */

@@ -13,6 +13,6 @@ export const getDefaultInputValue = ({
     case 'String':
       return 'meowwoof';
     default:
-      return 'Whoops...';
+      return `***handling ${typeNameAsString} as a string***`;
   }
 };

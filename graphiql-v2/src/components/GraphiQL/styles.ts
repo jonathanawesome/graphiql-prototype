@@ -14,3 +14,16 @@ export const ContentWrap = styled('div', {
   paddingBottom: 16,
   paddingLeft: 0,
 });
+
+export const PaneWrap = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100%',
+});
+
+export const SchemaName = styled('div', {
+  padding: '12px 32px',
+  fontSize: 22,
+  fontWeight: 600,
+  color: '$gray100',
+});

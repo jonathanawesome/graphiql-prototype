@@ -1,6 +1,10 @@
+import {
+  GraphiQLEditor,
+  useGraphiQLEditor,
+} from '@graphiql-v2-prototype/graphiql-editor';
+
 // components
 import { Navigation } from '../Navigation';
-import { GraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
 import { PanePlugins } from '../PanePlugins';
 import { Resizer } from '@graphiql-v2-prototype/graphiql-ui-library';
 
@@ -8,11 +12,11 @@ import { Resizer } from '@graphiql-v2-prototype/graphiql-ui-library';
 import { useGraphiQL } from '../../hooks';
 
 // styles
-import { GraphiQLWrap, ContentWrap } from './styles';
+import { GraphiQLWrap, ContentWrap, PaneWrap, SchemaName } from './styles';
 
 // types
 import type { PanePluginsArray } from '../PanePlugins/types';
-import { DialogPluginsArray } from '../DialogPlugins/types';
+import type { DialogPluginsArray } from '../DialogPlugins/types';
 
 type GraphiQLProps = {
   //TODO complete "plugin" props APIs
@@ -22,6 +26,8 @@ type GraphiQLProps = {
 
 export const GraphiQL = ({ panePlugins, dialogPlugins }: GraphiQLProps) => {
   const { activePane } = useGraphiQL();
+  const { schemaName } = useGraphiQLEditor();
+
   return (
     <GraphiQLWrap>
       <Navigation panePlugins={panePlugins} dialogPlugins={dialogPlugins} />
@@ -33,7 +39,10 @@ export const GraphiQL = ({ panePlugins, dialogPlugins }: GraphiQLProps) => {
             initialFlexGrowValue: activePane === 'GraphiQL' ? undefined : 0.4,
             component:
               activePane === 'GraphiQL' ? null : (
-                <PanePlugins activePane={activePane} panePlugins={panePlugins} />
+                <PaneWrap>
+                  <SchemaName>{schemaName || 'GraphiQL'}</SchemaName>
+                  <PanePlugins activePane={activePane} panePlugins={panePlugins} />
+                </PaneWrap>
               ),
           }}
           pane2={{ component: <GraphiQLEditor /> }}

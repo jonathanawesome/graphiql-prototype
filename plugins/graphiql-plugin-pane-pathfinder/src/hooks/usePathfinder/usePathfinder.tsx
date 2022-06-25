@@ -13,10 +13,6 @@ const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefini
 
 export const usePathfinder = create<PathfinderStore>((set, get) => ({
   /** begin overlay */
-  // overlayType: null,
-  // setOverlayType: ({ overlayType }) => {
-  //   set({ overlayVisible: true, overlayType });
-  // },
   overlay: {
     currentType: null,
     prevTypes: [],
@@ -25,11 +21,6 @@ export const usePathfinder = create<PathfinderStore>((set, get) => ({
   setOverlay: ({ currentType, prevTypes, visible }) => {
     set({ overlay: { currentType, prevTypes, visible } });
   },
-  // overlayVisible: false,
-  // setOverlayVisibility: () => {
-  //   const overlayVisible = get().overlayVisible;
-  //   set({ overlayVisible: !overlayVisible });
-  // },
   /** end overlay */
 
   /** begin controls */

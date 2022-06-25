@@ -1,7 +1,7 @@
 import React from 'react';
 
 // components
-import { Caret } from '../icons';
+import { Caret } from '../../icons';
 
 // styles
 import { Content, ItemGrid, Root, Trigger } from './styles';

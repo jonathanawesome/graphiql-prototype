@@ -65,7 +65,7 @@ export const toggle = ({
   } else {
     incomingOperationType = OperationTypeNode.QUERY;
   }
-  console.log('toggle', { incomingOperationType });
+  // console.log('toggle', { incomingOperationType });
 
   setNextOperationType({ nextOperationType: incomingOperationType });
 

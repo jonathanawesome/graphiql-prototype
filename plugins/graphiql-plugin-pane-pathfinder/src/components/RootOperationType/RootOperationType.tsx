@@ -9,12 +9,12 @@ import { Collapser, Column, Field } from '../index';
 import { Name, RootOperationTypeStyled } from './styles';
 
 export const RootOperationType = ({
-  rootType,
   operationType,
+  rootType,
 }: {
+  operationType: OperationTypeNode;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rootType: GraphQLObjectType<any, any>;
-  operationType: OperationTypeNode;
 }) => {
   const activeEditorTab = getActiveEditorTab();
 

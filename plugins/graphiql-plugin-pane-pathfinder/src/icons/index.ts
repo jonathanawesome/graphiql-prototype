@@ -1,4 +1,6 @@
 export * from './Caret';
+export * from './Compass';
+export * from './DocsFlat';
 export * from './IndicatorArgument';
 export * from './IndicatorField';
 export * from './IndicatorInputType';

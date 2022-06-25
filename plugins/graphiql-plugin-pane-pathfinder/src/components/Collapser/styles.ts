@@ -10,12 +10,13 @@ export const ItemGrid = styled('div', {
   display: 'grid',
   gridTemplateColumns: '15px 1fr',
   alignItems: 'start',
-  gap: 6,
+  gap: 12,
 
   variants: {
     hasToggler: {
       true: {
         gridTemplateColumns: '15px 15px 1fr',
+        gap: 6,
       },
     },
   },
