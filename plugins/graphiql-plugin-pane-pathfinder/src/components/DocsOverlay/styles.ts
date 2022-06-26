@@ -1,18 +1,19 @@
 import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 export const DocsOverlayStyled = styled('section', {
+  padding: 24,
+  height: '100%',
+  width: 'calc(100% - 48px)',
   position: 'absolute',
   top: 0,
   left: 32,
-  height: '100%',
-  width: 'calc(100% - 48px)',
+  overflowY: 'auto',
   backgroundColor: '$white',
   border: '1px solid $gray015',
   borderRadius: 12,
-  padding: 24,
   boxShadow:
     '0px 6px 20px rgba(59, 76, 106, 0.13), 0px 1.34018px 4.46726px rgba(59, 76, 106, 0.0774939), 0px 0.399006px 1.33002px rgba(59, 76, 106, 0.0525061)',
-  transition: 'all .1s $authenticMotion',
+  transition: 'all .15s $authenticMotion',
 
   variants: {
     overlayVisible: {
@@ -24,7 +25,7 @@ export const DocsOverlayStyled = styled('section', {
       false: {
         visibility: 'hidden',
         opacity: '0',
-        transform: 'scale(0.98)',
+        transform: 'scale(0.95)',
       },
     },
   },
@@ -40,10 +41,10 @@ export const Span = styled('span', {
 export const Column = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  gap: 12,
+  gap: 16,
   overflowX: 'auto',
   position: 'relative',
-
+  margin: '16px 0',
   // '&::after': {
   //   content: '',
   //   position: 'absolute',
@@ -73,7 +74,8 @@ export const Right = styled('div', {});
 export const BackButton = styled('button', {
   display: 'flex',
   alignItems: 'center',
-  gap: 6,
+  gap: 2,
+  marginLeft: -4,
 
   '&:hover': {
     svg: {
@@ -87,9 +89,8 @@ export const BackButton = styled('button', {
   },
 
   svg: {
-    transform: 'rotate(90deg)',
-    height: 8,
-    width: 8,
+    height: 16,
+    width: 16,
     path: {
       fill: '$gray060',
     },
@@ -119,7 +120,6 @@ export const CurrentTypeName = styled('div', {
     '&:nth-of-type(2)': {
       padding: '2px 4px',
       fontSize: 13,
-      // fontWeight: 500,
       color: '$gray060',
       borderRadius: 4,
       border: '1px solid $gray015',
@@ -154,11 +154,9 @@ export const DescribeWrap = styled('div', {
   variants: {
     descriptionsVisibility: {
       Below: {
-        // flexDirection: 'column',
         alignItems: 'flex-start',
       },
       Inline: {
-        // flexDirection: 'row',
         alignItems: 'center',
       },
       Off: {},
@@ -188,14 +186,30 @@ export const SmallCaps = styled('span', {
   alignItems: 'center',
   fontSize: 10,
   fontWeight: 600,
+  color: '$gray060',
+  letterSpacing: 0.5,
   textTransform: 'uppercase',
+  marginBottom: 8,
 });
 
-export const Description = styled('span', {
+export const DescriptionStyled = styled('div', {
   display: 'flex',
-  alignItems: 'center',
-  fontSize: 13,
-  color: '$gray100',
-  // fontWeight: 600,
-  // textTransform: 'uppercase',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+
+  p: {
+    margin: 0,
+    padding: 0,
+    fontSize: 13,
+    lineHeight: 1.4,
+    color: '$gray100',
+  },
+
+  code: {
+    fontSize: 12,
+    backgroundColor: '$gray007',
+    border: '1px solid $gray010',
+    borderRadius: 2,
+    padding: '1px 2px',
+  },
 });

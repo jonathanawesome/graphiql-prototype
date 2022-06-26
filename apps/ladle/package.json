@@ -11,6 +11,7 @@
     "@graphiql-v2-prototype/graphiql-plugin-dialog-schema-selector": "workspace:*",
     "@graphiql-v2-prototype/graphiql-plugin-dialog-settings": "workspace:*",
     "@graphiql-v2-prototype/graphiql-plugin-operations-tools-easy-vars": "workspace:*",
+    "@graphiql-v2-prototype/graphiql-plugin-pane-docs": "workspace:*",
     "@graphiql-v2-prototype/graphiql-plugin-pane-history": "workspace:*",
     "@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder": "workspace:*",
     "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",

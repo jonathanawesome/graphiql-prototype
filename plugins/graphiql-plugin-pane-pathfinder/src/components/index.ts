@@ -2,7 +2,6 @@ export { Argument } from './Argument';
 export { Arguments } from './Arguments';
 export { Collapser, ItemGrid } from './Collapser';
 export { Column } from './Column';
-export { Describe } from './Describe';
 export { DocsOverlay } from './DocsOverlay';
 export { Field } from './Field';
 export { InputObject } from './InputObject';

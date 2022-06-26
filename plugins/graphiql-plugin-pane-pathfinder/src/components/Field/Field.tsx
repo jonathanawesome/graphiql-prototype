@@ -13,18 +13,13 @@ import {
 } from 'graphql';
 
 // components
-import {
-  Arguments,
-  Collapser,
-  Describe,
-  ItemGrid,
-  ObjectType,
-  UnionType,
-} from '../index';
+import { Arguments, Collapser, ItemGrid, ObjectType, UnionType } from '../index';
 import { IndicatorField } from '../../icons';
+import { DescriptionListItem } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 // hooks
 import type { AncestorField, AncestorMap } from '../../hooks';
+import { useDocs } from '@graphiql-v2-prototype/graphiql-plugin-pane-docs';
 import { usePathfinder } from '../../hooks';
 
 // styles
@@ -42,7 +37,8 @@ export const Field = ({
   ancestors: AncestorMap;
   operationType: OperationTypeNode;
 }) => {
-  const { fieldsVisibility } = usePathfinder();
+  const { descriptionsVisibility, fieldsVisibility } = usePathfinder();
+  const { currentType, previousTypes, setCurrentType, setPreviousTypes } = useDocs();
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
@@ -118,12 +114,26 @@ export const Field = ({
         >
           <IndicatorField />
         </IndicatorWrap>
-        <Describe
+        <DescriptionListItem
+          descriptionPlacement={descriptionsVisibility}
           description={field.description || null}
           isSelected={!!selection}
           name={field.name}
-          type={field.type}
-          variant="FIELD"
+          type={
+            <button
+              onClick={() => {
+                setCurrentType({
+                  currentType: field.type,
+                });
+                setPreviousTypes({
+                  previousTypes: currentType ? [...previousTypes, currentType] : [],
+                });
+              }}
+            >
+              {field.type.toString()}
+            </button>
+          }
+          entityType="FIELD"
         />
       </ItemGrid>
     );
@@ -143,12 +153,26 @@ export const Field = ({
           </FieldChildren>
         }
         leadContent={
-          <Describe
+          <DescriptionListItem
             description={field.description || null}
+            descriptionPlacement={descriptionsVisibility}
             isSelected={!!selection}
             name={field.name}
-            type={field.type}
-            variant="FIELD"
+            type={
+              <button
+                onClick={() => {
+                  setCurrentType({
+                    currentType: field.type,
+                  });
+                  setPreviousTypes({
+                    previousTypes: currentType ? [...previousTypes, currentType] : [],
+                  });
+                }}
+              >
+                {field.type.toString()}
+              </button>
+            }
+            entityType="FIELD"
           />
         }
         isExpanded={isExpanded}

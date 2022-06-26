@@ -12,7 +12,12 @@ import {
 } from 'graphql';
 
 // components
-import { Collapser, Describe, ScalarArg } from '../index';
+import {
+  Collapser,
+  // Describe,
+  ScalarArg,
+} from '../index';
+import { DescriptionListItem } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 // components
 import { Column } from '../index';
@@ -23,6 +28,7 @@ import {
   AncestorInputField,
   AncestorInputObject,
   AncestorMap,
+  usePathfinder,
 } from '../../hooks';
 
 // utils
@@ -40,6 +46,8 @@ export const InputObject = ({
   renderingInputField: GraphQLInputField;
 }) => {
   const hash = cuid.slug();
+
+  const { descriptionsVisibility } = usePathfinder();
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
@@ -127,7 +135,8 @@ export const InputObject = ({
         </>
       }
       leadContent={
-        <Describe
+        <DescriptionListItem
+          descriptionPlacement={descriptionsVisibility}
           description={inputType.description || null}
           isSelected={!!previousAncestor.selection}
           name={`${renderingInputField.name}${
@@ -136,8 +145,8 @@ export const InputObject = ({
               ? `*`
               : ''
           }`}
-          type={inputType}
-          variant="INPUT_TYPE"
+          type={inputType.toString()}
+          entityType="INPUT_TYPE"
         />
       }
       isExpanded={isExpanded}

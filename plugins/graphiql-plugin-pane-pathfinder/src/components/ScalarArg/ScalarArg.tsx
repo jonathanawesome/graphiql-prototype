@@ -1,8 +1,7 @@
 import { GraphQLArgument, isRequiredArgument, OperationTypeNode } from 'graphql';
 
 // components
-import { Describe } from '../index';
-import { IndicatorArgument } from '../../icons';
+import { DescriptionListItem } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 // hooks
 import {
@@ -11,6 +10,9 @@ import {
   AncestorMap,
   usePathfinder,
 } from '../../hooks';
+
+// icons
+import { IndicatorArgument } from '../../icons';
 
 // styles
 import { IndicatorArgumentWrap, ScalarArgStyled } from './styles';
@@ -24,6 +26,8 @@ export const ScalarArg = ({
   ancestors: AncestorMap;
   operationType: OperationTypeNode;
 }) => {
+  const { descriptionsVisibility } = usePathfinder();
+
   const ancestor = ancestors.values().next().value as
     | AncestorArgument
     | AncestorInputField;
@@ -50,12 +54,14 @@ export const ScalarArg = ({
           <IndicatorArgument />
         </IndicatorArgumentWrap>
       </button>
-      <Describe
+
+      <DescriptionListItem
+        descriptionPlacement={descriptionsVisibility}
         description={argument.description || null}
         isSelected={isSelected}
         name={`${argument.name}${isRequiredArgument(argument) ? `*` : ''}`}
-        type={argument.type}
-        variant="ARGUMENT"
+        type={argument.type.toString()}
+        entityType="ARGUMENT"
       />
     </ScalarArgStyled>
   );

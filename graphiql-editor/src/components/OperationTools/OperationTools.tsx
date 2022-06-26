@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 // components
-import { Chevron } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { ChevronLarge } from '@graphiql-v2-prototype/graphiql-ui-library';
 import { Headers } from '../Headers';
 import { Variables } from '../Variables';
 
@@ -69,7 +69,7 @@ export const OperationTools = ({ setHeight }: { setHeight: () => void }) => {
             </TabsTrigger>
           </TabsList>
           <CollapsibleTrigger isOperationToolsOpen={isOperationToolsOpen}>
-            <Chevron />
+            <ChevronLarge />
           </CollapsibleTrigger>
         </TabsAndTrigger>
         <CollapsibleContent forceMount hidden={!isOperationToolsOpen}>

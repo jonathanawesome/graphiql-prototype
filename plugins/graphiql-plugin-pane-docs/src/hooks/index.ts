@@ -1,0 +1,1 @@
+export { useDocs } from './useDocs';

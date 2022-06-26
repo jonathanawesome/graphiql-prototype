@@ -1,5 +1,6 @@
 export * from './Check';
-export * from './Chevron';
+export * from './ChevronLarge';
+export * from './ChevronSmall';
 export * from './Close';
 export * from './Code';
 export * from './Command';
@@ -11,3 +12,4 @@ export * from './Input';
 export * from './Play';
 export * from './Plus';
 export * from './Prettier';
+export * from './SeparatorRound';

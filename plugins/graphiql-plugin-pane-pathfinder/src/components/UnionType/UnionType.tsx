@@ -11,10 +11,16 @@ import {
 } from 'graphql';
 
 // components
-import { Collapser, Column, Describe, ObjectType } from '../index';
+import {
+  Collapser,
+  Column,
+  // Describe,
+  ObjectType,
+} from '../index';
+import { DescriptionListItem } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 // types
-import type { AncestorMap } from '../../hooks';
+import { AncestorMap, usePathfinder } from '../../hooks';
 
 type UnionTypeProps = {
   ancestors: AncestorMap;
@@ -62,6 +68,8 @@ const UnionMember = ({
 }) => {
   const hash = cuid.slug();
 
+  const { descriptionsVisibility } = usePathfinder();
+
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const inlineFragmentNode = selection?.selectionSet?.selections?.find(
@@ -94,12 +102,13 @@ const UnionMember = ({
         />
       }
       leadContent={
-        <Describe
+        <DescriptionListItem
+          descriptionPlacement={descriptionsVisibility}
           description={objectMember.description || null}
           isSelected={!!inlineFragmentNode}
           name={`... on`}
-          type={objectMember}
-          variant="INLINE_FRAGMENT"
+          type={objectMember.toString()}
+          entityType="INLINE_FRAGMENT"
         />
       }
       isExpanded={isExpanded}
