@@ -1,10 +1,44 @@
 import { GraphQLSchema, GraphQLType } from 'graphql';
 
-export type DocsTypes = GraphQLType | GraphQLSchema;
+type DocTypes = GraphQLType | GraphQLSchema;
+
+export type DocPlacement = 'EXPLORER' | 'PATHFINDER';
+
+export type DocPane = {
+  description: string | null;
+  name: string;
+  type: DocTypes;
+};
+
+type DocInstance = {
+  activeDocPane: DocPane | null;
+  docPanes: Array<DocPane>;
+  placement: DocPlacement;
+};
+
+type DocInstances = Map<DocPlacement, DocInstance>;
 
 export type DocsStore = {
-  currentType: DocsTypes | null;
-  setCurrentType: ({ currentType }: { currentType: DocsTypes }) => void;
-  previousTypes: Array<DocsTypes>;
-  setPreviousTypes: ({ previousTypes }: { previousTypes: Array<DocsTypes> }) => void;
+  docsInstances: DocInstances;
+  getDocsInstance: ({
+    placement,
+  }: {
+    placement: DocPlacement;
+  }) => DocInstance | undefined;
+  initDocsInstance: ({
+    docPane,
+    placement,
+  }: {
+    docPane?: DocPane;
+    placement: DocPlacement;
+  }) => void;
+  resetDocInstance: ({ placement }: { placement: DocPlacement }) => void;
+  navigateBack: ({ placement }: { placement: DocPlacement }) => void;
+  navigateForward: ({
+    docPane,
+    placement,
+  }: {
+    docPane: DocPane;
+    placement: DocPlacement;
+  }) => void;
 };

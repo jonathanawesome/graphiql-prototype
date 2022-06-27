@@ -1,1 +1,1 @@
-export { useDocs } from './useDocs';
+export * from './useDocs';

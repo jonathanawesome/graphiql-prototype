@@ -1,2 +1,2 @@
 export { useDocs } from './useDocs';
-export type { DocsTypes } from './types';
+export type { DocPane, DocPlacement } from './types';

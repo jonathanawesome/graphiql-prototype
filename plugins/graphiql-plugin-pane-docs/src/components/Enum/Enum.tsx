@@ -24,12 +24,10 @@ export const Enum = ({ type }: { type: GraphQLEnumType }) => {
       <DescriptionList
         items={values.map((v) => (
           <DescriptionListItem
+            key={v.name}
             description={v.description || null}
-            descriptionPlacement={'Below'}
             name={v.name}
-            isSelected={false}
             type={'enum'}
-            entityType="FIELD"
           />
         ))}
         title="Values"

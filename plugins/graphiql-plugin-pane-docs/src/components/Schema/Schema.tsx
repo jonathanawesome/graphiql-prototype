@@ -5,10 +5,20 @@ import { DescriptionListItem } from '@graphiql-v2-prototype/graphiql-ui-library'
 import { DescriptionList } from '../DescriptionList';
 import { DocsDescription } from '../DocsDescription';
 import { Separator } from '../Separator';
-import { useDocs } from '../../hooks';
 
-export const Schema = ({ schema }: { schema: GraphQLSchema }) => {
-  const { currentType, previousTypes, setCurrentType, setPreviousTypes } = useDocs();
+// hooks
+import { DocPlacement, useDocs } from '../../hooks';
+
+export const Schema = ({
+  placement,
+  schema,
+}: {
+  placement: DocPlacement;
+  schema: GraphQLSchema;
+}) => {
+  const { navigateForward } = useDocs();
+
+  // console.log('Schema', { schema });
 
   const queryType = schema.getQueryType();
   const mutationType = schema.getMutationType();
@@ -41,11 +51,13 @@ export const Schema = ({ schema }: { schema: GraphQLSchema }) => {
             type={
               <button
                 onClick={() => {
-                  setCurrentType({
-                    currentType: rootType,
-                  });
-                  setPreviousTypes({
-                    previousTypes: currentType ? [...previousTypes, currentType] : [],
+                  navigateForward({
+                    docPane: {
+                      description: rootType.description || null,
+                      name: rootType.name,
+                      type: rootType,
+                    },
+                    placement,
                   });
                 }}
               >

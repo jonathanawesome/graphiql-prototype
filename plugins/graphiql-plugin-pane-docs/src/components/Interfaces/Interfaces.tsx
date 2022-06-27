@@ -5,29 +5,33 @@ import { DescriptionListItem } from '@graphiql-v2-prototype/graphiql-ui-library'
 import { DescriptionList } from '../DescriptionList';
 
 // hooks
-import { useDocs } from '../../hooks';
+import { DocPlacement, useDocs } from '../../hooks';
 
 type InterfacesProps = {
   interfaces: ReadonlyArray<GraphQLInterfaceType>;
+  placement: DocPlacement;
 };
 
-export const Interfaces = ({ interfaces }: InterfacesProps) => {
-  const { currentType, previousTypes, setCurrentType, setPreviousTypes } = useDocs();
+export const Interfaces = ({ interfaces, placement }: InterfacesProps) => {
+  const { navigateForward } = useDocs();
 
   return (
     <DescriptionList
       items={interfaces.map((int) => (
         <DescriptionListItem
+          key={int.name}
           description={int.description || null}
           name={int.name}
           type={
             <button
               onClick={() => {
-                setCurrentType({
-                  currentType: int,
-                });
-                setPreviousTypes({
-                  previousTypes: currentType ? [...previousTypes, currentType] : [],
+                navigateForward({
+                  docPane: {
+                    description: int.description || null,
+                    name: int.name,
+                    type: int,
+                  },
+                  placement,
                 });
               }}
             >

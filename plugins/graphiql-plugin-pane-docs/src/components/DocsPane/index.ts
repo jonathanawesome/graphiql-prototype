@@ -1,1 +1,0 @@
-export { DocsPane } from './DocsPane';

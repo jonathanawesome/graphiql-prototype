@@ -8,10 +8,16 @@ import { DocsDescription } from '../DocsDescription';
 import { Separator } from '../Separator';
 
 // hooks
-import { useDocs } from '../../hooks';
+import { DocPlacement, useDocs } from '../../hooks';
 
-export const Union = ({ type }: { type: GraphQLUnionType }) => {
-  const { currentType, previousTypes, setCurrentType, setPreviousTypes } = useDocs();
+export const Union = ({
+  placement,
+  type,
+}: {
+  placement: DocPlacement;
+  type: GraphQLUnionType;
+}) => {
+  const { navigateForward } = useDocs();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [types, setTypes] = useState<ReadonlyArray<GraphQLObjectType<any, any>> | null>(
@@ -42,18 +48,19 @@ export const Union = ({ type }: { type: GraphQLUnionType }) => {
             .sort()
             .map((type) => (
               <DescriptionListItem
+                key={types[type].name}
                 description={types[type].description || null}
-                descriptionPlacement={'Below'}
                 name={types[type].name}
-                // type={types[type].type.toString()}
                 type={
                   <button
                     onClick={() => {
-                      setCurrentType({
-                        currentType: types[type],
-                      });
-                      setPreviousTypes({
-                        previousTypes: currentType ? [...previousTypes, currentType] : [],
+                      navigateForward({
+                        docPane: {
+                          description: types[type].description || null,
+                          name: types[type].name,
+                          type: types[type],
+                        },
+                        placement,
                       });
                     }}
                   >

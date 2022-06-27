@@ -1,5 +1,6 @@
 export type PanePlugin = {
-  panePluginContent: () => React.ReactElement;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  panePluginContent: (props: any) => React.ReactElement;
   panePluginIcon: () => React.ReactElement;
   panePluginName: string;
 };

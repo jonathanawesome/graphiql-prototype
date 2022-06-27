@@ -65,7 +65,7 @@ export const Pathfinder = () => {
           ) : null}
         </PathfinderContent>
       </PathfinderContentWrap>
-      <DocsOverlay overlayVisible={overlay.visible} />
+      <DocsOverlay />
     </PathfinderWrap>
   );
 };

@@ -9,7 +9,16 @@ import { Separator } from '../Separator';
 import { Fields } from '../Fields';
 import { Interfaces } from '../Interfaces';
 
-export const ObjectType = ({ type }: { type: GraphQLObjectType }) => {
+// types
+import type { DocPlacement } from '../../hooks';
+
+export const ObjectType = ({
+  placement,
+  type,
+}: {
+  placement: DocPlacement;
+  type: GraphQLObjectType;
+}) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [fields, setFields] = useState<GraphQLFieldMap<any, any> | null>(null);
   const [interfaces, setInterfaces] =
@@ -36,14 +45,14 @@ export const ObjectType = ({ type }: { type: GraphQLObjectType }) => {
       {interfaces && interfaces.length > 0 && (
         <>
           <Separator orientation={'horizontal'} />
-          <Interfaces interfaces={interfaces} />
+          <Interfaces interfaces={interfaces} placement={placement} />
         </>
       )}
 
       {fields && (
         <>
           <Separator orientation={'horizontal'} />
-          <Fields fields={fields} />
+          <Fields fields={fields} placement={placement} />
         </>
       )}
     </>

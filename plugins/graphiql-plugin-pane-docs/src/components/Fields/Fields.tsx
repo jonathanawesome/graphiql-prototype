@@ -5,15 +5,17 @@ import { DescriptionListItem } from '@graphiql-v2-prototype/graphiql-ui-library'
 import { DescriptionList } from '../DescriptionList';
 
 // hooks
-import { useDocs } from '../../hooks';
+import { DocPlacement, useDocs } from '../../hooks';
+import { unwrapType } from '@graphiql-v2-prototype/graphiql-utils';
 
 type FieldsProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fields: GraphQLFieldMap<any, any> | GraphQLInputFieldMap;
+  placement: DocPlacement;
 };
 
-export const Fields = ({ fields }: FieldsProps) => {
-  const { currentType, previousTypes, setCurrentType, setPreviousTypes } = useDocs();
+export const Fields = ({ fields, placement }: FieldsProps) => {
+  const { navigateForward } = useDocs();
 
   return (
     <DescriptionList
@@ -21,17 +23,19 @@ export const Fields = ({ fields }: FieldsProps) => {
         .sort()
         .map((field) => (
           <DescriptionListItem
+            key={fields[field].name}
             description={fields[field].description || null}
-            descriptionPlacement={'Below'}
             name={fields[field].name}
             type={
               <button
                 onClick={() => {
-                  setCurrentType({
-                    currentType: fields[field].type,
-                  });
-                  setPreviousTypes({
-                    previousTypes: currentType ? [...previousTypes, currentType] : [],
+                  navigateForward({
+                    docPane: {
+                      description: fields[field].description || null,
+                      name: unwrapType(fields[field].type).name,
+                      type: fields[field].type,
+                    },
+                    placement,
                   });
                 }}
               >

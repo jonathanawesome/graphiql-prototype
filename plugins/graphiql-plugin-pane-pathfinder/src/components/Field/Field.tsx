@@ -18,9 +18,8 @@ import { IndicatorField } from '../../icons';
 import { DescriptionListItem } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 // hooks
-import type { AncestorField, AncestorMap } from '../../hooks';
+import { AncestorField, AncestorMap, usePathfinder } from '../../hooks';
 import { useDocs } from '@graphiql-v2-prototype/graphiql-plugin-pane-docs';
-import { usePathfinder } from '../../hooks';
 
 // styles
 import { FieldChildren, IndicatorWrap } from './styles';
@@ -38,7 +37,7 @@ export const Field = ({
   operationType: OperationTypeNode;
 }) => {
   const { descriptionsVisibility, fieldsVisibility } = usePathfinder();
-  const { currentType, previousTypes, setCurrentType, setPreviousTypes } = useDocs();
+  const { navigateForward } = useDocs();
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
@@ -122,11 +121,14 @@ export const Field = ({
           type={
             <button
               onClick={() => {
-                setCurrentType({
-                  currentType: field.type,
-                });
-                setPreviousTypes({
-                  previousTypes: currentType ? [...previousTypes, currentType] : [],
+                navigateForward({
+                  docPane: {
+                    description: field.description || null,
+                    // name: field.type.toString(),
+                    name: unwrapType(field.type).toString(),
+                    type: field.type,
+                  },
+                  placement: 'PATHFINDER',
                 });
               }}
             >
@@ -161,11 +163,13 @@ export const Field = ({
             type={
               <button
                 onClick={() => {
-                  setCurrentType({
-                    currentType: field.type,
-                  });
-                  setPreviousTypes({
-                    previousTypes: currentType ? [...previousTypes, currentType] : [],
+                  navigateForward({
+                    docPane: {
+                      description: field.description || null,
+                      name: unwrapType(field.type).toString(),
+                      type: field.type,
+                    },
+                    placement: 'PATHFINDER',
                   });
                 }}
               >

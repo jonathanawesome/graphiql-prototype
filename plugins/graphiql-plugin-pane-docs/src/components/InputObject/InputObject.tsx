@@ -6,7 +6,16 @@ import { DocsDescription } from '../DocsDescription';
 import { Fields } from '../Fields';
 import { Separator } from '../Separator';
 
-export const InputObject = ({ type }: { type: GraphQLInputObjectType }) => {
+// types
+import type { DocPlacement } from '../../hooks';
+
+export const InputObject = ({
+  placement,
+  type,
+}: {
+  placement: DocPlacement;
+  type: GraphQLInputObjectType;
+}) => {
   const [fields, setFields] = useState<GraphQLInputFieldMap | null>(null);
 
   // console.log('InputObject', { type });
@@ -28,7 +37,7 @@ export const InputObject = ({ type }: { type: GraphQLInputObjectType }) => {
 
       <Separator orientation={'horizontal'} />
 
-      {fields && <Fields fields={fields} />}
+      {fields && <Fields fields={fields} placement={placement} />}
     </>
   );
 };

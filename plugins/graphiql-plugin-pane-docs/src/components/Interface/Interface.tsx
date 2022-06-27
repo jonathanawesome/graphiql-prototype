@@ -9,11 +9,18 @@ import { Fields } from '../Fields';
 import { Separator } from '../Separator';
 
 // hooks
-import { useDocs } from '../../hooks';
+import { DocPlacement, useDocs } from '../../hooks';
 import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
 
-export const Interface = ({ type }: { type: GraphQLInterfaceType }) => {
-  const { currentType, previousTypes, setCurrentType, setPreviousTypes } = useDocs();
+export const Interface = ({
+  placement,
+  type,
+}: {
+  placement: DocPlacement;
+  type: GraphQLInterfaceType;
+}) => {
+  const { navigateForward } = useDocs();
+
   const { schema } = useGraphiQLEditor();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -48,7 +55,7 @@ export const Interface = ({ type }: { type: GraphQLInterfaceType }) => {
 
       <Separator orientation={'horizontal'} />
 
-      {fields && <Fields fields={fields} />}
+      {fields && <Fields fields={fields} placement={placement} />}
 
       <Separator orientation={'horizontal'} />
 
@@ -58,18 +65,19 @@ export const Interface = ({ type }: { type: GraphQLInterfaceType }) => {
             .sort()
             .map((object) => (
               <DescriptionListItem
+                key={implementingObjects[object].name}
                 description={implementingObjects[object].description || null}
-                descriptionPlacement={'Below'}
                 name={implementingObjects[object].name}
-                // type={implementingObjects[object].type.toString()}
                 type={
                   <button
                     onClick={() => {
-                      setCurrentType({
-                        currentType: implementingObjects[object],
-                      });
-                      setPreviousTypes({
-                        previousTypes: currentType ? [...previousTypes, currentType] : [],
+                      navigateForward({
+                        docPane: {
+                          description: implementingObjects[object].description || null,
+                          name: implementingObjects[object].name,
+                          type: implementingObjects[object],
+                        },
+                        placement,
                       });
                     }}
                   >
