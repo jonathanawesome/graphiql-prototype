@@ -5,6 +5,16 @@
     "version": 1
   },
   "stories": {
+    "description-list-item--description-list-item": {
+      "name": "Description list item",
+      "levels": [
+        "Description list item"
+      ],
+      "locStart": 38,
+      "locEnd": 119,
+      "filePath": "src/DescriptionListItem.stories.tsx",
+      "meta": {}
+    },
     "easy-vars--easy-vars": {
       "name": "Easy vars",
       "levels": [
@@ -198,8 +208,8 @@
       "levels": [
         "Reference"
       ],
-      "locStart": 11,
-      "locEnd": 18,
+      "locStart": 12,
+      "locEnd": 19,
       "filePath": "src/Reference.stories.tsx",
       "meta": {}
     },
