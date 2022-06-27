@@ -11,16 +11,15 @@ import {
 } from 'graphql';
 
 // components
-import {
-  Collapser,
-  Column,
-  // Describe,
-  ObjectType,
-} from '../index';
+import { Collapser, Column, ObjectType } from '../index';
 import { DescriptionListItem } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-// types
+// hooks
+import { useDocs } from '@graphiql-v2-prototype/graphiql-plugin-pane-docs';
 import { AncestorMap, usePathfinder } from '../../hooks';
+
+// utils
+import { unwrapType } from '../../utils';
 
 type UnionTypeProps = {
   ancestors: AncestorMap;
@@ -68,9 +67,10 @@ const UnionMember = ({
 }) => {
   const hash = cuid.slug();
 
-  const { descriptionsVisibility } = usePathfinder();
-
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
+  const { descriptionsVisibility } = usePathfinder();
+  const { navigateForward } = useDocs();
 
   const inlineFragmentNode = selection?.selectionSet?.selections?.find(
     (s) =>
@@ -107,7 +107,23 @@ const UnionMember = ({
           description={objectMember.description || null}
           isSelected={!!inlineFragmentNode}
           name={`... on`}
-          type={objectMember.toString()}
+          // type={objectMember.toString()}
+          type={
+            <button
+              onClick={() => {
+                navigateForward({
+                  docPane: {
+                    description: objectMember.description || null,
+                    name: unwrapType(objectMember).toString(),
+                    type: objectMember,
+                  },
+                  placement: 'PATHFINDER',
+                });
+              }}
+            >
+              {objectMember.toString()}
+            </button>
+          }
           entityType="INLINE_FRAGMENT"
         />
       }

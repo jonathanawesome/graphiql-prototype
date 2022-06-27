@@ -30,9 +30,10 @@ import {
   AncestorMap,
   usePathfinder,
 } from '../../hooks';
+import { useDocs } from '@graphiql-v2-prototype/graphiql-plugin-pane-docs';
 
 // utils
-import { capitalize, generateVariableNameFromAncestorMap } from '../../utils';
+import { capitalize, generateVariableNameFromAncestorMap, unwrapType } from '../../utils';
 
 export const InputObject = ({
   ancestors,
@@ -47,9 +48,10 @@ export const InputObject = ({
 }) => {
   const hash = cuid.slug();
 
-  const { descriptionsVisibility } = usePathfinder();
-
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
+  const { descriptionsVisibility } = usePathfinder();
+  const { navigateForward } = useDocs();
 
   const fields = inputType.getFields();
 
@@ -145,7 +147,22 @@ export const InputObject = ({
               ? `*`
               : ''
           }`}
-          type={inputType.toString()}
+          type={
+            <button
+              onClick={() => {
+                navigateForward({
+                  docPane: {
+                    description: inputType.description || null,
+                    name: unwrapType(inputType).toString(),
+                    type: inputType,
+                  },
+                  placement: 'PATHFINDER',
+                });
+              }}
+            >
+              {inputType.toString()}
+            </button>
+          }
           entityType="INPUT_TYPE"
         />
       }
