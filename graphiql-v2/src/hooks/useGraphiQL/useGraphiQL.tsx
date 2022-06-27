@@ -1,6 +1,6 @@
 import create from 'zustand';
 
-/** types */
+// types
 import { GraphiQLStore } from './types';
 
 export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
@@ -8,9 +8,5 @@ export const useGraphiQL = create<GraphiQLStore>((set, get) => ({
   // activePane: 'Pathfinder',
   setActivePane: (activePane) => {
     set({ activePane });
-  },
-  schema: null,
-  setSchema: ({ schema }) => {
-    set({ schema });
   },
 }));

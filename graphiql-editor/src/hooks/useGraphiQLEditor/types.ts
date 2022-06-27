@@ -61,5 +61,6 @@ export type GraphiQLEditorStore = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   schema: GraphQLSchema | null | { error: any };
   schemaUrl: string | null;
-  initSchema: ({ url }: { url?: string }) => Promise<void>;
+  schemaName: string | null;
+  initSchema: ({ name, url }: { name?: string; url?: string }) => Promise<void>;
 };

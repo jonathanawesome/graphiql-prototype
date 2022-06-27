@@ -12,16 +12,16 @@ import {
   Kind,
 } from 'graphql';
 
-/** constants */
+// constants
 import { defaultOperation, defaultResults, defaultVariables } from '../../constants';
 
-/** test schema */
+// test schema
 import testSchema from './testSchema.js';
 
-/** types */
+// types
 import { GraphiQLEditorStore } from './types';
 
-/** utils */
+// utils
 import {
   fetcher,
   getActiveEditorTab,
@@ -189,6 +189,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       // 3. return to string
       const newVariablesString = JSON.stringify(parsedVariables, null, ' ');
       // 4. update the model
+      console.log('updateVariable, pushEditOperationsToModel', { newVariablesString });
       pushEditOperationsToModel({
         model: activeEditorTab.variablesModel,
         text: newVariablesString,
@@ -238,7 +239,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       } else if (isExecutableDefinitionNode(newDefinition)) {
         // TODO: do we want to populate the variables editor here?
         // const variableDefinitions = newDefinition.variableDefinitions;
-
+        // console.log('variableDefinitions', { variableDefinitions });
         // if (variableDefinitions && variableDefinitions?.length > 0) {
         //   const activeEditorTab = editorTabsCopy.find(
         //     (eT) => eT.editorTabId === activeEditorTabId
@@ -249,6 +250,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
         //   let parsed: Record<any, any> = {};
         //   if (variablesString) {
         //     parsed = JSON.parse(variablesString);
+        //     // we have an object with our existing variables
         //   }
         // }
 
@@ -265,7 +267,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
 
     const parsedQuery = parseQuery(value);
     if (!(parsedQuery instanceof Error)) {
-      console.log('parsedQuery', { parsedQuery });
+      // console.log('parsedQuery', { parsedQuery });
       const operationDefinition = (): ExecutableDefinitionNode | null => {
         const firstDefinition = parsedQuery?.definitions[0];
 
@@ -332,15 +334,15 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       );
     }
   },
+  schemaName: null,
   schemaUrl: null,
   schema: null,
-  initSchema: async ({ url }) => {
+  initSchema: async ({ name, url }) => {
     const monacoGraphQLAPI = get().monacoGraphQLAPI;
 
     const initializeAndActivateEditorTab = get().initializeAndActivateEditorTab;
 
     set({
-      schemaUrl: url,
       // "reset" editorTabs
       editorTabs: [],
     });
@@ -348,7 +350,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     initializeAndActivateEditorTab();
 
     if (!url) {
-      set({ schema: testSchema, schemaUrl: null });
+      set({ schema: testSchema, schemaName: 'testSchema', schemaUrl: null });
       console.log('no URL provided, setting testSchema');
 
       return monacoGraphQLAPI.setSchemaConfig([
@@ -368,7 +370,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
 
         const schema = buildClientSchema(result.data as unknown as IntrospectionQuery);
 
-        set({ schema });
+        set({ schema, schemaName: name || 'Schema name not provided', schemaUrl: url });
 
         return monacoGraphQLAPI.setSchemaConfig([
           {
@@ -377,7 +379,11 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
           },
         ]);
       } catch (error) {
-        return set({ schema: { error } });
+        return set({
+          schema: { error },
+          schemaName: 'Error fetching schema',
+          schemaUrl: null,
+        });
       }
     }
   },

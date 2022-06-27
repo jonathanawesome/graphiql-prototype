@@ -1,7 +1,7 @@
 import React from 'react';
 import { PopperArrowProps, PopperContentProps } from '@radix-ui/react-popover';
 
-/** styles */
+// styles
 import { PopoverWrap, PopoverArrow, PopoverContent, PopoverTrigger } from './styles';
 
 type PopoverProps = {

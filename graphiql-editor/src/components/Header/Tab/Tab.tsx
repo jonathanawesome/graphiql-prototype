@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-/** components */
+// components
 import { Close } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-/** hooks */
+// hooks
 import { useGraphiQLEditor } from '../../../hooks';
 
-/** styles */
+// styles
 import { RemoveTabButton, TabButton, TabWrap } from './styles';
 
 export const Tab = ({

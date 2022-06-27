@@ -1,6 +1,6 @@
 import { editor as MONACO_EDITOR } from 'monaco-editor';
 
-/** colors */
+// colors
 import { colors } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 export const editorTheme: MONACO_EDITOR.IStandaloneThemeData = {

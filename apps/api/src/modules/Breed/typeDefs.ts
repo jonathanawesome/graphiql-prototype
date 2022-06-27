@@ -98,6 +98,7 @@ export const BreedTypeDefs = gql`
   }
 
   # unions
+  "A union representing either a Breed object or a BreedError _object_ that implements a common UI error interface."
   union BreedResult = Breed | BreedError
   union CreateBreedResult = Breed | CreateBreedError
 

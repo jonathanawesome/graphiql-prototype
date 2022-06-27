@@ -1,10 +1,10 @@
-/** components */
+// components
 import { Dialog as DialogComponent } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-/** styles */
+// styles
 import { DialogPluginsWrap } from './styles';
 
-/** types */
+// types
 import { DialogPlugin, DialogPluginsArray } from './types';
 
 const Dialog = ({ dialogPlugin }: { dialogPlugin: DialogPlugin }) => {

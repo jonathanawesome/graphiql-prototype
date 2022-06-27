@@ -1,4 +1,4 @@
-/** types */
+// types
 import { PersonsModule } from './generated/generated-module-types';
 
 export const PersonsResolvers: {

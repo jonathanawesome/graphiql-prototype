@@ -5,7 +5,7 @@ export type HandleChange = {
 
 export type HandleChangeSignature = ({ name, value }: HandleChange) => void;
 
-/** Form */
+// Form
 export type DynamicFormProps = {
   type: 'DYNAMIC';
   submitHandler?: never;
@@ -17,14 +17,14 @@ export type StaticFormProps = {
   submitHandler: (event: React.SyntheticEvent<HTMLButtonElement>) => void;
 };
 
-/** FormControl */
+// FormControl
 export type FormControlProps = {
   control: FieldInputProps | FieldSelectProps | FieldListProps;
   label: string;
   labelAddOn?: React.ReactElement;
 };
 
-/** FieldInput */
+// FieldInput
 export type FieldInputProps = {
   currentValue: string;
   handleChange: HandleChangeSignature;
@@ -32,7 +32,7 @@ export type FieldInputProps = {
   placeholder: string;
 };
 
-/** FieldSelect */
+// FieldSelect
 export type FieldSelectOption = { value: string; name: string; description?: string };
 
 export type FieldSelectProps = {
@@ -42,7 +42,7 @@ export type FieldSelectProps = {
   options: FieldSelectOption[];
 };
 
-/** FieldList */
+// FieldList
 export type FieldListProps = {
   currentValue: string[];
   handleChange: HandleChangeSignature;

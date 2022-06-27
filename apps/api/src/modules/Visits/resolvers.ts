@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-/** types */
+// types
 import { VisitsModule } from './generated/generated-module-types';
 
 export const VisitsResolvers: {

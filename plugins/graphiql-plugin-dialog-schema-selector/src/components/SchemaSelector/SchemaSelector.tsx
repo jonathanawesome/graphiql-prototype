@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
-/** hooks */
+// hooks
 import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
 
-/** styles */
+// styles
 import {
   CustomSchemaFormWrap,
   Error,
@@ -90,7 +90,7 @@ export const SchemaSelector = () => {
     if (targetSchemaUrl === 'testSchema') {
       initSchema({});
     } else if (targetSchemaUrl.length > 0) {
-      initSchema({ url: targetSchemaUrl });
+      initSchema({ name: targetSchemaUrl, url: targetSchemaUrl });
     }
     if (!schemaUrl) {
       return;

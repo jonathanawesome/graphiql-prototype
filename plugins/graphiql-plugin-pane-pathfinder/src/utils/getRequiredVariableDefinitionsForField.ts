@@ -5,7 +5,7 @@ import {
   VariableDefinitionNode,
 } from 'graphql';
 
-/** utils */
+// utils
 import {
   buildNewVariableDefinition,
   buildVariableNameValue,

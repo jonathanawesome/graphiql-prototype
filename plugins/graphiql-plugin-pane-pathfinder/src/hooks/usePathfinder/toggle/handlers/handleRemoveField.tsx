@@ -1,13 +1,13 @@
 import { ArgumentNode, FieldNode, Kind, SelectionNode } from 'graphql';
 
-/** types */
+// types
 import {
   AncestorField,
   SetNextSelectionSetSignature,
   SetNextVariableDefinitionsSignature,
 } from '../../types';
 
-/** utils */
+// utils
 import { capitalize } from '../../../../utils';
 import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 
@@ -25,10 +25,10 @@ export const handleRemoveField = ({
   const activeEditorTab = getActiveEditorTab();
   const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
 
-  console.log('running handleRemoveField', {
-    ancestor,
-    variableDefinitions,
-  });
+  // console.log('running handleRemoveField', {
+  //   ancestor,
+  //   variableDefinitions,
+  // });
 
   /** begin handle removing variable definitions */
   // TODO: this is pretty gross (👇), but my brain hurts so i'm going to fix it later

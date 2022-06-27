@@ -1,6 +1,6 @@
 import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 
-/** components */
+// components
 import { Pathfinder } from '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder';
 
 export const PathfinderStory = () => {

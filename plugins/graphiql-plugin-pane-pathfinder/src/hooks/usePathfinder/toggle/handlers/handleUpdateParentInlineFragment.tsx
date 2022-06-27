@@ -1,9 +1,9 @@
 import { FieldNode, Kind, SelectionSetNode } from 'graphql';
 
-/** helpers */
-import { findFieldSiblings } from '../helpers';
+// helpers
+import { getFieldSiblings } from '../helpers';
 
-/** types */
+// types
 import {
   AncestorInlineFragment,
   NextSelectionSet,
@@ -19,7 +19,7 @@ export const handleUpdateParentInlineFragment = ({
   nextSelectionSet: NextSelectionSet;
   setNextSelectionSet: SetNextSelectionSetSignature;
 }) => {
-  const siblings = findFieldSiblings({ ancestor });
+  const siblings = getFieldSiblings({ ancestor });
 
   const selection = ancestor.selection as FieldNode;
 

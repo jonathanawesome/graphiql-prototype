@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 
-/** components */
+// components
 import { MonacoEditor } from '../MonacoEditor';
 import { OperationActions } from '../OperationActions';
 import { OperationTools } from '../OperationTools';
 
-/** hooks */
+// hooks
 import { useGraphiQLEditor } from '../../hooks';
 
-/** styles */
+// styles
 import {
   OperationActionsWrap,
   OperateWrap,

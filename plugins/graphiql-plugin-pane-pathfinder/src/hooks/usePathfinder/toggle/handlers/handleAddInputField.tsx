@@ -1,28 +1,21 @@
 import { Kind, ObjectFieldNode } from 'graphql';
 
-/** types */
-import {
-  AncestorInputField,
-  SetNextActionSignature,
-  SetNextVariableDefinitionsSignature,
-} from '../../types';
+// helpers
+import { setCorrectNextVariableDefinitions } from '../helpers';
 
-/** utils */
+// types
+import { AncestorInputField, SetNextActionSignature } from '../../types';
+
+// utils
 import { buildNewVariableDefinition } from '../../../../utils';
-import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 
 export const handleAddInputField = ({
   ancestor,
   setNextAction,
-  setNextVariableDefinitions,
 }: {
   ancestor: AncestorInputField;
   setNextAction: SetNextActionSignature;
-  setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
 }) => {
-  const activeEditorTab = getActiveEditorTab();
-  const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
-
   // console.log('running handleAddInputField', {
   //   type: ancestor.inputField.type,
   //   variableName: ancestor.variableName,
@@ -33,12 +26,7 @@ export const handleAddInputField = ({
     variableName: ancestor.variableName,
   });
 
-  setNextVariableDefinitions({
-    nextVariableDefinitions: [
-      ...(variableDefinitions ? variableDefinitions : []),
-      newVarDef,
-    ],
-  });
+  setCorrectNextVariableDefinitions({ newVariableDefinition: newVarDef });
 
   const newObjectFieldNode: ObjectFieldNode = {
     kind: Kind.OBJECT_FIELD,

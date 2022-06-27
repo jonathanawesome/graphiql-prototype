@@ -9,32 +9,36 @@ import {
   isInterfaceType,
   isObjectType,
   isUnionType,
+  OperationTypeNode,
 } from 'graphql';
 
-/** components */
-import {
-  Arguments,
-  Collapser,
-  Describe,
-  IndicatorField,
-  ItemGrid,
-  ObjectType,
-  UnionType,
-} from '../index';
+// components
+import { Arguments, Collapser, ItemGrid, ObjectType, UnionType } from '../index';
+import { IndicatorField } from '../../icons';
+import { DescriptionListItem } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-/** hooks */
-import type { AncestorField, AncestorMap } from '../../hooks';
-import { usePathfinder } from '../../hooks';
+// hooks
+import { AncestorField, AncestorMap, usePathfinder } from '../../hooks';
+import { useDocs } from '@graphiql-v2-prototype/graphiql-plugin-pane-docs';
 
-/** styles */
+// styles
 import { FieldChildren, IndicatorWrap } from './styles';
 
-/** utils */
+// utils
 import { findSelection, unwrapType } from '../../utils';
 
 const toggle = usePathfinder.getState().toggle;
 
-export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
+export const Field = ({
+  ancestors,
+  operationType,
+}: {
+  ancestors: AncestorMap;
+  operationType: OperationTypeNode;
+}) => {
+  const { descriptionsVisibility, fieldsVisibility } = usePathfinder();
+  const { navigateForward } = useDocs();
+
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const { field, selectionSet } = ancestors.values().next().value as AncestorField;
@@ -72,6 +76,7 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
       <ObjectType
         ancestors={ancestors}
         fields={unwrappedType.getFields()}
+        operationType={operationType}
         selection={selection}
       />
     );
@@ -80,27 +85,57 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
       <ObjectType
         ancestors={ancestors}
         fields={unwrappedType.getFields()}
+        operationType={operationType}
         selection={selection}
       />
     );
   } else if (isUnionType(unwrappedType)) {
     childFieldsToRender = (
-      <UnionType ancestors={ancestors} unionType={unwrappedType} selection={selection} />
+      <UnionType
+        ancestors={ancestors}
+        operationType={operationType}
+        selection={selection}
+        unionType={unwrappedType}
+      />
     );
+  }
+
+  if (fieldsVisibility === 'On' && !selection) {
+    return null;
   }
 
   if (!isCollapsible) {
     return (
       <ItemGrid>
-        <IndicatorWrap isActive={!!selection} onClick={() => toggle({ ancestors })}>
+        <IndicatorWrap
+          isActive={!!selection}
+          onClick={() => toggle({ ancestors, operationType })}
+        >
           <IndicatorField />
         </IndicatorWrap>
-        <Describe
-          name={field.name}
+        <DescriptionListItem
+          descriptionPlacement={descriptionsVisibility}
           description={field.description || null}
           isSelected={!!selection}
-          type={field.type}
-          variant="FIELD"
+          name={field.name}
+          type={
+            <button
+              onClick={() => {
+                navigateForward({
+                  docPane: {
+                    description: field.description || null,
+                    // name: field.type.toString(),
+                    name: unwrapType(field.type).toString(),
+                    type: field.type,
+                  },
+                  placement: 'PATHFINDER',
+                });
+              }}
+            >
+              {field.type.toString()}
+            </button>
+          }
+          entityType="FIELD"
         />
       </ItemGrid>
     );
@@ -110,18 +145,38 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
         content={
           <FieldChildren>
             {field.args.length > 0 && (
-              <Arguments ancestors={ancestors} selection={selection as FieldNode} />
+              <Arguments
+                ancestors={ancestors}
+                operationType={operationType}
+                selection={selection as FieldNode}
+              />
             )}
             <>{childFieldsToRender}</>
           </FieldChildren>
         }
         leadContent={
-          <Describe
-            name={field.name}
+          <DescriptionListItem
             description={field.description || null}
+            descriptionPlacement={descriptionsVisibility}
             isSelected={!!selection}
-            type={field.type}
-            variant="FIELD"
+            name={field.name}
+            type={
+              <button
+                onClick={() => {
+                  navigateForward({
+                    docPane: {
+                      description: field.description || null,
+                      name: unwrapType(field.type).toString(),
+                      type: field.type,
+                    },
+                    placement: 'PATHFINDER',
+                  });
+                }}
+              >
+                {field.type.toString()}
+              </button>
+            }
+            entityType="FIELD"
           />
         }
         isExpanded={isExpanded}
@@ -136,7 +191,7 @@ export const Field = ({ ancestors }: { ancestors: AncestorMap }) => {
               if (!!selection && isExpanded) {
                 setIsExpanded(false);
               }
-              return toggle({ ancestors });
+              return toggle({ ancestors, operationType });
             }}
           >
             <IndicatorField />

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-/** components */
-import { Chevron } from '@graphiql-v2-prototype/graphiql-ui-library';
+// components
+import { ChevronLarge } from '@graphiql-v2-prototype/graphiql-ui-library';
 import { Headers } from '../Headers';
 import { Variables } from '../Variables';
 
-/** styles */
+// styles
 import {
   CollapsibleContent,
   CollapsibleRoot,
@@ -17,7 +17,7 @@ import {
   TabsTrigger,
 } from './styles';
 
-/** utils */
+// utils
 import { getActiveEditorTab } from '../../utils';
 
 export const OperationTools = ({ setHeight }: { setHeight: () => void }) => {
@@ -69,7 +69,7 @@ export const OperationTools = ({ setHeight }: { setHeight: () => void }) => {
             </TabsTrigger>
           </TabsList>
           <CollapsibleTrigger isOperationToolsOpen={isOperationToolsOpen}>
-            <Chevron />
+            <ChevronLarge />
           </CollapsibleTrigger>
         </TabsAndTrigger>
         <CollapsibleContent forceMount hidden={!isOperationToolsOpen}>

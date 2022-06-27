@@ -1,9 +1,9 @@
 import React from 'react';
 
-/** components */
+// components
 import { Close } from '../../icons';
 
-/** styles */
+// styles
 import {
   CloseWrap,
   Content,
@@ -15,7 +15,7 @@ import {
   Trigger,
 } from './styles';
 
-/** types */
+// types
 import { DialogProps } from './types';
 
 export const Dialog = ({ icon, content, title }: DialogProps) => {

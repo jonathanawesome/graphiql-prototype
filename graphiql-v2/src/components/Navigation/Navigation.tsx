@@ -1,18 +1,18 @@
-/** components */
+// components
 // import { GraphQLIcon } from '@graphiql-v2-prototype/graphiql-ui-library';
 import { DialogPlugins } from '../DialogPlugins';
 
-/** hooks */
+// hooks
 import { useGraphiQL } from '../../hooks';
 
-/** styles */
+// styles
 import {
   NavigationStyled,
   PanePluginNavigation,
   PanePluginNavigationItem,
 } from './styles';
 
-/** types */
+// types
 import { PanePluginsArray } from '../PanePlugins/types';
 import { DialogPluginsArray } from '../DialogPlugins/types';
 

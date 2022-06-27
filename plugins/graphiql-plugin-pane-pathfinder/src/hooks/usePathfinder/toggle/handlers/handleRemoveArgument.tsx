@@ -1,11 +1,11 @@
-/** types */
+// types
 import {
   AncestorArgument,
   SetNextActionSignature,
   SetNextVariableDefinitionsSignature,
 } from '../../types';
 
-/** utils */
+// utils
 import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 
 export const handleRemoveArgument = ({

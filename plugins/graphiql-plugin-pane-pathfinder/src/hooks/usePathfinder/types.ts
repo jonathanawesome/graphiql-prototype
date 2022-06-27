@@ -4,7 +4,9 @@ import {
   GraphQLField,
   GraphQLInputField,
   GraphQLInputObjectType,
+  GraphQLType,
   ObjectFieldNode,
+  OperationTypeNode,
   SelectionNode,
   SelectionSetNode,
   VariableDefinitionNode,
@@ -57,27 +59,45 @@ export type AncestorTypes =
   | AncestorInputObject
   | AncestorInputField;
 
-/** we're using a Map here so that we can take advantage of the insertion order */
+// we're using a Map here so that we can take advantage of the insertion order
 export type AncestorMap = Map<string, AncestorTypes>;
 
+type ToggleSignature = ({
+  ancestors,
+  operationType,
+}: {
+  ancestors: AncestorMap;
+  operationType: OperationTypeNode;
+}) => void;
+
+// begin root type
+export type NextOperationType = OperationTypeNode | null;
+export type SetNextOperationType = ({
+  nextOperationType,
+}: {
+  nextOperationType: OperationTypeNode | null;
+}) => void;
+// end root type
+
+// begin selection set
 export type NextSelectionSet = SelectionSetNode | null;
-export type NextVariableDefinitions = VariableDefinitionNode[] | undefined;
-
-type ToggleSignature = ({ ancestors }: { ancestors: AncestorMap }) => void;
-
 export type SetNextSelectionSetSignature = ({
   nextSelectionSet,
 }: {
   nextSelectionSet: SelectionSetNode | null;
 }) => void;
+// end selection set
 
+// begin variable definitions
+export type NextVariableDefinitions = VariableDefinitionNode[] | undefined;
 export type SetNextVariableDefinitionsSignature = ({
   nextVariableDefinitions,
 }: {
   nextVariableDefinitions: VariableDefinitionNode[] | undefined;
 }) => void;
+// end variable definitions
 
-/** begin edit actions */
+// begin edit actions
 export type ObjectFieldAction = { node: ObjectFieldNode; type: 'INPUT_FIELD' };
 export type ArgumentAction = { node: ArgumentNode; type: 'ARGUMENT' };
 export type AddAction = {
@@ -92,21 +112,42 @@ export type RemoveAction = {
 
 export type NextAction = AddAction | RemoveAction | null;
 export type SetNextActionSignature = (action: NextAction) => void;
-/** end edit action  */
+// end edit action
 
-/** begin controls */
+// begin options
 export type DescriptionsVisibility = 'Inline' | 'Below' | 'Off';
+export type FieldsVisibility = 'On' | 'Off';
 export type PillsVisibility = 'On' | 'Off';
-/** end controls */
+// end options
+
+// begin overlay
+type Overlay = {
+  currentType?: GraphQLType | null;
+  prevTypes: Array<GraphQLType>;
+  visible: boolean;
+};
+// end overlay
 
 export type PathfinderStore = {
-  /** begin controls */
+  // begin overlay
+  // overlayType: GraphQLType | null;
+  // setOverlayType: ({ overlayType }: { overlayType: GraphQLType }) => void;
+  overlay: Overlay;
+  setOverlay: ({ currentType, prevTypes, visible }: Overlay) => void;
+  // end overlay
+
+  // begin options
   descriptionsVisibility: DescriptionsVisibility;
   setDescriptionsVisibility: (val: DescriptionsVisibility) => void;
+  fieldsVisibility: FieldsVisibility;
+  setFieldsVisibility: (val: FieldsVisibility) => void;
   pillsVisibility: PillsVisibility;
   setPillsVisibility: (val: PillsVisibility) => void;
-  /** end controls */
-  /** begin toggle */
+  // end options
+
+  // begin toggle
+  nextOperationType: NextOperationType;
+  setNextOperationType: SetNextOperationType;
   nextSelectionSet: NextSelectionSet;
   setNextSelectionSet: SetNextSelectionSetSignature;
   nextVariableDefinitions: NextVariableDefinitions;
@@ -114,5 +155,5 @@ export type PathfinderStore = {
   nextAction: NextAction;
   setNextAction: SetNextActionSignature;
   toggle: ToggleSignature;
-  /** end toggle */
+  // end toggle
 };

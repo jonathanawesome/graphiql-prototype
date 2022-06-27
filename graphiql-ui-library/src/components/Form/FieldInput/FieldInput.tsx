@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
-/** styles */
+// styles
 import { StyledFieldInput } from './styles';
 
-/** types */
+// types
 import type { FieldInputProps } from '../types';
 
 export const FieldInput = ({

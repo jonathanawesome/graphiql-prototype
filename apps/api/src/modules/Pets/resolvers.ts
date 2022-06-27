@@ -1,6 +1,6 @@
 import { Prisma } from '../../prisma/generated';
 
-/** types */
+// types
 import { PetsModule } from './generated/generated-module-types';
 
 export const PetsResolvers: {

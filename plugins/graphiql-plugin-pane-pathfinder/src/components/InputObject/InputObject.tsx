@@ -8,37 +8,50 @@ import {
   isRequiredArgument,
   isRequiredInputField,
   ObjectValueNode,
+  OperationTypeNode,
 } from 'graphql';
 
-/** components */
-import { Collapser, Describe, ScalarArg } from '../index';
+// components
+import {
+  Collapser,
+  // Describe,
+  ScalarArg,
+} from '../index';
+import { DescriptionListItem } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-/** components */
+// components
 import { Column } from '../index';
 
-/** hooks */
+// hooks
 import {
   AncestorArgument,
   AncestorInputField,
   AncestorInputObject,
   AncestorMap,
+  usePathfinder,
 } from '../../hooks';
+import { useDocs } from '@graphiql-v2-prototype/graphiql-plugin-pane-docs';
 
-/** utils */
-import { capitalize, generateVariableNameFromAncestorMap } from '../../utils';
+// utils
+import { capitalize, generateVariableNameFromAncestorMap, unwrapType } from '../../utils';
 
 export const InputObject = ({
   ancestors,
-  renderingInputField,
   inputType,
+  operationType,
+  renderingInputField,
 }: {
   ancestors: AncestorMap;
-  renderingInputField: GraphQLInputField;
   inputType: GraphQLInputObjectType;
+  operationType: OperationTypeNode;
+  renderingInputField: GraphQLInputField;
 }) => {
   const hash = cuid.slug();
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
+  const { descriptionsVisibility } = usePathfinder();
+  const { navigateForward } = useDocs();
 
   const fields = inputType.getFields();
 
@@ -86,6 +99,7 @@ export const InputObject = ({
                         ])
                       }
                       inputType={fields[f].type as GraphQLInputObjectType}
+                      operationType={operationType}
                       renderingInputField={fields[f]}
                     />
                   );
@@ -113,6 +127,7 @@ export const InputObject = ({
                           ...ancestors,
                         ])
                       }
+                      operationType={operationType}
                     />
                   );
                 }
@@ -122,17 +137,33 @@ export const InputObject = ({
         </>
       }
       leadContent={
-        <Describe
+        <DescriptionListItem
+          descriptionPlacement={descriptionsVisibility}
+          description={inputType.description || null}
+          isSelected={!!previousAncestor.selection}
           name={`${renderingInputField.name}${
             isRequiredArgument(renderingInputField) ||
             isRequiredInputField(renderingInputField)
               ? `*`
               : ''
           }`}
-          description={inputType.description || null}
-          isSelected={!!previousAncestor.selection}
-          type={inputType}
-          variant="INPUT_TYPE"
+          type={
+            <button
+              onClick={() => {
+                navigateForward({
+                  docPane: {
+                    description: inputType.description || null,
+                    name: unwrapType(inputType).toString(),
+                    type: inputType,
+                  },
+                  placement: 'PATHFINDER',
+                });
+              }}
+            >
+              {inputType.toString()}
+            </button>
+          }
+          entityType="INPUT_TYPE"
         />
       }
       isExpanded={isExpanded}

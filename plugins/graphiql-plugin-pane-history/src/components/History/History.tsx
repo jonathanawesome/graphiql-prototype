@@ -1,4 +1,4 @@
-/** styles */
+// styles
 import { HistoryWrap, HistoryLead, HistoryContent, HistoryContentWrap } from './styles';
 
 export const History = () => {

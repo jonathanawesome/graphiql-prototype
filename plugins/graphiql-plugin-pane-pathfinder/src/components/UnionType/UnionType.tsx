@@ -7,21 +7,33 @@ import {
   GraphQLUnionType,
   InlineFragmentNode,
   Kind,
+  OperationTypeNode,
 } from 'graphql';
 
-/** components */
-import { Collapser, Column, Describe, ObjectType } from '../index';
+// components
+import { Collapser, Column, ObjectType } from '../index';
+import { DescriptionListItem } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-/** types */
-import type { AncestorMap } from '../../hooks';
+// hooks
+import { useDocs } from '@graphiql-v2-prototype/graphiql-plugin-pane-docs';
+import { AncestorMap, usePathfinder } from '../../hooks';
+
+// utils
+import { unwrapType } from '../../utils';
 
 type UnionTypeProps = {
   ancestors: AncestorMap;
+  operationType: OperationTypeNode;
   selection: FieldNode | InlineFragmentNode | undefined;
   unionType: GraphQLUnionType;
 };
 
-export const UnionType = ({ ancestors, selection, unionType }: UnionTypeProps) => {
+export const UnionType = ({
+  ancestors,
+  operationType,
+  selection,
+  unionType,
+}: UnionTypeProps) => {
   const unionMembers = unionType.getTypes();
 
   // console.log('rendering UnionType', { unionMembers });
@@ -33,6 +45,7 @@ export const UnionType = ({ ancestors, selection, unionType }: UnionTypeProps) =
           key={o.name}
           ancestors={ancestors}
           objectMember={o}
+          operationType={operationType}
           selection={selection}
         />
       ))}
@@ -43,16 +56,21 @@ export const UnionType = ({ ancestors, selection, unionType }: UnionTypeProps) =
 const UnionMember = ({
   ancestors,
   objectMember,
+  operationType,
   selection,
 }: {
   ancestors: AncestorMap;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   objectMember: GraphQLObjectType<any, any>;
+  operationType: OperationTypeNode;
   selection: FieldNode | InlineFragmentNode | undefined;
 }) => {
   const hash = cuid.slug();
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
+  const { descriptionsVisibility } = usePathfinder();
+  const { navigateForward } = useDocs();
 
   const inlineFragmentNode = selection?.selectionSet?.selections?.find(
     (s) =>
@@ -79,16 +97,34 @@ const UnionMember = ({
             ])
           }
           fields={objectMember.getFields()}
+          operationType={operationType}
           selection={inlineFragmentNode}
         />
       }
       leadContent={
-        <Describe
-          name={`... on`}
+        <DescriptionListItem
+          descriptionPlacement={descriptionsVisibility}
           description={objectMember.description || null}
           isSelected={!!inlineFragmentNode}
-          type={objectMember}
-          variant="INLINE_FRAGMENT"
+          name={`... on`}
+          // type={objectMember.toString()}
+          type={
+            <button
+              onClick={() => {
+                navigateForward({
+                  docPane: {
+                    description: objectMember.description || null,
+                    name: unwrapType(objectMember).toString(),
+                    type: objectMember,
+                  },
+                  placement: 'PATHFINDER',
+                });
+              }}
+            >
+              {objectMember.toString()}
+            </button>
+          }
+          entityType="INLINE_FRAGMENT"
         />
       }
       isExpanded={isExpanded}

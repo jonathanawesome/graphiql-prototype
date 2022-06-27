@@ -1,32 +1,36 @@
 import { FieldNode, Kind } from 'graphql';
 
-/** helpers */
-import { findFieldSiblings } from '../helpers';
+// helpers
+import { getFieldSiblings } from '../helpers';
 
-/** types */
+// types
 import {
   AncestorField,
+  NextOperationType,
   SetNextSelectionSetSignature,
   SetNextVariableDefinitionsSignature,
 } from '../../types';
 
-/** utils */
+// utils
 import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 
 export const handleAddField = ({
   ancestor,
+  nextOperationType,
   setNextSelectionSet,
   setNextVariableDefinitions,
 }: {
   ancestor: AncestorField;
+  nextOperationType: NextOperationType;
   setNextSelectionSet: SetNextSelectionSetSignature;
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
 }) => {
-  // console.log('running handleAddField', { ancestor });
   const activeEditorTab = getActiveEditorTab();
   const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
+  const currentOperationType = activeEditorTab?.operationDefinition?.operation;
 
-  const siblings = findFieldSiblings({ ancestor });
+  const siblings = getFieldSiblings({ ancestor });
+  // console.log('running handleAddField', { ancestor, siblings });
 
   /** first, we build a new FieldNode using the field's name */
   const newFieldNode: FieldNode = {
@@ -45,7 +49,7 @@ export const handleAddField = ({
   //   field: ancestor.field,
   // });
 
-  // /** set the variable defintions */
+  // /** set the variable definitions */
   // if (requiredVariableDefinitions.length > 0) {
   //   const nextVarDefs = nextVariableDefinitions ? [...nextVariableDefinitions] : [];
   //   setNextVariableDefinitions({
@@ -53,9 +57,12 @@ export const handleAddField = ({
   //   });
   // }
 
-  setNextVariableDefinitions({
-    nextVariableDefinitions: [...(variableDefinitions ? variableDefinitions : [])],
-  });
+  // TODO: if we're toggling a different operation type, we should NOT pass existing variable definitions
+  if (currentOperationType === nextOperationType) {
+    setNextVariableDefinitions({
+      nextVariableDefinitions: [...(variableDefinitions ? variableDefinitions : [])],
+    });
+  }
 
   /** update the nextSelectionSet to include our new field node and any sibling selections */
   return setNextSelectionSet({

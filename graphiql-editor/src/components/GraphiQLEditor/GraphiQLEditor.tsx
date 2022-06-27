@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 
-/** components */
+// components
 import { Analyze } from '../Analyze/Analyze';
 import { Header } from '../Header';
 import { Operate } from '../Operate';
 import { Resizer } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-/** hooks */
+// hooks
 import { useGraphiQLEditor } from '../../hooks';
 
-/** styles */
+// styles
 import { EditorWrap, EditorInner } from './styles';
 
 export const GraphiQLEditor = () => {

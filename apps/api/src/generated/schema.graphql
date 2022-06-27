@@ -48,6 +48,9 @@ type BreedError implements ErrorForUI {
   path: String!
 }
 
+"""
+A union representing either a Breed object or a BreedError _object_ that implements a common UI error interface.
+"""
 union BreedResult = Breed | BreedError
 
 """

@@ -1,4 +1,4 @@
-/** styles */
+// styles
 import { PanePluginContainer, PanePluginContainerWrap } from './styles';
 import { PanePluginsArray } from './types';
 

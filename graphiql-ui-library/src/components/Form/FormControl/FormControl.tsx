@@ -1,12 +1,12 @@
-/** components */
+// components
 import { FieldInput } from '../FieldInput';
 import { FieldList } from '../FieldList';
 import { FieldSelect } from '../FieldSelect';
 
-/** styles */
+// styles
 import { FormControlStyled, Label, LabelWrap } from './styles';
 
-/** types */
+// types
 import type { FormControlProps } from '../types';
 
 export const FormControl = ({ control, label, labelAddOn }: FormControlProps) => {

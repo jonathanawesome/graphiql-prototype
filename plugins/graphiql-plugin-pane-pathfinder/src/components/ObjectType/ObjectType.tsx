@@ -1,20 +1,32 @@
 import cuid from 'cuid';
-import { FieldNode, GraphQLFieldMap, InlineFragmentNode, Kind } from 'graphql';
+import {
+  FieldNode,
+  GraphQLFieldMap,
+  InlineFragmentNode,
+  Kind,
+  OperationTypeNode,
+} from 'graphql';
 
-/** components */
+// components
 import { Column, Field } from '../index';
 
-/** types */
+// types
 import type { AncestorMap } from '../../hooks';
 
 type ObjectTypeProps = {
   ancestors: AncestorMap;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fields: GraphQLFieldMap<any, any> | null;
+  operationType: OperationTypeNode;
   selection: FieldNode | InlineFragmentNode | undefined;
 };
 
-export const ObjectType = ({ ancestors, fields, selection }: ObjectTypeProps) => {
+export const ObjectType = ({
+  ancestors,
+  fields,
+  operationType,
+  selection,
+}: ObjectTypeProps) => {
   const hash = cuid.slug();
 
   // console.log('rendering ObjectType', { fields });
@@ -45,6 +57,7 @@ export const ObjectType = ({ ancestors, fields, selection }: ObjectTypeProps) =>
                     ...ancestors,
                   ])
                 }
+                operationType={operationType}
               />
             );
           })}

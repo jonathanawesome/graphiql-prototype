@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
-/** components */
-import { Check, Chevron } from '../../../icons';
+// components
+import { Check, ChevronLarge } from '../../../icons';
 
-/** styles */
+// styles
 import {
   Description,
   SelectContent,
@@ -17,7 +17,7 @@ import {
   StyledSelect,
 } from './styles';
 
-/** types */
+// types
 import type { FieldSelectProps } from '../types';
 
 export const FieldSelect = ({
@@ -51,7 +51,7 @@ export const FieldSelect = ({
       <SelectTrigger>
         <SelectValue />
         <SelectIcon>
-          <Chevron />
+          <ChevronLarge />
         </SelectIcon>
       </SelectTrigger>
       <SelectContent>

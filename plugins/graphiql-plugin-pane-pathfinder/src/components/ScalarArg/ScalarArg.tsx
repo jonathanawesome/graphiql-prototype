@@ -1,22 +1,38 @@
-import { GraphQLArgument, isRequiredArgument } from 'graphql';
+import { GraphQLArgument, isRequiredArgument, OperationTypeNode } from 'graphql';
 
-/** components */
-import { Describe, IndicatorArgument } from '../index';
+// components
+import { DescriptionListItem } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-/** hooks */
+// hooks
 import {
   AncestorArgument,
   AncestorInputField,
   AncestorMap,
   usePathfinder,
 } from '../../hooks';
+import { useDocs } from '@graphiql-v2-prototype/graphiql-plugin-pane-docs';
 
-/** styles */
+// icons
+import { IndicatorArgument } from '../../icons';
+
+// styles
 import { IndicatorArgumentWrap, ScalarArgStyled } from './styles';
+
+// utils
+import { unwrapType } from '../../utils';
 
 const toggle = usePathfinder.getState().toggle;
 
-export const ScalarArg = ({ ancestors }: { ancestors: AncestorMap }) => {
+export const ScalarArg = ({
+  ancestors,
+  operationType,
+}: {
+  ancestors: AncestorMap;
+  operationType: OperationTypeNode;
+}) => {
+  const { descriptionsVisibility } = usePathfinder();
+  const { navigateForward } = useDocs();
+
   const ancestor = ancestors.values().next().value as
     | AncestorArgument
     | AncestorInputField;
@@ -32,27 +48,41 @@ export const ScalarArg = ({ ancestors }: { ancestors: AncestorMap }) => {
   }
 
   // console.log('ScalarArg', {
-  //   // arg,
   //   ancestors,
-  //   self,
-  //   argument,
-  //   selection,
-  //   // selection,
+  //   operationType,
   // });
 
   return (
     <ScalarArgStyled>
-      <button onClick={() => toggle({ ancestors })}>
+      <button onClick={() => toggle({ ancestors, operationType })}>
         <IndicatorArgumentWrap isSelected={isSelected}>
           <IndicatorArgument />
         </IndicatorArgumentWrap>
       </button>
-      <Describe
-        name={`${argument.name}${isRequiredArgument(argument) ? `*` : ''}`}
+
+      <DescriptionListItem
+        descriptionPlacement={descriptionsVisibility}
         description={argument.description || null}
         isSelected={isSelected}
-        type={argument.type}
-        variant="ARGUMENT"
+        name={`${argument.name}${isRequiredArgument(argument) ? `*` : ''}`}
+        // type={argument.type.toString()}
+        type={
+          <button
+            onClick={() => {
+              navigateForward({
+                docPane: {
+                  description: argument.description || null,
+                  name: unwrapType(argument.type).toString(),
+                  type: argument.type,
+                },
+                placement: 'PATHFINDER',
+              });
+            }}
+          >
+            {argument.type.toString()}
+          </button>
+        }
+        entityType="ARGUMENT"
       />
     </ScalarArgStyled>
   );

@@ -1,0 +1,11 @@
+{
+  "name": "@graphiql-v2-prototype/graphiql-utils",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "scripts": {
+    "tsc": "tsc --noEmit"
+  },
+  "dependencies": {
+    "graphql": "^16.5.0"
+  }
+}

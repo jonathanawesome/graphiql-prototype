@@ -1,6 +1,6 @@
 import { ArgumentNode, Kind, ObjectFieldNode } from 'graphql';
 
-/** types */
+// types
 import {
   AncestorInputObject,
   NextAction,

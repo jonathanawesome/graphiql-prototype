@@ -2,13 +2,13 @@ import { createServer } from '@graphql-yoga/node';
 import { useGraphQLModules } from '@envelop/graphql-modules';
 import express from 'express';
 
-/** prisma */
+// prisma
 import { prisma } from './prisma';
 
-/** schema */
+// schema
 import { graphqlModules } from './modules';
 
-/** types */
+// types
 import { Context } from './types';
 
 const app = express();

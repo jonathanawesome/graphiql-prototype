@@ -8,15 +8,16 @@ import {
   isListType,
   isNonNullType,
   isScalarType,
+  OperationTypeNode,
 } from 'graphql';
 
-/** components */
+// components
 import { InputObject, ScalarArg } from '../index';
 
-/** hooks */
+// hooks
 import type { AncestorArgument, AncestorInputObject, AncestorMap } from '../../hooks';
 
-/** utils */
+// utils
 import {
   capitalize,
   generateVariableNameFromAncestorMap,
@@ -26,10 +27,12 @@ import {
 export const Argument = ({
   ancestors,
   argument,
+  operationType,
   selection,
 }: {
   ancestors: AncestorMap;
   argument: GraphQLArgument;
+  operationType: OperationTypeNode;
   selection: FieldNode | null;
 }) => {
   // console.log('Argument', {
@@ -75,29 +78,31 @@ export const Argument = ({
     toRender = (
       <InputObject
         ancestors={newInputObjectMap}
-        renderingInputField={argument}
         inputType={argument.type}
+        operationType={operationType}
+        renderingInputField={argument}
       />
     );
   } else if (isNonNullType(argument.type) || isListType(argument.type)) {
     const unwrappedInputObject = unwrapInputType({ inputType: argument.type });
     if (isScalarType(unwrappedInputObject)) {
-      toRender = <ScalarArg ancestors={newScalarArgMap} />;
+      toRender = <ScalarArg ancestors={newScalarArgMap} operationType={operationType} />;
     } else if (isInputObjectType(unwrappedInputObject)) {
       toRender = (
         // rendering top-level InputObject that IS required
         <InputObject
           ancestors={newInputObjectMap}
-          renderingInputField={argument}
           inputType={unwrappedInputObject}
+          operationType={operationType}
+          renderingInputField={argument}
         />
       );
     } else if (isEnumType(unwrappedInputObject)) {
       //TODO handle EnumType
-      toRender = <ScalarArg ancestors={newScalarArgMap} />;
+      toRender = <ScalarArg ancestors={newScalarArgMap} operationType={operationType} />;
     }
   } else if (isLeafType(argument.type)) {
-    toRender = <ScalarArg ancestors={newScalarArgMap} />;
+    toRender = <ScalarArg ancestors={newScalarArgMap} operationType={operationType} />;
   } else {
     toRender = (
       <p style={{ color: 'red' }}>

@@ -21,5 +21,3 @@ export { handleUpdateInputObject } from './handleUpdateInputObject';
 export { handleUpdateParentField } from './handleUpdateParentField';
 
 export { handleUpdateParentInlineFragment } from './handleUpdateParentInlineFragment';
-
-export { handleRoot } from './handleRoot';

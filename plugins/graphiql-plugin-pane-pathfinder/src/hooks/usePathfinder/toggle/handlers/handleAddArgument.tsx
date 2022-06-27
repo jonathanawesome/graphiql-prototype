@@ -1,28 +1,21 @@
 import { ArgumentNode, Kind } from 'graphql';
 
-/** types */
-import {
-  AncestorArgument,
-  SetNextActionSignature,
-  SetNextVariableDefinitionsSignature,
-} from '../../types';
+// helpers
+import { setCorrectNextVariableDefinitions } from '../helpers';
 
-/** utils */
+// types
+import { AncestorArgument, SetNextActionSignature } from '../../types';
+
+// utils
 import { buildNewVariableDefinition } from '../../../../utils';
-import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
 
 export const handleAddArgument = ({
   ancestor,
   setNextAction,
-  setNextVariableDefinitions,
 }: {
   ancestor: AncestorArgument;
   setNextAction: SetNextActionSignature;
-  setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
 }) => {
-  const activeEditorTab = getActiveEditorTab();
-  const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
-
   // console.log('running handleAddArgument', {
   //   ancestor,
   // });
@@ -33,12 +26,7 @@ export const handleAddArgument = ({
     variableName: ancestor.variableName,
   });
 
-  setNextVariableDefinitions({
-    nextVariableDefinitions: [
-      ...(variableDefinitions ? variableDefinitions : []),
-      newVarDef,
-    ],
-  });
+  setCorrectNextVariableDefinitions({ newVariableDefinition: newVarDef });
 
   const newArgumentNode: ArgumentNode = {
     kind: Kind.ARGUMENT,
