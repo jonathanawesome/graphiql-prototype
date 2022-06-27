@@ -24,7 +24,7 @@ export const ObjectType = ({
   const [interfaces, setInterfaces] =
     useState<ReadonlyArray<GraphQLInterfaceType> | null>(null);
 
-  console.log('ObjectType', { type });
+  // console.log('ObjectType', { type });
 
   useEffect(() => {
     setInterfaces(type.getInterfaces());

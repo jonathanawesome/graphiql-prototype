@@ -19,12 +19,11 @@ export const Docs = ({ placement = 'EXPLORER' }: { placement: DocPlacement }) =>
   const docsInstanceExplorer = getDocsInstance({ placement: 'EXPLORER' });
   const docsInstancePathfinder = getDocsInstance({ placement: 'PATHFINDER' });
 
-  console.log('Docs', {
-    schema,
-    // currentschema: docsInstance?.docPanes[0].type,
-    docsInstanceExplorer,
-    docsInstancePathfinder,
-  });
+  // console.log('Docs', {
+  //   schema,
+  //   docsInstanceExplorer,
+  //   docsInstancePathfinder,
+  // });
 
   useEffect(() => {
     if (schema && !('error' in schema)) {

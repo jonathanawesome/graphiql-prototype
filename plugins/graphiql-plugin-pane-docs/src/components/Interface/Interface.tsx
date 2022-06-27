@@ -37,11 +37,11 @@ export const Interface = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type]);
 
-  console.log('InterfaceType', {
-    type,
-    fields,
-    implementingObjects,
-  });
+  // console.log('InterfaceType', {
+  //   type,
+  //   fields,
+  //   implementingObjects,
+  // });
 
   return (
     <>

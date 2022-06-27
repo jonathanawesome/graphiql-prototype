@@ -24,7 +24,7 @@ export const Union = ({
     null
   );
 
-  console.log('Union', { type });
+  // console.log('Union', { type });
 
   useEffect(() => {
     setTypes(type.getTypes());

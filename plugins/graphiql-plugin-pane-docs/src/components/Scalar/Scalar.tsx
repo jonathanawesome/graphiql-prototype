@@ -4,7 +4,7 @@ import { GraphQLScalarType } from 'graphql';
 import { DocsDescription } from '../DocsDescription';
 
 export const Scalar = ({ type }: { type: GraphQLScalarType }) => {
-  console.log('Scalar', type);
+  // console.log('Scalar', type);
   return (
     <DocsDescription
       copy={

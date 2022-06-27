@@ -9,7 +9,7 @@ export const useDocs = create<DocsStore>((set, get) => ({
     const docsInstances = get().docsInstances;
     const targetInstance = docsInstances.get(placement);
     if (!targetInstance) {
-      console.log(`getDocsInstance: Docs instance at ${placement} does not exist.`);
+      // console.log(`getDocsInstance: Docs instance at ${placement} does not exist.`);
       return undefined;
     }
     return targetInstance;
