@@ -8,6 +8,7 @@
   "dependencies": {
     "@graphiql-v2-prototype/graphiql-editor": "workspace:*",
     "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",
+    "@graphiql-v2-prototype/graphiql-utils": "workspace:*",
     "@radix-ui/react-select": "^0.1.1",
     "cuid": "^2.1.8",
     "graphql": "^16.5.0",

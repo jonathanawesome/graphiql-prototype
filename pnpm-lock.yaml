@@ -233,6 +233,7 @@ importers:
     specifiers:
       '@graphiql-v2-prototype/graphiql-editor': workspace:*
       '@graphiql-v2-prototype/graphiql-ui-library': workspace:*
+      '@graphiql-v2-prototype/graphiql-utils': workspace:*
       '@radix-ui/react-select': ^0.1.1
       '@types/react': 17.0.2
       cuid: ^2.1.8
@@ -241,6 +242,7 @@ importers:
     dependencies:
       '@graphiql-v2-prototype/graphiql-editor': link:../../graphiql-editor
       '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql-ui-library
+      '@graphiql-v2-prototype/graphiql-utils': link:../../graphiql-utils
       '@radix-ui/react-select': 0.1.1_7u6mpky5dbb5b3hgdescs5ficq
       cuid: 2.1.8
       graphql: 16.5.0

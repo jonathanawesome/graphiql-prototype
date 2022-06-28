@@ -4,7 +4,6 @@ export { useGraphiQLEditor } from './hooks';
 
 export {
   getActiveEditorTab,
-  getDefaultInputValue,
   getDisplayStringFromVariableDefinitionTypeNode,
   getEnumValues,
   parseQuery,

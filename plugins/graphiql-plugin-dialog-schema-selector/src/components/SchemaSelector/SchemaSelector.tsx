@@ -26,6 +26,10 @@ const apiUrls: ApiUrls = {
     aboutUrl: 'https://spacex.land/',
     apiUrl: 'https://api.spacex.land/graphql',
   },
+  [`PokeAPI`]: {
+    aboutUrl: 'https://pokeapi.co/docs/graphql',
+    apiUrl: 'https://beta.pokeapi.co/graphql/v1beta',
+  },
 };
 
 const Radio = ({
@@ -90,7 +94,10 @@ export const SchemaSelector = () => {
     if (targetSchemaUrl === 'testSchema') {
       initSchema({});
     } else if (targetSchemaUrl.length > 0) {
-      initSchema({ name: targetSchemaUrl, url: targetSchemaUrl });
+      const name = Object.keys(apiUrls).find(
+        (k) => apiUrls[k].apiUrl === targetSchemaUrl
+      );
+      initSchema({ name, url: targetSchemaUrl });
     }
     if (!schemaUrl) {
       return;
@@ -120,10 +127,9 @@ export const SchemaSelector = () => {
           return setTargetSchemaUrl('testSchema');
         }
         if (
-          [
-            'https://rickandmortyapi.com/graphql',
-            'https://api.spacex.land/graphql',
-          ].includes(value)
+          Object.keys(apiUrls)
+            .map((k) => apiUrls[k].apiUrl)
+            .includes(value)
         ) {
           return setTargetSchemaUrl(value);
         }
@@ -138,20 +144,8 @@ export const SchemaSelector = () => {
           id="1"
           copy="Official GraphiQL Test Schema"
         />
-        {Object.keys(apiUrls).map((x, i) => {
-          const id = (i + 2).toString();
-          return (
-            <Radio
-              key={id}
-              aboutUrl={apiUrls[x].aboutUrl}
-              value={apiUrls[x].apiUrl}
-              id={id}
-              copy={x}
-            />
-          );
-        })}
         <div>
-          <Radio value={customSchemaUrlInput} id="4" copy="Custom Schema Url" />
+          <Radio value={customSchemaUrlInput} id="2" copy="Custom Schema Url" />
           {schemaError && <Error>{schemaError}</Error>}
           {radioValue === customSchemaUrlInput && (
             <CustomSchemaFormWrap>
@@ -176,6 +170,18 @@ export const SchemaSelector = () => {
             </CustomSchemaFormWrap>
           )}
         </div>
+        {Object.keys(apiUrls).map((x, i) => {
+          const id = (i + 5).toString();
+          return (
+            <Radio
+              key={id}
+              aboutUrl={apiUrls[x].aboutUrl}
+              value={apiUrls[x].apiUrl}
+              id={id}
+              copy={x}
+            />
+          );
+        })}
       </fieldset>
     </RadioGroup>
   );
