@@ -40,7 +40,9 @@ export const GraphiQL = ({ panePlugins, dialogPlugins }: GraphiQLProps) => {
             component:
               activePane === 'GraphiQL' ? null : (
                 <PaneWrap>
-                  <SchemaName>{schemaName || 'GraphiQL'}</SchemaName>
+                  <SchemaName>
+                    <span>{schemaName || 'GraphiQL'}</span>
+                  </SchemaName>
                   <PanePlugins activePane={activePane} panePlugins={panePlugins} />
                 </PaneWrap>
               ),
