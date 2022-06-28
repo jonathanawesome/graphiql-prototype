@@ -97,7 +97,7 @@ export const SchemaSelector = () => {
       const name = Object.keys(apiUrls).find(
         (k) => apiUrls[k].apiUrl === targetSchemaUrl
       );
-      initSchema({ name, url: targetSchemaUrl });
+      initSchema({ name: name || targetSchemaUrl, url: targetSchemaUrl });
     }
     if (!schemaUrl) {
       return;
