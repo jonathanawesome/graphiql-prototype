@@ -40,7 +40,7 @@ export const Interfaces = ({ interfaces, placement }: InterfacesProps) => {
           }
         />
       ))}
-      title="Interfaces"
+      title="Implements"
     />
   );
 };

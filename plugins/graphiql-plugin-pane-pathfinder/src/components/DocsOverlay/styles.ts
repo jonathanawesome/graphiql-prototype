@@ -1,12 +1,12 @@
 import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-export const DocsOverlayStyled = styled('section', {
+export const DocsOverlayStyled = styled('div', {
   padding: 24,
-  height: '100%',
-  width: 'calc(100% - 48px)',
+  height: 'calc(100% - 12px)',
+  width: 'calc(100% - 32px)',
   position: 'absolute',
-  top: 0,
-  left: 32,
+  top: 12,
+  left: 24,
   overflowY: 'auto',
   backgroundColor: '$white',
   border: '1px solid $gray015',
@@ -32,12 +32,13 @@ export const DocsOverlayStyled = styled('section', {
 });
 
 export const CloseButton = styled('button', {
+  height: 24,
+  width: 24,
   position: 'absolute',
-  top: 24,
-  right: 24,
+  top: 20,
+  right: 20,
 
   svg: {
-    transform: 'translate3d(5px, -7px, 0)',
     height: 24,
     width: 24,
     path: {

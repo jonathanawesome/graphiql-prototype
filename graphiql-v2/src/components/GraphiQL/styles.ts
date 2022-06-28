@@ -27,7 +27,7 @@ export const SchemaName = styled('div', {
   fontWeight: 600,
   color: '$gray100',
   position: 'relative',
-  height: 48,
+  height: 52,
 
   span: {
     position: 'absolute',

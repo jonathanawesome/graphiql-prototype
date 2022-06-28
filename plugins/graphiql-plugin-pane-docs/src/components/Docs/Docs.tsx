@@ -80,7 +80,7 @@ export const Docs = ({ placement = 'EXPLORER' }: { placement: DocPlacement }) =>
   }, [schema]);
 
   return (
-    <DocsStyled>
+    <DocsStyled placement={placement}>
       <DocsLead placement={placement} />
       <DocsPanel placement={placement} />
     </DocsStyled>

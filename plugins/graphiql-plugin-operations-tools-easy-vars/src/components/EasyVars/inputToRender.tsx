@@ -17,10 +17,8 @@ import {
 // import { INPUT_TYPES } from './constants';
 
 // utils
-import {
-  getDefaultInputValue,
-  getEnumValues,
-} from '@graphiql-v2-prototype/graphiql-editor';
+import { getEnumValues } from '@graphiql-v2-prototype/graphiql-editor';
+import { getDefaultInputValue } from '@graphiql-v2-prototype/graphiql-utils';
 
 export const inputToRender = ({
   currentValue,

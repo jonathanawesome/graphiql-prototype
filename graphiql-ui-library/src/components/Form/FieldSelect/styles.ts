@@ -33,7 +33,8 @@ export const SelectTrigger = styled(SelectPrimitive.SelectTrigger, {
 
 export const SelectContent = styled(SelectPrimitive.Content, {
   overflow: 'hidden',
-  backgroundColor: '$appBackground',
+  // backgroundColor: '$appBackground',
+  backgroundColor: '$white',
   fontSize: 12,
   fontFamily: '$mono',
   borderRadius: 6,

@@ -24,7 +24,7 @@ export const usePathfinder = create<PathfinderStore>((set, get) => ({
   /** end overlay */
 
   /** begin controls */
-  descriptionsVisibility: 'Below',
+  descriptionsVisibility: 'Inline',
   setDescriptionsVisibility: (descriptionsVisibility) => {
     set({ descriptionsVisibility });
   },
