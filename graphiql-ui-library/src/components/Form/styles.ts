@@ -7,6 +7,8 @@ export const FormStyled = styled('form', {
   gap: 12,
 
   fieldset: {
+    all: 'unset',
+    boxSizing: 'border-box',
     '&:disabled': {
       opacity: 0.4,
     },
