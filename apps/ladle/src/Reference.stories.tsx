@@ -12,7 +12,7 @@ import { DialogPluginSettings } from '@graphiql-v2-prototype/graphiql-plugin-dia
 export const Reference = () => {
   return (
     <GraphiQL
-      panePlugins={[PanePluginDocs, PanePluginPathfinder, PanePluginHistory]}
+      panePlugins={[PanePluginPathfinder, PanePluginHistory, PanePluginDocs]}
       dialogPlugins={[DialogPluginSchemaSelector, DialogPluginSettings]}
     />
   );

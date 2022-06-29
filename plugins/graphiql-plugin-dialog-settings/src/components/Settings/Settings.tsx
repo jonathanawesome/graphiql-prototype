@@ -1,13 +1,19 @@
-import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
+// components
+import { GlobalHeaders } from '../GlobalHeaders/GlobalHeaders';
 
-const StyledSettingsDialogContent = styled('div', {
-  fontSize: 10,
-});
+// styles
+import { StyledSettingsDialogContent, SettingsItem, SettingsItemLead } from './styles';
 
 export const Settings = () => {
   return (
     <StyledSettingsDialogContent>
-      There's nothing here except an example of a sidebar dialog. 👈 Try the 🔀 icon.
+      <GlobalHeaders />
+      <SettingsItem>
+        <SettingsItemLead>
+          <span>Theme</span>
+          <p>😉</p>
+        </SettingsItemLead>
+      </SettingsItem>
     </StyledSettingsDialogContent>
   );
 };

@@ -220,10 +220,12 @@ importers:
 
   plugins/graphiql-plugin-dialog-settings:
     specifiers:
+      '@graphiql-v2-prototype/graphiql-editor': workspace:*
       '@graphiql-v2-prototype/graphiql-ui-library': workspace:*
       '@types/react': 17.0.2
       react: 17.0.2
     dependencies:
+      '@graphiql-v2-prototype/graphiql-editor': link:../../graphiql-editor
       '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql-ui-library
       react: 17.0.2
     devDependencies:

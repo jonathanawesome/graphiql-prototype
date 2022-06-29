@@ -1,13 +1,8 @@
-import { styled } from '../../theme';
+import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-export const FormStyled = styled('form', {
-  width: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 12,
-});
+export const GlobalHeadersStyled = styled('div', {});
 
-export const StaticSubmitHandlerButton = styled('button', {
+export const AddNewHeaderButton = styled('button', {
   backgroundColor: '$gray010',
   border: '1px solid transparent',
   color: '$gray100',
@@ -19,7 +14,7 @@ export const StaticSubmitHandlerButton = styled('button', {
   borderRadius: 4,
   fontSize: '$body',
   fontWeight: '$medium',
-  placeSelf: 'flex-end',
+  placeSelf: 'flex-start',
 
   '&:hover': {
     backgroundColor: '$gray015',
