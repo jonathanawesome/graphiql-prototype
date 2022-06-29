@@ -19,6 +19,19 @@ export const PaneWrap = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   height: '100%',
+  position: 'relative',
+  transition: 'opacity .05s $authenticMotion',
+
+  variants: {
+    schemaLoading: {
+      true: {
+        opacity: 0.25,
+      },
+      false: {
+        opacity: 1,
+      },
+    },
+  },
 });
 
 export const SchemaName = styled('div', {

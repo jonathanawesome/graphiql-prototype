@@ -1,6 +1,6 @@
 import {
   GraphiQLEditor,
-  useGraphiQLEditor,
+  useGraphiQLSchema,
 } from '@graphiql-v2-prototype/graphiql-editor';
 
 // components
@@ -26,7 +26,7 @@ type GraphiQLProps = {
 
 export const GraphiQL = ({ panePlugins, dialogPlugins }: GraphiQLProps) => {
   const { activePane } = useGraphiQL();
-  const { schemaName } = useGraphiQLEditor();
+  const { schemaLoading, schemaName } = useGraphiQLSchema();
 
   return (
     <GraphiQLWrap>
@@ -39,7 +39,7 @@ export const GraphiQL = ({ panePlugins, dialogPlugins }: GraphiQLProps) => {
             initialFlexGrowValue: activePane === 'GraphiQL' ? undefined : 0.4,
             component:
               activePane === 'GraphiQL' ? null : (
-                <PaneWrap>
+                <PaneWrap schemaLoading={schemaLoading}>
                   <SchemaName>
                     <span>{schemaName || 'GraphiQL'}</span>
                   </SchemaName>

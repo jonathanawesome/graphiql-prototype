@@ -5,14 +5,14 @@ import { editor as MONACO_EDITOR } from 'monaco-editor';
 import { editorOptions, editorTheme } from '../../constants';
 
 // hooks
-import { useGraphiQLEditor } from '../../hooks';
+import { useGraphiQLEditor, useGraphiQLSchema } from '../../hooks';
 import type { MonacoEditorTypes } from '../../hooks';
 
 // styles
 import { MonacoEditorStyled, MonacoWrap } from './styles';
 
 const addMonacoEditor = useGraphiQLEditor.getState().addMonacoEditor;
-const runOperationAction = useGraphiQLEditor.getState().runOperationAction;
+const runOperationAction = useGraphiQLSchema.getState().runOperationAction;
 const updateOperationDefinitionFromModelValue =
   useGraphiQLEditor.getState().updateOperationDefinitionFromModelValue;
 

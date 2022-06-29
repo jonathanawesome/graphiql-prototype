@@ -1,11 +1,12 @@
 import { Play, Prettier } from '@graphiql-v2-prototype/graphiql-ui-library';
-import { useGraphiQLEditor } from '../../hooks';
+import { useGraphiQLEditor, useGraphiQLSchema } from '../../hooks';
 
 // styles
 import { OperationActionsWrap, PlayButton, PrettierButton } from './styles';
 
 export const OperationActions = () => {
-  const { executeOperation, monacoEditors } = useGraphiQLEditor();
+  const { monacoEditors } = useGraphiQLEditor();
+  const { executeOperation } = useGraphiQLSchema();
 
   const operationEditor = monacoEditors.find((e) => e.name === 'operation');
 

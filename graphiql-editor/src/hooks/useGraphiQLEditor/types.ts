@@ -1,4 +1,4 @@
-import { GraphQLSchema, OperationDefinitionNode } from 'graphql';
+import { OperationDefinitionNode } from 'graphql';
 import { editor as MONACO_EDITOR } from 'monaco-editor';
 import type { MonacoGraphQLAPI } from 'monaco-graphql';
 
@@ -19,6 +19,7 @@ export type GraphiQLEditorStore = {
   activeEditorTabId: string | null;
   setActiveEditorTabId: ({ editorTabId }: { editorTabId: string }) => void;
   editorTabs: EditorTab[];
+  resetEditorTabs: () => void;
   initializeAndActivateEditorTab: () => void;
   addEditorTab: () => string;
   removeEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
@@ -56,11 +57,4 @@ export type GraphiQLEditorStore = {
     editor: MONACO_EDITOR.IStandaloneCodeEditor;
     name: MonacoEditorTypes;
   }) => void;
-  executeOperation: () => Promise<void>;
-  runOperationAction: () => MONACO_EDITOR.IActionDescriptor;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  schema: GraphQLSchema | null | { error: any };
-  schemaUrl: string | null;
-  schemaName: string | null;
-  initSchema: ({ name, url }: { name?: string; url?: string }) => Promise<void>;
 };

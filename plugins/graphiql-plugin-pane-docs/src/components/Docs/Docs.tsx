@@ -6,7 +6,7 @@ import { DocsPanel } from '../DocsPanel';
 
 // hooks
 import { DocPlacement, useDocs } from '../../hooks';
-import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
+import { useGraphiQLSchema } from '@graphiql-v2-prototype/graphiql-editor';
 
 // styles
 import { DocsStyled } from './styles';
@@ -14,7 +14,7 @@ import { DocsStyled } from './styles';
 export const Docs = ({ placement = 'EXPLORER' }: { placement: DocPlacement }) => {
   const { getDocsInstance, initDocsInstance } = useDocs();
 
-  const { schema } = useGraphiQLEditor();
+  const { schema } = useGraphiQLSchema();
 
   const docsInstanceExplorer = getDocsInstance({ placement: 'EXPLORER' });
   const docsInstancePathfinder = getDocsInstance({ placement: 'PATHFINDER' });

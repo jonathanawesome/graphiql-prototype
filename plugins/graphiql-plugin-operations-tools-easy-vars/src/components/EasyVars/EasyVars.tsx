@@ -1,8 +1,12 @@
-import { NamedTypeNode, VariableDefinitionNode } from 'graphql';
+import {
+  // NamedTypeNode,
+  VariableDefinitionNode,
+} from 'graphql';
 import {
   getActiveEditorTab,
   getDisplayStringFromVariableDefinitionTypeNode,
   useGraphiQLEditor,
+  useGraphiQLSchema,
 } from '@graphiql-v2-prototype/graphiql-editor';
 
 // styles
@@ -29,7 +33,7 @@ const EasyVar = ({
   currentValue: string;
   variableDefinition: VariableDefinitionNode;
 }) => {
-  const { schema } = useGraphiQLEditor();
+  const { schema } = useGraphiQLSchema();
 
   console.log('rendering easyVar', {
     variableDefinition,

@@ -6,7 +6,10 @@ import {
 } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 // hooks
-import { GlobalHeader, useGlobalHeaders } from '@graphiql-v2-prototype/graphiql-editor';
+import {
+  GlobalHeader,
+  useGraphiQLGlobalHeaders,
+} from '@graphiql-v2-prototype/graphiql-editor';
 
 // styles
 import { HeaderInputStyled, RemoveHeaderButton } from './styles';
@@ -16,7 +19,7 @@ export type HeaderInputProps = {
 };
 
 export const HeaderInput = ({ headerData }: HeaderInputProps) => {
-  const { removeGlobalHeader, updateGlobalHeader } = useGlobalHeaders();
+  const { removeGlobalHeader, updateGlobalHeader } = useGraphiQLGlobalHeaders();
 
   const handleChange = ({ name, value }: HandleChange) => {
     // console.log('handleChange', { name, value });

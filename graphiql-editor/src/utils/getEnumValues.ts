@@ -1,7 +1,7 @@
 import { isEnumType } from 'graphql';
 
 // hooks
-import { useGraphiQLEditor } from '../hooks';
+import { useGraphiQLSchema } from '../hooks';
 
 // types
 import { FieldSelectOption } from '@graphiql-v2-prototype/graphiql-ui-library';
@@ -11,7 +11,7 @@ export const getEnumValues = ({
 }: {
   enumTypeName: string;
 }): Array<FieldSelectOption> | undefined => {
-  const schema = useGraphiQLEditor.getState().schema;
+  const schema = useGraphiQLSchema.getState().schema;
 
   if (!schema || 'error' in schema) {
     return undefined;

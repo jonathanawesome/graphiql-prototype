@@ -1,35 +1,21 @@
 import create from 'zustand';
 import { initializeMode } from 'monaco-graphql/esm/initializeMode';
-import { KeyCode, KeyMod } from 'monaco-editor';
 import cuid from 'cuid';
-import * as JSONC from 'jsonc-parser';
-import {
-  buildClientSchema,
-  ExecutableDefinitionNode,
-  getIntrospectionQuery,
-  IntrospectionQuery,
-  isExecutableDefinitionNode,
-  Kind,
-} from 'graphql';
+import { ExecutableDefinitionNode, isExecutableDefinitionNode, Kind } from 'graphql';
 
 // constants
 import { defaultOperation, defaultResults, defaultVariables } from '../../constants';
-
-// test schema
-import testSchema from './testSchema.js';
 
 // types
 import { GraphiQLEditorStore } from './types';
 
 // utils
 import {
-  fetcher,
   getActiveEditorTab,
   getOrCreateModel,
   parseQuery,
   pushEditOperationsToModel,
 } from '../../utils';
-import { useGlobalHeaders } from '../useGlobalHeaders';
 
 export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   monacoGraphQLAPI: initializeMode({
@@ -45,6 +31,9 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     set({ activeEditorTabId: editorTabId });
   },
   editorTabs: [],
+  resetEditorTabs: () => {
+    set({ editorTabs: [] });
+  },
   initializeAndActivateEditorTab: () => {
     const addEditorTab = get().addEditorTab;
     const switchEditorTab = get().switchEditorTab;
@@ -57,7 +46,6 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   },
   addEditorTab: () => {
     const editorTabs = get().editorTabs;
-    // const addEditorTab = get().addEditorTab;
     const switchEditorTab = get().switchEditorTab;
 
     const newEditorTabId = cuid.slug();
@@ -95,7 +83,6 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     return newEditorTabId;
   },
   removeEditorTab: ({ editorTabId }) => {
-    // console.log('removeEditorTab', { editorTabId });
     const editorTabs = get().editorTabs;
     const switchEditorTab = get().switchEditorTab;
     // filter the tab we're removing from our editorTabs array
@@ -300,126 +287,4 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       set({ monacoEditors: [...monacoEditors, { editor, name }] });
     }
   },
-  executeOperation: async () => {
-    const activeEditor = getActiveEditorTab();
-    const updateModel = get().updateModel;
-    const schemaUrl = get().schemaUrl;
-
-    if (schemaUrl && activeEditor) {
-      const operationModelValue = activeEditor.operationModel.getValue();
-      const variablesModelValue = activeEditor.variablesModel.getValue();
-      const headersModelValue = activeEditor.headersModel.getValue();
-
-      const tabHeaders = JSONC.parse(headersModelValue);
-      const globalHeaders = useGlobalHeaders.getState().globalHeaders.reduce(
-        (a, globalHeader) => ({
-          ...a,
-          [globalHeader.header.name]: globalHeader.header.value,
-        }),
-        {}
-      );
-
-      try {
-        const result = await fetcher({
-          headers: { ...tabHeaders, ...globalHeaders },
-          url: schemaUrl,
-        })({
-          operationName: activeEditor.operationDefinition?.name?.value || '',
-          query: operationModelValue,
-          variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
-        });
-
-        // console.log('running executeOperation', {
-        //   operationName: activeEditor.operationDefinition?.name?.value || '',
-        //   query: operationModelValue,
-        //   variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
-        //   result,
-        // });
-
-        updateModel({
-          modelType: 'resultsModel',
-          newValue: JSON.stringify(result, null, 2),
-        });
-      } catch (error) {
-        updateModel({
-          modelType: 'resultsModel',
-          newValue: JSON.stringify(error, Object.getOwnPropertyNames(error), 2),
-        });
-      }
-    } else {
-      alert(
-        `Schucks...you're trying to run an operation on the test schema, but it's not backed by a server. Try the 🔀 icon in the sidebar to explore other schemas.`
-      );
-    }
-  },
-  schemaName: null,
-  schemaUrl: null,
-  schema: null,
-  initSchema: async ({ name, url }) => {
-    const monacoGraphQLAPI = get().monacoGraphQLAPI;
-
-    const initializeAndActivateEditorTab = get().initializeAndActivateEditorTab;
-
-    set({
-      // "reset" editorTabs
-      editorTabs: [],
-    });
-
-    initializeAndActivateEditorTab();
-
-    if (!url) {
-      set({ schema: testSchema, schemaName: 'testSchema', schemaUrl: null });
-      console.log('no URL provided, setting testSchema');
-
-      return monacoGraphQLAPI.setSchemaConfig([
-        {
-          schema: testSchema,
-          uri: `testSchema-schema.graphql`,
-        },
-      ]);
-    } else {
-      console.log('initializing schema:', { url });
-      const globalHeaders = useGlobalHeaders.getState().globalHeaders;
-      try {
-        const result = await fetcher({
-          headers: globalHeaders.reduce(
-            (a, globalHeader) => ({
-              ...a,
-              [globalHeader.header.name]: globalHeader.header.value,
-            }),
-            {}
-          ),
-          url,
-        })({
-          query: getIntrospectionQuery(),
-          operationName: 'IntrospectionQuery',
-        });
-
-        const schema = buildClientSchema(result.data as unknown as IntrospectionQuery);
-
-        set({ schema, schemaName: name || 'Schema name not provided', schemaUrl: url });
-
-        return monacoGraphQLAPI.setSchemaConfig([
-          {
-            schema,
-            uri: `${url}-schema.graphql`,
-          },
-        ]);
-      } catch (error) {
-        return set({
-          schema: { error },
-          schemaName: 'Error fetching schema',
-          schemaUrl: null,
-        });
-      }
-    }
-  },
-  runOperationAction: () => ({
-    id: 'graphql-run-operation',
-    label: 'Run Operation',
-    contextMenuOrder: 0,
-    contextMenuGroupId: 'graphql',
-    keybindings: [KeyMod.CtrlCmd | KeyCode.Enter],
-    run: get().executeOperation,
-  }),
 }));
