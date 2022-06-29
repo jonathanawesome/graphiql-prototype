@@ -5,6 +5,12 @@ export const FormStyled = styled('form', {
   display: 'flex',
   flexDirection: 'column',
   gap: 12,
+
+  fieldset: {
+    '&:disabled': {
+      opacity: 0.4,
+    },
+  },
 });
 
 export const StaticSubmitHandlerButton = styled('button', {
@@ -24,5 +30,9 @@ export const StaticSubmitHandlerButton = styled('button', {
   '&:hover': {
     backgroundColor: '$gray015',
     border: '1px solid $gray015',
+  },
+
+  '&:disabled': {
+    opacity: 0.4,
   },
 });

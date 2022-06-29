@@ -12,22 +12,27 @@ import { DynamicFormProps, FormControlProps, StaticFormProps } from './types';
 export const Form = ({
   formControls,
   formType,
+  loading = false,
 }: {
   formControls: FormControlProps[];
   formType: DynamicFormProps | StaticFormProps;
+  loading?: boolean;
 }) => {
   return (
     <FormStyled onSubmit={(e) => e.preventDefault()}>
-      {formControls.map((f, i) => (
-        <FormControl
-          key={`${i}-${f.label}`}
-          control={f.control}
-          label={f.label}
-          labelAddOn={f.labelAddOn}
-        />
-      ))}
+      <fieldset disabled={loading}>
+        {formControls.map((f, i) => (
+          <FormControl
+            key={`${i}-${f.label}`}
+            control={f.control}
+            label={f.label}
+            labelAddOn={f.labelAddOn}
+          />
+        ))}
+      </fieldset>
       {formType.type === 'STATIC' && (
         <StaticSubmitHandlerButton
+          disabled={loading}
           onClick={(e) => {
             e.preventDefault();
             formType.submitHandler(e);
