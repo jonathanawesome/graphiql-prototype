@@ -15,6 +15,16 @@
       "filePath": "src/DescriptionListItem.stories.tsx",
       "meta": {}
     },
+    "dialog-settings--settings": {
+      "name": "Settings",
+      "levels": [
+        "Dialog settings"
+      ],
+      "locStart": 4,
+      "locEnd": 7,
+      "filePath": "src/DialogSettings.stories.tsx",
+      "meta": {}
+    },
     "easy-vars--easy-vars": {
       "name": "Easy vars",
       "levels": [
@@ -136,6 +146,17 @@
       ],
       "locStart": 92,
       "locEnd": 163,
+      "filePath": "src/Forms--Form.stories.tsx",
+      "meta": {}
+    },
+    "forms---form--headers-form": {
+      "name": "Headers form",
+      "levels": [
+        "Forms",
+        " form"
+      ],
+      "locStart": 167,
+      "locEnd": 238,
       "filePath": "src/Forms--Form.stories.tsx",
       "meta": {}
     },
