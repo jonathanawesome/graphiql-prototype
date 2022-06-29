@@ -60,16 +60,21 @@ export const RadioGroupIndicator = styled(RadioGroupPrimitive.Indicator, {
 });
 
 export const RadioGroup = styled(RadioGroupPrimitive.Root, {
+  position: 'relative',
   margin: '12px 0',
+
   fieldset: {
     all: 'unset',
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'column',
     gap: 12,
+    transform: 'scale(1)',
+    transition: 'all .15s $authenticMotion',
 
     '&:disabled': {
-      opacity: 0.5,
+      transform: 'scale(0.98)',
+      opacity: 0.15,
     },
   },
 });
@@ -95,6 +100,28 @@ export const RadioWrap = styled('div', {
       color: '$gray100',
       fontSize: '$body',
       lineHeight: 1,
+    },
+  },
+});
+
+export const SpinnerWrap = styled('div', {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transition: 'all .1s $authenticMotion',
+
+  variants: {
+    loading: {
+      false: {
+        visibility: 'hidden',
+        opacity: 0,
+        transform: 'translate3d(-50%, -50%, 0) scale(0.5)',
+      },
+      true: {
+        visibility: 'visible',
+        opacity: 1,
+        transform: 'translate3d(-50%, -50%, 0) scale(1)',
+      },
     },
   },
 });

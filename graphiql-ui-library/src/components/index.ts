@@ -12,6 +12,8 @@ export { Popover } from './Popover';
 
 export { Resizer } from './Resizer';
 
+export { Spinner } from './Spinner';
+
 export { Tabs } from './Tabs';
 
 export { ToggleGroup } from './ToggleGroup';

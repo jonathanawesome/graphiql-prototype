@@ -12,8 +12,9 @@ import {
   RadioGroup,
   RadioGroupIndicator,
   RadioGroupRadio,
+  SpinnerWrap,
 } from './styles';
-import { Form, HandleChange } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Form, HandleChange, Spinner } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 type ApiUrls = Record<string, { aboutUrl: string; apiUrl: string }>;
 
@@ -61,11 +62,9 @@ const Radio = ({
 const customSchemaUrlInput = 'customSchemaUrlInput';
 
 export const SchemaSelector = () => {
-  const { initSchema, schema, schemaUrl } = useGraphiQLSchema();
+  const { initSchema, schema, schemaLoading, schemaUrl } = useGraphiQLSchema();
 
   const [schemaError, setSchemaError] = useState<string | null>(null);
-
-  const [loading, setLoading] = useState<boolean>(false);
 
   const [customSchemaUrl, setCustomSchemaUrl] = useState<string>('');
 
@@ -76,16 +75,12 @@ export const SchemaSelector = () => {
   const [targetSchemaUrl, setTargetSchemaUrl] = useState<string>('');
 
   useEffect(() => {
-    if (schema) {
-      if ('error' in schema) {
-        setLoading(false);
-        setSchemaError('Error loading schema. Is the URL formatted correctly?');
-      } else {
-        setLoading(false);
-        setSchemaError(null);
-      }
+    if (schema && 'error' in schema) {
+      setSchemaError(
+        'Error loading schema. Is the URL formatted correctly? Does your API require auth headers?'
+      );
     } else {
-      setLoading(true);
+      setSchemaError(null);
     }
   }, [schema]);
 
@@ -136,7 +131,7 @@ export const SchemaSelector = () => {
         return undefined;
       }}
     >
-      <fieldset disabled={loading}>
+      <fieldset disabled={schemaLoading}>
         <Radio
           aboutUrl="https://github.com/graphql/graphiql/blob/main/packages/graphiql/test/schema.js"
           value="testSchema"
@@ -166,6 +161,7 @@ export const SchemaSelector = () => {
                     label: `Your schema URL`,
                   },
                 ]}
+                loading={schemaLoading}
               />
             </CustomSchemaFormWrap>
           )}
@@ -183,6 +179,9 @@ export const SchemaSelector = () => {
           );
         })}
       </fieldset>
+      <SpinnerWrap loading={schemaLoading}>
+        <Spinner />
+      </SpinnerWrap>
     </RadioGroup>
   );
 };
