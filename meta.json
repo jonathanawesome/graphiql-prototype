@@ -281,6 +281,16 @@
       "locEnd": 67,
       "filePath": "src/Resizer.stories.tsx",
       "meta": {}
+    },
+    "spinner--spinner": {
+      "name": "Spinner",
+      "levels": [
+        "Spinner"
+      ],
+      "locStart": 3,
+      "locEnd": 5,
+      "filePath": "src/Spinner.stories.tsx",
+      "meta": {}
     }
   }
 }
