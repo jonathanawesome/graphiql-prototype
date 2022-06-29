@@ -6,7 +6,7 @@ import { Command } from '@graphiql-v2-prototype/graphiql-ui-library';
 import { Search } from '../../icons';
 
 // hooks
-import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
+import { useGraphiQLSchema } from '@graphiql-v2-prototype/graphiql-editor';
 import { usePathfinder } from '../../hooks';
 
 // styles
@@ -19,16 +19,12 @@ import {
 } from './styles';
 
 export const Pathfinder = () => {
-  const { schema } = useGraphiQLEditor();
+  const { schema } = useGraphiQLSchema();
   const { overlay } = usePathfinder();
 
-  if (!schema) {
-    //TODO: some loading skeleton
-    return <p>loading schema...</p>;
-  }
-  if ('error' in schema) {
-    //TODO: some error skeleton
-    return <p>error loading schema.</p>;
+  if (!schema || 'error' in schema) {
+    //TODO: loading/error skeleton
+    return null;
   }
 
   const queryType = schema.getQueryType();

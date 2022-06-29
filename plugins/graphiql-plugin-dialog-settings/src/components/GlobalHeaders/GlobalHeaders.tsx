@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { HeaderInput } from '../HeaderInput';
 
 // hooks
-import { useGlobalHeaders } from '@graphiql-v2-prototype/graphiql-editor';
+import { useGraphiQLGlobalHeaders } from '@graphiql-v2-prototype/graphiql-editor';
 
 // styles
 import { SettingsItem, SettingsItemLead } from '../Settings/styles';
@@ -12,7 +12,7 @@ import { AddNewHeaderButton, GlobalHeadersStyled } from './styles';
 
 export const GlobalHeaders = () => {
   const [inputs, setInputs] = useState<Array<React.ReactElement>>();
-  const { addGlobalHeader, globalHeaders } = useGlobalHeaders();
+  const { addGlobalHeader, globalHeaders } = useGraphiQLGlobalHeaders();
 
   useEffect(() => {
     if (globalHeaders) {

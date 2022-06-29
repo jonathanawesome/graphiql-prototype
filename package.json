@@ -20,9 +20,10 @@
     "graphiql-plugin-dialog-schema-selector:tsc": "pnpm --filter @graphiql-v2-prototype/graphiql-plugin-dialog-schema-selector tsc",
     "graphiql-plugin-dialog-settings:tsc": "pnpm --filter @graphiql-v2-prototype/graphiql-plugin-dialog-settings tsc",
     "graphiql-plugin-operations-tools-easy-vars:tsc": "pnpm --filter @graphiql-v2-prototype/graphiql-plugin-operations-tools-easy-vars tsc",
+    "graphiql-plugin-pane-docs:tsc": "pnpm --filter @graphiql-v2-prototype/graphiql-plugin-pane-docs tsc",
     "graphiql-plugin-pane-history:tsc": "pnpm --filter @graphiql-v2-prototype/graphiql-plugin-pane-history tsc",
     "graphiql-plugin-pane-pathfinder:tsc": "pnpm --filter @graphiql-v2-prototype/graphiql-plugin-pane-pathfinder tsc",
-    "tsc": "pnpm api:tsc && pnpm graphiql-v2:tsc && pnpm graphiql-ui-library:tsc && pnpm graphiql-plugin-dialog-schema-selector:tsc  && pnpm graphiql-plugin-dialog-settings:tsc  && pnpm graphiql-plugin-operations-tools-easy-vars:tsc  && pnpm graphiql-plugin-pane-history:tsc && pnpm graphiql-plugin-pane-pathfinder:tsc"
+    "tsc": "pnpm api:tsc && pnpm graphiql-v2:tsc && pnpm graphiql-ui-library:tsc && pnpm graphiql-plugin-dialog-schema-selector:tsc  && pnpm graphiql-plugin-dialog-settings:tsc  && pnpm graphiql-plugin-operations-tools-easy-vars:tsc  && pnpm graphiql-plugin-pane-docs:tsc && pnpm graphiql-plugin-pane-history:tsc && pnpm graphiql-plugin-pane-pathfinder:tsc"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.27.0",

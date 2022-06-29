@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 // hooks
-import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
+import { useGraphiQLSchema } from '@graphiql-v2-prototype/graphiql-editor';
 
 // styles
 import {
@@ -61,7 +61,7 @@ const Radio = ({
 const customSchemaUrlInput = 'customSchemaUrlInput';
 
 export const SchemaSelector = () => {
-  const { initSchema, schema, schemaUrl } = useGraphiQLEditor();
+  const { initSchema, schema, schemaUrl } = useGraphiQLSchema();
 
   const [schemaError, setSchemaError] = useState<string | null>(null);
 
@@ -136,7 +136,6 @@ export const SchemaSelector = () => {
         return undefined;
       }}
     >
-      <Note>Switching schemas will reset existing tab instances</Note>
       <fieldset disabled={loading}>
         <Radio
           aboutUrl="https://github.com/graphql/graphiql/blob/main/packages/graphiql/test/schema.js"
@@ -149,6 +148,7 @@ export const SchemaSelector = () => {
           {schemaError && <Error>{schemaError}</Error>}
           {radioValue === customSchemaUrlInput && (
             <CustomSchemaFormWrap>
+              <Note>Global headers can be set via the settings dialog.</Note>
               <Form
                 formType={{
                   type: 'STATIC',

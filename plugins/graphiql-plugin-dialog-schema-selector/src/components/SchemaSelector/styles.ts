@@ -8,9 +8,13 @@ export const CustomSchemaFormWrap = styled('div', {
 
 export const Note = styled('span', {
   display: 'block',
-  fontSize: '$body',
+  fontSize: '$mini',
   color: '$info100',
-  marginBottom: 24,
+  backgroundColor: '$info010',
+  border: '1px solid $info060',
+  borderRadius: 2,
+  marginBottom: 12,
+  padding: 6,
 });
 
 export const Error = styled('span', {

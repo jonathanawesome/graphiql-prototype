@@ -6,7 +6,7 @@ export type GlobalHeader = {
   };
 };
 
-export type GlobalHeadersStore = {
+export type GraphiQLGlobalHeadersStore = {
   globalHeaders: Array<GlobalHeader>;
   addGlobalHeader: () => void;
   removeGlobalHeader: ({ id }: { id: string }) => void;

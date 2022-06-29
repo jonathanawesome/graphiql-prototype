@@ -10,7 +10,7 @@ import { Separator } from '../Separator';
 
 // hooks
 import { DocPlacement, useDocs } from '../../hooks';
-import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
+import { useGraphiQLSchema } from '@graphiql-v2-prototype/graphiql-editor';
 
 export const Interface = ({
   placement,
@@ -21,7 +21,7 @@ export const Interface = ({
 }) => {
   const { navigateForward } = useDocs();
 
-  const { schema } = useGraphiQLEditor();
+  const { schema } = useGraphiQLSchema();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [fields, setFields] = useState<GraphQLFieldMap<any, any> | null>(null);
