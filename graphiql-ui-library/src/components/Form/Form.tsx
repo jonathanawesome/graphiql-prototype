@@ -4,7 +4,7 @@ import React from 'react';
 import { FormControl } from './FormControl';
 
 // styles
-import { FormStyled, StaticSubmitHandler } from './styles';
+import { FormStyled, StaticSubmitHandlerButton } from './styles';
 
 // types
 import { DynamicFormProps, FormControlProps, StaticFormProps } from './types';
@@ -27,14 +27,14 @@ export const Form = ({
         />
       ))}
       {formType.type === 'STATIC' && (
-        <StaticSubmitHandler
+        <StaticSubmitHandlerButton
           onClick={(e) => {
             e.preventDefault();
             formType.submitHandler(e);
           }}
         >
           {formType.buttonCopy ? formType.buttonCopy : 'Submit'}
-        </StaticSubmitHandler>
+        </StaticSubmitHandlerButton>
       )}
     </FormStyled>
   );

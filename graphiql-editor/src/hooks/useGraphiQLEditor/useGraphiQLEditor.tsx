@@ -29,6 +29,7 @@ import {
   parseQuery,
   pushEditOperationsToModel,
 } from '../../utils';
+import { useGlobalHeaders } from '../useGlobalHeaders';
 
 export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   monacoGraphQLAPI: initializeMode({
@@ -309,28 +310,45 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       const variablesModelValue = activeEditor.variablesModel.getValue();
       const headersModelValue = activeEditor.headersModel.getValue();
 
-      const headers = JSONC.parse(headersModelValue);
+      const tabHeaders = JSONC.parse(headersModelValue);
+      const globalHeaders = useGlobalHeaders.getState().globalHeaders.reduce(
+        (a, globalHeader) => ({
+          ...a,
+          [globalHeader.header.name]: globalHeader.header.value,
+        }),
+        {}
+      );
 
-      const result = await fetcher({ headers, url: schemaUrl })({
-        operationName: activeEditor.operationDefinition?.name?.value || '',
-        query: operationModelValue,
-        variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
-      });
+      try {
+        const result = await fetcher({
+          headers: { ...tabHeaders, ...globalHeaders },
+          url: schemaUrl,
+        })({
+          operationName: activeEditor.operationDefinition?.name?.value || '',
+          query: operationModelValue,
+          variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
+        });
 
-      console.log('running executeOperation', {
-        operationName: activeEditor.operationDefinition?.name?.value || '',
-        query: operationModelValue,
-        variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
-        result,
-      });
+        // console.log('running executeOperation', {
+        //   operationName: activeEditor.operationDefinition?.name?.value || '',
+        //   query: operationModelValue,
+        //   variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
+        //   result,
+        // });
 
-      updateModel({
-        modelType: 'resultsModel',
-        newValue: JSON.stringify(result, null, 2),
-      });
+        updateModel({
+          modelType: 'resultsModel',
+          newValue: JSON.stringify(result, null, 2),
+        });
+      } catch (error) {
+        updateModel({
+          modelType: 'resultsModel',
+          newValue: JSON.stringify(error, Object.getOwnPropertyNames(error), 2),
+        });
+      }
     } else {
       alert(
-        `Schucks...you're trying to run an operation on the test schema, but it's not backed by a server. Try the 🔀 icon in the sidebar to explore publicly available schemas.`
+        `Schucks...you're trying to run an operation on the test schema, but it's not backed by a server. Try the 🔀 icon in the sidebar to explore other schemas.`
       );
     }
   },
@@ -361,9 +379,18 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       ]);
     } else {
       console.log('initializing schema:', { url });
-
+      const globalHeaders = useGlobalHeaders.getState().globalHeaders;
       try {
-        const result = await fetcher({ url })({
+        const result = await fetcher({
+          headers: globalHeaders.reduce(
+            (a, globalHeader) => ({
+              ...a,
+              [globalHeader.header.name]: globalHeader.header.value,
+            }),
+            {}
+          ),
+          url,
+        })({
           query: getIntrospectionQuery(),
           operationName: 'IntrospectionQuery',
         });

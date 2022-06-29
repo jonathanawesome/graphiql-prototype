@@ -1,6 +1,6 @@
 export { GraphiQLEditor } from './components';
 
-export { useGraphiQLEditor } from './hooks';
+export * from './hooks';
 
 export {
   getActiveEditorTab,
