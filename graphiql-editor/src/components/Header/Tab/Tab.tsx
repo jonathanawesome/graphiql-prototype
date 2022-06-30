@@ -24,13 +24,14 @@ export const Tab = ({
 
   const [tabName, setTabName] = useState<string | null>(null);
 
-  console.log('rendering Tab', {
-    // editorTabs
-  });
+  // console.log('rendering Tab', {
+  //   editorTabs,
+  //   tabName,
+  //   editorTabId,
+  // });
 
   useEffect(() => {
     const tab = editorTabs.find((tab) => tab.editorTabId === editorTabId);
-    console.log('rendering Tab, tab is changing', { editorTabs });
 
     if (tab?.operationDefinition?.name) {
       if (tab.operationDefinition.name.value !== tabName) {
