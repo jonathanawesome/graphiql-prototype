@@ -1,9 +1,9 @@
+import { useState } from 'react';
 import {
   DescriptionListItem,
   DescriptionListItemProps,
   styled,
 } from '@graphiql-v2-prototype/graphiql-ui-library';
-import { useState } from 'react';
 
 const FlexColumn = styled('div', {
   display: 'flex',
@@ -117,5 +117,4 @@ export const DescriptionListItemStory = () => {
     </FlexColumn>
   );
 };
-
 DescriptionListItemStory.storyName = 'DescriptionListItem';
