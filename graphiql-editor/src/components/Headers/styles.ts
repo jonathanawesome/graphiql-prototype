@@ -8,7 +8,7 @@ export const HeadersEditor = styled('div', {
   variants: {
     isVisible: {
       true: {
-        padding: '4px 16px 8px',
+        padding: '4px 8px 8px',
         height: 150,
         opacity: 1,
         visibility: 'visible',
