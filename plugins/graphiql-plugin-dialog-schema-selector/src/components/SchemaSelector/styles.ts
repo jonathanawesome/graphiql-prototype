@@ -73,7 +73,7 @@ export const RadioGroup = styled(RadioGroupPrimitive.Root, {
     transition: 'all .15s $authenticMotion',
 
     '&:disabled': {
-      transform: 'scale(0.98)',
+      transform: 'scale(0.99)',
       opacity: 0.15,
     },
   },

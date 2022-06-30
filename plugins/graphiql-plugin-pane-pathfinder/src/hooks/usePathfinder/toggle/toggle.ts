@@ -171,6 +171,7 @@ export const toggle = ({
             ancestor,
             nextAction: get().nextAction,
             nextSelectionSet: get().nextSelectionSet,
+            setNextAction,
             setNextSelectionSet,
           });
         } else {

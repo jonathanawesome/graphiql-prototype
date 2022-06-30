@@ -19,6 +19,11 @@ import { Form, HandleChange, Spinner } from '@graphiql-v2-prototype/graphiql-ui-
 type ApiUrls = Record<string, { aboutUrl: string; apiUrl: string }>;
 
 const apiUrls: ApiUrls = {
+  [`Official GraphiQL Test Schema`]: {
+    aboutUrl:
+      'https://github.com/graphql/graphiql/blob/main/packages/graphiql/test/schema.js',
+    apiUrl: 'testSchema',
+  },
   [`Rick and Morty`]: {
     aboutUrl: 'https://rickandmortyapi.com/about',
     apiUrl: 'https://rickandmortyapi.com/graphql',
@@ -74,6 +79,34 @@ export const SchemaSelector = () => {
 
   const [targetSchemaUrl, setTargetSchemaUrl] = useState<string>('');
 
+  console.log('SchemaSelector', {
+    radioValue,
+    targetSchemaUrl,
+    schemaUrl,
+    map: Object.keys(apiUrls).map((k) => apiUrls[k].apiUrl),
+    includes:
+      Object.keys(apiUrls)
+        .map((k) => apiUrls[k].apiUrl)
+        .includes(schemaUrl as string) || !schemaUrl,
+  });
+
+  useEffect(() => {
+    if (schemaUrl) {
+      if (
+        Object.keys(apiUrls)
+          .map((k) => apiUrls[k].apiUrl)
+          .includes(schemaUrl as string) ||
+        !schemaUrl
+      ) {
+        // alert('');
+        setRadioValue(schemaUrl);
+      } else {
+        setRadioValue(customSchemaUrlInput);
+        setCustomSchemaUrl(schemaUrl);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     if (schema && 'error' in schema) {
       setSchemaError(
@@ -85,7 +118,6 @@ export const SchemaSelector = () => {
   }, [schema]);
 
   useEffect(() => {
-    // console.log('targetSchemaUrl', { targetSchemaUrl, schemaUrl });
     if (targetSchemaUrl === 'testSchema') {
       initSchema({});
     } else if (targetSchemaUrl.length > 0) {
@@ -132,14 +164,20 @@ export const SchemaSelector = () => {
       }}
     >
       <fieldset disabled={schemaLoading}>
-        <Radio
-          aboutUrl="https://github.com/graphql/graphiql/blob/main/packages/graphiql/test/schema.js"
-          value="testSchema"
-          id="1"
-          copy="Official GraphiQL Test Schema"
-        />
+        {Object.keys(apiUrls).map((x, i) => {
+          const id = (i + 2).toString();
+          return (
+            <Radio
+              key={id}
+              aboutUrl={apiUrls[x].aboutUrl}
+              value={apiUrls[x].apiUrl}
+              id={id}
+              copy={x}
+            />
+          );
+        })}
         <div>
-          <Radio value={customSchemaUrlInput} id="2" copy="Custom Schema Url" />
+          <Radio value={customSchemaUrlInput} id="10" copy="Custom Schema Url" />
           {schemaError && <Error>{schemaError}</Error>}
           {radioValue === customSchemaUrlInput && (
             <CustomSchemaFormWrap>
@@ -166,18 +204,6 @@ export const SchemaSelector = () => {
             </CustomSchemaFormWrap>
           )}
         </div>
-        {Object.keys(apiUrls).map((x, i) => {
-          const id = (i + 5).toString();
-          return (
-            <Radio
-              key={id}
-              aboutUrl={apiUrls[x].aboutUrl}
-              value={apiUrls[x].apiUrl}
-              id={id}
-              copy={x}
-            />
-          );
-        })}
       </fieldset>
       <SpinnerWrap loading={schemaLoading}>
         <Spinner />

@@ -15,7 +15,7 @@ export const Docs = () => {
         fillRule="evenodd"
         clipRule="evenodd"
         d="M16 22L30 22L30 25L16 25L16 22Z"
-        fill="#000000"
+        fill="#ffffff"
       />
     </svg>
   );
