@@ -1,0 +1,1 @@
+import{a as r}from"./index.86d51604.js";const e=()=>r("svg",{viewBox:"0 0 48 48",fill:"none",xmlns:"http://www.w3.org/2000/svg",children:r("circle",{cx:"24",cy:"24",r:"24",fill:"#000000"})});export{e as S};

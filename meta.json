@@ -204,13 +204,23 @@
       "filePath": "src/Forms--FormControl.stories.tsx",
       "meta": {}
     },
+    "icons--library": {
+      "name": "Library",
+      "levels": [
+        "Icons"
+      ],
+      "locStart": 53,
+      "locEnd": 73,
+      "filePath": "src/Icons.stories.tsx",
+      "meta": {}
+    },
     "pathfinder--pathfinder": {
       "name": "Pathfinder",
       "levels": [
         "Pathfinder"
       ],
-      "locStart": 6,
-      "locEnd": 19,
+      "locStart": 8,
+      "locEnd": 28,
       "filePath": "src/Pathfinder.stories.tsx",
       "meta": {}
     },

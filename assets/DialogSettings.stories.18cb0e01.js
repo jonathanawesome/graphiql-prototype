@@ -1,0 +1,1 @@
+import{D as t}from"./index.4720e9a9.js";import{a as o}from"./index.86d51604.js";import"./Gear.8b46fd06.js";const{dialogPluginContent:n}=t,i=()=>o(n,{});i.storyName="Settings";export{i as SettingsStory};
