@@ -84,6 +84,7 @@ export const handleUpdateParentField = ({
     };
   }
 
+  // clear next action so it doesn't bubble up
   setNextAction(null);
 
   /** update the nextSelectionSet */
