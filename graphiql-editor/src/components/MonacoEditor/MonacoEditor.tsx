@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { editor as MONACO_EDITOR } from 'monaco-editor';
 
 // constants
-import { editorOptions, editorTheme } from '../../constants';
+import { editorOptions } from '../../constants';
 
 // hooks
 import { useGraphiQLEditor, useGraphiQLSchema } from '../../hooks';
@@ -59,8 +59,6 @@ export const MonacoEditor = ({
           updateOperationDefinitionFromModelValue({ value: editor.getValue() });
         });
       }
-
-      MONACO_EDITOR.defineTheme('myTheme', editorTheme);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
