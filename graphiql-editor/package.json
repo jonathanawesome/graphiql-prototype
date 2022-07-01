@@ -6,7 +6,7 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@graphiql-v2-prototype/graphiql-plugin-operations-tools-easy-vars": "workspace:*",
+    "@graphiql-v2-prototype/graphiql-plugin-pane-easy-vars": "workspace:*",
     "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",
     "@graphiql/toolkit": "^0.6.0",
     "@radix-ui/react-collapsible": "^0.1.6",

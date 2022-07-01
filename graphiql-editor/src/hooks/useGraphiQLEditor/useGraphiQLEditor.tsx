@@ -32,17 +32,12 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   },
   editorTabs: [],
   resetEditorTabs: () => {
-    set({ editorTabs: [] });
-  },
-  initializeAndActivateEditorTab: () => {
     const addEditorTab = get().addEditorTab;
-    const switchEditorTab = get().switchEditorTab;
+    // reset
+    set({ editorTabs: [] });
 
-    // generate the tab
-    const newEditorTabId = addEditorTab();
-
-    set({ activeEditorTabId: newEditorTabId });
-    switchEditorTab({ editorTabId: newEditorTabId });
+    // init new tab1
+    addEditorTab();
   },
   addEditorTab: () => {
     const editorTabs = get().editorTabs;
@@ -69,7 +64,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
 
     const newEditorTab = {
       editorTabId: newEditorTabId,
-      editorTabName: '<untitled>',
+      editorTabName: `Tab${editorTabs.length > 0 ? editorTabs.length + 1 : 1}`,
       operationModel,
       variablesModel,
       headersModel,
@@ -79,8 +74,6 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
 
     set({ activeEditorTabId: newEditorTabId, editorTabs: [...editorTabs, newEditorTab] });
     switchEditorTab({ editorTabId: newEditorTabId });
-
-    return newEditorTabId;
   },
   removeEditorTab: ({ editorTabId }) => {
     const editorTabs = get().editorTabs;
@@ -107,6 +100,9 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     // console.log('running switchEditorTab', { monacoEditors, editorTab });
 
     if (editorTab) {
+      // explicitly set the activeEditorTabId
+      set({ activeEditorTabId: editorTabId });
+
       // TODO: there's probably a better way to do this 👇
       const operationsEditor = monacoEditors.find((e) => e.name === 'operation');
       const variablesEditor = monacoEditors.find((e) => e.name === 'variables');
@@ -177,7 +173,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       // 3. return to string
       const newVariablesString = JSON.stringify(parsedVariables, null, ' ');
       // 4. update the model
-      console.log('updateVariable, pushEditOperationsToModel', { newVariablesString });
+      // console.log('updateVariable, pushEditOperationsToModel', { newVariablesString });
       pushEditOperationsToModel({
         model: activeEditorTab.variablesModel,
         text: newVariablesString,
@@ -220,6 +216,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
 
     if (existingEditorTabIndex !== -1) {
       if (!newDefinition) {
+        // if we're here,  user has either manually cleared the operations editor or user has toggled OFF all fields in Pathfinder
         editorTabsCopy[existingEditorTabIndex] = {
           ...editorTabsCopy[existingEditorTabIndex],
           operationDefinition: null,
@@ -244,6 +241,11 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
 
         editorTabsCopy[existingEditorTabIndex] = {
           ...editorTabsCopy[existingEditorTabIndex],
+          // let's ensure we're covering situations where user is explicitly naming their operation
+          // this is the only way, currently, to provide a name for a tab
+          editorTabName:
+            newDefinition.name?.value ||
+            editorTabsCopy[existingEditorTabIndex].editorTabName,
           operationDefinition: newDefinition,
         };
       }

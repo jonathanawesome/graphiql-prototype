@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FieldNode, GraphQLObjectType, OperationTypeNode } from 'graphql';
-import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
+import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
 
 // components
 import { Collapser, Column, Field } from '../index';
@@ -16,13 +16,17 @@ export const RootOperationType = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rootType: GraphQLObjectType<any, any>;
 }) => {
-  const activeEditorTab = getActiveEditorTab();
+  const { activeEditorTabId, editorTabs } = useGraphiQLEditor();
+  const activeEditorTab = editorTabs.find(
+    (editorTab) => editorTab.editorTabId === activeEditorTabId
+  );
 
   const operationDefinition = activeEditorTab?.operationDefinition;
   const activeOperationType = operationDefinition?.operation;
 
   // console.log('rendering RootOperationType', {
   //   operationDefinition,
+  //   activeEditorTab,
   // });
 
   const fields = rootType.getFields();

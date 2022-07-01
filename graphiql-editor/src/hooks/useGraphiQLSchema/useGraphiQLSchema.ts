@@ -78,11 +78,7 @@ export const useGraphiQLSchema = create<GraphiQLSchemaStore>((set, get) => ({
     const monacoGraphQLAPI = useGraphiQLEditor.getState().monacoGraphQLAPI;
     const resetEditorTabs = useGraphiQLEditor.getState().resetEditorTabs;
 
-    const initializeAndActivateEditorTab =
-      useGraphiQLEditor.getState().initializeAndActivateEditorTab;
-
     resetEditorTabs();
-    initializeAndActivateEditorTab();
 
     if (!url) {
       console.log('no URL provided, setting testSchema');

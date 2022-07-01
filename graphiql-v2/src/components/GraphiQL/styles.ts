@@ -21,6 +21,8 @@ export const PaneWrap = styled('div', {
   height: '100%',
   position: 'relative',
   transition: 'opacity .05s $authenticMotion',
+  paddingLeft: 32,
+  paddingRight: 24,
 
   variants: {
     schemaLoading: {
@@ -35,15 +37,17 @@ export const PaneWrap = styled('div', {
 });
 
 export const SchemaName = styled('div', {
-  padding: '12px 32px',
   fontSize: 22,
   fontWeight: 600,
   color: '$gray100',
   position: 'relative',
   height: 52,
+  marginBottom: 12,
 
   span: {
     position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)',
     display: 'block',
   },
 });

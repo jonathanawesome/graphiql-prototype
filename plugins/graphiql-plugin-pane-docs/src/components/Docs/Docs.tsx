@@ -40,13 +40,12 @@ export const Docs = ({ placement = 'EXPLORER' }: { placement: DocPlacement }) =>
           placement: 'EXPLORER',
         });
       }
-
-      if (!docsInstancePathfinder) {
-        // we haven't initialized the Pathfinder instance, let's do it now
-        return initDocsInstance({
-          placement: 'PATHFINDER',
-        });
-      }
+    }
+    if (!docsInstancePathfinder) {
+      // we haven't initialized the Pathfinder instance, let's do it now
+      return initDocsInstance({
+        placement: 'PATHFINDER',
+      });
     }
 
     return undefined;
@@ -71,6 +70,12 @@ export const Docs = ({ placement = 'EXPLORER' }: { placement: DocPlacement }) =>
           },
           placement: 'EXPLORER',
         });
+        initDocsInstance({
+          placement: 'PATHFINDER',
+        });
+      }
+      if (!docsInstancePathfinder) {
+        // we haven't initialized the Pathfinder instance, let's do it now
         initDocsInstance({
           placement: 'PATHFINDER',
         });

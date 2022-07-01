@@ -1,2 +1,2 @@
 export { useGraphiQLEditor } from './useGraphiQLEditor';
-export type { MonacoEditorTypes } from './types';
+export type { EditorTab, MonacoEditorTypes } from './types';

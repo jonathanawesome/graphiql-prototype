@@ -13,18 +13,16 @@ import {
 import { EasyVarsStyled } from './styles';
 
 // types
-import type { HandleChange } from '@graphiql-v2-prototype/graphiql-ui-library';
+import type { HandleChange } from '../index';
 
 // utils
 import { inputToRender } from './inputToRender';
 import {
-  // isVariableDefinitionListType,
+  isVariableDefinitionListType,
   getTypeNameValue,
   parseOutgoingVariableValue,
   parseIncomingVariableValue,
-} from '../../utils';
-
-const updateVariable = useGraphiQLEditor.getState().updateVariable;
+} from '@graphiql-v2-prototype/graphiql-utils';
 
 const EasyVar = ({
   currentValue,
@@ -33,14 +31,15 @@ const EasyVar = ({
   currentValue: string;
   variableDefinition: VariableDefinitionNode;
 }) => {
+  const { updateVariable } = useGraphiQLEditor();
   const { schema } = useGraphiQLSchema();
 
-  console.log('rendering easyVar', {
-    variableDefinition,
-    type: variableDefinition.type,
-  });
+  // console.log('rendering easyVar', {
+  //   variableDefinition,
+  //   type: variableDefinition.type,
+  // });
 
-  // const isList = isVariableDefinitionListType({ type: variableDefinition.type });
+  const isList = isVariableDefinitionListType({ type: variableDefinition.type });
   const typeNameValue = getTypeNameValue({
     type: variableDefinition.type,
   });
@@ -64,6 +63,7 @@ const EasyVar = ({
     displayString,
     graphqlType: schema.getType(typeNameValue),
     handleChange,
+    isList,
     typeNameValue,
     variableDefinition,
   });

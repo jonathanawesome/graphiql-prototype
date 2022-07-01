@@ -2,11 +2,13 @@ import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 export const DocsOverlayStyled = styled('div', {
   padding: 24,
-  height: 'calc(100% - 12px)',
-  width: 'calc(100% - 32px)',
+  height: 'calc(100% + 8px)',
+  width: 'calc(100% + 16px)',
+  // height: '100%',
+  // width: '100%',
   position: 'absolute',
-  top: 12,
-  left: 24,
+  top: -8,
+  left: -8,
   overflowY: 'auto',
   backgroundColor: '$white',
   border: '1px solid $gray015',

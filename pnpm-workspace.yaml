@@ -7,7 +7,7 @@ packages:
   - 'graphiql-v2'
   - 'plugins/graphiql-plugin-dialog-schema-selector'
   - 'plugins/graphiql-plugin-dialog-settings'
-  - 'plugins/graphiql-plugin-operations-tools-easy-vars'
   - 'plugins/graphiql-plugin-pane-docs'
+  - 'plugins/graphiql-plugin-pane-easy-vars'
   - 'plugins/graphiql-plugin-pane-history'
   - 'plugins/graphiql-plugin-pane-pathfinder'
