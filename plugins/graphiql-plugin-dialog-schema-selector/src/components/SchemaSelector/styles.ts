@@ -37,7 +37,7 @@ export const RadioGroupRadio = styled(RadioGroupPrimitive.Item, {
   cursor: 'pointer',
 
   '&:hover': {
-    border: '1px solid $gray060',
+    border: '1px solid $gray100',
   },
 });
 
@@ -91,15 +91,42 @@ export const RadioWrap = styled('div', {
     paddingLeft: 15,
 
     span: {
-      color: '$gray100',
+      // color: '$gray100',
       fontSize: '$body',
       lineHeight: 1,
     },
 
     a: {
-      color: '$gray100',
+      // color: '$gray100',
       fontSize: '$body',
       lineHeight: 1,
+    },
+  },
+
+  variants: {
+    isActive: {
+      true: {
+        span: {
+          color: '$gray100',
+          fontWeight: 500,
+        },
+
+        a: {
+          color: '$gray100',
+          fontWeight: 500,
+        },
+      },
+      false: {
+        span: {
+          color: '$gray060',
+          fontWeight: 400,
+        },
+
+        a: {
+          color: '$gray060',
+          fontWeight: 400,
+        },
+      },
     },
   },
 });

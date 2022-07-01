@@ -40,16 +40,18 @@ const apiUrls: ApiUrls = {
 
 const Radio = ({
   aboutUrl,
+  activeRadioValue,
   value,
   id,
   copy,
 }: {
   aboutUrl?: string;
+  activeRadioValue: string;
   value: string;
   id: string;
   copy: string;
 }) => (
-  <RadioWrap>
+  <RadioWrap isActive={activeRadioValue === value}>
     <RadioGroupRadio value={value} id={id}>
       <RadioGroupIndicator />
     </RadioGroupRadio>
@@ -73,22 +75,22 @@ export const SchemaSelector = () => {
 
   const [customSchemaUrl, setCustomSchemaUrl] = useState<string>('');
 
-  const [radioValue, setRadioValue] = useState<string>(
+  const [activeRadioValue, setActiveRadioValue] = useState<string>(
     schemaUrl ? schemaUrl : 'testSchema'
   );
 
   const [targetSchemaUrl, setTargetSchemaUrl] = useState<string>('');
 
-  console.log('SchemaSelector', {
-    radioValue,
-    targetSchemaUrl,
-    schemaUrl,
-    map: Object.keys(apiUrls).map((k) => apiUrls[k].apiUrl),
-    includes:
-      Object.keys(apiUrls)
-        .map((k) => apiUrls[k].apiUrl)
-        .includes(schemaUrl as string) || !schemaUrl,
-  });
+  // console.log('SchemaSelector', {
+  //   activeRadioValue,
+  //   targetSchemaUrl,
+  //   schemaUrl,
+  //   map: Object.keys(apiUrls).map((k) => apiUrls[k].apiUrl),
+  //   includes:
+  //     Object.keys(apiUrls)
+  //       .map((k) => apiUrls[k].apiUrl)
+  //       .includes(schemaUrl as string) || !schemaUrl,
+  // });
 
   useEffect(() => {
     if (schemaUrl) {
@@ -98,13 +100,13 @@ export const SchemaSelector = () => {
           .includes(schemaUrl as string) ||
         !schemaUrl
       ) {
-        // alert('');
-        setRadioValue(schemaUrl);
+        setActiveRadioValue(schemaUrl);
       } else {
-        setRadioValue(customSchemaUrlInput);
+        setActiveRadioValue(customSchemaUrlInput);
         setCustomSchemaUrl(schemaUrl);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -145,11 +147,11 @@ export const SchemaSelector = () => {
 
   return (
     <RadioGroup
-      value={radioValue}
+      value={activeRadioValue}
       aria-label="Choose schema"
       onValueChange={(value) => {
         // console.log('value', { value });
-        setRadioValue(value);
+        setActiveRadioValue(value);
         if (value === 'testSchema') {
           return setTargetSchemaUrl('testSchema');
         }
@@ -170,6 +172,7 @@ export const SchemaSelector = () => {
             <Radio
               key={id}
               aboutUrl={apiUrls[x].aboutUrl}
+              activeRadioValue={activeRadioValue}
               value={apiUrls[x].apiUrl}
               id={id}
               copy={x}
@@ -177,9 +180,14 @@ export const SchemaSelector = () => {
           );
         })}
         <div>
-          <Radio value={customSchemaUrlInput} id="10" copy="Custom Schema Url" />
+          <Radio
+            activeRadioValue={activeRadioValue}
+            value={customSchemaUrlInput}
+            id="10"
+            copy="Custom Schema Url"
+          />
           {schemaError && <Error>{schemaError}</Error>}
-          {radioValue === customSchemaUrlInput && (
+          {activeRadioValue === customSchemaUrlInput && (
             <CustomSchemaFormWrap>
               <Note>Global headers can be set via the settings dialog.</Note>
               <Form
