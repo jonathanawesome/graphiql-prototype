@@ -3,6 +3,8 @@ export type { DialogProps } from './Dialog';
 
 export * from './DescriptionListItem';
 
+export { EasyVars } from './EasyVars';
+
 export { OptionItem } from './OptionItem';
 
 export { Pill } from './Pill';

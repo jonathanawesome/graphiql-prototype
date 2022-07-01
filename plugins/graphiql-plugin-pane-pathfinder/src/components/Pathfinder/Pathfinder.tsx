@@ -24,7 +24,7 @@ export const Pathfinder = () => {
 
   if (!schema || 'error' in schema) {
     //TODO: loading/error skeleton
-    return null;
+    return <></>;
   }
 
   const queryType = schema.getQueryType();

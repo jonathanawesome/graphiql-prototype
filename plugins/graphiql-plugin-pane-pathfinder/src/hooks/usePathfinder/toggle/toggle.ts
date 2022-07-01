@@ -226,10 +226,12 @@ export const toggle = ({
     nextOperationType === 'mutation'
       ? OperationTypeNode.MUTATION
       : OperationTypeNode.QUERY;
-  const name: NameNode = {
-    kind: Kind.NAME,
-    value: `Example${nextOperationType === 'mutation' ? 'Mutation' : 'Query'}`,
-  };
+  // TODO: generating a name here seems over-reaching since operations don't explictly require a name
+  // leaving TODO here for revisiting later...possibly as a feature toggle?
+  // const name: NameNode = {
+  //   kind: Kind.NAME,
+  //   value: activeOperationDefinition?.name?.value || `NewOperation`,
+  // };
   const variableDefinitions = get().nextVariableDefinitions;
   const selectionSet = nextSelectionSet ?? {
     kind: Kind.SELECTION_SET,
@@ -243,7 +245,7 @@ export const toggle = ({
     nextDefinition = {
       kind,
       operation,
-      name,
+      // name,
       variableDefinitions,
       selectionSet,
     };
@@ -254,7 +256,7 @@ export const toggle = ({
         : {
             kind,
             operation,
-            name,
+            // name,
           }),
       variableDefinitions,
       selectionSet,

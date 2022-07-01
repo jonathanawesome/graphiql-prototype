@@ -4,10 +4,6 @@ export const PathfinderWrap = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: 24,
-  paddingTop: 14,
-  paddingRight: 12,
-  paddingBottom: 0,
-  paddingLeft: 24,
   height: '100%',
 });
 
@@ -15,7 +11,6 @@ export const PathfinderLead = styled('div', {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  paddingLeft: 8,
 });
 
 export const PathfinderContentWrap = styled('div', {

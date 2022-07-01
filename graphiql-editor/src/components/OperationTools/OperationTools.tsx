@@ -25,6 +25,8 @@ export const OperationTools = ({ setHeight }: { setHeight: () => void }) => {
   const [openTab, setOpenTab] = useState('');
   const activeEditorTab = getActiveEditorTab();
 
+  // console.log('rendering OperationTools', { activeEditorTab });
+
   const variablesCount =
     activeEditorTab?.operationDefinition?.variableDefinitions?.length || 0;
 

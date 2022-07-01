@@ -52,8 +52,8 @@ export const CollapsibleTrigger = styled(Collapsible.Trigger, {
   display: 'flex',
   alignItems: 'center',
   cursor: 'pointer',
-  width: 12,
-  height: 12,
+  width: 16,
+  height: 16,
 
   svg: {
     path: {

@@ -4,10 +4,10 @@ export const HistoryWrap = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: 34,
-  paddingTop: 14,
-  paddingRight: 0,
-  paddingBottom: 0,
-  paddingLeft: 32,
+  // paddingTop: 14,
+  // paddingRight: 0,
+  // paddingBottom: 0,
+  // paddingLeft: 32,
   height: '100%',
 });
 

@@ -57,7 +57,7 @@
   },
   "3 debug pnpm:package-manifest": {
     "initial": {
-      "name": "@graphiql-v2-prototype/graphiql-plugin-operations-tools-easy-vars",
+      "name": "@graphiql-v2-prototype/graphiql-plugin-pane-easy-vars",
       "version": "0.0.1",
       "main": "index.ts",
       "scripts": {
@@ -70,7 +70,7 @@
         "@types/react": "17.0.2"
       }
     },
-    "prefix": "/Users/jonathanbrennan/projects/graphiql-v2-prototype/plugins/graphiql-plugin-operations-tools-easy-vars"
+    "prefix": "/Users/jonathanbrennan/projects/graphiql-v2-prototype/plugins/graphiql-plugin-pane-easy-vars"
   },
   "4 debug pnpm:package-manifest": {
     "initial": {
@@ -936,7 +936,7 @@
   "93 debug pnpm:_dependency_resolved": {
     "resolution": "registry.npmjs.org/@types/react/17.0.2",
     "wanted": {
-      "dependentId": "plugins/graphiql-plugin-operations-tools-easy-vars",
+      "dependentId": "plugins/graphiql-plugin-pane-easy-vars",
       "name": "@types/react",
       "rawSpec": "17.0.2"
     }

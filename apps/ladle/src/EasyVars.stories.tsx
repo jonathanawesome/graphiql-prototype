@@ -1,12 +1,12 @@
-import { EasyVars } from '@graphiql-v2-prototype/graphiql-plugin-operations-tools-easy-vars';
+import { EasyVars } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 import { variableDefinitions } from '../data';
 
 export const EasyVarsStory = () => {
   return (
-    <div>
-      <EasyVars variableDefinitions={variableDefinitions} />
-    </div>
+    <EasyVars
+      variableDefinitions={Object.values(variableDefinitions).map((value) => value)}
+    />
   );
 };
 

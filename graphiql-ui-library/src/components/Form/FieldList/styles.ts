@@ -42,11 +42,10 @@ export const AddItemButton = styled('button', {
   textAlign: 'right',
   padding: '8px 8px 8px 0',
   fontSize: '$mini',
-  color: '$gray060',
+  color: '$gray100',
   fontFamily: '$mono',
 
   '&:hover': {
     backgroundColor: '$gray007',
-    color: '$gray100',
   },
 });

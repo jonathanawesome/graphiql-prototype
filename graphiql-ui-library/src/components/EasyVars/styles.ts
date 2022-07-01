@@ -1,4 +1,4 @@
-import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { styled } from '../../theme';
 
 export const EasyVarsStyled = styled('div', {
   display: 'flex',
@@ -7,4 +7,6 @@ export const EasyVarsStyled = styled('div', {
   fontFamily: '$mono',
   fontSize: 11,
   marginBottom: 12,
+  // maxHeight: 220,
+  // overflowY: 'auto',
 });

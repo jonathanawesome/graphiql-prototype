@@ -24,10 +24,10 @@ export const RootOperationType = ({
   const operationDefinition = activeEditorTab?.operationDefinition;
   const activeOperationType = operationDefinition?.operation;
 
-  console.log('rendering RootOperationType', {
-    operationDefinition,
-    activeEditorTab,
-  });
+  // console.log('rendering RootOperationType', {
+  //   operationDefinition,
+  //   activeEditorTab,
+  // });
 
   const fields = rootType.getFields();
 

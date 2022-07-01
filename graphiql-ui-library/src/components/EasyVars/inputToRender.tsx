@@ -1,20 +1,7 @@
-import {
-  GraphQLType,
-  isEnumType,
-  isListType,
-  isScalarType,
-  VariableDefinitionNode,
-} from 'graphql';
+import { GraphQLType, isEnumType, isScalarType, VariableDefinitionNode } from 'graphql';
 
 // components
-import {
-  Form,
-  HandleChangeSignature,
-  Pill,
-} from '@graphiql-v2-prototype/graphiql-ui-library';
-
-// constants
-// import { INPUT_TYPES } from './constants';
+import { Form, HandleChangeSignature, Pill } from '../index';
 
 // utils
 import { getEnumValues } from '@graphiql-v2-prototype/graphiql-editor';
@@ -25,6 +12,7 @@ export const inputToRender = ({
   displayString,
   graphqlType,
   handleChange,
+  isList,
   typeNameValue,
   variableDefinition,
 }: {
@@ -32,19 +20,20 @@ export const inputToRender = ({
   displayString: string;
   graphqlType: GraphQLType | undefined;
   handleChange: HandleChangeSignature;
+  isList: boolean;
   typeNameValue: string;
   variableDefinition: VariableDefinitionNode;
 }) => {
   const name = variableDefinition.variable.name.value;
 
-  // console.log('inputToRender', { currentValue });
+  // console.log('inputToRender', { currentValue, graphqlType, isList });
 
   if (!graphqlType) {
     return null;
   }
 
   let inputToRender: React.ReactElement;
-  if (isListType(graphqlType)) {
+  if (isList) {
     // control is FieldList
     inputToRender = (
       <Form

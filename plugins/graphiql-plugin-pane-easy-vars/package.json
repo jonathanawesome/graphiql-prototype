@@ -1,5 +1,5 @@
 {
-  "name": "@graphiql-v2-prototype/graphiql-plugin-operations-tools-easy-vars",
+  "name": "@graphiql-v2-prototype/graphiql-plugin-pane-easy-vars",
   "version": "0.0.1",
   "main": "index.ts",
   "scripts": {
@@ -9,8 +9,7 @@
     "@graphiql-v2-prototype/graphiql-editor": "workspace:*",
     "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",
     "@graphiql-v2-prototype/graphiql-utils": "workspace:*",
-    "@radix-ui/react-select": "^0.1.1",
-    "cuid": "^2.1.8",
+    "@radix-ui/react-accordion": "^0.1.6",
     "graphql": "^16.5.0",
     "react": "17.0.2"
   },

@@ -8,7 +8,6 @@ export const Name = styled('span', {
 
 export const RootOperationTypeStyled = styled('div', {
   marginBottom: 16,
-  marginLeft: 8,
 
   '&::after': {
     content: '',
