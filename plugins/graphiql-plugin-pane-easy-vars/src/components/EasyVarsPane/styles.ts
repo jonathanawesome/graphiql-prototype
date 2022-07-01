@@ -70,6 +70,13 @@ export const TriggerStyled = styled(AccordionPrimitive.Trigger, {
 });
 
 export const ContentStyled = styled(AccordionPrimitive.Content, {
-  overflow: 'hidden',
-  fontSize: 15,
+  // overflow: 'hidden',
+  // fontSize: 15,
+});
+
+export const Note = styled('span', {
+  display: 'block',
+  marginBottom: 12,
+  fontSize: '$body',
+  color: '$gray060',
 });
