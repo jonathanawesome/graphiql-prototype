@@ -260,6 +260,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   },
   updateOperationDefinitionFromModelValue: ({ value }) => {
     const updateOperationDefinition = get().updateOperationDefinition;
+    // console.log('updateOperationDefinitionFromModelValue', { value });
 
     const parsedQuery = parseQuery(value);
     if (!(parsedQuery instanceof Error)) {
