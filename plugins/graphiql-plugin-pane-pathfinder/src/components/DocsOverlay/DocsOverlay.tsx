@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 // components
 import { Close } from '@graphiql-v2-prototype/graphiql-ui-library';
 
@@ -15,6 +17,20 @@ export const DocsOverlay = () => {
   // console.log('DocsOverlay', {
   //   docsInstance,
   // });
+
+  useEffect(() => {
+    const close = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        resetDocInstance({ placement: 'PATHFINDER' });
+      }
+    };
+
+    window.addEventListener('keydown', close);
+
+    return () => window.removeEventListener('keydown', close);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <DocsOverlayStyled overlayVisible={!!docsInstance?.activeDocPane}>
