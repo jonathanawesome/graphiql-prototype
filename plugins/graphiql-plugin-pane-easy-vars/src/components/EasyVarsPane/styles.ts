@@ -47,10 +47,11 @@ export const TriggerStyled = styled(AccordionPrimitive.Trigger, {
     '&:nth-of-type(2)': {
       padding: '2px 4px',
       marginLeft: '4px',
+      border: '1px solid $gray010',
       borderRadius: '2px',
       fontSize: '$mini',
       fontWeight: 600,
-      backgroundColor: '$gray015',
+      backgroundColor: '$gray007',
     },
   },
 

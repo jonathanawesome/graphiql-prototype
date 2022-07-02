@@ -12,17 +12,6 @@ const activeEditorTab = getActiveEditorTab();
 const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
 
 export const usePathfinder = create<PathfinderStore>((set, get) => ({
-  /** begin overlay */
-  overlay: {
-    currentType: null,
-    prevTypes: [],
-    visible: false,
-  },
-  setOverlay: ({ currentType, prevTypes, visible }) => {
-    set({ overlay: { currentType, prevTypes, visible } });
-  },
-  /** end overlay */
-
   /** begin controls */
   descriptionsVisibility: 'Inline',
   setDescriptionsVisibility: (descriptionsVisibility) => {

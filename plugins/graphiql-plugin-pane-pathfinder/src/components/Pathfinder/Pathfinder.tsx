@@ -6,8 +6,8 @@ import { Command } from '@graphiql-v2-prototype/graphiql-ui-library';
 import { Search } from '../../icons';
 
 // hooks
+import { useDocs } from '@graphiql-v2-prototype/graphiql-plugin-pane-docs';
 import { useGraphiQLSchema } from '@graphiql-v2-prototype/graphiql-editor';
-import { usePathfinder } from '../../hooks';
 
 // styles
 import {
@@ -20,7 +20,9 @@ import {
 
 export const Pathfinder = () => {
   const { schema } = useGraphiQLSchema();
-  const { overlay } = usePathfinder();
+  const { getDocsInstance } = useDocs();
+
+  const docsInstance = getDocsInstance({ placement: 'PATHFINDER' });
 
   if (!schema || 'error' in schema) {
     //TODO: loading/error skeleton
@@ -32,7 +34,7 @@ export const Pathfinder = () => {
 
   return (
     <PathfinderWrap>
-      <PathfinderContentWrap overlayVisible={overlay.visible}>
+      <PathfinderContentWrap overlayVisible={!!docsInstance?.activeDocPane}>
         <PathfinderLead>
           <FakeSearch>
             <div>
