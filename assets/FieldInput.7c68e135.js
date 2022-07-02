@@ -1,1 +1,0 @@
-import{r,a as s,S as n}from"./index.33004984.js";const i=({currentValue:o,handleChange:u,name:e,placeholder:p})=>{const[t,l]=r.exports.useState(o||"");return r.exports.useEffect(()=>{t&&u({name:e,value:t})},[t]),s(n,{children:s("input",{autoComplete:"off",name:e,onChange:a=>{a.preventDefault(),l(a.target.value)},placeholder:p,type:"text",value:t})})};export{i as F};

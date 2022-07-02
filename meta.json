@@ -220,7 +220,7 @@
         "Pathfinder"
       ],
       "locStart": 8,
-      "locEnd": 28,
+      "locEnd": 30,
       "filePath": "src/Pathfinder.stories.tsx",
       "meta": {}
     },
