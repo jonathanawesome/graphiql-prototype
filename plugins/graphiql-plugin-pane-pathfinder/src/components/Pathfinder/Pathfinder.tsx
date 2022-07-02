@@ -19,7 +19,10 @@ import {
 } from './styles';
 
 export const Pathfinder = () => {
+  // console.log('rendering Pathfinder');
+
   const { schema } = useGraphiQLSchema();
+
   const { getDocsInstance } = useDocs();
 
   const docsInstance = getDocsInstance({ placement: 'PATHFINDER' });
