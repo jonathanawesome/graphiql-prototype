@@ -1,10 +1,16 @@
 import create from 'zustand';
 import { initializeMode } from 'monaco-graphql/esm/initializeMode';
+import { editor as MONACO_EDITOR } from 'monaco-editor';
 import cuid from 'cuid';
 import { ExecutableDefinitionNode, isExecutableDefinitionNode, Kind } from 'graphql';
 
 // constants
-import { defaultOperation, defaultResults, defaultVariables } from '../../constants';
+import {
+  defaultOperation,
+  defaultResults,
+  defaultVariables,
+  editorTheme,
+} from '../../constants';
 
 // types
 import { GraphiQLEditorStore } from './types';
@@ -283,6 +289,9 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   monacoEditors: [],
   addMonacoEditor: ({ editor, name }) => {
     // console.log('running addMonacoEditor', { editor });
+
+    MONACO_EDITOR.defineTheme('graphiql-default', editorTheme);
+
     const monacoEditors = get().monacoEditors;
     const existingEditor = monacoEditors.find((e) => e.name === name);
     if (!existingEditor) {

@@ -21,6 +21,6 @@ export const LabelWrap = styled('div', {
 
 export const Label = styled('label', {
   color: '$secondary100',
-  fontSize: 11,
+  fontSize: 12,
   whiteSpace: 'nowrap',
 });

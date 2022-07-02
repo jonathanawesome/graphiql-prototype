@@ -19,7 +19,7 @@ export const editorOptions: MONACO_EDITOR.IStandaloneEditorConstructionOptions =
   // scrollPredominantAxis: false,
   scrollBeyondLastLine: false, // cleans up unnecessary "padding" on the bottom of each editor
   tabSize: 2,
-  theme: 'myTheme',
+  theme: 'graphiql-default',
   wordWrap: 'on',
   // wrappingIndent: 'none',
   wrappingStrategy: 'advanced',

@@ -1,17 +1,12 @@
 // styles
-import { HistoryWrap, HistoryLead, HistoryContent, HistoryContentWrap } from './styles';
+import { HistoryWrap, HistoryContent } from './styles';
 
 export const History = () => {
   return (
     <HistoryWrap>
-      <HistoryLead>
-        <h2>History</h2>
-      </HistoryLead>
-      <HistoryContentWrap>
-        <HistoryContent>
-          <span>history...todo. please send help 🦺</span>
-        </HistoryContent>
-      </HistoryContentWrap>
+      <HistoryContent>
+        <span>history...todo. please send help 🦺</span>
+      </HistoryContent>
     </HistoryWrap>
   );
 };

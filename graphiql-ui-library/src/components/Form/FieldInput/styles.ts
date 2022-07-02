@@ -12,7 +12,7 @@ export const StyledFieldInput = styled('div', {
     color: '$warning100',
     paddingRight: 12,
     height: 32,
-    fontSize: 11,
+    fontSize: 12,
     borderRadius: '0 7px 7px 0',
 
     '&::placeholder': {

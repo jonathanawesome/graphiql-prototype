@@ -14,8 +14,7 @@ export const DocsStyled = styled('div', {
         padding: 24,
       },
       EXPLORER: {
-        paddingTop: 12,
-        paddingBottom: 24,
+        // paddingBottom: 24,
       },
     },
   },

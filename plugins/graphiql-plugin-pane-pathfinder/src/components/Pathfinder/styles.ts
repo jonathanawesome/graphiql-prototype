@@ -18,7 +18,7 @@ export const PathfinderContentWrap = styled('div', {
   height: '100%',
   width: '100%',
   overflowY: 'auto',
-  transition: 'all .15s $authenticMotion',
+  transition: 'all .1s $authenticMotion',
 
   variants: {
     overlayVisible: {
@@ -30,7 +30,7 @@ export const PathfinderContentWrap = styled('div', {
       true: {
         visibility: 'hidden',
         opacity: '0',
-        transform: 'scale(0.99)',
+        transform: 'scale(0.98)',
       },
     },
   },

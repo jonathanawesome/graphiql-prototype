@@ -12,6 +12,7 @@ import {
   EasyVarsPaneStyled,
   ContentStyled,
   HeaderStyled,
+  Note,
   ItemStyled,
   TriggerStyled,
 } from './styles';
@@ -77,7 +78,7 @@ export const EasyVarsPane = () => {
                     }
                   />
                 ) : (
-                  <p>There are no variables defined for this tab</p>
+                  <Note>There are no variables defined for this tab</Note>
                 )}
               </ContentStyled>
             </ItemStyled>

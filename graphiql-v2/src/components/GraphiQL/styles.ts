@@ -6,9 +6,12 @@ export const GraphiQLWrap = styled('div', {
   width: '100%',
   display: 'grid',
   gridTemplateColumns: '60px 1fr',
+  overflow: 'hidden',
 });
 
 export const ContentWrap = styled('div', {
+  height: '100%',
+  overflow: 'hidden',
   paddingTop: 16,
   paddingRight: 16,
   paddingBottom: 16,
@@ -41,8 +44,9 @@ export const SchemaName = styled('div', {
   fontWeight: 600,
   color: '$gray100',
   position: 'relative',
-  height: 52,
+  height: 40,
   marginBottom: 12,
+  flexShrink: 0,
 
   span: {
     position: 'absolute',

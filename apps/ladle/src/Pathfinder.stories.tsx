@@ -1,4 +1,4 @@
-import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
+import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
 
 import { useEffect, useState } from 'react';
 
@@ -6,18 +6,20 @@ import { useEffect, useState } from 'react';
 import { Pathfinder } from '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder';
 
 export const PathfinderStory = () => {
-  const activeEditorTab = getActiveEditorTab();
+  const { activeEditorTabId, editorTabs } = useGraphiQLEditor();
+
   const [val, setVal] = useState<string>();
 
-  const operationModel = activeEditorTab?.operationModel;
-
   useEffect(() => {
-    if (operationModel) {
+    const activeEditorTab = editorTabs.find(
+      (editorTab) => editorTab.editorTabId === activeEditorTabId
+    );
+    const operationModel = activeEditorTab?.operationModel;
+    if (operationModel && operationModel.getValue() !== val) {
       setVal(operationModel.getValue());
     }
-  }, [operationModel]);
-
-  console.log(activeEditorTab);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editorTabs]);
 
   return (
     <div style={{ display: 'grid', gridTemplateColumns: `1fr 200px`, height: `100%` }}>
