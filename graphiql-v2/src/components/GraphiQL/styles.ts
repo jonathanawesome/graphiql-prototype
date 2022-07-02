@@ -44,7 +44,7 @@ export const SchemaName = styled('div', {
   fontWeight: 600,
   color: '$gray100',
   position: 'relative',
-  height: 52,
+  height: 40,
   marginBottom: 12,
   flexShrink: 0,
 
