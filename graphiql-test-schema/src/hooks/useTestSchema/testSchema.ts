@@ -197,7 +197,7 @@ const Person = new GraphQLObjectType({
 
 const sleep = async (timeout) => new Promise((res) => setTimeout(res, timeout));
 
-const TestType = new GraphQLObjectType({
+export const TestType: GraphQLObjectType = new GraphQLObjectType({
   name: 'Test',
   description: 'Test type for testing\n New line works',
   fields: () => ({
@@ -347,11 +347,9 @@ const TestSubscriptionType = new GraphQLObjectType({
   },
 });
 
-const myTestSchema = new GraphQLSchema({
+export const testSchema = new GraphQLSchema({
   query: TestType,
   mutation: TestMutationType,
   subscription: TestSubscriptionType,
   description: 'This is a test schema for GraphiQL',
 });
-
-export default myTestSchema;

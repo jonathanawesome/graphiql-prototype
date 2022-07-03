@@ -3,12 +3,12 @@
     "allowSyntheticDefaultImports": true,    
     "esModuleInterop": true,
     "isolatedModules": true,
+    "lib": [ "ESNext"],
     "module": "ESNext",
     "moduleResolution": "Node",
-    "lib": [ "ESNext"],
+    "noImplicitAny": false,
     "skipLibCheck": true,
     "strict": true,
     "target": "ESNext",
-    "noImplicitAny": false
   }
 }
