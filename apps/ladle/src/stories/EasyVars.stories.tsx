@@ -1,6 +1,6 @@
 import { EasyVars } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-import { variableDefinitions } from '../data';
+import { variableDefinitions } from '../../data';
 
 export const EasyVarsStory = () => {
   return (
