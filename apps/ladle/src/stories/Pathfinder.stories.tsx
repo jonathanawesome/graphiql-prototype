@@ -1,11 +1,10 @@
-import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
-
 import { useEffect, useState } from 'react';
+import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
 
 // components
 import { Pathfinder } from '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder';
 
-export const PathfinderStory = () => {
+export const PathfinderCompleteStory = () => {
   const { activeEditorTabId, editorTabs } = useGraphiQLEditor();
 
   const [val, setVal] = useState<string>();
@@ -29,4 +28,4 @@ export const PathfinderStory = () => {
   );
 };
 
-PathfinderStory.storyName = 'Pathfinder';
+PathfinderCompleteStory.storyName = 'Pathfinder';
