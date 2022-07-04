@@ -10,13 +10,7 @@ import { useDocs } from '@graphiql-v2-prototype/graphiql-plugin-pane-docs';
 import { useGraphiQLSchema } from '@graphiql-v2-prototype/graphiql-editor';
 
 // styles
-import {
-  PathfinderContent,
-  PathfinderContentWrap,
-  PathfinderLead,
-  PathfinderWrap,
-  FakeSearch,
-} from './styles';
+import { PathfinderContent, PathfinderLead, PathfinderWrap, FakeSearch } from './styles';
 
 export const Pathfinder = () => {
   // console.log('rendering Pathfinder');
@@ -36,8 +30,8 @@ export const Pathfinder = () => {
   const mutationType = schema.getMutationType();
 
   return (
-    <PathfinderWrap>
-      <PathfinderContentWrap overlayVisible={!!docsInstance?.activeDocPane}>
+    <>
+      <PathfinderWrap overlayVisible={!!docsInstance?.activeDocPane}>
         <PathfinderLead>
           <FakeSearch>
             <div>
@@ -65,8 +59,8 @@ export const Pathfinder = () => {
             />
           ) : null}
         </PathfinderContent>
-      </PathfinderContentWrap>
+      </PathfinderWrap>
       <DocsOverlay />
-    </PathfinderWrap>
+    </>
   );
 };

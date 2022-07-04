@@ -1,19 +1,12 @@
 import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-export const PathfinderWrap = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 24,
-  height: '100%',
-});
-
 export const PathfinderLead = styled('div', {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
 });
 
-export const PathfinderContentWrap = styled('div', {
+export const PathfinderWrap = styled('div', {
   position: 'relative',
   height: '100%',
   width: '100%',
