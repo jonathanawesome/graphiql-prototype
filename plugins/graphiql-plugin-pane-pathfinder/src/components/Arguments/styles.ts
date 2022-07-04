@@ -18,6 +18,7 @@ export const Span = styled('span', {
   color: '$gray060',
   marginLeft: 8,
   marginTop: 2,
+  whiteSpace: 'nowrap',
 });
 
 export const ShowArgumentsIconWrap = styled('div', {
