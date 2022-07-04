@@ -71,16 +71,7 @@ export const Field = ({
 
   let childFieldsToRender: React.ReactNode = null;
 
-  if (isInterfaceType(unwrappedType)) {
-    childFieldsToRender = (
-      <ObjectType
-        ancestors={ancestors}
-        fields={unwrappedType.getFields()}
-        operationType={operationType}
-        selection={selection}
-      />
-    );
-  } else if (isObjectType(unwrappedType)) {
+  if (isObjectType(unwrappedType) || isInterfaceType(unwrappedType)) {
     childFieldsToRender = (
       <ObjectType
         ancestors={ancestors}
