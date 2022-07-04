@@ -18,6 +18,11 @@ export const globalStyles = globalCss({
     cursor: 'pointer',
     boxSizing: 'border-box',
   },
+  // 'a, button': {
+  //   '&:focus': {
+  //     outline: '1px solid $gray100',
+  //   },
+  // },
   // end global css
   // begin set fonts
   html: {
