@@ -78,7 +78,7 @@ export const Argument = ({
     toRender = (
       <InputObject
         ancestors={newInputObjectMap}
-        inputType={argument.type}
+        inputObjectType={argument.type}
         operationType={operationType}
         renderingInputField={argument}
       />
@@ -92,7 +92,7 @@ export const Argument = ({
         // rendering top-level InputObject that IS required
         <InputObject
           ancestors={newInputObjectMap}
-          inputType={unwrappedInputObject}
+          inputObjectType={unwrappedInputObject}
           operationType={operationType}
           renderingInputField={argument}
         />

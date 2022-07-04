@@ -37,12 +37,12 @@ import { capitalize, generateVariableNameFromAncestorMap, unwrapType } from '../
 
 export const InputObject = ({
   ancestors,
-  inputType,
+  inputObjectType,
   operationType,
   renderingInputField,
 }: {
   ancestors: AncestorMap;
-  inputType: GraphQLInputObjectType;
+  inputObjectType: GraphQLInputObjectType;
   operationType: OperationTypeNode;
   renderingInputField: GraphQLInputField;
 }) => {
@@ -53,15 +53,15 @@ export const InputObject = ({
   const { descriptionsVisibility } = usePathfinder();
   const { navigateForward } = useDocs();
 
-  const fields = inputType.getFields();
+  const fields = inputObjectType.getFields();
 
   const previousAncestor = ancestors.values().next().value as
     | AncestorArgument
     | AncestorInputObject;
 
   // console.log('rendering InputObject', {
-  //   // inputType and previousAncestor.inputObject are the same
-  //   inputType,
+  //   // inputObjectType and previousAncestor.inputObject are the same
+  //   inputObjectType,
   //   ancestors,
   //   renderingInputField,
   //   previousAncestor,
@@ -98,7 +98,7 @@ export const InputObject = ({
                           ...ancestors,
                         ])
                       }
-                      inputType={fields[f].type as GraphQLInputObjectType}
+                      inputObjectType={fields[f].type as GraphQLInputObjectType}
                       operationType={operationType}
                       renderingInputField={fields[f]}
                     />
@@ -113,7 +113,7 @@ export const InputObject = ({
                             `${fields[f].name}-${hash}`,
                             {
                               inputField: fields[f],
-                              parentInputObject: inputType,
+                              parentInputObject: inputObjectType,
                               selection: previousAncestor.selection
                                 ? (
                                     previousAncestor.selection?.value as ObjectValueNode
@@ -139,7 +139,7 @@ export const InputObject = ({
       leadContent={
         <DescriptionListItem
           descriptionPlacement={descriptionsVisibility}
-          description={inputType.description || null}
+          description={inputObjectType.description || null}
           isSelected={!!previousAncestor.selection}
           name={`${renderingInputField.name}${
             isRequiredArgument(renderingInputField) ||
@@ -152,15 +152,15 @@ export const InputObject = ({
               onClick={() => {
                 navigateForward({
                   docPane: {
-                    description: inputType.description || null,
-                    name: unwrapType(inputType).toString(),
-                    type: inputType,
+                    description: inputObjectType.description || null,
+                    name: unwrapType(inputObjectType).toString(),
+                    type: inputObjectType,
                   },
                   placement: 'PATHFINDER',
                 });
               }}
             >
-              {inputType.toString()}
+              {inputObjectType.toString()}
             </button>
           }
           entityType="INPUT_TYPE"
