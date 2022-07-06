@@ -1,7 +1,7 @@
 import { OperationTypeNode } from 'graphql';
 
 // components
-import { DocsOverlay, Options, RootOperationType } from '../index';
+import { DocsOverlay, Options, RootOperation } from '../index';
 import { Command } from '@graphiql-v2-prototype/graphiql-ui-library';
 import { Search } from '../../icons';
 
@@ -47,13 +47,10 @@ export const Pathfinder = () => {
         </PathfinderLead>
         <PathfinderContent>
           {queryType ? (
-            <RootOperationType
-              rootType={queryType}
-              operationType={OperationTypeNode.QUERY}
-            />
+            <RootOperation rootType={queryType} operationType={OperationTypeNode.QUERY} />
           ) : null}
           {mutationType ? (
-            <RootOperationType
+            <RootOperation
               rootType={mutationType}
               operationType={OperationTypeNode.MUTATION}
             />

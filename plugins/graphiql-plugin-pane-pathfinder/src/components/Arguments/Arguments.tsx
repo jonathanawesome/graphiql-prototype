@@ -10,10 +10,12 @@ import type { AncestorField, AncestorMap } from '../../hooks';
 
 // styles
 import {
-  ArgumentsWrap,
   ShowArgumentsIconWrap,
-  RequiredArgumentsWrap,
+  RequiredArguments,
   Span,
+  Content,
+  Root,
+  Trigger,
 } from './styles';
 
 export const Arguments = ({
@@ -44,12 +46,41 @@ export const Arguments = ({
   const optionalArgsLength = optionalArgs.length;
 
   return (
-    <ArgumentsWrap>
-      <RequiredArgumentsWrap>
-        {requiredArgs.length > 0
-          ? requiredArgs
-              .sort()
-              .map((arg) => (
+    <>
+      {requiredArgs.length > 0 ? (
+        <RequiredArguments>
+          {requiredArgs.sort().map((arg) => (
+            <Argument
+              key={arg.name}
+              ancestors={ancestors}
+              argument={arg}
+              operationType={operationType}
+              selection={selection}
+            />
+          ))}
+        </RequiredArguments>
+      ) : null}
+      {optionalArgsLength > 0 && (
+        <Root open={isExpanded} onOpenChange={setIsExpanded}>
+          <Trigger isExpanded={isExpanded}>
+            <ShowArgumentsIconWrap>
+              <ShowArgumentsIcon />
+            </ShowArgumentsIconWrap>
+            {isExpanded ? (
+              <Span>Hide arguments</Span>
+            ) : requiredArgs.length > 0 ? (
+              <Span>{`${optionalArgsLength.toString()} more argument${
+                optionalArgsLength > 1 ? 's' : ''
+              }`}</Span>
+            ) : (
+              <Span>{`Show ${optionalArgsLength.toString()} optional argument${
+                optionalArgsLength > 1 ? 's' : ''
+              }`}</Span>
+            )}
+          </Trigger>
+          <Content>
+            <ul>
+              {optionalArgs.sort().map((arg) => (
                 <Argument
                   key={arg.name}
                   ancestors={ancestors}
@@ -57,52 +88,11 @@ export const Arguments = ({
                   operationType={operationType}
                   selection={selection}
                 />
-              ))
-          : null}
-      </RequiredArgumentsWrap>
-      {optionalArgsLength > 0 && (
-        <Collapser
-          content={
-            <Column>
-              {optionalArgsLength > 0
-                ? optionalArgs
-                    .sort()
-                    .map((arg) => (
-                      <Argument
-                        key={arg.name}
-                        ancestors={ancestors}
-                        argument={arg}
-                        operationType={operationType}
-                        selection={selection}
-                      />
-                    ))
-                : null}
-            </Column>
-          }
-          isExpanded={isExpanded}
-          leadContent={
-            <>
-              {isExpanded ? (
-                <Span>Hide arguments</Span>
-              ) : requiredArgs.length > 0 ? (
-                <Span>{`${optionalArgsLength.toString()} more argument${
-                  optionalArgsLength > 1 ? 's' : ''
-                }`}</Span>
-              ) : (
-                <Span>{`Show ${optionalArgsLength.toString()} optional argument${
-                  optionalArgsLength > 1 ? 's' : ''
-                }`}</Span>
-              )}
-            </>
-          }
-          setIsExpanded={setIsExpanded}
-          trigger={
-            <ShowArgumentsIconWrap>
-              <ShowArgumentsIcon />
-            </ShowArgumentsIconWrap>
-          }
-        />
+              ))}
+            </ul>
+          </Content>
+        </Root>
       )}
-    </ArgumentsWrap>
+    </>
   );
 };

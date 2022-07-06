@@ -13,6 +13,12 @@ export const PathfinderWrap = styled('div', {
   overflowY: 'auto',
   transition: 'all .1s $authenticMotion',
 
+  ul: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 16,
+  },
+
   variants: {
     overlayVisible: {
       false: {
@@ -29,7 +35,7 @@ export const PathfinderWrap = styled('div', {
   },
 });
 
-export const PathfinderContent = styled('div', {
+export const PathfinderContent = styled('ul', {
   position: 'absolute',
   top: 64,
   left: 0,

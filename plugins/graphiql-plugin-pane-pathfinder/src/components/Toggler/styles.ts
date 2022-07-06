@@ -1,10 +1,6 @@
 import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-export const FieldChildren = styled('div', {
-  marginLeft: 20,
-});
-
-export const IndicatorWrap = styled('button', {
+export const TogglerStyled = styled('button', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -16,26 +12,12 @@ export const IndicatorWrap = styled('button', {
   },
 
   variants: {
-    isActive: {
-      true: {
-        svg: {
-          transform: 'scale(1)',
-          path: {
-            '&:nth-of-type(1)': {
-              //inner
-              fill: '$secondary100',
-            },
-            '&:nth-of-type(2)': {
-              //outer
-              fill: '$secondary100',
-            },
-            '&:nth-of-type(3)': {
-              //checkmark
-              fill: '$white',
-            },
-          },
-        },
-      },
+    variant: {
+      ARGUMENT: {},
+      FIELD: {},
+    },
+    isSelected: {
+      true: {},
       false: {
         svg: {
           transform: 'scale(0.85)',
@@ -57,4 +39,53 @@ export const IndicatorWrap = styled('button', {
       },
     },
   },
+
+  compoundVariants: [
+    {
+      isSelected: true,
+      variant: 'FIELD',
+      css: {
+        svg: {
+          transform: 'scale(1)',
+          path: {
+            '&:nth-of-type(1)': {
+              //inner
+              fill: '$secondary100',
+            },
+            '&:nth-of-type(2)': {
+              //outer
+              fill: '$secondary100',
+            },
+            '&:nth-of-type(3)': {
+              //checkmark
+              fill: '$white',
+            },
+          },
+        },
+      },
+    },
+    {
+      isSelected: true,
+      variant: 'ARGUMENT',
+      css: {
+        svg: {
+          transform: 'scale(1)',
+          path: {
+            '&:nth-of-type(1)': {
+              //inner
+              fill: '$primary100',
+            },
+            '&:nth-of-type(2)': {
+              //outer
+              fill: '$primary100',
+            },
+            '&:nth-of-type(3)': {
+              //checkmark
+              fill: '$white',
+            },
+          },
+        },
+      },
+    },
+  ],
 });
