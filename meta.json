@@ -5,16 +5,6 @@
     "version": 1
   },
   "stories": {
-    "description-list-item--description-list-item": {
-      "name": "Description list item",
-      "levels": [
-        "Description list item"
-      ],
-      "locStart": 38,
-      "locEnd": 119,
-      "filePath": "src/DescriptionListItem.stories.tsx",
-      "meta": {}
-    },
     "dialog-settings--settings": {
       "name": "Settings",
       "levels": [
@@ -22,7 +12,7 @@
       ],
       "locStart": 4,
       "locEnd": 7,
-      "filePath": "src/DialogSettings.stories.tsx",
+      "filePath": "src/stories/DialogSettings.stories.tsx",
       "meta": {}
     },
     "easy-vars--easy-vars": {
@@ -32,7 +22,7 @@
       ],
       "locStart": 5,
       "locEnd": 11,
-      "filePath": "src/EasyVars.stories.tsx",
+      "filePath": "src/stories/EasyVars.stories.tsx",
       "meta": {}
     },
     "editor--graphi-q-l-editor": {
@@ -42,7 +32,7 @@
       ],
       "locStart": 3,
       "locEnd": 5,
-      "filePath": "src/Editor.stories.tsx",
+      "filePath": "src/stories/Editor.stories.tsx",
       "meta": {}
     },
     "forms---fields--field-input": {
@@ -53,7 +43,7 @@
       ],
       "locStart": 13,
       "locEnd": 26,
-      "filePath": "src/Forms--Fields.stories.tsx",
+      "filePath": "src/stories/Forms--Fields.stories.tsx",
       "meta": {}
     },
     "forms---fields--field-select": {
@@ -64,7 +54,7 @@
       ],
       "locStart": 30,
       "locEnd": 48,
-      "filePath": "src/Forms--Fields.stories.tsx",
+      "filePath": "src/stories/Forms--Fields.stories.tsx",
       "meta": {}
     },
     "forms---fields--field-list---int": {
@@ -76,7 +66,7 @@
       ],
       "locStart": 52,
       "locEnd": 63,
-      "filePath": "src/Forms--Fields.stories.tsx",
+      "filePath": "src/stories/Forms--Fields.stories.tsx",
       "meta": {}
     },
     "forms---fields--field-list---string": {
@@ -88,7 +78,7 @@
       ],
       "locStart": 67,
       "locEnd": 78,
-      "filePath": "src/Forms--Fields.stories.tsx",
+      "filePath": "src/stories/Forms--Fields.stories.tsx",
       "meta": {}
     },
     "forms---fields--field-list---float": {
@@ -100,7 +90,7 @@
       ],
       "locStart": 82,
       "locEnd": 93,
-      "filePath": "src/Forms--Fields.stories.tsx",
+      "filePath": "src/stories/Forms--Fields.stories.tsx",
       "meta": {}
     },
     "forms---fields--field-list---id": {
@@ -112,7 +102,7 @@
       ],
       "locStart": 97,
       "locEnd": 108,
-      "filePath": "src/Forms--Fields.stories.tsx",
+      "filePath": "src/stories/Forms--Fields.stories.tsx",
       "meta": {}
     },
     "forms---fields--field-list---enum": {
@@ -124,7 +114,7 @@
       ],
       "locStart": 112,
       "locEnd": 123,
-      "filePath": "src/Forms--Fields.stories.tsx",
+      "filePath": "src/stories/Forms--Fields.stories.tsx",
       "meta": {}
     },
     "forms---form--static-form": {
@@ -135,7 +125,7 @@
       ],
       "locStart": 9,
       "locEnd": 88,
-      "filePath": "src/Forms--Form.stories.tsx",
+      "filePath": "src/stories/Forms--Form.stories.tsx",
       "meta": {}
     },
     "forms---form--dynamic-form": {
@@ -146,7 +136,7 @@
       ],
       "locStart": 92,
       "locEnd": 163,
-      "filePath": "src/Forms--Form.stories.tsx",
+      "filePath": "src/stories/Forms--Form.stories.tsx",
       "meta": {}
     },
     "forms---form--headers-form": {
@@ -157,7 +147,7 @@
       ],
       "locStart": 167,
       "locEnd": 238,
-      "filePath": "src/Forms--Form.stories.tsx",
+      "filePath": "src/stories/Forms--Form.stories.tsx",
       "meta": {}
     },
     "forms---form-control--field-input-with-label-add-on": {
@@ -168,7 +158,7 @@
       ],
       "locStart": 9,
       "locEnd": 28,
-      "filePath": "src/Forms--FormControl.stories.tsx",
+      "filePath": "src/stories/Forms--FormControl.stories.tsx",
       "meta": {}
     },
     "forms---form-control--field-input-without-label-add-on": {
@@ -179,7 +169,7 @@
       ],
       "locStart": 32,
       "locEnd": 50,
-      "filePath": "src/Forms--FormControl.stories.tsx",
+      "filePath": "src/stories/Forms--FormControl.stories.tsx",
       "meta": {}
     },
     "forms---form-control--field-select-with-label-add-on": {
@@ -190,7 +180,7 @@
       ],
       "locStart": 54,
       "locEnd": 81,
-      "filePath": "src/Forms--FormControl.stories.tsx",
+      "filePath": "src/stories/Forms--FormControl.stories.tsx",
       "meta": {}
     },
     "forms---form-control--field-select-without-label-add-on": {
@@ -201,7 +191,7 @@
       ],
       "locStart": 85,
       "locEnd": 112,
-      "filePath": "src/Forms--FormControl.stories.tsx",
+      "filePath": "src/stories/Forms--FormControl.stories.tsx",
       "meta": {}
     },
     "icons--library": {
@@ -211,7 +201,72 @@
       ],
       "locStart": 53,
       "locEnd": 73,
-      "filePath": "src/Icons.stories.tsx",
+      "filePath": "src/stories/Icons.stories.tsx",
+      "meta": {}
+    },
+    "layout--layout": {
+      "name": "Layout",
+      "levels": [
+        "Layout"
+      ],
+      "locStart": 3,
+      "locEnd": 5,
+      "filePath": "src/stories/Layout.stories.tsx",
+      "meta": {}
+    },
+    "pathfinder--field--field-story": {
+      "name": "Field story",
+      "levels": [
+        "Pathfinder",
+        "Field"
+      ],
+      "locStart": 8,
+      "locEnd": 29,
+      "filePath": "src/stories/Pathfinder-Field.stories.tsx",
+      "meta": {}
+    },
+    "pathfinder--list-item--field": {
+      "name": "Field",
+      "levels": [
+        "Pathfinder",
+        "List item"
+      ],
+      "locStart": 8,
+      "locEnd": 24,
+      "filePath": "src/stories/Pathfinder-ListItem.stories.tsx",
+      "meta": {}
+    },
+    "pathfinder--list-item--argument": {
+      "name": "Argument",
+      "levels": [
+        "Pathfinder",
+        "List item"
+      ],
+      "locStart": 26,
+      "locEnd": 42,
+      "filePath": "src/stories/Pathfinder-ListItem.stories.tsx",
+      "meta": {}
+    },
+    "pathfinder--list-item--input-object": {
+      "name": "Input object",
+      "levels": [
+        "Pathfinder",
+        "List item"
+      ],
+      "locStart": 44,
+      "locEnd": 63,
+      "filePath": "src/stories/Pathfinder-ListItem.stories.tsx",
+      "meta": {}
+    },
+    "pathfinder--list-item--inline-fragment": {
+      "name": "Inline fragment",
+      "levels": [
+        "Pathfinder",
+        "List item"
+      ],
+      "locStart": 65,
+      "locEnd": 82,
+      "filePath": "src/stories/Pathfinder-ListItem.stories.tsx",
       "meta": {}
     },
     "pathfinder--pathfinder": {
@@ -219,9 +274,9 @@
       "levels": [
         "Pathfinder"
       ],
-      "locStart": 8,
-      "locEnd": 30,
-      "filePath": "src/Pathfinder.stories.tsx",
+      "locStart": 7,
+      "locEnd": 29,
+      "filePath": "src/stories/Pathfinder.stories.tsx",
       "meta": {}
     },
     "pill--pill": {
@@ -231,7 +286,7 @@
       ],
       "locStart": 3,
       "locEnd": 5,
-      "filePath": "src/Pill.stories.tsx",
+      "filePath": "src/stories/Pill.stories.tsx",
       "meta": {}
     },
     "reference--reference": {
@@ -241,7 +296,7 @@
       ],
       "locStart": 13,
       "locEnd": 25,
-      "filePath": "src/Reference.stories.tsx",
+      "filePath": "src/stories/Reference.stories.tsx",
       "meta": {}
     },
     "resizer--resizer---horizontal---bar": {
@@ -253,7 +308,7 @@
       ],
       "locStart": 11,
       "locEnd": 22,
-      "filePath": "src/Resizer.stories.tsx",
+      "filePath": "src/stories/Resizer.stories.tsx",
       "meta": {}
     },
     "resizer--resizer---horizontal---ghost": {
@@ -265,7 +320,7 @@
       ],
       "locStart": 26,
       "locEnd": 37,
-      "filePath": "src/Resizer.stories.tsx",
+      "filePath": "src/stories/Resizer.stories.tsx",
       "meta": {}
     },
     "resizer--resizer---vertical---bar": {
@@ -277,7 +332,7 @@
       ],
       "locStart": 41,
       "locEnd": 52,
-      "filePath": "src/Resizer.stories.tsx",
+      "filePath": "src/stories/Resizer.stories.tsx",
       "meta": {}
     },
     "resizer--resizer---vertical---ghost": {
@@ -289,7 +344,7 @@
       ],
       "locStart": 56,
       "locEnd": 67,
-      "filePath": "src/Resizer.stories.tsx",
+      "filePath": "src/stories/Resizer.stories.tsx",
       "meta": {}
     },
     "spinner--spinner": {
@@ -299,7 +354,7 @@
       ],
       "locStart": 3,
       "locEnd": 5,
-      "filePath": "src/Spinner.stories.tsx",
+      "filePath": "src/stories/Spinner.stories.tsx",
       "meta": {}
     }
   }
