@@ -1,9 +1,9 @@
 import { GraphQLSchema } from 'graphql';
 
 // components
-import { DescriptionListItem } from '@graphiql-v2-prototype/graphiql-ui-library';
-import { DescriptionList } from '../DescriptionList';
-import { DocsDescription } from '../DocsDescription';
+import { Description } from '../Description';
+import { ListItem } from '../ListItem';
+import { List } from '../List';
 import { Separator } from '../Separator';
 
 // hooks
@@ -32,7 +32,7 @@ export const Schema = ({
 
   return (
     <>
-      <DocsDescription
+      <Description
         copy={
           schema.description && schema.description.length > 0
             ? schema.description
@@ -42,9 +42,9 @@ export const Schema = ({
 
       <Separator orientation={'horizontal'} />
 
-      <DescriptionList
+      <List
         items={arr.map((rootType) => (
-          <DescriptionListItem
+          <ListItem
             key={rootType?.name}
             description={rootType.description || null}
             name={rootType.name}

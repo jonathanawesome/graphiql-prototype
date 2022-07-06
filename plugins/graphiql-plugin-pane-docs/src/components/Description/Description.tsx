@@ -1,14 +1,14 @@
 import MarkdownIt from 'markdown-it';
 
 // styles
-import { DocsDescriptionStyled, DD, DT } from './styles';
+import { DescriptionStyled, DD, DT } from './styles';
 
-export const DocsDescription = ({ copy }: { copy: string }) => {
+export const Description = ({ copy }: { copy: string }) => {
   const md = new MarkdownIt({});
   return (
-    <DocsDescriptionStyled>
+    <DescriptionStyled>
       <DT>Description</DT>
       <DD dangerouslySetInnerHTML={{ __html: md.render(copy) }} />
-    </DocsDescriptionStyled>
+    </DescriptionStyled>
   );
 };

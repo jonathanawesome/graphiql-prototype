@@ -56,16 +56,16 @@ export const CollapsibleTrigger = styled(Collapsible.Trigger, {
   },
 
   variants: {
-    isExpanded: {
+    isCollapsed: {
       true: {
         svg: {
-          transform: 'rotate(90deg)',
-          fill: '$secondary060',
+          fill: '$gray040',
         },
       },
       false: {
         svg: {
-          fill: '$gray040',
+          transform: 'rotate(90deg)',
+          fill: '$secondary060',
         },
       },
     },

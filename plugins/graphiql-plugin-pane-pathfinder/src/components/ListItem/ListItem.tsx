@@ -30,17 +30,28 @@ export const ListItem = ({
   type,
   variant,
 }: ListItemProps) => {
-  const [isExpanded, setIsExpanded] = useState<boolean>(variant === 'ROOT');
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(variant !== 'ROOT');
 
   // console.log('ListItem', { collapsibleContent });
 
   if (collapsibleContent) {
     return (
       <ListItemStyled>
-        <CollapsibleRoot open={isExpanded} onOpenChange={setIsExpanded}>
+        <CollapsibleRoot
+          open={!isCollapsed}
+          onOpenChange={() => setIsCollapsed(!isCollapsed)}
+        >
           <Layout hasToggler={!!toggler} isCollapsible={true}>
-            {toggler && <Toggler {...toggler} />}
-            <CollapsibleTrigger isExpanded={isExpanded}>
+            {toggler && (
+              <Toggler
+                {...toggler}
+                collapser={{
+                  isCollapsed,
+                  setIsCollapsed,
+                }}
+              />
+            )}
+            <CollapsibleTrigger isCollapsed={isCollapsed}>
               <Caret />
             </CollapsibleTrigger>
             <Details isSelected={isSelected} type={type} variant={variant} />

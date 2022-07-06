@@ -1,6 +1,6 @@
 import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-export const DocsDescriptionStyled = styled('dl', {
+export const DescriptionStyled = styled('dl', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',

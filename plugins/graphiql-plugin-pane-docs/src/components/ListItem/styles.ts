@@ -1,4 +1,4 @@
-import { styled } from '../../theme';
+import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 export const NameAndType = styled('div', {
   display: 'flex',
@@ -58,7 +58,7 @@ export const Description = styled('div', {
   },
 });
 
-export const DescriptionListItemStyled = styled('div', {
+export const ListItemStyled = styled('div', {
   display: 'flex',
   gap: 6,
   fontSize: '$body',

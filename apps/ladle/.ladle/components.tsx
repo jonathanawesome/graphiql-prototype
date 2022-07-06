@@ -1,5 +1,9 @@
 import React, { useEffect } from 'react';
+
+// hooks
 import { useGraphiQLSchema } from '@graphiql-v2-prototype/graphiql-editor'
+
+// styles
 import { globalStyles } from '@graphiql-v2-prototype/graphiql-ui-library'
 
 export const Provider = ({ children}: {children: React.ReactNode}) => {
@@ -8,8 +12,7 @@ export const Provider = ({ children}: {children: React.ReactNode}) => {
   const { initSchema } = useGraphiQLSchema();
 
   useEffect(() => {
-    initSchema({});
-    // initSchema({url: "https://rickandmortyapi.com/graphql"});
+    initSchema({url: import.meta.env.MODE ? "http://localhost:4000/graphql" : undefined});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { GraphQLFieldMap, GraphQLInterfaceType, GraphQLObjectType } from 'graphql';
 
 // components
-import { DocsDescription } from '../DocsDescription';
+import { Description } from '../Description';
 import { Separator } from '../Separator';
 
 // hooks
@@ -34,7 +34,7 @@ export const ObjectType = ({
 
   return (
     <>
-      <DocsDescription
+      <Description
         copy={
           type.description && type.description.length > 0
             ? type.description

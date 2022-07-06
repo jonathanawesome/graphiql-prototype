@@ -1,1 +1,0 @@
-export { DocsDescription } from './DocsDescription';

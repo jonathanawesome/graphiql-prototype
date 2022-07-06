@@ -1,16 +1,10 @@
 // components
-import { SeparatorRound } from '../../icons';
+import { SeparatorRound } from '@graphiql-v2-prototype/graphiql-ui-library';
 
 // styles
-import {
-  Description,
-  DescriptionListItemStyled,
-  NameAndType,
-  Name,
-  Type,
-} from './styles';
+import { Description, ListItemStyled, NameAndType, Name, Type } from './styles';
 
-export type DescriptionListItemProps = {
+export type ListItemProps = {
   name: string;
   description: string | null;
   descriptionPlacement?: 'Inline' | 'Below' | 'Off';
@@ -19,21 +13,21 @@ export type DescriptionListItemProps = {
   type: string | React.ReactElement<HTMLButtonElement>;
 };
 
-export const DescriptionListItem = ({
+export const ListItem = ({
   name,
   description = null,
   descriptionPlacement = 'Below',
   isSelected,
   type,
   entityType,
-}: DescriptionListItemProps) => {
+}: ListItemProps) => {
   // console.log('rendering Describe', {
   //   name,
   //   type,
   // });
 
   return (
-    <DescriptionListItemStyled
+    <ListItemStyled
       descriptionPlacement={descriptionPlacement}
       entityType={entityType}
       isSelected={isSelected}
@@ -48,6 +42,6 @@ export const DescriptionListItem = ({
           <span>{description}</span>
         </Description>
       )}
-    </DescriptionListItemStyled>
+    </ListItemStyled>
   );
 };

@@ -19,7 +19,7 @@ export const BackButton = styled('button', {
   display: 'flex',
   alignItems: 'center',
   gap: 2,
-  marginLeft: -4,
+  // marginLeft: -4,
 
   '&:hover': {
     svg: {

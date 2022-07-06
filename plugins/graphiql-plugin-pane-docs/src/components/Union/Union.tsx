@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { GraphQLObjectType, GraphQLUnionType } from 'graphql';
 
 // components
-import { DescriptionList } from '../DescriptionList';
-import { DescriptionListItem } from '@graphiql-v2-prototype/graphiql-ui-library';
-import { DocsDescription } from '../DocsDescription';
+import { Description } from '../Description';
+import { List } from '../List';
+import { ListItem } from '../ListItem';
 import { Separator } from '../Separator';
 
 // hooks
@@ -33,7 +33,7 @@ export const Union = ({
 
   return (
     <>
-      <DocsDescription
+      <Description
         copy={
           type.description && type.description.length > 0
             ? type.description
@@ -43,11 +43,11 @@ export const Union = ({
       <Separator orientation={'horizontal'} />
 
       {types && (
-        <DescriptionList
+        <List
           items={Object.keys(types)
             .sort()
             .map((type) => (
-              <DescriptionListItem
+              <ListItem
                 key={types[type].name}
                 description={types[type].description || null}
                 name={types[type].name}

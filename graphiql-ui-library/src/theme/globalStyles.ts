@@ -21,6 +21,7 @@ export const globalStyles = globalCss({
   'a, button': {
     '&:focus': {
       outline: '1px dotted $gray100',
+      outlineOffset: -1,
     },
   },
   'ul, li': {

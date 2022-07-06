@@ -41,13 +41,13 @@ export const useGraphiQLSchema = create<GraphiQLSchemaStore>((set, get) => ({
           headers: { ...tabHeaders, ...globalHeaders },
           url: schemaUrl,
         })({
-          operationName: activeEditor.operationDefinition?.name?.value || '',
+          operationName: activeEditor.operationDefinition?.name?.value || undefined,
           query: operationModelValue,
           variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
         });
 
         // console.log('running executeOperation', {
-        //   operationName: activeEditor.operationDefinition?.name?.value || '',
+        //   operationName: activeEditor.operationDefinition?.name?.value,
         //   query: operationModelValue,
         //   variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
         //   result,

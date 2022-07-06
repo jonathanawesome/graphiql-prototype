@@ -1,8 +1,8 @@
 import { GraphQLFieldMap, GraphQLInputFieldMap } from 'graphql';
 
 // components
-import { DescriptionListItem } from '@graphiql-v2-prototype/graphiql-ui-library';
-import { DescriptionList } from '../DescriptionList';
+import { ListItem } from '../ListItem';
+import { List } from '../List';
 
 // hooks
 import { DocPlacement, useDocs } from '../../hooks';
@@ -18,11 +18,11 @@ export const Fields = ({ fields, placement }: FieldsProps) => {
   const { navigateForward } = useDocs();
 
   return (
-    <DescriptionList
+    <List
       items={Object.keys(fields)
         .sort()
         .map((field) => (
-          <DescriptionListItem
+          <ListItem
             key={fields[field].name}
             description={fields[field].description || null}
             name={fields[field].name}

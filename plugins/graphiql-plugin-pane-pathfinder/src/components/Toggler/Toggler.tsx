@@ -41,7 +41,7 @@ export const Toggler: React.FC<ToggleProps> = ({
 }) => {
   const { toggle } = usePathfinder();
 
-  // console.log('Toggler', { variant });
+  // console.log('Toggler', { ancestors, collapser, isSelected, operationType, variant });
 
   return (
     <TogglerStyled
@@ -49,11 +49,12 @@ export const Toggler: React.FC<ToggleProps> = ({
       onClick={() => {
         if (collapser) {
           const { isCollapsed, setIsCollapsed } = collapser;
+
           if (!isSelected && isCollapsed) {
-            setIsCollapsed(true);
-          }
-          if (!isSelected && !isCollapsed) {
             setIsCollapsed(false);
+          }
+          if (isSelected && !isCollapsed) {
+            setIsCollapsed(true);
           }
         }
         return toggle({ ancestors, operationType });

@@ -51,8 +51,10 @@ export const PathfinderContent = styled('ul', {
   height: 'calc(100% - 64px)',
   width: '100%',
   overflowX: 'hidden',
+
   '&::after': {
     content: '',
+    zIndex: 1,
     position: 'absolute',
     top: 0,
     right: 0,

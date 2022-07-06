@@ -27,15 +27,19 @@ export const Union = ({ ancestors, operationType, selection, unionType }: UnionP
 
   // console.log('rendering Union', { unionMembers });
 
-  return unionMembers.map((o) => (
-    <UnionMember
-      key={o.name}
-      ancestors={ancestors}
-      objectMember={o}
-      operationType={operationType}
-      selection={selection}
-    />
-  ));
+  return (
+    <>
+      {unionMembers.map((o) => (
+        <UnionMember
+          key={o.name}
+          ancestors={ancestors}
+          objectMember={o}
+          operationType={operationType}
+          selection={selection}
+        />
+      ))}
+    </>
+  );
 };
 
 const UnionMember = ({
