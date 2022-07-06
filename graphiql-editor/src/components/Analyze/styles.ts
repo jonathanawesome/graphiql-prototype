@@ -7,13 +7,13 @@ export const AnalyzeWrap = styled('div', {
   position: 'relative',
   paddingTop: 8,
 
-  '&::after': {
-    content: '',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    width: 24,
-    height: '100%',
-    background: 'linear-gradient(90deg, rgba(0,0,0,0) 0%, $editorBackground 100%)',
-  },
+  // '&::after': {
+  //   content: '',
+  //   position: 'absolute',
+  //   top: 0,
+  //   right: 0,
+  //   width: 24,
+  //   height: '100%',
+  //   background: 'linear-gradient(90deg, rgba(0,0,0,0) 0%, $editorBackground 100%)',
+  // },
 });

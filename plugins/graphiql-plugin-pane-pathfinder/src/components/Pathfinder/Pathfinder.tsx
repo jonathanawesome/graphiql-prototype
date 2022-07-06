@@ -1,7 +1,8 @@
+import { useEffect } from 'react';
 import { OperationTypeNode } from 'graphql';
 
 // components
-import { DocsOverlay, Options, RootOperationType } from '../index';
+import { DocsDialog, Options, RootOperation } from '../index';
 import { Command } from '@graphiql-v2-prototype/graphiql-ui-library';
 import { Search } from '../../icons';
 
@@ -11,8 +12,8 @@ import { useGraphiQLSchema } from '@graphiql-v2-prototype/graphiql-editor';
 
 // styles
 import {
+  PathfinderContainer,
   PathfinderContent,
-  PathfinderContentWrap,
   PathfinderLead,
   PathfinderWrap,
   FakeSearch,
@@ -23,9 +24,21 @@ export const Pathfinder = () => {
 
   const { schema } = useGraphiQLSchema();
 
-  const { getDocsInstance } = useDocs();
+  const { getDocsInstance, initDocsInstance } = useDocs();
 
   const docsInstance = getDocsInstance({ placement: 'PATHFINDER' });
+
+  useEffect(() => {
+    if (!docsInstance) {
+      // we haven't initialized the Pathfinder instance, let's do it now
+      return initDocsInstance({
+        placement: 'PATHFINDER',
+      });
+    }
+
+    return undefined;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!schema || 'error' in schema) {
     //TODO: loading/error skeleton
@@ -37,7 +50,7 @@ export const Pathfinder = () => {
 
   return (
     <PathfinderWrap>
-      <PathfinderContentWrap overlayVisible={!!docsInstance?.activeDocPane}>
+      <PathfinderContainer dialogActive={!!docsInstance?.activeDocPane}>
         <PathfinderLead>
           <FakeSearch>
             <div>
@@ -53,20 +66,17 @@ export const Pathfinder = () => {
         </PathfinderLead>
         <PathfinderContent>
           {queryType ? (
-            <RootOperationType
-              rootType={queryType}
-              operationType={OperationTypeNode.QUERY}
-            />
+            <RootOperation rootType={queryType} operationType={OperationTypeNode.QUERY} />
           ) : null}
           {mutationType ? (
-            <RootOperationType
+            <RootOperation
               rootType={mutationType}
               operationType={OperationTypeNode.MUTATION}
             />
           ) : null}
         </PathfinderContent>
-      </PathfinderContentWrap>
-      <DocsOverlay />
+      </PathfinderContainer>
+      <DocsDialog dialogActive={!!docsInstance?.activeDocPane} />
     </PathfinderWrap>
   );
 };

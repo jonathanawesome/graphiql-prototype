@@ -1,1 +1,0 @@
-export { ObjectType } from './ObjectType';

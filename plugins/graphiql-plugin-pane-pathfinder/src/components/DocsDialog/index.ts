@@ -1,0 +1,1 @@
+export { DocsDialog } from './DocsDialog';

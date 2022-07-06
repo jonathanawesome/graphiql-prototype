@@ -2,10 +2,10 @@ import { GraphQLFieldMap, GraphQLInterfaceType, GraphQLObjectType } from 'graphq
 import { useState, useEffect } from 'react';
 
 // components
-import { DescriptionListItem } from '@graphiql-v2-prototype/graphiql-ui-library';
-import { DescriptionList } from '../DescriptionList';
-import { DocsDescription } from '../DocsDescription';
+import { Description } from '../Description';
 import { Fields } from '../Fields';
+import { ListItem } from '../ListItem';
+import { List } from '../List';
 import { Separator } from '../Separator';
 
 // hooks
@@ -25,6 +25,7 @@ export const Interface = ({
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [fields, setFields] = useState<GraphQLFieldMap<any, any> | null>(null);
+
   const [implementingObjects, setImplementingObjects] =
     useState<ReadonlyArray<GraphQLObjectType> | null>(null);
 
@@ -45,7 +46,7 @@ export const Interface = ({
 
   return (
     <>
-      <DocsDescription
+      <Description
         copy={
           type.description && type.description.length > 0
             ? type.description
@@ -60,11 +61,11 @@ export const Interface = ({
       <Separator orientation={'horizontal'} />
 
       {implementingObjects && (
-        <DescriptionList
+        <List
           items={Object.keys(implementingObjects)
             .sort()
             .map((object) => (
-              <DescriptionListItem
+              <ListItem
                 key={implementingObjects[object].name}
                 description={implementingObjects[object].description || null}
                 name={implementingObjects[object].name}

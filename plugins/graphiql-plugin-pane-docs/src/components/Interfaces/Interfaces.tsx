@@ -1,8 +1,8 @@
 import { GraphQLInterfaceType } from 'graphql';
 
 // components
-import { DescriptionListItem } from '@graphiql-v2-prototype/graphiql-ui-library';
-import { DescriptionList } from '../DescriptionList';
+import { ListItem } from '../ListItem';
+import { List } from '../List';
 
 // hooks
 import { DocPlacement, useDocs } from '../../hooks';
@@ -16,9 +16,9 @@ export const Interfaces = ({ interfaces, placement }: InterfacesProps) => {
   const { navigateForward } = useDocs();
 
   return (
-    <DescriptionList
+    <List
       items={interfaces.map((int) => (
-        <DescriptionListItem
+        <ListItem
           key={int.name}
           description={int.description || null}
           name={int.name}

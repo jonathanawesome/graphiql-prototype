@@ -1,3 +1,5 @@
+export * from './src';
+
 import { Compass, Pathfinder } from './src';
 
 export { Pathfinder };

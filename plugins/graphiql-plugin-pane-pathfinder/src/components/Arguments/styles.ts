@@ -1,11 +1,9 @@
 import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
+import * as Collapsible from '@radix-ui/react-collapsible';
 
-export const ArgumentsWrap = styled('div', {
-  marginTop: 12,
-});
-
-export const RequiredArgumentsWrap = styled('div', {
-  marginBottom: 8,
+export const RequiredArguments = styled('div', {
+  // marginBottom: 8,
+  // borderLeft: '1px solid red',
 });
 
 export const Span = styled('span', {
@@ -18,36 +16,52 @@ export const Span = styled('span', {
   color: '$gray060',
   marginLeft: 8,
   marginTop: 2,
+  whiteSpace: 'nowrap',
 });
 
 export const ShowArgumentsIconWrap = styled('div', {
-  height: 24,
-  width: 24,
+  height: 14,
+  width: 30,
   position: 'relative',
+  display: 'flex',
 
   svg: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate3d(-50%, -50%, 0) rotate(0deg) !important',
-    height: 24,
-    width: 24,
+    height: 14,
+    width: 30,
     path: {
       '&:nth-of-type(1)': {
         fill: '$gray060',
       },
       '&:nth-of-type(2)': {
-        fill: '$appBackground',
+        fill: '$gray060',
       },
       '&:nth-of-type(3)': {
         fill: '$gray060',
       },
-      '&:nth-of-type(4)': {
-        fill: '$appBackground',
-      },
-      '&:nth-of-type(5)': {
-        fill: '$gray060',
+    },
+  },
+});
+
+export const Root = styled(Collapsible.Root, {
+  position: 'relative',
+});
+
+export const Trigger = styled(Collapsible.Trigger, {
+  display: 'flex',
+  alignItems: 'center',
+
+  variants: {
+    isExpanded: {
+      false: {},
+      true: {
+        marginBottom: 12,
       },
     },
+  },
+});
+
+export const Content = styled(Collapsible.Content, {
+  ul: {
+    marginBottom: 12,
   },
 });

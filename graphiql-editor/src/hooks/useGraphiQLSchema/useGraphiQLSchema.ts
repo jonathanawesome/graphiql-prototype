@@ -6,15 +6,15 @@ import { buildClientSchema, getIntrospectionQuery, IntrospectionQuery } from 'gr
 // hooks
 import { useGraphiQLGlobalHeaders } from '../useGraphiQLGlobalHeaders';
 import { useGraphiQLEditor } from '../useGraphiQLEditor';
-
-// test schema
-import testSchema from './testSchema.js';
+import { useTestSchema } from '@graphiql-v2-prototype/graphiql-test-schema';
 
 // types
 import { GraphiQLSchemaStore } from './types';
 
 // utils
 import { fetcher, getActiveEditorTab } from '../../utils';
+
+const testSchema = useTestSchema.getState().schema;
 
 export const useGraphiQLSchema = create<GraphiQLSchemaStore>((set, get) => ({
   executeOperation: async () => {
@@ -41,13 +41,13 @@ export const useGraphiQLSchema = create<GraphiQLSchemaStore>((set, get) => ({
           headers: { ...tabHeaders, ...globalHeaders },
           url: schemaUrl,
         })({
-          operationName: activeEditor.operationDefinition?.name?.value || '',
+          operationName: activeEditor.operationDefinition?.name?.value || undefined,
           query: operationModelValue,
           variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
         });
 
         // console.log('running executeOperation', {
-        //   operationName: activeEditor.operationDefinition?.name?.value || '',
+        //   operationName: activeEditor.operationDefinition?.name?.value,
         //   query: operationModelValue,
         //   variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
         //   result,

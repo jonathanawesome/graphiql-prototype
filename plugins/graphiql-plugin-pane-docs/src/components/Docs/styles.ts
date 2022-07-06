@@ -14,7 +14,15 @@ export const DocsStyled = styled('div', {
         padding: 24,
       },
       EXPLORER: {
-        // paddingBottom: 24,
+        '&::after': {
+          content: '',
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          width: 24,
+          height: '100%',
+          background: 'linear-gradient(90deg, rgba(0,0,0,0) 0%, $appBackground 100%)',
+        },
       },
     },
   },

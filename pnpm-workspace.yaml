@@ -2,6 +2,7 @@ packages:
   - 'apps/api'
   - 'apps/ladle'
   - 'graphiql-editor'
+  - 'graphiql-test-schema'
   - 'graphiql-ui-library'
   - 'graphiql-utils'
   - 'graphiql-v2'

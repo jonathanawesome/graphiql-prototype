@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { GraphQLInputFieldMap, GraphQLInputObjectType } from 'graphql';
 
 // components
-import { DocsDescription } from '../DocsDescription';
+import { Description } from '../Description';
 import { Fields } from '../Fields';
 import { Separator } from '../Separator';
 
@@ -27,7 +27,7 @@ export const InputObject = ({
 
   return (
     <>
-      <DocsDescription
+      <Description
         copy={
           type.description && type.description.length > 0
             ? type.description

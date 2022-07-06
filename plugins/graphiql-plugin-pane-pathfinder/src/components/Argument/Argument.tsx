@@ -78,31 +78,49 @@ export const Argument = ({
     toRender = (
       <InputObject
         ancestors={newInputObjectMap}
-        inputType={argument.type}
+        argument={argument}
+        inputObjectType={argument.type}
         operationType={operationType}
-        renderingInputField={argument}
       />
     );
   } else if (isNonNullType(argument.type) || isListType(argument.type)) {
     const unwrappedInputObject = unwrapInputType({ inputType: argument.type });
     if (isScalarType(unwrappedInputObject)) {
-      toRender = <ScalarArg ancestors={newScalarArgMap} operationType={operationType} />;
+      toRender = (
+        <ScalarArg
+          ancestors={newScalarArgMap}
+          argument={argument}
+          operationType={operationType}
+        />
+      );
     } else if (isInputObjectType(unwrappedInputObject)) {
       toRender = (
         // rendering top-level InputObject that IS required
         <InputObject
           ancestors={newInputObjectMap}
-          inputType={unwrappedInputObject}
+          argument={argument}
+          inputObjectType={unwrappedInputObject}
           operationType={operationType}
-          renderingInputField={argument}
         />
       );
     } else if (isEnumType(unwrappedInputObject)) {
       //TODO handle EnumType
-      toRender = <ScalarArg ancestors={newScalarArgMap} operationType={operationType} />;
+      toRender = (
+        <ScalarArg
+          ancestors={newScalarArgMap}
+          argument={argument}
+          operationType={operationType}
+        />
+      );
     }
   } else if (isLeafType(argument.type)) {
-    toRender = <ScalarArg ancestors={newScalarArgMap} operationType={operationType} />;
+    toRender = (
+      <ScalarArg
+        ancestors={newScalarArgMap}
+        argument={argument}
+        operationType={operationType}
+      />
+    );
   } else {
     toRender = (
       <p style={{ color: 'red' }}>

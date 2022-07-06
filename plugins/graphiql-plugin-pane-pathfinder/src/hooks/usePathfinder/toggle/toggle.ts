@@ -1,7 +1,7 @@
 import { GetState } from 'zustand';
 import {
   Kind,
-  NameNode,
+  // NameNode,
   OperationDefinitionNode,
   OperationTypeNode,
   print,
