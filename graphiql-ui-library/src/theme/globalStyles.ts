@@ -20,7 +20,7 @@ export const globalStyles = globalCss({
   },
   'a, button': {
     '&:focus': {
-      outline: '1px solid red',
+      outline: '1px dotted $gray100',
     },
   },
   'ul, li': {

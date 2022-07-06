@@ -1,7 +1,7 @@
 export { Argument } from './Argument';
 export { Arguments } from './Arguments';
 export { Details } from './Details';
-export { DocsOverlay } from './DocsOverlay';
+export { DocsDialog } from './DocsDialog';
 export { Field } from './Field';
 export { Fields } from './Fields';
 export { InputObject } from './InputObject';

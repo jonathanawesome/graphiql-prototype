@@ -46,28 +46,25 @@ export const Details = ({ isSelected, type, variant }: DetailsProps) => {
         </Name>
 
         {variant !== 'ROOT' && (
-          <>
-            {/* <Type>{'type' in type ? type.type.toString() : type.toString()}</Type> */}
-            <Type>
-              <button
-                onClick={() => {
-                  navigateForward({
-                    docPane: {
-                      description: type.description || null,
-                      name:
-                        'type' in type
-                          ? unwrapType(type.type).toString()
-                          : unwrapType(type).toString(),
-                      type: 'type' in type ? unwrapType(type.type) : unwrapType(type),
-                    },
-                    placement: 'PATHFINDER',
-                  });
-                }}
-              >
-                {'type' in type ? type.type.toString() : type.toString()}
-              </button>
-            </Type>
-          </>
+          <Type>
+            <button
+              onClick={() => {
+                navigateForward({
+                  docPane: {
+                    description: type.description || null,
+                    name:
+                      'type' in type
+                        ? unwrapType(type.type).toString()
+                        : unwrapType(type).toString(),
+                    type: 'type' in type ? unwrapType(type.type) : unwrapType(type),
+                  },
+                  placement: 'PATHFINDER',
+                });
+              }}
+            >
+              {'type' in type ? type.type.toString() : type.toString()}
+            </button>
+          </Type>
         )}
       </NameAndType>
       {variant !== 'ROOT' && type.description && (
@@ -79,76 +76,3 @@ export const Details = ({ isSelected, type, variant }: DetailsProps) => {
     </DetailsStyled>
   );
 };
-
-// field
-{
-  /* <button
-onClick={() => {
-  navigateForward({
-    docPane: {
-      description: field.description || null,
-      // name: field.type.toString(),
-      name: unwrapType(field.type).toString(),
-      type: field.type,
-    },
-    placement: 'PATHFINDER',
-  });
-}}
->
-{field.type.toString()}
-</button> */
-}
-
-// inputObject
-{
-  /* <button
-onClick={() => {
-  navigateForward({
-    docPane: {
-      description: inputObjectType.description || null,
-      name: unwrapType(inputObjectType).toString(),
-      type: inputObjectType,
-    },
-    placement: 'PATHFINDER',
-  });
-}}
->
-{inputObjectType.toString()}
-</button> */
-}
-
-//scalarArg
-{
-  /* <button
-onClick={() => {
-  navigateForward({
-    docPane: {
-      description: argument.description || null,
-      name: unwrapType(argument.type).toString(),
-      type: argument.type,
-    },
-    placement: 'PATHFINDER',
-  });
-}}
->
-{argument.type.toString()}
-</button> */
-}
-
-// unionMember
-{
-  /* <button
-onClick={() => {
-  navigateForward({
-    docPane: {
-      description: objectMember.description || null,
-      name: unwrapType(objectMember).toString(),
-      type: objectMember,
-    },
-    placement: 'PATHFINDER',
-  });
-}}
->
-{objectMember.toString()}
-</button> */
-}

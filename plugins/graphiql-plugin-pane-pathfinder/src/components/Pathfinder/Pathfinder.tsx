@@ -1,7 +1,8 @@
+import { useEffect } from 'react';
 import { OperationTypeNode } from 'graphql';
 
 // components
-import { DocsOverlay, Options, RootOperation } from '../index';
+import { DocsDialog, Options, RootOperation } from '../index';
 import { Command } from '@graphiql-v2-prototype/graphiql-ui-library';
 import { Search } from '../../icons';
 
@@ -10,16 +11,34 @@ import { useDocs } from '@graphiql-v2-prototype/graphiql-plugin-pane-docs';
 import { useGraphiQLSchema } from '@graphiql-v2-prototype/graphiql-editor';
 
 // styles
-import { PathfinderContent, PathfinderLead, PathfinderWrap, FakeSearch } from './styles';
+import {
+  PathfinderContainer,
+  PathfinderContent,
+  PathfinderLead,
+  PathfinderWrap,
+  FakeSearch,
+} from './styles';
 
 export const Pathfinder = () => {
   // console.log('rendering Pathfinder');
 
   const { schema } = useGraphiQLSchema();
 
-  const { getDocsInstance } = useDocs();
+  const { getDocsInstance, initDocsInstance } = useDocs();
 
   const docsInstance = getDocsInstance({ placement: 'PATHFINDER' });
+
+  useEffect(() => {
+    if (!docsInstance) {
+      // we haven't initialized the Pathfinder instance, let's do it now
+      return initDocsInstance({
+        placement: 'PATHFINDER',
+      });
+    }
+
+    return undefined;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!schema || 'error' in schema) {
     //TODO: loading/error skeleton
@@ -30,8 +49,8 @@ export const Pathfinder = () => {
   const mutationType = schema.getMutationType();
 
   return (
-    <>
-      <PathfinderWrap overlayVisible={!!docsInstance?.activeDocPane}>
+    <PathfinderWrap>
+      <PathfinderContainer dialogActive={!!docsInstance?.activeDocPane}>
         <PathfinderLead>
           <FakeSearch>
             <div>
@@ -56,8 +75,8 @@ export const Pathfinder = () => {
             />
           ) : null}
         </PathfinderContent>
-      </PathfinderWrap>
-      <DocsOverlay />
-    </>
+      </PathfinderContainer>
+      <DocsDialog dialogActive={!!docsInstance?.activeDocPane} />
+    </PathfinderWrap>
   );
 };

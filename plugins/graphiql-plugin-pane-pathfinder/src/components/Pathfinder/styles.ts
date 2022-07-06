@@ -1,16 +1,19 @@
 import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
 
-export const PathfinderLead = styled('div', {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-});
-
 export const PathfinderWrap = styled('div', {
   position: 'relative',
   height: '100%',
   width: '100%',
   overflowY: 'auto',
+});
+
+export const PathfinderContainer = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 24,
+  position: 'relative',
+  height: '100%',
+  width: '100%',
   transition: 'all .1s $authenticMotion',
 
   ul: {
@@ -20,7 +23,7 @@ export const PathfinderWrap = styled('div', {
   },
 
   variants: {
-    overlayVisible: {
+    dialogActive: {
       false: {
         visibility: 'visible',
         opacity: '1',
@@ -35,6 +38,12 @@ export const PathfinderWrap = styled('div', {
   },
 });
 
+export const PathfinderLead = styled('div', {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+});
+
 export const PathfinderContent = styled('ul', {
   position: 'absolute',
   top: 64,
@@ -42,6 +51,15 @@ export const PathfinderContent = styled('ul', {
   height: 'calc(100% - 64px)',
   width: '100%',
   overflowX: 'hidden',
+  '&::after': {
+    content: '',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    width: 24,
+    height: '100%',
+    background: 'linear-gradient(90deg, rgba(0,0,0,0) 0%, $appBackground 100%)',
+  },
 });
 
 export const FakeSearch = styled('div', {
