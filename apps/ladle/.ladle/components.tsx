@@ -12,7 +12,7 @@ export const Provider = ({ children}: {children: React.ReactNode}) => {
   const { initSchema } = useGraphiQLSchema();
 
   useEffect(() => {
-    initSchema({url: import.meta.env.MODE ? "http://localhost:4000/graphql" : undefined});
+    initSchema({url: import.meta.env.MODE === "development" ? "http://localhost:4000/graphql" : undefined});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
