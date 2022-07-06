@@ -9,13 +9,15 @@ import {
 
 // components
 import { ChevronSmall } from '@graphiql-v2-prototype/graphiql-ui-library';
-import { unwrapType } from '@graphiql-v2-prototype/graphiql-utils';
 
 // hooks
 import { DocPlacement, useDocs } from '../../hooks';
 
 // styles
 import { BackButton, CurrentTypeName, DocsLeadStyled, Left } from './styles';
+
+// utils
+import { unwrapType } from '@graphiql-v2-prototype/graphiql-utils';
 
 export const DocsLead = ({ placement }: { placement: DocPlacement }) => {
   const { getDocsInstance, navigateBack } = useDocs();
