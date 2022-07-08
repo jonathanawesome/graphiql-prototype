@@ -5,7 +5,7 @@ export const globalStyles = globalCss({
   '*, *:before, *:after': {
     boxSizing: 'border-box',
   },
-  'html, body': {
+  'html, body, #root, #ladle-root': {
     height: '100%',
     width: '100%',
     margin: 0,
@@ -35,9 +35,4 @@ export const globalStyles = globalCss({
     textRendering: 'optimizeLegibility',
   },
   // end set fonts
-  // begin fix for ladle's full screen mode
-  '#ladle-root': {
-    height: '100%',
-  },
-  // end fix for ladle's full screen mode
 });

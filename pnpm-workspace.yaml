@@ -1,5 +1,6 @@
 packages:
   - 'apps/ladle'
+  - 'apps/reference'
   - 'graphiql-editor'
   - 'graphiql-test-schema'
   - 'graphiql-ui-library'

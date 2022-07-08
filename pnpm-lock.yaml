@@ -65,6 +65,45 @@ importers:
       '@vitejs/plugin-react': 1.3.1
       vite: 2.9.6
 
+  apps/reference:
+    specifiers:
+      '@graphiql-v2-prototype/graphiql-editor': workspace:*
+      '@graphiql-v2-prototype/graphiql-plugin-dialog-schema-selector': workspace:*
+      '@graphiql-v2-prototype/graphiql-plugin-dialog-settings': workspace:*
+      '@graphiql-v2-prototype/graphiql-plugin-pane-docs': workspace:*
+      '@graphiql-v2-prototype/graphiql-plugin-pane-easy-vars': workspace:*
+      '@graphiql-v2-prototype/graphiql-plugin-pane-history': workspace:*
+      '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder': workspace:*
+      '@graphiql-v2-prototype/graphiql-ui-library': workspace:*
+      '@graphiql-v2-prototype/graphiql-v2': workspace:*
+      '@types/react': 17.0.2
+      '@types/react-dom': 17.0.2
+      '@vitejs/plugin-react': ^1.3.0
+      react: 17.0.2
+      react-dom: 17.0.2
+      typescript: ^4.6.3
+      vite: 2.9.6
+      vite-plugin-monaco-editor: 1.1.0
+    dependencies:
+      '@graphiql-v2-prototype/graphiql-editor': link:../../graphiql-editor
+      '@graphiql-v2-prototype/graphiql-plugin-dialog-schema-selector': link:../../plugins/graphiql-plugin-dialog-schema-selector
+      '@graphiql-v2-prototype/graphiql-plugin-dialog-settings': link:../../plugins/graphiql-plugin-dialog-settings
+      '@graphiql-v2-prototype/graphiql-plugin-pane-docs': link:../../plugins/graphiql-plugin-pane-docs
+      '@graphiql-v2-prototype/graphiql-plugin-pane-easy-vars': link:../../plugins/graphiql-plugin-pane-easy-vars
+      '@graphiql-v2-prototype/graphiql-plugin-pane-history': link:../../plugins/graphiql-plugin-pane-history
+      '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder': link:../../plugins/graphiql-plugin-pane-pathfinder
+      '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql-ui-library
+      '@graphiql-v2-prototype/graphiql-v2': link:../../graphiql-v2
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      vite-plugin-monaco-editor: 1.1.0
+    devDependencies:
+      '@types/react': 17.0.2
+      '@types/react-dom': 17.0.2
+      '@vitejs/plugin-react': 1.3.1
+      typescript: 4.7.4
+      vite: 2.9.6
+
   graphiql-editor:
     specifiers:
       '@graphiql-v2-prototype/graphiql-plugin-pane-easy-vars': workspace:*
@@ -2635,7 +2674,7 @@ packages:
   /@types/react-dom/17.0.2:
     resolution: {integrity: sha512-Icd9KEgdnFfJs39KyRyr0jQ7EKhq8U6CcHRMGAS45fp5qgUvxL3ujUCfWFttUK2UErqZNj97t9gsVPNAqcwoCg==}
     dependencies:
-      '@types/react': 17.0.2
+      '@types/react': 18.0.15
     dev: true
 
   /@types/react/17.0.2:
@@ -2643,6 +2682,18 @@ packages:
     dependencies:
       '@types/prop-types': 15.7.5
       csstype: 3.1.0
+
+  /@types/react/18.0.15:
+    resolution: {integrity: sha512-iz3BtLuIYH1uWdsv6wXYdhozhqj20oD4/Hk2DNXIn1kFsmp9x8d9QB6FnPhfkbhd2PgEONt9Q1x/ebkwjfFLow==}
+    dependencies:
+      '@types/prop-types': 15.7.5
+      '@types/scheduler': 0.16.2
+      csstype: 3.1.0
+    dev: true
+
+  /@types/scheduler/0.16.2:
+    resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
+    dev: true
 
   /@typescript-eslint/eslint-plugin/5.30.3_xuuykav7urhdozug7htlfgar3u:
     resolution: {integrity: sha512-QEgE1uahnDbWEkZlidq7uKB630ny1NN8KbLPmznX+8hYsYpoV1/quG1Nzvs141FVuumuS7O0EpqYw3RB4AVzRg==}
@@ -5077,6 +5128,12 @@ packages:
     resolution: {integrity: sha512-7yTAFIE0SefjCmfnjrvXOl53wkxeSASc/ZIcB5tZeEK3vAmHhveV8y3f90Vp8b+PYdbUipjqf91mbFbSENkpcw==}
     peerDependencies:
       monaco-editor: 0.29.x
+    dev: false
+
+  /vite-plugin-monaco-editor/1.1.0:
+    resolution: {integrity: sha512-IvtUqZotrRoVqwT0PBBDIZPNraya3BxN/bfcNfnxZ5rkJiGcNtO5eAOWWSgT7zullIAEqQwxMU83yL9J5k7gww==}
+    peerDependencies:
+      monaco-editor: '>=0.33.0'
     dev: false
 
   /vite-tsconfig-paths/3.5.0_vite@2.9.6:
