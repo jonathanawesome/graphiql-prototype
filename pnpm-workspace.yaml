@@ -1,5 +1,4 @@
 packages:
-  - 'apps/api'
   - 'apps/ladle'
   - 'graphiql-editor'
   - 'graphiql-test-schema'
