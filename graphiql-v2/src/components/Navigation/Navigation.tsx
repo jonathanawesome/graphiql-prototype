@@ -23,33 +23,25 @@ export const Navigation = ({
   panePlugins: PanePluginsArray;
   dialogPlugins: DialogPluginsArray;
 }) => {
-  const { activePane, setActivePane } = useGraphiQL();
+  const { activePanePlugin, setActivePanePlugin } = useGraphiQL();
 
   return (
-    <NavigationStyled showBorder={activePane !== 'GraphiQL'}>
+    <NavigationStyled showBorder={activePanePlugin !== 'GraphiQL'}>
       <PanePluginNavigation>
-        {/* <PanePluginNavigationItem
-          isActive={activePane === 'GraphiQL'}
-          onClick={() => setActivePane('GraphiQL')}
-          //TODO remove/replace
-          title="GraphiQL"
-        >
-          <GraphQLIcon />
-        </PanePluginNavigationItem> */}
         {panePlugins?.map((panePlugin) => (
           <PanePluginNavigationItem
             key={panePlugin.panePluginName}
-            isActive={activePane === panePlugin.panePluginName}
+            isActive={activePanePlugin === panePlugin.panePluginName}
             onClick={() => {
-              if (activePane === panePlugin.panePluginName) {
-                setActivePane('GraphiQL');
+              if (activePanePlugin === panePlugin.panePluginName) {
+                setActivePanePlugin('GraphiQL');
               } else {
-                setActivePane(panePlugin.panePluginName);
+                setActivePanePlugin(panePlugin.panePluginName);
               }
             }}
-            title={`${activePane === panePlugin.panePluginName ? 'Close' : 'Show'} ${
-              panePlugin.panePluginName
-            }`}
+            title={`${
+              activePanePlugin === panePlugin.panePluginName ? 'Close' : 'Show'
+            } ${panePlugin.panePluginName}`}
           >
             <panePlugin.panePluginIcon />
           </PanePluginNavigationItem>

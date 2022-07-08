@@ -1,4 +1,4 @@
 export type GraphiQLStore = {
-  activePane: string;
-  setActivePane: (paneName: string) => void;
+  activePanePlugin: string;
+  setActivePanePlugin: (activePanePlugin: string) => void;
 };

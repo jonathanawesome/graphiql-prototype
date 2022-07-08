@@ -25,8 +25,12 @@ type GraphiQLProps = {
 };
 
 export const GraphiQL = ({ panePlugins, dialogPlugins }: GraphiQLProps) => {
-  const { activePane } = useGraphiQL();
-  const { schemaLoading, schemaName } = useGraphiQLSchema();
+  const { activePanePlugin } = useGraphiQL();
+
+  const {
+    schemaLoading,
+    //  schemaName
+  } = useGraphiQLSchema();
 
   return (
     <GraphiQLWrap>
@@ -36,15 +40,15 @@ export const GraphiQL = ({ panePlugins, dialogPlugins }: GraphiQLProps) => {
           direction="horizontal"
           handleStyle="bar"
           pane1={{
-            initialFlexGrowValue: activePane === 'GraphiQL' ? undefined : 0.4,
+            initialFlexGrowValue: activePanePlugin === 'GraphiQL' ? undefined : 0.4,
             component:
-              activePane === 'GraphiQL' ? null : (
+              activePanePlugin === 'GraphiQL' ? null : (
                 <PaneWrap schemaLoading={schemaLoading}>
                   <SchemaName>
-                    <span>{activePane}</span>
+                    <span>{activePanePlugin}</span>
                     {/* <span>{schemaName || 'GraphiQL'}</span> */}
                   </SchemaName>
-                  <PanePlugins activePane={activePane} panePlugins={panePlugins} />
+                  <PanePlugins activePane={activePanePlugin} panePlugins={panePlugins} />
                 </PaneWrap>
               ),
           }}
