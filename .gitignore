@@ -27,8 +27,9 @@ lerna-debug.log*
 # typescript
 *.tsbuildinfo
 
-# ladle
+# build
 /apps/ladle/build
+/apps/reference/dist
 
 # prisma
 /apps/api/src/prisma/generated
