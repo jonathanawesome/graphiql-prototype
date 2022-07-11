@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { GraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
 
 // pane plugins
@@ -15,7 +16,6 @@ import { useGraphiQLSchema } from '@graphiql-v2-prototype/graphiql-editor';
 
 // styles
 import { globalStyles } from '@graphiql-v2-prototype/graphiql-ui-library';
-import { useEffect } from 'react';
 
 export const App = () => {
   globalStyles();
