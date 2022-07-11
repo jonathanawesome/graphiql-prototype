@@ -45,16 +45,16 @@ importers:
       vite: 2.9.6
       vite-plugin-monaco-editor: ^1.0.10
     dependencies:
-      '@graphiql-v2-prototype/graphiql-editor': link:../../graphiql-editor
+      '@graphiql-v2-prototype/graphiql-editor': link:../../graphiql/graphiql-editor
       '@graphiql-v2-prototype/graphiql-plugin-dialog-schema-selector': link:../../plugins/graphiql-plugin-dialog-schema-selector
       '@graphiql-v2-prototype/graphiql-plugin-dialog-settings': link:../../plugins/graphiql-plugin-dialog-settings
       '@graphiql-v2-prototype/graphiql-plugin-pane-docs': link:../../plugins/graphiql-plugin-pane-docs
       '@graphiql-v2-prototype/graphiql-plugin-pane-easy-vars': link:../../plugins/graphiql-plugin-pane-easy-vars
       '@graphiql-v2-prototype/graphiql-plugin-pane-history': link:../../plugins/graphiql-plugin-pane-history
       '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder': link:../../plugins/graphiql-plugin-pane-pathfinder
-      '@graphiql-v2-prototype/graphiql-test-schema': link:../../graphiql-test-schema
-      '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql-ui-library
-      '@graphiql-v2-prototype/graphiql-v2': link:../../graphiql-v2
+      '@graphiql-v2-prototype/graphiql-test-schema': link:../../graphiql/graphiql-test-schema
+      '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql/graphiql-ui-library
+      '@graphiql-v2-prototype/graphiql-v2': link:../../graphiql/graphiql-v2
       '@ladle/react': 1.1.0_sfoxds7t5ydpegc3knd667wn6m
       graphql: 16.5.0
       react: 17.0.2
@@ -85,15 +85,15 @@ importers:
       vite: 2.9.6
       vite-plugin-monaco-editor: 1.1.0
     dependencies:
-      '@graphiql-v2-prototype/graphiql-editor': link:../../graphiql-editor
+      '@graphiql-v2-prototype/graphiql-editor': link:../../graphiql/graphiql-editor
       '@graphiql-v2-prototype/graphiql-plugin-dialog-schema-selector': link:../../plugins/graphiql-plugin-dialog-schema-selector
       '@graphiql-v2-prototype/graphiql-plugin-dialog-settings': link:../../plugins/graphiql-plugin-dialog-settings
       '@graphiql-v2-prototype/graphiql-plugin-pane-docs': link:../../plugins/graphiql-plugin-pane-docs
       '@graphiql-v2-prototype/graphiql-plugin-pane-easy-vars': link:../../plugins/graphiql-plugin-pane-easy-vars
       '@graphiql-v2-prototype/graphiql-plugin-pane-history': link:../../plugins/graphiql-plugin-pane-history
       '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder': link:../../plugins/graphiql-plugin-pane-pathfinder
-      '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql-ui-library
-      '@graphiql-v2-prototype/graphiql-v2': link:../../graphiql-v2
+      '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql/graphiql-ui-library
+      '@graphiql-v2-prototype/graphiql-v2': link:../../graphiql/graphiql-v2
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       vite-plugin-monaco-editor: 1.1.0
@@ -104,7 +104,7 @@ importers:
       typescript: 4.7.4
       vite: 2.9.6
 
-  graphiql-editor:
+  graphiql/graphiql-editor:
     specifiers:
       '@graphiql-v2-prototype/graphiql-plugin-pane-easy-vars': workspace:*
       '@graphiql-v2-prototype/graphiql-test-schema': workspace:*
@@ -122,7 +122,7 @@ importers:
       vite: 2.9.6
       zustand: ^4.0.0-rc.1
     dependencies:
-      '@graphiql-v2-prototype/graphiql-plugin-pane-easy-vars': link:../plugins/graphiql-plugin-pane-easy-vars
+      '@graphiql-v2-prototype/graphiql-plugin-pane-easy-vars': link:../../plugins/graphiql-plugin-pane-easy-vars
       '@graphiql-v2-prototype/graphiql-test-schema': link:../graphiql-test-schema
       '@graphiql-v2-prototype/graphiql-ui-library': link:../graphiql-ui-library
       '@graphiql/toolkit': 0.6.0_graphql@16.5.0
@@ -139,7 +139,7 @@ importers:
       '@types/react': 17.0.2
       vite: 2.9.6
 
-  graphiql-test-schema:
+  graphiql/graphiql-test-schema:
     specifiers:
       '@types/react': 17.0.2
       graphql: ^16.5.0
@@ -152,7 +152,7 @@ importers:
     devDependencies:
       '@types/react': 17.0.2
 
-  graphiql-ui-library:
+  graphiql/graphiql-ui-library:
     specifiers:
       '@graphiql-v2-prototype/graphiql-editor': workspace:*
       '@graphiql-v2-prototype/graphiql-utils': workspace:*
@@ -191,13 +191,13 @@ importers:
       '@types/react-dom': 17.0.2
       vite: 2.9.6
 
-  graphiql-utils:
+  graphiql/graphiql-utils:
     specifiers:
       graphql: ^16.5.0
     dependencies:
       graphql: 16.5.0
 
-  graphiql-v2:
+  graphiql/graphiql-v2:
     specifiers:
       '@graphiql-v2-prototype/graphiql-editor': workspace:*
       '@graphiql-v2-prototype/graphiql-ui-library': workspace:*
@@ -223,8 +223,8 @@ importers:
       react: 17.0.2
       vite: 2.9.6
     dependencies:
-      '@graphiql-v2-prototype/graphiql-editor': link:../../graphiql-editor
-      '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql-ui-library
+      '@graphiql-v2-prototype/graphiql-editor': link:../../graphiql/graphiql-editor
+      '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql/graphiql-ui-library
       '@radix-ui/react-radio-group': 0.1.5_react@17.0.2
       react: 17.0.2
     devDependencies:
@@ -238,8 +238,8 @@ importers:
       '@types/react': 17.0.2
       react: 17.0.2
     dependencies:
-      '@graphiql-v2-prototype/graphiql-editor': link:../../graphiql-editor
-      '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql-ui-library
+      '@graphiql-v2-prototype/graphiql-editor': link:../../graphiql/graphiql-editor
+      '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql/graphiql-ui-library
       react: 17.0.2
     devDependencies:
       '@types/react': 17.0.2
@@ -257,9 +257,9 @@ importers:
       react: 17.0.2
       zustand: ^4.0.0-rc.1
     dependencies:
-      '@graphiql-v2-prototype/graphiql-editor': link:../../graphiql-editor
-      '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql-ui-library
-      '@graphiql-v2-prototype/graphiql-utils': link:../../graphiql-utils
+      '@graphiql-v2-prototype/graphiql-editor': link:../../graphiql/graphiql-editor
+      '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql/graphiql-ui-library
+      '@graphiql-v2-prototype/graphiql-utils': link:../../graphiql/graphiql-utils
       cuid: 2.1.8
       graphql: 16.5.0
       markdown-it: 13.0.1
@@ -279,9 +279,9 @@ importers:
       graphql: ^16.5.0
       react: 17.0.2
     dependencies:
-      '@graphiql-v2-prototype/graphiql-editor': link:../../graphiql-editor
-      '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql-ui-library
-      '@graphiql-v2-prototype/graphiql-utils': link:../../graphiql-utils
+      '@graphiql-v2-prototype/graphiql-editor': link:../../graphiql/graphiql-editor
+      '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql/graphiql-ui-library
+      '@graphiql-v2-prototype/graphiql-utils': link:../../graphiql/graphiql-utils
       '@radix-ui/react-accordion': 0.1.6_react@17.0.2
       graphql: 16.5.0
       react: 17.0.2
@@ -294,7 +294,7 @@ importers:
       '@types/react': 17.0.2
       react: 17.0.2
     dependencies:
-      '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql-ui-library
+      '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql/graphiql-ui-library
       react: 17.0.2
     devDependencies:
       '@types/react': 17.0.2
@@ -312,9 +312,9 @@ importers:
       react: 17.0.2
       zustand: ^4.0.0-rc.1
     dependencies:
-      '@graphiql-v2-prototype/graphiql-editor': link:../../graphiql-editor
+      '@graphiql-v2-prototype/graphiql-editor': link:../../graphiql/graphiql-editor
       '@graphiql-v2-prototype/graphiql-plugin-pane-docs': link:../graphiql-plugin-pane-docs
-      '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql-ui-library
+      '@graphiql-v2-prototype/graphiql-ui-library': link:../../graphiql/graphiql-ui-library
       '@radix-ui/react-collapsible': 0.1.6_react@17.0.2
       '@radix-ui/react-dialog': 0.1.7_7u6mpky5dbb5b3hgdescs5ficq
       cuid: 2.1.8
