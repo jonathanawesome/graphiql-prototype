@@ -4,7 +4,7 @@ import {
   OptionItem,
   Popover,
   ToggleGroup,
-} from '@graphiql-v2-prototype/graphiql-ui-library';
+} from '@graphiql-prototype/graphiql-ui-library';
 
 // hooks
 import {

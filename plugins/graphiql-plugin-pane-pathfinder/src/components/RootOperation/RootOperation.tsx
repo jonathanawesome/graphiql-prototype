@@ -5,7 +5,7 @@ import {
   OperationTypeNode,
   SelectionSetNode,
 } from 'graphql';
-import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
+import { useGraphiQLEditor } from '@graphiql-prototype/graphiql-editor';
 
 // components
 import { Field, ListItem } from '../index';

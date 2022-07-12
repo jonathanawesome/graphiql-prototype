@@ -6,7 +6,7 @@ import { DocsPanel } from '../DocsPanel';
 
 // hooks
 import { DocPlacement, useDocs } from '../../hooks';
-import { useGraphiQLSchema } from '@graphiql-v2-prototype/graphiql-editor';
+import { useGraphiQLSchema } from '@graphiql-prototype/graphiql-editor';
 
 // styles
 import { DocsStyled } from './styles';

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 // components
-import { Close } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Close } from '@graphiql-prototype/graphiql-ui-library';
 
 // hooks
 import { EditorTab, useGraphiQLEditor } from '../../../hooks';

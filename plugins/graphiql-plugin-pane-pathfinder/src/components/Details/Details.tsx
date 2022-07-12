@@ -1,11 +1,11 @@
 import { isRequiredArgument, isRequiredInputField } from 'graphql';
 
 // components
-import { SeparatorRound } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { SeparatorRound } from '@graphiql-prototype/graphiql-ui-library';
 
 // hooks
 import { usePathfinder } from '../../hooks';
-import { useDocs } from '@graphiql-v2-prototype/graphiql-plugin-pane-docs';
+import { useDocs } from '@graphiql-prototype/graphiql-plugin-pane-docs';
 
 // styles
 import { Description, DetailsStyled, NameAndType, Name, Type } from './styles';

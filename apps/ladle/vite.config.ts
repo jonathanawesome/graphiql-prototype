@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite';
 import monacoEditorPlugin from 'vite-plugin-monaco-editor';
 
-export default defineConfig(({ command, mode }) => {
+export default defineConfig(({ command }) => {
   return {
-    base: command === 'serve' ? '/' : '/graphiql-v2-prototype/',
+    base: command === 'serve' ? '/' : '/graphiql-prototype/',
     server: {
       open: false,
     },

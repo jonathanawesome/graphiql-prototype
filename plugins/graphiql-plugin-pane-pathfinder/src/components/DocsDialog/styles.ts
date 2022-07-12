@@ -1,4 +1,4 @@
-import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { styled } from '@graphiql-prototype/graphiql-ui-library';
 
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 

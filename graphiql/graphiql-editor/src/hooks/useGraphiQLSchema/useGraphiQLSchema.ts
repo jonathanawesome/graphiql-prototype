@@ -6,7 +6,7 @@ import { buildClientSchema, getIntrospectionQuery, IntrospectionQuery } from 'gr
 // hooks
 import { useGraphiQLGlobalHeaders } from '../useGraphiQLGlobalHeaders';
 import { useGraphiQLEditor } from '../useGraphiQLEditor';
-import { useTestSchema } from '@graphiql-v2-prototype/graphiql-test-schema';
+import { useTestSchema } from '@graphiql-prototype/graphiql-test-schema';
 
 // types
 import { GraphiQLSchemaStore } from './types';

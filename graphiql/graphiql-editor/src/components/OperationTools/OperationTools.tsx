@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 // components
-import { ChevronLarge } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { ChevronLarge } from '@graphiql-prototype/graphiql-ui-library';
 import { Headers } from '../Headers';
 import { Variables } from '../Variables';
 

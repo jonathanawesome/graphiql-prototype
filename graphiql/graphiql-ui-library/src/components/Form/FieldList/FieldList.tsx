@@ -13,8 +13,8 @@ import { AddItemButton, RemoveItemButton, StyledList, StyledListItem } from './s
 import type { FieldListProps, HandleChange } from '../types';
 
 // utils
-import { getEnumValues } from '@graphiql-v2-prototype/graphiql-editor';
-import { getDefaultInputValue } from '@graphiql-v2-prototype/graphiql-utils';
+import { getEnumValues } from '@graphiql-prototype/graphiql-editor';
+import { getDefaultInputValue } from '@graphiql-prototype/graphiql-utils';
 
 export const FieldList = ({
   currentValue,

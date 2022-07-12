@@ -4,7 +4,7 @@ import { isEnumType } from 'graphql';
 import { useGraphiQLSchema } from '../hooks';
 
 // types
-import { FieldSelectOption } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { FieldSelectOption } from '@graphiql-prototype/graphiql-ui-library';
 
 export const getEnumValues = ({
   enumTypeName,

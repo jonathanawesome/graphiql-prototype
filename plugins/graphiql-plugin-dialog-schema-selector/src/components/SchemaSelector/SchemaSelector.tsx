@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 // hooks
-import { useGraphiQLSchema } from '@graphiql-v2-prototype/graphiql-editor';
+import { useGraphiQLSchema } from '@graphiql-prototype/graphiql-editor';
 
 // styles
 import {
@@ -14,7 +14,7 @@ import {
   RadioGroupRadio,
   SpinnerWrap,
 } from './styles';
-import { Form, HandleChange, Spinner } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Form, HandleChange, Spinner } from '@graphiql-prototype/graphiql-ui-library';
 
 type ApiUrls = Record<string, { aboutUrl: string; apiUrl: string }>;
 

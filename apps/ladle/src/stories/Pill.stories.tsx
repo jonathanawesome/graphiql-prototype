@@ -1,4 +1,4 @@
-import { Pill } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Pill } from '@graphiql-prototype/graphiql-ui-library';
 
 export const PillStory = () => {
   return <Pill copy={`[Float!]!`} />;

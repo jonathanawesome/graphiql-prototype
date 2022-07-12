@@ -9,10 +9,10 @@ import {
 import {
   getActiveEditorTab,
   useGraphiQLEditor,
-} from '@graphiql-v2-prototype/graphiql-editor';
+} from '@graphiql-prototype/graphiql-editor';
 
 // constants
-import { defaultOperation } from '@graphiql-v2-prototype/graphiql-editor/src/constants';
+import { defaultOperation } from '@graphiql-prototype/graphiql-editor/src/constants';
 
 // handlers
 import {

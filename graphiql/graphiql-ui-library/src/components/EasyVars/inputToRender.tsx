@@ -4,8 +4,8 @@ import { GraphQLType, isEnumType, isScalarType, VariableDefinitionNode } from 'g
 import { Form, HandleChangeSignature, Pill } from '../index';
 
 // utils
-import { getEnumValues } from '@graphiql-v2-prototype/graphiql-editor';
-import { getDefaultInputValue } from '@graphiql-v2-prototype/graphiql-utils';
+import { getEnumValues } from '@graphiql-prototype/graphiql-editor';
+import { getDefaultInputValue } from '@graphiql-prototype/graphiql-utils';
 
 export const inputToRender = ({
   currentValue,

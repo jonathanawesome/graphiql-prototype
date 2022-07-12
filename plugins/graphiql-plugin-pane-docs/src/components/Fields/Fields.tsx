@@ -6,7 +6,7 @@ import { List } from '../List';
 
 // hooks
 import { DocPlacement, useDocs } from '../../hooks';
-import { unwrapType } from '@graphiql-v2-prototype/graphiql-utils';
+import { unwrapType } from '@graphiql-prototype/graphiql-utils';
 
 type FieldsProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

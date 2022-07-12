@@ -15,7 +15,7 @@ import {
   Prettier,
   SeparatorRound,
   styled,
-} from '@graphiql-v2-prototype/graphiql-ui-library';
+} from '@graphiql-prototype/graphiql-ui-library';
 
 const Wrap = styled('div', {
   display: 'flex',

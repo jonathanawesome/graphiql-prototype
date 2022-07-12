@@ -1,4 +1,4 @@
-import { EasyVars } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { EasyVars } from '@graphiql-prototype/graphiql-ui-library';
 
 import { variableDefinitions } from '../../data';
 

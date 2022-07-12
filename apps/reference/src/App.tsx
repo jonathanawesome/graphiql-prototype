@@ -1,21 +1,21 @@
 import { useEffect } from 'react';
-import { GraphiQL } from '@graphiql-v2-prototype/graphiql-v2';
+import { GraphiQL } from '@graphiql-prototype/graphiql-v2';
 
 // pane plugins
-import { PanePluginDocs } from '@graphiql-v2-prototype/graphiql-plugin-pane-docs';
-import { PanePluginEasyVars } from '@graphiql-v2-prototype/graphiql-plugin-pane-easy-vars';
-import { PanePluginHistory } from '@graphiql-v2-prototype/graphiql-plugin-pane-history';
-import { PanePluginPathfinder } from '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder';
+import { PanePluginDocs } from '@graphiql-prototype/graphiql-plugin-pane-docs';
+import { PanePluginEasyVars } from '@graphiql-prototype/graphiql-plugin-pane-easy-vars';
+import { PanePluginHistory } from '@graphiql-prototype/graphiql-plugin-pane-history';
+import { PanePluginPathfinder } from '@graphiql-prototype/graphiql-plugin-pane-pathfinder';
 
 // dialog plugins
-import { DialogPluginSchemaSelector } from '@graphiql-v2-prototype/graphiql-plugin-dialog-schema-selector';
-import { DialogPluginSettings } from '@graphiql-v2-prototype/graphiql-plugin-dialog-settings';
+import { DialogPluginSchemaSelector } from '@graphiql-prototype/graphiql-plugin-dialog-schema-selector';
+import { DialogPluginSettings } from '@graphiql-prototype/graphiql-plugin-dialog-settings';
 
 // hooks
-import { useGraphiQLSchema } from '@graphiql-v2-prototype/graphiql-editor';
+import { useGraphiQLSchema } from '@graphiql-prototype/graphiql-editor';
 
 // styles
-import { globalStyles } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { globalStyles } from '@graphiql-prototype/graphiql-ui-library';
 
 export const App = () => {
   globalStyles();

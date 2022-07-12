@@ -1,4 +1,4 @@
-import { Resizer } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Resizer } from '@graphiql-prototype/graphiql-ui-library';
 
 const Pane1 = () => {
   return <div style={{ height: ' 100%', backgroundColor: 'orange' }}>Pane1</div>;

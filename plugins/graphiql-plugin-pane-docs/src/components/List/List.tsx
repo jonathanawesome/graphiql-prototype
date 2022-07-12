@@ -1,4 +1,4 @@
-import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { styled } from '@graphiql-prototype/graphiql-ui-library';
 import React from 'react';
 
 const ListWrap = styled('div', {

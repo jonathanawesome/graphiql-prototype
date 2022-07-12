@@ -1,8 +1,8 @@
 // components
-import { Field } from '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder';
+import { Field } from '@graphiql-prototype/graphiql-plugin-pane-pathfinder';
 
 // hooks
-import { useTestSchema } from '@graphiql-v2-prototype/graphiql-test-schema';
+import { useTestSchema } from '@graphiql-prototype/graphiql-test-schema';
 import { OperationTypeNode } from 'graphql';
 
 export const FieldStory = () => {

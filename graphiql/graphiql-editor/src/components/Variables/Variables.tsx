@@ -7,7 +7,7 @@ import { useState } from 'react';
 //   Input,
 //   OptionItem,
 //   ToggleGroup,
-// } from '@graphiql-v2-prototype/graphiql-ui-library';
+// } from '@graphiql-prototype/graphiql-ui-library';
 import { MonacoEditor } from '../MonacoEditor';
 
 // styles

@@ -1,15 +1,11 @@
 // components
-import {
-  Close,
-  FieldInput,
-  HandleChange,
-} from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Close, FieldInput, HandleChange } from '@graphiql-prototype/graphiql-ui-library';
 
 // hooks
 import {
   GlobalHeader,
   useGraphiQLGlobalHeaders,
-} from '@graphiql-v2-prototype/graphiql-editor';
+} from '@graphiql-prototype/graphiql-editor';
 
 // styles
 import { HeaderInputStyled, RemoveHeaderButton } from './styles';

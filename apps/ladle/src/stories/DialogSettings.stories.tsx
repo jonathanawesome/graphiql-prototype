@@ -1,4 +1,4 @@
-import { DialogPluginSettings } from '@graphiql-v2-prototype/graphiql-plugin-dialog-settings';
+import { DialogPluginSettings } from '@graphiql-prototype/graphiql-plugin-dialog-settings';
 
 const { dialogPluginContent } = DialogPluginSettings;
 export const SettingsStory = () => {

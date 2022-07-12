@@ -7,7 +7,7 @@ import {
   getDisplayStringFromVariableDefinitionTypeNode,
   useGraphiQLEditor,
   useGraphiQLSchema,
-} from '@graphiql-v2-prototype/graphiql-editor';
+} from '@graphiql-prototype/graphiql-editor';
 
 // styles
 import { EasyVarsStyled } from './styles';
@@ -22,7 +22,7 @@ import {
   getTypeNameValue,
   parseOutgoingVariableValue,
   parseIncomingVariableValue,
-} from '@graphiql-v2-prototype/graphiql-utils';
+} from '@graphiql-prototype/graphiql-utils';
 
 const EasyVar = ({
   currentValue,

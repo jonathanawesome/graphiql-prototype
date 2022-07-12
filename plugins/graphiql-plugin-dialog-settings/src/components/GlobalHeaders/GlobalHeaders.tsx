@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { HeaderInput } from '../HeaderInput';
 
 // hooks
-import { useGraphiQLGlobalHeaders } from '@graphiql-v2-prototype/graphiql-editor';
+import { useGraphiQLGlobalHeaders } from '@graphiql-prototype/graphiql-editor';
 
 // styles
 import { SettingsItem, SettingsItemLead } from '../Settings/styles';

@@ -22,7 +22,7 @@ import { Union } from '../Union';
 import { DocPane, DocPlacement, useDocs } from '../../hooks';
 
 // utils
-import { unwrapType } from '@graphiql-v2-prototype/graphiql-utils';
+import { unwrapType } from '@graphiql-prototype/graphiql-utils';
 
 export const DocsPanel = ({ placement }: { placement: DocPlacement }) => {
   const [activePane, setActivePane] = useState<DocPane | null>(null);

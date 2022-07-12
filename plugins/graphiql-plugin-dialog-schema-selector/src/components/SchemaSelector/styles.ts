@@ -1,6 +1,6 @@
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 
-import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { styled } from '@graphiql-prototype/graphiql-ui-library';
 
 export const CustomSchemaFormWrap = styled('div', {
   margin: '12px 0',

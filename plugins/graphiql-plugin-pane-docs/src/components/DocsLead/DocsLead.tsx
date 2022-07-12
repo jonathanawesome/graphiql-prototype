@@ -8,7 +8,7 @@ import {
 } from 'graphql';
 
 // components
-import { ChevronSmall } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { ChevronSmall } from '@graphiql-prototype/graphiql-ui-library';
 
 // hooks
 import { DocPlacement, useDocs } from '../../hooks';
@@ -17,7 +17,7 @@ import { DocPlacement, useDocs } from '../../hooks';
 import { BackButton, CurrentTypeName, DocsLeadStyled, Left } from './styles';
 
 // utils
-import { unwrapType } from '@graphiql-v2-prototype/graphiql-utils';
+import { unwrapType } from '@graphiql-prototype/graphiql-utils';
 
 export const DocsLead = ({ placement }: { placement: DocPlacement }) => {
   const { getDocsInstance, navigateBack } = useDocs();

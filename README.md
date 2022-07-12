@@ -1,4 +1,4 @@
-# graphiql-v2-prototype
+# graphiql-prototype
 
 There's much to do on the [path to GraphiQL v2](https://github.com/graphql/graphiql/issues/2328) and the new [design proposal](https://github.com/graphql/graphiql/discussions/2216) is centered around an effort to combine Docs and Docs Explorer into a single interface.
 
@@ -18,7 +18,7 @@ The resulting monorepo structure combines ideas and implementations from the exi
 
 ### Try the prototype
 
-The quickest way to get involved is to try out the UI [here](https://jonathanawesome.github.io/graphiql-v2-prototype/) and provide feedback via [Discord](https://discord.com/channels/625400653321076807/966768858402816020). The default schema is a copy of the GraphiQL repository's [test setup](https://github.com/graphql/graphiql/blob/main/packages/graphiql/test/schema.js), but the Schema Selector allows for the loading of a few popular and publicly-available schemas. If you have your own schema that you'd like to load, Schema Selector allows for this _and_ for the setting of any headers you need to access your schema.
+The quickest way to get involved is to try out the UI [here](https://jonathanawesome.github.io/graphiql-prototype/) and provide feedback via [Discord](https://discord.com/channels/625400653321076807/966768858402816020). The default schema is a copy of the GraphiQL repository's [test setup](https://github.com/graphql/graphiql/blob/main/packages/graphiql/test/schema.js), but the Schema Selector allows for the loading of a few popular and publicly-available schemas. If you have your own schema that you'd like to load, Schema Selector allows for this _and_ for the setting of any headers you need to access your schema.
 
 > A more complete testing and validation plan is necessary to full understand the impact of the new design for all users and for all spec-compliant schemas. If you are, or know of, a user experience researcher who might be interested in contributing to the success of the new graphiql, please reach out on [Discord](https://discord.com/channels/625400653321076807/966768858402816020).
 
@@ -29,13 +29,13 @@ If you have a schema that's not available publicly, you can run the prototype lo
 1. Clone the repository
 
 ```
-git clone https://github.com/jonathanawesome/graphiql-v2-prototype.git
+git clone https://github.com/jonathanawesome/graphiql-prototype.git
 ```
 
 2. Install packages
 
 ```
-cd graphiql-v2-prototype
+cd graphiql-prototype
 pnpm i
 ```
 

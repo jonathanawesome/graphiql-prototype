@@ -1,5 +1,5 @@
 // components
-// import { GraphQLIcon } from '@graphiql-v2-prototype/graphiql-ui-library';
+// import { GraphQLIcon } from '@graphiql-prototype/graphiql-ui-library';
 import { DialogPlugins } from '../DialogPlugins';
 
 // hooks

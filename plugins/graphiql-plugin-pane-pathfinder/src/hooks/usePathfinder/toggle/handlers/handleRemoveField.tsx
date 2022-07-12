@@ -9,7 +9,7 @@ import {
 
 // utils
 import { capitalize } from '../../../../utils';
-import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
+import { getActiveEditorTab } from '@graphiql-prototype/graphiql-editor';
 
 export const handleRemoveField = ({
   ancestor,

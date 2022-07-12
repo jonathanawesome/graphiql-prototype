@@ -10,7 +10,7 @@ import { Separator } from '../Separator';
 
 // hooks
 import { DocPlacement, useDocs } from '../../hooks';
-import { useGraphiQLSchema } from '@graphiql-v2-prototype/graphiql-editor';
+import { useGraphiQLSchema } from '@graphiql-prototype/graphiql-editor';
 
 export const Interface = ({
   placement,

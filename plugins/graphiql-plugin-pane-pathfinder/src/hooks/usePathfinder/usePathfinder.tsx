@@ -1,5 +1,5 @@
 import create from 'zustand';
-import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
+import { getActiveEditorTab } from '@graphiql-prototype/graphiql-editor';
 
 /** toggle */
 import { toggle } from './toggle';

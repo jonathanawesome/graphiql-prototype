@@ -1,4 +1,4 @@
-import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { styled } from '@graphiql-prototype/graphiql-ui-library';
 
 //TODO: this is mostly placeholder styling...just getting something on the screen
 export const NavigationStyled = styled('div', {

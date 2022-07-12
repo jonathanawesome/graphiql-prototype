@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useGraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
+import { useGraphiQLEditor } from '@graphiql-prototype/graphiql-editor';
 
 // components
-import { Pathfinder } from '@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder';
+import { Pathfinder } from '@graphiql-prototype/graphiql-plugin-pane-pathfinder';
 
 export const PathfinderCompleteStory = () => {
   const { activeEditorTabId, editorTabs } = useGraphiQLEditor();

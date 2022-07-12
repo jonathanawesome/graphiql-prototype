@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
 // components
-import { Close } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Close } from '@graphiql-prototype/graphiql-ui-library';
 
 // hooks
-import { Docs, useDocs } from '@graphiql-v2-prototype/graphiql-plugin-pane-docs';
+import { Docs, useDocs } from '@graphiql-prototype/graphiql-plugin-pane-docs';
 
 // styles
 import {

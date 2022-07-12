@@ -1,8 +1,8 @@
 import {
   // getActiveEditorTab,
   useGraphiQLEditor,
-} from '@graphiql-v2-prototype/graphiql-editor';
-import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
+} from '@graphiql-prototype/graphiql-editor';
+import { styled } from '@graphiql-prototype/graphiql-ui-library';
 
 const EasyVarsIconStyled = styled('div', {
   position: 'relative',

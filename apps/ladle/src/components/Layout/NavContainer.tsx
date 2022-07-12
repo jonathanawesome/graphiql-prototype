@@ -1,4 +1,4 @@
-import { GraphQLIcon, styled } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { GraphQLIcon, styled } from '@graphiql-prototype/graphiql-ui-library';
 
 import { VisuallyHidden } from './VisuallyHidden';
 

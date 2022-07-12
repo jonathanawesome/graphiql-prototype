@@ -1,4 +1,4 @@
-import { Gear } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Gear } from '@graphiql-prototype/graphiql-ui-library';
 import { Settings } from './src';
 
 export const DialogPluginSettings = {

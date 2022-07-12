@@ -1,4 +1,4 @@
-import { Play, Prettier } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Play, Prettier } from '@graphiql-prototype/graphiql-ui-library';
 import { useGraphiQLEditor, useGraphiQLSchema } from '../../hooks';
 
 // styles

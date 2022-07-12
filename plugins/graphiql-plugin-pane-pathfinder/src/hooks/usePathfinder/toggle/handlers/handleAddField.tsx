@@ -12,7 +12,7 @@ import {
 } from '../../types';
 
 // utils
-import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
+import { getActiveEditorTab } from '@graphiql-prototype/graphiql-editor';
 
 export const handleAddField = ({
   ancestor,

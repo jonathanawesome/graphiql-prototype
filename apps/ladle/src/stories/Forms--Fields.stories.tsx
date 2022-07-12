@@ -5,10 +5,10 @@ import {
   FieldInput,
   FieldList,
   FieldSelect,
-} from '@graphiql-v2-prototype/graphiql-ui-library';
+} from '@graphiql-prototype/graphiql-ui-library';
 
 // types
-import type { HandleChange } from '@graphiql-v2-prototype/graphiql-ui-library';
+import type { HandleChange } from '@graphiql-prototype/graphiql-ui-library';
 
 export const FieldInputStory = () => {
   const [val, setVal] = useState<string>('');

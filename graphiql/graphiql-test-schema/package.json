@@ -1,5 +1,5 @@
 {
-  "name": "@graphiql-v2-prototype/graphiql-test-schema",
+  "name": "@graphiql-prototype/graphiql-test-schema",
   "version": "0.0.1",
   "main": "index.ts",
   "scripts": {

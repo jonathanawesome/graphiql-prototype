@@ -1,4 +1,4 @@
-import { styled } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { styled } from '@graphiql-prototype/graphiql-ui-library';
 
 export const EasyVarsWrap = styled('div', {
   padding: '4px 16px 8px',

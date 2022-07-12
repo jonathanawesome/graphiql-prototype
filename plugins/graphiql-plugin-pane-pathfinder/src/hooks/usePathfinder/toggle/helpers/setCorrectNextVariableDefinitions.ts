@@ -4,7 +4,7 @@ import { VariableDefinitionNode } from 'graphql';
 import { usePathfinder } from '../../usePathfinder';
 
 //utils
-import { getActiveEditorTab } from '@graphiql-v2-prototype/graphiql-editor';
+import { getActiveEditorTab } from '@graphiql-prototype/graphiql-editor';
 
 export const setCorrectNextVariableDefinitions = ({
   newVariableDefinition,

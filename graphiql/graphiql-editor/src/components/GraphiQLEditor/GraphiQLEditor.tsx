@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { Analyze } from '../Analyze/Analyze';
 import { Header } from '../Header';
 import { Operate } from '../Operate';
-import { Resizer } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Resizer } from '@graphiql-prototype/graphiql-ui-library';
 
 // hooks
 import { useGraphiQLEditor } from '../../hooks';

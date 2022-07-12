@@ -3,12 +3,12 @@ import { OperationTypeNode } from 'graphql';
 
 // components
 import { DocsDialog, Options, RootOperation } from '../index';
-import { Command } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Command } from '@graphiql-prototype/graphiql-ui-library';
 import { Search } from '../../icons';
 
 // hooks
-import { useDocs } from '@graphiql-v2-prototype/graphiql-plugin-pane-docs';
-import { useGraphiQLSchema } from '@graphiql-v2-prototype/graphiql-editor';
+import { useDocs } from '@graphiql-prototype/graphiql-plugin-pane-docs';
+import { useGraphiQLSchema } from '@graphiql-prototype/graphiql-editor';
 
 // styles
 import {

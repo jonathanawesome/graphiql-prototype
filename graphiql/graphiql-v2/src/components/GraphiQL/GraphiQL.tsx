@@ -1,12 +1,9 @@
-import {
-  GraphiQLEditor,
-  useGraphiQLSchema,
-} from '@graphiql-v2-prototype/graphiql-editor';
+import { GraphiQLEditor, useGraphiQLSchema } from '@graphiql-prototype/graphiql-editor';
 
 // components
 import { Navigation } from '../Navigation';
 import { PanePlugins } from '../PanePlugins';
-import { Resizer } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Resizer } from '@graphiql-prototype/graphiql-ui-library';
 
 // hooks
 import { useGraphiQL } from '../../hooks';

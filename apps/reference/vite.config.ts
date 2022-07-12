@@ -6,7 +6,7 @@ import * as path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
   return {
-    base: command === 'serve' ? '/' : '/graphiql-v2-prototype/',
+    base: command === 'serve' ? '/' : '/graphiql-prototype/',
     plugins: [
       react(),
       monacoEditorPlugin({

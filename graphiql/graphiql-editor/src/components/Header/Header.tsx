@@ -1,5 +1,5 @@
 // components
-import { Plus } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Plus } from '@graphiql-prototype/graphiql-ui-library';
 import { Tab } from './Tab';
 
 // hooks

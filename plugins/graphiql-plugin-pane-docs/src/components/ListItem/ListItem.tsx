@@ -1,5 +1,5 @@
 // components
-import { SeparatorRound } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { SeparatorRound } from '@graphiql-prototype/graphiql-ui-library';
 
 // styles
 import { Description, ListItemStyled, NameAndType, Name, Type } from './styles';

@@ -1,5 +1,5 @@
 // components
-import { Dialog as DialogComponent } from '@graphiql-v2-prototype/graphiql-ui-library';
+import { Dialog as DialogComponent } from '@graphiql-prototype/graphiql-ui-library';
 
 // styles
 import { DialogPluginsWrap } from './styles';

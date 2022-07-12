@@ -1,4 +1,4 @@
-import { GraphiQLEditor } from '@graphiql-v2-prototype/graphiql-editor';
+import { GraphiQLEditor } from '@graphiql-prototype/graphiql-editor';
 
 export const GraphiQLEditorStory = () => {
   return <GraphiQLEditor />;
