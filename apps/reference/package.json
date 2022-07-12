@@ -16,7 +16,7 @@
     "@graphiql-prototype/graphiql-plugin-pane-history": "workspace:*",
     "@graphiql-prototype/graphiql-plugin-pane-pathfinder": "workspace:*",
     "@graphiql-prototype/graphiql-ui-library": "workspace:*",
-    "@graphiql-prototype/graphiql-v2": "workspace:*",
+    "@graphiql-prototype/graphiql-app": "workspace:*",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "vite-plugin-monaco-editor": "1.1.0"

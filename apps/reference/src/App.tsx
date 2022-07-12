@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { GraphiQL } from '@graphiql-prototype/graphiql-v2';
+import { GraphiQL } from '@graphiql-prototype/graphiql-app';
 
 // pane plugins
 import { PanePluginDocs } from '@graphiql-prototype/graphiql-plugin-pane-docs';
