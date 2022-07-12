@@ -1,0 +1,31 @@
+{
+  "name": "reference",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@graphiql-v2-prototype/graphiql-editor": "workspace:*",
+    "@graphiql-v2-prototype/graphiql-plugin-dialog-schema-selector": "workspace:*",
+    "@graphiql-v2-prototype/graphiql-plugin-dialog-settings": "workspace:*",
+    "@graphiql-v2-prototype/graphiql-plugin-pane-docs": "workspace:*",
+    "@graphiql-v2-prototype/graphiql-plugin-pane-easy-vars": "workspace:*",
+    "@graphiql-v2-prototype/graphiql-plugin-pane-history": "workspace:*",
+    "@graphiql-v2-prototype/graphiql-plugin-pane-pathfinder": "workspace:*",    
+    "@graphiql-v2-prototype/graphiql-ui-library": "workspace:*",    
+    "@graphiql-v2-prototype/graphiql-v2": "workspace:*",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "vite-plugin-monaco-editor": "1.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.2",
+    "@types/react-dom": "17.0.2",
+    "@vitejs/plugin-react": "^1.3.0",
+    "typescript": "^4.6.3",
+    "vite": "2.9.6"
+  }
+}

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FieldNode, isRequiredArgument, OperationTypeNode } from 'graphql';
 
 // components
-import { Argument, Collapser, Column } from '../index';
+import { Argument } from '../index';
 import { ShowArgumentsIcon } from '../../icons';
 
 // hooks
