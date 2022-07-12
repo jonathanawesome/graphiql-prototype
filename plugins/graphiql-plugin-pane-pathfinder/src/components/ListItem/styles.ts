@@ -92,7 +92,7 @@ export const ChildFields = styled('ul', {
         borderLeft: '1px solid $gray015',
       },
       INLINE_FRAGMENT: {
-        paddingLeft: 0,
+        paddingLeft: 18,
         marginLeft: 0,
       },
       ARGUMENT: {
