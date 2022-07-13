@@ -1,7 +1,7 @@
 import { GetState } from 'zustand';
 import {
   Kind,
-  // NameNode,
+  NameNode,
   OperationDefinitionNode,
   OperationTypeNode,
   print,
@@ -36,7 +36,6 @@ import { AncestorMap, PathfinderStore } from '../types';
 const addEditorTab = useGraphiQLEditor.getState().addEditorTab;
 const updateModel = useGraphiQLEditor.getState().updateModel;
 const updateOperationDefinition = useGraphiQLEditor.getState().updateOperationDefinition;
-
 export const toggle = ({
   ancestors,
   get,
@@ -69,7 +68,7 @@ export const toggle = ({
 
   setNextOperationType({ nextOperationType: incomingOperationType });
 
-  ancestors.forEach((ancestor, key) => {
+  ancestors.forEach((ancestor, _key) => {
     // console.log('toggle forEach', { name: key, ancestor, ancestors });
 
     const isField = 'field' in ancestor;
@@ -101,8 +100,6 @@ export const toggle = ({
           });
         }
       } /** end handle ARGUMENT */
-
-      //TODO 👆👇 these may be able to get combined into one
 
       /** begin handle INPUT_FIELD */
       if (isInputField) {
@@ -222,17 +219,17 @@ export const toggle = ({
   let nextDefinition: OperationDefinitionNode;
 
   const kind = Kind.OPERATION_DEFINITION;
+
   const operation =
-    nextOperationType === 'mutation'
-      ? OperationTypeNode.MUTATION
-      : OperationTypeNode.QUERY;
-  // TODO: generating a name here seems over-reaching since operations don't explictly require a name
-  // leaving TODO here for revisiting later...possibly as a feature toggle?
-  // const name: NameNode = {
-  //   kind: Kind.NAME,
-  //   value: activeOperationDefinition?.name?.value || `NewOperation`,
-  // };
+    nextOperationType === 'query' ? OperationTypeNode.QUERY : OperationTypeNode.MUTATION;
+
+  const name = (count: number): NameNode => ({
+    kind: Kind.NAME,
+    value: `Tab${count}`,
+  });
+
   const variableDefinitions = get().nextVariableDefinitions;
+
   const selectionSet = nextSelectionSet ?? {
     kind: Kind.SELECTION_SET,
     selections: [],
@@ -245,7 +242,7 @@ export const toggle = ({
     nextDefinition = {
       kind,
       operation,
-      // name,
+      name: name(useGraphiQLEditor.getState().editorTabs.length),
       variableDefinitions,
       selectionSet,
     };
@@ -253,17 +250,18 @@ export const toggle = ({
     nextDefinition = {
       ...(activeOperationDefinition
         ? activeOperationDefinition
-        : {
+        : // 👇 we don't have an active operation definition, so this is the initial tab
+          {
             kind,
             operation,
-            // name,
+            name: name(useGraphiQLEditor.getState().editorTabs.length),
           }),
       variableDefinitions,
       selectionSet,
     };
   }
 
-  // we have selections, let's update our opDef and model
+  // we have selections, let's update our operation definition and model
   if (nextSelectionSet && nextSelectionSet.selections.length > 0) {
     updateOperationDefinition({ newDefinition: nextDefinition });
     updateModel({
@@ -274,7 +272,7 @@ export const toggle = ({
       }),
     });
   } else {
-    // we don't have any selections, so we null our opDef and "reset"" our operation model
+    // we don't have any selections, so we null our operation definition and "reset" our operation model
     updateOperationDefinition({ newDefinition: null });
     updateModel({
       modelType: 'operationModel',
