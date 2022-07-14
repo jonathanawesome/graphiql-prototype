@@ -42,6 +42,7 @@ export const MonacoEditor = ({
           language: editorType === 'operation' ? 'graphql' : 'json',
           ...editorOptions, // spread our base options
           ...(optionOverrides && optionOverrides), // spread any option overrides that were passed in
+          fixedOverflowWidgets: true,
         }
       );
 
