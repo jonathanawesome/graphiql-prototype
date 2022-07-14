@@ -80,7 +80,7 @@ The structure explained below is of my own design, but very much based on the id
 
 - /graphiql-app
   - The core component for the full prototype UI.
-  - Pretty simple, just Wraps the core `graphiql-editor` component along with layout for navigation and plugins.
+  - Pretty simple, just wraps the core `graphiql-editor` component along with layout for navigation and plugins.
   - Provides a hook for managing navigation/active plugin view state.
 
 #### /plugins

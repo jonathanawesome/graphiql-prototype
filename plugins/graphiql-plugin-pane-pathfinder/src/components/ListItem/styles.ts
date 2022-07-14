@@ -73,7 +73,7 @@ export const CollapsibleTrigger = styled(Collapsible.Trigger, {
 });
 
 export const CollapsibleContent = styled(Collapsible.Content, {
-  marginTop: 16,
+  marginTop: 12,
 });
 
 export const Arguments = styled('ul', {
@@ -101,6 +101,7 @@ export const ChildFields = styled('ul', {
       INPUT_OBJECT: {},
       ROOT: {
         borderLeft: '1px solid $gray015',
+        marginBottom: 12,
       },
       WHOOPS: {},
     },

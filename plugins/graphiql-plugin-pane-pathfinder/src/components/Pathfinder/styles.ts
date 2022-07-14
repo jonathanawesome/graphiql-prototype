@@ -19,7 +19,7 @@ export const PathfinderContainer = styled('div', {
   ul: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 16,
+    gap: 10,
   },
 
   variants: {
