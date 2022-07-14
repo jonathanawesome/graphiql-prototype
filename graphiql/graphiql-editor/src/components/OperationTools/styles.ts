@@ -6,6 +6,8 @@ import * as Tabs from '@radix-ui/react-tabs';
 export const CollapsibleRoot = styled(Collapsible.Root, {
   backgroundColor: 'white',
   borderTop: '1px solid $gray015',
+  borderBottomLeftRadius: 16,
+  borderBottomRightRadius: 16,
 });
 
 export const TabsRoot = styled(Tabs.Root, {});
