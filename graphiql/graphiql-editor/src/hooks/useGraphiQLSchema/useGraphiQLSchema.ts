@@ -73,7 +73,7 @@ export const useGraphiQLSchema = create<GraphiQLSchemaStore>((set, get) => ({
   schemaLoading: true,
   schemaName: null,
   schemaUrl: null,
-  initSchema: async ({ name, url }) => {
+  initSchema: async ({ url }) => {
     set({ schemaLoading: true });
     const monacoGraphQLAPI = useGraphiQLEditor.getState().monacoGraphQLAPI;
     const resetEditorTabs = useGraphiQLEditor.getState().resetEditorTabs;
@@ -92,7 +92,6 @@ export const useGraphiQLSchema = create<GraphiQLSchemaStore>((set, get) => ({
       return set({
         schema: testSchema,
         schemaLoading: false,
-        schemaName: 'testSchema',
         schemaUrl: null,
       });
     } else {
@@ -118,7 +117,6 @@ export const useGraphiQLSchema = create<GraphiQLSchemaStore>((set, get) => ({
         set({
           schema,
           schemaLoading: false,
-          schemaName: name || 'Schema name not provided',
           schemaUrl: url,
         });
 
@@ -132,7 +130,6 @@ export const useGraphiQLSchema = create<GraphiQLSchemaStore>((set, get) => ({
         return set({
           schema: { error },
           schemaLoading: false,
-          schemaName: 'Error fetching schema',
           schemaUrl: null,
         });
       }
