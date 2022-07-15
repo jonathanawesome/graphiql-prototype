@@ -19,12 +19,14 @@ export const Note = styled('span', {
 
 export const Error = styled('span', {
   display: 'block',
-  fontSize: '$body',
+  backgroundColor: '$error010',
   color: '$error100',
-  backgroundColor: '$gray010',
+  border: '1px solid $error060',
+  borderRadius: 2,
+  fontStyle: 'italic',
+  fontSize: '$body',
   marginTop: 12,
   padding: 8,
-  fontStyle: 'italic',
 });
 
 export const RadioGroupRadio = styled(RadioGroupPrimitive.Item, {
