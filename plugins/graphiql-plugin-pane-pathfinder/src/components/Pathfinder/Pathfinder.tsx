@@ -12,11 +12,12 @@ import { useGraphiQLSchema } from '@graphiql-prototype/graphiql-editor';
 
 // styles
 import {
+  FakeSearch,
+  Note,
   PathfinderContainer,
   PathfinderContent,
   PathfinderLead,
   PathfinderWrap,
-  FakeSearch,
 } from './styles';
 
 export const Pathfinder = () => {
@@ -42,7 +43,7 @@ export const Pathfinder = () => {
 
   if (!schema || 'error' in schema) {
     //TODO: loading/error skeleton
-    return <></>;
+    return <Note>Unable to load schema.</Note>;
   }
 
   const queryType = schema.getQueryType();

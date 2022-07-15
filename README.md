@@ -90,7 +90,7 @@ The structure explained below is of my own design, but very much based on the id
 - /graphiql-plugin-dialog-schema-selector
 
   - Includes the GraphiQL test schema, a few popular and publicly-available schemas, and an option to enter a custom schema URL.
-  - Not a candidate for inclusion into the final product.
+  - This "plugin" was built quickly and is very much not a candidate for inclusion into the final product.
 
 - /graphiql-plugin-dialog-settings
 

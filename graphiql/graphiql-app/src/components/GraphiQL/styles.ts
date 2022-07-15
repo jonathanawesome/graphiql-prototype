@@ -39,7 +39,7 @@ export const PaneWrap = styled('div', {
   },
 });
 
-export const SchemaName = styled('div', {
+export const PluginName = styled('div', {
   fontSize: 22,
   fontWeight: 600,
   color: '$gray100',

@@ -16,13 +16,17 @@ import {
 } from './styles';
 import { Form, HandleChange, Spinner } from '@graphiql-prototype/graphiql-ui-library';
 
-type ApiUrls = Record<string, { aboutUrl: string; apiUrl: string }>;
+type AvailableAPIs = Record<string, { aboutUrl: string; apiUrl: string }>;
 
-const apiUrls: ApiUrls = {
-  [`Official GraphiQL Test Schema`]: {
+const testSchemaName = `Official GraphiQL Test Schema`;
+const customSchemaUrlInput = 'customSchemaUrlInput';
+const customSchemaUrlLocalStorageKey = 'graphiql-prototype-custom-schema-url';
+
+const availableAPIs: AvailableAPIs = {
+  [testSchemaName]: {
     aboutUrl:
       'https://github.com/graphql/graphiql/blob/main/packages/graphiql/test/schema.js',
-    apiUrl: 'testSchema',
+    apiUrl: testSchemaName,
   },
   [`Rick and Morty`]: {
     aboutUrl: 'https://rickandmortyapi.com/about',
@@ -46,7 +50,7 @@ const Radio = ({
   copy,
 }: {
   aboutUrl?: string;
-  activeRadioValue: string;
+  activeRadioValue: string | null;
   value: string;
   id: string;
   copy: string;
@@ -66,8 +70,6 @@ const Radio = ({
   </RadioWrap>
 );
 
-const customSchemaUrlInput = 'customSchemaUrlInput';
-
 export const SchemaSelector = () => {
   const { initSchema, schema, schemaLoading, schemaUrl } = useGraphiQLSchema();
 
@@ -75,61 +77,66 @@ export const SchemaSelector = () => {
 
   const [customSchemaUrl, setCustomSchemaUrl] = useState<string>('');
 
-  const [activeRadioValue, setActiveRadioValue] = useState<string>(
-    schemaUrl ? schemaUrl : 'testSchema'
+  const [activeRadioValue, setActiveRadioValue] = useState<string | null>(
+    schemaError ? null : schemaUrl ? schemaUrl : testSchemaName
   );
 
-  const [targetSchemaUrl, setTargetSchemaUrl] = useState<string>('');
+  const [targetSchemaUrl, setTargetSchemaUrl] = useState<string | null>();
 
-  // console.log('SchemaSelector', {
-  //   activeRadioValue,
-  //   targetSchemaUrl,
-  //   schemaUrl,
-  //   map: Object.keys(apiUrls).map((k) => apiUrls[k].apiUrl),
-  //   includes:
-  //     Object.keys(apiUrls)
-  //       .map((k) => apiUrls[k].apiUrl)
-  //       .includes(schemaUrl as string) || !schemaUrl,
-  // });
+  console.log('SchemaSelector', {
+    schemaUrl,
+    activeRadioValue,
+    targetSchemaUrl,
+  });
 
   useEffect(() => {
-    if (schemaUrl) {
-      if (
-        Object.keys(apiUrls)
-          .map((k) => apiUrls[k].apiUrl)
-          .includes(schemaUrl as string) ||
-        !schemaUrl
-      ) {
-        setActiveRadioValue(schemaUrl);
-      } else {
-        setActiveRadioValue(customSchemaUrlInput);
-        setCustomSchemaUrl(schemaUrl);
-      }
+    // pluck the last successfully-accessed schema from localstorage if it exists
+    const savedCustomSchema = localStorage.getItem(customSchemaUrlLocalStorageKey);
+    if (savedCustomSchema) {
+      setCustomSchemaUrl(savedCustomSchema);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
-  useEffect(() => {
-    if (schema && 'error' in schema) {
+    if (!schema || 'error' in schema) {
+      // we either don't have a schema or we have a schema with an error
+      // remove super simple local storage
+      localStorage.removeItem(customSchemaUrlLocalStorageKey);
+      setActiveRadioValue(customSchemaUrlInput);
       setSchemaError(
         'Error loading schema. Is the URL formatted correctly? Does your API require auth headers?'
       );
     } else {
+      // we have a schema
+      // clear any error
       setSchemaError(null);
+
+      if (schema.getQueryType()?.name === 'Test') {
+        // if we're using the test schema, set the radio value
+        setActiveRadioValue(testSchemaName);
+      } else {
+        // we're not using the test schema, so it's either one of our public schemas or a custom schema
+        if (
+          Object.keys(availableAPIs)
+            .map((k) => availableAPIs[k].apiUrl)
+            .includes(schemaUrl as string)
+        ) {
+          // the current schemaUrl is one of our availableAPIs
+          setActiveRadioValue(schemaUrl);
+        } else {
+          // we're using a custom schema
+          setActiveRadioValue(customSchemaUrlInput);
+          setCustomSchemaUrl(schemaUrl as string);
+        }
+      }
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [schema]);
 
   useEffect(() => {
-    if (targetSchemaUrl === 'testSchema') {
+    if (targetSchemaUrl && targetSchemaUrl !== testSchemaName) {
+      initSchema({ url: targetSchemaUrl });
+    } else if (targetSchemaUrl == testSchemaName) {
       initSchema({});
-    } else if (targetSchemaUrl.length > 0) {
-      const name = Object.keys(apiUrls).find(
-        (k) => apiUrls[k].apiUrl === targetSchemaUrl
-      );
-      initSchema({ name: name || targetSchemaUrl, url: targetSchemaUrl });
-    }
-    if (!schemaUrl) {
-      return;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [targetSchemaUrl]);
@@ -143,21 +150,19 @@ export const SchemaSelector = () => {
   ) => {
     e.preventDefault();
     setTargetSchemaUrl(customSchemaUrl);
+    // set super simple local storage
+    localStorage.setItem(customSchemaUrlLocalStorageKey, customSchemaUrl);
   };
 
   return (
     <RadioGroup
-      value={activeRadioValue}
+      value={activeRadioValue || undefined}
       aria-label="Choose schema"
       onValueChange={(value) => {
-        // console.log('value', { value });
         setActiveRadioValue(value);
-        if (value === 'testSchema') {
-          return setTargetSchemaUrl('testSchema');
-        }
         if (
-          Object.keys(apiUrls)
-            .map((k) => apiUrls[k].apiUrl)
+          Object.keys(availableAPIs)
+            .map((k) => availableAPIs[k].apiUrl)
             .includes(value)
         ) {
           return setTargetSchemaUrl(value);
@@ -166,25 +171,25 @@ export const SchemaSelector = () => {
       }}
     >
       <fieldset disabled={schemaLoading}>
-        {Object.keys(apiUrls).map((x, i) => {
+        {Object.keys(availableAPIs).map((key, i) => {
           const id = (i + 2).toString();
           return (
             <Radio
               key={id}
-              aboutUrl={apiUrls[x].aboutUrl}
+              aboutUrl={availableAPIs[key].aboutUrl}
               activeRadioValue={activeRadioValue}
-              value={apiUrls[x].apiUrl}
+              copy={key}
               id={id}
-              copy={x}
+              value={availableAPIs[key].apiUrl}
             />
           );
         })}
         <div>
           <Radio
             activeRadioValue={activeRadioValue}
-            value={customSchemaUrlInput}
-            id="10"
             copy="Custom Schema Url"
+            id="10"
+            value={customSchemaUrlInput}
           />
           {schemaError && <Error>{schemaError}</Error>}
           {activeRadioValue === customSchemaUrlInput && (

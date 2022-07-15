@@ -1,5 +1,14 @@
 import { styled } from '@graphiql-prototype/graphiql-ui-library';
 
+export const Note = styled('div', {
+  backgroundColor: '$error010',
+  color: '$error100',
+  border: '1px solid $error060',
+  borderRadius: 2,
+  padding: 8,
+  fontSize: '$body',
+});
+
 export const PathfinderWrap = styled('div', {
   position: 'relative',
   height: '100%',
