@@ -9,7 +9,7 @@ import { Resizer } from '@graphiql-prototype/graphiql-ui-library';
 import { useGraphiQL } from '../../hooks';
 
 // styles
-import { GraphiQLWrap, ContentWrap, PaneWrap, SchemaName } from './styles';
+import { GraphiQLWrap, ContentWrap, PaneWrap, PluginName } from './styles';
 
 // types
 import type { PanePluginsArray } from '../PanePlugins/types';
@@ -24,10 +24,7 @@ type GraphiQLProps = {
 export const GraphiQL = ({ panePlugins, dialogPlugins }: GraphiQLProps) => {
   const { activePanePlugin } = useGraphiQL();
 
-  const {
-    schemaLoading,
-    //  schemaName
-  } = useGraphiQLSchema();
+  const { schemaLoading } = useGraphiQLSchema();
 
   return (
     <GraphiQLWrap>
@@ -41,10 +38,9 @@ export const GraphiQL = ({ panePlugins, dialogPlugins }: GraphiQLProps) => {
             component:
               activePanePlugin === 'GraphiQL' ? null : (
                 <PaneWrap schemaLoading={schemaLoading}>
-                  <SchemaName>
+                  <PluginName>
                     <span>{activePanePlugin}</span>
-                    {/* <span>{schemaName || 'GraphiQL'}</span> */}
-                  </SchemaName>
+                  </PluginName>
                   <PanePlugins activePane={activePanePlugin} panePlugins={panePlugins} />
                 </PaneWrap>
               ),
