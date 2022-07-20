@@ -48,7 +48,7 @@ export const editorTheme: MONACO_EDITOR.IStandaloneThemeData = {
       token: 'argument.identifier.gql',
     },
     {
-      foreground: colors.editorHex.gray010,
+      foreground: colors.editorHex.gray040,
       token: 'delimiter.parenthesis.gql',
     },
     {
