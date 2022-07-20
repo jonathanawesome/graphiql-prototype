@@ -1,1 +1,0 @@
-export { Pills } from './Pills';
