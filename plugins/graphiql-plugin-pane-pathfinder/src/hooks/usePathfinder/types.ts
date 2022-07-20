@@ -116,7 +116,6 @@ export type SetNextActionSignature = (action: NextAction) => void;
 // begin options
 export type DescriptionsVisibility = 'Inline' | 'Below' | 'Off';
 export type FieldsVisibility = 'On' | 'Off';
-export type PillsVisibility = 'On' | 'Off';
 // end options
 
 export type PathfinderStore = {
@@ -125,8 +124,6 @@ export type PathfinderStore = {
   setDescriptionsVisibility: (val: DescriptionsVisibility) => void;
   fieldsVisibility: FieldsVisibility;
   setFieldsVisibility: (val: FieldsVisibility) => void;
-  pillsVisibility: PillsVisibility;
-  setPillsVisibility: (val: PillsVisibility) => void;
   // end options
 
   // begin toggle

@@ -21,10 +21,6 @@ export const usePathfinder = create<PathfinderStore>((set, get) => ({
   setFieldsVisibility: (fieldsVisibility) => {
     set({ fieldsVisibility });
   },
-  pillsVisibility: 'Off',
-  setPillsVisibility: (pillsVisibility) => {
-    set({ pillsVisibility });
-  },
   /** end controls */
 
   /** begin toggle */
