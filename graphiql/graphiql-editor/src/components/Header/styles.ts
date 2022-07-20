@@ -35,7 +35,14 @@ export const HeaderWrap = styled('div', {
 
 export const AddTabButton = styled('button', {
   userSelect: 'none',
-  marginLeft: 12,
+  width: 32,
+  height: 32,
+  marginLeft: 4,
+  display: 'flex',
+  flexShrink: 0,
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: 2,
 
   svg: {
     width: 11,
