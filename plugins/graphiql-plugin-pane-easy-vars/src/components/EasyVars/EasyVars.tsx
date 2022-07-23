@@ -13,7 +13,7 @@ import {
 import { EasyVarsStyled } from './styles';
 
 // types
-import type { HandleChange } from '../index';
+import type { HandleChange } from '@graphiql-prototype/graphiql-ui-library';
 
 // utils
 import { inputToRender } from './inputToRender';

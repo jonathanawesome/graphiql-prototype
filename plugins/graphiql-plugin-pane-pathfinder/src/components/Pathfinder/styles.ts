@@ -1,4 +1,5 @@
 import { styled } from '@graphiql-prototype/graphiql-ui-library';
+// import { styled } from '../../../../../graphiql/graphiql-ui-library/src/theme/stitches.config';
 
 export const Note = styled('div', {
   backgroundColor: '$error010',
