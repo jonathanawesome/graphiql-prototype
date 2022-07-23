@@ -1,6 +1,4 @@
-import { styled } from '../../../../graphiql-ui-library/src/theme/stitches.config';
-
-console.log('styled', styled);
+import { styled } from '@graphiql-prototype/graphiql-ui-library';
 
 export const AnalyzeWrap = styled('div', {
   display: 'flex',

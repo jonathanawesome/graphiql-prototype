@@ -69,7 +69,7 @@ export const useGraphiQLSchema = create<GraphiQLSchemaStore>((set, get) => ({
       );
     }
   },
-  schema: null,
+  schema: testSchema,
   schemaLoading: true,
   schemaName: null,
   schemaUrl: null,

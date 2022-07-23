@@ -28,11 +28,11 @@ export const RootOperation = ({
 
   const operationDefinition = activeEditorTab?.operationDefinition;
 
-  // console.log('rendering RootOperation', {
-  //   operationDefinition,
-  //   activeEditorTab,
-  //   editorTabs,
-  // });
+  console.log('rendering RootOperation', {
+    operationDefinition,
+    activeEditorTab,
+    editorTabs,
+  });
 
   useEffect(() => {
     const activeOperationType = operationDefinition?.operation;

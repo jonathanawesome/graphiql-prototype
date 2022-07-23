@@ -1,10 +1,12 @@
 // Edit an assertion and save to see HMR in action
-import { describe, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 // import { useGraphiQLSchema } from '@graphiql-prototype/graphiql-editor';
 // import { act, renderHook } from '@testing-library/react-hooks';
 import { render } from '@testing-library/react';
 // import { useEffect } from 'react';
 import { Pathfinder } from './components/Pathfinder/Pathfinder';
+// import { useGraphiQLSchema } from '@graphiql-prototype/graphiql-editor';
+// import { useEffect } from 'react';
 // import { usePathfinder } from './hooks';
 
 // beforeAll(() => {
@@ -42,10 +44,17 @@ import { Pathfinder } from './components/Pathfinder/Pathfinder';
 
 describe('Pathfinder - Root Types', () => {
   it('should display root types', () => {
-    const { getByLabelText } = render(<Pathfinder />);
+    const { getByRole } = render(<Pathfinder />);
 
-    const deferrable = getByLabelText('Toggle deferrable');
-    console.log('deferreable', { deferrable });
+    // updateModel({
+    //   modelType: 'operationModel',
+    //   newValue: defaultOperation,
+    // });
+
+    const deferrable = getByRole('button', { name: 'Toggle deferrable' });
+    // console.log('deferreable', { deferrable });
+    // expect();
+    expect(deferrable).toHaveAttribute('aria-pressed', 'false');
 
     // const { result } = renderHook(() => usePathfinder());
     // act(() => {

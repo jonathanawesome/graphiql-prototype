@@ -15,6 +15,7 @@ import { AncestorMap } from '../../hooks';
 type TogglerBaseProps = {
   ancestors: AncestorMap;
   isSelected: boolean;
+  fieldOrArgumentName: string;
   operationType: OperationTypeNode;
   variant: 'ARGUMENT' | 'FIELD';
 };
@@ -35,6 +36,7 @@ export type ToggleProps = TogglerWithCollapserProps | TogglerWithoutCollapserPro
 export const Toggler: React.FC<ToggleProps> = ({
   ancestors,
   collapser,
+  fieldOrArgumentName,
   isSelected,
   operationType,
   variant,
@@ -45,6 +47,8 @@ export const Toggler: React.FC<ToggleProps> = ({
 
   return (
     <TogglerStyled
+      aria-label={`Toggle ${fieldOrArgumentName}`}
+      aria-pressed={isSelected}
       isSelected={isSelected}
       onClick={() => {
         if (collapser) {
