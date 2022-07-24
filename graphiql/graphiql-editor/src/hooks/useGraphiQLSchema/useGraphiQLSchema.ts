@@ -23,7 +23,7 @@ export const useGraphiQLSchema = create<GraphiQLSchemaStore>((set, get) => ({
     const schemaUrl = get().schemaUrl;
 
     if (schemaUrl && activeEditor) {
-      const operationModelValue = activeEditor.operationModel.getValue();
+      const operationsModelValue = activeEditor.operationsModel.getValue();
       const variablesModelValue = activeEditor.variablesModel.getValue();
       const headersModelValue = activeEditor.headersModel.getValue();
 
@@ -42,13 +42,13 @@ export const useGraphiQLSchema = create<GraphiQLSchemaStore>((set, get) => ({
           url: schemaUrl,
         })({
           operationName: activeEditor.operationDefinition?.name?.value || undefined,
-          query: operationModelValue,
+          query: operationsModelValue,
           variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
         });
 
         // console.log('running executeOperation', {
         //   operationName: activeEditor.operationDefinition?.name?.value,
-        //   query: operationModelValue,
+        //   query: operationsModelValue,
         //   variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
         //   result,
         // });

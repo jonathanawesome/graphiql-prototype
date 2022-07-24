@@ -68,6 +68,7 @@ export const toggle = ({
 
   setNextOperationType({ nextOperationType: incomingOperationType });
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ancestors.forEach((ancestor, _key) => {
     // console.log('toggle forEach', { name: key, ancestor, ancestors });
 
@@ -265,7 +266,7 @@ export const toggle = ({
   if (nextSelectionSet && nextSelectionSet.selections.length > 0) {
     updateOperationDefinition({ newDefinition: nextDefinition });
     updateModel({
-      modelType: 'operationModel',
+      modelType: 'operationsModel',
       newValue: print({
         kind: Kind.DOCUMENT,
         definitions: [nextDefinition],
@@ -275,7 +276,7 @@ export const toggle = ({
     // we don't have any selections, so we null our operation definition and "reset" our operation model
     updateOperationDefinition({ newDefinition: null });
     updateModel({
-      modelType: 'operationModel',
+      modelType: 'operationsModel',
       newValue: defaultOperation,
     });
   }

@@ -1,23 +1,24 @@
 import { OperationDefinitionNode } from 'graphql';
-import { editor as MONACO_EDITOR } from 'monaco-editor';
+import { editor as MONACO_EDITOR } from 'monaco-editor/esm/vs/editor/editor.api';
 import type { MonacoGraphQLAPI } from 'monaco-graphql';
 
 export type EditorTab = {
   editorTabId: string;
   editorTabName: string;
-  operationModel: MONACO_EDITOR.ITextModel;
+  operationsModel: MONACO_EDITOR.ITextModel;
   variablesModel: MONACO_EDITOR.ITextModel;
   headersModel: MONACO_EDITOR.ITextModel;
   resultsModel: MONACO_EDITOR.ITextModel;
   operationDefinition: OperationDefinitionNode | null;
 };
 
-export type MonacoEditorTypes = 'operation' | 'variables' | 'results' | 'headers';
+export type MonacoEditorTypes = 'operations' | 'variables' | 'results' | 'headers';
 
 export type GraphiQLEditorStore = {
   monacoGraphQLAPI: MonacoGraphQLAPI;
   activeEditorTabId: string | null;
   setActiveEditorTabId: ({ editorTabId }: { editorTabId: string }) => void;
+  activeTab: () => EditorTab;
   editorTabs: EditorTab[];
   resetEditorTabs: () => void;
   addEditorTab: () => void;
@@ -27,7 +28,7 @@ export type GraphiQLEditorStore = {
     modelType,
     newValue,
   }: {
-    modelType: 'operationModel' | 'variablesModel' | 'resultsModel';
+    modelType: 'operationsModel' | 'variablesModel' | 'resultsModel';
     newValue: string;
   }) => void;
   updateOperationDefinition: ({
