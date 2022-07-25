@@ -8,7 +8,7 @@ export const OperationActions = () => {
   const { monacoEditors } = useGraphiQLEditor();
   const { executeOperation } = useGraphiQLSchema();
 
-  const operationEditor = monacoEditors.find((e) => e.name === 'operation');
+  const operationEditor = monacoEditors.find((e) => e.name === 'operations');
 
   return (
     <OperationActionsWrap>
