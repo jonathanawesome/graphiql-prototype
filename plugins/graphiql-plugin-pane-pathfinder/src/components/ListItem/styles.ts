@@ -103,7 +103,6 @@ export const ChildFields = styled('ul', {
         borderLeft: '1px solid $gray015',
         marginBottom: 12,
       },
-      WHOOPS: {},
     },
   },
 });

@@ -43,11 +43,22 @@ export const Toggler: React.FC<ToggleProps> = ({
 }) => {
   const { toggle } = usePathfinder();
 
-  // console.log('Toggler', { ancestors, collapser, isSelected, operationType, variant });
+  const breadcrumbs = [...ancestors.keys()]
+    .map((k) => k.split('-')[0])
+    .reverse()
+    .join('/');
+
+  // console.log('Toggler', {
+  //   // ancestors,
+  //   // collapser,
+  //   // isSelected,
+  //   // operationType,
+  //   variant,
+  // });
 
   return (
     <TogglerStyled
-      aria-label={`Toggle ${fieldOrArgumentName}`}
+      aria-label={`Add ${breadcrumbs} ${variant} to operation`}
       aria-pressed={isSelected}
       isSelected={isSelected}
       onClick={() => {
@@ -63,6 +74,7 @@ export const Toggler: React.FC<ToggleProps> = ({
         }
         return toggle({ ancestors, operationType });
       }}
+      type="button"
       variant={variant}
     >
       {variant === 'ARGUMENT' && <IndicatorArgument />}
