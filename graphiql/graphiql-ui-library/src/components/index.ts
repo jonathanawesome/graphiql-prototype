@@ -1,8 +1,6 @@
 export { Dialog } from './Dialog';
 export type { DialogProps } from './Dialog';
 
-export { EasyVars } from './EasyVars';
-
 export { OptionItem } from './OptionItem';
 
 export { Pill } from './Pill';

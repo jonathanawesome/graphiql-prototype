@@ -98,11 +98,6 @@ export const DetailsStyled = styled('div', {
       ARGUMENT: {},
       INPUT_OBJECT: {},
       ROOT: {},
-      WHOOPS: {
-        [`& ${Name}, & ${Type}`]: {
-          color: 'red',
-        },
-      },
     },
   },
 

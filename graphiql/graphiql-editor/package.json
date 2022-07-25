@@ -6,7 +6,6 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@graphiql-prototype/graphiql-plugin-pane-easy-vars": "workspace:*",
     "@graphiql-prototype/graphiql-test-schema": "workspace:*",
     "@graphiql-prototype/graphiql-ui-library": "workspace:*",
     "@graphiql/toolkit": "^0.6.0",
@@ -22,6 +21,6 @@
   },
   "devDependencies": {
     "@types/react": "17.0.2",
-    "vite": "2.9.6"
+    "vite": "3.0.2"
   }
 }

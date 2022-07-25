@@ -1,6 +1,6 @@
 import create from 'zustand';
 import { initializeMode } from 'monaco-graphql/esm/initializeMode';
-import { editor as MONACO_EDITOR } from 'monaco-editor';
+import { editor as MONACO_EDITOR } from 'monaco-editor/esm/vs/editor/editor.api';
 import cuid from 'cuid';
 import { ExecutableDefinitionNode, isExecutableDefinitionNode, Kind } from 'graphql';
 
@@ -13,7 +13,7 @@ import {
 } from '../../constants';
 
 // types
-import { GraphiQLEditorStore } from './types';
+import { EditorTab, GraphiQLEditorStore } from './types';
 
 // utils
 import {
@@ -36,6 +36,15 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
   setActiveEditorTabId: ({ editorTabId }) => {
     set({ activeEditorTabId: editorTabId });
   },
+  activeTab: () => {
+    const activeEditorTabId = get().activeEditorTabId;
+    const editorTabs = get().editorTabs;
+    const activeTab = editorTabs.find(
+      (editorTab) => editorTab.editorTabId === activeEditorTabId
+    );
+
+    return activeTab as EditorTab;
+  },
   editorTabs: [],
   resetEditorTabs: () => {
     const addEditorTab = get().addEditorTab;
@@ -51,7 +60,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
 
     const newEditorTabId = cuid.slug();
 
-    const operationModel = getOrCreateModel({
+    const operationsModel = getOrCreateModel({
       uri: `${newEditorTabId}-operations.graphql`,
       value: defaultOperation,
     });
@@ -71,7 +80,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
     const newEditorTab = {
       editorTabId: newEditorTabId,
       editorTabName: `Tab${editorTabs.length > 0 ? editorTabs.length + 1 : 1}`,
-      operationModel,
+      operationsModel,
       variablesModel,
       headersModel,
       resultsModel,
@@ -110,11 +119,11 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       set({ activeEditorTabId: editorTabId });
 
       // TODO: there's probably a better way to do this 👇
-      const operationsEditor = monacoEditors.find((e) => e.name === 'operation');
+      const operationsEditor = monacoEditors.find((e) => e.name === 'operations');
       const variablesEditor = monacoEditors.find((e) => e.name === 'variables');
       const headersEditor = monacoEditors.find((e) => e.name === 'headers');
       const resultsEditor = monacoEditors.find((e) => e.name === 'results');
-      operationsEditor?.editor.setModel(editorTab.operationModel);
+      operationsEditor?.editor.setModel(editorTab.operationsModel);
       variablesEditor?.editor.setModel(editorTab.variablesModel);
       headersEditor?.editor.setModel(editorTab.headersModel);
       resultsEditor?.editor.setModel(editorTab.resultsModel);
@@ -123,7 +132,7 @@ export const useGraphiQLEditor = create<GraphiQLEditorStore>((set, get) => ({
       // languageFeatures.ts:124 Uncaught (in promise) TypeError: Cannot read properties of null (reading 'doValidation') at DiagnosticsAdapter._doValidate (languageFeatures.ts:124:38)
       monacoGraphQLAPI.setDiagnosticSettings({
         validateVariablesJSON: {
-          [editorTab.operationModel.uri.toString()]: [
+          [editorTab.operationsModel.uri.toString()]: [
             editorTab.variablesModel.uri.toString(),
           ],
         },

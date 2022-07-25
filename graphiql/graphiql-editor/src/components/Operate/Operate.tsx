@@ -49,7 +49,7 @@ export const Operate = () => {
   return (
     <OperateWrap ref={containerRef} expanded={editorTabs.length < 2}>
       <OperationEditor ref={operationsEditorRef}>
-        <MonacoEditor editorType="operation" />
+        <MonacoEditor editorType="operations" />
         <OperationActionsWrap>
           <OperationActions />
         </OperationActionsWrap>

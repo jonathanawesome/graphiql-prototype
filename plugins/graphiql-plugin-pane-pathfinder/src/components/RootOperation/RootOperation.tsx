@@ -30,8 +30,8 @@ export const RootOperation = ({
 
   // console.log('rendering RootOperation', {
   //   operationDefinition,
-  //   activeEditorTab,
-  //   editorTabs,
+  //   // activeEditorTab,
+  //   // editorTabs,
   // });
 
   useEffect(() => {

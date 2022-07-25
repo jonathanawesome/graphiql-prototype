@@ -95,6 +95,7 @@ export const Field = ({
       isSelected={!!selection}
       toggler={{
         ancestors,
+        fieldOrArgumentName: field.name,
         isSelected: !!selection,
         operationType,
         variant: 'FIELD',

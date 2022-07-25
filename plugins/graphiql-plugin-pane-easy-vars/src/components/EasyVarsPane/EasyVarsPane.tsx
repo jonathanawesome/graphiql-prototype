@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { VariableDefinitionNode } from 'graphql';
 
 // components
-import { EasyVars } from '@graphiql-prototype/graphiql-ui-library';
+import { EasyVars } from '../EasyVars';
 
 // hooks
 import { EditorTab, useGraphiQLEditor } from '@graphiql-prototype/graphiql-editor';

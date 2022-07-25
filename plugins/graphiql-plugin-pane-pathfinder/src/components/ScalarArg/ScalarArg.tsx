@@ -30,6 +30,7 @@ export const ScalarArg = ({
       isSelected={isSelected}
       toggler={{
         ancestors,
+        fieldOrArgumentName: argument.name,
         isSelected,
         operationType,
         variant: 'ARGUMENT',

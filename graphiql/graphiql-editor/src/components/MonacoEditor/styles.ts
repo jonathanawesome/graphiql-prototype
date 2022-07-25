@@ -16,7 +16,7 @@ export const MonacoWrap = styled('div', {
 
   variants: {
     editorType: {
-      operation: {
+      operations: {
         // paddingRight: 48,
       },
       variables: {},

@@ -1,7 +1,11 @@
 import { GraphQLType, isEnumType, isScalarType, VariableDefinitionNode } from 'graphql';
 
 // components
-import { Form, HandleChangeSignature, Pill } from '../index';
+import {
+  Form,
+  HandleChangeSignature,
+  Pill,
+} from '@graphiql-prototype/graphiql-ui-library';
 
 // utils
 import { getEnumValues } from '@graphiql-prototype/graphiql-editor';

@@ -13,9 +13,9 @@ export const PathfinderCompleteStory = () => {
     const activeEditorTab = editorTabs.find(
       (editorTab) => editorTab.editorTabId === activeEditorTabId
     );
-    const operationModel = activeEditorTab?.operationModel;
-    if (operationModel && operationModel.getValue() !== val) {
-      setVal(operationModel.getValue());
+    const operationsModel = activeEditorTab?.operationsModel;
+    if (operationsModel && operationsModel.getValue() !== val) {
+      setVal(operationsModel.getValue());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editorTabs]);

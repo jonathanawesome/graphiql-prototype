@@ -15,6 +15,7 @@ import { AncestorMap } from '../../hooks';
 type TogglerBaseProps = {
   ancestors: AncestorMap;
   isSelected: boolean;
+  fieldOrArgumentName: string;
   operationType: OperationTypeNode;
   variant: 'ARGUMENT' | 'FIELD';
 };
@@ -35,16 +36,30 @@ export type ToggleProps = TogglerWithCollapserProps | TogglerWithoutCollapserPro
 export const Toggler: React.FC<ToggleProps> = ({
   ancestors,
   collapser,
+  fieldOrArgumentName,
   isSelected,
   operationType,
   variant,
 }) => {
   const { toggle } = usePathfinder();
 
-  // console.log('Toggler', { ancestors, collapser, isSelected, operationType, variant });
+  const breadcrumbs = [...ancestors.keys()]
+    .map((k) => k.split('-')[0])
+    .reverse()
+    .join('/');
+
+  // console.log('Toggler', {
+  //   // ancestors,
+  //   // collapser,
+  //   // isSelected,
+  //   // operationType,
+  //   variant,
+  // });
 
   return (
     <TogglerStyled
+      aria-label={`Add ${breadcrumbs} ${variant} to operation`}
+      aria-pressed={isSelected}
       isSelected={isSelected}
       onClick={() => {
         if (collapser) {
@@ -59,6 +74,7 @@ export const Toggler: React.FC<ToggleProps> = ({
         }
         return toggle({ ancestors, operationType });
       }}
+      type="button"
       variant={variant}
     >
       {variant === 'ARGUMENT' && <IndicatorArgument />}

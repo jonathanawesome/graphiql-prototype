@@ -12,8 +12,7 @@ export type ListItemVariants =
   | 'FIELD'
   | 'INLINE_FRAGMENT'
   | 'INPUT_OBJECT'
-  | 'ROOT'
-  | 'WHOOPS';
+  | 'ROOT';
 
 export type ListItemTypeTypes =
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

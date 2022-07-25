@@ -32,7 +32,9 @@ export const ListItem = ({
 }: ListItemProps) => {
   const [isCollapsed, setIsCollapsed] = useState<boolean>(variant !== 'ROOT');
 
-  // console.log('ListItem', { collapsibleContent });
+  // console.log('ListItem', {
+  //   type: type.name,
+  // });
 
   if (collapsibleContent) {
     return (
@@ -51,7 +53,11 @@ export const ListItem = ({
                 }}
               />
             )}
-            <CollapsibleTrigger isCollapsed={isCollapsed}>
+            <CollapsibleTrigger
+              aria-label={`Expand nested fields of ${type.name} ${variant}`}
+              isCollapsed={isCollapsed}
+              type="button"
+            >
               <Caret />
             </CollapsibleTrigger>
             <Details isSelected={isSelected} type={type} variant={variant} />
