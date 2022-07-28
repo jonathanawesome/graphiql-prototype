@@ -14,11 +14,12 @@ import { GraphiQLWrap, ContentWrap, PaneWrap, PluginName } from './styles';
 // types
 import type { PanePluginsArray } from '../PanePlugins/types';
 import type { DialogPluginsArray } from '../DialogPlugins/types';
+import type { DesignTokens } from '@graphiql-prototype/graphiql-ui-library';
 
 type GraphiQLProps = {
-  //TODO complete "plugin" props APIs
-  panePlugins: PanePluginsArray;
   dialogPlugins: DialogPluginsArray;
+  panePlugins: PanePluginsArray;
+  theme?: DesignTokens;
 };
 
 export const GraphiQL = ({ panePlugins, dialogPlugins }: GraphiQLProps) => {

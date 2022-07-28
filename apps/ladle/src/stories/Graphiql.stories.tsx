@@ -10,7 +10,7 @@ import { PanePluginPathfinder } from '@graphiql-prototype/graphiql-plugin-pane-p
 import { DialogPluginSchemaSelector } from '@graphiql-prototype/graphiql-plugin-dialog-schema-selector';
 import { DialogPluginSettings } from '@graphiql-prototype/graphiql-plugin-dialog-settings';
 
-export const Reference = () => {
+export const Default = () => {
   return (
     <GraphiQL
       panePlugins={[

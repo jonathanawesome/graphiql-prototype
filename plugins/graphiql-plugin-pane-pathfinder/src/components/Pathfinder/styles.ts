@@ -60,6 +60,7 @@ export const PathfinderContent = styled('ul', {
   height: 'calc(100% - 64px)',
   width: '100%',
   overflowX: 'hidden',
+  padding: 0,
 
   '&::after': {
     content: '',
