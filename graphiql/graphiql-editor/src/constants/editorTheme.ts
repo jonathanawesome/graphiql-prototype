@@ -1,7 +1,7 @@
 import { editor as MONACO_EDITOR } from 'monaco-editor';
 
 // colors
-import { colors } from '../../../graphiql-ui-library/src/theme/colors';
+import { colors } from '../../../graphiql-ui-library';
 
 export const editorTheme: MONACO_EDITOR.IStandaloneThemeData = {
   base: 'vs',
