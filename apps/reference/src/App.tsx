@@ -34,13 +34,20 @@ export const App = () => {
 
   return (
     <GraphiQL
+      dialogPlugins={[DialogPluginSchemaSelector, DialogPluginSettings]}
       panePlugins={[
         PanePluginPathfinder,
         PanePluginHistory,
         PanePluginEasyVars,
         PanePluginDocs,
       ]}
-      dialogPlugins={[DialogPluginSchemaSelector, DialogPluginSettings]}
+      theme={{
+        colors: {
+          neutral: '#123',
+          primary: '#asd',
+          secondary: '#Asd',
+        },
+      }}
     />
   );
 };

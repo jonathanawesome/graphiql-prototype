@@ -8,7 +8,7 @@ export const TabWrap = styled('div', {
   variants: {
     isActive: {
       true: {
-        backgroundColor: '$gray010',
+        backgroundColor: '#CED2DA',
         paddingRight: 10,
       },
     },

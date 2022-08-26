@@ -1,3 +1,7 @@
+import { useTheme } from '../hooks/useTheme';
+
+const themeColors = useTheme.getState().theme.tokens.colors;
+
 export const colors = {
   editorHex: {
     gray010: '#EBEDF0',

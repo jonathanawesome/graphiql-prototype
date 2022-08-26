@@ -24,9 +24,6 @@ export const globalStyles = globalCss({
       outlineOffset: -1,
     },
   },
-  'ul, li': {
-    all: 'unset',
-  },
   // end global css
   // begin set fonts
   html: {
