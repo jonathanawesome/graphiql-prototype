@@ -1,4 +1,4 @@
-import { styled } from '@graphiql-prototype/graphiql-ui-library';
+import { styled } from '@graphiql-prototype/ui-library';
 
 import { Main } from './Main';
 import { NavContainer } from './NavContainer';

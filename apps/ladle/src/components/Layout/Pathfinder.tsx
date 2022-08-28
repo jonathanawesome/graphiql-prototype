@@ -1,5 +1,5 @@
 import { Caret } from '@graphiql-prototype/graphiql-plugin-pane-pathfinder/src/icons';
-import { SeparatorRound, styled } from '@graphiql-prototype/graphiql-ui-library';
+import { SeparatorRound, styled } from '@graphiql-prototype/ui-library';
 
 const PathfinderStyled = styled('ul', {
   all: 'unset',

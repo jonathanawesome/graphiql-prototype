@@ -8,15 +8,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@graphiql-prototype/graphiql-editor": "workspace:*",
+    "@graphiql-prototype/editor": "workspace:*",
     "@graphiql-prototype/graphiql-plugin-dialog-schema-selector": "workspace:*",
     "@graphiql-prototype/graphiql-plugin-dialog-settings": "workspace:*",
     "@graphiql-prototype/graphiql-plugin-pane-docs": "workspace:*",
     "@graphiql-prototype/graphiql-plugin-pane-easy-vars": "workspace:*",
     "@graphiql-prototype/graphiql-plugin-pane-history": "workspace:*",
     "@graphiql-prototype/graphiql-plugin-pane-pathfinder": "workspace:*",
-    "@graphiql-prototype/graphiql-ui-library": "workspace:*",
-    "@graphiql-prototype/graphiql-app": "workspace:*",
+    "@graphiql-prototype/ui-library": "workspace:*",
+    "@graphiql-prototype/graphiql": "workspace:*",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "vite-plugin-monaco-editor": "1.1.0"

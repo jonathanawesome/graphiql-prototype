@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 
 // hooks
-import { useGraphiQLSchema } from '@graphiql-prototype/graphiql-editor';
+import { useSchema } from '@graphiql-prototype/use-schema';
 
 // styles
-import { globalStyles } from '@graphiql-prototype/graphiql-ui-library';
+import { globalStyles } from '@graphiql-prototype/ui-library';
 
 export const Provider = ({ children }: { children: React.ReactNode }) => {
   globalStyles();
 
-  const { initSchema } = useGraphiQLSchema();
+  const { initSchema } = useSchema();
 
   useEffect(() => {
     initSchema({});

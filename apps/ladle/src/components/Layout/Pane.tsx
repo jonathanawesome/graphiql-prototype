@@ -1,4 +1,4 @@
-import { styled } from '@graphiql-prototype/graphiql-ui-library';
+import { styled } from '@graphiql-prototype/ui-library';
 
 import { Pathfinder } from './Pathfinder';
 

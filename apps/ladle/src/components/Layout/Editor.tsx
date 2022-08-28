@@ -1,4 +1,4 @@
-import { Resizer, styled } from '@graphiql-prototype/graphiql-ui-library';
+import { Resizer, styled } from '@graphiql-prototype/ui-library';
 
 const EditorStyled = styled('div', {
   backgroundColor: '$editorBackground',

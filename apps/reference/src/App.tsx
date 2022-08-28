@@ -12,15 +12,15 @@ import { DialogPluginSchemaSelector } from '@graphiql-prototype/graphiql-plugin-
 import { DialogPluginSettings } from '@graphiql-prototype/graphiql-plugin-dialog-settings';
 
 // hooks
-import { useGraphiQLSchema } from '@graphiql-prototype/graphiql-editor';
+import { useSchema } from '@';
 
 // styles
-import { globalStyles } from '@graphiql-prototype/graphiql-ui-library';
+import { globalStyles } from '@graphiql-prototype/ui-library';
 
 export const App = () => {
   globalStyles();
 
-  const { initSchema } = useGraphiQLSchema();
+  const { initSchema } = useSchema();
 
   useEffect(() => {
     initSchema({
@@ -41,13 +41,6 @@ export const App = () => {
         PanePluginEasyVars,
         PanePluginDocs,
       ]}
-      theme={{
-        colors: {
-          neutral: '#123',
-          primary: '#asd',
-          secondary: '#Asd',
-        },
-      }}
     />
   );
 };

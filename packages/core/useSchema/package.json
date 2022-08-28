@@ -1,0 +1,23 @@
+{
+  "name": "@graphiql-prototype/use-schema",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "scripts": {
+    "tsc": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@graphiql-prototype/editor": "workspace:*",
+    "@graphiql-prototype/utils": "workspace:*",
+    "@graphiql-prototype/use-editor": "workspace:*",
+    "@graphiql-prototype/use-global-http-headers": "workspace:*",
+    "@graphiql-prototype/use-test-schema": "workspace:*",
+    "graphql": "^16.5.0",
+    "jsonc-parser": "3.0.0",
+    "monaco-editor": "^0.33.0",
+    "react": "17.0.2",
+    "zustand": "^4.0.0-rc.1"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.2"
+  }    
+}

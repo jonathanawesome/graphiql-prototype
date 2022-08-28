@@ -1,0 +1,14 @@
+{
+  "name": "@graphiql-prototype/utils",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "scripts": {
+    "tsc": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@graphiql-prototype/use-schema": "workspace:*",
+    "@graphiql-prototype/ui-library": "workspace:*",
+    "@graphiql/toolkit": "^0.6.0",
+    "graphql": "^16.5.0"
+  }
+}
