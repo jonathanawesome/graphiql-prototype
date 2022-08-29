@@ -39,7 +39,7 @@ export const useEditor = create<EditorStore>((set, get) => ({
       (editorTab) => editorTab.editorTabId === activeEditorTabId
     );
 
-    return activeTab as EditorTab;
+    return activeTab;
   },
   editorTabs: [],
   resetEditorTabs: () => {
