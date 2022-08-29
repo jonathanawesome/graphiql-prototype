@@ -80,6 +80,7 @@ importers:
       '@graphiql-prototype/graphiql-plugin-pane-history': workspace:*
       '@graphiql-prototype/graphiql-plugin-pane-pathfinder': workspace:*
       '@graphiql-prototype/ui-library': workspace:*
+      '@graphiql-prototype/use-schema': workspace:*
       '@types/node': ^18.0.3
       '@types/react': 17.0.2
       '@types/react-dom': 17.0.2
@@ -99,6 +100,7 @@ importers:
       '@graphiql-prototype/graphiql-plugin-pane-history': link:../../packages/plugins/graphiql-plugin-pane-history
       '@graphiql-prototype/graphiql-plugin-pane-pathfinder': link:../../packages/plugins/graphiql-plugin-pane-pathfinder
       '@graphiql-prototype/ui-library': link:../../packages/core/ui-library
+      '@graphiql-prototype/use-schema': link:../../packages/core/useSchema
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       vite-plugin-monaco-editor: 1.1.0

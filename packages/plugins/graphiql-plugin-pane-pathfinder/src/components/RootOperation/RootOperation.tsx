@@ -24,11 +24,7 @@ export const RootOperation = ({
     undefined
   );
 
-  // TODO: swap this with the getActiveTab method
-  const { activeEditorTabId, editorTabs } = useEditor();
-  const activeEditorTab = editorTabs.find(
-    (editorTab) => editorTab.editorTabId === activeEditorTabId
-  );
+  const activeEditorTab = useEditor().getActiveTab();
 
   const operationDefinition = activeEditorTab?.operationDefinition;
 
