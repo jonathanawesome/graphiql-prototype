@@ -1,4 +1,4 @@
-import { GraphiQL } from '@graphiql-prototype/graphiql-app';
+import { GraphiQL } from '@graphiql-prototype/graphiql';
 
 // pane plugins
 import { PanePluginDocs } from '@graphiql-prototype/graphiql-plugin-pane-docs';

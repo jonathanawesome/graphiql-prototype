@@ -1,4 +1,4 @@
-import { Resizer, styled } from '@graphiql-prototype/graphiql-ui-library';
+import { Resizer, styled } from '@graphiql-prototype/ui-library';
 
 import { Editor } from './Editor';
 import { Pane } from './Pane';

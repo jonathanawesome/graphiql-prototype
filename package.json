@@ -5,7 +5,7 @@
     "ladle:serve": "pnpm --filter ladle serve",
     "ref:dev": "pnpm --filter reference dev",
     "ref:build": "pnpm --filter reference build",
-    "tsc": "pnpm --filter './apps/**' --filter './graphiql/**' --filter './plugins/**' tsc"
+    "tsc": "pnpm --filter './apps/**' --filter './packages/core/**' --filter './packages/plugins/**' tsc"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.27.0",

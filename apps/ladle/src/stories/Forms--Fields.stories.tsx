@@ -1,14 +1,10 @@
 import { useState } from 'react';
 
 // components
-import {
-  FieldInput,
-  FieldList,
-  FieldSelect,
-} from '@graphiql-prototype/graphiql-ui-library';
+import { FieldInput, FieldList, FieldSelect } from '@graphiql-prototype/ui-library';
 
 // types
-import type { HandleChange } from '@graphiql-prototype/graphiql-ui-library';
+import type { HandleChange } from '@graphiql-prototype/ui-library';
 
 export const FieldInputStory = () => {
   const [val, setVal] = useState<string>('');

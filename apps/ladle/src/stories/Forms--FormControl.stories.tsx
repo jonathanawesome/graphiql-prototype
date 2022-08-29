@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
 // components
-import { FormControl, Pill } from '@graphiql-prototype/graphiql-ui-library';
+import { FormControl, Pill } from '@graphiql-prototype/ui-library';
 
 // types
-import type { HandleChange } from '@graphiql-prototype/graphiql-ui-library';
+import type { HandleChange } from '@graphiql-prototype/ui-library';
 
 export const A = () => {
   const [val, setVal] = useState<string>('');

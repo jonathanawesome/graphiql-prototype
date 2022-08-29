@@ -1,3 +1,0 @@
-# graphiql-test-schema
-
-## TODO

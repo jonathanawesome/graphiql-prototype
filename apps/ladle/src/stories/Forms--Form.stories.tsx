@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 // components
-import { Pill, Form } from '@graphiql-prototype/graphiql-ui-library';
+import { Pill, Form } from '@graphiql-prototype/ui-library';
 
 // types
-import type { HandleChange } from '@graphiql-prototype/graphiql-ui-library';
+import type { HandleChange } from '@graphiql-prototype/ui-library';
 
 export const StaticForm = () => {
   const [values, setValues] = useState<Record<string, string | string[]> | null>(null);

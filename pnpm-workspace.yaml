@@ -1,4 +1,4 @@
 packages:
   - 'apps/*'
-  - 'graphiql/*'
-  - 'plugins/*'
+  - 'packages/core/*'
+  - 'packages/plugins/*'

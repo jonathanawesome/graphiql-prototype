@@ -1,4 +1,4 @@
-import { Spinner } from '@graphiql-prototype/graphiql-ui-library';
+import { Spinner } from '@graphiql-prototype/ui-library';
 
 export const SpinnerStory = () => {
   return <Spinner />;
