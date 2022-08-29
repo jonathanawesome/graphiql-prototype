@@ -18,7 +18,7 @@ export type EditorStore = {
   monacoGraphQLAPI: MonacoGraphQLAPI;
   activeEditorTabId: string | null;
   setActiveEditorTabId: ({ editorTabId }: { editorTabId: string }) => void;
-  getActiveTab: () => EditorTab;
+  getActiveTab: () => EditorTab | undefined;
   editorTabs: EditorTab[];
   resetEditorTabs: () => void;
   addEditorTab: () => void;
