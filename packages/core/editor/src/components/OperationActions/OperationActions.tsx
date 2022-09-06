@@ -9,7 +9,7 @@ export const OperationActions = () => {
   const { monacoEditors } = useEditor();
   const { executeOperation } = useSchema();
 
-  const operationEditor = monacoEditors.find((e) => e.name === 'operations');
+  const operationEditor = monacoEditors.operations;
 
   return (
     <OperationActionsWrap>
@@ -21,9 +21,7 @@ export const OperationActions = () => {
         <Play />
       </PlayButton>
       <PrettierButton
-        onClick={() =>
-          operationEditor?.editor.getAction('editor.action.formatDocument').run()
-        }
+        onClick={() => operationEditor?.getAction('editor.action.formatDocument').run()}
       >
         <Prettier />
       </PrettierButton>

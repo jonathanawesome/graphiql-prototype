@@ -1,13 +1,11 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { styled, theme } from '@graphiql-prototype/ui-library';
 
 import * as Collapsible from '@radix-ui/react-collapsible';
 import * as Tabs from '@radix-ui/react-tabs';
 
 export const CollapsibleRoot = styled(Collapsible.Root, {
-  backgroundColor: 'white',
-  borderTop: '1px solid $gray015',
-  borderBottomLeftRadius: 16,
-  borderBottomRightRadius: 16,
+  backgroundColor: theme.colors.surface2,
+  borderTop: `1px solid ${theme.colors.surface3}`,
 });
 
 export const TabsRoot = styled(Tabs.Root, {});
@@ -16,12 +14,12 @@ export const TabsAndTrigger = styled('div', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  padding: '8px 24px 8px 4px',
+  // padding: `${theme.space[2]} ${theme.space[4]} ${theme.space[2]} ${theme.space[1]}`,
 });
 
 export const TabsList = styled(Tabs.List, {
   display: 'flex',
-  gap: 8,
+  gap: theme.space[2],
 });
 
 export const TabsTrigger = styled(Tabs.Trigger, {
@@ -29,13 +27,16 @@ export const TabsTrigger = styled(Tabs.Trigger, {
   fontSize: '$body',
   lineHeight: '$body',
   fontWeight: '$medium',
-  padding: '10px',
-  color: '$gray060',
+  // padding: '10px',
+  color: theme.colors.text4,
 
-  '&:hover': { color: '$gray100' },
+  '&:hover': {
+    color: theme.colors.text2,
+    backgroundColor: theme.colors.surface3,
+  },
   '&[data-state="active"]': {
     fontWeight: '$semiBold',
-    color: '$gray100',
+    color: theme.colors.text2,
   },
 
   span: {
@@ -59,7 +60,7 @@ export const CollapsibleTrigger = styled(Collapsible.Trigger, {
 
   svg: {
     path: {
-      fill: '$gray040',
+      fill: theme.colors.text4,
     },
   },
 

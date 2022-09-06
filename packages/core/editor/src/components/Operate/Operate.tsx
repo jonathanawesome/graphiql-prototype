@@ -5,9 +5,6 @@ import { MonacoEditor } from '../MonacoEditor';
 import { OperationActions } from '../OperationActions';
 import { OperationTools } from '../OperationTools';
 
-// hooks
-import { useEditor } from '@graphiql-prototype/use-editor';
-
 // styles
 import {
   OperationActionsWrap,
@@ -15,10 +12,9 @@ import {
   OperationEditor,
   OperationToolsWrap,
 } from './styles';
+import { Resizer } from '@graphiql-prototype/ui-library';
 
 export const Operate = () => {
-  const { editorTabs } = useEditor();
-
   const containerRef = useRef<HTMLDivElement | null>(null);
   const operationsEditorRef = useRef<HTMLDivElement | null>(null);
   const operationsToolsRef = useRef<HTMLDivElement | null>(null);
@@ -47,16 +43,29 @@ export const Operate = () => {
   };
 
   return (
-    <OperateWrap ref={containerRef} expanded={editorTabs.length < 2}>
-      <OperationEditor ref={operationsEditorRef}>
-        <MonacoEditor editorType="operations" />
-        <OperationActionsWrap>
-          <OperationActions />
-        </OperationActionsWrap>
-      </OperationEditor>
-      <OperationToolsWrap ref={operationsToolsRef}>
-        <OperationTools setHeight={setHeight} />
-      </OperationToolsWrap>
+    <OperateWrap ref={containerRef}>
+      <Resizer
+        direction="vertical"
+        handleStyle="ghost"
+        pane1={{
+          initialFlexGrowValue: 1,
+          component: (
+            <OperationEditor ref={operationsEditorRef}>
+              <MonacoEditor monacoEditorType="operations" />
+              <OperationActionsWrap>
+                <OperationActions />
+              </OperationActionsWrap>
+            </OperationEditor>
+          ),
+        }}
+        pane2={{
+          component: (
+            <OperationToolsWrap ref={operationsToolsRef}>
+              <OperationTools />
+            </OperationToolsWrap>
+          ),
+        }}
+      />
     </OperateWrap>
   );
 };

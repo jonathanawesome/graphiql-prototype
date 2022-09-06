@@ -10,7 +10,7 @@ import { useGraphiQL } from '../../hooks';
 import { useSchema } from '@graphiql-prototype/use-schema';
 
 // styles
-import { GraphiQLWrap, ContentWrap, PaneWrap, PluginName } from './styles';
+import { GraphiQLWrap, EditorWrap, PaneWrap, PluginName } from './styles';
 
 // types
 import type { PanePluginsArray } from '../PanePlugins/types';
@@ -29,7 +29,7 @@ export const GraphiQL = ({ panePlugins, dialogPlugins }: GraphiQLProps) => {
   return (
     <GraphiQLWrap>
       <Navigation panePlugins={panePlugins} dialogPlugins={dialogPlugins} />
-      <ContentWrap>
+      <EditorWrap>
         <Resizer
           direction="horizontal"
           handleStyle="bar"
@@ -47,7 +47,7 @@ export const GraphiQL = ({ panePlugins, dialogPlugins }: GraphiQLProps) => {
           }}
           pane2={{ component: <GraphiQLEditor /> }}
         />
-      </ContentWrap>
+      </EditorWrap>
     </GraphiQLWrap>
   );
 };

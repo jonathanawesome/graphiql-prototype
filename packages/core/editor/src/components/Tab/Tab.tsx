@@ -46,12 +46,8 @@ export const Tab = ({
   };
 
   return (
-    <TabWrap isActive={isActive}>
-      <TabButton
-        disabled={!!isActive}
-        onClick={() => handleTabChange()}
-        isActive={isActive}
-      >
+    <TabWrap>
+      <TabButton disabled={!!isActive} onClick={() => handleTabChange()}>
         {tab?.operationDefinition?.name?.value || tab?.editorTabName}
       </TabButton>
 

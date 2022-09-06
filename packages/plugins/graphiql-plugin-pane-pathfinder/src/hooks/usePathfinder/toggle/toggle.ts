@@ -28,7 +28,7 @@ import {
 // types
 import { AncestorMap, PathfinderStore } from '../types';
 
-const addEditorTab = useEditor.getState().addEditorTab;
+const initEditorTab = useEditor.getState().initEditorTab;
 const updateModel = useEditor.getState().updateModel;
 const updateOperationDefinition = useEditor.getState().updateOperationDefinition;
 export const toggle = ({
@@ -234,7 +234,7 @@ export const toggle = ({
   // if the rootType is different than currentOperationType,
   // spin up a new tab and do work there
   if (currentOperationType && nextOperationType !== currentOperationType) {
-    addEditorTab();
+    initEditorTab();
     nextDefinition = {
       kind,
       operation,

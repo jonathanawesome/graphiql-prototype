@@ -1,1 +1,0 @@
-export { editorOptions } from './editorOptions';

@@ -1,0 +1,1 @@
+export { TabPanels } from './TabPanels';

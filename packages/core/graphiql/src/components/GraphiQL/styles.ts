@@ -9,13 +9,13 @@ export const GraphiQLWrap = styled('div', {
   overflow: 'hidden',
 });
 
-export const ContentWrap = styled('div', {
+export const EditorWrap = styled('div', {
   height: '100%',
   overflow: 'hidden',
-  paddingTop: 16,
-  paddingRight: 16,
-  paddingBottom: 16,
-  paddingLeft: 0,
+  // paddingTop: 16,
+  // paddingRight: 16,
+  // paddingBottom: 16,
+  // paddingLeft: 0,
 });
 
 export const PaneWrap = styled('div', {

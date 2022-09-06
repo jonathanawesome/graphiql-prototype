@@ -8,7 +8,7 @@ import { globalStyles } from '@graphiql-prototype/ui-library';
 
 export const Provider = ({ children }: { children: React.ReactNode }) => {
   globalStyles();
-
+  
   const { initSchema } = useSchema();
 
   useEffect(() => {

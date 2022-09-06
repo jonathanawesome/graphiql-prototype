@@ -12,16 +12,37 @@ export type EditorTab = {
   operationDefinition: OperationDefinitionNode | null;
 };
 
+type MonacoEditors = {
+  operations: MONACO_EDITOR.IStandaloneCodeEditor | null;
+  variables: MONACO_EDITOR.IStandaloneCodeEditor | null;
+  results: MONACO_EDITOR.IStandaloneCodeEditor | null;
+  headers: MONACO_EDITOR.IStandaloneCodeEditor | null;
+};
+
 export type MonacoEditorTypes = 'operations' | 'variables' | 'results' | 'headers';
 
 export type EditorStore = {
+  initMonacoEditor: ({
+    monacoEditorType,
+    monacoEditorRef,
+    optionOverrides,
+  }: {
+    monacoEditorType: MonacoEditorTypes;
+    monacoEditorRef: HTMLDivElement;
+    optionOverrides?: MONACO_EDITOR.IStandaloneEditorConstructionOptions;
+  }) => void;
+  setModelsForAllEditorsWithinTab: ({
+    destinationTab,
+  }: {
+    destinationTab: EditorTab;
+  }) => void;
+  initEditorTab: () => void;
   monacoGraphQLAPI: MonacoGraphQLAPI;
   activeEditorTabId: string | null;
   setActiveEditorTabId: ({ editorTabId }: { editorTabId: string }) => void;
-  getActiveTab: () => EditorTab | undefined;
+  getActiveTab: () => EditorTab;
   editorTabs: EditorTab[];
   resetEditorTabs: () => void;
-  addEditorTab: () => void;
   removeEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
   switchEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
   updateModel: ({
@@ -45,11 +66,7 @@ export type EditorStore = {
     variableName: string;
     variableValue: string | string[];
   }) => void;
-
-  monacoEditors: Array<{
-    editor: MONACO_EDITOR.IStandaloneCodeEditor;
-    name: MonacoEditorTypes;
-  }>;
+  monacoEditors: MonacoEditors;
   addMonacoEditor: ({
     editor,
     name,

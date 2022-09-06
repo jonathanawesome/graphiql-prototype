@@ -1,1 +1,1 @@
-export { GraphiQLEditor } from './components';
+export * from './components';

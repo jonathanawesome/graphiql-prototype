@@ -1,0 +1,1 @@
+export { RemoveTabButton } from './RemoveTabButton';
