@@ -1,4 +1,4 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { styled, theme } from '@graphiql-prototype/ui-library';
 
 export const DescriptionStyled = styled('dl', {
   display: 'flex',
@@ -12,7 +12,7 @@ export const DT = styled('dt', {
   alignItems: 'center',
   fontSize: 10,
   fontWeight: 600,
-  color: '$gray060',
+  color: theme.colors.text3,
   letterSpacing: 0.5,
   textTransform: 'uppercase',
 });
@@ -24,13 +24,13 @@ export const DD = styled('dd', {
     padding: 0,
     fontSize: 13,
     lineHeight: 1.4,
-    color: '$gray100',
+    color: theme.colors.text2,
   },
 
   code: {
     fontSize: 12,
-    backgroundColor: '$gray007',
-    border: '1px solid $gray010',
+    backgroundColor: theme.colors.surface3,
+    // border: `1px solid ${theme.colors.}`,
     borderRadius: 2,
     padding: '1px 2px',
   },

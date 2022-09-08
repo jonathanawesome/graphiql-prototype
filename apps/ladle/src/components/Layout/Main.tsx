@@ -15,14 +15,13 @@ export const Main = () => {
   return (
     <MainStyled>
       <Resizer
-        direction="horizontal"
-        handleStyle="bar"
+        direction="HORIZONTAL"
         pane1={{
-          initialFlexGrowValue: 1,
           component: <Pane />,
         }}
         pane2={{
           component: <Editor />,
+          initialWidthPercentage: 70,
         }}
       />
     </MainStyled>

@@ -1,9 +1,9 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { styled, theme } from '@graphiql-prototype/ui-library';
 
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 
 export const DocsDialogStyled = styled('div', {
-  backgroundColor: '$gray007',
+  // backgroundColor: theme.colors.surface1,
   position: 'absolute',
   top: 0,
   left: 0,
@@ -40,14 +40,14 @@ export const CloseButton = styled('button', {
     height: 24,
     width: 24,
     path: {
-      fill: '$gray040',
+      fill: theme.colors.text4,
     },
   },
 
   '&:hover': {
     svg: {
       path: {
-        fill: '$gray100',
+        fill: theme.colors.text2,
       },
     },
   },

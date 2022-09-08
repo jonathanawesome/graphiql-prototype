@@ -4,7 +4,7 @@ export const editorOptions: MONACO_EDITOR.IStandaloneEditorConstructionOptions =
   automaticLayout: true,
   // folding: false, // disable folding
   fontFamily: "'Fira Code', monospace", // TODO: set the font (this is problematic because the font has to be installed locally)
-  // fontSize: 12, // default is 12
+  fontSize: 13, // default is 12
   // lineDecorationsWidth: 100,
   lineNumbersMinChars: 2,
   minimap: {

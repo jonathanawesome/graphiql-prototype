@@ -27,13 +27,11 @@ export const Editor = () => {
   return (
     <EditorStyled>
       <Resizer
-        direction="horizontal"
-        handleStyle="bar"
+        direction="HORIZONTAL"
         pane1={{
-          initialFlexGrowValue: 1,
           component: <Operate>operate</Operate>,
         }}
-        pane2={{ component: <Analyze>analyze</Analyze> }}
+        pane2={{ component: <Analyze>analyze</Analyze>, initialWidthPercentage: 50 }}
       />
     </EditorStyled>
   );

@@ -14,7 +14,6 @@ export const TabsAndTrigger = styled('div', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  // padding: `${theme.space[2]} ${theme.space[4]} ${theme.space[2]} ${theme.space[1]}`,
 });
 
 export const TabsList = styled(Tabs.List, {

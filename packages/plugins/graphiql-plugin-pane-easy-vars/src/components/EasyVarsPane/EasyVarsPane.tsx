@@ -5,7 +5,7 @@ import { VariableDefinitionNode } from 'graphql';
 import { EasyVars } from '../EasyVars';
 
 // hooks
-import { EditorTab, useEditor } from '@graphiql-prototype/use-editor';
+import { EditorTabState, useEditor } from '@graphiql-prototype/use-editor';
 
 // styles
 import {
@@ -18,7 +18,7 @@ import {
 } from './styles';
 
 export const EasyVarsPane = () => {
-  const [tabs, setTabs] = useState<EditorTab[]>([]);
+  const [tabs, setTabs] = useState<EditorTabState[]>([]);
 
   const { activeEditorTabId, editorTabs, switchEditorTab } = useEditor();
 
@@ -30,8 +30,8 @@ export const EasyVarsPane = () => {
     activeEditorTab,
     theTabs,
   }: {
-    activeEditorTab: EditorTab;
-    theTabs: EditorTab[];
+    activeEditorTab: EditorTabState;
+    theTabs: EditorTabState[];
   }) =>
     theTabs.sort((x, y) => (x === activeEditorTab ? -1 : y === activeEditorTab ? 0 : 1));
 

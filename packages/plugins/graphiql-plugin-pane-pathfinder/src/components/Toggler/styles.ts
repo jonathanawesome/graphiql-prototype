@@ -1,4 +1,4 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { styled, theme } from '@graphiql-prototype/ui-library';
 
 export const TogglerStyled = styled('button', {
   display: 'flex',
@@ -28,7 +28,7 @@ export const TogglerStyled = styled('button', {
             },
             '&:nth-of-type(2)': {
               //outer
-              fill: '$gray040',
+              fill: theme.colors.text4,
             },
             '&:nth-of-type(3)': {
               //checkmark
@@ -50,15 +50,15 @@ export const TogglerStyled = styled('button', {
           path: {
             '&:nth-of-type(1)': {
               //inner
-              fill: '$secondary100',
+              fill: theme.colors.violet_default,
             },
             '&:nth-of-type(2)': {
               //outer
-              fill: '$secondary100',
+              fill: theme.colors.violet_default,
             },
             '&:nth-of-type(3)': {
               //checkmark
-              fill: '$white',
+              fill: theme.colors.surface1,
             },
           },
         },
@@ -73,15 +73,15 @@ export const TogglerStyled = styled('button', {
           path: {
             '&:nth-of-type(1)': {
               //inner
-              fill: '$primary100',
+              fill: theme.colors.pink_default,
             },
             '&:nth-of-type(2)': {
               //outer
-              fill: '$primary100',
+              fill: theme.colors.pink_default,
             },
             '&:nth-of-type(3)': {
               //checkmark
-              fill: '$white',
+              fill: theme.colors.surface1,
             },
           },
         },

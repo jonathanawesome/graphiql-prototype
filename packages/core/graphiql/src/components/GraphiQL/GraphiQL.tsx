@@ -10,7 +10,7 @@ import { useGraphiQL } from '../../hooks';
 import { useSchema } from '@graphiql-prototype/use-schema';
 
 // styles
-import { GraphiQLWrap, EditorWrap, PaneWrap, PluginName } from './styles';
+import { GraphiQLWrap, PaneWrap } from './styles';
 
 // types
 import type { PanePluginsArray } from '../PanePlugins/types';
@@ -29,25 +29,19 @@ export const GraphiQL = ({ panePlugins, dialogPlugins }: GraphiQLProps) => {
   return (
     <GraphiQLWrap>
       <Navigation panePlugins={panePlugins} dialogPlugins={dialogPlugins} />
-      <EditorWrap>
-        <Resizer
-          direction="horizontal"
-          handleStyle="bar"
-          pane1={{
-            initialFlexGrowValue: activePanePlugin === 'GraphiQL' ? undefined : 0.4,
-            component:
-              activePanePlugin === 'GraphiQL' ? null : (
-                <PaneWrap schemaLoading={schemaLoading}>
-                  <PluginName>
-                    <span>{activePanePlugin}</span>
-                  </PluginName>
-                  <PanePlugins activePane={activePanePlugin} panePlugins={panePlugins} />
-                </PaneWrap>
-              ),
-          }}
-          pane2={{ component: <GraphiQLEditor /> }}
-        />
-      </EditorWrap>
+      <Resizer
+        direction="HORIZONTAL"
+        handlePosition="RIGHT"
+        pane1={{
+          component:
+            activePanePlugin === 'GraphiQL' ? null : (
+              <PaneWrap schemaLoading={schemaLoading}>
+                <PanePlugins activePane={activePanePlugin} panePlugins={panePlugins} />
+              </PaneWrap>
+            ),
+        }}
+        pane2={{ component: <GraphiQLEditor />, initialWidthPercentage: 70 }}
+      />
     </GraphiQLWrap>
   );
 };

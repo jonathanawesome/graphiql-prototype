@@ -1,13 +1,9 @@
-export { GraphiQLEditor } from './GraphiQLEditor';
+export { EditorTabs } from './EditorTabs';
 
-export { AddTabButton } from './AddTabButton';
+export { GraphiQLEditor } from './GraphiQLEditor';
 
 export { MonacoEditor } from './MonacoEditor';
 
 export { OperationTools } from './OperationTools';
 
 export { RemoveTabButton } from './RemoveTabButton';
-
-export { Tab } from './Tab';
-
-export { Tabs } from './Tabs';

@@ -2,7 +2,7 @@ import { OperationDefinitionNode } from 'graphql';
 import { editor as MONACO_EDITOR } from 'monaco-editor/esm/vs/editor/editor.api';
 import type { MonacoGraphQLAPI } from 'monaco-graphql';
 
-export type EditorTab = {
+export type EditorTabState = {
   editorTabId: string;
   editorTabName: string;
   operationsModel: MONACO_EDITOR.ITextModel;
@@ -34,14 +34,14 @@ export type EditorStore = {
   setModelsForAllEditorsWithinTab: ({
     destinationTab,
   }: {
-    destinationTab: EditorTab;
+    destinationTab: EditorTabState;
   }) => void;
   initEditorTab: () => void;
   monacoGraphQLAPI: MonacoGraphQLAPI;
   activeEditorTabId: string | null;
   setActiveEditorTabId: ({ editorTabId }: { editorTabId: string }) => void;
-  getActiveTab: () => EditorTab;
-  editorTabs: EditorTab[];
+  getActiveTab: () => EditorTabState;
+  editorTabs: EditorTabState[];
   resetEditorTabs: () => void;
   removeEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
   switchEditorTab: ({ editorTabId }: { editorTabId: string }) => void;

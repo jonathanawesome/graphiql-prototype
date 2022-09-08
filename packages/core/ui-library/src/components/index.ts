@@ -3,6 +3,8 @@ export { Button } from './Button';
 export { Dialog } from './Dialog';
 export type { DialogProps } from './Dialog';
 
+export { Message } from './Message';
+
 export { OptionItem } from './OptionItem';
 
 export { Pill } from './Pill';

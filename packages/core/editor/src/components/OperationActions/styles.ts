@@ -1,11 +1,11 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { styled, theme } from '@graphiql-prototype/ui-library';
 
-export const OperationActionsWrap = styled('div', {
+export const StyledOperationActions = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  gap: 16,
-  width: 40,
-  minWidth: 40,
+  gap: theme.space[4],
+  width: theme.space[10],
+  minWidth: theme.space[10],
 });
 
 export const PlayButton = styled('button', {
@@ -14,18 +14,19 @@ export const PlayButton = styled('button', {
   backgroundColor: 'transparent',
   margin: 0,
   padding: 0,
-  width: 'min-content',
+  height: theme.space[10],
+  width: theme.space[10],
   display: 'flex',
 
   '& svg': {
-    height: 40,
-    width: 40,
+    height: theme.space[10],
+    width: theme.space[10],
     path: {
       '&:nth-of-type(1)': {
-        fill: '$primary100',
+        fill: theme.colors.pink_default,
       },
       '&:nth-of-type(2)': {
-        fill: '$white',
+        fill: theme.colors.text1,
       },
     },
   },
@@ -44,22 +45,22 @@ export const PrettierButton = styled('button', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  height: '100%',
-  width: '100%',
+  width: theme.space[10],
+  minWidth: theme.space[10],
 
   '& svg': {
-    height: 24,
-    width: 24,
+    height: theme.space[6],
+    width: theme.space[6],
 
     path: {
-      fill: '$gray040',
+      fill: theme.colors.text4,
     },
   },
 
   '&:hover': {
     '& svg': {
       path: {
-        fill: '$gray060',
+        fill: theme.colors.text1,
       },
     },
   },

@@ -11,6 +11,10 @@ import { useEditor } from '@graphiql-prototype/use-editor';
 
 // components
 import { Field, ListItem } from '../index';
+import { Message } from '@graphiql-prototype/ui-library';
+
+// styles
+import { StyledRootOperation } from './styles';
 
 export const RootOperation = ({
   operationType,
@@ -18,7 +22,7 @@ export const RootOperation = ({
 }: {
   operationType: OperationTypeNode;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  rootType: GraphQLObjectType<any, any>;
+  rootType: GraphQLObjectType<any, any> | null;
 }) => {
   const [selectionSet, setSelectionSet] = useState<SelectionSetNode | undefined>(
     undefined
@@ -43,39 +47,47 @@ export const RootOperation = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [operationDefinition]);
 
-  const fields = rootType.getFields();
+  const fields = rootType?.getFields();
+
+  if (!fields) {
+    return (
+      <StyledRootOperation>
+        <Message
+          message={
+            <>{`The active schema doesn’t provide a ${operationType} root operation type.`}</>
+          }
+          type="WARNING"
+        />
+      </StyledRootOperation>
+    );
+  }
 
   return (
-    <ListItem
-      collapsibleContent={{
-        childFields: Object.keys(fields)
-          .sort()
-          .map((field) => (
-            <Field
-              key={field}
-              ancestors={
-                new Map([
-                  [
-                    `${fields[field].name}`,
-                    {
-                      field: fields[field],
-                      selectionSet,
-                      selection:
-                        operationDefinition?.selectionSet?.selections.find(
-                          (selection) =>
-                            (selection as FieldNode).name.value === fields[field].name
-                        ) || null,
-                    },
-                  ],
-                ])
-              }
-              operationType={operationType}
-            />
-          )),
-      }}
-      isSelected={false}
-      type={rootType}
-      variant="ROOT"
-    />
+    <StyledRootOperation>
+      {Object.keys(fields)
+        .sort()
+        .map((field) => (
+          <Field
+            key={field}
+            ancestors={
+              new Map([
+                [
+                  `${fields[field].name}`,
+                  {
+                    field: fields[field],
+                    selectionSet,
+                    selection:
+                      operationDefinition?.selectionSet?.selections.find(
+                        (selection) =>
+                          (selection as FieldNode).name.value === fields[field].name
+                      ) || null,
+                  },
+                ],
+              ])
+            }
+            operationType={operationType}
+          />
+        ))}
+    </StyledRootOperation>
   );
 };

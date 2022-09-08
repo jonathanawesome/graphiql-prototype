@@ -55,7 +55,7 @@ export const { createTheme, globalCss, keyframes, styled, theme } = createStitch
   theme: {
     ...baseTheme,
     colors: {
-      ...darkColors,
+      ...lightColors,
     },
   },
 });

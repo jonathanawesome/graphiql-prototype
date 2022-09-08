@@ -7,15 +7,16 @@ export const editorTheme: MONACO_EDITOR.IStandaloneThemeData = {
   base: 'vs',
   inherit: false,
   colors: {
+    'editor.selectionBackground': editorColors.selections, // Color of the editor selection.
     'editor.background': '#FFFFFF00', // white with a 00 alpha value
-    'editorLineNumber.foreground': editorColors.gray040, // Color of editor line numbers.
-    'editorLineNumber.activeForeground': editorColors.gray040, // Color of editor active line number.
-    'editorError.foreground': editorColors.error100, // Foreground color of error squigglies in the editor.
-    'editorWarning.foreground': editorColors.error100, // Foreground color of warning squigglies in the editor.
+    'editorLineNumber.foreground': editorColors.delimiters, // Color of editor line numbers.
+    'editorLineNumber.activeForeground': editorColors.delimitersActive, // Color of editor active line number.
+    'editorError.foreground': editorColors.orange_default, // Foreground color of error squigglies in the editor.
+    'editorWarning.foreground': editorColors.orange_default, // Foreground color of warning squigglies in the editor.
     'editor.lineHighlightBorder': '#FFFFFF00', // Background color for the border around the line at the cursor position.
     'editorBracketMatch.background': '#FFFFFF00', // Background color behind matching brackets
     'editorBracketMatch.border': '#FFFFFF00', // Color for matching brackets boxes
-    'editorIndentGuide.background': editorColors.gray010, // Color of the editor indentation guides.
+    'editorIndentGuide.background': editorColors.indentGuides, // Color of the editor indentation guides.
     'scrollbar.shadow': '#FFFFFF00', // Scrollbar shadow to indicate that the view is scrolled.
     'editorOverviewRuler.border': '#FFFFFF00', // Color of the overview ruler border.
     // 'editorMarkerNavigationError.background': '#FFFFFF00', // Editor marker navigation widget error color.
@@ -24,64 +25,64 @@ export const editorTheme: MONACO_EDITOR.IStandaloneThemeData = {
   rules: [
     // operations editor (graphql)
     {
-      foreground: editorColors.secondary100,
+      foreground: editorColors.keywords,
       token: 'keyword.gql',
     },
     {
-      foreground: editorColors.secondary100,
+      foreground: editorColors.operators,
       token: 'operator.gql',
     },
     {
-      foreground: editorColors.primary100,
+      foreground: editorColors.types,
       token: 'type.identifier.gql',
     },
     {
-      foreground: editorColors.gray060,
+      foreground: editorColors.text2,
       token: 'delimiter.curly.gql',
     },
     {
-      foreground: editorColors.info100,
+      foreground: editorColors.fields,
       token: 'key.identifier.gql',
     },
     {
-      foreground: editorColors.success100,
+      foreground: editorColors.arguments,
       token: 'argument.identifier.gql',
     },
     {
-      foreground: editorColors.gray040,
+      foreground: editorColors.delimiters,
       token: 'delimiter.parenthesis.gql',
     },
     {
-      foreground: editorColors.gray060,
+      foreground: editorColors.text2,
       token: 'comment.gql',
     },
     // variables editor & results viewer (json)
     {
-      foreground: editorColors.gray060,
+      foreground: editorColors.text2,
       token: 'delimiter.bracket.json',
     },
     {
-      foreground: editorColors.gray060,
+      foreground: editorColors.text2,
       token: 'delimiter.array.json',
     },
     {
-      foreground: editorColors.gray060,
+      foreground: editorColors.text2,
       token: 'delimiter.comma.json',
     },
     {
-      foreground: editorColors.secondary100,
+      foreground: editorColors.keywords,
       token: 'string.key.json',
     },
     {
-      foreground: editorColors.warning100,
+      foreground: editorColors.yellow_default,
       token: 'string.value.json',
     },
     {
-      foreground: editorColors.success100,
+      foreground: editorColors.keywords,
       token: 'keyword.json',
     },
     {
-      foreground: editorColors.success100,
+      foreground: editorColors.yellow_default,
       token: 'number.json',
     },
   ],

@@ -42,7 +42,23 @@ export const Details = ({ isSelected, type, variant }: DetailsProps) => {
       <NameAndType>
         {/* 👇 this fragment situation is weird...just a guess I took given that union types and fragment handling isn't in the design. needs to be resolved at the community/design level  */}
         <Name>
-          {variant === 'INLINE_FRAGMENT' ? `... on` : `${type.name}${asterisk || ''}`}
+          <button
+            onClick={() => {
+              navigateForward({
+                docPane: {
+                  description: type.description || null,
+                  name:
+                    'type' in type
+                      ? unwrapType(type.type).toString()
+                      : unwrapType(type).toString(),
+                  type: 'type' in type ? unwrapType(type.type) : unwrapType(type),
+                },
+                placement: 'PATHFINDER',
+              });
+            }}
+          >
+            {variant === 'INLINE_FRAGMENT' ? `... on` : `${type.name}${asterisk || ''}`}
+          </button>
         </Name>
 
         {variant !== 'ROOT' && (
@@ -67,12 +83,12 @@ export const Details = ({ isSelected, type, variant }: DetailsProps) => {
           </Type>
         )}
       </NameAndType>
-      {variant !== 'ROOT' && type.description && (
+      {/* {variant !== 'ROOT' && type.description && (
         <Description>
           <SeparatorRound />
           <span>{type.description}</span>
         </Description>
-      )}
+      )} */}
     </DetailsStyled>
   );
 };

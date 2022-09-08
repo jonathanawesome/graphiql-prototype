@@ -1,4 +1,4 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { styled, theme } from '@graphiql-prototype/ui-library';
 
 export const NameAndType = styled('div', {
   display: 'flex',
@@ -24,16 +24,16 @@ export const NameAndType = styled('div', {
 
 export const Name = styled('span', {
   fontWeight: 600,
-  color: '$gray100',
+  color: theme.colors.text2,
 });
 
 export const Type = styled('span', {
   fontWeight: '$regular',
-  color: '$gray060',
+  color: theme.colors.text3,
 
   button: {
     '&:hover': {
-      color: '$gray100',
+      color: theme.colors.text2,
       textDecoration: 'underline',
     },
   },
@@ -46,14 +46,14 @@ export const Description = styled('div', {
   textAlign: 'left',
   gap: 8,
   lineHeight: 1.3,
-  color: '$gray060',
+  color: theme.colors.text3,
   fontWeight: '$regular',
 
   svg: {
     height: 2,
     width: 2,
     circle: {
-      fill: '$gray040',
+      fill: theme.colors.text4,
     },
   },
 });
@@ -105,7 +105,7 @@ export const ListItemStyled = styled('div', {
       isSelected: true,
       css: {
         [`& ${Name}, & ${Type}`]: {
-          color: '$secondary100',
+          color: theme.colors.violet_default,
         },
       },
     },
@@ -114,7 +114,7 @@ export const ListItemStyled = styled('div', {
       isSelected: true,
       css: {
         [`& ${Name}, & ${Type}`]: {
-          color: '$info100',
+          color: theme.colors.blue_default,
         },
       },
     },
@@ -123,7 +123,7 @@ export const ListItemStyled = styled('div', {
       isSelected: true,
       css: {
         [`& ${Name}, & ${Type}`]: {
-          color: '$primary100',
+          color: theme.colors.pink_default,
         },
       },
     },
@@ -132,7 +132,7 @@ export const ListItemStyled = styled('div', {
       isSelected: true,
       css: {
         [`& ${Name}, & ${Type}`]: {
-          color: '$primary100',
+          color: theme.colors.pink_default,
         },
       },
     },

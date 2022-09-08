@@ -1,4 +1,4 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { styled, theme } from '@graphiql-prototype/ui-library';
 import * as Collapsible from '@radix-ui/react-collapsible';
 
 export const ListItemStyled = styled('li', {
@@ -10,7 +10,7 @@ export const Layout = styled('div', {
   display: 'grid',
   gridTemplateColumns: '1fr',
   alignItems: 'start',
-  gap: 12,
+  gap: theme.space[3],
 
   variants: {
     hasToggler: {
@@ -59,13 +59,13 @@ export const CollapsibleTrigger = styled(Collapsible.Trigger, {
     isCollapsed: {
       true: {
         svg: {
-          fill: '$gray040',
+          fill: theme.colors.text4,
         },
       },
       false: {
         svg: {
           transform: 'rotate(90deg)',
-          fill: '$secondary060',
+          fill: theme.colors.text4,
         },
       },
     },
@@ -73,35 +73,35 @@ export const CollapsibleTrigger = styled(Collapsible.Trigger, {
 });
 
 export const CollapsibleContent = styled(Collapsible.Content, {
-  marginTop: 12,
+  marginTop: theme.space[3],
 });
 
 export const Arguments = styled('ul', {
   paddingLeft: 14,
   marginLeft: 7,
-  marginBottom: 8,
+  marginBottom: theme.space[2],
 });
 
 export const ChildFields = styled('ul', {
-  paddingLeft: 12,
+  paddingLeft: theme.space[3],
   marginLeft: 7,
   variants: {
     variant: {
       FIELD: {
         marginLeft: 27,
-        borderLeft: '1px solid $gray015',
+        borderLeft: `1px solid ${theme.colors.surface3}`,
       },
       INLINE_FRAGMENT: {
         paddingLeft: 18,
         marginLeft: 0,
       },
       ARGUMENT: {
-        borderLeft: '1px solid $primary100',
+        borderLeft: `1px solid ${theme.colors.surface3}`,
       },
       INPUT_OBJECT: {},
       ROOT: {
-        borderLeft: '1px solid $gray015',
-        marginBottom: 12,
+        borderLeft: `1px solid ${theme.colors.surface3}`,
+        marginBottom: theme.space[3],
       },
     },
   },

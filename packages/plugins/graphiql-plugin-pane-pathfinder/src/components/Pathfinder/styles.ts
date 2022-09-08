@@ -1,35 +1,33 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { styled, theme } from '@graphiql-prototype/ui-library';
 
-export const Note = styled('div', {
-  backgroundColor: '$error010',
-  color: '$error100',
-  border: '1px solid $error060',
-  borderRadius: 2,
-  padding: 8,
-  fontSize: '$body',
+export const StyledPathfinderLead = styled('div', {
+  display: 'flex',
+  width: '100%',
+  height: theme.space[12],
+  borderBottom: `1px solid ${theme.colors.surface3}`,
 });
 
-export const PathfinderWrap = styled('div', {
+export const StyledPathfinder = styled('div', {
   position: 'relative',
   height: '100%',
   width: '100%',
-  overflowY: 'auto',
+  backgroundColor: theme.colors.surface1,
+  color: theme.colors.text2,
 });
 
-export const PathfinderContainer = styled('div', {
+export const StyledPathfinderContainer = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  gap: 24,
   position: 'relative',
   height: '100%',
   width: '100%',
   transition: 'all .1s $authenticMotion',
 
-  ul: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 10,
-  },
+  // ul: {
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   gap: 10,
+  // },
 
   variants: {
     dialogActive: {
@@ -47,76 +45,10 @@ export const PathfinderContainer = styled('div', {
   },
 });
 
-export const PathfinderLead = styled('div', {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-});
-
-export const PathfinderContent = styled('ul', {
-  position: 'absolute',
-  top: 64,
-  left: 0,
-  height: 'calc(100% - 64px)',
+export const StyledPathfinderContent = styled('div', {
+  height: '100%',
   width: '100%',
-  overflowX: 'hidden',
+  overflowY: 'auto',
   padding: 0,
-
-  '&::after': {
-    content: '',
-    zIndex: 1,
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    width: 24,
-    height: '100%',
-    background: 'linear-gradient(90deg, rgba(0,0,0,0) 0%, $appBackground 100%)',
-  },
-});
-
-export const FakeSearch = styled('div', {
-  backgroundColor: '$white',
-  border: '1px solid $gray015',
-  borderRadius: 8,
-  padding: 12,
-  gap: 24,
-  display: 'flex',
-  alignItems: 'center',
-  cursor: 'not-allowed',
-
-  div: {
-    display: 'flex',
-    alignItems: 'center',
-
-    svg: {
-      height: 14,
-      width: 14,
-    },
-
-    '&:nth-of-type(1)': {
-      gap: 6,
-      span: {
-        fontSize: '$body',
-        color: '$gray060',
-      },
-      svg: {
-        padding: 1,
-        path: {
-          fill: '$gray060',
-        },
-      },
-    },
-    '&:nth-of-type(2)': {
-      gap: 1,
-      span: {
-        fontSize: '$body',
-        color: '$gray040',
-      },
-      svg: {
-        path: {
-          fill: '$gray040',
-        },
-      },
-    },
-  },
+  margin: 0,
 });

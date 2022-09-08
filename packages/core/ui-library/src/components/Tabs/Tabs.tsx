@@ -49,7 +49,7 @@ const Collapsible = ({
   activeTab: string;
   setActiveTab: React.Dispatch<SetStateAction<string>>;
 }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleCollapseOnClick = ({ event }: { event: React.MouseEvent }) => {
     const targetValue = event.currentTarget.getAttribute('data-value');

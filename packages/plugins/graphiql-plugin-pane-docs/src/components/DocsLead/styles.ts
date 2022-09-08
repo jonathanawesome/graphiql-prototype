@@ -1,4 +1,4 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { styled, theme } from '@graphiql-prototype/ui-library';
 
 export const DocsLeadStyled = styled('div', {
   display: 'flex',
@@ -24,11 +24,11 @@ export const BackButton = styled('button', {
   '&:hover': {
     svg: {
       path: {
-        fill: '$gray100',
+        fill: theme.colors.text2,
       },
     },
     span: {
-      color: '$gray100',
+      color: theme.colors.text2,
     },
   },
 
@@ -36,7 +36,7 @@ export const BackButton = styled('button', {
     height: 16,
     width: 16,
     path: {
-      fill: '$gray060',
+      fill: theme.colors.text3,
     },
   },
 
@@ -45,7 +45,7 @@ export const BackButton = styled('button', {
     marginTop: 1,
     fontSize: 13,
     lineHeight: 1,
-    color: '$gray060',
+    color: theme.colors.text3,
     fontWeight: 500,
   },
 });
@@ -59,14 +59,14 @@ export const CurrentTypeName = styled('div', {
     '&:nth-of-type(1)': {
       fontSize: 18,
       fontWeight: 500,
-      color: '$gray100',
+      color: theme.colors.text2,
     },
     '&:nth-of-type(2)': {
       padding: '2px 4px',
       fontSize: 12,
-      color: '$gray060',
+      color: theme.colors.text2,
       borderRadius: 4,
-      border: '1px solid $gray015',
+      border: `1px solid ${theme.colors.surface3}`,
     },
   },
 });

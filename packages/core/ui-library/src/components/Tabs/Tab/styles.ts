@@ -29,7 +29,7 @@ export const Trigger = styled(TabsPrimitive.Trigger, {
       left: 0,
       height: 2,
       width: '100%',
-      backgroundColor: theme.colors.text1,
+      backgroundColor: theme.colors.green_default,
     },
   },
 

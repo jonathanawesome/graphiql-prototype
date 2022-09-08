@@ -8,7 +8,7 @@ export const Analyze = () => {
   return (
     <AnalyzeWrap>
       <MonacoEditor
-        editorType="results"
+        monacoEditorType="results"
         optionOverrides={{
           lineNumbers: 'off',
           readOnly: true,
