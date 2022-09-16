@@ -7,8 +7,9 @@ export const generateVariableNameFromAncestorMap = ({
   ancestors: AncestorMap;
 }) => {
   const keys = [...ancestors.keys()];
+  console.log('keys', keys);
   const trimmed = keys
-    .slice(0, -1)
+    // .slice(0, -1)
     .reverse()
     .map((k, index) => {
       const [first] = k.split('-');

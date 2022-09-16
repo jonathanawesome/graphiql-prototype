@@ -7,12 +7,8 @@ import {
 
 import type { ToggleProps } from '../Toggler';
 
-export type ListItemVariants =
-  | 'ARGUMENT'
-  | 'FIELD'
-  | 'INLINE_FRAGMENT'
-  | 'INPUT_OBJECT'
-  | 'ROOT';
+export type ListItemVariants = 'ARGUMENT' | 'FIELD' | 'INLINE_FRAGMENT' | 'INPUT_OBJECT';
+// | 'ROOT'
 
 export type ListItemTypeTypes =
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

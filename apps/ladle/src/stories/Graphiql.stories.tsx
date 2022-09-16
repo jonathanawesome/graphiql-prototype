@@ -7,7 +7,6 @@ import { PanePluginHistory } from '@graphiql-prototype/graphiql-plugin-pane-hist
 import { PanePluginPathfinder } from '@graphiql-prototype/graphiql-plugin-pane-pathfinder';
 
 // dialog plugins
-import { DialogPluginSchemaSelector } from '@graphiql-prototype/graphiql-plugin-dialog-schema-selector';
 import { DialogPluginSettings } from '@graphiql-prototype/graphiql-plugin-dialog-settings';
 
 export const Default = () => {
@@ -19,7 +18,7 @@ export const Default = () => {
         PanePluginEasyVars,
         PanePluginDocs,
       ]}
-      dialogPlugins={[DialogPluginSchemaSelector, DialogPluginSettings]}
+      dialogPlugins={[DialogPluginSettings]}
     />
   );
 };

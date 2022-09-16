@@ -32,11 +32,11 @@ export const RootOperation = ({
 
   const operationDefinition = activeEditorTab?.operationDefinition;
 
-  // console.log('rendering RootOperation', {
-  //   operationDefinition,
-  //   // activeEditorTab,
-  //   // editorTabs,
-  // });
+  console.log('rendering RootOperation', {
+    operationDefinition,
+    // activeEditorTab,
+    // editorTabs,
+  });
 
   useEffect(() => {
     const activeOperationType = operationDefinition?.operation;
@@ -56,7 +56,7 @@ export const RootOperation = ({
           message={
             <>{`The active schema doesn’t provide a ${operationType} root operation type.`}</>
           }
-          type="WARNING"
+          variant="WARNING"
         />
       </StyledRootOperation>
     );

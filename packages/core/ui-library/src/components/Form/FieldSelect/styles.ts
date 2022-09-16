@@ -1,4 +1,4 @@
-import { styled } from '../../../theme';
+import { styled, theme } from '../../../theme';
 import * as SelectPrimitive from '@radix-ui/react-select';
 
 export const SelectTrigger = styled(SelectPrimitive.SelectTrigger, {
@@ -11,32 +11,32 @@ export const SelectTrigger = styled(SelectPrimitive.SelectTrigger, {
   gap: 12,
   lineHeight: 1,
   cursor: 'pointer',
-  color: '$success100',
+  color: theme.colors.green_default,
   paddingRight: 8,
   minHeight: 32,
   fontSize: 12,
-  fontFamily: '$mono',
+  fontFamily: theme.fonts.mono,
   borderRadius: '0 7px 7px 0',
 
   svg: {
     height: 9,
     width: 9,
     path: {
-      fill: '$gray040',
+      fill: theme.colors.text3,
     },
   },
 
   '&:hover': {
-    backgroundColor: '$appBackground',
+    backgroundColor: theme.colors.surface2,
   },
 });
 
 export const SelectContent = styled(SelectPrimitive.Content, {
   overflow: 'hidden',
   // backgroundColor: '$appBackground',
-  backgroundColor: '$white',
+  backgroundColor: theme.colors.surface2,
   fontSize: 12,
-  fontFamily: '$mono',
+  fontFamily: theme.fonts.mono,
   borderRadius: 6,
   boxShadow:
     '0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2)',
@@ -50,7 +50,7 @@ export const SelectItem = styled(SelectPrimitive.Item, {
   all: 'unset',
   boxSizing: 'border-box',
   lineHeight: 1,
-  color: '$success100',
+  color: theme.colors.green_default,
   borderRadius: 3,
   display: 'flex',
   alignItems: 'center',
@@ -59,9 +59,12 @@ export const SelectItem = styled(SelectPrimitive.Item, {
   padding: '0 35px 0 25px',
   position: 'relative',
   userSelect: 'none',
+  '&:hover': {
+    backgroundColor: 'red',
+  },
 
   '&:focus': {
-    backgroundColor: '$gray007',
+    backgroundColor: theme.colors.surface2,
   },
 });
 
@@ -79,7 +82,7 @@ export const StyledItemIndicator = styled(SelectPrimitive.ItemIndicator, {
 });
 
 export const Description = styled('span', {
-  color: '$gray060',
+  color: theme.colors.text2,
   fontSize: 10,
 });
 
@@ -95,11 +98,13 @@ export const SelectItemIndicator = styled(StyledItemIndicator, {
     height: 12,
 
     path: {
-      fill: '$gray040',
+      fill: theme.colors.green_default,
     },
   },
 });
 
-export const StyledSelect = styled(SelectPrimitive.Root, {});
+export const StyledSelect = styled(SelectPrimitive.Root, {
+  backgroundColor: 'orange',
+});
 
 export const SelectValue = styled(SelectPrimitive.Value, {});

@@ -4,7 +4,7 @@ export const PanePluginContainerWrap = styled('div', {
   height: '100%',
   width: '100%',
   position: 'relative',
-  overflowY: 'auto',
+  // overflowY: 'auto',
 });
 
 export const PanePluginContainer = styled('div', {

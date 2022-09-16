@@ -12,6 +12,7 @@
     "@graphiql-prototype/use-test-schema": "workspace:*",
     "@graphiql/toolkit": "^0.6.0",
     "@radix-ui/react-collapsible": "^0.1.6",
+    "@radix-ui/react-radio-group": "^0.1.5",    
     "@radix-ui/react-tabs": "0.2.0-rc.17",
     "cuid": "^2.1.8",
     "graphql": "^16.5.0",

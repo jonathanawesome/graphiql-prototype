@@ -16,9 +16,9 @@ export const handleAddArgument = ({
   ancestor: AncestorArgument;
   setNextAction: SetNextActionSignature;
 }) => {
-  // console.log('running handleAddArgument', {
-  //   ancestor,
-  // });
+  console.log('running handleAddArgument', {
+    ancestor,
+  });
 
   // we need to get variable definitions for this argument
   const newVarDef = buildNewVariableDefinition({

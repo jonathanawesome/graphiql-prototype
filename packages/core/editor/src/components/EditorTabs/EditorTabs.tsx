@@ -42,24 +42,28 @@ export const EditorTabs = () => {
 
   return (
     <StyledEditorTabs>
-      {editorTabs.map((tab) => (
-        <TabWrap key={tab.editorTabId} isActive={activeEditorTabId === tab.editorTabId}>
-          <TabButton
-            hasRemoveTabButton={showRemoveTabButton}
-            onClick={() => handleTabChange({ editorTabId: tab.editorTabId })}
-          >
-            {tab?.operationDefinition?.name?.value || tab?.editorTabName}
-          </TabButton>
-          {showRemoveTabButton && (
-            <StyledRemoveTabButton
-              aria-label="Remove Tab"
-              onClick={() => doRemoveTab({ editorTabId: tab.editorTabId })}
+      {editorTabs.map((tab) => {
+        console.log('tab', tab);
+        return (
+          <TabWrap key={tab.editorTabId} isActive={activeEditorTabId === tab.editorTabId}>
+            <TabButton
+              hasRemoveTabButton={showRemoveTabButton}
+              onClick={() => handleTabChange({ editorTabId: tab.editorTabId })}
             >
-              <Close />
-            </StyledRemoveTabButton>
-          )}
-        </TabWrap>
-      ))}
+              <span>{tab.operationDefinition?.operation.charAt(0) || '?'}</span>
+              {tab?.operationDefinition?.name?.value || tab?.editorTabName}
+            </TabButton>
+            {showRemoveTabButton && (
+              <StyledRemoveTabButton
+                aria-label="Remove Tab"
+                onClick={() => doRemoveTab({ editorTabId: tab.editorTabId })}
+              >
+                <Close />
+              </StyledRemoveTabButton>
+            )}
+          </TabWrap>
+        );
+      })}
       <AddTabButton />
     </StyledEditorTabs>
   );

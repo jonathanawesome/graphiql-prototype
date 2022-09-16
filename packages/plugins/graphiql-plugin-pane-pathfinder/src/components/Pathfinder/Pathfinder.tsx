@@ -2,8 +2,17 @@ import { useEffect } from 'react';
 import { OperationTypeNode } from 'graphql';
 
 // components
-import { DocsDialog, Options, RootOperation } from '../index';
-import { Command, Message, Tabs } from '@graphiql-prototype/ui-library';
+import {
+  DocsDialog,
+  // Options,
+  RootOperation,
+} from '../index';
+import {
+  Button,
+  //  Command,
+  Message,
+  Tabs,
+} from '@graphiql-prototype/ui-library';
 import { Search } from '../Search';
 
 // hooks
@@ -16,6 +25,7 @@ import {
   StyledPathfinderContainer,
   StyledPathfinderContent,
   StyledPathfinderLead,
+  StyledSettingsButtonWrap,
 } from './styles';
 
 export const Pathfinder = () => {
@@ -41,18 +51,23 @@ export const Pathfinder = () => {
 
   if (!schema || 'error' in schema) {
     //TODO: loading/error skeleton
-    return <Message message={<p>Unable to load schema</p>} type="ERROR" />;
+    return <Message message={<p>Unable to load schema</p>} variant="ERROR" />;
   }
-
-  // const queryType = schema.getQueryType();
-  // const mutationType = schema.getMutationType();
 
   return (
     <StyledPathfinder>
       <StyledPathfinderContainer dialogActive={!!docsInstance?.activeDocPane}>
         <StyledPathfinderLead>
           <Search />
-          {/* <div>gear Icon</div> */}
+          <StyledSettingsButtonWrap>
+            <Button
+              action={() => console.log('settings')}
+              icon="Gear"
+              label="Pathfinder settings"
+              size="LARGE"
+              variant="ICON"
+            />
+          </StyledSettingsButtonWrap>
 
           {/* <Options /> */}
         </StyledPathfinderLead>

@@ -6,10 +6,10 @@ import { StyledMessage } from './styles';
 
 export const Message = ({
   message,
-  type,
+  variant,
 }: {
   message: ReactElement;
-  type: Stitches.VariantProps<typeof StyledMessage>['type'];
+  variant: Stitches.VariantProps<typeof StyledMessage>['variant'];
 }) => {
-  return <StyledMessage type={type}>{message}</StyledMessage>;
+  return <StyledMessage variant={variant}>{message}</StyledMessage>;
 };

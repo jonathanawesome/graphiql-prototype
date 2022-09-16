@@ -16,37 +16,81 @@ import type { FieldListProps, HandleChange } from '../types';
 import { getDefaultInputValue, getEnumValues } from '@graphiql-prototype/utils';
 
 export const FieldList = ({
-  currentValue,
   handleChange,
+  listType,
   name,
-  typeNameValue,
+  options,
+  placeholder,
+  // typeNameValue,
+  returnType,
+  value,
 }: FieldListProps) => {
   const [fieldListItems, setFieldListItems] = useState<
-    Array<{ name: string; component: React.ReactElement }>
+    Array<{ name: string; value: string; component: React.ReactElement }>
   >([]);
+
+  console.log('rendering FieldList', { value, fieldListItems });
 
   const [values, setValues] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    // on mount, if we have exsiting values for our variable, set the values and add the UI items
-    if (Array.isArray(currentValue)) {
-      currentValue.forEach((cV) => {
-        const fieldListItemName = `${name}-${cuid.slug()}`;
-        setValues((prev) => ({ ...prev, [fieldListItemName]: cV }));
-        handleAddItem({ currentValue: cV, name: fieldListItemName });
-      });
-    }
+    setFieldListItems(
+      value.map((val) => ({
+        name: `${name}-${cuid.slug()}`,
+        value: val,
+        component:
+          listType === 'INPUT' ? (
+            <FieldInput
+              fieldType="TEXT"
+              handleChange={handleChange}
+              name={name}
+              placeholder={placeholder}
+              value={val}
+            />
+          ) : (
+            <FieldSelect
+              fieldType="SELECT"
+              handleChange={handleChange}
+              name={name}
+              options={options}
+              placeholder={placeholder}
+              returnType={returnType}
+              value={val}
+            />
+          ),
+      }))
+    );
+    // on mount, if we have existing values for our variable, set the values and add the UI items
+    // if (Array.isArray(currentValue)) {
+    // currentValue.forEach((cV) => {
+    //   const fieldListItemName = `${name}-${cuid.slug()}`;
+    //   setValues((prev) => ({ ...prev, [fieldListItemName]: cV }));
+    //   handleAddItem({ currentValue: cV, name: fieldListItemName });
+    // });
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // useEffect(() => {
+  //   // on mount, if we have existing values for our variable, set the values and add the UI items
+  //   if (Array.isArray(currentValue)) {
+  //     currentValue.forEach((cV) => {
+  //       const fieldListItemName = `${name}-${cuid.slug()}`;
+  //       setValues((prev) => ({ ...prev, [fieldListItemName]: cV }));
+  //       handleAddItem({ currentValue: cV, name: fieldListItemName });
+  //     });
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
   const handleListChange = ({ name, value }: HandleChange) => {
-    setValues((prev) => ({ ...prev, [name]: value as string }));
+    // setValues((prev) => ({ ...prev, [name]: value as string }));
   };
 
-  useEffect(() => {
-    handleChange({ name, value: Object.values(values).map((v) => v) });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values]);
+  // useEffect(() => {
+  //   handleChange({ name, value: Object.values(values).map((v) => v) });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [values]);
 
   // console.log('rendering FieldList', {
   //   name,
@@ -54,74 +98,91 @@ export const FieldList = ({
   //   currentValue,
   // });
 
-  const handleAddItem = ({
-    currentValue,
-    name,
-  }: {
-    currentValue?: string;
-    name: string;
-  }) => {
-    if (['ID', 'String', 'Int', 'Float'].includes(typeNameValue)) {
+  const handleAddItem = ({ value, name }: { value: string; name: string }) => {
+    // if (['ID', 'String', 'Int', 'Float'].includes(typeNameValue)) {
+    if (listType === 'INPUT') {
       setFieldListItems((prev) => [
         ...prev,
         {
           name,
+          value,
           component: (
             <FieldInput
-              currentValue={currentValue || values[name]}
-              handleChange={handleListChange}
+              fieldType="TEXT"
+              handleChange={handleChange}
               name={name}
-              placeholder={getDefaultInputValue({
-                typeNameAsString: typeNameValue,
-              }).toString()}
-            />
-          ),
-        },
-      ]);
-    } else if (typeNameValue === 'Boolean') {
-      setFieldListItems((prev) => [
-        ...prev,
-        {
-          name,
-          component: (
-            <FieldSelect
-              currentValue={currentValue || values[name]}
-              handleChange={handleListChange}
-              name={name}
-              options={[
-                {
-                  value: 'true',
-                  name: 'True',
-                },
-                {
-                  value: 'false',
-                  name: 'False',
-                },
-              ]}
-            />
-          ),
-        },
-      ]);
-    } else {
-      setFieldListItems((prev) => [
-        ...prev,
-        {
-          name,
-          component: (
-            <FieldSelect
-              currentValue={currentValue || values[name]}
-              handleChange={handleListChange}
-              name={name}
-              options={
-                getEnumValues({
-                  enumTypeName: typeNameValue,
-                }) || []
-              }
+              placeholder={placeholder}
+              value={value}
             />
           ),
         },
       ]);
     }
+    if (listType === 'SELECT') {
+      setFieldListItems((prev) => [
+        ...prev,
+        {
+          name,
+          value,
+          component: (
+            <FieldSelect
+              fieldType="SELECT"
+              handleChange={handleChange}
+              name={name}
+              options={options}
+              placeholder={placeholder}
+              returnType={returnType}
+              value={value}
+            />
+          ),
+        },
+      ]);
+    }
+
+    // else if (typeNameValue === 'Boolean') {
+    //   setFieldListItems((prev) => [
+    //     ...prev,
+    //     {
+    //       name,
+    //       component: (
+    //         <FieldSelect
+    //           currentValue={currentValue || values[name]}
+    //           handleChange={handleListChange}
+    //           name={name}
+    //           options={[
+    //             {
+    //               value: 'true',
+    //               name: 'True',
+    //             },
+    //             {
+    //               value: 'false',
+    //               name: 'False',
+    //             },
+    //           ]}
+    //         />
+    //       ),
+    //     },
+    //   ]);
+    // } else {
+    //   setFieldListItems((prev) => [
+    //     ...prev,
+    //     {
+    //       name,
+    //       component: (
+    //         <FieldSelect
+    //           currentValue={currentValue || values[name]}
+    //           handleChange={handleListChange}
+    //           name={name}
+    //           options={
+    //             getEnumValues({
+    //               enumTypeName: typeNameValue,
+    //             }) || []
+    //           }
+    //         />
+    //       ),
+    //     },
+    //   ]);
+    // }
   };
 
   const handleRemoveItem = ({ name }: { name: string }) => {
@@ -130,7 +191,7 @@ export const FieldList = ({
     );
     const vals = { ...values };
     delete vals[name];
-    setValues({ ...vals });
+    // setValues({ ...vals });
   };
 
   return (
@@ -149,7 +210,7 @@ export const FieldList = ({
         onClick={() => handleAddItem({ name: `${name}-${cuid.slug()}` })}
       >{`Add ${
         fieldListItems.length > 0 ? 'another' : ''
-      } ${typeNameValue} +`}</AddItemButton>
+      } ${returnType} +`}</AddItemButton>
     </StyledList>
   );
 };

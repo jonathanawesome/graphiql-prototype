@@ -12,6 +12,7 @@ export const StyledButton = styled('button', {
   gap: theme.space[1],
   width: 'fit-content',
   backgroundColor: theme.colors.surface1,
+  color: theme.colors.text2,
 
   '&:hover': {
     backgroundColor: theme.colors.surface2,
@@ -27,15 +28,14 @@ export const StyledButton = styled('button', {
       LARGE: {
         height: theme.space[7],
       },
-      SMALL: {
+      MEDIUM: {
         height: theme.space[5],
+      },
+      SMALL: {
+        height: theme.space[4],
       },
     },
     variant: {
-      STANDARD: {
-        backgroundColor: theme.colors.surface1,
-        padding: `0px ${theme.space[3]}`,
-      },
       ICON: {
         backgroundColor: theme.colors.surface1,
         svg: {
@@ -52,7 +52,20 @@ export const StyledButton = styled('button', {
       variant: 'ICON',
       size: 'LARGE',
       css: {
-        width: theme.space[7],
+        width: theme.space[12],
+        height: theme.space[12],
+        svg: {
+          height: theme.space[6],
+          width: theme.space[6],
+        },
+      },
+    },
+    {
+      variant: 'ICON',
+      size: 'MEDIUM',
+      css: {
+        width: theme.space[10],
+        height: theme.space[10],
         svg: {
           height: theme.space[5],
           width: theme.space[5],
@@ -63,7 +76,8 @@ export const StyledButton = styled('button', {
       variant: 'ICON',
       size: 'SMALL',
       css: {
-        width: theme.space[5],
+        width: theme.space[6],
+        height: theme.space[6],
         svg: {
           height: theme.space[3],
           width: theme.space[3],

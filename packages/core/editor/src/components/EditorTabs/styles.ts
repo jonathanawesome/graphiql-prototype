@@ -5,6 +5,8 @@ export const StyledEditorTabs = styled('div', {
   display: 'flex',
   alignItems: 'center',
   borderBottom: `1px solid ${theme.colors.surface3}`,
+
+  minWidth: 0,
 });
 
 export const StyledAddTabButton = styled('button', {
@@ -37,8 +39,14 @@ export const StyledAddTabButton = styled('button', {
 });
 
 export const TabWrap = styled('div', {
-  position: 'relative',
+  height: `100%`,
+  position: `relative`,
   backgroundColor: theme.colors.surface1,
+  display: `flex`,
+  alignItems: `center`,
+  flexWrap: `nowrap`,
+  whitespace: `nowrap`,
+  overflow: `hidden`,
 
   '&:hover': {
     backgroundColor: theme.colors.surface2,
@@ -47,6 +55,8 @@ export const TabWrap = styled('div', {
   variants: {
     isActive: {
       true: {
+        flexShrink: 0,
+
         '&:after': {
           content: '',
           position: 'absolute',
@@ -54,7 +64,7 @@ export const TabWrap = styled('div', {
           left: 0,
           height: 2,
           width: '100%',
-          backgroundColor: theme.colors.text1,
+          backgroundColor: theme.colors.green_default,
         },
       },
     },
@@ -70,6 +80,24 @@ export const TabButton = styled('button', {
   paddingRight: theme.space[3],
   height: theme.space[10],
   color: theme.colors.text2,
+  display: `flex`,
+  alignItems: `center`,
+  gap: theme.space[2],
+
+  '&:hover': {
+    backgroundColor: theme.colors.surface2,
+  },
+
+  span: {
+    display: `flex`,
+    textTransform: `uppercase`,
+    padding: 2,
+    fontSize: 10,
+    lineHeight: 1,
+    border: `1px solid ${theme.colors.surface3}`,
+    borderRadius: 2,
+    color: theme.colors.green_default,
+  },
 
   variants: {
     hasRemoveTabButton: {
@@ -90,6 +118,7 @@ export const StyledRemoveTabButton = styled('button', {
   justifyContent: 'center',
   width: theme.space[6],
   height: theme.space[6],
+  backgroundColor: theme.colors.surface1,
 
   svg: {
     width: theme.space[3],

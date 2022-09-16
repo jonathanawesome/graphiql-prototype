@@ -87,10 +87,6 @@ The structure explained below is of my own design, but very much based on the id
 
 > Both Pane and Dialog plugins are composed of three parts, a name, an icon, and some UI. Pane plugin triggers are displayed at the top of the navigation UI and their interfaces are meant to interact directly with the editor(s). Dialog plugin triggers are displayed at the bottom of the navigation UI and trigger full-screen takeovers that do not interact directly with the editor(s).
 
-- /graphiql-plugin-dialog-schema-selector
-
-  - Includes the GraphiQL test schema, a few popular and publicly-available schemas, and an option to enter a custom schema URL.
-  - This "plugin" was built quickly and is very much not a candidate for inclusion into the final product.
 
 - /graphiql-plugin-dialog-settings
 

@@ -3,7 +3,7 @@ import { styled, theme } from '../../../theme';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 
 export const TabWrap = styled('div', {
-  position: 'relative',
+  position: `relative`,
   backgroundColor: theme.colors.surface1,
 
   '&:hover': {

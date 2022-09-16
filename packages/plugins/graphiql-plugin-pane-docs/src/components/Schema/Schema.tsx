@@ -8,6 +8,7 @@ import { Separator } from '../Separator';
 
 // hooks
 import { DocPlacement, useDocs } from '../../hooks';
+import { Icon } from '@graphiql-prototype/ui-library';
 
 export const Schema = ({
   placement,
@@ -61,7 +62,8 @@ export const Schema = ({
                   });
                 }}
               >
-                {rootType.toString()}
+                <Icon name="Docs" />
+                {/* {rootType.toString()} */}
               </button>
             }
           />

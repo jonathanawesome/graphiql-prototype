@@ -50,9 +50,8 @@ export const Resizer: React.FC<ResizerProps> = ({
       if (handle && pane1 && pane2 && container) {
         const pane1WidthPixels =
           e[eventProperty] - container.getBoundingClientRect().left;
-        const pane1WidthPercentage = Math.round(
-          (pane1WidthPixels / container.getBoundingClientRect().width) * 100
-        );
+        const pane1WidthPercentage =
+          (pane1WidthPixels / container.getBoundingClientRect().width) * 100;
 
         pane1.style.width = `${pane1WidthPercentage}%`;
         pane2.style.width = `${100 - pane1WidthPercentage}%`;

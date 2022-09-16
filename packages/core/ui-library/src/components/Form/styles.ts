@@ -1,4 +1,4 @@
-import { styled } from '../../theme';
+import { styled, theme } from '../../theme';
 
 export const FormStyled = styled('form', {
   width: '100%',
@@ -16,22 +16,22 @@ export const FormStyled = styled('form', {
 });
 
 export const StaticSubmitHandlerButton = styled('button', {
-  backgroundColor: '$gray010',
+  backgroundColor: theme.colors.surface3,
   border: '1px solid transparent',
-  color: '$gray100',
+  color: theme.colors.text1,
   width: 'auto',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   padding: 12,
   borderRadius: 4,
-  fontSize: '$body',
-  fontWeight: '$medium',
+  fontSize: theme.fontSizes.body,
+  fontWeight: theme.fontWeights.medium,
   placeSelf: 'flex-end',
 
   '&:hover': {
-    backgroundColor: '$gray015',
-    border: '1px solid $gray015',
+    backgroundColor: theme.colors.surface2,
+    border: `1px solid ${theme.colors.surface3}`,
   },
 
   '&:disabled': {

@@ -1,4 +1,4 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { styled, theme } from '@graphiql-prototype/ui-library';
 import React from 'react';
 
 const ListWrap = styled('div', {
@@ -8,6 +8,7 @@ const ListWrap = styled('div', {
 });
 
 const ListStyled = styled('ul', {
+  all: `unset`,
   display: 'flex',
   flexDirection: 'column',
   gap: 16,
@@ -20,8 +21,8 @@ const Title = styled('span', {
   display: 'flex',
   alignItems: 'center',
   fontSize: 10,
-  fontWeight: 600,
-  color: '$gray060',
+  fontWeight: theme.fontWeights.semiBold,
+  color: theme.colors.text4,
   letterSpacing: 0.5,
   textTransform: 'uppercase',
 });

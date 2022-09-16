@@ -1,4 +1,4 @@
-import { keyframes, styled } from '../../theme';
+import { keyframes, styled, theme } from '../../theme';
 
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 
@@ -26,16 +26,16 @@ export const Trigger = styled(DialogPrimitive.Trigger, {
   svg: {
     path: {
       // TODO 👇 this is going to break some icons using both fill and stroke
-      fill: '$gray040',
-      stroke: '$gray040',
+      fill: theme.colors.surface2,
+      stroke: theme.colors.surface2,
     },
   },
   '&:hover': {
     svg: {
       path: {
         // TODO 👇 this is going to break some icons using both fill and stroke
-        fill: '$primary100',
-        stroke: '$primary100',
+        fill: theme.colors.pink_default,
+        stroke: theme.colors.pink_default,
       },
     },
   },
@@ -56,7 +56,8 @@ export const Overlay = styled(DialogPrimitive.Overlay, {
 });
 
 export const ContentWrap = styled(DialogPrimitive.Content, {
-  backgroundColor: 'white',
+  // backgroundColor: 'pink',
+  backgroundColor: theme.colors.surface3,
   borderRadius: 6,
   boxShadow:
     'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
@@ -86,7 +87,7 @@ export const DialogLead = styled('div', {
   borderBottom: '1px solid $gray015',
   fontSize: 16,
   fontWeight: '$medium',
-  color: '$gray100',
+  color: theme.colors.text1,
 
   button: {
     display: 'flex',

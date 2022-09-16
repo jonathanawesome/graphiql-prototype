@@ -23,7 +23,7 @@ describe('Pathfinder | Toggler - Field', () => {
 
     // initialize default schema (testSchema)
     act(() => {
-      schemaHookResult.current.initSchema({});
+      schemaHookResult.current.loadSchema({ init: true, url: 'GraphiQL Test Schema' });
     });
 
     // Toggler element for deferrable field
@@ -33,7 +33,7 @@ describe('Pathfinder | Toggler - Field', () => {
 
     // collapser element for deferrable field
     const deferrableCollapseTrigger = getByRole('button', {
-      name: 'Expand nested fields of deferrable FIELD',
+      name: 'Expand nested content of deferrable FIELD',
     });
 
     // Toggler element for hasArgs field
@@ -52,9 +52,9 @@ describe('Pathfinder | Toggler - Field', () => {
     // click the deferrable field Toggler
     await userEvent.click(deferrable);
 
-    // deferrable should be pressed and expanded
+    // deferrable should be pressed but NOT expanded
     expect(deferrable).toHaveAttribute('aria-pressed', 'true');
-    expect(deferrableCollapseTrigger).toHaveAttribute('aria-expanded', 'true');
+    expect(deferrableCollapseTrigger).toHaveAttribute('aria-expanded', 'false');
 
     // no changes to hasArgs field
     expect(hasArgs).toHaveAttribute('aria-pressed', 'false');
@@ -92,7 +92,7 @@ describe('Pathfinder | Toggler - Field', () => {
 
     // initialize default schema (testSchema)
     act(() => {
-      schemaHookResult.current.initSchema({});
+      schemaHookResult.current.loadSchema({ init: true, url: 'GraphiQL Test Schema' });
     });
 
     // Toggler element for deferrable field
@@ -102,7 +102,7 @@ describe('Pathfinder | Toggler - Field', () => {
 
     // collapser element for deferrable field
     const deferrableCollapseTrigger = getByRole('button', {
-      name: 'Expand nested fields of deferrable FIELD',
+      name: 'Expand nested content of deferrable FIELD',
     });
 
     // this does _not_ update the model/editor values, only the operationDefinition

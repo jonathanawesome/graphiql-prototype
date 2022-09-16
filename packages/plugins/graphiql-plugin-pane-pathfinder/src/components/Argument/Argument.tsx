@@ -35,9 +35,9 @@ export const Argument = ({
   operationType: OperationTypeNode;
   selection: FieldNode | null;
 }) => {
-  // console.log('Argument', {
-  //   argument,
-  // });
+  console.log('Argument', {
+    argument,
+  });
 
   const hash = cuid.slug();
 
@@ -47,9 +47,10 @@ export const Argument = ({
       `${argument.name}-${hash}`,
       {
         inputObject: argument.type,
+        isNested: false,
         name: argument.name,
-        parentType: 'FIELD',
         selection: selection?.arguments?.find((a) => a.name.value === argument.name),
+        variableName: argument.type.name,
       } as AncestorInputObject,
     ],
     ...ancestors,

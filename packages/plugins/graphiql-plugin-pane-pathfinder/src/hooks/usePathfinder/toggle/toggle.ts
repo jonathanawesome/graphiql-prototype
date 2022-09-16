@@ -31,6 +31,7 @@ import { AncestorMap, PathfinderStore } from '../types';
 const initEditorTab = useEditor.getState().initEditorTab;
 const updateModel = useEditor.getState().updateModel;
 const updateOperationDefinition = useEditor.getState().updateOperationDefinition;
+
 export const toggle = ({
   ancestors,
   get,
@@ -63,8 +64,9 @@ export const toggle = ({
 
   setNextOperationType({ nextOperationType: incomingOperationType });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  ancestors.forEach((ancestor, _key) => {
+  // on each call to toggle, we run this function for each ancestor
+  // the setNext*** functions (👆) allow us to pass data from one ancestor to the previous
+  ancestors.forEach((ancestor) => {
     // console.log('toggle forEach', { name: key, ancestor, ancestors });
 
     const isField = 'field' in ancestor;

@@ -6,7 +6,6 @@ export const StyledRootOperation = styled('ul', {
   overflowY: 'auto',
   padding: theme.space[6],
   margin: 0,
-
   display: 'flex',
   flexDirection: 'column',
   gap: 12,

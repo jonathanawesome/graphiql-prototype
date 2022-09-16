@@ -18,9 +18,9 @@ export const FormControl = ({ control, label, labelAddOn }: FormControlProps) =>
         </Label>
         {labelAddOn && labelAddOn}
       </LabelWrap>
-      {'typeNameValue' in control && <FieldList {...control} />}
-      {'placeholder' in control && <FieldInput {...control} />}
-      {'options' in control && <FieldSelect {...control} />}
+      {control.fieldType === 'LIST' && <FieldList {...control} />}
+      {control.fieldType === 'TEXT' && <FieldInput {...control} />}
+      {control.fieldType === 'SELECT' && <FieldSelect {...control} />}
     </FormControlStyled>
   );
 };

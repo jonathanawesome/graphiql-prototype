@@ -27,10 +27,10 @@ export const Provider = ({ children }: { children: React.ReactNode }) => {
 
   globalStyles();
 
-  const { initSchema } = useSchema();
+  const { loadSchema } = useSchema();
 
   useEffect(() => {
-    initSchema({});
+    loadSchema({ init: true, url: 'GraphiQL Test Schema' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

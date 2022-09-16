@@ -2,7 +2,7 @@ import { styled, theme } from '@graphiql-prototype/ui-library';
 
 export const EditorInner = styled('div', {
   display: 'grid',
-  gridTemplateRows: '48px 1fr',
+  gridTemplateRows: ` ${theme.space[12]} ${theme.space[10]} 1fr`,
   height: '100%',
   width: '100%',
 });

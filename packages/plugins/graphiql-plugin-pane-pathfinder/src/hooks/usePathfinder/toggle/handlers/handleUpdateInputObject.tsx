@@ -12,17 +12,17 @@ export const handleUpdateInputObject = ({
   nextAction: NextAction;
   setNextAction: SetNextActionSignature;
 }) => {
-  // console.log(`running handleUpdateInputObject`, {
-  //   ancestor,
-  //   nextAction,
-  // });
-
   const selection = ancestor.selection as ArgumentNode | ObjectFieldNode;
 
   let newObjectFields: ObjectFieldNode[] = [];
 
+  console.log(`running handleUpdateInputObject`, {
+    ancestor,
+    nextAction,
+    selectionDotValue: selection.value,
+  });
   if (nextAction) {
-    if (ancestor.parentType === 'FIELD') {
+    if (ancestor.isNested === false) {
       if (nextAction.type === 'ADD') {
         // does the incoming objectField exist within the selection?
         const existingField = (selection.value as ObjectValueNode).fields.findIndex(
@@ -61,7 +61,7 @@ export const handleUpdateInputObject = ({
       }
     }
 
-    if (ancestor.parentType === 'INPUT_OBJECT') {
+    if (ancestor.isNested === true) {
       if (nextAction.type === 'ADD') {
         const newObjectField: ObjectFieldNode = {
           ...(selection as ObjectFieldNode),
@@ -96,7 +96,7 @@ export const handleUpdateInputObject = ({
       }
     }
 
-    if (ancestor.parentType === 'FIELD') {
+    if (ancestor.isNested === false) {
       const newVal: ArgumentNode | ObjectFieldNode = {
         ...selection,
         value: {
@@ -110,7 +110,7 @@ export const handleUpdateInputObject = ({
       });
     }
 
-    if (ancestor.parentType === 'INPUT_OBJECT') {
+    if (ancestor.isNested === true) {
       const newVal: ArgumentNode | ObjectFieldNode = {
         ...selection,
         value: {

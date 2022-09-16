@@ -21,6 +21,10 @@ export const BackButton = styled('button', {
   gap: 2,
   // marginLeft: -4,
 
+  '&:focus': {
+    outline: `2px solid red`,
+  },
+
   '&:hover': {
     svg: {
       path: {

@@ -3,14 +3,13 @@ import { styled, theme } from '@graphiql-prototype/ui-library';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 
 export const DocsDialogStyled = styled('div', {
-  // backgroundColor: theme.colors.surface1,
+  backgroundColor: theme.colors.surface1,
   position: 'absolute',
   top: 0,
   left: 0,
   overflowY: 'auto',
   height: '100%',
   width: '100%',
-  borderRadius: 12,
   transition: 'all .1s $authenticMotion',
 
   variants: {
@@ -61,7 +60,11 @@ const DialogTitle = styled(DialogPrimitive.Title, {});
 
 const DialogDescription = styled(DialogPrimitive.Description, {});
 
-export const DialogClose = styled(DialogPrimitive.Close, {});
+export const DialogClose = styled(DialogPrimitive.Close, {
+  // '&:focus': {
+  //   outline: `2px solid red`,
+  // },
+});
 
 export const DialogContent = styled(DialogPrimitive.Content, {
   position: 'absolute',

@@ -1,4 +1,4 @@
-import { styled } from '../../../theme';
+import { styled, theme } from '../../../theme';
 
 export const StyledList = styled('div', {
   width: '100%',
@@ -6,7 +6,7 @@ export const StyledList = styled('div', {
 
 export const StyledListItem = styled('div', {
   display: 'flex',
-  borderBottom: '1px solid $gray015 !important',
+  borderBottom: `1px solid ${theme.colors.surface3} !important`,
 });
 
 export const RemoveItemButton = styled('button', {
@@ -14,23 +14,21 @@ export const RemoveItemButton = styled('button', {
   alignItems: 'center',
   justifyContent: 'center',
   width: 32,
-  borderRight: '1px solid $gray010',
-
+  borderRight: `1px solid ${theme.colors.surface3}`,
   svg: {
     height: 12,
     width: 12,
 
     path: {
-      fill: '$gray015',
+      fill: theme.colors.surface3,
     },
   },
 
   '&:hover': {
-    backgroundColor: '$error010',
-    color: '$gray010',
+    backgroundColor: theme.colors.red_lightest,
     svg: {
       path: {
-        fill: '$error100',
+        fill: theme.colors.red_default,
       },
     },
   },
@@ -41,11 +39,11 @@ export const AddItemButton = styled('button', {
   height: 32,
   textAlign: 'right',
   padding: '8px 8px 8px 0',
-  fontSize: '$mini',
-  color: '$gray100',
-  fontFamily: '$mono',
+  color: theme.colors.text2,
+  fontFamily: theme.fonts.mono,
+  fontSize: 12,
 
   '&:hover': {
-    backgroundColor: '$gray007',
+    backgroundColor: theme.colors.surface3,
   },
 });

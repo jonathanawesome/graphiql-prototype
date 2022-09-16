@@ -1,4 +1,4 @@
-import { Button, Close, styled } from '@graphiql-prototype/ui-library';
+import { Button, styled } from '@graphiql-prototype/ui-library';
 
 const FlexRow = styled('div', {
   display: 'flex',
@@ -23,9 +23,19 @@ export const Icon = () => {
         <span>small</span>
         <Button
           action={dummyAction}
-          icon={<Close />}
+          icon="Plus"
           label="Button Copy"
           size="SMALL"
+          variant="ICON"
+        />
+      </FlexRow>
+      <FlexRow>
+        <span>medium</span>
+        <Button
+          action={dummyAction}
+          icon="Close"
+          label="Button Copy"
+          size="MEDIUM"
           variant="ICON"
         />
       </FlexRow>
@@ -33,24 +43,12 @@ export const Icon = () => {
         <span>large</span>
         <Button
           action={dummyAction}
-          icon={<Close />}
+          icon="Refresh"
           label="Button Copy"
           size="LARGE"
           variant="ICON"
         />
       </FlexRow>
     </FlexCol>
-  );
-};
-
-export const Mix = () => {
-  return (
-    <Button action={dummyAction} label="Button Copy" size="LARGE" variant="STANDARD" />
-  );
-};
-
-export const Standard = () => {
-  return (
-    <Button action={dummyAction} label="Button Copy" size="LARGE" variant="STANDARD" />
   );
 };

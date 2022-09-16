@@ -8,7 +8,7 @@ export const StyledSearch = styled('div', {
     boxSizing: 'border-box',
     width: `100%`,
     height: `100%`,
-    paddingLeft: theme.space[4],
+    paddingLeft: theme.space[3],
     fontSize: theme.fontSizes.body,
 
     '&::placeholder': {

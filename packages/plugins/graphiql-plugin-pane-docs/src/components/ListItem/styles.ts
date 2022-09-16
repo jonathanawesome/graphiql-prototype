@@ -9,32 +9,46 @@ export const NameAndType = styled('div', {
   span: {
     whiteSpace: 'nowrap',
   },
-
-  variants: {
-    hasDocs: {
-      true: {
-        '&:hover': {
-          borderBottom: '1px solid $gray060',
-        },
-      },
-      false: {},
-    },
-  },
 });
 
 export const Name = styled('span', {
-  fontWeight: 600,
   color: theme.colors.text2,
+});
+export const StyledDescription = styled('div', {
+  color: theme.colors.text2,
+  backgroundColor: theme.colors.blue_lightest,
+  borderLeft: `1px solid ${theme.colors.blue_default}`,
+  paddingLeft: theme.space[3],
+  marginBottom: theme.space[3],
 });
 
 export const Type = styled('span', {
-  fontWeight: '$regular',
   color: theme.colors.text3,
+
+  svg: {
+    height: 12,
+    width: 12,
+    path: {
+      '&:nth-of-type(1)': {
+        fill: 'transparent',
+      },
+      '&:nth-of-type(2)': {
+        fill: theme.colors.text4,
+      },
+      '&:nth-of-type(3)': {
+        fill: theme.colors.text4,
+      },
+    },
+  },
 
   button: {
     '&:hover': {
       color: theme.colors.text2,
       textDecoration: 'underline',
+    },
+
+    '&:focus': {
+      outline: `2px solid red`,
     },
   },
 });
@@ -47,7 +61,7 @@ export const Description = styled('div', {
   gap: 8,
   lineHeight: 1.3,
   color: theme.colors.text3,
-  fontWeight: '$regular',
+  fontSize: 12,
 
   svg: {
     height: 2,
@@ -60,34 +74,37 @@ export const Description = styled('div', {
 
 export const ListItemStyled = styled('div', {
   display: 'flex',
+  flexDirection: 'column',
+
   gap: 6,
   fontSize: '$body',
+  // backgroundColor: 'orange',
 
   variants: {
-    descriptionPlacement: {
-      Below: {
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        [`& ${Description}`]: {
-          svg: {
-            display: 'none',
-          },
-        },
-      },
-      Inline: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        [`& ${Description}`]: {
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-        },
-      },
-      Off: {
-        [`& ${Description}`]: {
-          display: 'none',
-        },
-      },
-    },
+    // descriptionPlacement: {
+    //   Below: {
+    //     flexDirection: 'column',
+    //     alignItems: 'flex-start',
+    //     [`& ${Description}`]: {
+    //       svg: {
+    //         display: 'none',
+    //       },
+    //     },
+    //   },
+    //   Inline: {
+    //     flexDirection: 'row',
+    //     alignItems: 'center',
+    //     [`& ${Description}`]: {
+    //       whiteSpace: 'nowrap',
+    //       overflow: 'hidden',
+    //     },
+    //   },
+    //   Off: {
+    //     [`& ${Description}`]: {
+    //       display: 'none',
+    //     },
+    //   },
+    // },
     isSelected: {
       true: {},
     },

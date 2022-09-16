@@ -6,7 +6,7 @@ export const StyledMessage = styled('div', {
   fontSize: 12,
 
   variants: {
-    type: {
+    variant: {
       ERROR: {
         color: theme.colors.red_default,
         border: `1px solid ${theme.colors.red_light}`,
@@ -18,7 +18,7 @@ export const StyledMessage = styled('div', {
         backgroundColor: theme.colors.orange_lightest,
       },
       INFO: {
-        color: theme.colors.blue_default,
+        color: theme.colors.text2,
         border: `1px solid ${theme.colors.blue_light}`,
         backgroundColor: theme.colors.blue_lightest,
       },

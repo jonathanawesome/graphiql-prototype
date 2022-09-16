@@ -1,11 +1,18 @@
 // components
-import { SeparatorRound } from '@graphiql-prototype/ui-library';
+import { Markdown, SeparatorRound } from '@graphiql-prototype/ui-library';
 
 // styles
-import { Description, ListItemStyled, NameAndType, Name, Type } from './styles';
+import {
+  Description,
+  ListItemStyled,
+  NameAndType,
+  Name,
+  Type,
+  StyledDescription,
+} from './styles';
 
 export type ListItemProps = {
-  name: string;
+  name: string | React.ReactElement<HTMLButtonElement>;
   description: string | null;
   descriptionPlacement?: 'Inline' | 'Below' | 'Off';
   entityType?: 'FIELD' | 'INLINE_FRAGMENT' | 'ARGUMENT' | 'INPUT_TYPE';
@@ -16,7 +23,6 @@ export type ListItemProps = {
 export const ListItem = ({
   name,
   description = null,
-  descriptionPlacement = 'Below',
   isSelected,
   type,
   entityType,
@@ -27,20 +33,15 @@ export const ListItem = ({
   // });
 
   return (
-    <ListItemStyled
-      descriptionPlacement={descriptionPlacement}
-      entityType={entityType}
-      isSelected={isSelected}
-    >
+    <ListItemStyled entityType={entityType} isSelected={isSelected}>
       <NameAndType>
         <Name>{name}</Name>
         <Type>{type}</Type>
       </NameAndType>
       {description && (
-        <Description>
-          <SeparatorRound />
-          <span>{description}</span>
-        </Description>
+        <StyledDescription>
+          <Markdown content={description} />
+        </StyledDescription>
       )}
     </ListItemStyled>
   );

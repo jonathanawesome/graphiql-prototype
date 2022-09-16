@@ -1,4 +1,5 @@
 import { ArgumentNode, Kind, ObjectFieldNode } from 'graphql';
+import { buildNewVariableDefinition } from '../../../../utils';
 
 // types
 import {
@@ -7,6 +8,7 @@ import {
   ObjectFieldAction,
   SetNextActionSignature,
 } from '../../types';
+import { setCorrectNextVariableDefinitions } from '../helpers';
 
 export const handleAddInputObject = ({
   ancestor,
@@ -17,12 +19,46 @@ export const handleAddInputObject = ({
   nextAction: NextAction;
   setNextAction: SetNextActionSignature;
 }) => {
-  // console.log(`running handleAddInputObject`, {
-  //   ancestor,
-  // });
+  const newVarDef = buildNewVariableDefinition({
+    type: ancestor.inputObject,
+    variableName: ancestor.name,
+  });
+
+  console.log(`running handleAddInputObject`, {
+    //   ancestor,
+    ancestor,
+    variableName: ancestor.variableName,
+    newVarDef,
+  });
+
+  setCorrectNextVariableDefinitions({ newVariableDefinition: newVarDef });
+
+  //   {
+  //     "kind": "VariableDefinition",
+  //     "variable": {
+  //         "kind": "Variable",
+  //         "name": {
+  //             "kind": "Name",
+  //             "value": "filter"
+  //         }
+  //     },
+  //     "type": {
+  //         "kind": "NonNullType",
+  //         "type": {
+  //             "kind": "NamedType",
+  //             "name": {
+  //                 "kind": "Name",
+  //                 "value": "FilterCharacter"
+  //             }
+  //         }
+  //     },
+  //     "directives": []
+  // }
 
   if (nextAction) {
-    if (ancestor.parentType === 'FIELD') {
+    if (ancestor.isNested === false) {
+      console.log('handleAddInputObject, is NOT nested', ancestor.isNested);
+
       const newArgument: ArgumentNode = {
         kind: Kind.ARGUMENT,
         name: {
@@ -34,13 +70,19 @@ export const handleAddInputObject = ({
           fields: [(nextAction.payload as ObjectFieldAction).node],
         },
       };
+      console.log('new argument', { newArgument });
       return setNextAction({
         type: 'ADD',
         payload: { type: 'ARGUMENT', node: newArgument },
       });
     }
 
-    if (ancestor.parentType === 'INPUT_OBJECT') {
+    if (ancestor.isNested === true) {
+      console.log(
+        'handleAddInputObject, is nested within another input object',
+        ancestor.isNested
+      );
+
       const newObjectFieldNode: ObjectFieldNode = {
         kind: Kind.OBJECT_FIELD,
         name: {

@@ -59,6 +59,7 @@ export type EditorStore = {
   }) => void;
   updateOperationDefinitionFromModelValue: ({ value }: { value: string }) => void;
   // removeVariables: ({ variableNames }: { variableNames: string[] }) => void;
+  getVariables: () => void;
   updateVariable: ({
     variableName,
     variableValue,

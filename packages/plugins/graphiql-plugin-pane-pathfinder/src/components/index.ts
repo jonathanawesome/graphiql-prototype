@@ -1,5 +1,9 @@
 export { Argument } from './Argument';
 export { Arguments } from './Arguments';
+
+export { Control } from './Control';
+export type { ControlData, ControlProps, HandleChangeSignature } from './Control';
+
 export { Details } from './Details';
 export { DocsDialog } from './DocsDialog';
 export { Field } from './Field';

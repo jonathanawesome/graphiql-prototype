@@ -1,13 +1,13 @@
-import { styled } from '../../theme';
+import { styled, theme } from '../../theme';
 
 export const PillStyled = styled('span', {
   display: 'inline-flex',
-  color: '$gray100',
+  color: theme.colors.text3,
   fontSize: '8px !important',
   lineHeight: 1,
   textTransform: 'uppercase',
   padding: 3,
-  border: '1px solid $gray015',
+  border: `1px solid ${theme.colors.text4}`,
   borderRadius: 2,
 });
 

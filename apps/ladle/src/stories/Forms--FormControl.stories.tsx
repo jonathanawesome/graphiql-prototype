@@ -16,7 +16,7 @@ export const A = () => {
   return (
     <FormControl
       control={{
-        currentValue: val,
+        value: val,
         handleChange,
         name: `FormControl FieldInput`,
         placeholder: 'placeholder value',
@@ -39,7 +39,7 @@ export const B = () => {
   return (
     <FormControl
       control={{
-        currentValue: val,
+        value: val,
         handleChange,
         name: `FormControl FieldInput`,
         placeholder: 'placeholder value',
@@ -60,7 +60,7 @@ export const C = () => {
   return (
     <FormControl
       control={{
-        currentValue: val,
+        value: val,
         handleChange,
         name: `FormControl FieldSelect`,
         options: [
@@ -92,7 +92,7 @@ export const D = () => {
   return (
     <FormControl
       control={{
-        currentValue: val,
+        value: val,
         handleChange,
         name: `FormControl FieldSelect`,
         options: [
@@ -112,3 +112,35 @@ export const D = () => {
 };
 
 D.storyName = 'FieldSelect without labelAddOn';
+
+export const E = () => {
+  const [val, setVal] = useState<string>('');
+
+  const handleChange = ({ name, value }: HandleChange) => {
+    setVal(value as string);
+  };
+
+  return (
+    <FormControl
+      control={{
+        value: val,
+        handleChange,
+        name: `FormControl FieldSelect`,
+        listType: 'INPUT',
+        options: [
+          {
+            value: 'true',
+            name: 'True',
+          },
+          {
+            value: 'false',
+            name: 'False',
+          },
+        ],
+      }}
+      label={`variableName`}
+    />
+  );
+};
+
+E.storyName = 'FieldList';

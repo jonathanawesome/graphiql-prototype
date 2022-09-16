@@ -1,9 +1,9 @@
 import { styled, theme } from '@graphiql-prototype/ui-library';
 
 export const StyledPathfinderLead = styled('div', {
+  height: theme.space[12],
   display: 'flex',
   width: '100%',
-  height: theme.space[12],
   borderBottom: `1px solid ${theme.colors.surface3}`,
 });
 
@@ -16,8 +16,11 @@ export const StyledPathfinder = styled('div', {
 });
 
 export const StyledPathfinderContainer = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
+  // display: 'flex',
+  // flexDirection: 'column',
+  display: `grid`,
+  gridTemplateRows: `${theme.space[12]} minmax(0, 1fr)`,
+  overflow: `hidden`,
   position: 'relative',
   height: '100%',
   width: '100%',
@@ -48,7 +51,14 @@ export const StyledPathfinderContainer = styled('div', {
 export const StyledPathfinderContent = styled('div', {
   height: '100%',
   width: '100%',
-  overflowY: 'auto',
+  // overflowY: 'auto',
   padding: 0,
   margin: 0,
+});
+
+export const StyledSettingsButtonWrap = styled('div', {
+  button: {
+    height: '100%',
+    borderLeft: `1px solid ${theme.colors.surface3}`,
+  },
 });

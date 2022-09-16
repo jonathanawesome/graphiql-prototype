@@ -29,7 +29,7 @@ export const editorColors = {
 export const lightColors = {
   surface1: hexToHSL({ hex: '#FFFFFF' }),
   surface2: hexToHSL({ hex: '#FBFBFB' }),
-  surface3: hexToHSL({ hex: '#EAEAEA' }),
+  surface3: hexToHSL({ hex: '#E2E2E2' }),
   text1: hexToHSL({ hex: '#1B1B1B' }),
   text2: hexToHSL({ hex: '#606060' }),
   text3: hexToHSL({ hex: '#757575' }),

@@ -45,7 +45,7 @@ export const DocsDialog = ({ dialogActive }: { dialogActive: boolean }) => {
 
   return (
     <DocsDialogStyled dialogActive={!!docsInstance?.activeDocPane}>
-      <DialogRoot open={dialogActive}>
+      <DialogRoot open={dialogActive} modal={true}>
         <DialogPortal container={container}>
           <DialogContent
             onEscapeKeyDown={() => closeDialog()}

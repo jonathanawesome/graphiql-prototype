@@ -6,6 +6,8 @@ import { List } from '../List';
 
 // hooks
 import { DocPlacement, useDocs } from '../../hooks';
+
+// utils
 import { unwrapType } from '@graphiql-prototype/utils';
 
 type FieldsProps = {

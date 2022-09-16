@@ -2,6 +2,9 @@
 import { Tabs } from '@graphiql-prototype/ui-library';
 import { MonacoEditor } from '../MonacoEditor';
 
+// styles
+import { StyledVariablesWrap } from './styles';
+
 export const OperationTools = () => {
   return (
     <Tabs
@@ -11,7 +14,11 @@ export const OperationTools = () => {
         {
           id: 'Variables',
           name: 'Variables',
-          panel: <MonacoEditor monacoEditorType="variables" />,
+          panel: (
+            <StyledVariablesWrap>
+              <MonacoEditor monacoEditorType="variables" />
+            </StyledVariablesWrap>
+          ),
         },
         {
           id: 'Headers',

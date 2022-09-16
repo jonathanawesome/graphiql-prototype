@@ -7,16 +7,17 @@ import { FieldInput, FieldList, FieldSelect } from '@graphiql-prototype/ui-libra
 import type { HandleChange } from '@graphiql-prototype/ui-library';
 
 export const FieldInputStory = () => {
-  const [val, setVal] = useState<string>('');
+  const [val, setVal] = useState<string>('somevalue');
 
   return (
     <FieldInput
-      currentValue={val}
+      fieldType="TEXT"
       handleChange={({ name, value }: HandleChange) => {
         setVal(value as string);
       }}
       name={`FormControl FieldInput`}
       placeholder="placeholder"
+      value={val}
     />
   );
 };
@@ -24,10 +25,15 @@ export const FieldInputStory = () => {
 FieldInputStory.storyName = 'FieldInput';
 
 export const FieldSelectStory = () => {
+  const [val, setVal] = useState<string>('');
+
   return (
     <FieldSelect
-      currentValue="false"
-      handleChange={({ name, value }) => console.log({ name, value })}
+      fieldType="SELECT"
+      handleChange={({ name, value }: HandleChange) => {
+        setVal(value as string);
+      }}
+      // handleChange={({ name, value }) => console.log({ name, value })}
       name={`FormControl FieldSelect`}
       options={[
         {
@@ -39,6 +45,9 @@ export const FieldSelectStory = () => {
           name: 'False',
         },
       ]}
+      placeholder="a select placeholder"
+      returnType="Boolean"
+      value={val}
     />
   );
 };
@@ -46,15 +55,25 @@ export const FieldSelectStory = () => {
 FieldSelectStory.storyName = 'FieldSelect';
 
 export const FieldListIntStory = () => {
+  const [vals, setVals] = useState<string[]>(['1', '2', '3', '4']);
+
   return (
-    <FieldList
-      currentValue={['1', '2', '3', '4']}
-      handleChange={({ name, value }: HandleChange) => {
-        console.log(value);
-      }}
-      name={`FieldList`}
-      typeNameValue="Int"
-    />
+    <>
+      <div>vals: {vals}</div>
+      <FieldList
+        fieldType="LIST"
+        handleChange={({ name, value }: HandleChange) => {
+          console.log(value);
+          setVals(value as string[]);
+        }}
+        listType="INPUT"
+        name={`FieldList`}
+        placeholder={'Int placccceholder'}
+        returnType="Int"
+        value={vals}
+        // values={['1', '2', '3', '4']}
+      />
+    </>
   );
 };
 
@@ -63,12 +82,15 @@ FieldListIntStory.storyName = 'FieldList - Int';
 export const FieldListStringStory = () => {
   return (
     <FieldList
-      currentValue={['strings', 'are', 'fun']}
+      fieldType="LIST"
       handleChange={({ name, value }: HandleChange) => {
         console.log(value);
       }}
+      listType="INPUT"
       name={`FieldList`}
-      typeNameValue="String"
+      placeholder={'String placccceholder'}
+      returnType="String"
+      value={['strings', 'are', 'fun']}
     />
   );
 };
@@ -78,12 +100,15 @@ FieldListStringStory.storyName = 'FieldList - String';
 export const FieldListFloatStory = () => {
   return (
     <FieldList
-      currentValue={['1.2', '1.23', '1.234']}
+      fieldType="LIST"
       handleChange={({ name, value }: HandleChange) => {
         console.log(value);
       }}
+      listType="INPUT"
       name={`FieldList`}
-      typeNameValue="Float"
+      placeholder={'Float placccceholder'}
+      returnType="Float"
+      value={['1.2', '1.23', '1.234']}
     />
   );
 };
@@ -93,12 +118,15 @@ FieldListFloatStory.storyName = 'FieldList - Float';
 export const FieldListIDStory = () => {
   return (
     <FieldList
-      currentValue={['cwef7w38ncfgwingh', '934wmgh283w7gnw8374gc', '2q7cfgn9n237g8qgcf']}
+      fieldType="LIST"
       handleChange={({ name, value }: HandleChange) => {
         console.log(value);
       }}
+      listType="INPUT"
       name={`FieldList`}
-      typeNameValue="ID"
+      placeholder={'ID placccceholder'}
+      returnType="ID"
+      value={['cwef7w38ncfgwingh', '934wmgh283w7gnw8374gc', '2q7cfgn9n237g8qgcf']}
     />
   );
 };
@@ -108,12 +136,21 @@ FieldListIDStory.storyName = 'FieldList - Id';
 export const FieldListEnumStory = () => {
   return (
     <FieldList
-      currentValue={['RED', 'GREEN', 'BLUE']}
+      fieldType="LIST"
       handleChange={({ name, value }: HandleChange) => {
         console.log(value);
       }}
+      listType="SELECT"
+      options={[
+        { value: 'Red', name: 'Red' },
+        { value: 'Green', name: 'Green' },
+        { value: 'Blue', name: 'Blue' },
+        { value: 'Gray', name: 'Gray' },
+      ]}
       name={`FieldList`}
-      typeNameValue="TestEnum"
+      placeholder={'TestEnum placccceholder'}
+      returnType="TestEnum"
+      value={['RED', 'GREEN', 'BLUE']}
     />
   );
 };

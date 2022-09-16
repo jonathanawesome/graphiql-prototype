@@ -1,25 +1,26 @@
-import { styled } from '../../../theme';
+import { styled, theme } from '../../../theme';
 
 export const StyledFieldInput = styled('div', {
   width: '100%',
-  fontFamily: '$mono',
+  // fontFamily: '$mono',
 
   input: {
     all: 'unset',
     boxSizing: 'border-box',
     width: '100%',
     textAlign: 'right',
-    color: '$warning100',
+    color: theme.colors.text2,
     paddingRight: 12,
-    height: 32,
+    height: 24,
     fontSize: 12,
-    borderRadius: '0 7px 7px 0',
+    borderRadius: '0 4px 4px 0',
 
     '&::placeholder': {
-      color: '$gray060',
+      // color: '$gray060',
+      color: theme.colors.text4,
     },
     '&:focus, &:hover': {
-      backgroundColor: '$appBackground',
+      backgroundColor: theme.colors.surface2,
     },
   },
 });

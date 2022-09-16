@@ -23,4 +23,5 @@ export const OperationActionsWrap = styled('div', {
 
 export const OperationToolsWrap = styled('div', {
   width: '100%',
+  marginBottom: -1,
 });

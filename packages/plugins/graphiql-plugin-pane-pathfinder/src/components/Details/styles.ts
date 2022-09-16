@@ -3,9 +3,9 @@ import { styled, theme } from '@graphiql-prototype/ui-library';
 export const NameAndType = styled('div', {
   display: 'flex',
   alignItems: 'center',
-  gap: theme.space[1],
+  gap: theme.space[2],
   borderBottom: '1px solid transparent',
-
+  fontSize: 13,
   span: {
     whiteSpace: 'nowrap',
   },
@@ -14,7 +14,7 @@ export const NameAndType = styled('div', {
     hasDocs: {
       true: {
         '&:hover': {
-          borderBottom: '1px solid $gray060',
+          borderBottom: `1px solid ${theme.colors.text4}`,
         },
       },
       false: {},
@@ -23,17 +23,57 @@ export const NameAndType = styled('div', {
 });
 
 export const Name = styled('span', {
-  fontWeight: 600,
+  // fontWeight: 600,
+  fontWeight: theme.fontWeights.medium,
   color: theme.colors.text2,
 });
 
 export const Type = styled('span', {
-  fontWeight: '$regular',
-  color: theme.colors.text2,
+  fontWeight: theme.fontWeights.regular,
+  color: theme.colors.text3,
+  display: `flex`,
+  alignContent: `center`,
+
+  '&:hover': {
+    svg: {
+      height: 12,
+      width: 12,
+      path: {
+        '&:nth-of-type(1)': {
+          fill: 'transparent',
+        },
+        '&:nth-of-type(2)': {
+          fill: theme.colors.text2,
+        },
+        '&:nth-of-type(3)': {
+          fill: theme.colors.text2,
+        },
+      },
+    },
+  },
+
+  svg: {
+    height: 12,
+    width: 12,
+    path: {
+      '&:nth-of-type(1)': {
+        fill: 'transparent',
+      },
+      '&:nth-of-type(2)': {
+        fill: theme.colors.text4,
+      },
+      '&:nth-of-type(3)': {
+        fill: theme.colors.text4,
+      },
+    },
+  },
 
   button: {
     '&:hover': {
       textDecoration: 'underline',
+    },
+    '&:focus': {
+      outline: `1px dotted ${theme.colors.text4}`,
     },
   },
 });
@@ -106,6 +146,7 @@ export const DetailsStyled = styled('div', {
       isSelected: true,
       css: {
         [`& ${Name}, & ${Type}`]: {
+          // color: theme.colors.text1,
           color: theme.colors.violet_default,
         },
       },
@@ -114,8 +155,9 @@ export const DetailsStyled = styled('div', {
       entityType: 'INLINE_FRAGMENT',
       isSelected: true,
       css: {
-        [`& ${Name}, & ${Type}`]: {
-          color: theme.colors.blue_default,
+        [`${Type}`]: {
+          // color: theme.colors.text1,
+          color: theme.colors.violet_default,
         },
       },
     },
@@ -124,6 +166,7 @@ export const DetailsStyled = styled('div', {
       isSelected: true,
       css: {
         [`& ${Name}, & ${Type}`]: {
+          // color: theme.colors.text1,
           color: theme.colors.pink_default,
         },
       },
@@ -133,7 +176,8 @@ export const DetailsStyled = styled('div', {
       isSelected: true,
       css: {
         [`& ${Name}, & ${Type}`]: {
-          color: theme.colors.pink_default,
+          color: theme.colors.text1,
+          // color: theme.colors.pink_default,
         },
       },
     },

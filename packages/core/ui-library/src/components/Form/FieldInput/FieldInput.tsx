@@ -7,24 +7,24 @@ import { StyledFieldInput } from './styles';
 import type { FieldInputProps } from '../types';
 
 export const FieldInput = ({
-  currentValue,
+  value,
   handleChange,
   name,
   placeholder,
 }: FieldInputProps) => {
-  // console.log('rendering FieldInput', { currentValue, name });
+  console.log('rendering FieldInput', { value, name });
 
-  const [value, setValue] = useState<string | undefined>(currentValue || '');
+  // const [value, setValue] = useState<string | undefined>(currentValue || '');
 
-  useEffect(() => {
-    if (value) {
-      handleChange({
-        name,
-        value,
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  // useEffect(() => {
+  //   if (value) {
+  //     handleChange({
+  //       name,
+  //       value,
+  //     });
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [value]);
 
   return (
     <StyledFieldInput>
@@ -32,8 +32,12 @@ export const FieldInput = ({
         autoComplete="off"
         name={name}
         onChange={(e) => {
-          e.preventDefault();
-          setValue(e.target.value);
+          // e.preventDefault();
+          // setValue(e.target.value);
+          handleChange({
+            name,
+            value: e.target.value,
+          });
         }}
         placeholder={placeholder}
         type="text"

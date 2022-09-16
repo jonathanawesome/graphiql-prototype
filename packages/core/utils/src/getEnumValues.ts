@@ -11,6 +11,7 @@ export const getEnumValues = ({
 }: {
   enumTypeName: string;
 }): Array<FieldSelectOption> | undefined => {
+  console.log('getEnumValues', enumTypeName);
   const schema = useSchema.getState().schema;
 
   if (!schema || 'error' in schema) {

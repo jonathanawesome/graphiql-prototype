@@ -17,7 +17,7 @@ import {
 import { useSchema } from '@graphiql-prototype/use-schema';
 
 // types
-import { EditorTab, EditorStore } from './types';
+import { EditorTabState, EditorStore } from './types';
 
 // utils
 import { getOrCreateModel, pushEditOperationsToModel } from '../../utils';
@@ -71,25 +71,15 @@ export const useEditor = create<EditorStore>((set, get) => ({
     // get our array of editors
     const monacoEditors = get().monacoEditors;
 
-    // find each editor
-    // TODO: there's probably a better way to do this 👇
-    const operationsEditor = monacoEditors.operations;
-    const variablesEditor = monacoEditors.variables;
-    const headersEditor = monacoEditors.headers;
-    const resultsEditor = monacoEditors.results;
-
     // set the model for each of our editors
-    operationsEditor?.setModel(destinationTab.operationsModel);
-    variablesEditor?.setModel(destinationTab.variablesModel);
-    headersEditor?.setModel(destinationTab.headersModel);
-    resultsEditor?.setModel(destinationTab.resultsModel);
-
-    console.log('setModelsForAllEditorsWithinTab', {
-      destination: destinationTab.operationsModel,
-      operationsEditor,
-    });
+    monacoEditors.operations?.setModel(destinationTab.operationsModel);
+    monacoEditors.variables?.setModel(destinationTab.variablesModel);
+    monacoEditors.headers?.setModel(destinationTab.headersModel);
+    monacoEditors.results?.setModel(destinationTab.resultsModel);
   },
   initEditorTab: () => {
+    const monacoGraphQLAPI = get().monacoGraphQLAPI;
+
     // grab our array of existing editorTabs
     const editorTabs = get().editorTabs;
 
@@ -118,7 +108,7 @@ export const useEditor = create<EditorStore>((set, get) => ({
     });
 
     // build our new editorTab shape
-    const newEditorTab: EditorTab = {
+    const newEditorTab: EditorTabState = {
       editorTabId: newEditorTabId,
       editorTabName: `Tab${editorTabs.length > 0 ? editorTabs.length + 1 : 1}`,
       operationsModel,
@@ -129,6 +119,17 @@ export const useEditor = create<EditorStore>((set, get) => ({
     };
 
     setModelsForAllEditorsWithinTab({ destinationTab: newEditorTab });
+
+    monacoGraphQLAPI.setDiagnosticSettings({
+      validateVariablesJSON: {
+        [operationsModel.uri.toString()]: [variablesModel.uri.toString()],
+      },
+      jsonDiagnosticSettings: {
+        allowComments: true,
+        schemaValidation: 'error',
+        trailingCommas: 'warning',
+      },
+    });
 
     // set the activeEditorTabId to our new editorTab and spread our new editorTab into our array of editorTabs
     set({ activeEditorTabId: newEditorTabId, editorTabs: [...editorTabs, newEditorTab] });
@@ -153,7 +154,7 @@ export const useEditor = create<EditorStore>((set, get) => ({
       (editorTab) => editorTab.editorTabId === activeEditorTabId
     );
 
-    return activeTab as EditorTab;
+    return activeTab as EditorTabState;
   },
   editorTabs: [],
   resetEditorTabs: () => {
@@ -168,12 +169,14 @@ export const useEditor = create<EditorStore>((set, get) => ({
   removeEditorTab: ({ editorTabId }) => {
     const editorTabs = get().editorTabs;
     const switchEditorTab = get().switchEditorTab;
+
     // filter the tab we're removing from our editorTabs array
     const remainingEditors = editorTabs.filter((t) => t.editorTabId !== editorTabId);
 
     set({
       // replace our editorTabs array with our remaining editors
       editorTabs: remainingEditors,
+
       // set the new active tab to the first tab
       activeEditorTabId: remainingEditors[0].editorTabId,
     });
@@ -233,6 +236,11 @@ export const useEditor = create<EditorStore>((set, get) => ({
   //     console.log("editorTab doesn't exist ☠️");
   //   }
   // },
+  getVariables: () => {
+    const activeEditorTab = get().getActiveTab();
+    const vars = JSON.parse(activeEditorTab.variablesModel.getValue());
+    return vars;
+  },
   updateVariable: ({ variableName, variableValue }) => {
     const activeEditorTab = get().getActiveTab();
     // console.log('running updateVariable', {
