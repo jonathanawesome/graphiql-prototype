@@ -185,7 +185,7 @@ export const useEditor = create<EditorStore>((set, get) => ({
     switchEditorTab({ editorTabId: remainingEditors[0].editorTabId });
   },
   switchEditorTab: ({ editorTabId }) => {
-    // const monacoGraphQLAPI = get().monacoGraphQLAPI;
+    const monacoGraphQLAPI = get().monacoGraphQLAPI;
     // const monacoEditors = get().monacoEditors;
     const editorTabs = get().editorTabs;
     const editorTab = editorTabs.find((t) => t.editorTabId === editorTabId);
@@ -199,51 +199,64 @@ export const useEditor = create<EditorStore>((set, get) => ({
 
       //TODO there's an uncaught promise in the DiagnosticsAdapter
       // languageFeatures.ts:124 Uncaught (in promise) TypeError: Cannot read properties of null (reading 'doValidation') at DiagnosticsAdapter._doValidate (languageFeatures.ts:124:38)
-      // monacoGraphQLAPI.setDiagnosticSettings({
-      //   validateVariablesJSON: {
-      //     [editorTab.operationsModel.uri.toString()]: [
-      //       editorTab.variablesModel.uri.toString(),
-      //     ],
-      //   },
-      //   jsonDiagnosticSettings: {
-      //     // jsonc tip!
-      //     allowComments: true,
-      //     schemaValidation: 'error',
-      //     // this is nice too
-      //     trailingCommas: 'warning',
-      //   },
-      // });
+      monacoGraphQLAPI.setDiagnosticSettings({
+        validateVariablesJSON: {
+          [editorTab.operationsModel.uri.toString()]: [
+            editorTab.variablesModel.uri.toString(),
+          ],
+        },
+        jsonDiagnosticSettings: {
+          // jsonc tip!
+          allowComments: true,
+          schemaValidation: 'error',
+          // this is nice too
+          trailingCommas: 'warning',
+        },
+      });
     }
   },
-  // removeVariables: ({ variableNames }) => {
-  //   const activeEditorTab = getActiveEditorTab();
-
-  //   if (activeEditorTab) {
-  //     // 1. parse the existing variables string to an object
-  //     const parsedVariables = JSON.parse(activeEditorTab.variablesModel.getValue());
-  //     // 2. remove the variables
-  //     variableNames.forEach((v) => {
-  //       delete parsedVariables[v];
-  //     });
-  //     // 3. return to string
-  //     const newVariablesString = JSON.stringify(parsedVariables, null, ' ');
-  //     // 4. update the model
-  //     pushEditOperationsToModel({
-  //       model: activeEditorTab.variablesModel,
-  //       text: newVariablesString,
-  //     });
-  //   } else {
-  //     console.log("editorTab doesn't exist ☠️");
-  //   }
-  // },
+  removeVariables: ({ onInputObject, variableNames }) => {
+    const activeEditorTab = get().getActiveTab();
+    console.log('running removeVariables', {
+      onInputObject,
+      variableNames,
+    });
+    if (activeEditorTab) {
+      // 1. parse the existing variables string to an object
+      const parsedVariables = JSON.parse(activeEditorTab.variablesModel.getValue());
+      // 2. remove the variables
+      variableNames.forEach((v) => {
+        if (onInputObject) {
+          delete parsedVariables[onInputObject][v];
+        } else {
+          delete parsedVariables[v];
+        }
+      });
+      // 3. return to string
+      const newVariablesString = JSON.stringify(parsedVariables, null, ' ');
+      // 4. update the model
+      pushEditOperationsToModel({
+        model: activeEditorTab.variablesModel,
+        text: newVariablesString,
+      });
+    } else {
+      console.log("editorTab doesn't exist ☠️");
+    }
+  },
   getVariables: () => {
     const activeEditorTab = get().getActiveTab();
-    const vars = JSON.parse(activeEditorTab.variablesModel.getValue());
-    return vars;
+    try {
+      return JSON.parse(activeEditorTab.variablesModel.getValue());
+    } catch (e) {
+      console.warn(e);
+      // Return a default object, or null based on use case.
+      return {};
+    }
   },
-  updateVariable: ({ variableName, variableValue }) => {
+  updateVariable: async ({ onInputObject, variableName, variableValue }) => {
     const activeEditorTab = get().getActiveTab();
     // console.log('running updateVariable', {
+    //   onInputObject,
     //   variableName,
     //   variableValue,
     // });
@@ -253,12 +266,25 @@ export const useEditor = create<EditorStore>((set, get) => ({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let parsedVariables: Record<any, any> = {};
       try {
-        parsedVariables = JSON.parse(activeEditorTab.variablesModel.getValue() || '{}');
+        parsedVariables = await JSON.parse(
+          activeEditorTab.variablesModel.getValue() || '{}'
+        );
       } catch (error) {
         console.warn('error parsing variables in updateVariable');
       }
       // 2. set the variableName and/or variableValue
-      parsedVariables[variableName] = variableValue;
+      if (onInputObject) {
+        parsedVariables = {
+          ...parsedVariables,
+          [onInputObject]: {
+            ...parsedVariables[onInputObject],
+            [variableName]: variableValue,
+          },
+        };
+        // parsedVariables['somenewobj'][variableName] = variableValue;
+      } else {
+        parsedVariables[variableName] = variableValue;
+      }
       // 3. return to string
       const newVariablesString = JSON.stringify(parsedVariables, null, ' ');
       // 4. update the model

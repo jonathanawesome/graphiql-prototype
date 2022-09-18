@@ -1,5 +1,5 @@
 // components
-import { Close, Plus } from '@graphiql-prototype/ui-library';
+import { Close, Plus, Tag } from '@graphiql-prototype/ui-library';
 
 // hooks
 import { useEditor } from '@graphiql-prototype/use-editor';
@@ -43,14 +43,16 @@ export const EditorTabs = () => {
   return (
     <StyledEditorTabs>
       {editorTabs.map((tab) => {
-        console.log('tab', tab);
         return (
           <TabWrap key={tab.editorTabId} isActive={activeEditorTabId === tab.editorTabId}>
             <TabButton
               hasRemoveTabButton={showRemoveTabButton}
               onClick={() => handleTabChange({ editorTabId: tab.editorTabId })}
             >
-              <span>{tab.operationDefinition?.operation.charAt(0) || '?'}</span>
+              <Tag
+                copy={tab.operationDefinition?.operation.charAt(0).toUpperCase() || '?'}
+                type="OPERATION"
+              />
               {tab?.operationDefinition?.name?.value || tab?.editorTabName}
             </TabButton>
             {showRemoveTabButton && (

@@ -106,6 +106,7 @@ export const toggle = ({
           handleAddInputField({
             ancestor,
             setNextAction,
+            // variableDefinitions: activeOperationDefinition?.variableDefinitions,
           });
         } else {
           handleRemoveInputField({

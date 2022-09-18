@@ -1,4 +1,6 @@
-type FieldTypes = 'Boolean' | 'Int' | 'Float' | 'ID' | 'String' | string;
+// type FieldTypes = 'Boolean' | 'Int' | 'Float' | 'ID' | 'String' | string;
+
+import React from 'react';
 
 type ControlTypes = 'INPUT' | 'SELECT';
 
@@ -13,9 +15,9 @@ export type BaseControlProps = {
   controlType: ControlTypes;
   handleChange: HandleChangeSignature;
   name: string;
-  placeholder?: string;
-  returnType: FieldTypes;
+  placeholder: string;
   value: string | string[];
+  variant?: 'INPUT_FIELD' | 'ARGUMENT';
 };
 
 export type InputProps = BaseControlProps & {
@@ -34,7 +36,7 @@ export type ListProps = InputProps | SelectProps;
 
 export type ControlProps = {
   control: InputProps | SelectProps;
-  // handleChange: HandleChangeSignature;
+  labelAddon?: React.ReactNode;
   labelCopy: string;
   list: boolean;
 };

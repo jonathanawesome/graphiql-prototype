@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 
+// components
+import { Control, HandleChange, Spinner } from '@graphiql-prototype/ui-library';
+
 // hooks
 import { useSchema } from '@graphiql-prototype/use-schema';
 
@@ -13,8 +16,8 @@ import {
   RadioGroupIndicator,
   RadioGroupRadio,
   SpinnerWrap,
+  StyledSubmitButton,
 } from './styles';
-import { Form, HandleChange, Spinner } from '@graphiql-prototype/ui-library';
 
 type AvailableAPIs = Record<string, { aboutUrl: string; apiUrl: string }>;
 
@@ -195,25 +198,24 @@ export const SchemaSelector = () => {
           {activeRadioValue === customSchemaUrlInput && (
             <CustomSchemaFormWrap>
               <Note>Global headers can be set via the settings dialog.</Note>
-              <Form
-                formType={{
-                  type: 'STATIC',
-                  submitHandler: customSchemaUrlInputSubmitHandler,
-                  buttonCopy: 'Use this schema',
+              <Control
+                control={{
+                  controlType: 'INPUT',
+                  handleChange: handleCustomSchemaUrlChange,
+                  name: customSchemaUrlInput,
+                  placeholder: 'http://api.mydomain.com/graphql',
+                  value: customSchemaUrl,
                 }}
-                formControls={[
-                  {
-                    control: {
-                      currentValue: customSchemaUrl,
-                      handleChange: handleCustomSchemaUrlChange,
-                      name: customSchemaUrlInput,
-                      placeholder: 'http://api.mydomain.com/graphql',
-                    },
-                    label: `Your schema URL`,
-                  },
-                ]}
-                loading={schemaLoading}
+                labelCopy={`Your schema URL`}
+                list={false}
               />
+              <StyledSubmitButton
+                onClick={(e) => {
+                  customSchemaUrlInputSubmitHandler(e);
+                }}
+              >
+                Use this schema
+              </StyledSubmitButton>
             </CustomSchemaFormWrap>
           )}
         </div>

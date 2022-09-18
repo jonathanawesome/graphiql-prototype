@@ -15,6 +15,20 @@ export const StyledScalarArgWrap = styled('div', {
   marginBottom: 4,
 });
 
+export const StyledError = styled('div', {
+  color: theme.colors.red_default,
+  backgroundColor: theme.colors.red_lightest,
+  borderTop: `1px solid ${theme.colors.red_light}`,
+  borderRight: `1px solid ${theme.colors.red_light}`,
+  borderBottom: `1px solid ${theme.colors.red_light}`,
+  borderLeft: `1px solid ${theme.colors.red_light}`,
+  fontSize: 10,
+  padding: 2,
+  // borderRadius: 2,
+  marginTop: 4,
+  marginBottom: 4,
+});
+
 // export const Wrap = styled('div', {
 //   // height: '100%',
 //   // width: '100%',

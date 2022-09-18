@@ -1,4 +1,4 @@
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { styled, theme } from '../../theme';
 
 export const StyledControlWrap = styled('div', {
   display: 'flex',
@@ -12,6 +12,7 @@ export const StyledLabel = styled('label', {
   whiteSpace: `nowrap`,
   display: `flex`,
   alignItems: `center`,
+  gap: 8,
   padding: `0 ${theme.space[2]}`,
   border: `1px solid ${theme.colors.surface3}`,
   backgroundColor: theme.colors.surface2,
@@ -32,6 +33,17 @@ export const StyledInput = styled('input', {
   borderTop: `1px solid ${theme.colors.surface3}`,
   borderRight: `1px solid ${theme.colors.surface3}`,
   borderBottom: `1px solid ${theme.colors.surface3}`,
+
+  variants: {
+    variant: {
+      INPUT_FIELD: {
+        color: theme.colors.orange_default,
+      },
+      ARGUMENT: {
+        color: theme.colors.pink_default,
+      },
+    },
+  },
 });
 
 export const StyledSelectWrap = styled('div', {
@@ -51,6 +63,14 @@ export const StyledSelectWrap = styled('div', {
   },
 
   variants: {
+    variant: {
+      INPUT_FIELD: {
+        color: theme.colors.orange_default,
+      },
+      ARGUMENT: {
+        color: theme.colors.pink_default,
+      },
+    },
     isSelected: {
       true: {
         select: {

@@ -38,7 +38,7 @@ import {
   ControlData,
   ControlProps,
   HandleChangeSignature,
-} from '@graphiql-prototype/graphiql-plugin-pane-pathfinder';
+} from '@graphiql-prototype/ui-library';
 
 const controls: (
   handleChange: HandleChangeSignature
@@ -53,7 +53,6 @@ const controls: (
         { name: 'Option 2', value: 'option2' },
       ],
       placeholder: `A List Select`,
-      returnType: 'String',
       value: ['option1', 'option1', 'option2'],
     },
     labelCopy: 'a list select',
@@ -65,7 +64,6 @@ const controls: (
       handleChange,
       name: 'LIST_INPUT',
       placeholder: `A List Input`,
-      returnType: 'String',
       value: ['One', 'Two'],
     },
     labelCopy: 'a list input',
@@ -77,7 +75,6 @@ const controls: (
       handleChange,
       name: 'INPUT',
       placeholder: `An Input`,
-      returnType: 'String',
       value: ``,
     },
     labelCopy: 'an input',
@@ -93,7 +90,6 @@ const controls: (
         { name: 'Option 2', value: 'option2' },
       ],
       placeholder: `A string Select`,
-      returnType: 'String',
       value: `option2`,
     },
     labelCopy: 'a string select',
@@ -109,7 +105,6 @@ const controls: (
         { name: 'False', value: 'false' },
       ],
       placeholder: `A boolean Select`,
-      returnType: 'Boolean',
       value: `true`,
     },
     labelCopy: 'a boolean select',
@@ -119,8 +114,6 @@ const controls: (
 
 export const ControlStory = () => {
   const [values, setValues] = useState<Record<string, ControlData>>({});
-
-  console.log('values', { values });
 
   const handleChange: HandleChangeSignature = ({ name, value }) => {
     setValues((prev) => ({

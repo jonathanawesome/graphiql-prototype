@@ -1,5 +1,5 @@
 // components
-import { Icon } from '@graphiql-prototype/ui-library';
+import { Icon } from '../../icons';
 
 // styles
 import { StyledSelectWrap, StyledSelectDecoration } from './styles';
@@ -12,15 +12,17 @@ export const Select = ({
   name,
   options,
   placeholder,
-  returnType,
   value,
+  variant,
 }: SelectProps) => {
   return (
-    <StyledSelectWrap isSelected={options.some((option) => option.value === value)}>
+    <StyledSelectWrap
+      isSelected={options.some((option) => option.value === value)}
+      variant={variant}
+    >
       <select
         name={name}
         onChange={(e) => {
-          console.log('Select handlechange', { name, value });
           handleChange({
             name,
             value: e.target.value,
@@ -28,7 +30,7 @@ export const Select = ({
         }}
         value={value}
       >
-        <option value="">{returnType || placeholder}</option>
+        <option value="">{placeholder}</option>
         {options.map((option) => (
           <option value={option.value} key={option.value}>
             {option.name}

@@ -251,8 +251,8 @@ export const StyledLeafIndicator = styled('div', {
   justifyContent: `center`,
 
   svg: {
-    height: theme.space[1],
-    width: theme.space[1],
+    height: 3,
+    width: 3,
     circle: {
       fill: theme.colors.surface3,
     },

@@ -88,17 +88,6 @@ export const TabButton = styled('button', {
     backgroundColor: theme.colors.surface2,
   },
 
-  span: {
-    display: `flex`,
-    textTransform: `uppercase`,
-    padding: 2,
-    fontSize: 10,
-    lineHeight: 1,
-    border: `1px solid ${theme.colors.surface3}`,
-    borderRadius: 2,
-    color: theme.colors.green_default,
-  },
-
   variants: {
     hasRemoveTabButton: {
       true: {

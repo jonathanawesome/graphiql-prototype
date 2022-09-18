@@ -8,22 +8,23 @@ export const Input = ({
   handleChange,
   name,
   placeholder,
-  returnType,
   value,
+  variant,
 }: InputProps) => {
   return (
     <StyledInput
+      autoComplete="off"
       name={name}
       onChange={(e) => {
-        console.log('Input handlechange', { name, value });
         handleChange({
           name,
           value: e.target.value,
         });
       }}
-      placeholder={returnType || placeholder}
+      placeholder={placeholder}
       type="text"
       value={value}
+      variant={variant}
     />
   );
 };

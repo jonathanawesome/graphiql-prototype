@@ -2,6 +2,8 @@ import { styled, theme } from '@graphiql-prototype/ui-library';
 
 export const StyledVariablesWrap = styled('div', {
   padding: theme.space[4],
+  maxHeight: 300,
+  overflowY: `auto`,
 });
 
 // import * as Collapsible from '@radix-ui/react-collapsible';

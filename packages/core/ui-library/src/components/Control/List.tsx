@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import cuid from 'cuid';
 
 // components
-import { Icon } from '@graphiql-prototype/ui-library';
+import { Icon } from '../../icons';
 import { Input } from './Input';
 import { Select } from './Select';
 
@@ -22,9 +22,9 @@ export const List = ({
   handleChange,
   name,
   options,
-  returnType,
-  value,
   placeholder,
+  value,
+  variant,
 }: ListProps) => {
   const [items, setItems] = useState<Array<ControlData>>(
     (value as string[]).map((v) => ({ name: `${cuid.slug()}-${v}`, value: v }))
@@ -73,9 +73,9 @@ export const List = ({
                 controlType={controlType}
                 handleChange={handleItemControlChange}
                 name={item.name}
-                placeholder={returnType || placeholder}
-                returnType={returnType}
+                placeholder={placeholder}
                 value={item.value}
+                variant={variant}
               />
             )}
             {controlType === 'SELECT' && (
@@ -84,9 +84,9 @@ export const List = ({
                 handleChange={handleItemControlChange}
                 name={item.name}
                 options={options}
-                placeholder={returnType || placeholder}
-                returnType={returnType}
+                placeholder={placeholder}
                 value={item.value}
+                variant={variant}
               />
             )}
           </StyledListItem>
@@ -94,7 +94,10 @@ export const List = ({
       <StyledAddItemButton
         type="button"
         onClick={() => handleAddItem({ name: `${cuid.slug()}` })}
-      >{`Add ${items.length > 0 ? 'another' : ''} ${returnType} +`}</StyledAddItemButton>
+      >
+        {`Add item +`}
+        {/* {`Add ${items.length > 0 ? 'another' : ''} ${placeholder} +`} */}
+      </StyledAddItemButton>
     </StyledList>
   );
 };

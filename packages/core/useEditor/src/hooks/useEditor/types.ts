@@ -58,12 +58,21 @@ export type EditorStore = {
     newDefinition: OperationDefinitionNode | null;
   }) => void;
   updateOperationDefinitionFromModelValue: ({ value }: { value: string }) => void;
-  // removeVariables: ({ variableNames }: { variableNames: string[] }) => void;
-  getVariables: () => void;
+  removeVariables: ({
+    onInputObject,
+    variableNames,
+  }: {
+    onInputObject?: string;
+    variableNames: string[];
+  }) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getVariables: () => Record<any, any>;
   updateVariable: ({
+    onInputObject,
     variableName,
     variableValue,
   }: {
+    onInputObject?: string;
     variableName: string;
     variableValue: string | string[];
   }) => void;

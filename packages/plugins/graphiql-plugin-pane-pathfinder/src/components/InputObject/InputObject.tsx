@@ -46,13 +46,16 @@ export const InputObject = ({
 
   const isSelected = !!previousAncestor.selection;
 
-  console.log('rendering InputObject', {
-    inputObjectType,
-    toConfig: inputObjectType.toConfig(),
-    variableName: `${generateVariableNameFromAncestorMap({ ancestors })}`,
-    // ancestors,
-    // previousAncestor,
-  });
+  // console.log('rendering InputObject', {
+  //   inputObjectType,
+  //   toConfig: inputObjectType.toConfig(),
+  //   variableName: `${generateVariableNameFromAncestorMap({
+  //     ancestors,
+  //     variableType: 'INPUT_FIELD',
+  //   })}`,
+  //   // ancestors,
+  //   // previousAncestor,
+  // });
 
   return (
     <StyledInputObject>
@@ -73,11 +76,11 @@ export const InputObject = ({
                           inputObject: fields[f].type,
                           isNested: true,
                           name: fields[f].name,
-                          selection: previousAncestor.selection
-                            ? (
-                                previousAncestor.selection.value as ObjectValueNode
-                              ).fields.find((x) => x.name.value === fields[f].name)
-                            : null,
+                          // selection: previousAncestor.selection
+                          //   ? (
+                          //       previousAncestor.selection.value as ObjectValueNode
+                          //     ).fields.find((x) => x.name.value === fields[f].name)
+                          //   : null,
                         } as AncestorInputObject,
                       ],
                       ...ancestors,
@@ -104,9 +107,11 @@ export const InputObject = ({
                                 previousAncestor.selection?.value as ObjectValueNode
                               ).fields?.find((x) => x.name.value === f)
                             : null,
-                          variableName: `${generateVariableNameFromAncestorMap({
-                            ancestors,
-                          })}${capitalize(fields[f].name)}`,
+                          variableName: 'dogfood',
+                          // variableName: `${generateVariableNameFromAncestorMap({
+                          //   ancestors,
+                          //   variableType: 'INPUT_FIELD',
+                          // })}${capitalize(fields[f].name)}`,
                         } as AncestorInputField,
                       ],
                       ...ancestors,

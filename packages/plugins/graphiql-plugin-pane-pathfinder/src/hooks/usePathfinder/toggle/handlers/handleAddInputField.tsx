@@ -1,4 +1,4 @@
-import { Kind, ObjectFieldNode } from 'graphql';
+import { ArgumentNode, Kind, ObjectFieldNode, VariableDefinitionNode } from 'graphql';
 
 // helpers
 import { setCorrectNextVariableDefinitions } from '../helpers';
@@ -11,17 +11,14 @@ import { buildNewVariableDefinition } from '../../../../utils';
 
 export const handleAddInputField = ({
   ancestor,
+  // variableDefinitions,
   setNextAction,
 }: {
   ancestor: AncestorInputField;
   setNextAction: SetNextActionSignature;
+  // variableDefinitions: Array<VariableDefinitionNode>;
 }) => {
-  // console.log('running handleAddInputField', {
-  //   ancestor,
-  //   variableName: ancestor.variableName,
-  // });
-
-  // 1. check if the parent input object is already in the operation definition
+  // 1. check if the parent input object is already in the variable definitions
 
   // 2. if it is, we do nothing
 
@@ -34,8 +31,30 @@ export const handleAddInputField = ({
 
   // setCorrectNextVariableDefinitions({ newVariableDefinition: newVarDef });
 
-  const newObjectFieldNode: ObjectFieldNode = {
-    kind: Kind.OBJECT_FIELD,
+  // const newObjectFieldNode: ObjectFieldNode = {
+  //   kind: Kind.OBJECT_FIELD,
+  //   name: {
+  //     kind: Kind.NAME,
+  //     value: ancestor.inputField.name,
+  //   },
+  //   value: {
+  //     kind: Kind.VARIABLE,
+  //     name: {
+  //       kind: Kind.NAME,
+  //       value: ancestor.variableName,
+  //     },
+  //   },
+  // };
+
+  console.log('running handleAddInputField', {
+    ancestor,
+    variableName: ancestor.variableName,
+    // newObjectFieldNode,
+    // variableDefinitions,
+  });
+
+  const newArgumentNode: ArgumentNode = {
+    kind: Kind.ARGUMENT,
     name: {
       kind: Kind.NAME,
       value: ancestor.inputField.name,
@@ -48,13 +67,22 @@ export const handleAddInputField = ({
       },
     },
   };
+
   console.log('running handleAddInputField', {
     ancestor,
     variableName: ancestor.variableName,
-    newObjectFieldNode,
+    newArgumentNode,
+    // newObjectFieldNode,
+    // variableDefinitions,
   });
-  setNextAction({
+
+  return setNextAction({
     type: 'ADD',
-    payload: { type: 'INPUT_FIELD', node: newObjectFieldNode },
+    payload: { type: 'ARGUMENT', node: newArgumentNode },
   });
+
+  // setNextAction({
+  //   type: 'ADD',
+  //   payload: { type: 'INPUT_FIELD', node: newObjectFieldNode },
+  // });
 };

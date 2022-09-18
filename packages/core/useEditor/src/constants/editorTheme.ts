@@ -3,12 +3,13 @@ import { editor as MONACO_EDITOR } from 'monaco-editor';
 // colors
 import { editorColors } from '@graphiql-prototype/ui-library';
 
-console.log('ediotColors', { editorColors });
-
 export const editorTheme: MONACO_EDITOR.IStandaloneThemeData = {
   base: 'vs',
   inherit: false,
   colors: {
+    // setting red as the default text color here, just so it's clear it needs to be updated
+    'editor.foreground': '#FF0000', // Editor default foreground color.
+
     'editorCursor.foreground': editorColors?.yellow_default, // Color of the editor cursor.
     'editor.selectionBackground': editorColors?.selections, // Color of the editor selection.
     'editor.background': '#FFFFFF00', // white with a 00 alpha value

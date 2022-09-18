@@ -21,7 +21,7 @@ export const handleAddInputObject = ({
 }) => {
   const newVarDef = buildNewVariableDefinition({
     type: ancestor.inputObject,
-    variableName: ancestor.name,
+    variableName: ancestor.variableName,
   });
 
   console.log(`running handleAddInputObject`, {
@@ -29,6 +29,7 @@ export const handleAddInputObject = ({
     ancestor,
     variableName: ancestor.variableName,
     newVarDef,
+    nextAction,
   });
 
   setCorrectNextVariableDefinitions({ newVariableDefinition: newVarDef });
@@ -66,9 +67,20 @@ export const handleAddInputObject = ({
           value: ancestor.name,
         },
         value: {
-          kind: Kind.OBJECT,
-          fields: [(nextAction.payload as ObjectFieldAction).node],
+          kind: Kind.VARIABLE,
+          name: {
+            kind: Kind.NAME,
+            value: ancestor.variableName,
+          },
         },
+        // value: {
+        //   kind: Kind.OBJECT,
+        //   fields: [(nextAction.payload as ObjectFieldAction).node],
+        // },
+        // value: {
+        //   kind: Kind.OBJECT,
+        //   fields: [(nextAction.payload as ObjectFieldAction).node],
+        // },
       };
       console.log('new argument', { newArgument });
       return setNextAction({

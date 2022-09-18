@@ -35,9 +35,9 @@ export const Argument = ({
   operationType: OperationTypeNode;
   selection: FieldNode | null;
 }) => {
-  console.log('Argument', {
-    argument,
-  });
+  // console.log('Argument', {
+  //   argument,
+  // });
 
   const hash = cuid.slug();
 
@@ -50,7 +50,10 @@ export const Argument = ({
         isNested: false,
         name: argument.name,
         selection: selection?.arguments?.find((a) => a.name.value === argument.name),
-        variableName: argument.type.name,
+        variableName: `${generateVariableNameFromAncestorMap({
+          ancestors,
+          variableType: 'ARGUMENT',
+        })}${capitalize(argument.name)}`,
       } as AncestorInputObject,
     ],
     ...ancestors,
@@ -63,9 +66,10 @@ export const Argument = ({
       {
         argument,
         selection: selection?.arguments?.find((a) => a.name.value === argument.name),
-        variableName: `${generateVariableNameFromAncestorMap({ ancestors })}${capitalize(
-          argument.name
-        )}`,
+        variableName: `${generateVariableNameFromAncestorMap({
+          ancestors,
+          variableType: 'ARGUMENT',
+        })}${capitalize(argument.name)}`,
       } as AncestorArgument,
     ],
     ...ancestors,
