@@ -2,81 +2,62 @@ import { useEffect } from 'react';
 import { OperationTypeNode } from 'graphql';
 
 // components
-import {
-  DocsDialog,
-  // Options,
-  RootOperation,
-} from '../index';
-import {
-  Button,
-  //  Command,
-  Message,
-  Tabs,
-} from '@graphiql-prototype/ui-library';
-import { Search } from '../Search';
+import { DocsDialog, RootOperation } from '../index';
+import { Message, Tabs } from '@graphiql-prototype/ui-library';
 
 // hooks
-import { useDocs } from '@graphiql-prototype/graphiql-plugin-pane-docs';
+// import { useDocs } from '@graphiql-prototype/graphiql-plugin-pane-docs';
+import { useEditor } from '@graphiql-prototype/use-editor';
 import { useSchema } from '@graphiql-prototype/use-schema';
+import { useSchemaReference } from '@graphiql-prototype/graphiql-plugin-schema-documentation';
 
 // styles
 import {
+  StyledContainer,
   StyledPathfinder,
   StyledPathfinderContainer,
   StyledPathfinderContent,
-  StyledPathfinderLead,
-  StyledSettingsButtonWrap,
 } from './styles';
 
 export const Pathfinder = () => {
-  // console.log('rendering Pathfinder');
+  const activeEditorTab = useEditor().getActiveTab();
 
   const { schema } = useSchema();
 
-  const { getDocsInstance, initDocsInstance } = useDocs();
+  const { activeTertiaryPane } = useSchemaReference();
 
-  const docsInstance = getDocsInstance({ placement: 'PATHFINDER' });
+  // const { getDocsInstance, initDocsInstance } = useDocs();
 
-  useEffect(() => {
-    if (!docsInstance) {
-      // we haven't initialized the Pathfinder instance, let's do it now
-      return initDocsInstance({
-        placement: 'PATHFINDER',
-      });
-    }
+  // const docsInstance = getDocsInstance({ placement: 'PATHFINDER' });
 
-    return undefined;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   if (!docsInstance) {
+  //     // we haven't initialized the Pathfinder instance, let's do it now
+  //     return initDocsInstance({
+  //       placement: 'PATHFINDER',
+  //     });
+  //   }
+
+  //   return undefined;
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   if (!schema || 'error' in schema) {
     //TODO: loading/error skeleton
     return <Message message={<p>Unable to load schema</p>} variant="ERROR" />;
   }
 
+  console.log('rendering Pathfinder', { typeMap: schema.getTypeMap() });
   return (
     <StyledPathfinder>
-      <StyledPathfinderContainer dialogActive={!!docsInstance?.activeDocPane}>
-        <StyledPathfinderLead>
-          <Search />
-          <StyledSettingsButtonWrap>
-            <Button
-              action={() => console.log('settings')}
-              icon="Gear"
-              label="Pathfinder settings"
-              size="LARGE"
-              variant="ICON"
-            />
-          </StyledSettingsButtonWrap>
-
-          {/* <Options /> */}
-        </StyledPathfinderLead>
+      <StyledPathfinderContainer dialogActive={!!activeTertiaryPane}>
         <StyledPathfinderContent>
           <Tabs
+            initialActiveTab={activeEditorTab?.operationDefinition?.operation}
             ariaLabel="root operations types"
             tabbedContent={[
               {
-                id: 'Query',
+                id: 'query',
                 name: 'Query',
                 panel: (
                   <RootOperation
@@ -86,7 +67,7 @@ export const Pathfinder = () => {
                 ),
               },
               {
-                id: 'Mutation',
+                id: 'mutation',
                 name: 'Mutation',
                 panel: (
                   <RootOperation
@@ -96,7 +77,7 @@ export const Pathfinder = () => {
                 ),
               },
               {
-                id: 'Subscription',
+                id: 'subscription',
                 name: 'Subscription',
                 panel: (
                   <RootOperation
@@ -106,15 +87,28 @@ export const Pathfinder = () => {
                 ),
               },
               {
-                id: 'Fragment',
-                name: 'Fragment',
-                panel: <p>fragment</p>,
+                id: 'Fragments',
+                name: 'Fragments',
+                panel: (
+                  <StyledContainer>
+                    <Message
+                      message={
+                        <>
+                          This is a placeholder/idea for saving fragments for reuse across
+                          tabs/operations. Maybe it doesn't belong here nad should be a
+                          plugin.
+                        </>
+                      }
+                      variant="WARNING"
+                    />
+                  </StyledContainer>
+                ),
               },
             ]}
           />
         </StyledPathfinderContent>
       </StyledPathfinderContainer>
-      <DocsDialog dialogActive={!!docsInstance?.activeDocPane} />
+      <DocsDialog />
     </StyledPathfinder>
   );
 };

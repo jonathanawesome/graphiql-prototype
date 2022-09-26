@@ -21,24 +21,23 @@ type GraphiQLProps = {
   panePlugins: PanePluginsArray;
 };
 
-export const GraphiQL = ({ panePlugins, dialogPlugins }: GraphiQLProps) => {
+export const GraphiQL = ({ dialogPlugins, panePlugins }: GraphiQLProps) => {
   const { activePanePlugin } = useGraphiQL();
 
   const { schemaLoading } = useSchema();
 
   return (
     <GraphiQLWrap>
-      <Navigation panePlugins={panePlugins} dialogPlugins={dialogPlugins} />
+      {/* <Navigation panePlugins={panePlugins} dialogPlugins={dialogPlugins} /> */}
       <Resizer
         direction="HORIZONTAL"
         handlePosition="RIGHT"
         pane1={{
-          component:
-            activePanePlugin === 'GraphiQL' ? null : (
-              <PaneWrap schemaLoading={schemaLoading}>
-                <PanePlugins activePane={activePanePlugin} panePlugins={panePlugins} />
-              </PaneWrap>
-            ),
+          component: (
+            <PaneWrap schemaLoading={schemaLoading}>
+              <PanePlugins activePane={activePanePlugin} panePlugins={panePlugins} />
+            </PaneWrap>
+          ),
         }}
         pane2={{ component: <GraphiQLEditor />, initialWidthPercentage: 70 }}
       />

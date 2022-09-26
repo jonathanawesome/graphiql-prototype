@@ -2,7 +2,7 @@ import { GraphiQL } from '@graphiql-prototype/graphiql';
 
 // pane plugins
 import { PanePluginDocs } from '@graphiql-prototype/graphiql-plugin-pane-docs';
-import { PanePluginEasyVars } from '@graphiql-prototype/graphiql-plugin-pane-easy-vars';
+// import { PanePluginEasyVars } from '@graphiql-prototype/graphiql-plugin-pane-easy-vars';
 import { PanePluginHistory } from '@graphiql-prototype/graphiql-plugin-pane-history';
 import { PanePluginPathfinder } from '@graphiql-prototype/graphiql-plugin-pane-pathfinder';
 
@@ -12,13 +12,13 @@ import { DialogPluginSettings } from '@graphiql-prototype/graphiql-plugin-dialog
 export const Default = () => {
   return (
     <GraphiQL
+      dialogPlugins={[DialogPluginSettings]}
       panePlugins={[
         PanePluginPathfinder,
         PanePluginHistory,
-        PanePluginEasyVars,
+        // PanePluginEasyVars,
         PanePluginDocs,
       ]}
-      dialogPlugins={[DialogPluginSettings]}
     />
   );
 };

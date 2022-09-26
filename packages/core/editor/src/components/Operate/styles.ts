@@ -6,7 +6,6 @@ export const OperateWrap = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  borderRight: `1px solid ${theme.colors.surface3}`,
 });
 
 export const OperationEditor = styled('div', {

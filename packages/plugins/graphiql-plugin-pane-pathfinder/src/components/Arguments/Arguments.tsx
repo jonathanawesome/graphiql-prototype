@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FieldNode, isRequiredArgument, OperationTypeNode } from 'graphql';
 
 // components
@@ -25,11 +25,11 @@ export const Arguments = ({
   operationType: OperationTypeNode;
   selection: FieldNode | null;
 }) => {
-  // console.log('rendering Arguments', {
-  //   args,
-  //   selection,
-  //   'selection.arguments': selection?.arguments,
-  // });
+  console.log('rendering Arguments', {
+    // args,
+    selection,
+    'selection.arguments': selection?.arguments,
+  });
 
   const { field } = ancestors.values().next().value as AncestorField;
 
@@ -37,9 +37,22 @@ export const Arguments = ({
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  useEffect(() => {
+    // this effect ensures the field is initially expanded when selected
+    // this is one of the many micro-interactions in pathfinder that need tweaking/testing
+    if (selection?.arguments && selection?.arguments.length > 0) {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  }, []);
+
   return (
     <StyledArguments isOpen={isOpen} open={isOpen} onOpenChange={setIsOpen}>
-      <StyledArgumentsTrigger isOpen={isOpen}>
+      <StyledArgumentsTrigger
+        isOpen={isOpen}
+        aria-label={`Expand nested content of ${field.name} arguments`}
+      >
         <Caret />
         <span>arguments</span>
       </StyledArgumentsTrigger>

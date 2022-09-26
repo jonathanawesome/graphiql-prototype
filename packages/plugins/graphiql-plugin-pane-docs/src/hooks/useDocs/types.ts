@@ -1,6 +1,6 @@
-import { GraphQLSchema, GraphQLType } from 'graphql';
+import { GraphQLField, GraphQLSchema, GraphQLType } from 'graphql';
 
-type DocTypes = GraphQLType | GraphQLSchema;
+type DocTypes = GraphQLType | GraphQLSchema | GraphQLField<any, any, any>;
 
 export type DocPlacement = 'EXPLORER' | 'PATHFINDER';
 

@@ -5,7 +5,7 @@ import { Icon, SeparatorRound } from '@graphiql-prototype/ui-library';
 
 // hooks
 import { usePathfinder } from '../../hooks';
-import { useDocs } from '@graphiql-prototype/graphiql-plugin-pane-docs';
+// import { useDocs } from '@graphiql-prototype/graphiql-plugin-pane-docs';
 
 // styles
 import { Description, DetailsStyled, NameAndType, Name, Type } from './styles';
@@ -15,6 +15,8 @@ import type { ListItemTypeTypes, ListItemVariants } from '../ListItem';
 
 // utils
 import { unwrapType } from '../../utils';
+import { Field } from '../Field';
+import { useSchemaReference } from '@graphiql-prototype/graphiql-plugin-schema-documentation';
 
 export type DetailsProps = {
   isSelected: boolean;
@@ -24,9 +26,11 @@ export type DetailsProps = {
 
 export const Details = ({ isSelected, type, variant }: DetailsProps) => {
   const { descriptionsVisibility } = usePathfinder();
-  const { navigateForward } = useDocs();
+  // const { navigateForward } = useDocs();
 
   // console.log('Details', { type, variant });
+
+  const { setActiveTertiaryPane } = useSchemaReference();
 
   const asterisk =
     'defaultValue' in type &&
@@ -46,26 +50,27 @@ export const Details = ({ isSelected, type, variant }: DetailsProps) => {
             ? `... on ${type.name}`
             : `${type.name}${asterisk || ''}`}
         </Name>
-        <Type>
-          <button
-            onClick={() => {
-              navigateForward({
-                docPane: {
-                  description: type.description || null,
-                  name:
-                    'type' in type
-                      ? unwrapType(type.type).toString()
-                      : unwrapType(type).toString(),
-                  type: 'type' in type ? unwrapType(type.type) : unwrapType(type),
-                },
-                placement: 'PATHFINDER',
-              });
-            }}
-          >
-            <Icon name="Docs" />
-            {/* {'type' in type ? type.type.toString() : type.toString()} */}
-          </button>
-        </Type>
+        {variant !== 'INPUT_OBJECT' && (
+          <Type>
+            <button
+              onClick={() => {
+                setActiveTertiaryPane({ destinationPane: type });
+                // navigateForward({
+                //   docPane: {
+                //     description: type.description || null,
+                //     name: type.name,
+                //     type,
+                //     // type: 'type' in type ? unwrapType(type.type) : unwrapType(type),
+                //   },
+                //   placement: 'PATHFINDER',
+                // });
+              }}
+            >
+              <Icon name="Docs" />
+              {/* {'type' in type ? type.type.toString() : type.toString()} */}
+            </button>
+          </Type>
+        )}
       </NameAndType>
       {/* {variant !== 'ROOT' && type.description && (
         <Description>

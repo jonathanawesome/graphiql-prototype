@@ -6,6 +6,10 @@ export const CustomSchemaFormWrap = styled('form', {
   margin: `${theme.space[3]} 0`,
 });
 
+export const StyledSchemaSelector = styled('div', {
+  marginTop: theme.space[3],
+});
+
 export const StyledSubmitButton = styled('button', {
   backgroundColor: theme.colors.surface3,
   border: '1px solid transparent',
@@ -24,17 +28,6 @@ export const StyledSubmitButton = styled('button', {
     backgroundColor: theme.colors.surface2,
     border: `1px solid ${theme.colors.surface3}`,
   },
-});
-
-export const Note = styled('span', {
-  display: 'block',
-  fontSize: 12,
-  color: theme.colors.blue_default,
-  backgroundColor: theme.colors.blue_lightest,
-  border: `1px solid ${theme.colors.blue_light}`,
-  borderRadius: 2,
-  marginBottom: theme.space[3],
-  padding: 6,
 });
 
 export const Error = styled('span', {
@@ -84,6 +77,7 @@ export const RadioGroupIndicator = styled(RadioGroupPrimitive.Indicator, {
 
 export const RadioGroup = styled(RadioGroupPrimitive.Root, {
   position: 'relative',
+  paddingTop: theme.space[4],
   margin: '12px 0',
 
   fieldset: {

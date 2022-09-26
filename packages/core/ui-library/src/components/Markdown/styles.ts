@@ -5,14 +5,14 @@ export const StyledMarkdown = styled('div', {
   flexDirection: `column`,
   paddingTop: theme.space[1],
   paddingBottom: theme.space[1],
-  color: theme.colors.text2,
+  color: theme.colors.text1,
 
   'p, blockquote, ul, ol, dl, table, pre, details': {
     fontWeight: theme.fontWeights.regular,
     fontSize: 13,
     lineHeight: 1.5,
 
-    color: theme.colors.text2,
+    color: theme.colors.text1,
     marginTop: 0,
     marginBottom: theme.space[4],
   },
@@ -50,6 +50,15 @@ export const StyledMarkdown = styled('div', {
     listStyleType: `disc`,
   },
 
+  a: {
+    color: theme.colors.blue_default,
+  },
+
+  hr: {
+    all: `unset`,
+    borderTop: `1px solid ${theme.colors.text4}`,
+  },
+
   img: {
     maxHeight: 120,
     maxWidth: `100`,
@@ -61,5 +70,16 @@ export const StyledMarkdown = styled('div', {
 
   ':last-child': {
     marginBottom: 0,
+  },
+
+  variants: {
+    showSummary: {
+      true: {
+        '& > :not(:first-child)': {
+          display: `none`,
+        },
+        opacity: 0.7,
+      },
+    },
   },
 });

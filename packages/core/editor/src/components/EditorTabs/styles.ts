@@ -5,6 +5,7 @@ export const StyledEditorTabs = styled('div', {
   display: 'flex',
   alignItems: 'center',
   borderBottom: `1px solid ${theme.colors.surface3}`,
+  backgroundColor: theme.colors.surface1,
 
   minWidth: 0,
 });

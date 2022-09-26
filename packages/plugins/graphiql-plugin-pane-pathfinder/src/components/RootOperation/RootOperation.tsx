@@ -10,7 +10,10 @@ import {
 import { useEditor } from '@graphiql-prototype/use-editor';
 
 // components
-import { Field, ListItem } from '../index';
+import {
+  Field,
+  // ListItem
+} from '../index';
 import { Message } from '@graphiql-prototype/ui-library';
 
 // styles
@@ -64,6 +67,14 @@ export const RootOperation = ({
 
   return (
     <StyledRootOperation>
+      {operationType === 'subscription' && (
+        <Message
+          message={
+            <>{`TODO: Subscription operations are listed here, but not currently working.`}</>
+          }
+          variant="WARNING"
+        />
+      )}
       {Object.keys(fields)
         .sort()
         .map((field) => (

@@ -20,23 +20,23 @@ export const TagStory = () => {
     <FlexCol>
       <FlexRow>
         <span>OPERATION</span>
-        <Tag copy="Q" type="OPERATION" />
+        <Tag copy="Q" title="Query" type="OPERATION" />
       </FlexRow>
       <FlexRow>
         <span>ERROR</span>
-        <Tag copy="E" type="ERROR" />
+        <Tag copy="E" title="ERROR" type="ERROR" />
       </FlexRow>
       <FlexRow>
         <span>WARNING</span>
-        <Tag copy="W" type="WARNING" />
+        <Tag copy="W" title="WARNING" type="WARNING" />
       </FlexRow>
       <FlexRow>
         <span>INFO</span>
-        <Tag copy="I" type="INFO" />
+        <Tag copy="I" title="INFO" type="INFO" />
       </FlexRow>
       <FlexRow>
         <span>SUCCESS</span>
-        <Tag copy="S" type="SUCCESS" />
+        <Tag copy="S" title="SUCCESS" type="SUCCESS" />
       </FlexRow>
     </FlexCol>
   );

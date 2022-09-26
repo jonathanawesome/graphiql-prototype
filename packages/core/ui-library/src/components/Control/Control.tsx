@@ -17,7 +17,7 @@ export const Control = ({
 }: ControlProps) => {
   return (
     <StyledControlWrap key={control.name}>
-      <StyledLabel>
+      <StyledLabel htmlFor={control.name}>
         {labelCopy}
         {labelAddon && labelAddon}
       </StyledLabel>

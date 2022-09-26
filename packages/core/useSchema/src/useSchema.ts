@@ -108,7 +108,9 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
           ),
           url,
         })({
-          query: getIntrospectionQuery(),
+          query: getIntrospectionQuery({
+            // specifiedByUrl: true,
+          }),
           operationName: 'IntrospectionQuery',
         });
 

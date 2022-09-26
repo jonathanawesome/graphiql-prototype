@@ -6,7 +6,6 @@ import {
   isNonNullType,
   isRequiredArgument,
   isRequiredInputField,
-  isScalarType,
   OperationTypeNode,
 } from 'graphql';
 
@@ -30,8 +29,9 @@ import {
   unwrapType,
   getEnumValues,
   parseOutgoingVariableValue,
+  parseIncomingVariableValue,
 } from '@graphiql-prototype/utils';
-import { generateVariableNameFromAncestorMap, unwrapInputType } from '../../utils';
+import { generateVariableNameFromAncestorMap } from '../../utils';
 import { validateInputValue } from './utils';
 
 export const ScalarArg = ({
@@ -43,24 +43,22 @@ export const ScalarArg = ({
   argument: GraphQLArgument;
   operationType: OperationTypeNode;
 }) => {
-  let workingType = argument.type;
+  let baseType = argument.type;
 
   if (isNonNullType(argument.type)) {
-    workingType = argument.type.ofType;
+    baseType = argument.type.ofType;
   }
 
-  const unwrappedType = unwrapType(workingType);
+  const unwrappedType = unwrapType(baseType);
 
   // using simple state here to track the value of our argument/input field
   // if it's a list, it'll be a string array
   // if it's not a list, it's a string
   const [inputValue, setInputValue] = useState<string | string[]>(
-    isListType(workingType) ? [] : ``
+    isListType(baseType) ? [] : ``
   );
 
-  const [variableValue, setVariableValue] = useState<
-    string | number | (string | number)[]
-  >(``);
+  const [variableInUse, setVariableInUse] = useState<boolean>(false);
 
   const [error, setError] = useState<string | null>(null);
 
@@ -73,19 +71,11 @@ export const ScalarArg = ({
     variableType: 'inputField' in ancestor ? 'INPUT_FIELD' : 'ARGUMENT',
   })}`;
 
-  // const isSelected = !!ancestor.selection;
-
-  // const [variableIsSet, setVariableIsSet] = useState<boolean>(false);
-
   const { toggle } = usePathfinder();
 
-  const {
-    updateVariable,
-    // getVariables,
-    removeVariables,
-  } = useEditor();
+  const { activeVariables, getActiveTab, updateVariable } = useEditor();
 
-  const activeEditorTab = useEditor().getActiveTab();
+  const activeEditorTab = getActiveTab();
 
   const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
 
@@ -95,8 +85,6 @@ export const ScalarArg = ({
 
   const typeName = unwrapType(argument.type).toString();
 
-  // const variableisActive = Object.keys(getVariables().m)
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleChange: HandleChangeSignature = ({ name, value }) => {
     setInputValue(value);
@@ -104,25 +92,51 @@ export const ScalarArg = ({
 
   const isRequired = isRequiredArgument(argument) || isRequiredInputField(argument);
 
-  console.log('ScalarArg', {
-    name: argument.name,
-    isRequired: isRequiredArgument(argument) || isRequiredInputField(argument),
-    // workingType,
-    // unwrappedType,
-    argument,
-    // ancestor,
-    // inputValue,
-    variableDefinitionIsActive,
-    variableDefinitions,
-    // variableName,
-    // isEnumType: isEnumType(unwrapType(argument.type)),
-    // vairables: getVariables(),
-    // variableDefinitions,
-  });
+  // console.log('ScalarArg', {
+  //   argument,
+  //   ancestors,
+  //   variableName,
+  // });
+
+  useEffect(() => {
+    let vars: Record<any, any> = {};
+    let val: string | string[] = isListType(baseType) ? [] : ``;
+    try {
+      vars = JSON.parse(activeVariables);
+    } catch (e) {
+      // console.warn(e);
+      // return here so we don't muck with existing values when the incoming variables object doesn't pass parse
+      return undefined;
+    }
+
+    if ('parentInputObject' in ancestor) {
+      if (
+        vars &&
+        vars.hasOwnProperty(variableName) &&
+        vars[variableName].hasOwnProperty(argument.name)
+      ) {
+        val = parseIncomingVariableValue(vars[variableName][argument.name]);
+        setVariableInUse(true);
+      } else {
+        setVariableInUse(false);
+      }
+    } else {
+      if (vars && vars.hasOwnProperty(variableName)) {
+        val = parseIncomingVariableValue(vars[variableName]);
+        setVariableInUse(true);
+      } else {
+        setVariableInUse(false);
+      }
+    }
+
+    return setInputValue(val);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeVariables]);
 
   useEffect(() => {
     // we don't have a variable definition AND there's some value in the input, so we should add the variable definition by calling toggle
-    if (!variableDefinitionIsActive && inputValue.length > 0) {
+    if (variableDefinitionIsActive === undefined && inputValue.length > 0) {
       toggle({ ancestors, operationType });
     }
 
@@ -132,13 +146,14 @@ export const ScalarArg = ({
       // toggle({ ancestors, operationType });
     }
 
-    // we have a variable definition and the input is empty
-    // we should toggle to remove the variable definition, remove the variable
-    if (variableDefinitionIsActive && inputValue.length === 0) {
-      toggle({ ancestors, operationType });
-      removeVariables({
+    if (variableInUse && inputValue.length === 0) {
+      updateVariable({
         onInputObject: 'parentInputObject' in ancestor ? variableName : undefined,
-        variableNames: ['parentInputObject' in ancestor ? argument.name : variableName],
+        variableName: 'parentInputObject' in ancestor ? argument.name : variableName,
+        variableValue: parseOutgoingVariableValue({
+          typeNameValue: baseType.toString(),
+          value: inputValue,
+        }),
       });
     }
 
@@ -158,34 +173,33 @@ export const ScalarArg = ({
         onInputObject: 'parentInputObject' in ancestor ? variableName : undefined,
         variableName: 'parentInputObject' in ancestor ? argument.name : variableName,
         variableValue: parseOutgoingVariableValue({
-          typeNameValue: workingType.toString(),
+          typeNameValue: baseType.toString(),
           value: inputValue,
         }),
       });
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputValue]);
 
   let toRender: React.ReactElement = <></>;
 
-  if (isListType(workingType)) {
+  if (isListType(baseType)) {
     if (unwrappedType.toString() === 'Boolean') {
       toRender = (
         <Control
           control={{
             controlType: 'SELECT',
             handleChange,
-            name: argument.name,
+            name: variableName,
             options: [
-              { name: 'True', value: 'true' },
-              { name: 'False', value: 'false' },
+              { name: 'true', value: 'true' },
+              { name: 'false', value: 'false' },
             ],
             placeholder: 'Boolean',
             value: inputValue,
             variant: 'parentInputObject' in ancestor ? 'INPUT_FIELD' : 'ARGUMENT',
           }}
-          labelAddon={isRequired && <Tag copy={`R`} type="ERROR" />}
+          labelAddon={isRequired && <Tag copy={`R`} title={`Required`} type="ERROR" />}
           labelCopy={argument.name}
           list={true}
         />
@@ -196,7 +210,7 @@ export const ScalarArg = ({
           control={{
             controlType: 'SELECT',
             handleChange,
-            name: argument.name,
+            name: variableName,
             options:
               getEnumValues({
                 enumTypeName: typeName,
@@ -205,7 +219,7 @@ export const ScalarArg = ({
             value: inputValue,
             variant: 'parentInputObject' in ancestor ? 'INPUT_FIELD' : 'ARGUMENT',
           }}
-          labelAddon={isRequired && <Tag copy={`R`} type="ERROR" />}
+          labelAddon={isRequired && <Tag copy={`R`} title={`Required`} type="ERROR" />}
           labelCopy={argument.name}
           list={true}
         />
@@ -216,12 +230,12 @@ export const ScalarArg = ({
           control={{
             controlType: 'INPUT',
             handleChange,
-            name: argument.name,
+            name: variableName,
             placeholder: typeName,
             value: inputValue,
             variant: 'parentInputObject' in ancestor ? 'INPUT_FIELD' : 'ARGUMENT',
           }}
-          labelAddon={isRequired && <Tag copy={`R`} type="ERROR" />}
+          labelAddon={isRequired && <Tag copy={`R`} title={`Required`} type="ERROR" />}
           labelCopy={argument.name}
           list={true}
         />
@@ -233,7 +247,7 @@ export const ScalarArg = ({
         control={{
           controlType: 'SELECT',
           handleChange,
-          name: argument.name,
+          name: variableName,
           options:
             getEnumValues({
               enumTypeName: unwrappedType.name,
@@ -242,7 +256,7 @@ export const ScalarArg = ({
           value: inputValue,
           variant: 'parentInputObject' in ancestor ? 'INPUT_FIELD' : 'ARGUMENT',
         }}
-        labelAddon={isRequired && <Tag copy={`R`} type="ERROR" />}
+        labelAddon={isRequired && <Tag copy={`R`} title={`Required`} type="ERROR" />}
         labelCopy={argument.name}
         list={false}
       />
@@ -253,16 +267,16 @@ export const ScalarArg = ({
         control={{
           controlType: 'SELECT',
           handleChange,
-          name: argument.name,
+          name: variableName,
           options: [
-            { name: 'True', value: 'true' },
-            { name: 'False', value: 'false' },
+            { name: 'true', value: 'true' },
+            { name: 'false', value: 'false' },
           ],
           placeholder: 'Boolean',
           value: inputValue,
           variant: 'parentInputObject' in ancestor ? 'INPUT_FIELD' : 'ARGUMENT',
         }}
-        labelAddon={isRequired && <Tag copy={`R`} type="ERROR" />}
+        labelAddon={isRequired && <Tag copy={`R`} title={`Required`} type="ERROR" />}
         labelCopy={argument.name}
         list={false}
       />
@@ -274,12 +288,12 @@ export const ScalarArg = ({
         control={{
           controlType: 'INPUT',
           handleChange,
-          name: argument.name,
+          name: variableName,
           placeholder: argument.type.toString(),
           value: inputValue,
           variant: 'parentInputObject' in ancestor ? 'INPUT_FIELD' : 'ARGUMENT',
         }}
-        labelAddon={isRequired && <Tag copy={`R`} type="ERROR" />}
+        labelAddon={isRequired && <Tag copy={`R`} title={`Required`} type="ERROR" />}
         labelCopy={argument.name}
         list={false}
       />
@@ -300,7 +314,7 @@ export const ScalarArg = ({
 
   return (
     <StyledScalarArgWrap>
-      {/* this components exists to warn when this argument's type is not a built-in scalar or an enum. users should have the ability to pass in handlers for custom scalars */}
+      {/* this bit's here to warn when this argument's type is not a built-in scalar or an enum. users should have the ability to pass in handlers for custom scalars */}
       {!['String', 'ID', 'Int', 'Float', 'Boolean'].includes(typeName) &&
         !isEnumType(unwrapType(argument.type)) && (
           <StyledError>
@@ -308,9 +322,7 @@ export const ScalarArg = ({
           </StyledError>
         )}
       {toRender}
-      {/* <div>{variableName}</div> */}
       {error && <StyledError>{error}</StyledError>}
-      {/* <div>type:{typeName}</div> */}
     </StyledScalarArgWrap>
   );
 };

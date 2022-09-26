@@ -10,6 +10,7 @@ export const StyledTag = styled('span', {
   padding: 1,
   borderRadius: 2,
   minWidth: 12,
+  height: 16,
 
   variants: {
     type: {

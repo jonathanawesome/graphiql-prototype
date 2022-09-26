@@ -8,9 +8,11 @@ importers:
       '@typescript-eslint/parser': ^5.27.0
       eslint: ^8.16.0
       eslint-config-prettier: ^8.5.0
+      eslint-plugin-jest-dom: ^4.0.2
       eslint-plugin-jsx-a11y: ^6.5.1
       eslint-plugin-prettier: ^4.0.0
       eslint-plugin-react-hooks: ^4.5.0
+      eslint-plugin-testing-library: ^5.6.4
       prettier: ^2.6.2
       typescript: ^4.7.2
     devDependencies:
@@ -18,9 +20,11 @@ importers:
       '@typescript-eslint/parser': 5.30.6_4x5o4skxv6sl53vpwefgt23khm
       eslint: 8.19.0
       eslint-config-prettier: 8.5.0_eslint@8.19.0
+      eslint-plugin-jest-dom: 4.0.2_eslint@8.19.0
       eslint-plugin-jsx-a11y: 6.6.0_eslint@8.19.0
       eslint-plugin-prettier: 4.2.1_7uxdfn2xinezdgvmbammh6ev5i
       eslint-plugin-react-hooks: 4.6.0_eslint@8.19.0
+      eslint-plugin-testing-library: 5.6.4_4x5o4skxv6sl53vpwefgt23khm
       prettier: 2.7.1
       typescript: 4.7.4
 
@@ -56,7 +60,7 @@ importers:
       '@graphiql-prototype/ui-library': link:../../packages/core/ui-library
       '@graphiql-prototype/use-editor': link:../../packages/core/useEditor
       '@graphiql-prototype/use-schema': link:../../packages/core/useSchema
-      '@graphiql-prototype/use-test-schema': link:../../packages/core/use-test-schema
+      '@graphiql-prototype/use-test-schema': link:../../packages/core/useTestSchema
       '@ladle/react': 2.0.2_sfoxds7t5ydpegc3knd667wn6m
       graphql: 16.5.0
       react: 17.0.2
@@ -110,10 +114,12 @@ importers:
 
   packages/core/editor:
     specifiers:
+      '@graphiql-prototype/graphiql-plugin-schema-documentation': workspace:*
       '@graphiql-prototype/ui-library': workspace:*
       '@graphiql-prototype/use-editor': workspace:*
       '@graphiql-prototype/use-schema': workspace:*
       '@graphiql-prototype/use-test-schema': workspace:*
+      '@graphiql-prototype/utils': workspace:*
       '@graphiql/toolkit': ^0.6.0
       '@radix-ui/react-collapsible': ^0.1.6
       '@radix-ui/react-radio-group': ^0.1.5
@@ -128,10 +134,12 @@ importers:
       vite: 3.0.2
       zustand: ^4.0.0-rc.1
     dependencies:
+      '@graphiql-prototype/graphiql-plugin-schema-documentation': link:../../plugins/graphiql-plugin-schema-documentation
       '@graphiql-prototype/ui-library': link:../ui-library
       '@graphiql-prototype/use-editor': link:../useEditor
       '@graphiql-prototype/use-schema': link:../useSchema
-      '@graphiql-prototype/use-test-schema': link:../use-test-schema
+      '@graphiql-prototype/use-test-schema': link:../useTestSchema
+      '@graphiql-prototype/utils': link:../utils
       '@graphiql/toolkit': 0.6.0_graphql@16.5.0
       '@radix-ui/react-collapsible': 0.1.6_react@17.0.2
       '@radix-ui/react-radio-group': 0.1.5_react@17.0.2
@@ -180,6 +188,7 @@ importers:
       '@types/react-dom': 17.0.2
       cuid: ^2.1.8
       graphql: ^16.5.0
+      monaco-editor: ^0.33.0
       react: 17.0.2
       react-dom: 17.0.2
       react-markdown: ^8.0.3
@@ -196,6 +205,7 @@ importers:
       '@stitches/react': 1.2.8_react@17.0.2
       cuid: 2.1.8
       graphql: 16.5.0
+      monaco-editor: 0.33.0
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-markdown: 8.0.3_7u6mpky5dbb5b3hgdescs5ficq
@@ -204,19 +214,6 @@ importers:
       '@types/react': 17.0.2
       '@types/react-dom': 17.0.2
       vite: 3.0.2
-
-  packages/core/use-test-schema:
-    specifiers:
-      '@types/react': 17.0.2
-      graphql: ^16.5.0
-      react: 17.0.2
-      zustand: ^4.0.0-rc.1
-    dependencies:
-      graphql: 16.5.0
-      react: 17.0.2
-      zustand: 4.0.0-rc.1_react@17.0.2
-    devDependencies:
-      '@types/react': 17.0.2
 
   packages/core/useEditor:
     specifiers:
@@ -283,11 +280,24 @@ importers:
       '@graphiql-prototype/editor': link:../editor
       '@graphiql-prototype/use-editor': link:../useEditor
       '@graphiql-prototype/use-global-http-headers': link:../useGlobalHTTPHeaders
-      '@graphiql-prototype/use-test-schema': link:../use-test-schema
+      '@graphiql-prototype/use-test-schema': link:../useTestSchema
       '@graphiql-prototype/utils': link:../utils
       graphql: 16.5.0
       jsonc-parser: 3.0.0
       monaco-editor: 0.33.0
+      react: 17.0.2
+      zustand: 4.0.0-rc.1_react@17.0.2
+    devDependencies:
+      '@types/react': 17.0.2
+
+  packages/core/useTestSchema:
+    specifiers:
+      '@types/react': 17.0.2
+      graphql: ^16.5.0
+      react: 17.0.2
+      zustand: ^4.0.0-rc.1
+    dependencies:
+      graphql: 16.5.0
       react: 17.0.2
       zustand: 4.0.0-rc.1_react@17.0.2
     devDependencies:
@@ -379,7 +389,7 @@ importers:
 
   packages/plugins/graphiql-plugin-pane-pathfinder:
     specifiers:
-      '@graphiql-prototype/graphiql-plugin-pane-docs': workspace:*
+      '@graphiql-prototype/graphiql-plugin-schema-documentation': workspace:*
       '@graphiql-prototype/ui-library': workspace:*
       '@graphiql-prototype/use-editor': workspace:*
       '@graphiql-prototype/use-schema': workspace:*
@@ -406,7 +416,7 @@ importers:
       vitest: ^0.23.2
       zustand: ^4.0.0-rc.1
     dependencies:
-      '@graphiql-prototype/graphiql-plugin-pane-docs': link:../graphiql-plugin-pane-docs
+      '@graphiql-prototype/graphiql-plugin-schema-documentation': link:../graphiql-plugin-schema-documentation
       '@graphiql-prototype/ui-library': link:../../core/ui-library
       '@graphiql-prototype/use-editor': link:../../core/useEditor
       '@graphiql-prototype/use-schema': link:../../core/useSchema
@@ -433,6 +443,41 @@ importers:
       jsdom: 20.0.0
       vite: 3.0.2
       vitest: 0.23.2_jsdom@20.0.0
+
+  packages/plugins/graphiql-plugin-schema-documentation:
+    specifiers:
+      '@graphiql-prototype/ui-library': workspace:*
+      '@graphiql-prototype/use-editor': workspace:*
+      '@graphiql-prototype/use-schema': workspace:*
+      '@graphiql-prototype/utils': workspace:*
+      '@types/react': 17.0.2
+      '@types/react-dom': 17.0.2
+      '@vitejs/plugin-react': ^2.0.0
+      cuid: ^2.1.8
+      graphql: ^16.5.0
+      monaco-editor: ^0.33.0
+      react: 17.0.2
+      react-dom: 17.0.2
+      vite: 3.0.2
+      vitest: ^0.23.2
+      zustand: ^4.0.0-rc.1
+    dependencies:
+      '@graphiql-prototype/ui-library': link:../../core/ui-library
+      '@graphiql-prototype/use-editor': link:../../core/useEditor
+      '@graphiql-prototype/use-schema': link:../../core/useSchema
+      '@graphiql-prototype/utils': link:../../core/utils
+      cuid: 2.1.8
+      graphql: 16.5.0
+      monaco-editor: 0.33.0
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      zustand: 4.0.0-rc.1_react@17.0.2
+    devDependencies:
+      '@types/react': 17.0.2
+      '@types/react-dom': 17.0.2
+      '@vitejs/plugin-react': 2.0.0_vite@3.0.2
+      vite: 3.0.2
+      vitest: 0.23.2
 
 packages:
 
@@ -4909,6 +4954,18 @@ packages:
       eslint: 8.19.0
     dev: true
 
+  /eslint-plugin-jest-dom/4.0.2_eslint@8.19.0:
+    resolution: {integrity: sha512-Jo51Atwyo2TdcUncjmU+UQeSTKh3sc2LF/M5i/R3nTU0Djw9V65KGJisdm/RtuKhy2KH/r7eQ1n6kwYFPNdHlA==}
+    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0, npm: '>=6', yarn: '>=1'}
+    peerDependencies:
+      eslint: ^6.8.0 || ^7.0.0 || ^8.0.0
+    dependencies:
+      '@babel/runtime': 7.18.9
+      '@testing-library/dom': 8.16.0
+      eslint: 8.19.0
+      requireindex: 1.2.0
+    dev: true
+
   /eslint-plugin-jsx-a11y/6.6.0_eslint@8.19.0:
     resolution: {integrity: sha512-kTeLuIzpNhXL2CwLlc8AHI0aFRwWHcg483yepO9VQiHzM9bZwJdzTkzBszbuPrbgGmq2rlX/FaT2fJQsjUSHsw==}
     engines: {node: '>=4.0'}
@@ -4955,6 +5012,19 @@ packages:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
     dependencies:
       eslint: 8.19.0
+    dev: true
+
+  /eslint-plugin-testing-library/5.6.4_4x5o4skxv6sl53vpwefgt23khm:
+    resolution: {integrity: sha512-0oW3tC5NNT2WexmJ3848a/utawOymw4ibl3/NkwywndVAz2hT9+ab70imA7ccg3RaScQgMvJT60OL00hpmJvrg==}
+    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0, npm: '>=6'}
+    peerDependencies:
+      eslint: ^7.5.0 || ^8.0.0
+    dependencies:
+      '@typescript-eslint/utils': 5.30.6_4x5o4skxv6sl53vpwefgt23khm
+      eslint: 8.19.0
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
     dev: true
 
   /eslint-scope/5.1.1:
@@ -7424,6 +7494,11 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /requireindex/1.2.0:
+    resolution: {integrity: sha512-L9jEkOi3ASd9PYit2cwRfyppc9NoABujTP8/5gFcbERmo5jUoAKovIC3fsF17pkTnGsrByysqX+Kxd2OTNI1ww==}
+    engines: {node: '>=0.10.5'}
+    dev: true
+
   /resolve-cwd/3.0.0:
     resolution: {integrity: sha512-OrZaX2Mb+rJCpH/6CpSqt9xFVpN++x01XnN2ie9g6P5/3xelLAkXWVADpdz1IHD/KFfEXyE6V0U01OQ3UO2rEg==}
     engines: {node: '>=8'}
@@ -8193,6 +8268,47 @@ packages:
       rollup: 2.76.0
     optionalDependencies:
       fsevents: 2.3.2
+
+  /vitest/0.23.2:
+    resolution: {integrity: sha512-kTBKp3ROPDkYC+x2zWt4znkDtnT08W1FQ6ngRFuqxpBGNuNVS+eWZKfffr8y2JGvEzZ9EzMAOcNaiqMj/FZqMw==}
+    engines: {node: '>=v14.16.0'}
+    hasBin: true
+    peerDependencies:
+      '@edge-runtime/vm': '*'
+      '@vitest/browser': '*'
+      '@vitest/ui': '*'
+      happy-dom: '*'
+      jsdom: '*'
+    peerDependenciesMeta:
+      '@edge-runtime/vm':
+        optional: true
+      '@vitest/browser':
+        optional: true
+      '@vitest/ui':
+        optional: true
+      happy-dom:
+        optional: true
+      jsdom:
+        optional: true
+    dependencies:
+      '@types/chai': 4.3.3
+      '@types/chai-subset': 1.3.3
+      '@types/node': 18.0.3
+      chai: 4.3.6
+      debug: 4.3.4
+      local-pkg: 0.4.2
+      strip-literal: 0.4.1
+      tinybench: 2.1.5
+      tinypool: 0.3.0
+      tinyspy: 1.0.2
+      vite: 3.0.2
+    transitivePeerDependencies:
+      - less
+      - sass
+      - stylus
+      - supports-color
+      - terser
+    dev: true
 
   /vitest/0.23.2_jsdom@20.0.0:
     resolution: {integrity: sha512-kTBKp3ROPDkYC+x2zWt4znkDtnT08W1FQ6ngRFuqxpBGNuNVS+eWZKfffr8y2JGvEzZ9EzMAOcNaiqMj/FZqMw==}

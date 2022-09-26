@@ -3,10 +3,11 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 
 export const ListItemStyled = styled('li', {
   all: 'unset',
+  width: `100%`,
 });
 
 export const Layout = styled('div', {
-  width: '100%',
+  width: `100%`,
   display: 'grid',
   // gridTemplateColumns: '1fr',
   gridTemplateColumns: '16px 16px 1fr',

@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
 import cuid from 'cuid';
 import {
   FieldNode,
   GraphQLArgument,
+  GraphQLInputObjectType,
   isEnumType,
   isInputObjectType,
   isLeafType,
@@ -16,12 +18,14 @@ import { InputObject, ScalarArg } from '../index';
 
 // hooks
 import type { AncestorArgument, AncestorInputObject, AncestorMap } from '../../hooks';
+import { useEditor } from '@graphiql-prototype/use-editor';
 
 // utils
 import {
   capitalize,
   generateVariableNameFromAncestorMap,
-  unwrapInputType,
+  unwrapNonNullArgumentType,
+  unwrapType,
 } from '../../utils';
 
 export const Argument = ({
@@ -35,8 +39,13 @@ export const Argument = ({
   operationType: OperationTypeNode;
   selection: FieldNode | null;
 }) => {
+  const unwrappedNonNullType = unwrapNonNullArgumentType({ argumentType: argument.type });
+  // const unwrappedType = unwrapType(argument.type);
+
   // console.log('Argument', {
-  //   argument,
+  //   unwrappedType,
+  //   unwrappedNonNullType,
+  //   name: argument.name,
   // });
 
   const hash = cuid.slug();
@@ -46,7 +55,7 @@ export const Argument = ({
       // hash = safety first!
       `${argument.name}-${hash}`,
       {
-        inputObject: argument.type,
+        inputObject: argument.type as GraphQLInputObjectType,
         isNested: false,
         name: argument.name,
         selection: selection?.arguments?.find((a) => a.name.value === argument.name),
@@ -54,7 +63,7 @@ export const Argument = ({
           ancestors,
           variableType: 'ARGUMENT',
         })}${capitalize(argument.name)}`,
-      } as AncestorInputObject,
+      },
     ],
     ...ancestors,
   ]);
@@ -70,55 +79,23 @@ export const Argument = ({
           ancestors,
           variableType: 'ARGUMENT',
         })}${capitalize(argument.name)}`,
-      } as AncestorArgument,
+      },
     ],
     ...ancestors,
   ]);
 
-  //TODO fix this 👇
   let toRender: React.ReactNode | null = null;
 
-  if (isInputObjectType(argument.type)) {
-    // rendering top-level InputObject that is NOT required
+  if (isInputObjectType(unwrappedNonNullType)) {
     toRender = (
       <InputObject
         ancestors={newInputObjectMap}
         argument={argument}
-        inputObjectType={argument.type}
+        inputObjectType={unwrappedNonNullType}
         operationType={operationType}
       />
     );
-  } else if (isNonNullType(argument.type) || isListType(argument.type)) {
-    const unwrappedInputObject = unwrapInputType({ inputType: argument.type });
-    if (isScalarType(unwrappedInputObject)) {
-      toRender = (
-        <ScalarArg
-          ancestors={newScalarArgMap}
-          argument={argument}
-          operationType={operationType}
-        />
-      );
-    } else if (isInputObjectType(unwrappedInputObject)) {
-      toRender = (
-        // rendering top-level InputObject that IS required
-        <InputObject
-          ancestors={newInputObjectMap}
-          argument={argument}
-          inputObjectType={unwrappedInputObject}
-          operationType={operationType}
-        />
-      );
-    } else if (isEnumType(unwrappedInputObject)) {
-      //TODO handle EnumType
-      toRender = (
-        <ScalarArg
-          ancestors={newScalarArgMap}
-          argument={argument}
-          operationType={operationType}
-        />
-      );
-    }
-  } else if (isLeafType(argument.type)) {
+  } else {
     toRender = (
       <ScalarArg
         ancestors={newScalarArgMap}
@@ -126,12 +103,7 @@ export const Argument = ({
         operationType={operationType}
       />
     );
-  } else {
-    toRender = (
-      <p style={{ color: 'red' }}>
-        {`yikes...something went wrong with this type ${argument.type}`}
-      </p>
-    );
   }
+
   return <>{toRender}</>;
 };

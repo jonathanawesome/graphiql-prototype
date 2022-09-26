@@ -3,9 +3,11 @@ import { styled, theme } from '@graphiql-prototype/ui-library';
 export const StyledInputObject = styled('div', {
   // backgroundColor: theme.colors.green_lightest,
   // minHeight: 30,
-  // display: `flex`,
-  // alignItems: `center`,
-  // width: `100%`,
+  marginTop: 8,
+  marginBottom: 8,
+  display: `flex`,
+  alignItems: `center`,
+  width: `100%`,
 
   ul: {
     all: 'unset',

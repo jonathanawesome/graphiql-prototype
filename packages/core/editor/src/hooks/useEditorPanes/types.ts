@@ -1,4 +1,4 @@
-type EditorPanes = 'WORKSPACE' | 'SCHEMA_REFERENCE';
+type EditorPanes = 'EDITOR' | 'SCHEMA';
 
 export type EditorPanesStore = {
   activePane: EditorPanes;

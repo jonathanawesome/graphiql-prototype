@@ -11,6 +11,7 @@ export default defineConfig(() => {
     test: {
       globals: true,
       environment: 'jsdom',
+      // threads: false,
       deps: {
         // inline: true,
         inline: [

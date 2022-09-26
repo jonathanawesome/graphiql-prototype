@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 // components
-import { Control, HandleChange, Spinner } from '@graphiql-prototype/ui-library';
+import { Control, HandleChange, Message, Spinner } from '@graphiql-prototype/ui-library';
 
 // hooks
 import { useSchema } from '@graphiql-prototype/use-schema';
@@ -10,12 +10,12 @@ import { useSchema } from '@graphiql-prototype/use-schema';
 import {
   CustomSchemaFormWrap,
   Error,
-  Note,
   RadioWrap,
   RadioGroup,
   RadioGroupIndicator,
   RadioGroupRadio,
   SpinnerWrap,
+  StyledSchemaSelector,
   StyledSubmitButton,
 } from './styles';
 
@@ -30,6 +30,10 @@ const availableAPIs: AvailableAPIs = {
     aboutUrl:
       'https://github.com/graphql/graphiql/blob/main/packages/graphiql/test/schema.js',
     apiUrl: testSchemaName,
+  },
+  [`SWAPI`]: {
+    aboutUrl: 'https://graphql.org/swapi-graphql',
+    apiUrl: 'https://swapi-graphql.netlify.app/.netlify/functions/index',
   },
   [`Rick and Morty`]: {
     aboutUrl: 'https://rickandmortyapi.com/about',
@@ -158,71 +162,78 @@ export const SchemaSelector = () => {
   };
 
   return (
-    <RadioGroup
-      value={activeRadioValue || undefined}
-      aria-label="Choose schema"
-      onValueChange={(value) => {
-        setActiveRadioValue(value);
-        if (
-          Object.keys(availableAPIs)
-            .map((k) => availableAPIs[k].apiUrl)
-            .includes(value)
-        ) {
-          return setTargetSchemaUrl(value);
-        }
-        return undefined;
-      }}
-    >
-      <fieldset disabled={schemaLoading}>
-        {Object.keys(availableAPIs).map((key, i) => {
-          const id = (i + 2).toString();
-          return (
-            <Radio
-              key={id}
-              aboutUrl={availableAPIs[key].aboutUrl}
-              activeRadioValue={activeRadioValue}
-              copy={key}
-              id={id}
-              value={availableAPIs[key].apiUrl}
-            />
-          );
-        })}
-        <div>
-          <Radio
-            activeRadioValue={activeRadioValue}
-            copy="Custom Schema Url"
-            id="10"
-            value={customSchemaUrlInput}
-          />
-          {schemaError && <Error>{schemaError}</Error>}
-          {activeRadioValue === customSchemaUrlInput && (
-            <CustomSchemaFormWrap>
-              <Note>Global headers can be set via the settings dialog.</Note>
-              <Control
-                control={{
-                  controlType: 'INPUT',
-                  handleChange: handleCustomSchemaUrlChange,
-                  name: customSchemaUrlInput,
-                  placeholder: 'http://api.mydomain.com/graphql',
-                  value: customSchemaUrl,
-                }}
-                labelCopy={`Your schema URL`}
-                list={false}
+    <StyledSchemaSelector>
+      <Message message={<>This tab is a development-only feature</>} variant="INFO" />
+      <RadioGroup
+        value={activeRadioValue || undefined}
+        aria-label="Choose schema"
+        onValueChange={(value) => {
+          setActiveRadioValue(value);
+          if (
+            Object.keys(availableAPIs)
+              .map((k) => availableAPIs[k].apiUrl)
+              .includes(value)
+          ) {
+            return setTargetSchemaUrl(value);
+          }
+          return undefined;
+        }}
+      >
+        <fieldset disabled={schemaLoading}>
+          {Object.keys(availableAPIs).map((key, i) => {
+            const id = (i + 2).toString();
+            return (
+              <Radio
+                key={id}
+                aboutUrl={availableAPIs[key].aboutUrl}
+                activeRadioValue={activeRadioValue}
+                copy={key}
+                id={id}
+                value={availableAPIs[key].apiUrl}
               />
-              <StyledSubmitButton
-                onClick={(e) => {
-                  customSchemaUrlInputSubmitHandler(e);
-                }}
-              >
-                Use this schema
-              </StyledSubmitButton>
-            </CustomSchemaFormWrap>
-          )}
-        </div>
-      </fieldset>
-      <SpinnerWrap loading={schemaLoading}>
-        <Spinner />
-      </SpinnerWrap>
-    </RadioGroup>
+            );
+          })}
+          <div>
+            <Radio
+              activeRadioValue={activeRadioValue}
+              copy="Custom Schema Url"
+              id="10"
+              value={customSchemaUrlInput}
+            />
+            {schemaError && <Error>{schemaError}</Error>}
+            {activeRadioValue === customSchemaUrlInput && (
+              <CustomSchemaFormWrap>
+                <Message
+                  message={<>Global headers can be set via the settings dialog</>}
+                  variant="INFO"
+                />
+
+                <Control
+                  control={{
+                    controlType: 'INPUT',
+                    handleChange: handleCustomSchemaUrlChange,
+                    name: customSchemaUrlInput,
+                    placeholder: 'http://api.mydomain.com/graphql',
+                    value: customSchemaUrl,
+                  }}
+                  labelCopy={`Your schema URL`}
+                  list={false}
+                />
+                <StyledSubmitButton
+                  onClick={(e) => {
+                    customSchemaUrlInputSubmitHandler(e);
+                  }}
+                >
+                  Use this schema
+                </StyledSubmitButton>
+              </CustomSchemaFormWrap>
+            )}
+          </div>
+        </fieldset>
+        <SpinnerWrap loading={schemaLoading}>
+          <Spinner />
+        </SpinnerWrap>
+      </RadioGroup>
+    </StyledSchemaSelector>
   );
 };

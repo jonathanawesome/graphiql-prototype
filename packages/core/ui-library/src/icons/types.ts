@@ -14,6 +14,7 @@ import { Play } from './Play';
 import { Plus } from './Plus';
 import { Prettier } from './Prettier';
 import { Refresh } from './Refresh';
+import { Search } from './Search';
 import { SeparatorRound } from './SeparatorRound';
 
 export const IconMap = {
@@ -33,6 +34,7 @@ export const IconMap = {
   Plus,
   Prettier,
   Refresh,
+  Search,
   SeparatorRound,
 };
 

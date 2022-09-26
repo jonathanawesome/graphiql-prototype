@@ -74,7 +74,7 @@ export const StyledArgumentsList = styled('ul', {
   overflow: `hidden`,
   display: 'flex',
   flexDirection: 'column',
-  gap: 12,
+  // gap: 12,
   position: `relative`,
 
   variants: {

@@ -17,6 +17,7 @@ export const PlayButton = styled('button', {
   height: theme.space[10],
   width: theme.space[10],
   display: 'flex',
+  opacity: 0.8,
 
   '& svg': {
     height: theme.space[10],
@@ -26,13 +27,13 @@ export const PlayButton = styled('button', {
         fill: theme.colors.pink_default,
       },
       '&:nth-of-type(2)': {
-        fill: theme.colors.text1,
+        fill: `white`,
       },
     },
   },
 
   '&:hover': {
-    opacity: 0.8,
+    opacity: 1,
   },
 });
 

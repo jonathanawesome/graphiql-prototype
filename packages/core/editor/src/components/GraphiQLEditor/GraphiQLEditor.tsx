@@ -1,29 +1,23 @@
-import { useState } from 'react';
-
 // components
-import { Analyze } from '../Analyze/Analyze';
-import { ConnectionSettings } from '../ConnectionSettings';
-import { EditorTabs } from '../EditorTabs';
-import { Operate } from '../Operate';
-import { Resizer } from '@graphiql-prototype/ui-library';
-import { SchemaReference } from '../SchemaReference';
+import { Editor } from '../Editor';
+import { Schema } from '@graphiql-prototype/graphiql-plugin-schema-documentation';
+import { TopBar } from '../TopBar';
 
 // hooks
 import { useEditorPanes } from '../../hooks';
 
 // styles
 import { EditorWrap, EditorInner } from './styles';
-import { Workspace } from '../Workspace';
 
 export const GraphiQLEditor = () => {
   const { activePane } = useEditorPanes();
 
   return (
     <EditorWrap>
-      <EditorInner>
-        <ConnectionSettings />
-        {activePane === 'WORKSPACE' && <Workspace />}
-        {activePane === 'SCHEMA_REFERENCE' && <SchemaReference />}
+      <EditorInner activePane={activePane}>
+        <TopBar />
+        {activePane === 'EDITOR' && <Editor />}
+        {activePane === 'SCHEMA' && <Schema />}
       </EditorInner>
     </EditorWrap>
   );

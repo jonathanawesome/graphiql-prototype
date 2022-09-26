@@ -4,7 +4,8 @@ import create from 'zustand';
 import { EditorPanesStore } from './types';
 
 export const useEditorPanes = create<EditorPanesStore>((set, get) => ({
-  activePane: 'WORKSPACE',
+  // activePane: 'EDITOR',
+  activePane: 'SCHEMA',
   setActivePane: ({ destinationPane }) => {
     set({ activePane: destinationPane });
   },

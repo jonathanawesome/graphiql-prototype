@@ -1,4 +1,5 @@
-import React, { SetStateAction, useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { Dispatch, MouseEvent, SetStateAction } from 'react';
 
 // components
 import { ChevronLarge } from '../../icons';
@@ -24,10 +25,10 @@ const NotCollapsible = ({
   tabbedContent,
 }: TabsProps & {
   activeTab: string;
-  setActiveTab: React.Dispatch<SetStateAction<string>>;
+  setActiveTab: Dispatch<SetStateAction<string>>;
 }) => {
   return (
-    <StyledTabsRoot defaultValue={tabbedContent[0].id}>
+    <StyledTabsRoot value={activeTab} onValueChange={(value) => setActiveTab(value)}>
       <TabsList
         ariaLabel={ariaLabel}
         doRemoveTab={doRemoveTab}
@@ -47,11 +48,11 @@ const Collapsible = ({
   tabbedContent,
 }: TabsProps & {
   activeTab: string;
-  setActiveTab: React.Dispatch<SetStateAction<string>>;
+  setActiveTab: Dispatch<SetStateAction<string>>;
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const handleCollapseOnClick = ({ event }: { event: React.MouseEvent }) => {
+  const handleCollapseOnClick = ({ event }: { event: MouseEvent }) => {
     const targetValue = event.currentTarget.getAttribute('data-value');
     // console.log('handleCollapseOnClick', {
     //   activeTab,
@@ -73,7 +74,7 @@ const Collapsible = ({
       open={isOpen}
       onOpenChange={() => (isOpen ? setIsOpen(false) : setIsOpen(true))}
     >
-      <StyledTabsRoot value={activeTab}>
+      <StyledTabsRoot value={activeTab} onValueChange={(value) => setActiveTab(value)}>
         <TabsList
           ariaLabel={ariaLabel}
           doRemoveTab={doRemoveTab}
@@ -94,12 +95,21 @@ const Collapsible = ({
 };
 
 export const Tabs = ({
+  initialActiveTab,
   ariaLabel,
   doRemoveTab,
   isCollapsible = false,
   tabbedContent,
 }: TabsProps) => {
-  const [activeTab, setActiveTab] = useState<string>(tabbedContent[0].id);
+  const [activeTab, setActiveTab] = useState<string>(
+    initialActiveTab || tabbedContent[0].id
+  );
+  // console.log('Tabs', { activeTab, initialActiveTab });
+
+  useEffect(() => {
+    setActiveTab(initialActiveTab || tabbedContent[0].id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialActiveTab]);
 
   if (isCollapsible) {
     return (

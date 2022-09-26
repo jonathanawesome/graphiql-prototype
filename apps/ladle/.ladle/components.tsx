@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { globalStyles, darkTheme, styled } from '@graphiql-prototype/ui-library';
+import React, { useEffect } from 'react';
+import { globalStyles, styled } from '@graphiql-prototype/ui-library';
 
 // hooks
 import { useSchema } from '@graphiql-prototype/use-schema';
-
-const themeMap = {
-  light: null,
-  dark: darkTheme,
-};
+import { useTheme } from '@graphiql-prototype/ui-library';
 
 const Container = styled('div', {
   height: `100%`,
@@ -23,7 +19,7 @@ const Switch = styled('button', {
 });
 
 export const Provider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState<string>('dark');
+  const { themeMode, themeClass, toggleThemeMode } = useTheme();
 
   globalStyles();
 
@@ -35,15 +31,15 @@ export const Provider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <Container className={themeMap[theme]}>
+    <Container className={themeClass()}>
       {children}
       <Switch
         onClick={() => {
-          if (theme === 'light') {
-            setTheme('dark');
+          if (themeMode === 'LIGHT') {
+            toggleThemeMode({ mode: 'DARK' });
           }
-          if (theme === 'dark') {
-            setTheme('light');
+          if (themeMode === 'DARK') {
+            toggleThemeMode({ mode: 'LIGHT' });
           }
         }}
       >

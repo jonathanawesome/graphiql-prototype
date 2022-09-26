@@ -3,7 +3,8 @@ import { styled, theme } from '../../theme';
 export const StyledMessage = styled('div', {
   borderRadius: theme.space[1],
   padding: theme.space[3],
-  fontSize: 12,
+  fontSize: 13,
+  lineHeight: 1.5,
 
   variants: {
     variant: {
@@ -18,7 +19,7 @@ export const StyledMessage = styled('div', {
         backgroundColor: theme.colors.orange_lightest,
       },
       INFO: {
-        color: theme.colors.text2,
+        color: theme.colors.blue_default,
         border: `1px solid ${theme.colors.blue_light}`,
         backgroundColor: theme.colors.blue_lightest,
       },

@@ -209,18 +209,27 @@ export const toggle = ({
   const nextSelectionSet = get().nextSelectionSet;
   const nextOperationType = get().nextOperationType;
 
-  // console.log('nextOperationType', {
-  //   nextOperationType,
-  //   currentOperationType,
-  //   activeOperationDefinition,
-  // });
+  console.log('nextOperationType', {
+    nextOperationType,
+    currentOperationType,
+    activeOperationDefinition,
+  });
 
   let nextDefinition: OperationDefinitionNode;
 
   const kind = Kind.OPERATION_DEFINITION;
 
-  const operation =
-    nextOperationType === 'query' ? OperationTypeNode.QUERY : OperationTypeNode.MUTATION;
+  const operation = () => {
+    if (nextOperationType === 'mutation') {
+      return OperationTypeNode.MUTATION;
+    }
+    if (nextOperationType === 'subscription') {
+      return OperationTypeNode.SUBSCRIPTION;
+    }
+    return OperationTypeNode.QUERY;
+
+    // nextOperationType === 'query' ? OperationTypeNode.QUERY : OperationTypeNode.MUTATION;
+  };
 
   const name = (count: number): NameNode => ({
     kind: Kind.NAME,
@@ -228,6 +237,10 @@ export const toggle = ({
   });
 
   const variableDefinitions = get().nextVariableDefinitions;
+
+  // console.log('variableDefinitions', {
+  //   variableDefinitions,
+  // });
 
   const selectionSet = nextSelectionSet ?? {
     kind: Kind.SELECTION_SET,
@@ -240,7 +253,7 @@ export const toggle = ({
     initEditorTab();
     nextDefinition = {
       kind,
-      operation,
+      operation: operation(),
       name: name(useEditor.getState().editorTabs.length),
       variableDefinitions,
       selectionSet,
@@ -252,7 +265,7 @@ export const toggle = ({
         : // 👇 we don't have an active operation definition, so this is the initial tab
           {
             kind,
-            operation,
+            operation: operation(),
             name: name(useEditor.getState().editorTabs.length),
           }),
       variableDefinitions,

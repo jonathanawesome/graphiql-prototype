@@ -34,31 +34,12 @@ export const handleAddInputObject = ({
 
   setCorrectNextVariableDefinitions({ newVariableDefinition: newVarDef });
 
-  //   {
-  //     "kind": "VariableDefinition",
-  //     "variable": {
-  //         "kind": "Variable",
-  //         "name": {
-  //             "kind": "Name",
-  //             "value": "filter"
-  //         }
-  //     },
-  //     "type": {
-  //         "kind": "NonNullType",
-  //         "type": {
-  //             "kind": "NamedType",
-  //             "name": {
-  //                 "kind": "Name",
-  //                 "value": "FilterCharacter"
-  //             }
-  //         }
-  //     },
-  //     "directives": []
-  // }
-
   if (nextAction) {
     if (ancestor.isNested === false) {
-      console.log('handleAddInputObject, is NOT nested', ancestor.isNested);
+      console.log('handleAddInputObject, is NOT nested', {
+        'ancestor.isNested': ancestor.isNested,
+        nextAction,
+      });
 
       const newArgument: ArgumentNode = {
         kind: Kind.ARGUMENT,
@@ -73,10 +54,6 @@ export const handleAddInputObject = ({
             value: ancestor.variableName,
           },
         },
-        // value: {
-        //   kind: Kind.OBJECT,
-        //   fields: [(nextAction.payload as ObjectFieldAction).node],
-        // },
         // value: {
         //   kind: Kind.OBJECT,
         //   fields: [(nextAction.payload as ObjectFieldAction).node],

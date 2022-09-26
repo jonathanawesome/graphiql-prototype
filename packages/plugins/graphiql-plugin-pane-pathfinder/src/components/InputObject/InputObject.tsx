@@ -4,6 +4,7 @@ import {
   GraphQLArgument,
   GraphQLInputObjectType,
   isInputObjectType,
+  isListType,
   ObjectValueNode,
   OperationTypeNode,
 } from 'graphql';
@@ -46,16 +47,16 @@ export const InputObject = ({
 
   const isSelected = !!previousAncestor.selection;
 
-  // console.log('rendering InputObject', {
-  //   inputObjectType,
-  //   toConfig: inputObjectType.toConfig(),
-  //   variableName: `${generateVariableNameFromAncestorMap({
-  //     ancestors,
-  //     variableType: 'INPUT_FIELD',
-  //   })}`,
-  //   // ancestors,
-  //   // previousAncestor,
-  // });
+  console.log('rendering InputObject', {
+    // inputObjectType,
+    // toConfig: inputObjectType.toConfig(),
+    variableName: `${generateVariableNameFromAncestorMap({
+      ancestors,
+      variableType: 'ARGUMENT',
+    })}`,
+    ancestors,
+    previousAncestor,
+  });
 
   return (
     <StyledInputObject>
@@ -73,15 +74,21 @@ export const InputObject = ({
                         // hash = safety first!
                         `${fields[f].name}-${hash}`,
                         {
-                          inputObject: fields[f].type,
+                          inputObject: fields[f].type as GraphQLInputObjectType,
                           isNested: true,
                           name: fields[f].name,
-                          // selection: previousAncestor.selection
-                          //   ? (
-                          //       previousAncestor.selection.value as ObjectValueNode
-                          //     ).fields.find((x) => x.name.value === fields[f].name)
-                          //   : null,
-                        } as AncestorInputObject,
+                          variableName: `${generateVariableNameFromAncestorMap({
+                            ancestors,
+                            variableType: 'ARGUMENT',
+                          })}${capitalize(argument.name)}`,
+                          selection:
+                            previousAncestor.selection &&
+                            'fields' in previousAncestor.selection.value
+                              ? (
+                                  previousAncestor.selection.value as ObjectValueNode
+                                ).fields.find((x) => x.name.value === fields[f].name)
+                              : undefined,
+                        },
                       ],
                       ...ancestors,
                     ])
@@ -107,11 +114,10 @@ export const InputObject = ({
                                 previousAncestor.selection?.value as ObjectValueNode
                               ).fields?.find((x) => x.name.value === f)
                             : null,
-                          variableName: 'dogfood',
-                          // variableName: `${generateVariableNameFromAncestorMap({
-                          //   ancestors,
-                          //   variableType: 'INPUT_FIELD',
-                          // })}${capitalize(fields[f].name)}`,
+                          variableName: `${generateVariableNameFromAncestorMap({
+                            ancestors,
+                            variableType: 'INPUT_FIELD',
+                          })}${capitalize(fields[f].name)}`,
                         } as AncestorInputField,
                       ],
                       ...ancestors,

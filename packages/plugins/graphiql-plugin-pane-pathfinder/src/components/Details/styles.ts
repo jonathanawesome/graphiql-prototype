@@ -5,7 +5,7 @@ export const NameAndType = styled('div', {
   alignItems: 'center',
   gap: theme.space[2],
   borderBottom: '1px solid transparent',
-  fontSize: 13,
+  fontSize: 14,
   span: {
     whiteSpace: 'nowrap',
   },

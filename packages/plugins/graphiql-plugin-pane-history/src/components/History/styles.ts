@@ -8,10 +8,10 @@ export const HistoryWrap = styled('div', {
 });
 
 export const HistoryContent = styled('div', {
-  position: 'absolute',
-  top: 0,
-  left: 0,
+  // position: 'absolute',
+  // top: 0,
+  // left: 0,
   height: '100%',
   width: '100%',
-  overflowX: 'hidden',
+  // overflowX: 'hidden',
 });

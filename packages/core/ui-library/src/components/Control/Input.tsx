@@ -14,6 +14,8 @@ export const Input = ({
   return (
     <StyledInput
       autoComplete="off"
+      data-testid={`input-${name}`}
+      id={name}
       name={name}
       onChange={(e) => {
         handleChange({

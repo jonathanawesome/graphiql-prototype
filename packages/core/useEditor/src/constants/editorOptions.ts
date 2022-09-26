@@ -1,6 +1,8 @@
 import { editor as MONACO_EDITOR } from 'monaco-editor';
 
 export const editorOptions: MONACO_EDITOR.IStandaloneEditorConstructionOptions = {
+  // the default theme
+  theme: 'graphiql-DARK',
   automaticLayout: true,
   // folding: false, // disable folding
   fontFamily: "'Fira Code', monospace", // TODO: set the font (this is problematic because the font has to be installed locally)
@@ -19,7 +21,6 @@ export const editorOptions: MONACO_EDITOR.IStandaloneEditorConstructionOptions =
   // scrollPredominantAxis: false,
   scrollBeyondLastLine: false, // cleans up unnecessary "padding" on the bottom of each editor
   tabSize: 2,
-  theme: 'graphiql-default',
   wordWrap: 'on',
   // wrappingIndent: 'none',
   wrappingStrategy: 'advanced',

@@ -2,11 +2,11 @@ import { keyframes, styled, theme } from '@graphiql-prototype/ui-library';
 
 export const StyledConnectionSettings = styled('div', {
   position: `relative`,
+  zIndex: 5,
   width: '100%',
   height: '100%',
   display: 'flex',
   justifyContent: 'space-between',
-  borderBottom: `1px solid ${theme.colors.surface3}`,
 });
 
 export const spin = keyframes({
@@ -36,6 +36,7 @@ export const StyledSettingsWrap = styled('div', {
   position: `relative`,
   display: `flex`,
   width: `100%`,
+  zIndex: 10,
 });
 
 export const StyledActiveURL = styled('button', {
@@ -79,49 +80,4 @@ export const StyledSettingsPanel = styled('div', {
   top: 48,
   left: 0,
   boxShadow: '8px 8px 24px 4px hsla(0, 0%, 0%, .1)',
-});
-
-export const StyledWorkspaceNavigation = styled('div', {
-  display: `flex`,
-});
-
-export const StyledWorkspaceNavigationButton = styled('button', {
-  position: `relative`,
-  height: '100%',
-  display: `flex`,
-  alignItems: `center`,
-  textAlign: `center`,
-  padding: `0 ${theme.space[3]}`,
-  borderRight: `1px solid ${theme.colors.surface3}`,
-  color: theme.colors.text3,
-  fontSize: 12,
-  fontWeight: theme.fontWeights.medium,
-
-  '&::last-of-type': {
-    borderRight: `none`,
-  },
-
-  '&:hover': {
-    backgroundColor: theme.colors.surface2,
-  },
-
-  '&:after': {
-    content: `none`,
-  },
-
-  variants: {
-    isActive: {
-      true: {
-        '&:after': {
-          content: ``,
-          position: `absolute`,
-          bottom: -1,
-          left: 0,
-          width: `100%`,
-          height: 2,
-          backgroundColor: theme.colors.green_default,
-        },
-      },
-    },
-  },
 });

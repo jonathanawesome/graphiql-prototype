@@ -36,6 +36,7 @@ export type TabPanelsProps = {
 };
 
 export type TabsProps = {
+  initialActiveTab?: string;
   ariaLabel: string;
   doRemoveTab?: TabsDoRemoveTabSignature;
   isCollapsible?: boolean;

@@ -1,8 +1,10 @@
+import { useEffect, useRef, useState } from 'react';
+
 // components
 import { Button, Tabs } from '@graphiql-prototype/ui-library';
+import { SchemaSelector } from './SchemaSelector';
 
 // hooks
-import { useEditorPanes } from '../../hooks';
 import { useSchema } from '@graphiql-prototype/use-schema';
 
 // styles
@@ -12,18 +14,13 @@ import {
   StyledRefreshButtonWrap,
   StyledSettingsPanel,
   StyledSettingsWrap,
-  StyledWorkspaceNavigation,
-  StyledWorkspaceNavigationButton,
 } from './styles';
-import { useEffect, useRef, useState } from 'react';
-import { SchemaSelector } from './SchemaSelector';
 
 export const ConnectionSettings = () => {
   const wrapRef = useRef<HTMLDivElement>(null);
 
   const [settingsOpen, setSettingsOpen] = useState<boolean>(false);
 
-  const { activePane, setActivePane } = useEditorPanes();
   const { loadSchema, schemaUrl, schemaLoading } = useSchema();
 
   const handleClickOutside = (e: MouseEvent) => {
@@ -87,21 +84,6 @@ export const ConnectionSettings = () => {
           </StyledSettingsPanel>
         )}
       </StyledSettingsWrap>
-
-      <StyledWorkspaceNavigation>
-        <StyledWorkspaceNavigationButton
-          isActive={activePane === 'WORKSPACE'}
-          onClick={() => setActivePane({ destinationPane: 'WORKSPACE' })}
-        >
-          Editor
-        </StyledWorkspaceNavigationButton>
-        <StyledWorkspaceNavigationButton
-          isActive={activePane === 'SCHEMA_REFERENCE'}
-          onClick={() => setActivePane({ destinationPane: 'SCHEMA_REFERENCE' })}
-        >
-          Schema Reference
-        </StyledWorkspaceNavigationButton>
-      </StyledWorkspaceNavigation>
     </StyledConnectionSettings>
   );
 };

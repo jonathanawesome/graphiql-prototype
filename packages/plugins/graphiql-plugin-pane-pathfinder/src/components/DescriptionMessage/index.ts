@@ -1,1 +1,0 @@
-export { DescriptionMessage } from './DescriptionMessage';

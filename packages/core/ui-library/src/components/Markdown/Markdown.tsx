@@ -3,10 +3,20 @@ import ReactMarkdown from 'react-markdown';
 // styles
 import { StyledMarkdown } from './styles';
 
-export const Markdown = ({ content }: { content: string }) => {
+export const Markdown = ({
+  content,
+  showSummary = false,
+}: {
+  content: string;
+  showSummary?: boolean;
+}) => {
   return (
-    <StyledMarkdown>
-      <ReactMarkdown children={content} />
+    <StyledMarkdown showSummary={showSummary}>
+      <ReactMarkdown
+        children={content}
+        // transform all links within markdown to open externally
+        linkTarget="_blank"
+      />
     </StyledMarkdown>
   );
 };

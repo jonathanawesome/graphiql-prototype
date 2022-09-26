@@ -37,10 +37,10 @@ export const StyledInput = styled('input', {
   variants: {
     variant: {
       INPUT_FIELD: {
-        color: theme.colors.orange_default,
+        color: theme.colors.yellow_default,
       },
       ARGUMENT: {
-        color: theme.colors.pink_default,
+        color: theme.colors.yellow_default,
       },
     },
   },
@@ -65,16 +65,16 @@ export const StyledSelectWrap = styled('div', {
   variants: {
     variant: {
       INPUT_FIELD: {
-        color: theme.colors.orange_default,
+        color: theme.colors.yellow_default,
       },
       ARGUMENT: {
-        color: theme.colors.pink_default,
+        color: theme.colors.yellow_default,
       },
     },
     isSelected: {
       true: {
         select: {
-          color: theme.colors.orange_default,
+          color: theme.colors.yellow_default,
         },
       },
     },

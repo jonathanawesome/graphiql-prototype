@@ -7,7 +7,7 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@graphiql-prototype/graphiql-plugin-pane-docs": "workspace:*",
+    "@graphiql-prototype/graphiql-plugin-schema-documentation": "workspace:*",
     "@graphiql-prototype/ui-library": "workspace:*",
     "@graphiql-prototype/use-editor": "workspace:*",
     "@graphiql-prototype/use-schema": "workspace:*",

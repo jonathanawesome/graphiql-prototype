@@ -51,6 +51,7 @@ export const EditorTabs = () => {
             >
               <Tag
                 copy={tab.operationDefinition?.operation.charAt(0).toUpperCase() || '?'}
+                title={tab.operationDefinition?.operation || 'Operation not set'}
                 type="OPERATION"
               />
               {tab?.operationDefinition?.name?.value || tab?.editorTabName}

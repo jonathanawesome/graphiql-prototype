@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // components
 import { Details } from '../Details';
 import { DeprecatedMessage } from '../DeprecatedMessage';
+import { SeparatorRound } from '@graphiql-prototype/ui-library';
 
 // icons
 import { Caret } from '../../icons';
@@ -24,9 +25,7 @@ import { Toggler } from '../Toggler';
 
 // types
 import { ListItemProps } from './types';
-import { SeparatorRound } from '@graphiql-prototype/ui-library';
-import { DescriptionMessage } from '../DescriptionMessage';
-import { Description } from '../Description';
+// import { Description } from '../Description';
 
 export const ListItem = ({
   collapsibleContent,
@@ -39,8 +38,20 @@ export const ListItem = ({
 
   // console.log('ListItem', {
   //   type: type.name,
-  //   variant,
+  //   isSelected,
+  //   isOpen,
+  //   activeEditorTabId,
   // });
+
+  useEffect(() => {
+    // this effect ensures the field is initially expanded when selected
+    // this is one of the many micro-interactions in pathfinder that need tweaking/testing
+    if (isSelected) {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  }, [isSelected]);
 
   if (collapsibleContent) {
     return (
@@ -70,10 +81,9 @@ export const ListItem = ({
             {'deprecationReason' in type && type.deprecationReason && (
               <DeprecatedMessage deprecationReason={type.deprecationReason} />
             )}
-            {'description' in type && type.description && (
+            {/* {'description' in type && type.description && (
               <Description description={type.description} />
-              // <DescriptionMessage description={type.description} />
-            )}
+            )} */}
             {collapsibleContent.arguments && collapsibleContent.arguments}
             {collapsibleContent.childFields && (
               <ChildFields

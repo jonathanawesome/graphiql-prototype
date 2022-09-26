@@ -4,8 +4,10 @@ export const Handle = styled('div', {
   position: 'relative',
   borderRight: `1px solid ${theme.colors.surface3}`,
   width: theme.space[2],
-  zIndex: 0,
+  zIndex: 2,
   flexShrink: 0,
+  borderLeft: `1px solid ${theme.colors.surface3}`,
+  backgroundColor: theme.colors.surface1,
 
   '&::after': {
     content: '',

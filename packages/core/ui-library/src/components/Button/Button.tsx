@@ -7,7 +7,6 @@ import { Icon } from '../../icons';
 
 type ButtonBase = {
   action: () => void;
-  active?: boolean;
   label: string;
   size: ButtonVariants['size'];
 };
@@ -26,9 +25,9 @@ type ButtonTypes =
   // ButtonGhost |
   ButtonIcon;
 
-export const Button = ({ action, active, icon, label, size, variant }: ButtonTypes) => {
+export const Button = ({ action, icon, label, size, variant }: ButtonTypes) => {
   return (
-    <StyledButton onClick={action} variant={variant} size={size} aria-label={label}>
+    <StyledButton aria-label={label} onClick={action} size={size} variant={variant}>
       {icon ? <Icon name={icon} /> : label}
     </StyledButton>
   );
