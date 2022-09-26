@@ -4,6 +4,9 @@ import { useState } from 'react';
 import { SchemaDefinition } from './SchemaDefinition';
 import { SchemaReference } from './SchemaReference';
 
+// hooks
+import { SchemaReferenceProvider } from '../hooks';
+
 // styles
 import {
   StyledSchema,
@@ -32,7 +35,11 @@ export const Schema = () => {
           Schema Definition
         </StyledSchemaNavigationButton>
       </StyledSchemaNavigation>
-      {activeSchemaView === 'REFERENCE' && <SchemaReference />}
+      {activeSchemaView === 'REFERENCE' && (
+        <SchemaReferenceProvider>
+          <SchemaReference />
+        </SchemaReferenceProvider>
+      )}
       {activeSchemaView === 'DEFINITION' && <SchemaDefinition />}
     </StyledSchema>
   );

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { OperationTypeNode } from 'graphql';
 
 // components
@@ -9,7 +9,7 @@ import { Message, Tabs } from '@graphiql-prototype/ui-library';
 // import { useDocs } from '@graphiql-prototype/graphiql-plugin-pane-docs';
 import { useEditor } from '@graphiql-prototype/use-editor';
 import { useSchema } from '@graphiql-prototype/use-schema';
-import { useSchemaReference } from '@graphiql-prototype/graphiql-plugin-schema-documentation';
+import { SchemaReferenceProvider } from '@graphiql-prototype/graphiql-plugin-schema-documentation';
 
 // styles
 import {
@@ -24,7 +24,7 @@ export const Pathfinder = () => {
 
   const { schema } = useSchema();
 
-  const { activeTertiaryPane } = useSchemaReference();
+  // const { activeTertiaryPane } = useSchemaReference();
 
   // const { getDocsInstance, initDocsInstance } = useDocs();
 
@@ -49,66 +49,68 @@ export const Pathfinder = () => {
 
   console.log('rendering Pathfinder', { typeMap: schema.getTypeMap() });
   return (
-    <StyledPathfinder>
-      <StyledPathfinderContainer dialogActive={!!activeTertiaryPane}>
-        <StyledPathfinderContent>
-          <Tabs
-            initialActiveTab={activeEditorTab?.operationDefinition?.operation}
-            ariaLabel="root operations types"
-            tabbedContent={[
-              {
-                id: 'query',
-                name: 'Query',
-                panel: (
-                  <RootOperation
-                    rootType={schema.getQueryType() || null}
-                    operationType={OperationTypeNode.QUERY}
-                  />
-                ),
-              },
-              {
-                id: 'mutation',
-                name: 'Mutation',
-                panel: (
-                  <RootOperation
-                    rootType={schema.getMutationType() || null}
-                    operationType={OperationTypeNode.MUTATION}
-                  />
-                ),
-              },
-              {
-                id: 'subscription',
-                name: 'Subscription',
-                panel: (
-                  <RootOperation
-                    rootType={schema.getSubscriptionType() || null}
-                    operationType={OperationTypeNode.SUBSCRIPTION}
-                  />
-                ),
-              },
-              {
-                id: 'Fragments',
-                name: 'Fragments',
-                panel: (
-                  <StyledContainer>
-                    <Message
-                      message={
-                        <>
-                          This is a placeholder/idea for saving fragments for reuse across
-                          tabs/operations. Maybe it doesn't belong here nad should be a
-                          plugin.
-                        </>
-                      }
-                      variant="WARNING"
+    <SchemaReferenceProvider>
+      <StyledPathfinder>
+        <StyledPathfinderContainer>
+          <StyledPathfinderContent>
+            <Tabs
+              initialActiveTab={activeEditorTab?.operationDefinition?.operation}
+              ariaLabel="root operations types"
+              tabbedContent={[
+                {
+                  id: 'query',
+                  name: 'Query',
+                  panel: (
+                    <RootOperation
+                      rootType={schema.getQueryType() || null}
+                      operationType={OperationTypeNode.QUERY}
                     />
-                  </StyledContainer>
-                ),
-              },
-            ]}
-          />
-        </StyledPathfinderContent>
-      </StyledPathfinderContainer>
-      <DocsDialog />
-    </StyledPathfinder>
+                  ),
+                },
+                {
+                  id: 'mutation',
+                  name: 'Mutation',
+                  panel: (
+                    <RootOperation
+                      rootType={schema.getMutationType() || null}
+                      operationType={OperationTypeNode.MUTATION}
+                    />
+                  ),
+                },
+                {
+                  id: 'subscription',
+                  name: 'Subscription',
+                  panel: (
+                    <RootOperation
+                      rootType={schema.getSubscriptionType() || null}
+                      operationType={OperationTypeNode.SUBSCRIPTION}
+                    />
+                  ),
+                },
+                {
+                  id: 'Fragments',
+                  name: 'Fragments',
+                  panel: (
+                    <StyledContainer>
+                      <Message
+                        message={
+                          <>
+                            This is a placeholder/idea for saving fragments for reuse
+                            across tabs/operations. Maybe it doesn't belong here nad
+                            should be a plugin.
+                          </>
+                        }
+                        variant="WARNING"
+                      />
+                    </StyledContainer>
+                  ),
+                },
+              ]}
+            />
+          </StyledPathfinderContent>
+        </StyledPathfinderContainer>
+        <DocsDialog />
+      </StyledPathfinder>
+    </SchemaReferenceProvider>
   );
 };

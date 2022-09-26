@@ -15,20 +15,20 @@ export const StyledPathfinderContainer = styled('div', {
   width: '100%',
   transition: 'all .1s $authenticMotion',
 
-  variants: {
-    dialogActive: {
-      false: {
-        visibility: 'visible',
-        opacity: '1',
-        transform: 'scale(1)',
-      },
-      true: {
-        visibility: 'hidden',
-        opacity: '0',
-        transform: 'scale(0.98)',
-      },
-    },
-  },
+  // variants: {
+  //   dialogActive: {
+  //     false: {
+  //       visibility: 'visible',
+  //       opacity: '1',
+  //       transform: 'scale(1)',
+  //     },
+  //     true: {
+  //       visibility: 'hidden',
+  //       opacity: '0',
+  //       transform: 'scale(0.98)',
+  //     },
+  //   },
+  // },
 });
 
 export const StyledPathfinderContent = styled('div', {

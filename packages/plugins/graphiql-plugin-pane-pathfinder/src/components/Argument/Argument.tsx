@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import cuid from 'cuid';
 import {
   FieldNode,
   GraphQLArgument,
   GraphQLInputObjectType,
-  isEnumType,
+  // isEnumType,
   isInputObjectType,
-  isLeafType,
-  isListType,
-  isNonNullType,
-  isScalarType,
+  // isLeafType,
+  // isListType,
+  // isNonNullType,
+  // isScalarType,
   OperationTypeNode,
 } from 'graphql';
 
@@ -17,15 +17,18 @@ import {
 import { InputObject, ScalarArg } from '../index';
 
 // hooks
-import type { AncestorArgument, AncestorInputObject, AncestorMap } from '../../hooks';
-import { useEditor } from '@graphiql-prototype/use-editor';
+import type {
+  //  AncestorArgument, AncestorInputObject,
+  AncestorMap,
+} from '../../hooks';
+// import { useEditor } from '@graphiql-prototype/use-editor';
 
 // utils
 import {
   capitalize,
   generateVariableNameFromAncestorMap,
   unwrapNonNullArgumentType,
-  unwrapType,
+  // unwrapType,
 } from '../../utils';
 
 export const Argument = ({

@@ -1,3 +1,3 @@
-export { useSchemaReference } from './useSchemaReference';
+export { SchemaReferenceProvider, useSchemaReference } from './useSchemaReference';
 
 export type { SortedTypeMap, TopLevelPane } from './types';

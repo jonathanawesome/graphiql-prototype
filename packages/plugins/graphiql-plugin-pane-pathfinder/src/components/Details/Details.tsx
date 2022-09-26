@@ -1,22 +1,35 @@
-import { isRequiredArgument, isRequiredInputField, isScalarType } from 'graphql';
+import {
+  isRequiredArgument,
+  isRequiredInputField,
+  // isScalarType
+} from 'graphql';
 
 // components
-import { Icon, SeparatorRound } from '@graphiql-prototype/ui-library';
+import {
+  Icon,
+  //  SeparatorRound
+} from '@graphiql-prototype/ui-library';
+// import { Field } from '../Field';
 
 // hooks
 import { usePathfinder } from '../../hooks';
+import { useSchemaReference } from '@graphiql-prototype/graphiql-plugin-schema-documentation';
 // import { useDocs } from '@graphiql-prototype/graphiql-plugin-pane-docs';
 
 // styles
-import { Description, DetailsStyled, NameAndType, Name, Type } from './styles';
+import {
+  //  Description,
+  DetailsStyled,
+  NameAndType,
+  Name,
+  Type,
+} from './styles';
 
 // types
 import type { ListItemTypeTypes, ListItemVariants } from '../ListItem';
 
 // utils
-import { unwrapType } from '../../utils';
-import { Field } from '../Field';
-import { useSchemaReference } from '@graphiql-prototype/graphiql-plugin-schema-documentation';
+// import { unwrapType } from '../../utils';
 
 export type DetailsProps = {
   isSelected: boolean;

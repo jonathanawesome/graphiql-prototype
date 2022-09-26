@@ -13,7 +13,7 @@
     "graphql": "^16.5.0",
     "markdown-it": "^13.0.1",
     "react": "17.0.2",
-    "zustand": "^4.0.0-rc.1"
+    "zustand": "4.1.1"
   },
   "devDependencies": {
     "@types/markdown-it": "^12.2.3",

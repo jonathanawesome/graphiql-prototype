@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 // components
-import { Close } from '@graphiql-prototype/ui-library';
+// import { Close } from '@graphiql-prototype/ui-library';
 import { TertiaryPane } from '@graphiql-prototype/graphiql-plugin-schema-documentation';
 
 // hooks
@@ -10,9 +10,9 @@ import { useSchemaReference } from '@graphiql-prototype/graphiql-plugin-schema-d
 
 // styles
 import {
-  CloseButton,
+  // CloseButton,
   CustomPortalContainer,
-  DialogClose,
+  // DialogClose,
   DialogContent,
   DialogPortal,
   DialogRoot,

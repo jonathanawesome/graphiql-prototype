@@ -132,7 +132,7 @@ importers:
       monaco-graphql: 1.1.2
       react: 17.0.2
       vite: 3.0.2
-      zustand: ^4.0.0-rc.1
+      zustand: 4.1.1
     dependencies:
       '@graphiql-prototype/graphiql-plugin-schema-documentation': link:../../plugins/graphiql-plugin-schema-documentation
       '@graphiql-prototype/ui-library': link:../ui-library
@@ -150,7 +150,7 @@ importers:
       monaco-editor: 0.33.0
       monaco-graphql: 1.1.2_a7bnabqs6qaueskeewpycdc2jy
       react: 17.0.2
-      zustand: 4.0.0-rc.1_react@17.0.2
+      zustand: 4.1.1_react@17.0.2
     devDependencies:
       '@types/react': 17.0.2
       vite: 3.0.2
@@ -163,14 +163,14 @@ importers:
       '@types/react': 17.0.2
       graphql: ^16.5.0
       react: 17.0.2
-      zustand: ^4.0.0-rc.1
+      zustand: 4.1.1
     dependencies:
       '@graphiql-prototype/editor': link:../editor
       '@graphiql-prototype/ui-library': link:../ui-library
       '@graphiql-prototype/use-schema': link:../useSchema
       graphql: 16.5.0
       react: 17.0.2
-      zustand: 4.0.0-rc.1_react@17.0.2
+      zustand: 4.1.1_react@17.0.2
     devDependencies:
       '@types/react': 17.0.2
 
@@ -193,7 +193,7 @@ importers:
       react-dom: 17.0.2
       react-markdown: ^8.0.3
       vite: 3.0.2
-      zustand: ^4.0.0-rc.1
+      zustand: 4.1.1
     dependencies:
       '@graphiql-prototype/utils': link:../utils
       '@radix-ui/react-collapsible': 0.1.6_react@17.0.2
@@ -209,7 +209,7 @@ importers:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-markdown: 8.0.3_7u6mpky5dbb5b3hgdescs5ficq
-      zustand: 4.0.0-rc.1_react@17.0.2
+      zustand: 4.1.1_react@17.0.2
     devDependencies:
       '@types/react': 17.0.2
       '@types/react-dom': 17.0.2
@@ -227,7 +227,7 @@ importers:
       monaco-editor: ^0.33.0
       monaco-graphql: 1.1.2
       react: 17.0.2
-      zustand: ^4.0.0-rc.1
+      zustand: 4.1.1
     dependencies:
       '@graphiql-prototype/ui-library': link:../ui-library
       '@graphiql-prototype/use-schema': link:../useSchema
@@ -238,7 +238,7 @@ importers:
       monaco-editor: 0.33.0
       monaco-graphql: 1.1.2_a7bnabqs6qaueskeewpycdc2jy
       react: 17.0.2
-      zustand: 4.0.0-rc.1_react@17.0.2
+      zustand: 4.1.1_react@17.0.2
     devDependencies:
       '@types/react': 17.0.2
 
@@ -251,7 +251,7 @@ importers:
       jsonc-parser: 3.0.0
       monaco-editor: ^0.33.0
       react: 17.0.2
-      zustand: ^4.0.0-rc.1
+      zustand: 4.1.1
     dependencies:
       '@graphiql-prototype/utils': link:../utils
       cuid: 2.1.8
@@ -259,7 +259,7 @@ importers:
       jsonc-parser: 3.0.0
       monaco-editor: 0.33.0
       react: 17.0.2
-      zustand: 4.0.0-rc.1_react@17.0.2
+      zustand: 4.1.1_react@17.0.2
     devDependencies:
       '@types/react': 17.0.2
 
@@ -275,7 +275,7 @@ importers:
       jsonc-parser: 3.0.0
       monaco-editor: ^0.33.0
       react: 17.0.2
-      zustand: ^4.0.0-rc.1
+      zustand: 4.1.1
     dependencies:
       '@graphiql-prototype/editor': link:../editor
       '@graphiql-prototype/use-editor': link:../useEditor
@@ -286,7 +286,7 @@ importers:
       jsonc-parser: 3.0.0
       monaco-editor: 0.33.0
       react: 17.0.2
-      zustand: 4.0.0-rc.1_react@17.0.2
+      zustand: 4.1.1_react@17.0.2
     devDependencies:
       '@types/react': 17.0.2
 
@@ -295,11 +295,11 @@ importers:
       '@types/react': 17.0.2
       graphql: ^16.5.0
       react: 17.0.2
-      zustand: ^4.0.0-rc.1
+      zustand: 4.1.1
     dependencies:
       graphql: 16.5.0
       react: 17.0.2
-      zustand: 4.0.0-rc.1_react@17.0.2
+      zustand: 4.1.1_react@17.0.2
     devDependencies:
       '@types/react': 17.0.2
 
@@ -341,7 +341,7 @@ importers:
       graphql: ^16.5.0
       markdown-it: ^13.0.1
       react: 17.0.2
-      zustand: ^4.0.0-rc.1
+      zustand: 4.1.1
     dependencies:
       '@graphiql-prototype/ui-library': link:../../core/ui-library
       '@graphiql-prototype/use-schema': link:../../core/useSchema
@@ -350,7 +350,7 @@ importers:
       graphql: 16.5.0
       markdown-it: 13.0.1
       react: 17.0.2
-      zustand: 4.0.0-rc.1_react@17.0.2
+      zustand: 4.1.1_react@17.0.2
     devDependencies:
       '@types/markdown-it': 12.2.3
       '@types/react': 17.0.2
@@ -414,7 +414,7 @@ importers:
       react-dom: 17.0.2
       vite: 3.0.2
       vitest: ^0.23.2
-      zustand: ^4.0.0-rc.1
+      zustand: 4.1.1
     dependencies:
       '@graphiql-prototype/graphiql-plugin-schema-documentation': link:../graphiql-plugin-schema-documentation
       '@graphiql-prototype/ui-library': link:../../core/ui-library
@@ -428,7 +428,7 @@ importers:
       graphql: 16.5.0
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      zustand: 4.0.0-rc.1_react@17.0.2
+      zustand: 4.1.1_react@17.0.2
     devDependencies:
       '@testing-library/jest-dom': 5.16.4
       '@testing-library/react': 12.1.5_sfoxds7t5ydpegc3knd667wn6m
@@ -460,7 +460,7 @@ importers:
       react-dom: 17.0.2
       vite: 3.0.2
       vitest: ^0.23.2
-      zustand: ^4.0.0-rc.1
+      zustand: 4.1.1
     dependencies:
       '@graphiql-prototype/ui-library': link:../../core/ui-library
       '@graphiql-prototype/use-editor': link:../../core/useEditor
@@ -471,7 +471,7 @@ importers:
       monaco-editor: 0.33.0
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      zustand: 4.0.0-rc.1_react@17.0.2
+      zustand: 4.1.1_react@17.0.2
     devDependencies:
       '@types/react': 17.0.2
       '@types/react-dom': 17.0.2
@@ -8165,8 +8165,8 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /use-sync-external-store/1.1.0_react@17.0.2:
-    resolution: {integrity: sha512-SEnieB2FPKEVne66NpXPd1Np4R1lTNKfjuy3XdIoPQKYBAFdzbzSZlSn1KJZUiihQLQC5Znot4SBz1EOTBwQAQ==}
+  /use-sync-external-store/1.2.0_react@17.0.2:
+    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
@@ -8513,8 +8513,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zustand/4.0.0-rc.1_react@17.0.2:
-    resolution: {integrity: sha512-qgcs7zLqBdHu0PuT3GW4WCIY5SgXdsv30GQMu9Qpp1BA2aS+sNS8l4x0hWuyEhjXkN+701aGWawhKDv6oWJAcw==}
+  /zustand/4.1.1_react@17.0.2:
+    resolution: {integrity: sha512-h4F3WMqsZgvvaE0n3lThx4MM81Ls9xebjvrABNzf5+jb3/03YjNTSgZXeyrvXDArMeV9untvWXRw1tY+ntPYbA==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       immer: '>=9.0'
@@ -8526,5 +8526,5 @@ packages:
         optional: true
     dependencies:
       react: 17.0.2
-      use-sync-external-store: 1.1.0_react@17.0.2
+      use-sync-external-store: 1.2.0_react@17.0.2
     dev: false

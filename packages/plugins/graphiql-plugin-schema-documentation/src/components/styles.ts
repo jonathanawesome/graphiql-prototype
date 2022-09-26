@@ -131,17 +131,21 @@ export const StyledTertiaryPane = styled(StyledPane, {
   flexGrow: 1,
   paddingTop: 0,
   display: `grid`,
-  gridTemplateRows: `${theme.space[12]} minmax(0, 1fr)`,
+  gridTemplateRows: `64px minmax(0, 1fr)`,
   overflow: `hidden`,
   borderLeft: border,
 });
+
 export const StyledTertiaryPaneLead = styled('div', {
-  width: `100%`,
+  width: `calc(100% - 48px)`,
   display: `flex`,
   alignItems: `center`,
+  marginLeft: 24,
+  marginRight: 24,
   borderBottom: border,
-  paddingLeft: padding,
+  // paddingLeft: padding,
 });
+
 export const StyledTertiaryPaneLeadInfo = styled('div', {
   width: `100%`,
   display: `flex`,

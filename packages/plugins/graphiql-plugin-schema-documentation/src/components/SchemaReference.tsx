@@ -30,9 +30,9 @@ export const SchemaReference = () => {
 
   const {
     activePrimaryPane,
-    setActivePrimaryPane,
     activeTertiaryPane,
     clearTertiaryPaneStack,
+    setActivePrimaryPane,
     tertiaryPaneStack,
   } = useSchemaReference();
 
