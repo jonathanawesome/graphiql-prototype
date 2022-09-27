@@ -1,1 +1,0 @@
-export { EasyVarsIcon } from './EasyVarsIcon';

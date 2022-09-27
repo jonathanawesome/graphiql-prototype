@@ -4,6 +4,7 @@ import {
   GraphQLArgument,
   GraphQLInputObjectType,
   isInputObjectType,
+  isListType,
   ObjectValueNode,
   OperationTypeNode,
 } from 'graphql';
@@ -18,6 +19,9 @@ import {
   AncestorInputObject,
   AncestorMap,
 } from '../../hooks';
+
+// styles
+import { StyledInputObject } from './styles';
 
 // utils
 import { capitalize, generateVariableNameFromAncestorMap } from '../../utils';
@@ -43,79 +47,100 @@ export const InputObject = ({
 
   const isSelected = !!previousAncestor.selection;
 
-  // console.log('rendering InputObject', {
-  //   inputObjectType,
-  //   ancestors,
-  //   previousAncestor,
-  // });
+  console.log('rendering InputObject', {
+    // inputObjectType,
+    // toConfig: inputObjectType.toConfig(),
+    variableName: `${generateVariableNameFromAncestorMap({
+      ancestors,
+      variableType: 'ARGUMENT',
+    })}`,
+    ancestors,
+    previousAncestor,
+  });
 
   return (
-    <ListItem
-      collapsibleContent={{
-        arguments: Object.keys(fields).map((f) => {
-          if (isInputObjectType(fields[f].type)) {
-            // rendering nested InputObject
-            return (
-              <InputObject
-                key={fields[f].name}
-                ancestors={
-                  new Map([
-                    [
-                      // hash = safety first!
-                      `${fields[f].name}-${hash}`,
-                      {
-                        inputObject: fields[f].type,
-                        name: fields[f].name,
-                        parentType: 'INPUT_OBJECT',
-                        selection: previousAncestor.selection
-                          ? (
-                              previousAncestor.selection.value as ObjectValueNode
-                            ).fields.find((x) => x.name.value === fields[f].name)
-                          : null,
-                      } as AncestorInputObject,
-                    ],
-                    ...ancestors,
-                  ])
-                }
-                argument={argument}
-                inputObjectType={fields[f].type as GraphQLInputObjectType}
-                operationType={operationType}
-              />
-            );
-          } else {
-            return (
-              <ScalarArg
-                key={fields[f].name}
-                ancestors={
-                  new Map([
-                    [
-                      `${fields[f].name}-${hash}`,
-                      {
-                        inputField: fields[f],
-                        parentInputObject: inputObjectType,
-                        selection: previousAncestor.selection
-                          ? (
-                              previousAncestor.selection?.value as ObjectValueNode
-                            ).fields?.find((x) => x.name.value === f)
-                          : null,
-                        variableName: `${generateVariableNameFromAncestorMap({
-                          ancestors,
-                        })}${capitalize(fields[f].name)}`,
-                      } as AncestorInputField,
-                    ],
-                    ...ancestors,
-                  ])
-                }
-                argument={fields[f]}
-                operationType={operationType}
-              />
-            );
-          }
-        }),
-      }}
-      isSelected={isSelected}
-      type={argument}
-      variant="ARGUMENT"
-    />
+    <StyledInputObject>
+      <ListItem
+        collapsibleContent={{
+          arguments: Object.keys(fields).map((f) => {
+            if (isInputObjectType(fields[f].type)) {
+              // rendering nested InputObject
+              return (
+                <InputObject
+                  key={fields[f].name}
+                  ancestors={
+                    new Map([
+                      [
+                        // hash = safety first!
+                        `${fields[f].name}-${hash}`,
+                        {
+                          inputObject: fields[f].type as GraphQLInputObjectType,
+                          isNested: true,
+                          name: fields[f].name,
+                          variableName: `${generateVariableNameFromAncestorMap({
+                            ancestors,
+                            variableType: 'ARGUMENT',
+                          })}${capitalize(argument.name)}`,
+                          selection:
+                            previousAncestor.selection &&
+                            'fields' in previousAncestor.selection.value
+                              ? (
+                                  previousAncestor.selection.value as ObjectValueNode
+                                ).fields.find((x) => x.name.value === fields[f].name)
+                              : undefined,
+                        },
+                      ],
+                      ...ancestors,
+                    ])
+                  }
+                  argument={argument}
+                  inputObjectType={fields[f].type as GraphQLInputObjectType}
+                  operationType={operationType}
+                />
+              );
+            } else {
+              return (
+                <ScalarArg
+                  key={fields[f].name}
+                  ancestors={
+                    new Map([
+                      [
+                        `${fields[f].name}-${hash}`,
+                        {
+                          inputField: fields[f],
+                          parentInputObject: inputObjectType,
+                          selection: previousAncestor.selection
+                            ? (
+                                previousAncestor.selection?.value as ObjectValueNode
+                              ).fields?.find((x) => x.name.value === f)
+                            : null,
+                          variableName: `${generateVariableNameFromAncestorMap({
+                            ancestors,
+                            variableType: 'INPUT_FIELD',
+                          })}${capitalize(fields[f].name)}`,
+                        } as AncestorInputField,
+                      ],
+                      ...ancestors,
+                    ])
+                  }
+                  argument={fields[f]}
+                  operationType={operationType}
+                />
+              );
+            }
+          }),
+        }}
+        isSelected={isSelected}
+        // toggler={{
+        //   ancestors,
+        //   fieldOrArgumentName: argument.name,
+        //   isSelected,
+        //   operationType,
+        //   variant: 'ARGUMENT',
+        // }}
+        type={argument}
+        variant="INPUT_OBJECT"
+      />
+    </StyledInputObject>
   );
 };

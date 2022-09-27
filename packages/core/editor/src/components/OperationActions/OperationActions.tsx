@@ -1,18 +1,21 @@
+// components
 import { Play, Prettier } from '@graphiql-prototype/ui-library';
+
+// hooks
 import { useEditor } from '@graphiql-prototype/use-editor';
 import { useSchema } from '@graphiql-prototype/use-schema';
 
 // styles
-import { OperationActionsWrap, PlayButton, PrettierButton } from './styles';
+import { StyledOperationActions, PlayButton, PrettierButton } from './styles';
 
 export const OperationActions = () => {
   const { monacoEditors } = useEditor();
   const { executeOperation } = useSchema();
 
-  const operationEditor = monacoEditors.find((e) => e.name === 'operations');
+  const operationEditor = monacoEditors.operations;
 
   return (
-    <OperationActionsWrap>
+    <StyledOperationActions>
       <PlayButton
         onClick={() => {
           executeOperation();
@@ -21,12 +24,10 @@ export const OperationActions = () => {
         <Play />
       </PlayButton>
       <PrettierButton
-        onClick={() =>
-          operationEditor?.editor.getAction('editor.action.formatDocument').run()
-        }
+        onClick={() => operationEditor?.getAction('editor.action.formatDocument').run()}
       >
         <Prettier />
       </PrettierButton>
-    </OperationActionsWrap>
+    </StyledOperationActions>
   );
 };

@@ -73,14 +73,14 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
   schemaLoading: true,
   schemaName: null,
   schemaUrl: null,
-  initSchema: async ({ url }) => {
+  loadSchema: async ({ init, url }) => {
     set({ schemaLoading: true });
     const monacoGraphQLAPI = useEditor.getState().monacoGraphQLAPI;
     const resetEditorTabs = useEditor.getState().resetEditorTabs;
 
-    resetEditorTabs();
+    init && resetEditorTabs();
 
-    if (!url) {
+    if (url === 'GraphiQL Test Schema') {
       console.log('no URL provided, setting testSchema');
 
       monacoGraphQLAPI.setSchemaConfig([
@@ -92,7 +92,7 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
       return set({
         schema: testSchema,
         schemaLoading: false,
-        schemaUrl: null,
+        schemaUrl: 'GraphiQL Test Schema',
       });
     } else {
       console.log('initializing schema:', { url });
@@ -108,7 +108,9 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
           ),
           url,
         })({
-          query: getIntrospectionQuery(),
+          query: getIntrospectionQuery({
+            // specifiedByUrl: true,
+          }),
           operationName: 'IntrospectionQuery',
         });
 

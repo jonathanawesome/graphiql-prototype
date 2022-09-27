@@ -1,1 +1,0 @@
-export { DocsFlat } from './DocsFlat';

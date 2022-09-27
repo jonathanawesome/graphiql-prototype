@@ -1,9 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { editor as MONACO_EDITOR } from 'monaco-editor';
 
-// constants
-import { editorOptions } from '../../constants';
-
 // hooks
 import { MonacoEditorTypes, useEditor } from '@graphiql-prototype/use-editor';
 import { useSchema } from '@graphiql-prototype/use-schema';
@@ -11,63 +8,37 @@ import { useSchema } from '@graphiql-prototype/use-schema';
 // styles
 import { MonacoEditorStyled, MonacoWrap } from './styles';
 
-const addMonacoEditor = useEditor.getState().addMonacoEditor;
-const runOperationAction = useSchema.getState().runOperationAction;
-const updateOperationDefinitionFromModelValue =
-  useEditor.getState().updateOperationDefinitionFromModelValue;
+const initMonacoEditor = useEditor.getState().initMonacoEditor;
 
 export const MonacoEditor = ({
-  editorType,
+  monacoEditorType,
   optionOverrides,
 }: {
-  editorType: MonacoEditorTypes;
+  monacoEditorType: MonacoEditorTypes;
   optionOverrides?: MONACO_EDITOR.IStandaloneEditorConstructionOptions;
 }) => {
-  const editorRef = useRef(null);
+  const monacoEditorRef = useRef<HTMLDivElement>(null);
 
-  const { monacoEditors } = useEditor();
-
-  const monacoEditor = monacoEditors.find((e) => e.name === editorType);
+  const { schemaLoading } = useSchema();
 
   // console.log('rendering MonacoEditor', {
-  //   editorType,
-  //   editorTab,
+  //   editorRef,
   // });
 
   useEffect(() => {
-    if (!monacoEditor) {
-      const editor = MONACO_EDITOR.create(
-        editorRef.current as unknown as HTMLDivElement,
-        {
-          language: editorType === 'operations' ? 'graphql' : 'json',
-          ...editorOptions, // spread our base options
-          ...(optionOverrides && optionOverrides), // spread any option overrides that were passed in
-          fixedOverflowWidgets: true,
-        }
-      );
-
-      // add this editor to our editors state array
-      addMonacoEditor({
-        editor,
-        name: editorType,
+    if (!schemaLoading) {
+      initMonacoEditor({
+        monacoEditorType,
+        monacoEditorRef: monacoEditorRef.current as unknown as HTMLDivElement,
+        optionOverrides,
       });
-
-      // add the runOperationAction to the operation and variables editors
-      if (editorType !== 'results') {
-        editor.addAction(runOperationAction());
-        // when our operation or variables editor models change, update the operationDefinition
-        editor.onDidChangeModelContent(() => {
-          updateOperationDefinitionFromModelValue({ value: editor.getValue() });
-        });
-      }
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [schemaLoading]);
 
   return (
     <MonacoEditorStyled>
-      <MonacoWrap ref={editorRef} editorType={editorType} />
+      <MonacoWrap ref={monacoEditorRef} />
     </MonacoEditorStyled>
   );
 };

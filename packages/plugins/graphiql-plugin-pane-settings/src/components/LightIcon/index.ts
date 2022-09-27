@@ -1,0 +1,1 @@
+export { LightIcon } from './LightIcon';

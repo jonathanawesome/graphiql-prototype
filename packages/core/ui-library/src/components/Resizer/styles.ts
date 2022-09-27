@@ -1,104 +1,96 @@
-import { styled } from '../../theme';
+import { styled, theme } from '../../theme';
 
 export const Handle = styled('div', {
   position: 'relative',
+  borderRight: `1px solid ${theme.colors.surface3}`,
+  width: theme.space[2],
+  zIndex: 2,
+  flexShrink: 0,
+  borderLeft: `1px solid ${theme.colors.surface3}`,
+  backgroundColor: theme.colors.surface1,
+
+  '&::after': {
+    content: '',
+    position: 'absolute',
+    zIndex: 0,
+    left: `50%`,
+    top: `50%`,
+    transform: 'translate3d(-50%, -50%, 0)',
+    width: theme.space[1],
+    height: 110,
+    borderRadius: theme.space[2],
+    transition: 'background-color .15s ease',
+  },
+  '&:hover': {
+    '&::after': {
+      backgroundColor: theme.colors.text4,
+    },
+  },
 
   variants: {
     direction: {
-      vertical: {
+      VERTICAL: {
         flexDirection: 'column',
         cursor: 'row-resize',
+        width: '100%',
+        height: theme.space[3],
+
+        '&::after': {
+          width: 110,
+          height: theme.space[1],
+        },
       },
-      horizontal: {
+      HORIZONTAL: {
         flexDirection: 'row',
         cursor: 'col-resize',
       },
     },
-    handleStyle: {
-      bar: {
-        width: 12,
-        '&::after': {
-          content: '',
-          position: 'absolute',
-          zIndex: 1,
-          left: '50%',
-          top: '50%',
-          transform: 'translate3d(-50%, -50%, 0)',
-          width: 4,
-          height: 110,
-          borderRadius: 4,
-          transition: 'background-color .15s ease',
-        },
-        '&:hover': {
-          '&::after': {
-            backgroundColor: '$gray040',
-          },
-        },
+    handlePosition: {
+      LEFT: {
+        // backgroundColor: `hsla(188, 74%, 63%, .1)`,
+        // left: -4,
       },
-      ghost: {
-        width: 0,
-        '&::after': {
-          content: '',
-          position: 'absolute',
-          zIndex: 1,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: 12,
-          height: '100%',
-        },
+      RIGHT: {
+        // backgroundColor: `hsla(133, 54%, 66%, .1)`,
+        // marginRight: -12,
+        // left: -4,
       },
+      TOP: {},
+      BOTTOM: {},
     },
   },
-  compoundVariants: [
-    {
-      direction: 'vertical',
-      handleStyle: 'bar',
-      css: {
-        width: '100%',
-        height: 12,
-
-        '&::after': {
-          width: 110,
-          height: 4,
-        },
-      },
-    },
-    {
-      direction: 'vertical',
-      handleStyle: 'ghost',
-      css: {
-        height: 0,
-        width: '100%',
-
-        '&::after': {
-          top: '50%',
-          left: 'initial',
-          transform: 'translateY(-50%)',
-          height: 12,
-          width: '100%',
-        },
-      },
-    },
-  ],
 });
 
-export const Pane = styled('div', {
-  height: '100%',
-  flex: '1 1 0%',
-  position: 'relative',
+export const Pane1 = styled('div', {
+  display: 'flex',
+  flexGrow: 1,
+  flexShrink: 1,
+  flexBasis: 'auto',
+});
+
+export const Pane2 = styled('div', {
+  display: 'flex',
+  flexGrow: 0,
+  flexShrink: 0,
+  flexBasis: 'auto',
 });
 
 export const Container = styled('div', {
+  position: 'relative',
   height: '100%',
   width: '100%',
+  overflow: 'hidden',
   display: 'flex',
+  flexGrow: 1,
+  flexShrink: 1,
+  flexBasis: 'auto',
 
   variants: {
     direction: {
-      vertical: {
+      VERTICAL: {
         flexDirection: 'column',
       },
-      horizontal: {
+      HORIZONTAL: {
         flexDirection: 'row',
       },
     },

@@ -1,41 +1,56 @@
-import { styled } from '../../theme';
+import { styled, theme } from '../../theme';
 
 import * as TabsPrimitive from '@radix-ui/react-tabs';
+import * as Collapsible from '@radix-ui/react-collapsible';
 
-export const TabsRoot = styled(TabsPrimitive.Root, {
+export const StyledTabsRoot = styled(TabsPrimitive.Root, {
+  position: 'relative',
   height: '100%',
+  width: '100%',
 });
 
-export const TabsList = styled(TabsPrimitive.List, {
+export const StyledCollapsibleRoot = styled(Collapsible.Root, {
+  width: '100%',
+  backgroundColor: theme.colors.surface1,
+  borderTop: `1px solid ${theme.colors.surface3}`,
+});
+
+export const StyledCollapsibleTrigger = styled(Collapsible.Trigger, {
+  all: 'reset',
+  position: 'absolute',
+  top: 0,
+  right: 0,
   display: 'flex',
-  gap: 8,
-});
-
-export const TabsTrigger = styled(TabsPrimitive.Trigger, {
+  alignItems: 'center',
+  justifyContent: 'center',
   cursor: 'pointer',
-  fontSize: '$body',
-  lineHeight: '$body',
-  fontWeight: '$medium',
-  padding: '10px',
-  color: '$gray060',
+  width: theme.space[10],
+  height: theme.space[10],
 
-  '&:hover': { color: '$gray100' },
-  '&[data-state="active"]': {
-    fontWeight: '$semiBold',
-    color: '$gray100',
+  svg: {
+    width: theme.space[4],
+    height: theme.space[4],
+    path: {
+      fill: theme.colors.text4,
+    },
   },
 
-  span: {
-    padding: '2px 4px',
-    marginLeft: '4px',
-    borderRadius: '2px',
-    fontSize: '$mini',
-    backgroundColor: '$gray015',
-    color: '$gray060',
+  '&:hover': {
+    backgroundColor: theme.colors.surface2,
+    svg: {
+      path: {
+        fill: theme.colors.text1,
+      },
+    },
+  },
+
+  variants: {
+    isOpen: {
+      true: {
+        transform: 'rotate(180deg)',
+      },
+    },
   },
 });
 
-export const TabsContent = styled(TabsPrimitive.Content, {
-  padding: '0 16px 16px 16px',
-  height: '100%',
-});
+export const StyledCollapsibleContent = styled(Collapsible.Content, {});

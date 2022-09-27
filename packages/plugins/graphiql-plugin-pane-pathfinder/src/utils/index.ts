@@ -11,4 +11,5 @@ export { generateVariableNameFromAncestorMap } from './generateVariableNameFromA
 export { getRequiredArgumentNodesForField } from './getRequiredArgumentNodesForField';
 export { getRequiredVariableDefinitionsForField } from './getRequiredVariableDefinitionsForField';
 export { unwrapInputType } from './unwrapInputType';
+export { unwrapNonNullArgumentType } from './unwrapNonNullArgumentType';
 export { unwrapType } from './unwrapType';

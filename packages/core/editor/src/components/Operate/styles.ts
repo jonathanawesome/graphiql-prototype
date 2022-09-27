@@ -1,46 +1,26 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { styled, theme } from '@graphiql-prototype/ui-library';
 
 export const OperateWrap = styled('div', {
-  position: 'relative',
-  width: '100%',
-  backgroundColor: '$white',
-  // overflow: 'hidden',
-  borderRadius: 16,
-  boxShadow:
-    '0px 6px 20px rgba(59, 76, 106, 0.13), 0px 1.34018px 4.46726px rgba(59, 76, 106, 0.0774939), 0px 0.399006px 1.33002px rgba(59, 76, 106, 0.0525061)',
-
-  variants: {
-    expanded: {
-      true: {
-        height: 'calc(100% + 50px)',
-        marginTop: -50,
-      },
-      false: {
-        height: '100%',
-        marginTop: 0,
-      },
-    },
-  },
+  backgroundColor: theme.colors.surface1,
+  width: `100%`,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
 });
 
 export const OperationEditor = styled('div', {
-  position: 'relative',
-  height: '100%',
-  width: '100%',
-  paddingTop: 20,
+  position: `relative`,
+  padding: theme.space[4],
   paddingRight: 64,
-  paddingBottom: 20,
-  paddingLeft: 12,
 });
 
 export const OperationActionsWrap = styled('div', {
   position: 'absolute',
-  top: 16,
-  right: 16,
+  top: theme.space[4],
+  right: theme.space[4],
 });
 
 export const OperationToolsWrap = styled('div', {
-  position: 'absolute',
-  bottom: 0,
   width: '100%',
+  marginBottom: -1,
 });

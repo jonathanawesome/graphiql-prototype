@@ -3,14 +3,11 @@ import { isEnumType } from 'graphql';
 // hooks
 import { useSchema } from '@graphiql-prototype/use-schema';
 
-// types
-import { FieldSelectOption } from '@graphiql-prototype/ui-library';
-
 export const getEnumValues = ({
   enumTypeName,
 }: {
   enumTypeName: string;
-}): Array<FieldSelectOption> | undefined => {
+}): Array<{ name: string; value: string }> | undefined => {
   const schema = useSchema.getState().schema;
 
   if (!schema || 'error' in schema) {

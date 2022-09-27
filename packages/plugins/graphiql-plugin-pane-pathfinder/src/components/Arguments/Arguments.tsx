@@ -1,21 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FieldNode, isRequiredArgument, OperationTypeNode } from 'graphql';
 
 // components
 import { Argument } from '../index';
-import { ShowArgumentsIcon } from '../../icons';
+import { Caret } from '../../icons';
 
 // hooks
 import type { AncestorField, AncestorMap } from '../../hooks';
 
 // styles
 import {
-  ShowArgumentsIconWrap,
-  RequiredArguments,
-  Span,
-  Content,
-  Root,
-  Trigger,
+  StyledArguments,
+  StyledArgumentsContent,
+  StyledArgumentsList,
+  StyledArgumentsTrigger,
 } from './styles';
 
 export const Arguments = ({
@@ -27,29 +25,40 @@ export const Arguments = ({
   operationType: OperationTypeNode;
   selection: FieldNode | null;
 }) => {
-  // console.log('rendering Arguments', {
-  //   args,
-  //   selection,
-  //   'selection.arguments': selection?.arguments,
-  // });
+  console.log('rendering Arguments', {
+    // args,
+    selection,
+    'selection.arguments': selection?.arguments,
+  });
 
   const { field } = ancestors.values().next().value as AncestorField;
 
   const { args } = field;
 
-  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  // TODO: this is gross
-  const requiredArgs = args.filter((a) => isRequiredArgument(a));
-  const optionalArgs = args.filter((a) => !isRequiredArgument(a));
-
-  const optionalArgsLength = optionalArgs.length;
+  useEffect(() => {
+    // this effect ensures the field is initially expanded when selected
+    // this is one of the many micro-interactions in pathfinder that need tweaking/testing
+    if (selection?.arguments && selection?.arguments.length > 0) {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  }, []);
 
   return (
-    <>
-      {requiredArgs.length > 0 ? (
-        <RequiredArguments>
-          {requiredArgs.sort().map((arg) => (
+    <StyledArguments isOpen={isOpen} open={isOpen} onOpenChange={setIsOpen}>
+      <StyledArgumentsTrigger
+        isOpen={isOpen}
+        aria-label={`Expand nested content of ${field.name} arguments`}
+      >
+        <Caret />
+        <span>arguments</span>
+      </StyledArgumentsTrigger>
+      <StyledArgumentsContent isOpen={isOpen}>
+        <StyledArgumentsList>
+          {args.map((arg) => (
             <Argument
               key={arg.name}
               ancestors={ancestors}
@@ -58,41 +67,8 @@ export const Arguments = ({
               selection={selection}
             />
           ))}
-        </RequiredArguments>
-      ) : null}
-      {optionalArgsLength > 0 && (
-        <Root open={isExpanded} onOpenChange={setIsExpanded}>
-          <Trigger isExpanded={isExpanded}>
-            <ShowArgumentsIconWrap>
-              <ShowArgumentsIcon />
-            </ShowArgumentsIconWrap>
-            {isExpanded ? (
-              <Span>Hide arguments</Span>
-            ) : requiredArgs.length > 0 ? (
-              <Span>{`${optionalArgsLength.toString()} more argument${
-                optionalArgsLength > 1 ? 's' : ''
-              }`}</Span>
-            ) : (
-              <Span>{`Show ${optionalArgsLength.toString()} optional argument${
-                optionalArgsLength > 1 ? 's' : ''
-              }`}</Span>
-            )}
-          </Trigger>
-          <Content>
-            <ul>
-              {optionalArgs.sort().map((arg) => (
-                <Argument
-                  key={arg.name}
-                  ancestors={ancestors}
-                  argument={arg}
-                  operationType={operationType}
-                  selection={selection}
-                />
-              ))}
-            </ul>
-          </Content>
-        </Root>
-      )}
-    </>
+        </StyledArgumentsList>
+      </StyledArgumentsContent>
+    </StyledArguments>
   );
 };

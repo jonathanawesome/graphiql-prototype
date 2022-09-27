@@ -26,7 +26,7 @@ export const Navigation = ({
   const { activePanePlugin, setActivePanePlugin } = useGraphiQL();
 
   return (
-    <NavigationStyled showBorder={activePanePlugin !== 'GraphiQL'}>
+    <NavigationStyled>
       <PanePluginNavigation>
         {panePlugins?.map((panePlugin) => (
           <PanePluginNavigationItem

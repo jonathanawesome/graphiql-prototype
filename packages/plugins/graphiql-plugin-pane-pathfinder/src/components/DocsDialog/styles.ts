@@ -1,16 +1,15 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { styled, theme } from '@graphiql-prototype/ui-library';
 
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 
 export const DocsDialogStyled = styled('div', {
-  backgroundColor: '$gray007',
+  backgroundColor: theme.colors.surface1,
   position: 'absolute',
   top: 0,
   left: 0,
   overflowY: 'auto',
   height: '100%',
   width: '100%',
-  borderRadius: 12,
   transition: 'all .1s $authenticMotion',
 
   variants: {
@@ -40,14 +39,14 @@ export const CloseButton = styled('button', {
     height: 24,
     width: 24,
     path: {
-      fill: '$gray040',
+      fill: theme.colors.text4,
     },
   },
 
   '&:hover': {
     svg: {
       path: {
-        fill: '$gray100',
+        fill: theme.colors.text2,
       },
     },
   },
@@ -61,7 +60,11 @@ const DialogTitle = styled(DialogPrimitive.Title, {});
 
 const DialogDescription = styled(DialogPrimitive.Description, {});
 
-export const DialogClose = styled(DialogPrimitive.Close, {});
+export const DialogClose = styled(DialogPrimitive.Close, {
+  // '&:focus': {
+  //   outline: `2px solid red`,
+  // },
+});
 
 export const DialogContent = styled(DialogPrimitive.Content, {
   position: 'absolute',

@@ -11,8 +11,14 @@ export default defineConfig(() => {
     test: {
       globals: true,
       environment: 'jsdom',
+      // threads: false,
       deps: {
-        inline: ['monaco-editor'],
+        // inline: true,
+        inline: [
+          'monaco-editor',
+          // '@radix-ui+react-select',
+        ],
+        // external: ['@graphiql-prototype/use-editor', '@graphiql-prototype/ui-library'],
       },
       setupFiles: ['./setupTests.ts', './test-setup/matchMedia'],
     },

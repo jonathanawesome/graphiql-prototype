@@ -10,10 +10,6 @@
   "dependencies": {
     "@graphiql-prototype/editor": "workspace:*",
     "@graphiql-prototype/graphiql": "workspace:*",
-    "@graphiql-prototype/graphiql-plugin-dialog-schema-selector": "workspace:*",
-    "@graphiql-prototype/graphiql-plugin-dialog-settings": "workspace:*",
-    "@graphiql-prototype/graphiql-plugin-pane-docs": "workspace:*",
-    "@graphiql-prototype/graphiql-plugin-pane-easy-vars": "workspace:*",
     "@graphiql-prototype/graphiql-plugin-pane-history": "workspace:*",
     "@graphiql-prototype/graphiql-plugin-pane-pathfinder": "workspace:*",
     "@graphiql-prototype/ui-library": "workspace:*",

@@ -12,35 +12,37 @@ export const handleUpdateInputObject = ({
   nextAction: NextAction;
   setNextAction: SetNextActionSignature;
 }) => {
-  // console.log(`running handleUpdateInputObject`, {
-  //   ancestor,
-  //   nextAction,
-  // });
-
   const selection = ancestor.selection as ArgumentNode | ObjectFieldNode;
 
   let newObjectFields: ObjectFieldNode[] = [];
 
+  console.log(`running handleUpdateInputObject`, {
+    ancestor,
+    nextAction,
+    selection,
+  });
   if (nextAction) {
-    if (ancestor.parentType === 'FIELD') {
+    if (ancestor.isNested === false) {
       if (nextAction.type === 'ADD') {
-        // does the incoming objectField exist within the selection?
-        const existingField = (selection.value as ObjectValueNode).fields.findIndex(
-          (f) => f.name.value === nextAction.payload.node.name.value
-        );
-        // if it does, we need to replace it with the incoming fields
-        if (existingField !== -1) {
-          //@ts-expect-error readonly
-          (selection.value as ObjectValueNode).fields[existingField] =
-            nextAction.payload.node;
+        if ('fields' in selection.value) {
+          // does the incoming objectField exist within the selection?
+          const existingField = (selection.value as ObjectValueNode).fields.findIndex(
+            (f) => f.name.value === nextAction.payload.node.name.value
+          );
+          // if it does, we need to replace it with the incoming fields
+          if (existingField !== -1) {
+            //@ts-expect-error readonly
+            (selection.value as ObjectValueNode).fields[existingField] =
+              nextAction.payload.node;
 
-          newObjectFields = [...(selection.value as ObjectValueNode).fields];
-        } else {
-          // if it doesn't, spread it in
-          newObjectFields = [
-            ...(selection.value as ObjectValueNode).fields,
-            nextAction.payload.node as ObjectFieldNode,
-          ];
+            newObjectFields = [...(selection.value as ObjectValueNode).fields];
+          } else {
+            // if it doesn't, spread it in
+            newObjectFields = [
+              ...(selection.value as ObjectValueNode).fields,
+              nextAction.payload.node as ObjectFieldNode,
+            ];
+          }
         }
       } else if (nextAction.type === 'REMOVE') {
         // here, selection.kind === Kind.ARGUMENT
@@ -61,7 +63,7 @@ export const handleUpdateInputObject = ({
       }
     }
 
-    if (ancestor.parentType === 'INPUT_OBJECT') {
+    if (ancestor.isNested === true) {
       if (nextAction.type === 'ADD') {
         const newObjectField: ObjectFieldNode = {
           ...(selection as ObjectFieldNode),
@@ -96,7 +98,8 @@ export const handleUpdateInputObject = ({
       }
     }
 
-    if (ancestor.parentType === 'FIELD') {
+    if (ancestor.isNested === false) {
+      console.log('newObjectFields', { newObjectFields });
       const newVal: ArgumentNode | ObjectFieldNode = {
         ...selection,
         value: {
@@ -110,7 +113,7 @@ export const handleUpdateInputObject = ({
       });
     }
 
-    if (ancestor.parentType === 'INPUT_OBJECT') {
+    if (ancestor.isNested === true) {
       const newVal: ArgumentNode | ObjectFieldNode = {
         ...selection,
         value: {

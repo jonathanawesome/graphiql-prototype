@@ -1,4 +1,4 @@
-import { styled } from '../../theme';
+import { styled, theme } from '../../theme';
 
 import * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group';
 
@@ -6,7 +6,7 @@ export const StyledToggleGroup = styled(ToggleGroupPrimitive.Root, {
   display: 'inline-flex',
   backgroundColor: '$gray007',
   borderRadius: 8,
-  boxShadow: '0 2px 10px $scaleBlack',
+  boxShadow: `0 2px 10px ${theme.colors.surface1}`,
 
   variants: {
     size: {

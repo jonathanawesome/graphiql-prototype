@@ -1,4 +1,4 @@
-import { Kind, ObjectFieldNode } from 'graphql';
+import { ArgumentNode, Kind, ObjectFieldNode, VariableDefinitionNode } from 'graphql';
 
 // helpers
 import { setCorrectNextVariableDefinitions } from '../helpers';
@@ -11,16 +11,13 @@ import { buildNewVariableDefinition } from '../../../../utils';
 
 export const handleAddInputField = ({
   ancestor,
+  // variableDefinitions,
   setNextAction,
 }: {
   ancestor: AncestorInputField;
   setNextAction: SetNextActionSignature;
+  // variableDefinitions: Array<VariableDefinitionNode>;
 }) => {
-  // console.log('running handleAddInputField', {
-  //   type: ancestor.inputField.type,
-  //   variableName: ancestor.variableName,
-  // });
-
   const newVarDef = buildNewVariableDefinition({
     type: ancestor.inputField.type,
     variableName: ancestor.variableName,
@@ -42,6 +39,14 @@ export const handleAddInputField = ({
       },
     },
   };
+
+  console.log('running handleAddInputField', {
+    ancestor,
+    variableName: ancestor.variableName,
+    // newArgumentNode,
+    // newObjectFieldNode,
+    // variableDefinitions,
+  });
 
   setNextAction({
     type: 'ADD',

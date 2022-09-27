@@ -26,9 +26,9 @@ export const handleAddParentField = ({
   setNextAction: SetNextActionSignature;
   setNextSelectionSet: SetNextSelectionSetSignature;
 }) => {
-  // console.log(`running handleAddParentField`, {
-  //   ancestor,
-  // });
+  console.log(`running handleAddParentField`, {
+    ancestor,
+  });
 
   /** this field needs to be made active, so we build a new FieldNode using the field name and all child selections  */
   const newFieldNode: FieldNode = {

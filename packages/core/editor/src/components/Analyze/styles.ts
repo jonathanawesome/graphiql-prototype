@@ -1,19 +1,11 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { styled, theme } from '@graphiql-prototype/ui-library';
 
 export const AnalyzeWrap = styled('div', {
   display: 'flex',
   height: '100%',
   width: '100%',
   position: 'relative',
-  paddingTop: 8,
-
-  // '&::after': {
-  //   content: '',
-  //   position: 'absolute',
-  //   top: 0,
-  //   right: 0,
-  //   width: 24,
-  //   height: '100%',
-  //   background: 'linear-gradient(90deg, rgba(0,0,0,0) 0%, $editorBackground 100%)',
-  // },
+  backgroundColor: theme.colors.surface2,
+  paddingTop: theme.space[4],
+  paddingBottom: theme.space[4],
 });

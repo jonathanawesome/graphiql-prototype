@@ -1,0 +1,1 @@
+export { DarkIcon } from './DarkIcon';

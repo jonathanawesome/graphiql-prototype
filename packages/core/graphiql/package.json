@@ -7,11 +7,12 @@
   },
   "dependencies": {
     "@graphiql-prototype/editor": "workspace:*",
+    "@graphiql-prototype/graphiql-plugin-pane-settings": "workspace:*",
     "@graphiql-prototype/ui-library": "workspace:*",
     "@graphiql-prototype/use-schema": "workspace:*",
     "graphql": "^16.5.0",
     "react": "17.0.2",
-    "zustand": "^4.0.0-rc.1"
+    "zustand": "4.1.1"
   },
   "devDependencies": {
     "@types/react": "17.0.2"

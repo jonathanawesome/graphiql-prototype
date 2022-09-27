@@ -1,4 +1,4 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { styled, theme } from '@graphiql-prototype/ui-library';
 
 export const TogglerStyled = styled('button', {
   display: 'flex',
@@ -6,10 +6,16 @@ export const TogglerStyled = styled('button', {
   justifyContent: 'center',
 
   svg: {
-    height: 15,
-    width: 15,
+    // height: theme.space[3],
+    // width: theme.space[3],
+    height: 14,
+    width: 14,
     transition: 'transform .1s $authenticMotion',
   },
+
+  // '&:focus': {
+  //   outline: `1px dotted ${theme.colors.text4}`,
+  // },
 
   variants: {
     variant: {
@@ -19,8 +25,23 @@ export const TogglerStyled = styled('button', {
     isSelected: {
       true: {},
       false: {
+        '&:hover, &:focus': {
+          // backgroundColor: 'orange',
+          svg: {
+            path: {
+              '&:nth-of-type(1)': {
+                //inner
+                // fill: theme.colors.surface3,
+              },
+              '&:nth-of-type(2)': {
+                //outer
+                fill: theme.colors.text2,
+              },
+            },
+          },
+        },
         svg: {
-          transform: 'scale(0.85)',
+          // transform: 'scale(0.85)',
           path: {
             '&:nth-of-type(1)': {
               //inner
@@ -28,7 +49,7 @@ export const TogglerStyled = styled('button', {
             },
             '&:nth-of-type(2)': {
               //outer
-              fill: '$gray040',
+              fill: theme.colors.text4,
             },
             '&:nth-of-type(3)': {
               //checkmark
@@ -50,15 +71,15 @@ export const TogglerStyled = styled('button', {
           path: {
             '&:nth-of-type(1)': {
               //inner
-              fill: '$secondary100',
+              fill: theme.colors.violet_default,
             },
             '&:nth-of-type(2)': {
               //outer
-              fill: '$secondary100',
+              fill: theme.colors.violet_default,
             },
             '&:nth-of-type(3)': {
               //checkmark
-              fill: '$white',
+              fill: theme.colors.surface1,
             },
           },
         },
@@ -73,15 +94,15 @@ export const TogglerStyled = styled('button', {
           path: {
             '&:nth-of-type(1)': {
               //inner
-              fill: '$primary100',
+              fill: theme.colors.pink_default,
             },
             '&:nth-of-type(2)': {
               //outer
-              fill: '$primary100',
+              fill: theme.colors.pink_default,
             },
             '&:nth-of-type(3)': {
               //checkmark
-              fill: '$white',
+              fill: theme.colors.surface1,
             },
           },
         },

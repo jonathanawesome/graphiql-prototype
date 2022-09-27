@@ -1,5 +1,5 @@
-export { colors } from './colors';
+export { editorColors } from './colors';
 
 export { globalStyles } from './globalStyles';
 
-export { keyframes, styled } from './stitches.config';
+export { darkTheme, keyframes, styled, theme } from './stitches.config';

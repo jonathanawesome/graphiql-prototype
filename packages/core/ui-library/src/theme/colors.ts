@@ -1,147 +1,125 @@
-import { useTheme } from '../hooks/useTheme';
+import { HexValue } from '../hooks/useTheme/types';
+import { hexToHSL } from './hexToHSL';
 
-const themeColors = useTheme.getState().theme.tokens.colors;
-
-export const colors = {
-  editorHex: {
-    gray010: '#EBEDF0',
-    gray040: '#B1B7C3',
-    gray060: '#8993A4',
-    primary100: '#D60690',
-    secondary100: '#6E6ACF',
-    error100: '#F85B30',
-    warning100: '#D37F00',
-    success100: '#2BAB7C',
-    info100: '#007EEA',
+export const editorColors = {
+  dark: {
+    indentGuides: '#363739',
+    delimiters: '#55565C',
+    delimitersActive: '#A4A4A4',
+    selections: '#363739',
+    keywords: '#A4A4A4',
+    operators: '#A4A4A4',
+    text1: '#FFFFFF',
+    text2: '#BFBFBF',
+    text3: '#A4A4A4',
+    fields: '#948AE3',
+    arguments: '#FC618D',
+    types: '#5AD4E6',
+    values: '#7BD88F',
+    orange_default: '#EE8E57',
+    yellow_default: '#FCE566',
   },
-  base: {
-    gray: {
-      // gray007: 'hsla(219, 28%, 32%, 0.07)',
-      // gray010: 'hsla(219, 28%, 32%, 0.10)',
-      // gray015: 'hsla(219, 28%, 32%, 0.15)',
-      // gray040: 'hsla(219, 28%, 32%, 0.40)',
-      // gray060: 'hsla(219, 28%, 32%, 0.60)',
-      // gray100: 'hsla(219, 28%, 32%, 1)',
-      gray007: '#F1F3F5',
-      gray010: '#EBEDF0',
-      gray015: '#E2E4E9',
-      gray040: '#B1B7C3',
-      gray060: '#8994A6',
-      gray100: '#3B4C6A',
-    },
-    primary: {
-      // primary010: 'hsla(320, 95%, 43%, 0.10)',
-      // primary060: 'hsla(320, 95%, 43%, 0.60)',
-      // primary080: 'hsla(320, 95%, 43%, 0.80)',
-      // primary100: 'hsla(320, 95%, 43%, 1)',
-      primary010: '#FBE6F4',
-      primary060: '#E66ABC',
-      primary080: '#DE38A6',
-      primary100: '#D60690',
-    },
-    secondary: {
-      // secondary010: 'hsla(242, 51%, 61%, 0.10)',
-      // secondary060: 'hsla(242, 51%, 61%, 0.60)',
-      // secondary080: 'hsla(242, 51%, 61%, 0.80)',
-      // secondary100: 'hsla(242, 51%, 61%, 1)',
-      secondary010: '#F0F0FA',
-      secondary060: '#A8A6E2',
-      secondary080: '#8B88D9',
-      secondary100: '#6E6ACF',
-    },
-  },
-  other: {
-    // appBackground: 'hsla(210, 40%, 98%, 1)',
-    // editorBackground: 'hsla(214, 20%, 93%, 1)',
-    appBackground: '#F8FAFC',
-    editorBackground: '#F1F3F5',
-  },
-  pure: {
-    // white: 'hsla(0, 0%, 100%, 1)',
-    // black: 'hsla(0, 0%, 0%, 1)',
-    white: '#FFFFFF',
-    black: '#000000',
-  },
-  accent: {
-    error: {
-      // error010: 'hsla(13, 93%, 58%, 0.10)',
-      // error060: 'hsla(13, 93%, 58%, 0.60)',
-      // error100: 'hsla(13, 93%, 58%, 1)',
-      error010: '#FEEFEA',
-      error060: '#FB9D83',
-      error100: '#F85B30',
-    },
-    warning: {
-      // warning010: 'hsla(36, 100%, 41%, 0.10)',
-      // warning060: 'hsla(36, 100%, 41%, 0.60)',
-      // warning100: 'hsla(36, 100%, 41%, 1)',
-      warning010: '#FBF2E5',
-      warning060: '#E5B266',
-      warning100: '#D37F00',
-    },
-    success: {
-      // success010: 'hsla(158, 60%, 42%, 0.10)',
-      // success060: 'hsla(158, 60%, 42%, 0.60)',
-      // success100: 'hsla(158, 60%, 42%, 1)',
-      success010: '#EAF7F2',
-      success060: '#80CDB1',
-      success100: '#2BAB7C',
-    },
-    info: {
-      // info010: 'hsla(208, 100%, 46%, 0.10)',
-      // info060: 'hsla(208, 100%, 46%, 0.60)',
-      // info100: 'hsla(208, 100%, 46%, 1)',
-      info010: '#E5F2FD',
-      info060: '#66B1F2',
-      info100: '#007EEA',
-    },
+  light: {
+    indentGuides: '#D7D7D7', // surface3
+    delimiters: '#BCBCBC', // text4
+    delimitersActive: '#757575', // text3
+    selections: '#D7D7D7', // surface3
+    keywords: '#757575', // text3
+    operators: '#757575', // text3
+    text1: '#1B1B1B', // text1
+    text2: '#4A4A4A', // text2
+    text3: '#757575', // text3
+    fields: '#5C4CDD', // violet_default
+    arguments: '#D60690', // pink_default
+    types: '#0B6AF9', // blue_default
+    values: '#128934', // green_default
+    orange_default: '#AF5F15', // orange_default
+    yellow_default: '#767800', // yellow_default
   },
 };
 
-export const lightColors = {
-  // gray
-  gray007: colors.base.gray.gray007,
-  gray010: colors.base.gray.gray010,
-  gray015: colors.base.gray.gray015,
-  gray040: colors.base.gray.gray040,
-  gray060: colors.base.gray.gray060,
-  gray100: colors.base.gray.gray100,
-  // primary
-  primary010: colors.base.primary.primary010,
-  primary060: colors.base.primary.primary060,
-  primary080: colors.base.primary.primary080,
-  primary100: colors.base.primary.primary100,
-  // secondary
-  secondary010: colors.base.secondary.secondary010,
-  secondary060: colors.base.secondary.secondary060,
-  secondary080: colors.base.secondary.secondary080,
-  secondary100: colors.base.secondary.secondary100,
-  // error
-  error010: colors.accent.error.error010,
-  error060: colors.accent.error.error060,
-  error100: colors.accent.error.error100,
-  // warning
-  warning010: colors.accent.warning.warning010,
-  warning060: colors.accent.warning.warning060,
-  warning100: colors.accent.warning.warning100,
-  // success
-  success010: colors.accent.success.success010,
-  success060: colors.accent.success.success060,
-  success100: colors.accent.success.success100,
-  // info
-  info010: colors.accent.info.info010,
-  info060: colors.accent.info.info060,
-  info100: colors.accent.info.info100,
-  // other
-  appBackground: colors.other.appBackground,
-  editorBackground: colors.other.editorBackground,
-  // pure
-  black: colors.pure.black,
-  white: colors.pure.white,
+type Colors = {
+  surface1: HexValue;
+  surface2: HexValue;
+  surface3: HexValue;
+  text1: HexValue;
+  text2: HexValue;
+  text3: HexValue;
+  text4: HexValue;
+  violet: HexValue;
+  pink: HexValue;
+  blue: HexValue;
+  green: HexValue;
+  orange: HexValue;
+  yellow: HexValue;
+  red: HexValue;
 };
 
-export const darkColors = {
-  // other
-  appBackground: '#222B39',
-  editorBackground: '#1A212D',
-};
+const generateColors = ({ colors }: { colors: Colors }) => ({
+  surface1: hexToHSL({ hex: colors.surface1 }),
+  surface2: hexToHSL({ hex: colors.surface2 }),
+  surface3: hexToHSL({ hex: colors.surface3 }),
+  text1: hexToHSL({ hex: colors.text1 }),
+  text2: hexToHSL({ hex: colors.text2 }),
+  text3: hexToHSL({ hex: colors.text3 }),
+  text4: hexToHSL({ hex: colors.text4 }),
+  violet_default: hexToHSL({ hex: colors.violet, alpha: 1 }),
+  violet_light: hexToHSL({ hex: colors.violet, alpha: 0.6 }),
+  violet_lightest: hexToHSL({ hex: colors.violet, alpha: 0.1 }),
+  pink_default: hexToHSL({ hex: colors.pink, alpha: 1 }),
+  pink_light: hexToHSL({ hex: colors.pink, alpha: 0.6 }),
+  pink_lightest: hexToHSL({ hex: colors.pink, alpha: 0.1 }),
+  blue_default: hexToHSL({ hex: colors.blue, alpha: 1 }),
+  blue_light: hexToHSL({ hex: colors.blue, alpha: 0.6 }),
+  blue_lightest: hexToHSL({ hex: colors.blue, alpha: 0.1 }),
+  green_default: hexToHSL({ hex: colors.green, alpha: 1 }),
+  green_light: hexToHSL({ hex: colors.green, alpha: 0.6 }),
+  green_lightest: hexToHSL({ hex: colors.green, alpha: 0.1 }),
+  orange_default: hexToHSL({ hex: colors.orange, alpha: 1 }),
+  orange_light: hexToHSL({ hex: colors.orange, alpha: 0.6 }),
+  orange_lightest: hexToHSL({ hex: colors.orange, alpha: 0.1 }),
+  yellow_default: hexToHSL({ hex: colors.yellow, alpha: 1 }),
+  yellow_light: hexToHSL({ hex: colors.yellow, alpha: 0.6 }),
+  yellow_lightest: hexToHSL({ hex: colors.yellow, alpha: 0.1 }),
+  red_default: hexToHSL({ hex: colors.red, alpha: 1 }),
+  red_light: hexToHSL({ hex: colors.red, alpha: 0.6 }),
+  red_lightest: hexToHSL({ hex: colors.red, alpha: 0.1 }),
+});
+
+export const lightColors = generateColors({
+  colors: {
+    surface1: '#FFFFFF',
+    surface2: '#FBFBFB',
+    surface3: '#C1C1C1',
+    text1: '#1B1B1B',
+    text2: '#4A4A4A',
+    text3: '#757575',
+    text4: '#BCBCBC',
+    violet: '#5C4CDD',
+    pink: '#D60690',
+    blue: '#0B6AF9',
+    green: '#128934',
+    orange: '#AF5F15',
+    yellow: '#767800',
+    red: '#BF0000',
+  },
+});
+
+export const darkColors = generateColors({
+  colors: {
+    surface1: '#16171B',
+    surface2: '#222226',
+    surface3: '#363739',
+    text1: '#FFFFFF',
+    text2: '#BFBFBF',
+    text3: '#A4A4A4',
+    text4: '#55565C',
+    violet: '#948AE3',
+    pink: '#FC618D',
+    blue: '#5AD4E6',
+    green: '#7BD88F',
+    orange: '#EE8E57',
+    yellow: '#FCE566',
+    red: '#FC4747',
+  },
+});

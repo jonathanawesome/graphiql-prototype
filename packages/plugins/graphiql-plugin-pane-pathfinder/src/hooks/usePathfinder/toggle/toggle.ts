@@ -28,9 +28,10 @@ import {
 // types
 import { AncestorMap, PathfinderStore } from '../types';
 
-const addEditorTab = useEditor.getState().addEditorTab;
+const initEditorTab = useEditor.getState().initEditorTab;
 const updateModel = useEditor.getState().updateModel;
 const updateOperationDefinition = useEditor.getState().updateOperationDefinition;
+
 export const toggle = ({
   ancestors,
   get,
@@ -63,8 +64,9 @@ export const toggle = ({
 
   setNextOperationType({ nextOperationType: incomingOperationType });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  ancestors.forEach((ancestor, _key) => {
+  // on each call to toggle, we run this function for each ancestor
+  // the setNext*** functions (👆) allow us to pass data from one ancestor to the previous
+  ancestors.forEach((ancestor) => {
     // console.log('toggle forEach', { name: key, ancestor, ancestors });
 
     const isField = 'field' in ancestor;
@@ -104,6 +106,7 @@ export const toggle = ({
           handleAddInputField({
             ancestor,
             setNextAction,
+            // variableDefinitions: activeOperationDefinition?.variableDefinitions,
           });
         } else {
           handleRemoveInputField({
@@ -206,18 +209,27 @@ export const toggle = ({
   const nextSelectionSet = get().nextSelectionSet;
   const nextOperationType = get().nextOperationType;
 
-  // console.log('nextOperationType', {
-  //   nextOperationType,
-  //   currentOperationType,
-  //   activeOperationDefinition,
-  // });
+  console.log('nextOperationType', {
+    nextOperationType,
+    currentOperationType,
+    activeOperationDefinition,
+  });
 
   let nextDefinition: OperationDefinitionNode;
 
   const kind = Kind.OPERATION_DEFINITION;
 
-  const operation =
-    nextOperationType === 'query' ? OperationTypeNode.QUERY : OperationTypeNode.MUTATION;
+  const operation = () => {
+    if (nextOperationType === 'mutation') {
+      return OperationTypeNode.MUTATION;
+    }
+    if (nextOperationType === 'subscription') {
+      return OperationTypeNode.SUBSCRIPTION;
+    }
+    return OperationTypeNode.QUERY;
+
+    // nextOperationType === 'query' ? OperationTypeNode.QUERY : OperationTypeNode.MUTATION;
+  };
 
   const name = (count: number): NameNode => ({
     kind: Kind.NAME,
@@ -225,6 +237,10 @@ export const toggle = ({
   });
 
   const variableDefinitions = get().nextVariableDefinitions;
+
+  // console.log('variableDefinitions', {
+  //   variableDefinitions,
+  // });
 
   const selectionSet = nextSelectionSet ?? {
     kind: Kind.SELECTION_SET,
@@ -234,10 +250,10 @@ export const toggle = ({
   // if the rootType is different than currentOperationType,
   // spin up a new tab and do work there
   if (currentOperationType && nextOperationType !== currentOperationType) {
-    addEditorTab();
+    initEditorTab();
     nextDefinition = {
       kind,
-      operation,
+      operation: operation(),
       name: name(useEditor.getState().editorTabs.length),
       variableDefinitions,
       selectionSet,
@@ -249,7 +265,7 @@ export const toggle = ({
         : // 👇 we don't have an active operation definition, so this is the initial tab
           {
             kind,
-            operation,
+            operation: operation(),
             name: name(useEditor.getState().editorTabs.length),
           }),
       variableDefinitions,

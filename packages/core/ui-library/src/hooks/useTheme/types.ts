@@ -1,20 +1,9 @@
 export type HexValue = `#${string}`;
 
-export type DesignTokens = {
-  colors?: {
-    neutral?: HexValue;
-    primary?: HexValue;
-    secondary?: HexValue;
-    error?: HexValue;
-    warning?: HexValue;
-    info?: HexValue;
-    success?: HexValue;
-  };
-};
+type ThemeMode = 'LIGHT' | 'DARK';
 
 export type ThemeStore = {
-  theme: {
-    tokens: DesignTokens;
-  };
-  setColors: ({ colors }: { colors: DesignTokens['colors'] }) => void;
+  themeMode: ThemeMode;
+  themeClass: () => string;
+  toggleThemeMode: ({ mode }: { mode: ThemeMode }) => void;
 };

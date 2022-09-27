@@ -1,26 +1,18 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { styled, theme } from '@graphiql-prototype/ui-library';
 
 //TODO: this is mostly placeholder styling...just getting something on the screen
 export const NavigationStyled = styled('div', {
   height: '100%',
-  padding: '24px 12px',
+  padding: `${theme.space[6]} ${theme.space[3]}`,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  borderRight: 'solid 1px transparent',
+  borderRight: `solid 1px ${theme.colors.surface3}`,
 
   button: {
     padding: 7,
     height: 35,
     width: 35,
-  },
-
-  variants: {
-    showBorder: {
-      true: {
-        borderRight: 'solid 1px $gray015',
-      },
-    },
   },
 });
 
@@ -34,7 +26,7 @@ export const PanePluginNavigationItem = styled('button', {
   '&:hover': {
     svg: {
       path: {
-        fill: '$primary100',
+        fill: theme.colors.pink_default,
       },
     },
   },
@@ -44,14 +36,14 @@ export const PanePluginNavigationItem = styled('button', {
       true: {
         svg: {
           path: {
-            fill: '$primary100',
+            fill: theme.colors.pink_default,
           },
         },
       },
       false: {
         svg: {
           path: {
-            fill: '$gray040',
+            fill: theme.colors.text4,
           },
         },
       },

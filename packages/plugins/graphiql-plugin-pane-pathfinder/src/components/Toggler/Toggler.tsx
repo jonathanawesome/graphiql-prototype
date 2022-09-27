@@ -22,8 +22,8 @@ type TogglerBaseProps = {
 
 type TogglerWithCollapserProps = TogglerBaseProps & {
   collapser: {
-    isCollapsed: boolean;
-    setIsCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
+    isOpen: boolean;
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   };
 };
 
@@ -63,14 +63,13 @@ export const Toggler: React.FC<ToggleProps> = ({
       isSelected={isSelected}
       onClick={() => {
         if (collapser) {
-          const { isCollapsed, setIsCollapsed } = collapser;
-
-          if (!isSelected && isCollapsed) {
-            setIsCollapsed(false);
-          }
-          if (isSelected && !isCollapsed) {
-            setIsCollapsed(true);
-          }
+          // const { isOpen, setIsOpen } = collapser;
+          // if (!isSelected && isOpen) {
+          //   setIsOpen(false);
+          // }
+          // if (isSelected && !isOpen) {
+          //   setIsOpen(true);
+          // }
         }
         return toggle({ ancestors, operationType });
       }}

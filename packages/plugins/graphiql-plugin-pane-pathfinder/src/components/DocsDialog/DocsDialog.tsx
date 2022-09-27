@@ -1,33 +1,30 @@
 import { useEffect, useState } from 'react';
 
 // components
-import { Close } from '@graphiql-prototype/ui-library';
+import { TertiaryPane } from '@graphiql-prototype/graphiql-plugin-schema-documentation';
 
 // hooks
-import { Docs, useDocs } from '@graphiql-prototype/graphiql-plugin-pane-docs';
+import { useSchemaReference } from '@graphiql-prototype/graphiql-plugin-schema-documentation';
 
 // styles
 import {
-  CloseButton,
   CustomPortalContainer,
-  DialogClose,
   DialogContent,
   DialogPortal,
   DialogRoot,
   DocsDialogStyled,
 } from './styles';
 
-export const DocsDialog = ({ dialogActive }: { dialogActive: boolean }) => {
+export const DocsDialog = () => {
   const [container, setContainer] = useState<HTMLElement | null>(null);
-  const { getDocsInstance, resetDocInstance } = useDocs();
 
-  const docsInstance = getDocsInstance({ placement: 'PATHFINDER' });
+  const { activeTertiaryPane, clearTertiaryPaneStack } = useSchemaReference();
 
-  // console.log('DocsDialog', {
-  //   docsInstance,
-  // });
+  console.log('DocsDialog', {
+    activeTertiaryPane,
+  });
 
-  const closeDialog = () => resetDocInstance({ placement: 'PATHFINDER' });
+  const closeDialog = () => clearTertiaryPaneStack();
 
   useEffect(() => {
     const close = (e: KeyboardEvent) => {
@@ -44,25 +41,14 @@ export const DocsDialog = ({ dialogActive }: { dialogActive: boolean }) => {
   }, []);
 
   return (
-    <DocsDialogStyled dialogActive={!!docsInstance?.activeDocPane}>
-      <DialogRoot open={dialogActive}>
+    <DocsDialogStyled dialogActive={!!activeTertiaryPane}>
+      <DialogRoot open={!!activeTertiaryPane} modal={true}>
         <DialogPortal container={container}>
           <DialogContent
             onEscapeKeyDown={() => closeDialog()}
             onPointerDownOutside={() => closeDialog()}
           >
-            {/*
-            // TODO: populate and wrap with visually hidden
-            <DialogTitle>Title</DialogTitle>
-              <DialogDescription>
-               Description
-              </DialogDescription> */}
-            <Docs placement="PATHFINDER" />
-            <DialogClose asChild>
-              <CloseButton onClick={() => closeDialog()}>
-                <Close />
-              </CloseButton>
-            </DialogClose>
+            {activeTertiaryPane && <TertiaryPane pane={activeTertiaryPane['pane']} />}
           </DialogContent>
         </DialogPortal>
       </DialogRoot>

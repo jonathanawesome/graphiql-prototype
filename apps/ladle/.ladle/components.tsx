@@ -1,20 +1,40 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { styled } from '@graphiql-prototype/ui-library';
 
 // hooks
-import { useSchema } from '@graphiql-prototype/use-schema';
+import { useTheme } from '@graphiql-prototype/ui-library';
 
-// styles
-import { globalStyles } from '@graphiql-prototype/ui-library';
+const Container = styled('div', {
+  height: `100%`,
+  width: `100%`,
+});
+
+const Switch = styled('button', {
+  all: 'unset',
+  cursor: 'pointer',
+  position: 'fixed',
+  bottom: 64,
+  right: 64,
+});
 
 export const Provider = ({ children }: { children: React.ReactNode }) => {
-  globalStyles();
+  const { themeMode, themeClass, toggleThemeMode } = useTheme();
 
-  const { initSchema } = useSchema();
-
-  useEffect(() => {
-    initSchema({});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return children;
+  return (
+    <Container className={themeClass()}>
+      {children}
+      <Switch
+        onClick={() => {
+          if (themeMode === 'LIGHT') {
+            toggleThemeMode({ mode: 'DARK' });
+          }
+          if (themeMode === 'DARK') {
+            toggleThemeMode({ mode: 'LIGHT' });
+          }
+        }}
+      >
+        🚦
+      </Switch>
+    </Container>
+  );
 };

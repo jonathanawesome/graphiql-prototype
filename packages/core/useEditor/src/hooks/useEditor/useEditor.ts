@@ -1,25 +1,152 @@
 import create from 'zustand';
+import { ExecutableDefinitionNode, isExecutableDefinitionNode, Kind } from 'graphql';
 import { initializeMode } from 'monaco-graphql/esm/initializeMode';
 import { editor as MONACO_EDITOR } from 'monaco-editor/esm/vs/editor/editor.api';
 import cuid from 'cuid';
-import { ExecutableDefinitionNode, isExecutableDefinitionNode, Kind } from 'graphql';
 
 // constants
 import {
   defaultOperation,
   defaultResults,
   defaultVariables,
-  editorTheme,
+  editorOptions,
+  editorThemeDark,
+  editorThemeLight,
 } from '../../constants';
 
+// hooks
+import { useSchema } from '@graphiql-prototype/use-schema';
+
 // types
-import { EditorTab, EditorStore } from './types';
+import { EditorTabState, EditorStore } from './types';
 
 // utils
 import { getOrCreateModel, pushEditOperationsToModel } from '../../utils';
 import { parseQuery } from '@graphiql-prototype/utils';
 
-export const useEditor = create<EditorStore>((set, get) => ({
+// this should be called somewhere else, but fine here for now
+MONACO_EDITOR.defineTheme('graphiql-DARK', editorThemeDark);
+MONACO_EDITOR.defineTheme('graphiql-LIGHT', editorThemeLight);
+
+export const useEditor = create<EditorStore>()((set, get) => ({
+  initMonacoEditor: ({ monacoEditorType, monacoEditorRef, optionOverrides }) => {
+    const monacoEditors = get().monacoEditors;
+    const activeTab = get().getActiveTab();
+
+    const updateOperationDefinitionFromModelValue =
+      get().updateOperationDefinitionFromModelValue;
+
+    const runOperationAction = useSchema.getState().runOperationAction;
+
+    const editor = MONACO_EDITOR.create(monacoEditorRef, {
+      language: monacoEditorType === 'operations' ? 'graphql' : 'json',
+      ...editorOptions, // spread our base options
+      ...(optionOverrides && optionOverrides), // spread any option overrides that were passed in
+      fixedOverflowWidgets: true,
+      model: activeTab[`${monacoEditorType}Model`],
+    });
+
+    // add this editor to our editors state array
+    set({
+      monacoEditors: {
+        ...monacoEditors,
+        [monacoEditorType]: editor,
+      },
+    });
+
+    // add the runOperationAction to the operation and variables editors
+    if (monacoEditorType !== 'results') {
+      editor.addAction(runOperationAction());
+
+      // when our operation or variables editor models change, update the operationDefinition
+      editor.onDidChangeModelContent(() => {
+        if (monacoEditorType === 'variables') {
+          set({ activeVariables: editor.getValue() });
+        }
+        updateOperationDefinitionFromModelValue({ value: editor.getValue() });
+      });
+
+      editor.onDidContentSizeChange(() => {
+        const contentHeight = editor.getContentHeight();
+        // const contentHeight = Math.min(1000, editor.getContentHeight());
+        console.log('contentHeight', contentHeight);
+        if (monacoEditorRef && monacoEditorRef) {
+          monacoEditorRef.style.height = `${contentHeight}px`;
+        }
+      });
+    }
+  },
+  setModelsForAllEditorsWithinTab: ({ destinationTab }) => {
+    // get our array of editors
+    const monacoEditors = get().monacoEditors;
+
+    // set the model for each of our editors
+    monacoEditors.operations?.setModel(destinationTab.operationsModel);
+    monacoEditors.variables?.setModel(destinationTab.variablesModel);
+    monacoEditors.headers?.setModel(destinationTab.headersModel);
+    monacoEditors.results?.setModel(destinationTab.resultsModel);
+  },
+  initEditorTab: () => {
+    const monacoGraphQLAPI = get().monacoGraphQLAPI;
+
+    // grab our array of existing editorTabs
+    const editorTabs = get().editorTabs;
+
+    const setModelsForAllEditorsWithinTab = get().setModelsForAllEditorsWithinTab;
+    const switchEditorTab = get().switchEditorTab;
+
+    // generate a unique id for our new editorTab
+    const newEditorTabId = cuid.slug();
+
+    // create all of the necessary models for our new editorTab
+    const operationsModel = getOrCreateModel({
+      uri: `${newEditorTabId}-operations.graphql`,
+      value: defaultOperation,
+    });
+    const variablesModel = getOrCreateModel({
+      uri: `${newEditorTabId}-variables.json`,
+      value: defaultVariables,
+    });
+    const headersModel = getOrCreateModel({
+      uri: `${newEditorTabId}-headers.json`,
+      value: defaultVariables,
+    });
+    const resultsModel = getOrCreateModel({
+      uri: `${newEditorTabId}-results.json`,
+      value: defaultResults,
+    });
+
+    // build our new editorTab shape
+    const newEditorTab: EditorTabState = {
+      editorTabId: newEditorTabId,
+      editorTabName: `Tab${editorTabs.length > 0 ? editorTabs.length + 1 : 1}`,
+      operationsModel,
+      variablesModel,
+      headersModel,
+      resultsModel,
+      operationDefinition: null,
+    };
+
+    setModelsForAllEditorsWithinTab({ destinationTab: newEditorTab });
+
+    monacoGraphQLAPI.setDiagnosticSettings({
+      validateVariablesJSON: {
+        [operationsModel.uri.toString()]: [variablesModel.uri.toString()],
+      },
+      jsonDiagnosticSettings: {
+        allowComments: true,
+        schemaValidation: 'error',
+        trailingCommas: 'warning',
+      },
+    });
+
+    // set the activeEditorTabId to our new editorTab and spread our new editorTab into our array of editorTabs
+    set({
+      activeEditorTabId: newEditorTabId,
+      editorTabs: [...editorTabs, newEditorTab],
+    });
+    switchEditorTab({ editorTabId: newEditorTabId });
+  },
   monacoGraphQLAPI: initializeMode({
     formattingOptions: {
       prettierConfig: {
@@ -39,62 +166,29 @@ export const useEditor = create<EditorStore>((set, get) => ({
       (editorTab) => editorTab.editorTabId === activeEditorTabId
     );
 
-    return activeTab;
+    return activeTab as EditorTabState;
   },
   editorTabs: [],
   resetEditorTabs: () => {
-    const addEditorTab = get().addEditorTab;
+    const initEditorTab = get().initEditorTab;
+
     // reset
     set({ editorTabs: [] });
 
     // init new tab1
-    addEditorTab();
-  },
-  addEditorTab: () => {
-    const editorTabs = get().editorTabs;
-    const switchEditorTab = get().switchEditorTab;
-
-    const newEditorTabId = cuid.slug();
-
-    const operationsModel = getOrCreateModel({
-      uri: `${newEditorTabId}-operations.graphql`,
-      value: defaultOperation,
-    });
-    const variablesModel = getOrCreateModel({
-      uri: `${newEditorTabId}-variables.json`,
-      value: defaultVariables,
-    });
-    const headersModel = getOrCreateModel({
-      uri: `${newEditorTabId}-headers.json`,
-      value: defaultVariables,
-    });
-    const resultsModel = getOrCreateModel({
-      uri: `${newEditorTabId}-results.json`,
-      value: defaultResults,
-    });
-
-    const newEditorTab = {
-      editorTabId: newEditorTabId,
-      editorTabName: `Tab${editorTabs.length > 0 ? editorTabs.length + 1 : 1}`,
-      operationsModel,
-      variablesModel,
-      headersModel,
-      resultsModel,
-      operationDefinition: null,
-    };
-
-    set({ activeEditorTabId: newEditorTabId, editorTabs: [...editorTabs, newEditorTab] });
-    switchEditorTab({ editorTabId: newEditorTabId });
+    initEditorTab();
   },
   removeEditorTab: ({ editorTabId }) => {
     const editorTabs = get().editorTabs;
     const switchEditorTab = get().switchEditorTab;
+
     // filter the tab we're removing from our editorTabs array
     const remainingEditors = editorTabs.filter((t) => t.editorTabId !== editorTabId);
 
     set({
       // replace our editorTabs array with our remaining editors
       editorTabs: remainingEditors,
+
       // set the new active tab to the first tab
       activeEditorTabId: remainingEditors[0].editorTabId,
     });
@@ -104,25 +198,21 @@ export const useEditor = create<EditorStore>((set, get) => ({
   },
   switchEditorTab: ({ editorTabId }) => {
     const monacoGraphQLAPI = get().monacoGraphQLAPI;
-    const monacoEditors = get().monacoEditors;
+    // const monacoEditors = get().monacoEditors;
     const editorTabs = get().editorTabs;
     const editorTab = editorTabs.find((t) => t.editorTabId === editorTabId);
-
-    // console.log('running switchEditorTab', { monacoEditors, editorTab });
+    const setModelsForAllEditorsWithinTab = get().setModelsForAllEditorsWithinTab;
 
     if (editorTab) {
-      // explicitly set the activeEditorTabId
-      set({ activeEditorTabId: editorTabId });
+      set({
+        // set the activeEditorTabId
+        activeEditorTabId: editorTabId,
+        // set the active variables
+        activeVariables: editorTab.variablesModel.getValue(),
+      });
 
-      // TODO: there's probably a better way to do this 👇
-      const operationsEditor = monacoEditors.find((e) => e.name === 'operations');
-      const variablesEditor = monacoEditors.find((e) => e.name === 'variables');
-      const headersEditor = monacoEditors.find((e) => e.name === 'headers');
-      const resultsEditor = monacoEditors.find((e) => e.name === 'results');
-      operationsEditor?.editor.setModel(editorTab.operationsModel);
-      variablesEditor?.editor.setModel(editorTab.variablesModel);
-      headersEditor?.editor.setModel(editorTab.headersModel);
-      resultsEditor?.editor.setModel(editorTab.resultsModel);
+      // set the model values for each of our editors
+      setModelsForAllEditorsWithinTab({ destinationTab: editorTab });
 
       //TODO there's an uncaught promise in the DiagnosticsAdapter
       // languageFeatures.ts:124 Uncaught (in promise) TypeError: Cannot read properties of null (reading 'doValidation') at DiagnosticsAdapter._doValidate (languageFeatures.ts:124:38)
@@ -142,45 +232,80 @@ export const useEditor = create<EditorStore>((set, get) => ({
       });
     }
   },
-  // removeVariables: ({ variableNames }) => {
-  //   const activeEditorTab = getActiveEditorTab();
-
-  //   if (activeEditorTab) {
-  //     // 1. parse the existing variables string to an object
-  //     const parsedVariables = JSON.parse(activeEditorTab.variablesModel.getValue());
-  //     // 2. remove the variables
-  //     variableNames.forEach((v) => {
-  //       delete parsedVariables[v];
-  //     });
-  //     // 3. return to string
-  //     const newVariablesString = JSON.stringify(parsedVariables, null, ' ');
-  //     // 4. update the model
-  //     pushEditOperationsToModel({
-  //       model: activeEditorTab.variablesModel,
-  //       text: newVariablesString,
-  //     });
-  //   } else {
-  //     console.log("editorTab doesn't exist ☠️");
-  //   }
-  // },
-  updateVariable: ({ variableName, variableValue }) => {
+  activeVariables: ``,
+  removeVariable: ({ onInputObject, variableName }) => {
     const activeEditorTab = get().getActiveTab();
-    // console.log('running updateVariable', {
-    //   variableName,
-    //   variableValue,
-    // });
+    console.log('running removeVariables', {
+      onInputObject,
+      variableName,
+    });
+    if (activeEditorTab) {
+      // 1. parse the existing variables string to an object
+      const parsedVariables = JSON.parse(activeEditorTab.variablesModel.getValue());
+      // 2. remove the variables
+      if (onInputObject) {
+        if (Object.keys(parsedVariables[onInputObject]).length === 1) {
+          delete parsedVariables[onInputObject];
+        } else {
+          delete parsedVariables[onInputObject][variableName];
+        }
+      } else {
+        delete parsedVariables[variableName];
+      }
+      // 3. return to string
+      const newVariablesString = JSON.stringify(parsedVariables, null, ' ');
+      // 4. update the model
+      pushEditOperationsToModel({
+        model: activeEditorTab.variablesModel,
+        text: newVariablesString,
+      });
+    } else {
+      console.log("editorTab doesn't exist ☠️");
+    }
+  },
+  getVariables: () => {
+    const activeEditorTab = get().getActiveTab();
+    try {
+      return JSON.parse(activeEditorTab.variablesModel.getValue());
+    } catch (e) {
+      console.warn(e);
+      // Return a default object, or null based on use case.
+      return {};
+    }
+  },
+  updateVariable: async ({ onInputObject, variableName, variableValue }) => {
+    console.log('running updateVariable', {
+      onInputObject,
+      variableName,
+      variableValue,
+    });
+    const activeEditorTab = get().getActiveTab();
+
     if (activeEditorTab) {
       // 1. parse the existing variables string to an object
       // if the current variables model is undefined, use an empty object string
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let parsedVariables: Record<any, any> = {};
       try {
-        parsedVariables = JSON.parse(activeEditorTab.variablesModel.getValue() || '{}');
+        parsedVariables = await JSON.parse(
+          activeEditorTab.variablesModel.getValue() || '{}'
+        );
       } catch (error) {
         console.warn('error parsing variables in updateVariable');
       }
       // 2. set the variableName and/or variableValue
-      parsedVariables[variableName] = variableValue;
+      if (onInputObject) {
+        parsedVariables = {
+          ...parsedVariables,
+          [onInputObject]: {
+            ...parsedVariables[onInputObject],
+            [variableName]: variableValue,
+          },
+        };
+        // parsedVariables['somenewobj'][variableName] = variableValue;
+      } else {
+        parsedVariables[variableName] = variableValue;
+      }
       // 3. return to string
       const newVariablesString = JSON.stringify(parsedVariables, null, ' ');
       // 4. update the model
@@ -292,16 +417,30 @@ export const useEditor = create<EditorStore>((set, get) => ({
     }
   },
 
-  monacoEditors: [],
+  monacoEditors: {
+    operations: null,
+    variables: null,
+    results: null,
+    headers: null,
+  },
   addMonacoEditor: ({ editor, name }) => {
-    // console.log('running addMonacoEditor', { editor });
+    // console.log('running addMonacoEditor', { editor, name });
 
-    MONACO_EDITOR.defineTheme('graphiql-default', editorTheme);
+    // MONACO_EDITOR.defineTheme('graphiql-DARK', editorTheme);
 
     const monacoEditors = get().monacoEditors;
-    const existingEditor = monacoEditors.find((e) => e.name === name);
-    if (!existingEditor) {
-      set({ monacoEditors: [...monacoEditors, { editor, name }] });
-    }
+
+    set({
+      monacoEditors: {
+        ...monacoEditors,
+        ...(!monacoEditors[name] && { [name]: editor }),
+      },
+    });
+    // console.log('running addMonacoEditor after', { editors: get().monacoEditors });
+
+    // const existingEditor = monacoEditors.find((e) => e.name === name);
+    // if (!existingEditor) {
+    //   set({ monacoEditors: [...monacoEditors, { editor, name }] });
+    // }
   },
 }));

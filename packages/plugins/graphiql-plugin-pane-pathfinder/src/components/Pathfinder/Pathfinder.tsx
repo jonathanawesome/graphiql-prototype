@@ -1,83 +1,96 @@
-import { useEffect } from 'react';
 import { OperationTypeNode } from 'graphql';
 
 // components
-import { DocsDialog, Options, RootOperation } from '../index';
-import { Command } from '@graphiql-prototype/ui-library';
-import { Search } from '../../icons';
+import { DocsDialog, RootOperation } from '../index';
+import { Message, Tabs } from '@graphiql-prototype/ui-library';
 
 // hooks
-import { useDocs } from '@graphiql-prototype/graphiql-plugin-pane-docs';
+import { useEditor } from '@graphiql-prototype/use-editor';
 import { useSchema } from '@graphiql-prototype/use-schema';
+import { SchemaReferenceProvider } from '@graphiql-prototype/graphiql-plugin-schema-documentation';
 
 // styles
 import {
-  FakeSearch,
-  Note,
-  PathfinderContainer,
-  PathfinderContent,
-  PathfinderLead,
-  PathfinderWrap,
+  StyledContainer,
+  StyledPathfinder,
+  StyledPathfinderContainer,
+  StyledPathfinderContent,
 } from './styles';
 
 export const Pathfinder = () => {
-  // console.log('rendering Pathfinder');
+  const activeEditorTab = useEditor().getActiveTab();
 
   const { schema } = useSchema();
 
-  const { getDocsInstance, initDocsInstance } = useDocs();
-
-  const docsInstance = getDocsInstance({ placement: 'PATHFINDER' });
-
-  useEffect(() => {
-    if (!docsInstance) {
-      // we haven't initialized the Pathfinder instance, let's do it now
-      return initDocsInstance({
-        placement: 'PATHFINDER',
-      });
-    }
-
-    return undefined;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   if (!schema || 'error' in schema) {
     //TODO: loading/error skeleton
-    return <Note>Unable to load schema.</Note>;
+    return <Message message={<p>Unable to load schema</p>} variant="ERROR" />;
   }
 
-  const queryType = schema.getQueryType();
-  const mutationType = schema.getMutationType();
-
+  console.log('rendering Pathfinder', { typeMap: schema.getTypeMap() });
   return (
-    <PathfinderWrap>
-      <PathfinderContainer dialogActive={!!docsInstance?.activeDocPane}>
-        <PathfinderLead>
-          <FakeSearch>
-            <div>
-              <Search />
-              <span>Search</span>
-            </div>
-            <div>
-              <Command />
-              <span>K</span>
-            </div>
-          </FakeSearch>
-          <Options />
-        </PathfinderLead>
-        <PathfinderContent>
-          {queryType ? (
-            <RootOperation rootType={queryType} operationType={OperationTypeNode.QUERY} />
-          ) : null}
-          {mutationType ? (
-            <RootOperation
-              rootType={mutationType}
-              operationType={OperationTypeNode.MUTATION}
+    <SchemaReferenceProvider>
+      <StyledPathfinder>
+        <StyledPathfinderContainer>
+          <StyledPathfinderContent>
+            <Tabs
+              initialActiveTab={activeEditorTab?.operationDefinition?.operation}
+              ariaLabel="root operations types"
+              tabbedContent={[
+                {
+                  id: 'query',
+                  name: 'Query',
+                  panel: (
+                    <RootOperation
+                      rootType={schema.getQueryType() || null}
+                      operationType={OperationTypeNode.QUERY}
+                    />
+                  ),
+                },
+                {
+                  id: 'mutation',
+                  name: 'Mutation',
+                  panel: (
+                    <RootOperation
+                      rootType={schema.getMutationType() || null}
+                      operationType={OperationTypeNode.MUTATION}
+                    />
+                  ),
+                },
+                {
+                  id: 'subscription',
+                  name: 'Subscription',
+                  panel: (
+                    <RootOperation
+                      rootType={schema.getSubscriptionType() || null}
+                      operationType={OperationTypeNode.SUBSCRIPTION}
+                    />
+                  ),
+                },
+                {
+                  id: 'Fragments',
+                  name: 'Fragments',
+                  panel: (
+                    <StyledContainer>
+                      <Message
+                        message={
+                          <>
+                            This is a placeholder/idea for saving fragments for reuse
+                            across tabs/operations. Maybe it doesn't belong here and
+                            should be a plugin.
+                          </>
+                        }
+                        variant="WARNING"
+                      />
+                    </StyledContainer>
+                  ),
+                },
+              ]}
             />
-          ) : null}
-        </PathfinderContent>
-      </PathfinderContainer>
-      <DocsDialog dialogActive={!!docsInstance?.activeDocPane} />
-    </PathfinderWrap>
+          </StyledPathfinderContent>
+        </StyledPathfinderContainer>
+        <DocsDialog />
+      </StyledPathfinder>
+    </SchemaReferenceProvider>
   );
 };

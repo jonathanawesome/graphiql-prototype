@@ -5,5 +5,4 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "types": ["vite/client"]
   },
-  "include": ["src", "vite-env.d.ts", ".ladle/components.tsx"],
 }

@@ -39,9 +39,10 @@ export type AncestorField = {
 
 export type AncestorInputObject = {
   inputObject: GraphQLInputObjectType;
+  isNested: boolean;
   name: string;
-  parentType: 'FIELD' | 'INPUT_OBJECT';
   selection: ArgumentNode | ObjectFieldNode | undefined;
+  variableName: string;
 };
 
 export type AncestorInlineFragment = {
