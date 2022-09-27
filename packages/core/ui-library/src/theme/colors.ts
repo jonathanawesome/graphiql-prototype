@@ -90,7 +90,7 @@ export const lightColors = generateColors({
   colors: {
     surface1: '#FFFFFF',
     surface2: '#FBFBFB',
-    surface3: '#C1C1C1',
+    surface3: '#E8E8E8',
     text1: '#1B1B1B',
     text2: '#4A4A4A',
     text3: '#757575',

@@ -8,4 +8,19 @@ export const StyledTopBar = styled('div', {
   display: 'flex',
   justifyContent: 'space-between',
   borderBottom: `1px solid ${theme.colors.surface3}`,
+
+  '& .hideWhenSearchVisible': {
+    display: `inline-flex`,
+    width: `100%`,
+  },
+
+  variants: {
+    searchBarVisible: {
+      true: {
+        '& .hideWhenSearchVisible': {
+          display: `none`,
+        },
+      },
+    },
+  },
 });

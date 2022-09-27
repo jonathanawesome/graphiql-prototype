@@ -1,6 +1,10 @@
+import { useEffect, useRef } from 'react';
+
 // components
 import { Button } from '@graphiql-prototype/ui-library';
-import { useEffect, useRef, useState } from 'react';
+
+// hooks
+import { useSearch } from '../../hooks';
 
 // styles
 import { StyledSearch, StyledSearchTriggerWrap } from './styles';
@@ -8,19 +12,20 @@ import { StyledSearch, StyledSearchTriggerWrap } from './styles';
 export const Search = () => {
   const wrapRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [isActive, setIsActive] = useState<boolean>(false);
-  const [value, setValue] = useState<string>(``);
+
+  const { searchBarVisible, setSearchBarVisible, searchValue, setSearchValue } =
+    useSearch();
 
   useEffect(() => {
     const closeSearch = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setIsActive(false);
+        setSearchBarVisible({ bool: false });
       }
     };
 
     const searchHotKey = (e: KeyboardEvent) => {
       if (e.metaKey && e.key === 'k') {
-        setIsActive(true);
+        setSearchBarVisible({ bool: true });
       }
     };
 
@@ -36,11 +41,11 @@ export const Search = () => {
   }, []);
 
   useEffect(() => {
-    if (isActive && inputRef.current) {
+    if (searchBarVisible && inputRef.current) {
       inputRef.current.focus();
     }
 
-    if (isActive) {
+    if (searchBarVisible) {
       document.addEventListener('mousedown', handleClickOutside);
     } else {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -49,32 +54,33 @@ export const Search = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isActive]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchBarVisible]);
 
   const handleClickOutside = (e: MouseEvent) => {
     if (wrapRef.current && wrapRef?.current.contains(e.target as Node)) {
       return;
     }
-    setIsActive(false);
+    setSearchBarVisible({ bool: false });
   };
 
   const handleChange = ({ value }: { value: string }) => {
-    setValue(value);
+    setSearchValue({ value });
   };
 
   return (
-    <StyledSearch isActive={isActive} ref={wrapRef}>
+    <StyledSearch isActive={searchBarVisible} ref={wrapRef}>
       <input
         ref={inputRef}
         type="text"
         placeholder="Quick search not yet implemented!"
-        value={value}
+        value={searchValue}
         onChange={(e) => handleChange({ value: e.currentTarget.value })}
       />
       <StyledSearchTriggerWrap>
-        {isActive ? (
+        {searchBarVisible ? (
           <Button
-            action={() => setIsActive(!isActive)}
+            action={() => setSearchBarVisible({ bool: false })}
             icon="Close"
             label="Close schema search"
             size="LARGE"
@@ -82,7 +88,7 @@ export const Search = () => {
           />
         ) : (
           <Button
-            action={() => setIsActive(!isActive)}
+            action={() => setSearchBarVisible({ bool: true })}
             icon="Search"
             label="Search schema"
             size="LARGE"

@@ -25,7 +25,7 @@ export const Trigger = styled(TabsPrimitive.Trigger, {
     '&:after': {
       content: '',
       position: 'absolute',
-      bottom: 0,
+      bottom: -1,
       left: 0,
       height: 2,
       width: '100%',
