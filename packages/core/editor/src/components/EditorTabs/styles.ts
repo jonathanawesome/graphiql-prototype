@@ -47,7 +47,7 @@ export const TabWrap = styled('div', {
   alignItems: `center`,
   flexWrap: `nowrap`,
   whitespace: `nowrap`,
-  overflow: `hidden`,
+  // overflow: `hidden`,
 
   '&:hover': {
     backgroundColor: theme.colors.surface2,
@@ -61,7 +61,7 @@ export const TabWrap = styled('div', {
         '&:after': {
           content: '',
           position: 'absolute',
-          bottom: 0,
+          bottom: -1,
           left: 0,
           height: 2,
           width: '100%',
