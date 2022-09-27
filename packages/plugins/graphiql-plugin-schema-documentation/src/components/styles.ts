@@ -72,6 +72,8 @@ export const StyledSchemaReference = styled('div', {
 export const StyledBreadcrumb = styled('div', {
   display: `flex`,
   alignItems: `center`,
+  flexGrow: 0,
+  flexShrink: 0,
   color: theme.colors.text3,
   paddingLeft: padding,
   paddingRight: padding,
@@ -110,7 +112,7 @@ export const StyledPrimaryPane = styled(StyledPane, {
 export const StyledSecondaryPane = styled(StyledPane, {
   flexGrow: 1,
   minWidth: 200,
-  overflow: `hidden`,
+  // overflow: `hidden`,
 
   variants: {
     activeTertiaryPane: {
@@ -119,12 +121,6 @@ export const StyledSecondaryPane = styled(StyledPane, {
       },
     },
   },
-});
-
-export const StyledSecondaryPaneContent = styled('div', {
-  height: `100%`,
-  width: `100%`,
-  overflowY: `auto`,
 });
 
 export const StyledTertiaryPane = styled(StyledPane, {
@@ -238,6 +234,7 @@ export const StyledTertiaryPaneContent = styled('div', {
 });
 
 export const StyledPaneSection = styled('div', {
+  // overflowX: `hidden`,
   display: `flex`,
   flexDirection: `column`,
   marginBottom: theme.space[6],
@@ -282,7 +279,7 @@ export const StyledPaneSection = styled('div', {
 export const StyledPanes = styled('div', {
   height: `100%`,
   display: `flex`,
-  overflowY: `auto`,
+  overflow: `hidden`,
 });
 
 export const StyledTabButton = styled('button', {

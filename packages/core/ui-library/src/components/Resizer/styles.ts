@@ -62,17 +62,17 @@ export const Handle = styled('div', {
 });
 
 export const Pane1 = styled('div', {
-  display: 'flex',
-  flexGrow: 1,
-  flexShrink: 1,
-  flexBasis: 'auto',
+  // display: 'flex',
+  // flexGrow: 1,
+  // flexShrink: 1,
+  // flexBasis: 'auto',
 });
 
 export const Pane2 = styled('div', {
-  display: 'flex',
-  flexGrow: 0,
-  flexShrink: 0,
-  flexBasis: 'auto',
+  // display: 'flex',
+  // flexGrow: 0,
+  // flexShrink: 0,
+  // flexBasis: 'auto',
 });
 
 export const Container = styled('div', {

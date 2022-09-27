@@ -9,7 +9,7 @@ import { TypePane } from './TypePane';
 import { useSchemaReference } from '../hooks';
 
 // styles
-import { StyledSecondaryPane, StyledSecondaryPaneContent } from './styles';
+import { StyledSecondaryPane } from './styles';
 
 // types
 import { SortedTypeMap } from '../hooks';
@@ -79,7 +79,7 @@ export const SecondaryPane = ({
 
   return (
     <StyledSecondaryPane activeTertiaryPane={activeTertiaryPane !== null}>
-      <StyledSecondaryPaneContent>{toRender}</StyledSecondaryPaneContent>
+      {toRender}
     </StyledSecondaryPane>
   );
 };

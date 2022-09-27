@@ -3,6 +3,7 @@ import { styled, theme } from '@graphiql-prototype/ui-library';
 export const OperateWrap = styled('div', {
   backgroundColor: theme.colors.surface1,
   width: `100%`,
+  height: `100%`,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
