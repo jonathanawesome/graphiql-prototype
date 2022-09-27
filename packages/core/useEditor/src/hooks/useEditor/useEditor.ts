@@ -43,7 +43,11 @@ export const useEditor = create<EditorStore>()((set, get) => ({
       ...editorOptions, // spread our base options
       ...(optionOverrides && optionOverrides), // spread any option overrides that were passed in
       fixedOverflowWidgets: true,
-      model: activeTab[`${monacoEditorType}Model`],
+      model: monacoEditors[monacoEditorType]
+        ? // if we have an editor of this type, we'll set the model
+          activeTab[`${monacoEditorType}Model`]
+        : //otherwise, we'll leave it undefined for now
+          undefined,
     });
 
     // add this editor to our editors state array

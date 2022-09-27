@@ -47,16 +47,16 @@ export const InputObject = ({
 
   const isSelected = !!previousAncestor.selection;
 
-  console.log('rendering InputObject', {
-    // inputObjectType,
-    // toConfig: inputObjectType.toConfig(),
-    variableName: `${generateVariableNameFromAncestorMap({
-      ancestors,
-      variableType: 'ARGUMENT',
-    })}`,
-    ancestors,
-    previousAncestor,
-  });
+  // console.log('rendering InputObject', {
+  //   // inputObjectType,
+  //   // toConfig: inputObjectType.toConfig(),
+  //   variableName: `${generateVariableNameFromAncestorMap({
+  //     ancestors,
+  //     variableType: 'ARGUMENT',
+  //   })}`,
+  //   ancestors,
+  //   previousAncestor,
+  // });
 
   return (
     <StyledInputObject>

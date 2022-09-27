@@ -20,9 +20,9 @@ export const DocsDialog = () => {
 
   const { activeTertiaryPane, clearTertiaryPaneStack } = useSchemaReference();
 
-  console.log('DocsDialog', {
-    activeTertiaryPane,
-  });
+  // console.log('DocsDialog', {
+  //   activeTertiaryPane,
+  // });
 
   const closeDialog = () => clearTertiaryPaneStack();
 
