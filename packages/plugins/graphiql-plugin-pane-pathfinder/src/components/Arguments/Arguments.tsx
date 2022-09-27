@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
-import { FieldNode, isRequiredArgument, OperationTypeNode } from 'graphql';
+import {
+  FieldNode,
+  // isRequiredArgument,
+  OperationTypeNode,
+} from 'graphql';
 
 // components
 import { Argument } from '../index';
@@ -25,11 +29,11 @@ export const Arguments = ({
   operationType: OperationTypeNode;
   selection: FieldNode | null;
 }) => {
-  console.log('rendering Arguments', {
-    // args,
-    selection,
-    'selection.arguments': selection?.arguments,
-  });
+  // console.log('rendering Arguments', {
+  //   // args,
+  //   selection,
+  //   'selection.arguments': selection?.arguments,
+  // });
 
   const { field } = ancestors.values().next().value as AncestorField;
 
@@ -45,6 +49,7 @@ export const Arguments = ({
     } else {
       setIsOpen(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

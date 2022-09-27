@@ -18,7 +18,6 @@ export const Tab = ({
     <TabWrap>
       <Trigger
         onPointerDown={(event) => {
-          console.log('calling setActiveTab');
           setActiveTab(value);
           handleCollapseOnClick ? handleCollapseOnClick({ event }) : undefined;
         }}

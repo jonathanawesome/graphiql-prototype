@@ -20,21 +20,23 @@ export const MonacoEditor = ({
   const monacoEditorRef = useRef<HTMLDivElement>(null);
 
   const { schemaLoading } = useSchema();
+  const { monacoEditors } = useEditor();
 
   // console.log('rendering MonacoEditor', {
   //   editorRef,
   // });
 
   useEffect(() => {
-    if (!schemaLoading) {
-      initMonacoEditor({
-        monacoEditorType,
-        monacoEditorRef: monacoEditorRef.current as unknown as HTMLDivElement,
-        optionOverrides,
-      });
-    }
+    // if (!schemaLoading && !monacoEditors[monacoEditorType]) {
+    // if (!monacoEditors[monacoEditorType]) {
+    initMonacoEditor({
+      monacoEditorType,
+      monacoEditorRef: monacoEditorRef.current as unknown as HTMLDivElement,
+      optionOverrides,
+    });
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [schemaLoading]);
+  }, []);
 
   return (
     <MonacoEditorStyled>
