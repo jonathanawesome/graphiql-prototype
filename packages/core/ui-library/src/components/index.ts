@@ -22,6 +22,8 @@ export { Resizer } from './Resizer';
 
 export { Spinner } from './Spinner';
 
+export { Switch } from './Switch';
+
 export * from './Tabs';
 
 export { Tag } from './Tag';

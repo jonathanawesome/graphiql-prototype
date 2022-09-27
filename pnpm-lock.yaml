@@ -158,6 +158,7 @@ importers:
   packages/core/graphiql:
     specifiers:
       '@graphiql-prototype/editor': workspace:*
+      '@graphiql-prototype/graphiql-plugin-pane-settings': workspace:*
       '@graphiql-prototype/ui-library': workspace:*
       '@graphiql-prototype/use-schema': workspace:*
       '@types/react': 17.0.2
@@ -166,6 +167,7 @@ importers:
       zustand: 4.1.1
     dependencies:
       '@graphiql-prototype/editor': link:../editor
+      '@graphiql-prototype/graphiql-plugin-pane-settings': link:../../plugins/graphiql-plugin-pane-settings
       '@graphiql-prototype/ui-library': link:../ui-library
       '@graphiql-prototype/use-schema': link:../useSchema
       graphql: 16.5.0
@@ -443,6 +445,17 @@ importers:
       jsdom: 20.0.0
       vite: 3.0.2
       vitest: 0.23.2_jsdom@20.0.0
+
+  packages/plugins/graphiql-plugin-pane-settings:
+    specifiers:
+      '@graphiql-prototype/ui-library': workspace:*
+      '@types/react': 17.0.2
+      react: 17.0.2
+    dependencies:
+      '@graphiql-prototype/ui-library': link:../../core/ui-library
+      react: 17.0.2
+    devDependencies:
+      '@types/react': 17.0.2
 
   packages/plugins/graphiql-plugin-schema-documentation:
     specifiers:

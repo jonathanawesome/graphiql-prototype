@@ -99,6 +99,7 @@ export const ScalarArg = ({
   // });
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let vars: Record<any, any> = {};
     let val: string | string[] = isListType(baseType) ? [] : ``;
     try {

@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@graphiql-prototype/editor": "workspace:*",
+    "@graphiql-prototype/graphiql-plugin-pane-settings": "workspace:*",
     "@graphiql-prototype/ui-library": "workspace:*",
     "@graphiql-prototype/use-schema": "workspace:*",
     "graphql": "^16.5.0",

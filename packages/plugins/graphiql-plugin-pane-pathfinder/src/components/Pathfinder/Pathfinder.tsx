@@ -96,7 +96,7 @@ export const Pathfinder = () => {
                         message={
                           <>
                             This is a placeholder/idea for saving fragments for reuse
-                            across tabs/operations. Maybe it doesn't belong here nad
+                            across tabs/operations. Maybe it doesn't belong here and
                             should be a plugin.
                           </>
                         }

@@ -1,3 +1,4 @@
+import { Message } from '@graphiql-prototype/ui-library';
 import { GraphQLDirective, GraphQLNamedType } from 'graphql';
 
 // components
@@ -16,17 +17,22 @@ export const TypePane = ({
   // console.log('TypePane', { list });
 
   return (
-    <>
-      <PaneSection lead={name}>
-        {list.map((x: GraphQLNamedType | GraphQLDirective) => (
+    <PaneSection lead={name}>
+      {list.length > 0 ? (
+        list.map((x: GraphQLNamedType | GraphQLDirective) => (
           <TypeSummary
             key={x.name}
             resetTertiaryPaneOnClick={true}
             showDescription={showDescription}
             type={x}
           />
-        ))}
-      </PaneSection>
-    </>
+        ))
+      ) : (
+        <Message
+          message={<>{`This schema does not contain ${name}`}</>}
+          variant="WARNING"
+        />
+      )}
+    </PaneSection>
   );
 };

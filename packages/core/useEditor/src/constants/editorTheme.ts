@@ -7,9 +7,7 @@ export const editorThemeDark: MONACO_EDITOR.IStandaloneThemeData = {
   base: 'vs',
   inherit: false,
   colors: {
-    // setting red as the default text color here, just so it's clear when there are token that need to be assigned colors
-    'editor.foreground': '#FF0000', // Editor default foreground color.
-
+    'editor.foreground': editorColors['dark']?.delimiters, // Editor default foreground color.
     'editorCursor.foreground': editorColors['dark']?.yellow_default, // Color of the editor cursor.
     'editor.selectionBackground': editorColors['dark']?.selections, // Color of the editor selection.
     'editor.background': '#FFFFFF00', // white with a 00 alpha value
@@ -29,7 +27,7 @@ export const editorThemeDark: MONACO_EDITOR.IStandaloneThemeData = {
   rules: [
     // operations editor (graphql)
     {
-      foreground: editorColors['dark']?.values,
+      foreground: editorColors['dark']?.delimiters,
       token: 'string.gql',
     },
     {
@@ -124,9 +122,7 @@ export const editorThemeLight: MONACO_EDITOR.IStandaloneThemeData = {
   base: 'vs',
   inherit: false,
   colors: {
-    // setting red as the default text color here, just so it's clear it needs to be updated
-    'editor.foreground': '#FF0000', // Editor default foreground color.
-
+    'editor.foreground': editorColors['light']?.delimiters, // Editor default foreground color.
     'editorCursor.foreground': editorColors['light']?.yellow_default, // Color of the editor cursor.
     'editor.selectionBackground': editorColors['light']?.selections, // Color of the editor selection.
     'editor.background': '#FFFFFF00', // white with a 00 alpha value
@@ -146,7 +142,7 @@ export const editorThemeLight: MONACO_EDITOR.IStandaloneThemeData = {
   rules: [
     // operations editor (graphql)
     {
-      foreground: editorColors['light']?.values,
+      foreground: editorColors['light']?.delimiters,
       token: 'string.gql',
     },
     {

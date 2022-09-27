@@ -1,13 +1,14 @@
 import { GraphiQLEditor } from '@graphiql-prototype/editor';
 
 // components
-import { Navigation } from '../Navigation';
+// import { Navigation } from '../Navigation';
 import { PanePlugins } from '../PanePlugins';
 import { Resizer } from '@graphiql-prototype/ui-library';
 
 // hooks
 import { useGraphiQL } from '../../hooks';
 import { useSchema } from '@graphiql-prototype/use-schema';
+import { useTheme } from '@graphiql-prototype/ui-library';
 
 // styles
 import { GraphiQLWrap, PaneWrap } from './styles';
@@ -21,13 +22,17 @@ type GraphiQLProps = {
   panePlugins: PanePluginsArray;
 };
 
-export const GraphiQL = ({ dialogPlugins, panePlugins }: GraphiQLProps) => {
+export const GraphiQL = ({
+  // dialogPlugins,
+  panePlugins,
+}: GraphiQLProps) => {
+  const { themeClass } = useTheme();
   const { activePanePlugin } = useGraphiQL();
 
   const { schemaLoading } = useSchema();
 
   return (
-    <GraphiQLWrap>
+    <GraphiQLWrap className={themeClass()}>
       {/* <Navigation panePlugins={panePlugins} dialogPlugins={dialogPlugins} /> */}
       <Resizer
         direction="HORIZONTAL"

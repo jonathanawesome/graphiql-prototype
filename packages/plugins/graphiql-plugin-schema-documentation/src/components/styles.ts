@@ -143,7 +143,6 @@ export const StyledTertiaryPaneLead = styled('div', {
   marginLeft: 24,
   marginRight: 24,
   borderBottom: border,
-  // paddingLeft: padding,
 });
 
 export const StyledTertiaryPaneLeadInfo = styled('div', {

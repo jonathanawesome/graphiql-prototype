@@ -16,12 +16,12 @@ export const StyledScalarArgWrap = styled('div', {
 });
 
 export const StyledError = styled('div', {
-  color: theme.colors.red_default,
-  backgroundColor: theme.colors.red_lightest,
-  borderTop: `1px solid ${theme.colors.red_light}`,
-  borderRight: `1px solid ${theme.colors.red_light}`,
-  borderBottom: `1px solid ${theme.colors.red_light}`,
-  borderLeft: `1px solid ${theme.colors.red_light}`,
+  color: theme.colors.yellow_default,
+  backgroundColor: theme.colors.yellow_lightest,
+  borderTop: `1px solid ${theme.colors.yellow_light}`,
+  borderRight: `1px solid ${theme.colors.yellow_light}`,
+  borderBottom: `1px solid ${theme.colors.yellow_light}`,
+  borderLeft: `1px solid ${theme.colors.yellow_light}`,
   fontSize: 10,
   padding: 2,
   // borderRadius: 2,
