@@ -19,10 +19,6 @@ export const SchemaDefinition = () => {
 
   const editorRef = useRef<HTMLDivElement>(null);
 
-  console.log('SchemaDefinition', {
-    // printSchema: printSchema(schema),
-  });
-
   useEffect(() => {
     if (schema && !('error' in schema) && !editor) {
       const model = getOrCreateModel({
@@ -48,6 +44,16 @@ export const SchemaDefinition = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    console.log('SchemaDefinition schmea change', {
+      schema,
+    });
+    if (schema && !('error' in schema)) {
+      editor?.setValue(printSchema(schema));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [schema]);
 
   return <SchemaDefinitionStyled ref={editorRef}></SchemaDefinitionStyled>;
 };
