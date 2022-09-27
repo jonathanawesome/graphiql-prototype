@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 // components
-import { Control, HandleChange, Message, Spinner } from '@graphiql-prototype/ui-library';
+import { Control, Message, Spinner } from '@graphiql-prototype/ui-library';
 
 // hooks
 import { useSchema } from '@graphiql-prototype/use-schema';
@@ -18,6 +18,11 @@ import {
   StyledSchemaSelector,
   StyledSubmitButton,
 } from './styles';
+
+type HandleChange = {
+  name: string;
+  value: string | string[];
+};
 
 type AvailableAPIs = Record<string, { aboutUrl: string; apiUrl: string }>;
 

@@ -1,4 +1,3 @@
-// import { useEffect } from 'react';
 import { OperationTypeNode } from 'graphql';
 
 // components
@@ -6,7 +5,6 @@ import { DocsDialog, RootOperation } from '../index';
 import { Message, Tabs } from '@graphiql-prototype/ui-library';
 
 // hooks
-// import { useDocs } from '@graphiql-prototype/graphiql-plugin-pane-docs';
 import { useEditor } from '@graphiql-prototype/use-editor';
 import { useSchema } from '@graphiql-prototype/use-schema';
 import { SchemaReferenceProvider } from '@graphiql-prototype/graphiql-plugin-schema-documentation';
@@ -23,24 +21,6 @@ export const Pathfinder = () => {
   const activeEditorTab = useEditor().getActiveTab();
 
   const { schema } = useSchema();
-
-  // const { activeTertiaryPane } = useSchemaReference();
-
-  // const { getDocsInstance, initDocsInstance } = useDocs();
-
-  // const docsInstance = getDocsInstance({ placement: 'PATHFINDER' });
-
-  // useEffect(() => {
-  //   if (!docsInstance) {
-  //     // we haven't initialized the Pathfinder instance, let's do it now
-  //     return initDocsInstance({
-  //       placement: 'PATHFINDER',
-  //     });
-  //   }
-
-  //   return undefined;
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   if (!schema || 'error' in schema) {
     //TODO: loading/error skeleton

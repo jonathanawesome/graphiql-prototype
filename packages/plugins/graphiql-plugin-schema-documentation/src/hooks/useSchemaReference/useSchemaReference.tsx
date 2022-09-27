@@ -28,7 +28,7 @@ const createSchemaReferenceStore = () =>
         tertiaryPaneStack: tertiaryPaneStack.slice(0, destinationPaneIndex + 1),
       });
     },
-    setActiveTertiaryPane: ({ destinationPane, reset }) => {
+    setActiveTertiaryPane: ({ destinationPane, reset = false }) => {
       const pane = { hash: cuid.slug(), pane: destinationPane };
       if (reset) {
         set({

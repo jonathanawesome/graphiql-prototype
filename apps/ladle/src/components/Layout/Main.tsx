@@ -16,6 +16,7 @@ export const Main = () => {
     <MainStyled>
       <Resizer
         direction="HORIZONTAL"
+        handlePosition="RIGHT"
         pane1={{
           component: <Pane />,
         }}

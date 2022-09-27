@@ -1,1 +1,0 @@
-export { NewForm } from './NewForm';

@@ -28,6 +28,7 @@ export const Editor = () => {
     <EditorStyled>
       <Resizer
         direction="HORIZONTAL"
+        handlePosition="RIGHT"
         pane1={{
           component: <Operate>operate</Operate>,
         }}

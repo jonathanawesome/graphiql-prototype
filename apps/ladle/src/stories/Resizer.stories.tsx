@@ -19,6 +19,7 @@ export const ResizerHorizontalBar = () => {
     <div style={{ padding: '20px', backgroundColor: 'antiquewhite', height: '100%' }}>
       <Resizer
         direction="HORIZONTAL"
+        handlePosition="RIGHT"
         pane1={{ component: <Pane1 /> }}
         pane2={{ component: <Pane2 />, initialWidthPercentage: 50 }}
       />
@@ -27,17 +28,3 @@ export const ResizerHorizontalBar = () => {
 };
 
 ResizerHorizontalBar.storyName = 'Resizer --horizontal';
-
-export const ResizerVerticalBar = () => {
-  return (
-    <div style={{ padding: '20px', backgroundColor: 'antiquewhite', height: '100%' }}>
-      <Resizer
-        direction="vertical"
-        pane1={{ component: <Pane1 /> }}
-        pane2={{ component: <Pane2 />, initialWidthPercentage: 50 }}
-      />
-    </div>
-  );
-};
-
-ResizerVerticalBar.storyName = 'Resizer --vertical';

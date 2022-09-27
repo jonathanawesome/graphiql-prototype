@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
-import { globalStyles, styled } from '@graphiql-prototype/ui-library';
+import React from 'react';
+import { styled } from '@graphiql-prototype/ui-library';
 
 // hooks
-import { useSchema } from '@graphiql-prototype/use-schema';
 import { useTheme } from '@graphiql-prototype/ui-library';
 
 const Container = styled('div', {
@@ -20,15 +19,6 @@ const Switch = styled('button', {
 
 export const Provider = ({ children }: { children: React.ReactNode }) => {
   const { themeMode, themeClass, toggleThemeMode } = useTheme();
-
-  globalStyles();
-
-  const { loadSchema } = useSchema();
-
-  useEffect(() => {
-    loadSchema({ init: true, url: 'GraphiQL Test Schema' });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <Container className={themeClass()}>

@@ -1,9 +1,9 @@
-import { GraphiQLEditor } from '@graphiql-prototype/editor';
+import { useEffect } from 'react';
 
 // components
-// import { Navigation } from '../Navigation';
+import { GraphiQLEditor } from '@graphiql-prototype/editor';
 import { PanePlugins } from '../PanePlugins';
-import { Resizer } from '@graphiql-prototype/ui-library';
+import { globalStyles, Resizer } from '@graphiql-prototype/ui-library';
 
 // hooks
 import { useGraphiQL } from '../../hooks';
@@ -15,10 +15,8 @@ import { GraphiQLWrap, PaneWrap } from './styles';
 
 // types
 import type { PanePluginsArray } from '../PanePlugins/types';
-import type { DialogPluginsArray } from '../DialogPlugins/types';
 
 type GraphiQLProps = {
-  dialogPlugins: DialogPluginsArray;
   panePlugins: PanePluginsArray;
 };
 
@@ -26,14 +24,21 @@ export const GraphiQL = ({
   // dialogPlugins,
   panePlugins,
 }: GraphiQLProps) => {
+  globalStyles();
+
   const { themeClass } = useTheme();
+
   const { activePanePlugin } = useGraphiQL();
 
-  const { schemaLoading } = useSchema();
+  const { loadSchema, schemaLoading } = useSchema();
+
+  useEffect(() => {
+    loadSchema({ init: true, url: 'GraphiQL Test Schema' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <GraphiQLWrap className={themeClass()}>
-      {/* <Navigation panePlugins={panePlugins} dialogPlugins={dialogPlugins} /> */}
       <Resizer
         direction="HORIZONTAL"
         handlePosition="RIGHT"

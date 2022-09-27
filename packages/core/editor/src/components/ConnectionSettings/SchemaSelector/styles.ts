@@ -3,7 +3,11 @@ import { styled, theme } from '@graphiql-prototype/ui-library';
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 
 export const CustomSchemaFormWrap = styled('form', {
-  margin: `${theme.space[3]} 0`,
+  display: `flex`,
+  flexDirection: `column`,
+  gap: 24,
+  marginTop: theme.space[3],
+  marginBottom: theme.space[3],
 });
 
 export const StyledSchemaSelector = styled('div', {
@@ -20,7 +24,7 @@ export const StyledSubmitButton = styled('button', {
   justifyContent: 'center',
   padding: 12,
   borderRadius: 4,
-  fontSize: theme.fontSizes.body,
+  fontSize: 12,
   fontWeight: theme.fontWeights.medium,
   placeSelf: 'flex-end',
 

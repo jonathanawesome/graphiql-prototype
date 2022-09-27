@@ -55,7 +55,7 @@ export type SchemaReferenceStore = {
   }) => void;
   setActiveTertiaryPane: ({
     destinationPane,
-    reset = false,
+    reset,
   }: {
     destinationPane: TertiaryPaneType;
     reset?: boolean;
