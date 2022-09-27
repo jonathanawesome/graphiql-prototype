@@ -72,8 +72,6 @@ export const useEditor = create<EditorStore>()((set, get) => ({
 
       editor.onDidContentSizeChange(() => {
         const contentHeight = editor.getContentHeight();
-        // const contentHeight = Math.min(1000, editor.getContentHeight());
-        console.log('contentHeight', contentHeight);
         if (monacoEditorRef && monacoEditorRef) {
           monacoEditorRef.style.height = `${contentHeight}px`;
         }
