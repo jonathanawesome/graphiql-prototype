@@ -36,7 +36,7 @@ export const MonacoEditor = ({
     });
     // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [schemaLoading]);
 
   return (
     <MonacoEditorStyled>
