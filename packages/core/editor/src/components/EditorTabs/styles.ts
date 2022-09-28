@@ -103,7 +103,7 @@ export const TabWrap = styled('div', {
         '&:after': {
           content: '',
           position: 'absolute',
-          bottom: -1,
+          bottom: 0,
           left: 0,
           height: 2,
           width: '100%',
