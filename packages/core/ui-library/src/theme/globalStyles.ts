@@ -60,13 +60,9 @@ export const globalStyles = globalCss({
   // end scrollbars
 
   // begin hairline borders
-  // :root {
-  //   --hairline-width: 1px;
-  //   --hairline-t-color: transparent;
-  //   --hairline-l-color: transparent;
-  //   --hairline-b-color: transparent;
-  //   --hairline-r-color: transparent;
-  // }
+  ':root': {
+    '--hairline-width': `1px`,
+  },
 
   '@media (min-resolution: 2x)': {
     ':root': {
@@ -74,9 +70,9 @@ export const globalStyles = globalCss({
     },
   },
 
-  // @media (min-resolution: 3x) {
-  //   :root {
-  //     --hairline-width: calc(1px / 3);
-  //   }
-  // }
+  '@media (min-resolution: 3x)': {
+    ':root': {
+      '--hairline-width': `calc(1px / 3)`,
+    },
+  },
 });
