@@ -3,8 +3,6 @@ import { styled, theme } from '../../theme';
 export const StyledControlWrap = styled('div', {
   display: 'flex',
   width: '100%',
-  // border: `1px solid ${theme.colors.surface3}`,
-  // backgroundColor: 'orange',
 });
 
 export const StyledLabel = styled('label', {
@@ -14,7 +12,8 @@ export const StyledLabel = styled('label', {
   alignItems: `center`,
   gap: 8,
   padding: `0 ${theme.space[2]}`,
-  border: `1px solid ${theme.colors.surface3}`,
+  // border: `1px solid ${theme.colors.surface3}`,
+  hairlineAll: theme.colors.surface3,
   backgroundColor: theme.colors.surface2,
   color: theme.colors.text3,
   fontSize: 12,
@@ -30,9 +29,10 @@ export const StyledInput = styled('input', {
   fontSize: 11,
   fontFamily: theme.fonts.mono,
   paddingRight: theme.space[3],
-  borderTop: `1px solid ${theme.colors.surface3}`,
-  borderRight: `1px solid ${theme.colors.surface3}`,
-  borderBottom: `1px solid ${theme.colors.surface3}`,
+  // borderTop: `1px solid ${theme.colors.surface3}`,
+  // borderRight: `1px solid ${theme.colors.surface3}`,
+  // borderBottom: `1px solid ${theme.colors.surface3}`,
+  hairlineTRB: theme.colors.surface3,
 
   variants: {
     variant: {
@@ -49,9 +49,10 @@ export const StyledInput = styled('input', {
 export const StyledSelectWrap = styled('div', {
   width: `100%`,
   position: `relative`,
-  borderTop: `1px solid ${theme.colors.surface3}`,
-  borderRight: `1px solid ${theme.colors.surface3}`,
-  borderBottom: `1px solid ${theme.colors.surface3}`,
+  // borderTop: `1px solid ${theme.colors.surface3}`,
+  // borderRight: `1px solid ${theme.colors.surface3}`,
+  // borderBottom: `1px solid ${theme.colors.surface3}`,
+  hairlineTRB: theme.colors.surface3,
   cursor: `pointer`,
 
   '&:hover': {
@@ -117,7 +118,8 @@ export const StyledListItem = styled('div', {
   display: 'flex',
 
   [`& ${StyledInput}, & ${StyledSelectWrap}`]: {
-    borderBottom: `transparent`,
+    // borderBottom: `transparent`,
+    hairlineTR: theme.colors.surface3,
   },
 });
 
@@ -127,8 +129,9 @@ export const StyledRemoveItemButton = styled('button', {
   justifyContent: 'center',
   width: 28,
   height: `inherit`,
-  borderTop: `1px solid ${theme.colors.surface3}`,
-  borderRight: `1px solid ${theme.colors.surface3}`,
+  // borderTop: `1px solid ${theme.colors.surface3}`,
+  // borderRight: `1px solid ${theme.colors.surface3}`,
+  hairlineTR: theme.colors.surface3,
 
   svg: {
     height: 12,
@@ -157,9 +160,10 @@ export const StyledAddItemButton = styled('button', {
   color: theme.colors.text4,
   fontSize: 11,
   fontFamily: theme.fonts.mono,
-  borderTop: `1px solid ${theme.colors.surface3}`,
-  borderRight: `1px solid ${theme.colors.surface3}`,
-  borderBottom: `1px solid ${theme.colors.surface3}`,
+  // borderTop: `1px solid ${theme.colors.surface3}`,
+  // borderRight: `1px solid ${theme.colors.surface3}`,
+  // borderBottom: `1px solid ${theme.colors.surface3}`,
+  hairlineTRB: theme.colors.surface3,
 
   '&:hover': {
     backgroundColor: theme.colors.surface2,

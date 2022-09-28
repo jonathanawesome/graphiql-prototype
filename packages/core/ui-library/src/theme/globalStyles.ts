@@ -34,6 +34,7 @@ export const globalStyles = globalCss({
   },
   // end set fonts
 
+  // begin scrollbars
   '*': {
     // FF
     scrollbarWidth: `thin`,
@@ -56,4 +57,26 @@ export const globalStyles = globalCss({
       },
     },
   },
+  // end scrollbars
+
+  // begin hairline borders
+  // :root {
+  //   --hairline-width: 1px;
+  //   --hairline-t-color: transparent;
+  //   --hairline-l-color: transparent;
+  //   --hairline-b-color: transparent;
+  //   --hairline-r-color: transparent;
+  // }
+
+  '@media (min-resolution: 2x)': {
+    ':root': {
+      '--hairline-width': `calc(1px / 2)`,
+    },
+  },
+
+  // @media (min-resolution: 3x) {
+  //   :root {
+  //     --hairline-width: calc(1px / 3);
+  //   }
+  // }
 });

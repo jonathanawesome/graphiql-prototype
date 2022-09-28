@@ -1,13 +1,14 @@
 import { styled, theme } from '../../theme';
-
+console.log('theme', theme);
 export const Handle = styled('div', {
   position: 'relative',
   width: theme.space[2],
   zIndex: 2,
   flexShrink: 0,
   backgroundColor: theme.colors.surface1,
-  borderLeft: `1px solid ${theme.colors.surface3}`,
-  borderRight: `1px solid ${theme.colors.surface3}`,
+  // borderLeft: `1px solid ${theme.colors.surface3}`,
+  // borderRight: `1px solid ${theme.colors.surface3}`,
+  hairlineX: theme.colors.surface3,
 
   '&::after': {
     content: '',

@@ -1,5 +1,6 @@
 import { createStitches } from '@stitches/react';
 import { darkColors, lightColors } from './colors';
+import { utils } from './utils';
 
 const fonts = {
   stack:
@@ -58,6 +59,7 @@ export const { createTheme, globalCss, keyframes, styled, theme } = createStitch
       ...lightColors,
     },
   },
+  utils,
 });
 
 export const darkTheme = createTheme({

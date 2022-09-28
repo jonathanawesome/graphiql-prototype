@@ -4,11 +4,6 @@ import * as TabsPrimitive from '@radix-ui/react-tabs';
 
 export const TabWrap = styled('div', {
   position: `relative`,
-  backgroundColor: theme.colors.surface1,
-
-  '&:hover': {
-    backgroundColor: theme.colors.surface2,
-  },
 });
 
 export const Trigger = styled(TabsPrimitive.Trigger, {
@@ -20,6 +15,12 @@ export const Trigger = styled(TabsPrimitive.Trigger, {
   paddingRight: theme.space[3],
   height: theme.space[10],
   color: theme.colors.text2,
+
+  '&:hover': {
+    backgroundColor: theme.colors.surface2,
+    height: `calc(100% - 1px)`,
+    paddingTop: 1,
+  },
 
   '&[data-state="active"]': {
     '&:after': {

@@ -11,7 +11,7 @@ export const StyledSearch = styled('div', {
 
   button: {
     height: 47,
-    // borderRight: `1px solid ${theme.colors.surface3}`,
+
     svg: {
       height: 20,
       width: 20,
@@ -38,9 +38,7 @@ export const StyledSearch = styled('div', {
   variants: {
     isActive: {
       true: {
-        // backgroundColor: 'red',
         button: {
-          // borderRight: `transparent`,
           svg: {
             height: 16,
             width: 16,
@@ -48,7 +46,6 @@ export const StyledSearch = styled('div', {
         },
       },
       false: {
-        // backgroundColor: 'blue',
         width: 48,
         input: {
           display: `none`,

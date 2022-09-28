@@ -1,11 +1,12 @@
 import { styled, theme } from '@graphiql-prototype/ui-library';
 
 const padding = theme.space[6];
-const border = `1px solid ${theme.colors.surface3}`;
+// const border = `1px solid ${theme.colors.surface3}`;
 
 export const StyledSchemaNavigation = styled('div', {
   display: `flex`,
-  borderBottom: border,
+  // borderBottom: border,
+  hairlineB: theme.colors.surface3,
 });
 
 export const StyledSchemaNavigationButton = styled('button', {
@@ -26,6 +27,8 @@ export const StyledSchemaNavigationButton = styled('button', {
 
   '&:hover': {
     backgroundColor: theme.colors.surface2,
+    height: `calc(100% - 1px)`,
+    paddingTop: 1,
   },
 
   '&:after': {
@@ -36,6 +39,12 @@ export const StyledSchemaNavigationButton = styled('button', {
     isActive: {
       true: {
         color: theme.colors.text2,
+        '&:hover': {
+          backgroundColor: theme.colors.surface2,
+          height: `100%`,
+          paddingTop: 0,
+        },
+
         '&:after': {
           content: ``,
           position: `absolute`,
@@ -79,7 +88,8 @@ export const StyledBreadcrumb = styled('div', {
   paddingRight: padding,
   height: theme.space[10],
   width: `100%`,
-  borderBottom: border,
+  // borderBottom: border,
+  hairlineB: theme.colors.surface3,
   fontSize: 12,
 });
 
@@ -106,12 +116,13 @@ export const StyledPane = styled('div', {
 
 export const StyledPrimaryPane = styled(StyledPane, {
   maxWidth: 320,
-  borderRight: border,
+  // borderRight: border,
 });
 
 export const StyledSecondaryPane = styled(StyledPane, {
   flexGrow: 1,
   minWidth: 200,
+  hairlineL: theme.colors.surface3,
   // overflow: `hidden`,
 
   variants: {
@@ -129,7 +140,8 @@ export const StyledTertiaryPane = styled(StyledPane, {
   display: `grid`,
   gridTemplateRows: `64px minmax(0, 1fr)`,
   overflow: `hidden`,
-  borderLeft: border,
+  // borderLeft: border,
+  hairlineL: theme.colors.surface3,
 });
 
 export const StyledTertiaryPaneLead = styled('div', {
@@ -138,7 +150,8 @@ export const StyledTertiaryPaneLead = styled('div', {
   alignItems: `center`,
   marginLeft: 24,
   marginRight: 24,
-  borderBottom: border,
+  // borderBottom: border,
+  hairlineB: theme.colors.surface3,
 });
 
 export const StyledTertiaryPaneLeadInfo = styled('div', {
@@ -322,7 +335,8 @@ export const StyledTabButton = styled('button', {
 });
 
 export const StyledFieldSummary = styled('div', {
-  borderLeft: border,
+  // borderLeft: border,
+  hairlineL: theme.colors.surface3,
   paddingLeft: theme.space[3],
   paddingTop: theme.space[1],
   paddingBottom: theme.space[1],
@@ -399,7 +413,8 @@ export const StyledArgWrap = styled('div', {
   variants: {
     showBorder: {
       true: {
-        borderLeft: border,
+        // borderLeft: border,
+        hairlineL: theme.colors.surface3,
         paddingLeft: theme.space[3],
       },
     },
@@ -433,7 +448,8 @@ export const StyledEnumValue = styled('div', {
 export const StyledTypeSummary = styled('div', {
   display: `flex`,
   flexDirection: `column`,
-  borderLeft: border,
+  // borderLeft: border,
+  hairlineL: theme.colors.surface3,
   paddingLeft: theme.space[3],
   paddingTop: theme.space[1],
   paddingBottom: theme.space[1],
