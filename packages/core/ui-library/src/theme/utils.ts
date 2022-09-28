@@ -1,46 +1,37 @@
-const Left = (value) => `inset var(--hairline-width) 0 0 ${value}`;
-const Top = (value) => `inset 0 var(--hairline-width) 0 ${value}`;
-const Right = (value) => `inset calc(-1 * var(--hairline-width)) 0 0 ${value}`;
-const Bottom = (value) => `inset 0 calc(-1 * var(--hairline-width)) 0 0 ${value}`;
+const Left = (value: string) => `inset var(--hairline-width) 0 0 ${value}`;
+const Top = (value: string) => `inset 0 var(--hairline-width) 0 ${value}`;
+const Right = (value: string) => `inset calc(-1 * var(--hairline-width)) 0 0 ${value}`;
+const Bottom = (value: string) => `inset 0 calc(-1 * var(--hairline-width)) 0 0 ${value}`;
 
 export const utils = {
-  hairlineL: (value) => ({
-    // boxShadow: `inset var(--hairline-width) 0 0 ${value}`,
+  hairlineL: (value: string) => ({
     boxShadow: `${Left(value)}`,
   }),
-  hairlineT: (value) => ({
-    // boxShadow: `inset 0 var(--hairline-width) 0 ${value}`,
+  hairlineT: (value: string) => ({
     boxShadow: `${Top(value)}`,
   }),
-  hairlineR: (value) => ({
-    // boxShadow: `inset calc(-1 * var(--hairline-width)) 0 0 ${value}`,
+  hairlineR: (value: string) => ({
     boxShadow: `${Right(value)}`,
   }),
-  hairlineB: (value) => ({
-    // boxShadow: `inset 0 calc(-1 * var(--hairline-width)) 0 0 ${value}`,
+  hairlineB: (value: string) => ({
     boxShadow: `${Bottom(value)}`,
   }),
-  hairlineX: (value) => ({
-    // boxShadow: `inset var(--hairline-width) 0 0 ${value}, inset calc(-1 * var(--hairline-width)) 0 0 ${value}`,
+  hairlineX: (value: string) => ({
     boxShadow: `${Left(value)}, ${Right(value)}`,
   }),
-  hairlineY: (value) => ({
-    // boxShadow: `inset 0 var(--hairline-width) 0 ${value}, inset 0 calc(-1 * var(--hairline-width)) 0 0 ${value}`,
+  hairlineY: (value: string) => ({
     boxShadow: `${Top(value)}, ${Bottom(value)}`,
   }),
-  hairlineLRB: (value) => ({
-    // boxShadow: `inset var(--hairline-width) 0 0 ${value}, inset calc(-1 * var(--hairline-width)) 0 0 ${value}`,
+  hairlineLRB: (value: string) => ({
     boxShadow: `${Left(value)}, ${Right(value)}, ${Bottom(value)}`,
   }),
-  hairlineTRB: (value) => ({
-    // boxShadow: `inset var(--hairline-width) 0 0 ${value}, inset calc(-1 * var(--hairline-width)) 0 0 ${value}`,
+  hairlineTRB: (value: string) => ({
     boxShadow: `${Top(value)}, ${Right(value)}, ${Bottom(value)}`,
   }),
-  hairlineTR: (value) => ({
-    // boxShadow: `inset var(--hairline-width) 0 0 ${value}, inset calc(-1 * var(--hairline-width)) 0 0 ${value}`,
+  hairlineTR: (value: string) => ({
     boxShadow: `${Top(value)}, ${Right(value)}`,
   }),
-  hairlineAll: (value) => ({
+  hairlineAll: (value: string) => ({
     boxShadow: `${Left(value)}, ${Top(value)}, ${Right(value)}, ${Bottom(value)}`,
   }),
 };
