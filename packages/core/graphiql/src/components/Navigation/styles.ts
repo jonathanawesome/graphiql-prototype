@@ -7,7 +7,8 @@ export const NavigationStyled = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  borderRight: `solid 1px ${theme.colors.surface3}`,
+  // borderRight: `solid 1px ${theme.colors.surface3}`,
+  hairlineR: theme.colors.surface3,
 
   button: {
     padding: 7,

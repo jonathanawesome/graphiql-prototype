@@ -11,18 +11,21 @@ export const StyledWorkspaceNavigationButton = styled('button', {
   alignItems: `center`,
   textAlign: `center`,
   padding: `0 ${theme.space[4]}`,
-  borderRight: `1px solid ${theme.colors.surface3}`,
+  // borderRight: `1px solid ${theme.colors.surface3}`,
+  hairlineR: theme.colors.surface3,
   color: theme.colors.text3,
   fontSize: 14,
   // fontWeight: theme.fontWeights.medium,
   whiteSpace: `nowrap`,
 
   '&::last-of-type': {
-    borderRight: `none`,
+    boxShadow: `none`,
   },
 
   '&:hover': {
     backgroundColor: theme.colors.surface2,
+    height: `calc(100% - 1px)`,
+    paddingTop: 1,
   },
 
   '&:after': {
@@ -32,6 +35,10 @@ export const StyledWorkspaceNavigationButton = styled('button', {
   variants: {
     isActive: {
       true: {
+        '&:hover': {
+          height: `100%`,
+          paddingTop: 0,
+        },
         '&:after': {
           content: ``,
           position: `absolute`,

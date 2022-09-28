@@ -58,6 +58,8 @@ export type EditorStore = {
     newDefinition: OperationDefinitionNode | null;
   }) => void;
   updateOperationDefinitionFromModelValue: ({ value }: { value: string }) => void;
+  warningWhenMultipleOperations: boolean;
+  clearWarningWhenMultipleOperations: () => void;
   removeVariable: ({
     onInputObject,
     variableName,

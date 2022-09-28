@@ -23,7 +23,8 @@ export const PanePluginNavigation = styled('div', {
   width: `100%`,
   display: 'flex',
   gap: 10,
-  borderBottom: `solid 1px ${theme.colors.surface3}`,
+  // borderBottom: `solid 1px ${theme.colors.surface3}`,
+  hairlineB: theme.colors.surface3,
 });
 
 export const PanePluginNavigationItem = styled('button', {
@@ -65,6 +66,7 @@ export const StyledSettingsButtonWrap = styled('div', {
   marginLeft: `auto`,
   button: {
     height: '100%',
-    borderLeft: `1px solid ${theme.colors.surface3}`,
+    // borderLeft: `1px solid ${theme.colors.surface3}`,
+    hairlineL: theme.colors.surface3,
   },
 });

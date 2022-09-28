@@ -22,6 +22,12 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
     const activeTab = useEditor.getState().getActiveTab();
     const schemaUrl = get().schemaUrl;
 
+    // console.log('running executeOperation', {
+    //   // operationName: activeTab.operationDefinition?.name?.value,
+    //   // variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
+    //   // result,
+    // });
+
     if (schemaUrl && activeTab) {
       const operationsModelValue = activeTab.operationsModel.getValue();
       const variablesModelValue = activeTab.variablesModel.getValue();
@@ -45,13 +51,6 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
           query: operationsModelValue,
           variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
         });
-
-        // console.log('running executeOperation', {
-        //   operationName: activeTab.operationDefinition?.name?.value,
-        //   query: operationsModelValue,
-        //   variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
-        //   result,
-        // });
 
         updateModel({
           modelType: 'resultsModel',

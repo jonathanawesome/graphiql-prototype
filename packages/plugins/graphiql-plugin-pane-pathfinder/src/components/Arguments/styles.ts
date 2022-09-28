@@ -100,7 +100,8 @@ export const StyledArgumentsContent = styled(Collapsible.Content, {
 
   // backgroundColor: theme.colors.pink_lightest,
   // borderRadius: 2,
-  borderLeft: `1px solid ${theme.colors.pink_default}`,
+  // borderLeft: `1px solid ${theme.colors.pink_default}`,
+  hairlineL: theme.colors.pink_default,
   marginLeft: 7,
   // padding: 12,
   marginTop: 12,

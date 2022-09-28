@@ -1,5 +1,9 @@
 import create from 'zustand';
-import { ExecutableDefinitionNode, isExecutableDefinitionNode, Kind } from 'graphql';
+import {
+  // ExecutableDefinitionNode,
+  isExecutableDefinitionNode,
+  Kind,
+} from 'graphql';
 import { initializeMode } from 'monaco-graphql/esm/initializeMode';
 import { editor as MONACO_EDITOR } from 'monaco-editor/esm/vs/editor/editor.api';
 import cuid from 'cuid';
@@ -348,6 +352,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
 
     // 👇 safety first
     const editorTabsCopy = [...editorTabs];
+
     const existingEditorTabIndex = editorTabsCopy.findIndex(
       (editorTab) => editorTab.editorTabId === activeEditorTabId
     );
@@ -392,33 +397,41 @@ export const useEditor = create<EditorStore>()((set, get) => ({
   },
   updateOperationDefinitionFromModelValue: ({ value }) => {
     const updateOperationDefinition = get().updateOperationDefinition;
-    // console.log('updateOperationDefinitionFromModelValue', { value });
 
     const parsedQuery = parseQuery(value);
+
+    // console.log('updateOperationDefinitionFromModelValue', { value, parsedQuery });
+
     if (!(parsedQuery instanceof Error)) {
       // console.log('parsedQuery', { parsedQuery });
-      const operationDefinition = (): ExecutableDefinitionNode | null => {
-        const firstDefinition = parsedQuery?.definitions[0];
 
-        if (!firstDefinition) {
-          return null;
-        }
+      if (parsedQuery?.definitions && parsedQuery.definitions.length > 1) {
+        set({ warningWhenMultipleOperations: true });
+      }
 
-        if (isExecutableDefinitionNode(firstDefinition)) {
-          return firstDefinition;
-        }
+      if (parsedQuery?.definitions && parsedQuery.definitions.length <= 1) {
+        set({ warningWhenMultipleOperations: false });
+      }
 
+      const firstDefinition = parsedQuery?.definitions[0];
+
+      if (!firstDefinition) {
         return null;
-      };
+      }
 
-      const newDefinition = operationDefinition();
-
-      if (newDefinition?.kind === Kind.OPERATION_DEFINITION) {
-        updateOperationDefinition({ newDefinition });
+      if (
+        isExecutableDefinitionNode(firstDefinition) &&
+        firstDefinition.kind === Kind.OPERATION_DEFINITION
+      ) {
+        return updateOperationDefinition({ newDefinition: firstDefinition });
       }
     }
+    return null;
   },
-
+  warningWhenMultipleOperations: false,
+  clearWarningWhenMultipleOperations: () => {
+    set({ warningWhenMultipleOperations: false });
+  },
   monacoEditors: {
     operations: null,
     variables: null,
@@ -428,8 +441,6 @@ export const useEditor = create<EditorStore>()((set, get) => ({
   addMonacoEditor: ({ editor, name }) => {
     // console.log('running addMonacoEditor', { editor, name });
 
-    // MONACO_EDITOR.defineTheme('graphiql-DARK', editorTheme);
-
     const monacoEditors = get().monacoEditors;
 
     set({
@@ -438,11 +449,5 @@ export const useEditor = create<EditorStore>()((set, get) => ({
         ...(!monacoEditors[name] && { [name]: editor }),
       },
     });
-    // console.log('running addMonacoEditor after', { editors: get().monacoEditors });
-
-    // const existingEditor = monacoEditors.find((e) => e.name === name);
-    // if (!existingEditor) {
-    //   set({ monacoEditors: [...monacoEditors, { editor, name }] });
-    // }
   },
 }));

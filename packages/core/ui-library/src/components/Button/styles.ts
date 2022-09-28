@@ -37,7 +37,7 @@ export const StyledButton = styled('button', {
     },
     variant: {
       ICON: {
-        backgroundColor: theme.colors.surface1,
+        backgroundColor: `transparent`,
         svg: {
           path: {
             fill: theme.colors.text4,

@@ -66,7 +66,8 @@ export const StyledDescriptionTrigger = styled(Collapsible.Trigger, {
 export const StyledDescriptionContent = styled(Collapsible.Content, {
   backgroundColor: theme.colors.blue_lightest,
   borderRadius: 2,
-  borderLeft: `1px solid ${theme.colors.blue_default}`,
+  // borderLeft: `1px solid ${theme.colors.blue_default}`,
+  hairlineL: theme.colors.blue_default,
   marginLeft: 7,
   padding: 12,
   marginTop: 12,

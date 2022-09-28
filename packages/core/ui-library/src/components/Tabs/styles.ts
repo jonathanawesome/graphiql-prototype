@@ -12,7 +12,8 @@ export const StyledTabsRoot = styled(TabsPrimitive.Root, {
 export const StyledCollapsibleRoot = styled(Collapsible.Root, {
   width: '100%',
   backgroundColor: theme.colors.surface1,
-  borderTop: `1px solid ${theme.colors.surface3}`,
+  // borderTop: `1px solid ${theme.colors.surface3}`,
+  hairlineT: theme.colors.surface3,
 });
 
 export const StyledCollapsibleTrigger = styled(Collapsible.Trigger, {
