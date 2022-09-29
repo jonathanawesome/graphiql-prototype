@@ -1,6 +1,6 @@
 import { styled, theme } from '@graphiql-prototype/ui-library';
 
-export const AnalyzeWrap = styled('div', {
+export const StyledAnalyzeWrap = styled('div', {
   display: 'flex',
   height: '100%',
   width: '100%',
@@ -8,4 +8,10 @@ export const AnalyzeWrap = styled('div', {
   backgroundColor: theme.colors.surface2,
   paddingTop: theme.space[4],
   paddingBottom: theme.space[4],
+
+  variants: {
+    isExecuting: {
+      true: { opacity: 0.5 },
+    },
+  },
 });

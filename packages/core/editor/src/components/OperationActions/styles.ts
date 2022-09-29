@@ -8,7 +8,7 @@ export const StyledOperationActions = styled('div', {
   minWidth: theme.space[10],
 });
 
-export const PlayButton = styled('button', {
+export const StyledPlayButton = styled('button', {
   cursor: 'pointer',
   border: 'none',
   backgroundColor: 'transparent',
@@ -37,7 +37,7 @@ export const PlayButton = styled('button', {
   },
 });
 
-export const PrettierButton = styled('button', {
+export const StyledPrettierButton = styled('button', {
   cursor: 'pointer',
   border: 'none',
   backgroundColor: 'transparent',
@@ -64,5 +64,33 @@ export const PrettierButton = styled('button', {
         fill: theme.colors.text1,
       },
     },
+  },
+});
+
+export const StyledWarningButton = styled('button', {
+  cursor: 'pointer',
+  margin: 0,
+  padding: 0,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: theme.space[10],
+  height: theme.space[10],
+  minWidth: theme.space[10],
+  borderRadius: theme.space[1],
+  border: `1px solid ${theme.colors.orange_light}`,
+  backgroundColor: theme.colors.orange_lightest,
+
+  '& svg': {
+    height: theme.space[6],
+    width: theme.space[6],
+
+    path: {
+      fill: theme.colors.orange_default,
+    },
+  },
+
+  '&:hover': {
+    border: `1px solid ${theme.colors.orange_default}`,
   },
 });
