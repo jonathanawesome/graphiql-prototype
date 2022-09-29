@@ -1,13 +1,12 @@
-import { GetState } from 'zustand';
+import { StoreApi } from 'zustand';
 import {
+  DefinitionNode,
   Kind,
   NameNode,
   OperationDefinitionNode,
   OperationTypeNode,
   print,
 } from 'graphql';
-
-import { defaultOperation, useEditor } from '@graphiql-prototype/use-editor';
 
 // handlers
 import {
@@ -25,8 +24,14 @@ import {
   handleUpdateParentInlineFragment,
 } from './handlers';
 
+// hooks
+import { defaultOperation, useEditor } from '@graphiql-prototype/use-editor';
+
 // types
 import { AncestorMap, PathfinderStore } from '../types';
+
+// utils
+import { parseQuery } from '@graphiql-prototype/utils';
 
 const initEditorTab = useEditor.getState().initEditorTab;
 const updateModel = useEditor.getState().updateModel;
@@ -38,7 +43,7 @@ export const toggle = ({
   operationType,
 }: {
   ancestors: AncestorMap;
-  get: GetState<PathfinderStore>;
+  get: StoreApi<PathfinderStore>['getState'];
   operationType: OperationTypeNode;
 }) => {
   const activeEditorTab = useEditor.getState().getActiveTab();
@@ -250,7 +255,8 @@ export const toggle = ({
   // if the rootType is different than currentOperationType,
   // spin up a new tab and do work there
   if (currentOperationType && nextOperationType !== currentOperationType) {
-    initEditorTab();
+    initEditorTab({});
+
     nextDefinition = {
       kind,
       operation: operation(),
@@ -273,18 +279,65 @@ export const toggle = ({
     };
   }
 
-  // we have selections, let's update our operation definition and model
+  // TODO: 👇 all these bits are well-commented but super messy
+
+  // We should ensure we're respecting the authoring of multiple operations in a single operations editor.
+  // In GraphiQL and Playground, this is handled by a conditional menu that pops up when you pressed the play/execute button.
+  // e can't do that here because Pathfinder can _only_ listen to the first operation.
+
+  // Let's get the active tab's operation model value
+  const activeOperationsModel = activeEditorTab.operationsModel.getValue();
+
+  // We parse the active operations model so we can get the definitions
+  const parsedActiveOperationsModelValue = parseQuery(activeOperationsModel);
+
+  let additionalDefinitions: DefinitionNode[] = [];
+
+  // If, on parse, we don't have an error _and_ we have definitions _and_ there's more than one definition
+  if (
+    !(parsedActiveOperationsModelValue instanceof Error) &&
+    parsedActiveOperationsModelValue?.definitions &&
+    parsedActiveOperationsModelValue.definitions.length > 1
+  ) {
+    // We copy the array here to get around the readonly DefinitionNode[] and also splice the first operation off the array
+    additionalDefinitions = [...parsedActiveOperationsModelValue.definitions].splice(1);
+  }
+
+  // We have selections, let's update our operation definition and model
   if (nextSelectionSet && nextSelectionSet.selections.length > 0) {
+    // We always update our operation definition because this is the bit that pathfinder is listening to
     updateOperationDefinition({ newDefinition: nextDefinition });
+
+    // If we have additional operations in the editor, we need to spread them in
+    if (additionalDefinitions.length > 0) {
+      updateModel({
+        modelType: 'operationsModel',
+        newValue: print({
+          kind: Kind.DOCUMENT,
+          definitions: [nextDefinition, ...additionalDefinitions],
+        }),
+      });
+    } else {
+      // We only have a single operation in the editor
+      updateModel({
+        modelType: 'operationsModel',
+        newValue: print({
+          kind: Kind.DOCUMENT,
+          definitions: [nextDefinition],
+        }),
+      });
+    }
+  } else if (additionalDefinitions.length > 0) {
+    // If we're here, we don't have a new, first definition but we do have other definitions
     updateModel({
       modelType: 'operationsModel',
       newValue: print({
         kind: Kind.DOCUMENT,
-        definitions: [nextDefinition],
+        definitions: [...additionalDefinitions],
       }),
     });
   } else {
-    // we don't have any selections, so we null our operation definition and "reset" our operation model
+    // If we're here, we've got no additional definitions and no new definition...so we just reset
     updateOperationDefinition({ newDefinition: null });
     updateModel({
       modelType: 'operationsModel',
