@@ -36,7 +36,15 @@ export type EditorStore = {
   }: {
     destinationTab: EditorTabState;
   }) => void;
-  initEditorTab: () => void;
+  initEditorTab: ({
+    withOperationModelValue,
+  }: {
+    withOperationModelValue?: {
+      value: string;
+      operationName: string | null;
+      operationDefinition: OperationDefinitionNode;
+    };
+  }) => void;
   monacoGraphQLAPI: MonacoGraphQLAPI;
   activeEditorTabId: string | null;
   setActiveEditorTabId: ({ editorTabId }: { editorTabId: string }) => void;
@@ -45,6 +53,7 @@ export type EditorStore = {
   resetEditorTabs: () => void;
   removeEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
   switchEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
+  splitMultipleOperationsToSeparateTabs: () => void;
   updateModel: ({
     modelType,
     newValue,

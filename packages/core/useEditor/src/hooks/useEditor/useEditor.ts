@@ -1,12 +1,13 @@
 import create from 'zustand';
+import cuid from 'cuid';
 import {
-  // ExecutableDefinitionNode,
   isExecutableDefinitionNode,
   Kind,
+  OperationDefinitionNode,
+  print,
 } from 'graphql';
 import { initializeMode } from 'monaco-graphql/esm/initializeMode';
 import { editor as MONACO_EDITOR } from 'monaco-editor/esm/vs/editor/editor.api';
-import cuid from 'cuid';
 
 // constants
 import {
@@ -92,7 +93,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     monacoEditors.headers?.setModel(destinationTab.headersModel);
     monacoEditors.results?.setModel(destinationTab.resultsModel);
   },
-  initEditorTab: () => {
+  initEditorTab: ({ withOperationModelValue }) => {
     const monacoGraphQLAPI = get().monacoGraphQLAPI;
 
     // grab our array of existing editorTabs
@@ -107,7 +108,9 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     // create all of the necessary models for our new editorTab
     const operationsModel = getOrCreateModel({
       uri: `${newEditorTabId}-operations.graphql`,
-      value: defaultOperation,
+      // if we've a value for withOperationModelValue, it means we're splitting multiple operations into tabs,
+      // so we initialize the new operations model with the incoming value
+      value: withOperationModelValue ? withOperationModelValue.value : defaultOperation,
     });
     const variablesModel = getOrCreateModel({
       uri: `${newEditorTabId}-variables.json`,
@@ -125,12 +128,14 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     // build our new editorTab shape
     const newEditorTab: EditorTabState = {
       editorTabId: newEditorTabId,
-      editorTabName: `Tab${editorTabs.length > 0 ? editorTabs.length + 1 : 1}`,
+      editorTabName:
+        withOperationModelValue?.operationName ||
+        `Tab${editorTabs.length > 0 ? editorTabs.length + 1 : 1}`,
       operationsModel,
       variablesModel,
       headersModel,
       resultsModel,
-      operationDefinition: null,
+      operationDefinition: withOperationModelValue?.operationDefinition || null,
     };
 
     setModelsForAllEditorsWithinTab({ destinationTab: newEditorTab });
@@ -182,7 +187,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     set({ editorTabs: [] });
 
     // init new tab1
-    initEditorTab();
+    initEditorTab({});
   },
   removeEditorTab: ({ editorTabId }) => {
     const editorTabs = get().editorTabs;
@@ -236,6 +241,45 @@ export const useEditor = create<EditorStore>()((set, get) => ({
           trailingCommas: 'warning',
         },
       });
+    }
+  },
+  splitMultipleOperationsToSeparateTabs: () => {
+    // TODO: this was written very quickly, need to revisit
+
+    const updateModel = get().updateModel;
+    const initEditorTab = get().initEditorTab;
+    const getActiveTab = get().getActiveTab();
+    const parsedQuery = parseQuery(getActiveTab.operationsModel.getValue());
+
+    if (parsedQuery && !(parsedQuery instanceof Error)) {
+      console.log('running splitMultipleOperationsToSeparateTabs', {
+        parsedQuery,
+        firstDef: [...parsedQuery.definitions][0],
+        defsToSplit: [...parsedQuery.definitions].splice(1),
+      });
+
+      updateModel({
+        modelType: 'operationsModel',
+        newValue: print({
+          kind: Kind.DOCUMENT,
+          definitions: [[...parsedQuery.definitions][0]],
+        }),
+      });
+
+      [...parsedQuery.definitions].splice(1).forEach((d) =>
+        initEditorTab({
+          withOperationModelValue: {
+            value: print({
+              kind: Kind.DOCUMENT,
+              definitions: [d],
+            }),
+            operationName: 'name' in d && d.name?.value ? d.name.value : null,
+            operationDefinition: d as OperationDefinitionNode,
+          },
+        })
+      );
+    } else {
+      console.log('Something went wrong!');
     }
   },
   activeVariables: ``,

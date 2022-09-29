@@ -20,7 +20,7 @@ const switchEditorTab = useEditor.getState().switchEditorTab;
 const AddTabButton = () => {
   const { initEditorTab } = useEditor();
   return (
-    <StyledAddTabButton onClick={() => initEditorTab()}>
+    <StyledAddTabButton onClick={() => initEditorTab({})}>
       <Plus />
     </StyledAddTabButton>
   );

@@ -7,7 +7,7 @@ export const StyledOperateWrap = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  // position: `relative`,
+  position: `relative`,
 });
 
 export const StyledOperationEditor = styled('div', {
@@ -25,23 +25,4 @@ export const StyledOperationActionsWrap = styled('div', {
 export const StyledOperationToolsWrap = styled('div', {
   width: '100%',
   marginBottom: -1,
-});
-
-export const StyledMessageContainer = styled('div', {
-  width: `calc(100%- 32px)`,
-  margin: 16,
-  flexGrow: -1,
-  // position: `absolute`,
-  // top: 0,
-  // left: 0,
-  // color: 'red',
-  // backgroundColor: 'orange',
-
-  button: {
-    fontWeight: theme.fontWeights.semiBold,
-
-    '&:hover': {
-      textDecoration: `underline`,
-    },
-  },
 });

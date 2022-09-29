@@ -7,6 +7,7 @@ import { Code } from './Code';
 import { Command } from './Command';
 import { Docs } from './Docs';
 import { Ellipsis } from './Ellipsis';
+import { ExclamationTriangle } from './ExclamationTriangle';
 import { Gear } from './Gear';
 import { GraphQLIcon } from './GraphQLIcon';
 import { Input } from './Input';
@@ -16,6 +17,7 @@ import { Prettier } from './Prettier';
 import { Refresh } from './Refresh';
 import { Search } from './Search';
 import { SeparatorRound } from './SeparatorRound';
+import { SplitToTabs } from './SplitToTabs';
 
 export const IconMap = {
   Caret,
@@ -27,6 +29,7 @@ export const IconMap = {
   Command,
   Docs,
   Ellipsis,
+  ExclamationTriangle,
   Gear,
   GraphQLIcon,
   Input,
@@ -36,6 +39,7 @@ export const IconMap = {
   Refresh,
   Search,
   SeparatorRound,
+  SplitToTabs,
 };
 
 export type IconNames = keyof typeof IconMap;
