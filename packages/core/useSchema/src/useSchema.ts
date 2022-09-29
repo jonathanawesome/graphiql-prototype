@@ -16,7 +16,10 @@ import { fetcher } from '@graphiql-prototype/utils';
 
 const testSchema = useTestSchema.getState().schema;
 
+const testSchemaUrl = 'GraphiQL Test Schema';
+
 export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
+  isExecuting: false,
   executeOperation: async () => {
     const updateModel = useEditor.getState().updateModel;
     const activeTab = useEditor.getState().getActiveTab();
@@ -27,6 +30,8 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
     //   // variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
     //   // result,
     // });
+
+    set({ isExecuting: true });
 
     if (schemaUrl && activeTab) {
       const operationsModelValue = activeTab.operationsModel.getValue();
@@ -41,6 +46,19 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
         }),
         {}
       );
+
+      if (schemaUrl === testSchemaUrl) {
+        return updateModel({
+          modelType: 'resultsModel',
+          newValue: JSON.stringify(
+            {
+              test_schema: `Hey there, looks like you're viewing the test schema. This schema is not backed by a server...you should try one of the publicly available schemas.`,
+            },
+            null,
+            2
+          ),
+        });
+      }
 
       try {
         const result = await fetcher({
@@ -62,11 +80,8 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
           newValue: JSON.stringify(error, Object.getOwnPropertyNames(error), 2),
         });
       }
-    } else {
-      alert(
-        `Schucks...you're trying to run an operation on the test schema, but it's not backed by a server. Try the 🔀 icon in the sidebar to explore other schemas.`
-      );
     }
+    return set({ isExecuting: false });
   },
   schema: testSchema,
   schemaLoading: true,
@@ -79,7 +94,7 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
 
     init && resetEditorTabs();
 
-    if (url === 'GraphiQL Test Schema') {
+    if (url === testSchemaUrl) {
       console.log('no URL provided, setting testSchema');
 
       monacoGraphQLAPI.setSchemaConfig([
@@ -91,7 +106,7 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
       return set({
         schema: testSchema,
         schemaLoading: false,
-        schemaUrl: 'GraphiQL Test Schema',
+        schemaUrl: testSchemaUrl,
       });
     } else {
       console.log('initializing schema:', { url });

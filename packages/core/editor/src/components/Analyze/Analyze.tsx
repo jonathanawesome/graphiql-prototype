@@ -1,12 +1,15 @@
 // components
+import { useSchema } from '@graphiql-prototype/use-schema';
 import { MonacoEditor } from '../MonacoEditor';
 
 // styles
-import { AnalyzeWrap } from './styles';
+import { StyledAnalyzeWrap } from './styles';
 
 export const Analyze = () => {
+  const { isExecuting } = useSchema();
+
   return (
-    <AnalyzeWrap>
+    <StyledAnalyzeWrap isExecuting={isExecuting}>
       <MonacoEditor
         monacoEditorType="results"
         optionOverrides={{
@@ -14,6 +17,6 @@ export const Analyze = () => {
           readOnly: true,
         }}
       />
-    </AnalyzeWrap>
+    </StyledAnalyzeWrap>
   );
 };
