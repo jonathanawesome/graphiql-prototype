@@ -27,7 +27,8 @@ export const Pathfinder = () => {
     return <Message message={<p>Unable to load schema</p>} variant="ERROR" />;
   }
 
-  console.log('rendering Pathfinder', { typeMap: schema.getTypeMap() });
+  // console.log('rendering Pathfinder', { typeMap: schema.getTypeMap() });
+
   return (
     <SchemaReferenceProvider>
       <StyledPathfinder>

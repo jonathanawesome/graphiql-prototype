@@ -1,39 +1,45 @@
-import { Switch, styled } from '@graphiql-prototype/ui-library';
 import { useState } from 'react';
 
-const FlexRow = styled('div', {
-  display: 'flex',
-  gap: 12,
-  alignItems: 'center',
-});
+// ladle helper components
+import { FlexCol } from '../components/FlexCol';
+import { FlexRow } from '../components/FlexRow';
 
-const FlexCol = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 12,
-});
-
-const dummyAction = () => {
-  alert('clicked button!');
-};
+import { Icon, Switch } from '@graphiql-prototype/ui-library';
 
 export const Switches = () => {
   const [value, setValue] = useState<boolean>(false);
+
+  const handleChange = ({
+    name,
+    value,
+  }: {
+    name: string;
+    value: string | string[] | boolean;
+  }) => {
+    setValue(!!value);
+  };
+
   return (
     <FlexCol>
-      <FlexRow>
-        <span>small</span>
+      <FlexRow name="small">
         <Switch
-          handleChange={setValue}
+          handleChange={handleChange}
           isChecked={value}
           name={`some-name1`}
           size="SMALL"
         />
       </FlexRow>
-      <FlexRow>
-        <span>large</span>
+      <FlexRow name="medium">
         <Switch
-          handleChange={setValue}
+          handleChange={handleChange}
+          isChecked={value}
+          name={`some-name1`}
+          size="MEDIUM"
+        />
+      </FlexRow>
+      <FlexRow name="large">
+        <Switch
+          handleChange={handleChange}
           isChecked={value}
           name={`some-name2`}
           size="LARGE"

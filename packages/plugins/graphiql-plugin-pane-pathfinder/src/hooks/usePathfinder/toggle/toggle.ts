@@ -214,11 +214,11 @@ export const toggle = ({
   const nextSelectionSet = get().nextSelectionSet;
   const nextOperationType = get().nextOperationType;
 
-  console.log('nextOperationType', {
-    nextOperationType,
-    currentOperationType,
-    activeOperationDefinition,
-  });
+  // console.log('nextOperationType', {
+  //   nextOperationType,
+  //   currentOperationType,
+  //   activeOperationDefinition,
+  // });
 
   let nextDefinition: OperationDefinitionNode;
 

@@ -4,9 +4,9 @@ import * as JSONC from 'jsonc-parser';
 import { buildClientSchema, getIntrospectionQuery, IntrospectionQuery } from 'graphql';
 
 // hooks
-import { useGlobalHTTPHeaders } from '@graphiql-prototype/use-global-http-headers';
-import { useTestSchema } from '@graphiql-prototype/use-test-schema';
 import { useEditor } from '@graphiql-prototype/use-editor';
+import { useHTTPHeaders } from '@graphiql-prototype/use-http-headers';
+import { useTestSchema } from '@graphiql-prototype/use-test-schema';
 
 // types
 import { GraphiQLSchemaStore } from './types';
@@ -36,16 +36,24 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
     if (schemaUrl && activeTab) {
       const operationsModelValue = activeTab.operationsModel.getValue();
       const variablesModelValue = activeTab.variablesModel.getValue();
-      const headersModelValue = activeTab.headersModel.getValue();
+      // const headersModelValue = activeTab.headersModel.getValue();
 
-      const tabHeaders = JSONC.parse(headersModelValue);
-      const globalHeaders = useGlobalHTTPHeaders.getState().globalHeaders.reduce(
-        (a, globalHeader) => ({
-          ...a,
-          [globalHeader.header.name]: globalHeader.header.value,
-        }),
+      // const tabHeaders = JSONC.parse(headersModelValue);
+
+      // we should be able to grab all necessary headers (global and activeTab) from here
+
+      const tabHeaders = activeTab.headers.reduce(
+        (acc, header) => header.enabled && { ...acc, [header.key]: header.value },
         {}
       );
+
+      const globalHeaders = useHTTPHeaders
+        .getState()
+        .globalHeaders.reduce(
+          (acc, globalHeader) =>
+            globalHeader.enabled && { ...acc, [globalHeader.key]: globalHeader.value },
+          {}
+        );
 
       if (schemaUrl === testSchemaUrl) {
         return updateModel({
@@ -62,7 +70,10 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
 
       try {
         const result = await fetcher({
-          headers: { ...tabHeaders, ...globalHeaders },
+          headers: {
+            ...tabHeaders,
+            ...globalHeaders,
+          },
           url: schemaUrl,
         })({
           operationName: activeTab.operationDefinition?.name?.value || undefined,
@@ -95,7 +106,7 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
     init && resetEditorTabs();
 
     if (url === testSchemaUrl) {
-      console.log('no URL provided, setting testSchema');
+      // console.log('no URL provided, setting testSchema');
 
       monacoGraphQLAPI.setSchemaConfig([
         {
@@ -109,17 +120,19 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
         schemaUrl: testSchemaUrl,
       });
     } else {
-      console.log('initializing schema:', { url });
-      const globalHeaders = useGlobalHTTPHeaders.getState().globalHeaders;
+      // console.log('initializing schema:', { url });
+
+      const globalHeaders = useHTTPHeaders
+        .getState()
+        .globalHeaders.reduce(
+          (acc, globalHeader) =>
+            globalHeader.enabled && { ...acc, [globalHeader.key]: globalHeader.value },
+          {}
+        );
+
       try {
         const result = await fetcher({
-          headers: globalHeaders.reduce(
-            (a, globalHeader) => ({
-              ...a,
-              [globalHeader.header.name]: globalHeader.header.value,
-            }),
-            {}
-          ),
+          headers: globalHeaders,
           url,
         })({
           query: getIntrospectionQuery({

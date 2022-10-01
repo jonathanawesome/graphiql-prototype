@@ -58,7 +58,7 @@ export const ScalarArg = ({
     isListType(baseType) ? [] : ``
   );
 
-  const [variableInUse, setVariableInUse] = useState<boolean>(false);
+  const [isTouched, setIsTouched] = useState<boolean>(false);
 
   const [error, setError] = useState<string | null>(null);
 
@@ -87,7 +87,7 @@ export const ScalarArg = ({
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleChange: HandleChangeSignature = ({ name, value }) => {
-    setInputValue(value);
+    setInputValue(value as string | string[]);
   };
 
   const isRequired = isRequiredArgument(argument) || isRequiredInputField(argument);
@@ -117,16 +117,12 @@ export const ScalarArg = ({
         vars[variableName].hasOwnProperty(argument.name)
       ) {
         val = parseIncomingVariableValue(vars[variableName][argument.name]);
-        setVariableInUse(true);
       } else {
-        setVariableInUse(false);
       }
     } else {
       if (vars && vars.hasOwnProperty(variableName)) {
         val = parseIncomingVariableValue(vars[variableName]);
-        setVariableInUse(true);
       } else {
-        setVariableInUse(false);
       }
     }
 
@@ -136,31 +132,17 @@ export const ScalarArg = ({
   }, [activeVariables]);
 
   useEffect(() => {
-    // we don't have a variable definition AND there's some value in the input, so we should add the variable definition by calling toggle
+    // clear errors if input is empty
+    if (inputValue.length === 0) {
+      setError(null);
+    }
+
     if (variableDefinitionIsActive === undefined && inputValue.length > 0) {
       toggle({ ancestors, operationType });
     }
 
-    // we have a variable definition and a value to do something with
-    if (variableDefinitionIsActive && inputValue.length > 0) {
-      // if we're on an input field and the variable exists, do not toggle
-      // toggle({ ancestors, operationType });
-    }
-
-    if (variableInUse && inputValue.length === 0) {
-      updateVariable({
-        onInputObject: 'parentInputObject' in ancestor ? variableName : undefined,
-        variableName: 'parentInputObject' in ancestor ? argument.name : variableName,
-        variableValue: parseOutgoingVariableValue({
-          typeNameValue: baseType.toString(),
-          value: inputValue,
-        }),
-      });
-    }
-
-    // clear errors if input is empty
-    if (inputValue.length === 0) {
-      setError(null);
+    if (variableDefinitionIsActive && isTouched && inputValue.length < 1) {
+      toggle({ ancestors, operationType });
     }
 
     if (inputValue.length > 0) {
@@ -179,6 +161,16 @@ export const ScalarArg = ({
         }),
       });
     }
+
+    // TODO: 👇 this code will automatically remove variables from the editor when their value is empty, which is not ideal for variable-editor users
+    // if (isTouched && inputValue.length === 0) {
+    //   updateVariable({
+    //     onInputObject: 'parentInputObject' in ancestor ? variableName : undefined,
+    //     variableName: 'parentInputObject' in ancestor ? argument.name : variableName,
+    //     variableValue: '',
+    //   });
+    // }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputValue]);
 
@@ -298,23 +290,11 @@ export const ScalarArg = ({
         labelCopy={argument.name}
         list={false}
       />
-      // <ListItem
-      //   isSelected={isSelected}
-      //   toggler={{
-      //     ancestors,
-      //     fieldOrArgumentName: argument.name,
-      //     isSelected,
-      //     operationType,
-      //     variant: 'ARGUMENT',
-      //   }}
-      //   type={argument}
-      //   variant="ARGUMENT"
-      // />
     );
   }
 
   return (
-    <StyledScalarArgWrap>
+    <StyledScalarArgWrap onFocus={() => setIsTouched(true)}>
       {/* this bit's here to warn when this argument's type is not a built-in scalar or an enum. users should have the ability to pass in handlers for custom scalars */}
       {!['String', 'ID', 'Int', 'Float', 'Boolean'].includes(typeName) &&
         !isEnumType(unwrapType(argument.type)) && (

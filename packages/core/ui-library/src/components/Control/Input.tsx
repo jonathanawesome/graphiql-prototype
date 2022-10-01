@@ -6,6 +6,7 @@ import { InputProps } from './types';
 
 export const Input = ({
   handleChange,
+  isDisabled,
   name,
   placeholder,
   value,
@@ -15,6 +16,7 @@ export const Input = ({
     <StyledInput
       autoComplete="off"
       data-testid={`input-${name}`}
+      disabled={isDisabled}
       id={name}
       name={name}
       onChange={(e) => {
@@ -25,7 +27,7 @@ export const Input = ({
       }}
       placeholder={placeholder}
       type="text"
-      value={value}
+      value={value as string}
       variant={variant}
     />
   );

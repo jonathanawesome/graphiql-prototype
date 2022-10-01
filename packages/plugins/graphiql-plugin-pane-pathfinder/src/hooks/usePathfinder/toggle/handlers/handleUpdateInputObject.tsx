@@ -16,11 +16,12 @@ export const handleUpdateInputObject = ({
 
   let newObjectFields: ObjectFieldNode[] = [];
 
-  console.log(`running handleUpdateInputObject`, {
-    ancestor,
-    nextAction,
-    selection,
-  });
+  // console.log(`running handleUpdateInputObject`, {
+  //   ancestor,
+  //   nextAction,
+  //   selection,
+  // });
+
   if (nextAction) {
     if (ancestor.isNested === false) {
       if (nextAction.type === 'ADD') {

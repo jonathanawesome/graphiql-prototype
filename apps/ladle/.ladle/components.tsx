@@ -1,5 +1,5 @@
 import React from 'react';
-import { styled } from '@graphiql-prototype/ui-library';
+import { globalStyles, styled } from '@graphiql-prototype/ui-library';
 
 // hooks
 import { useTheme } from '@graphiql-prototype/ui-library';
@@ -19,6 +19,8 @@ const Switch = styled('button', {
 
 export const Provider = ({ children }: { children: React.ReactNode }) => {
   const { themeMode, themeClass, toggleThemeMode } = useTheme();
+
+  globalStyles();
 
   return (
     <Container className={themeClass()}>

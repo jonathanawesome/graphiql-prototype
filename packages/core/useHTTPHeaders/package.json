@@ -1,11 +1,12 @@
 {
-  "name": "@graphiql-prototype/use-global-http-headers",
+  "name": "@graphiql-prototype/use-http-headers",
   "version": "0.0.1",
   "main": "index.ts",
   "scripts": {
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
+    "@graphiql-prototype/use-editor": "workspace:*",
     "@graphiql-prototype/utils": "workspace:*",
     "cuid": "^2.1.8",
     "graphql": "^16.5.0",

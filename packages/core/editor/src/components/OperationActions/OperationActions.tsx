@@ -19,6 +19,7 @@ export const OperationActions = () => {
     splitMultipleOperationsToSeparateTabs,
     warningWhenMultipleOperations,
   } = useEditor();
+
   const { executeOperation } = useSchema();
 
   const operationEditor = monacoEditors.operations;

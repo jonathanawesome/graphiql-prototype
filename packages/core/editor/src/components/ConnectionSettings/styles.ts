@@ -9,6 +9,16 @@ export const StyledConnectionSettings = styled('div', {
   justifyContent: 'space-between',
 });
 
+export const StyledConnectionSettingsTab = styled('div', {
+  color: theme.colors.text2,
+  padding: theme.space[4],
+
+  ul: {
+    margin: 0,
+    paddingLeft: 12,
+  },
+});
+
 export const spin = keyframes({
   '0%': { transform: `rotate(0deg)` },
   '100%': { transform: `rotate(360deg)` },
@@ -71,15 +81,20 @@ export const StyledActiveURL = styled('button', {
 export const StyledSettingsPanel = styled('div', {
   display: `flex`,
   backgroundColor: theme.colors.surface1,
-  // borderRight: `1px solid ${theme.colors.surface3}`,
-  // borderBottom: `1px solid ${theme.colors.surface3}`,
-  // borderLeft: `1px solid ${theme.colors.surface3}`,
-  hairlineLRB: theme.colors.surface3,
+  borderRight: `1px solid ${theme.colors.surface3}`,
+  borderBottom: `1px solid ${theme.colors.surface3}`,
+  borderLeft: `1px solid ${theme.colors.surface3}`,
+  // hairlineLRB: theme.colors.surface3,
   width: `100%`,
   padding: `${theme.space[3]} ${theme.space[6]}`,
   position: `absolute`,
   zIndex: 1,
   top: 48,
   left: 0,
-  // boxShadow: '8px 8px 24px 4px hsla(0, 0%, 0%, .1)',
+  boxShadow: '8px 8px 24px 4px hsla(0, 0%, 0%, .1)',
+});
+
+export const StyledGlobalHeaders = styled('div', {
+  paddingTop: theme.space[6],
+  paddingBottom: theme.space[4],
 });

@@ -12,6 +12,7 @@
     "@graphiql-prototype/graphiql-plugin-pane-history": "workspace:*",
     "@graphiql-prototype/graphiql-plugin-pane-pathfinder": "workspace:*",
     "@graphiql-prototype/ui-library": "workspace:*",
+    "@graphiql-prototype/use-http-headers": "workspace:*",
     "@graphiql-prototype/use-editor": "workspace:*",
     "@graphiql-prototype/use-schema": "workspace:*",
     "@graphiql-prototype/use-test-schema": "workspace:*",

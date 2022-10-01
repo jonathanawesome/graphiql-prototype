@@ -17,7 +17,7 @@ export const handleRemoveInputField = ({
   setNextAction: SetNextActionSignature;
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
 }) => {
-  console.log('running handleRemoveInputField', { ancestor });
+  // console.log('running handleRemoveInputField', { ancestor });
 
   const activeEditorTab = useEditor.getState().getActiveTab();
   const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;

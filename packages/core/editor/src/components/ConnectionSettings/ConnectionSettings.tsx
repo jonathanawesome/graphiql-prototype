@@ -1,20 +1,33 @@
 import { useEffect, useRef, useState } from 'react';
 
 // components
-import { Button, Tabs } from '@graphiql-prototype/ui-library';
+import { Button, HTTPHeaderControl, Tabs } from '@graphiql-prototype/ui-library';
 import { SchemaSelector } from './SchemaSelector';
 
 // hooks
+import { useHTTPHeaders } from '@graphiql-prototype/use-http-headers';
 import { useSchema } from '@graphiql-prototype/use-schema';
 
 // styles
 import {
   StyledActiveURL,
   StyledConnectionSettings,
+  StyledConnectionSettingsTab,
+  StyledGlobalHeaders,
   StyledRefreshButtonWrap,
   StyledSettingsPanel,
   StyledSettingsWrap,
 } from './styles';
+
+const GlobalHeaders = () => {
+  const { globalHeaders } = useHTTPHeaders();
+
+  return (
+    <StyledGlobalHeaders>
+      <HTTPHeaderControl placement="ACTIVE_TAB" values={globalHeaders} />
+    </StyledGlobalHeaders>
+  );
+};
 
 export const ConnectionSettings = () => {
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -50,7 +63,7 @@ export const ConnectionSettings = () => {
           icon="Refresh"
           label="Refresh schema"
           size="LARGE"
-          variant="ICON"
+          style="ICON"
         />
       </StyledRefreshButtonWrap>
 
@@ -62,7 +75,7 @@ export const ConnectionSettings = () => {
         {settingsOpen && (
           <StyledSettingsPanel>
             <Tabs
-              ariaLabel="Connection settins"
+              ariaLabel="Connection settings"
               tabbedContent={[
                 {
                   id: 'Public schemas',
@@ -72,12 +85,21 @@ export const ConnectionSettings = () => {
                 {
                   id: 'Connection settings',
                   name: 'Connection settings',
-                  panel: <h1>connection settings</h1>,
+                  panel: (
+                    <StyledConnectionSettingsTab>
+                      <span>Todo:</span>
+                      <ul>
+                        <li>Polling / Refresh config</li>
+                        <li>SSE/WS config</li>
+                        <li>HTTP GET/POST</li>
+                      </ul>
+                    </StyledConnectionSettingsTab>
+                  ),
                 },
                 {
                   id: 'Global HTTP Headers',
                   name: 'Global HTTP Headers',
-                  panel: <h1>HTTP Headers</h1>,
+                  panel: <GlobalHeaders />,
                 },
               ]}
             />

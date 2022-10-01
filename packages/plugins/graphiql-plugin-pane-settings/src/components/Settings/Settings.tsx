@@ -1,6 +1,5 @@
 // components
-import { DarkIcon } from '../DarkIcon';
-import { LightIcon } from '../LightIcon';
+import { Icon } from '@graphiql-prototype/ui-library';
 
 // hooks
 import { useTheme } from '@graphiql-prototype/ui-library';
@@ -34,8 +33,7 @@ export const Settings = () => {
             }}
           >
             <StyledIcon>
-              {themeMode === 'LIGHT' && <LightIcon />}
-              {themeMode === 'DARK' && <DarkIcon />}
+              <Icon name="Light" />
             </StyledIcon>
           </StyledThemeSwitchButton>
         </StyledThemeSwitch>

@@ -24,13 +24,13 @@ export const handleAddInputObject = ({
     variableName: ancestor.variableName,
   });
 
-  console.log(`running handleAddInputObject`, {
-    //   ancestor,
-    ancestor,
-    variableName: ancestor.variableName,
-    newVarDef,
-    nextAction,
-  });
+  // console.log(`running handleAddInputObject`, {
+  //   //   ancestor,
+  //   ancestor,
+  //   variableName: ancestor.variableName,
+  //   newVarDef,
+  //   nextAction,
+  // });
 
   setCorrectNextVariableDefinitions({ newVariableDefinition: newVarDef });
 

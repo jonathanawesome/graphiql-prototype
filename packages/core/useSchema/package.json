@@ -9,7 +9,7 @@
     "@graphiql-prototype/editor": "workspace:*",
     "@graphiql-prototype/utils": "workspace:*",
     "@graphiql-prototype/use-editor": "workspace:*",
-    "@graphiql-prototype/use-global-http-headers": "workspace:*",
+    "@graphiql-prototype/use-http-headers": "workspace:*",
     "@graphiql-prototype/use-test-schema": "workspace:*",
     "graphql": "^16.5.0",
     "jsonc-parser": "3.0.0",

@@ -1,26 +1,33 @@
-import { Dispatch, SetStateAction } from 'react';
+// import { Dispatch, SetStateAction } from 'react';
 
 // styles
 import { StyledSwitch } from './styles';
 
+// types
+import { HandleChangeSignature } from '../Control';
+
 export const Switch = ({
   handleChange,
   isChecked,
+  isDisabled = false,
   name,
   size = 'SMALL',
 }: {
-  handleChange: Dispatch<SetStateAction<boolean>>;
+  handleChange: HandleChangeSignature;
   isChecked: boolean;
+  isDisabled?: boolean;
   name: string;
-  size: 'SMALL' | 'LARGE';
+  size: 'SMALL' | 'MEDIUM' | 'LARGE';
 }) => {
   return (
-    <StyledSwitch checked={isChecked} size={size}>
+    <StyledSwitch isChecked={isChecked} isDisabled={isDisabled} size={size}>
       <input
-        type="checkbox"
-        id={name}
         checked={isChecked}
-        onChange={() => handleChange(!isChecked)}
+        disabled={isDisabled}
+        id={name}
+        name={name}
+        onChange={() => handleChange({ name, value: !isChecked })}
+        type="checkbox"
       />
       <label htmlFor={name}>
         <span></span>

@@ -40,13 +40,13 @@ export const handleAddInputField = ({
     },
   };
 
-  console.log('running handleAddInputField', {
-    ancestor,
-    variableName: ancestor.variableName,
-    // newArgumentNode,
-    // newObjectFieldNode,
-    // variableDefinitions,
-  });
+  // console.log('running handleAddInputField', {
+  //   ancestor,
+  //   variableName: ancestor.variableName,
+  //   // newArgumentNode,
+  //   // newObjectFieldNode,
+  //   // variableDefinitions,
+  // });
 
   setNextAction({
     type: 'ADD',

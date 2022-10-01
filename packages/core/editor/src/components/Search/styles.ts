@@ -38,6 +38,9 @@ export const StyledSearch = styled('div', {
   variants: {
     isActive: {
       true: {
+        height: `calc(100% - var(--hairline-width))`,
+        paddingTop: 1,
+
         button: {
           svg: {
             height: 16,

@@ -1,22 +1,16 @@
 import { styled, theme } from '../../theme';
 
-export const StyledControlWrap = styled('div', {
-  display: 'flex',
-  width: '100%',
-});
-
 export const StyledLabel = styled('label', {
   width: `auto`,
   whiteSpace: `nowrap`,
   display: `flex`,
   alignItems: `center`,
-  gap: 8,
+  gap: theme.space[2],
   padding: `0 ${theme.space[2]}`,
-  // border: `1px solid ${theme.colors.surface3}`,
-  hairlineAll: theme.colors.surface3,
+  border: `1px solid ${theme.colors.surface3}`,
   backgroundColor: theme.colors.surface2,
   color: theme.colors.text3,
-  fontSize: 12,
+  fontSize: theme.space[3],
 });
 
 export const StyledInput = styled('input', {
@@ -24,24 +18,15 @@ export const StyledInput = styled('input', {
   boxSizing: `border-box`,
   width: `100%`,
   height: 28,
-  color: theme.colors.text3,
-  textAlign: `right`,
+  // color: theme.colors.text3,
   fontSize: 11,
   fontFamily: theme.fonts.mono,
-  paddingRight: theme.space[3],
-  // borderTop: `1px solid ${theme.colors.surface3}`,
-  // borderRight: `1px solid ${theme.colors.surface3}`,
-  // borderBottom: `1px solid ${theme.colors.surface3}`,
-  hairlineTRB: theme.colors.surface3,
+  color: theme.colors.yellow_default,
 
   variants: {
     variant: {
-      INPUT_FIELD: {
-        color: theme.colors.yellow_default,
-      },
-      ARGUMENT: {
-        color: theme.colors.yellow_default,
-      },
+      INPUT_FIELD: {},
+      ARGUMENT: {},
     },
   },
 });
@@ -49,11 +34,8 @@ export const StyledInput = styled('input', {
 export const StyledSelectWrap = styled('div', {
   width: `100%`,
   position: `relative`,
-  // borderTop: `1px solid ${theme.colors.surface3}`,
-  // borderRight: `1px solid ${theme.colors.surface3}`,
-  // borderBottom: `1px solid ${theme.colors.surface3}`,
-  hairlineTRB: theme.colors.surface3,
   cursor: `pointer`,
+  color: theme.colors.yellow_default,
 
   '&:hover': {
     svg: {
@@ -65,17 +47,13 @@ export const StyledSelectWrap = styled('div', {
 
   variants: {
     variant: {
-      INPUT_FIELD: {
-        color: theme.colors.yellow_default,
-      },
-      ARGUMENT: {
-        color: theme.colors.yellow_default,
-      },
+      INPUT_FIELD: {},
+      ARGUMENT: {},
     },
     isSelected: {
-      true: {
+      false: {
         select: {
-          color: theme.colors.yellow_default,
+          color: theme.colors.text4,
         },
       },
     },
@@ -88,21 +66,20 @@ export const StyledSelectWrap = styled('div', {
     alignItems: `center`,
     width: `100%`,
     height: 28,
-    color: theme.colors.text4,
-    textAlign: `right`,
+    color: theme.colors.yellow_default,
+
     fontSize: 11,
     fontFamily: theme.fonts.mono,
-    paddingRight: theme.space[8],
   },
 });
 
 export const StyledSelectDecoration = styled('div', {
   position: `absolute`,
-  right: 12,
+  right: theme.space[3],
   top: 9,
   height: 10,
   width: 10,
-  // backgroundColor: 'orange',
+
   svg: {
     path: {
       fill: theme.colors.text4,
@@ -118,8 +95,7 @@ export const StyledListItem = styled('div', {
   display: 'flex',
 
   [`& ${StyledInput}, & ${StyledSelectWrap}`]: {
-    // borderBottom: `transparent`,
-    hairlineTR: theme.colors.surface3,
+    borderBottom: `transparent !important`,
   },
 });
 
@@ -129,13 +105,12 @@ export const StyledRemoveItemButton = styled('button', {
   justifyContent: 'center',
   width: 28,
   height: `inherit`,
-  // borderTop: `1px solid ${theme.colors.surface3}`,
-  // borderRight: `1px solid ${theme.colors.surface3}`,
-  hairlineTR: theme.colors.surface3,
+  borderTop: `1px solid ${theme.colors.surface3}`,
+  borderRight: `1px solid ${theme.colors.surface3}`,
 
   svg: {
-    height: 12,
-    width: 12,
+    height: theme.space[3],
+    width: theme.space[3],
 
     path: {
       fill: theme.colors.surface3,
@@ -154,19 +129,80 @@ export const StyledRemoveItemButton = styled('button', {
 
 export const StyledAddItemButton = styled('button', {
   width: '100%',
-  height: 32,
+  height: theme.space[8],
   textAlign: 'right',
   paddingRight: theme.space[3],
   color: theme.colors.text4,
   fontSize: 11,
   fontFamily: theme.fonts.mono,
-  // borderTop: `1px solid ${theme.colors.surface3}`,
-  // borderRight: `1px solid ${theme.colors.surface3}`,
-  // borderBottom: `1px solid ${theme.colors.surface3}`,
-  hairlineTRB: theme.colors.surface3,
+  borderTop: `1px solid ${theme.colors.surface3}`,
+  borderRight: `1px solid ${theme.colors.surface3}`,
+  borderBottom: `1px solid ${theme.colors.surface3}`,
 
   '&:hover': {
     backgroundColor: theme.colors.surface2,
     color: theme.colors.text3,
+  },
+});
+
+export const StyledControlWrap = styled('div', {
+  display: 'flex',
+  width: '100%',
+
+  [`& ${StyledInput}, & ${StyledSelectWrap}`]: {
+    borderTop: `1px solid ${theme.colors.surface3}`,
+    borderRight: `1px solid ${theme.colors.surface3}`,
+    borderBottom: `1px solid ${theme.colors.surface3}`,
+
+    '&:focus': {
+      backgroundColor: theme.colors.surface2,
+    },
+  },
+
+  variants: {
+    alignment: {
+      LEFT: {
+        [`& ${StyledInput}, & ${StyledSelectWrap} select`]: {
+          textAlign: `left`,
+          paddingLeft: theme.space[3],
+        },
+      },
+      RIGHT: {
+        [`& ${StyledInput}, & ${StyledSelectWrap} select`]: {
+          textAlign: `right`,
+          paddingRight: theme.space[3],
+        },
+        [`& ${StyledSelectWrap} select`]: {
+          paddingRight: theme.space[7],
+        },
+      },
+    },
+    displayLabel: {
+      false: {
+        [`& ${StyledLabel}`]: {
+          position: `absolute !important`,
+          top: `-9999px !important`,
+          left: `-9999px !important`,
+        },
+        [`& ${StyledInput},& ${StyledSelectWrap}`]: {
+          border: `1px solid ${theme.colors.surface3}`,
+
+          '&:focus': {
+            border: `1px solid ${theme.colors.surface3}`,
+          },
+        },
+      },
+    },
+    isDisabled: {
+      true: {
+        [`& ${StyledInput},& ${StyledSelectWrap}`]: {
+          backgroundColor: theme.colors.surface3,
+          opacity: 0.4,
+          color: theme.colors.text2,
+          cursor: `not-allowed`,
+        },
+      },
+      false: {},
+    },
   },
 });

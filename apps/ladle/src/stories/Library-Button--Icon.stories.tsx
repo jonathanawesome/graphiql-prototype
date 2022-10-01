@@ -1,16 +1,8 @@
-import { Button, styled } from '@graphiql-prototype/ui-library';
+// ladle helper components
+import { FlexCol } from '../components/FlexCol';
+import { FlexRow } from '../components/FlexRow';
 
-const FlexRow = styled('div', {
-  display: 'flex',
-  gap: 12,
-  alignItems: 'center',
-});
-
-const FlexCol = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 12,
-});
+import { Button } from '@graphiql-prototype/ui-library';
 
 const dummyAction = () => {
   alert('clicked button!');
@@ -19,34 +11,41 @@ const dummyAction = () => {
 export const Icon = () => {
   return (
     <FlexCol>
-      <FlexRow>
-        <span>small</span>
+      <FlexRow name={`small - disabled`}>
+        <Button
+          action={dummyAction}
+          icon="Plus"
+          isDisabled={true}
+          label="Button Copy"
+          size="SMALL"
+          style="ICON"
+        />
+      </FlexRow>
+      <FlexRow name={`small`}>
         <Button
           action={dummyAction}
           icon="Plus"
           label="Button Copy"
           size="SMALL"
-          variant="ICON"
+          style="ICON"
         />
       </FlexRow>
-      <FlexRow>
-        <span>medium</span>
+      <FlexRow name={`medium`}>
         <Button
           action={dummyAction}
           icon="Close"
           label="Button Copy"
           size="MEDIUM"
-          variant="ICON"
+          style="ICON"
         />
       </FlexRow>
-      <FlexRow>
-        <span>large</span>
+      <FlexRow name={`large`}>
         <Button
           action={dummyAction}
           icon="Refresh"
           label="Button Copy"
           size="LARGE"
-          variant="ICON"
+          style="ICON"
         />
       </FlexRow>
     </FlexCol>

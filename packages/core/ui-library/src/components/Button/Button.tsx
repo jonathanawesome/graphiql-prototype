@@ -7,27 +7,43 @@ import { Icon } from '../../icons';
 
 type ButtonBase = {
   action: () => void;
+  isDisabled?: ButtonVariants['isDisabled'];
   label: string;
   size: ButtonVariants['size'];
 };
 
-// type ButtonGhost = ButtonBase & {
-//   icon?: never;
-//   variant: Extract<ButtonVariants['variant'], 'STANDARD'>;
-// };
+type ButtonGhost = ButtonBase & {
+  icon?: never;
+  style: Extract<ButtonVariants['style'], 'GHOST'>;
+  type?: ButtonVariants['type'];
+};
 
 type ButtonIcon = ButtonBase & {
   icon: IconNames;
-  variant: Extract<ButtonVariants['variant'], 'ICON'>;
+  style: Extract<ButtonVariants['style'], 'ICON'>;
+  type?: never;
 };
 
-type ButtonTypes =
-  // ButtonGhost |
-  ButtonIcon;
+type ButtonTypes = ButtonGhost | ButtonIcon;
 
-export const Button = ({ action, icon, label, size, variant }: ButtonTypes) => {
+export const Button = ({
+  action,
+  icon,
+  isDisabled = false,
+  label,
+  size,
+  style,
+  type = 'PRIMARY',
+}: ButtonTypes) => {
   return (
-    <StyledButton aria-label={label} onClick={action} size={size} variant={variant}>
+    <StyledButton
+      aria-label={label}
+      isDisabled={isDisabled}
+      onClick={isDisabled ? undefined : action}
+      size={size}
+      style={style}
+      type={type}
+    >
       {icon ? <Icon name={icon} /> : label}
     </StyledButton>
   );

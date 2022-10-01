@@ -1,9 +1,26 @@
 // components
-import { Tabs } from '@graphiql-prototype/ui-library';
+import { HTTPHeaderControl, Tabs } from '@graphiql-prototype/ui-library';
 import { MonacoEditor } from '../MonacoEditor';
 
+// hooks
+import { useEditor } from '@graphiql-prototype/use-editor';
+
 // styles
-import { StyledVariablesWrap } from './styles';
+import { StyledPerTabHeaders, StyledVariablesWrap } from './styles';
+
+const PerTabHeaders = () => {
+  const activeEditorTab = useEditor().getActiveTab();
+
+  if (!activeEditorTab?.headers) {
+    return null;
+  }
+
+  return (
+    <StyledPerTabHeaders>
+      <HTTPHeaderControl placement="ACTIVE_TAB" values={activeEditorTab.headers} />
+    </StyledPerTabHeaders>
+  );
+};
 
 export const OperationTools = () => {
   return (
@@ -23,7 +40,7 @@ export const OperationTools = () => {
         {
           id: 'Headers',
           name: 'Headers',
-          panel: <MonacoEditor monacoEditorType="headers" />,
+          panel: <PerTabHeaders />,
         },
       ]}
     />

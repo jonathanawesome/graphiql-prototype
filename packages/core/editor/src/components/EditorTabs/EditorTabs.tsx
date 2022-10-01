@@ -29,6 +29,8 @@ const AddTabButton = () => {
 export const EditorTabs = () => {
   const { activeEditorTabId, editorTabs } = useEditor();
 
+  // console.log('editortabs', { editorTabs });
+
   const handleTabChange = ({ editorTabId }: { editorTabId: string }) => {
     setActiveEditorTabId({ editorTabId });
     switchEditorTab({ editorTabId });

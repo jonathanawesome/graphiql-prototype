@@ -1,7 +1,7 @@
 import { styled, theme } from '@graphiql-prototype/ui-library';
 
 const padding = theme.space[6];
-// const border = `1px solid ${theme.colors.surface3}`;
+const border = `1px solid ${theme.colors.surface3}`;
 
 export const StyledSchemaNavigation = styled('div', {
   display: `flex`,
@@ -335,8 +335,8 @@ export const StyledTabButton = styled('button', {
 });
 
 export const StyledFieldSummary = styled('div', {
-  // borderLeft: border,
-  hairlineL: theme.colors.surface3,
+  borderLeft: border,
+  // hairlineL: theme.colors.surface3,
   paddingLeft: theme.space[3],
   paddingTop: theme.space[1],
   paddingBottom: theme.space[1],

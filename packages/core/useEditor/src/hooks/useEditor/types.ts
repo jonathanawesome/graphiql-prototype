@@ -2,13 +2,16 @@ import { OperationDefinitionNode } from 'graphql';
 import { editor as MONACO_EDITOR } from 'monaco-editor/esm/vs/editor/editor.api';
 import type { MonacoGraphQLAPI } from 'monaco-graphql';
 
+// types
+import type { HTTPHeaderValue } from '@graphiql-prototype/use-http-headers';
+
 export type EditorTabState = {
   editorTabId: string;
   editorTabName: string;
   operationsModel: MONACO_EDITOR.ITextModel;
   variablesModel: MONACO_EDITOR.ITextModel;
-  headersModel: MONACO_EDITOR.ITextModel;
   resultsModel: MONACO_EDITOR.ITextModel;
+  headers: HTTPHeaderValue[];
   operationDefinition: OperationDefinitionNode | null;
 };
 
@@ -16,12 +19,13 @@ type MonacoEditors = {
   operations: MONACO_EDITOR.IStandaloneCodeEditor | null;
   variables: MONACO_EDITOR.IStandaloneCodeEditor | null;
   results: MONACO_EDITOR.IStandaloneCodeEditor | null;
-  headers: MONACO_EDITOR.IStandaloneCodeEditor | null;
 };
 
-export type MonacoEditorTypes = 'operations' | 'variables' | 'results' | 'headers';
+export type MonacoEditorTypes = 'operations' | 'variables' | 'results';
 
 export type EditorStore = {
+  // monaco
+  monacoGraphQLAPI: MonacoGraphQLAPI;
   initMonacoEditor: ({
     monacoEditorType,
     monacoEditorRef,
@@ -31,6 +35,16 @@ export type EditorStore = {
     monacoEditorRef: HTMLDivElement;
     optionOverrides?: MONACO_EDITOR.IStandaloneEditorConstructionOptions;
   }) => void;
+  monacoEditors: MonacoEditors;
+  addMonacoEditor: ({
+    editor,
+    name,
+  }: {
+    editor: MONACO_EDITOR.IStandaloneCodeEditor;
+    name: MonacoEditorTypes;
+  }) => void;
+
+  // tabs
   setModelsForAllEditorsWithinTab: ({
     destinationTab,
   }: {
@@ -45,7 +59,6 @@ export type EditorStore = {
       operationDefinition: OperationDefinitionNode;
     };
   }) => void;
-  monacoGraphQLAPI: MonacoGraphQLAPI;
   activeEditorTabId: string | null;
   setActiveEditorTabId: ({ editorTabId }: { editorTabId: string }) => void;
   getActiveTab: () => EditorTabState;
@@ -53,22 +66,8 @@ export type EditorStore = {
   resetEditorTabs: () => void;
   removeEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
   switchEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
-  splitMultipleOperationsToSeparateTabs: () => void;
-  updateModel: ({
-    modelType,
-    newValue,
-  }: {
-    modelType: 'operationsModel' | 'variablesModel' | 'resultsModel';
-    newValue: string;
-  }) => void;
-  updateOperationDefinition: ({
-    newDefinition,
-  }: {
-    newDefinition: OperationDefinitionNode | null;
-  }) => void;
-  updateOperationDefinitionFromModelValue: ({ value }: { value: string }) => void;
-  warningWhenMultipleOperations: boolean;
-  clearWarningWhenMultipleOperations: () => void;
+
+  // variables
   removeVariable: ({
     onInputObject,
     variableName,
@@ -88,12 +87,35 @@ export type EditorStore = {
     variableName: string;
     variableValue: string | string[];
   }) => void;
-  monacoEditors: MonacoEditors;
-  addMonacoEditor: ({
-    editor,
-    name,
+
+  // "other"
+  splitMultipleOperationsToSeparateTabs: () => void;
+  updateModel: ({
+    modelType,
+    newValue,
   }: {
-    editor: MONACO_EDITOR.IStandaloneCodeEditor;
-    name: MonacoEditorTypes;
+    modelType: 'operationsModel' | 'variablesModel' | 'resultsModel';
+    newValue: string;
   }) => void;
+  updateOperationDefinition: ({
+    newDefinition,
+  }: {
+    newDefinition: OperationDefinitionNode | null;
+  }) => void;
+  updateOperationDefinitionFromModelValue: ({ value }: { value: string }) => void;
+  // these TabHeader functions are basically duplicates of those in the useHTTPHeaders package
+  // there's gotta be a better way to do this
+  // addTabHeader: () => void;
+  // removeTabHeader: ({ id }: { id: string }) => void;
+  // updateHeader: ({
+  //   id,
+  //   payload,
+  // }: {
+  //   id: string;
+  //   payload: UpdateHeaderKeyOrValue | UpdateHeaderStatus;
+  // }) => void;
+  warningWhenMultipleOperations: boolean;
+  clearWarningWhenMultipleOperations: () => void;
+  // TODO: 👇 is this the right way to update editor tab state? it seems brittle...currently only used for updating tab headers
+  updateTabState: ({ data }: { data: Partial<EditorTabState> }) => void;
 };

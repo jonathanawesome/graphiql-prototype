@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { styled, theme } from '@graphiql-prototype/ui-library';
 
 const StyledCol = styled('div', {
@@ -53,7 +53,7 @@ const controls: (
         { name: 'Option 2', value: 'option2' },
       ],
       placeholder: `A List Select`,
-      value: ['option1', 'option1', 'option2'],
+      value: [],
     },
     labelCopy: 'a list select',
     list: true,
@@ -64,7 +64,7 @@ const controls: (
       handleChange,
       name: 'LIST_INPUT',
       placeholder: `A List Input`,
-      value: ['One', 'Two'],
+      value: [],
     },
     labelCopy: 'a list input',
     list: true,
@@ -81,6 +81,19 @@ const controls: (
     list: false,
   },
   {
+    alignment: 'LEFT',
+    control: {
+      controlType: 'INPUT',
+      handleChange,
+      name: 'INPUT_NOLABEL',
+      placeholder: `An Input without a label`,
+      value: ``,
+    },
+    displayLabel: false,
+    labelCopy: 'an input without a label',
+    list: false,
+  },
+  {
     control: {
       controlType: 'SELECT',
       handleChange,
@@ -90,9 +103,26 @@ const controls: (
         { name: 'Option 2', value: 'option2' },
       ],
       placeholder: `A string Select`,
-      value: `option2`,
+      value: ``,
     },
     labelCopy: 'a string select',
+    list: false,
+  },
+  {
+    alignment: 'LEFT',
+    control: {
+      controlType: 'SELECT',
+      handleChange,
+      name: 'SELECT_STRING_NOLABEL',
+      options: [
+        { name: 'Option 1', value: 'option1' },
+        { name: 'Option 2', value: 'option2' },
+      ],
+      placeholder: `A string Select without a label`,
+      value: ``,
+    },
+    displayLabel: false,
+    labelCopy: 'a string select without a label',
     list: false,
   },
   {
@@ -105,7 +135,7 @@ const controls: (
         { name: 'False', value: 'false' },
       ],
       placeholder: `A boolean Select`,
-      value: `true`,
+      value: ``,
     },
     labelCopy: 'a boolean select',
     list: false,
@@ -122,24 +152,6 @@ export const ControlStory = () => {
     }));
   };
 
-  useEffect(() => {
-    setValues(
-      controls(handleChange).reduce(
-        (
-          acc: Record<string, ControlData>,
-          control: Omit<ControlProps, 'handleChange'>
-        ) => ({
-          ...acc,
-          [control.control.name]: {
-            name: control.control.name,
-            value: control.control.value,
-          },
-        }),
-        {}
-      )
-    );
-  }, []);
-
   return (
     <StyledCol>
       {controls(handleChange).map((control) => (
@@ -151,7 +163,16 @@ export const ControlStory = () => {
             </StyledData>
           </StyledInfo>
           <Control
-            control={control.control}
+            alignment={control.alignment}
+            control={{
+              ...control.control,
+              value: values[control.control.name]
+                ? values[control.control.name].value
+                : control.list
+                ? []
+                : '',
+            }}
+            displayLabel={control.displayLabel}
             labelCopy={control.labelCopy}
             list={control.list}
           />
