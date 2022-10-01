@@ -84,7 +84,7 @@ export const Search = () => {
             icon="Close"
             label="Close schema search"
             size="LARGE"
-            variant="ICON"
+            style="ICON"
           />
         ) : (
           <Button
@@ -92,7 +92,7 @@ export const Search = () => {
             icon="Search"
             label="Search schema"
             size="LARGE"
-            variant="ICON"
+            style="ICON"
           />
         )}
       </StyledSearchTriggerWrap>

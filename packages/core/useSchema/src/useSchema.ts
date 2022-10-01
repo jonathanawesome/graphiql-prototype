@@ -4,9 +4,9 @@ import * as JSONC from 'jsonc-parser';
 import { buildClientSchema, getIntrospectionQuery, IntrospectionQuery } from 'graphql';
 
 // hooks
-import { useGlobalHTTPHeaders } from '@graphiql-prototype/use-global-http-headers';
-import { useTestSchema } from '@graphiql-prototype/use-test-schema';
 import { useEditor } from '@graphiql-prototype/use-editor';
+import { useHTTPHeaders } from '@graphiql-prototype/use-http-headers';
+import { useTestSchema } from '@graphiql-prototype/use-test-schema';
 
 // types
 import { GraphiQLSchemaStore } from './types';
@@ -39,13 +39,16 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
       const headersModelValue = activeTab.headersModel.getValue();
 
       const tabHeaders = JSONC.parse(headersModelValue);
-      const globalHeaders = useGlobalHTTPHeaders.getState().globalHeaders.reduce(
-        (a, globalHeader) => ({
-          ...a,
-          [globalHeader.header.name]: globalHeader.header.value,
-        }),
-        {}
-      );
+
+      // we should be able to grab all necessary headers (global and activeTab) from here
+
+      const globalHeaders = useHTTPHeaders
+        .getState()
+        .globalHeaders.reduce(
+          (acc, globalHeader) =>
+            globalHeader.enabled && { ...acc, [globalHeader.key]: globalHeader.value },
+          {}
+        );
 
       if (schemaUrl === testSchemaUrl) {
         return updateModel({
@@ -110,16 +113,18 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
       });
     } else {
       console.log('initializing schema:', { url });
-      const globalHeaders = useGlobalHTTPHeaders.getState().globalHeaders;
+
+      const globalHeaders = useHTTPHeaders
+        .getState()
+        .globalHeaders.reduce(
+          (acc, globalHeader) =>
+            globalHeader.enabled && { ...acc, [globalHeader.key]: globalHeader.value },
+          {}
+        );
+
       try {
         const result = await fetcher({
-          headers: globalHeaders.reduce(
-            (a, globalHeader) => ({
-              ...a,
-              [globalHeader.header.name]: globalHeader.header.value,
-            }),
-            {}
-          ),
+          headers: globalHeaders,
           url,
         })({
           query: getIntrospectionQuery({

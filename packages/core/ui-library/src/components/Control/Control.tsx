@@ -10,13 +10,22 @@ import { StyledControlWrap, StyledLabel } from './styles';
 import { ControlProps } from './types';
 
 export const Control = ({
+  alignment = 'RIGHT',
   control,
+  displayLabel = true,
+  isDisabled = false,
   labelAddon,
   labelCopy,
   list = false,
 }: ControlProps) => {
+  console.log('control', { isDisabled });
   return (
-    <StyledControlWrap key={control.name}>
+    <StyledControlWrap
+      key={control.name}
+      alignment={alignment}
+      displayLabel={displayLabel}
+      isDisabled={isDisabled}
+    >
       <StyledLabel htmlFor={control.name}>
         {labelCopy}
         {labelAddon && labelAddon}
@@ -48,6 +57,7 @@ export const Control = ({
         <Select
           controlType={control.controlType}
           handleChange={control.handleChange}
+          isDisabled={isDisabled}
           name={control.name}
           options={control.options}
           placeholder={control.placeholder}
@@ -59,6 +69,7 @@ export const Control = ({
         <Input
           controlType={control.controlType}
           handleChange={control.handleChange}
+          isDisabled={isDisabled}
           name={control.name}
           placeholder={control.placeholder}
           value={control.value}

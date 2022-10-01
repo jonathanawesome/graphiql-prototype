@@ -6,6 +6,8 @@ export type { ControlData, ControlProps, HandleChangeSignature } from './Control
 export { Dialog } from './Dialog';
 export type { DialogProps } from './Dialog';
 
+export { HTTPHeaderControl } from './HTTPHeaderControl';
+
 export { Markdown } from './Markdown';
 
 export { Message } from './Message';

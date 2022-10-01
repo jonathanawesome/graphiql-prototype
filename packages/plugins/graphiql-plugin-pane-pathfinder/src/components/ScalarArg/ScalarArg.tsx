@@ -87,7 +87,7 @@ export const ScalarArg = ({
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleChange: HandleChangeSignature = ({ name, value }) => {
-    setInputValue(value);
+    setInputValue(value as string | string[]);
   };
 
   const isRequired = isRequiredArgument(argument) || isRequiredInputField(argument);

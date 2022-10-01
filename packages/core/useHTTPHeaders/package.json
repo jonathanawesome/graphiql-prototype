@@ -1,5 +1,5 @@
 {
-  "name": "@graphiql-prototype/use-global-http-headers",
+  "name": "@graphiql-prototype/use-http-headers",
   "version": "0.0.1",
   "main": "index.ts",
   "scripts": {

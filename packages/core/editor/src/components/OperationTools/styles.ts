@@ -5,3 +5,7 @@ export const StyledVariablesWrap = styled('div', {
   maxHeight: 300,
   overflowY: `auto`,
 });
+
+export const StyledPerTabHeaders = styled('div', {
+  padding: theme.space[4],
+});

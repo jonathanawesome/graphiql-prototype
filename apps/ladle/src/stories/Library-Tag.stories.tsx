@@ -1,41 +1,25 @@
-import { Tag, styled, theme } from '@graphiql-prototype/ui-library';
+// ladle helper components
+import { FlexCol } from '../components/FlexCol';
+import { FlexRow } from '../components/FlexRow';
 
-const FlexRow = styled('div', {
-  display: 'flex',
-  gap: 24,
-  alignItems: 'flex-start',
-  justifyContent: 'flex-start',
-  width: '100%',
-});
-
-const FlexCol = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 12,
-  color: theme.colors.text4,
-});
+import { Tag } from '@graphiql-prototype/ui-library';
 
 export const TagStory = () => {
   return (
     <FlexCol>
-      <FlexRow>
-        <span>OPERATION</span>
+      <FlexRow name="OPERATION">
         <Tag copy="Q" title="Query" type="OPERATION" />
       </FlexRow>
-      <FlexRow>
-        <span>ERROR</span>
+      <FlexRow name="ERROR">
         <Tag copy="E" title="ERROR" type="ERROR" />
       </FlexRow>
-      <FlexRow>
-        <span>WARNING</span>
+      <FlexRow name="WARNING">
         <Tag copy="W" title="WARNING" type="WARNING" />
       </FlexRow>
-      <FlexRow>
-        <span>INFO</span>
+      <FlexRow name="INFO">
         <Tag copy="I" title="INFO" type="INFO" />
       </FlexRow>
-      <FlexRow>
-        <span>SUCCESS</span>
+      <FlexRow name="SUCCESS">
         <Tag copy="S" title="SUCCESS" type="SUCCESS" />
       </FlexRow>
     </FlexCol>

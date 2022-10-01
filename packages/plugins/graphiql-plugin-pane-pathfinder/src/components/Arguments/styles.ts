@@ -28,7 +28,6 @@ export const StyledArgumentsTrigger = styled(Collapsible.Trigger, {
     fontSize: 10,
     textTransform: `uppercase`,
     letterSpacing: 0.5,
-    // color: theme.colors.pink_default,
     color: theme.colors.text2,
   },
 
@@ -46,16 +45,10 @@ export const StyledArgumentsTrigger = styled(Collapsible.Trigger, {
         },
       },
       false: {
-        span: {
-          // color: theme.colors.pink_default,
-        },
         svg: {
           fill: theme.colors.text4,
         },
         '&:hover, &:focus': {
-          span: {
-            // color: theme.colors.pink_default,
-          },
           svg: {
             fill: theme.colors.text3,
           },
@@ -68,13 +61,9 @@ export const StyledArgumentsTrigger = styled(Collapsible.Trigger, {
 export const StyledArgumentsList = styled('ul', {
   all: 'unset',
   margin: 0,
-  // padding: theme.space[3],
-  // paddingTop: theme.space[3],
-  // paddingLeft: theme.space[4],
   overflow: `hidden`,
   display: 'flex',
   flexDirection: 'column',
-  // gap: 12,
   position: `relative`,
 
   variants: {
@@ -85,14 +74,9 @@ export const StyledArgumentsList = styled('ul', {
       false: {},
     },
   },
-
-  // borderLeft: `1px solid red`,
 });
 
 export const StyledArgumentsContent = styled(Collapsible.Content, {
-  // paddingTop: theme.space[3],
-  // marginTop: theme.space[3],
-  // marginBottom: theme.space[3],
   paddingLeft: theme.space[4],
   position: `relative`,
   // backgroundColor: theme.colors.pink_lightest,

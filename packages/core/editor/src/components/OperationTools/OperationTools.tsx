@@ -1,9 +1,22 @@
 // components
-import { Tabs } from '@graphiql-prototype/ui-library';
+import { HTTPHeaderControl, Tabs } from '@graphiql-prototype/ui-library';
 import { MonacoEditor } from '../MonacoEditor';
 
+// hooks
+import { useHTTPHeaders } from '@graphiql-prototype/use-http-headers';
+
 // styles
-import { StyledVariablesWrap } from './styles';
+import { StyledPerTabHeaders, StyledVariablesWrap } from './styles';
+
+const PerTabHeaders = () => {
+  const { globalHeaders } = useHTTPHeaders();
+
+  return (
+    <StyledPerTabHeaders>
+      <HTTPHeaderControl placement="GLOBAL" values={globalHeaders} />
+    </StyledPerTabHeaders>
+  );
+};
 
 export const OperationTools = () => {
   return (
@@ -23,7 +36,8 @@ export const OperationTools = () => {
         {
           id: 'Headers',
           name: 'Headers',
-          panel: <MonacoEditor monacoEditorType="headers" />,
+          panel: <PerTabHeaders />,
+          // panel: <MonacoEditor monacoEditorType="headers" />,
         },
       ]}
     />

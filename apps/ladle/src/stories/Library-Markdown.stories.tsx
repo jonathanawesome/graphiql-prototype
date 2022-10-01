@@ -1,29 +1,16 @@
-import { Markdown, styled, theme } from '@graphiql-prototype/ui-library';
+// ladle helper components
+import { FlexCol } from '../components/FlexCol';
+import { FlexRow } from '../components/FlexRow';
 
-const FlexRow = styled('div', {
-  display: 'flex',
-  gap: 24,
-  alignItems: 'flex-start',
-  justifyContent: 'flex-start',
-  width: '100%',
-});
-
-const FlexCol = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 12,
-  color: theme.colors.text4,
-});
+import { Markdown } from '@graphiql-prototype/ui-library';
 
 export const MarkdownStory = () => {
   return (
     <FlexCol>
-      <FlexRow>
-        <span>Summary</span>
+      <FlexRow name="Summary">
         <Markdown content={md} showSummary={true} />
       </FlexRow>
-      <FlexRow>
-        <span>Full description</span>
+      <FlexRow name="Full description">
         <Markdown content={md} />
       </FlexRow>
     </FlexCol>

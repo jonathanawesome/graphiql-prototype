@@ -9,6 +9,7 @@ import { SelectProps } from './types';
 
 export const Select = ({
   handleChange,
+  isDisabled,
   name,
   options,
   placeholder,
@@ -21,6 +22,7 @@ export const Select = ({
       variant={variant}
     >
       <select
+        disabled={isDisabled}
         name={name}
         onChange={(e) => {
           handleChange({
@@ -28,7 +30,7 @@ export const Select = ({
             value: e.target.value,
           });
         }}
-        value={value}
+        value={value as string}
       >
         <option value="">{placeholder}</option>
         {options.map((option) => (

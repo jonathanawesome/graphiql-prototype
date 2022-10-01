@@ -36,6 +36,7 @@ importers:
       '@graphiql-prototype/graphiql-plugin-pane-pathfinder': workspace:*
       '@graphiql-prototype/ui-library': workspace:*
       '@graphiql-prototype/use-editor': workspace:*
+      '@graphiql-prototype/use-http-headers': workspace:*
       '@graphiql-prototype/use-schema': workspace:*
       '@graphiql-prototype/use-test-schema': workspace:*
       '@ladle/react': 2.0.2
@@ -53,6 +54,7 @@ importers:
       '@graphiql-prototype/graphiql-plugin-pane-pathfinder': link:../../packages/plugins/graphiql-plugin-pane-pathfinder
       '@graphiql-prototype/ui-library': link:../../packages/core/ui-library
       '@graphiql-prototype/use-editor': link:../../packages/core/useEditor
+      '@graphiql-prototype/use-http-headers': link:../../packages/core/useHTTPHeaders
       '@graphiql-prototype/use-schema': link:../../packages/core/useSchema
       '@graphiql-prototype/use-test-schema': link:../../packages/core/useTestSchema
       '@ladle/react': 2.0.2_sfoxds7t5ydpegc3knd667wn6m
@@ -105,6 +107,7 @@ importers:
       '@graphiql-prototype/graphiql-plugin-schema-documentation': workspace:*
       '@graphiql-prototype/ui-library': workspace:*
       '@graphiql-prototype/use-editor': workspace:*
+      '@graphiql-prototype/use-http-headers': workspace:*
       '@graphiql-prototype/use-schema': workspace:*
       '@graphiql-prototype/use-test-schema': workspace:*
       '@graphiql-prototype/utils': workspace:*
@@ -125,6 +128,7 @@ importers:
       '@graphiql-prototype/graphiql-plugin-schema-documentation': link:../../plugins/graphiql-plugin-schema-documentation
       '@graphiql-prototype/ui-library': link:../ui-library
       '@graphiql-prototype/use-editor': link:../useEditor
+      '@graphiql-prototype/use-http-headers': link:../useHTTPHeaders
       '@graphiql-prototype/use-schema': link:../useSchema
       '@graphiql-prototype/use-test-schema': link:../useTestSchema
       '@graphiql-prototype/utils': link:../utils
@@ -166,6 +170,7 @@ importers:
 
   packages/core/ui-library:
     specifiers:
+      '@graphiql-prototype/use-http-headers': workspace:*
       '@graphiql-prototype/utils': workspace:*
       '@radix-ui/react-collapsible': ^0.1.6
       '@radix-ui/react-dialog': 1.0.1-rc.3
@@ -185,6 +190,7 @@ importers:
       vite: 3.0.2
       zustand: 4.1.1
     dependencies:
+      '@graphiql-prototype/use-http-headers': link:../useHTTPHeaders
       '@graphiql-prototype/utils': link:../utils
       '@radix-ui/react-collapsible': 0.1.6_react@17.0.2
       '@radix-ui/react-dialog': 1.0.1-rc.3_ayd5rovvta3ij4fhi2rqvqneja
@@ -232,7 +238,7 @@ importers:
     devDependencies:
       '@types/react': 17.0.2
 
-  packages/core/useGlobalHTTPHeaders:
+  packages/core/useHTTPHeaders:
     specifiers:
       '@graphiql-prototype/utils': workspace:*
       '@types/react': 17.0.2
@@ -257,7 +263,7 @@ importers:
     specifiers:
       '@graphiql-prototype/editor': workspace:*
       '@graphiql-prototype/use-editor': workspace:*
-      '@graphiql-prototype/use-global-http-headers': workspace:*
+      '@graphiql-prototype/use-http-headers': workspace:*
       '@graphiql-prototype/use-test-schema': workspace:*
       '@graphiql-prototype/utils': workspace:*
       '@types/react': 17.0.2
@@ -269,7 +275,7 @@ importers:
     dependencies:
       '@graphiql-prototype/editor': link:../editor
       '@graphiql-prototype/use-editor': link:../useEditor
-      '@graphiql-prototype/use-global-http-headers': link:../useGlobalHTTPHeaders
+      '@graphiql-prototype/use-http-headers': link:../useHTTPHeaders
       '@graphiql-prototype/use-test-schema': link:../useTestSchema
       '@graphiql-prototype/utils': link:../utils
       graphql: 16.5.0
