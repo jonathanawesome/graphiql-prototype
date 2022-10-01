@@ -5,12 +5,14 @@ import { ChevronSmall } from './ChevronSmall';
 import { Close } from './Close';
 import { Code } from './Code';
 import { Command } from './Command';
+import { Dark } from './Dark';
 import { Docs } from './Docs';
 import { Ellipsis } from './Ellipsis';
 import { ExclamationTriangle } from './ExclamationTriangle';
 import { Gear } from './Gear';
 import { GraphQLIcon } from './GraphQLIcon';
 import { Input } from './Input';
+import { Light } from './Light';
 import { Play } from './Play';
 import { Plus } from './Plus';
 import { Prettier } from './Prettier';
@@ -27,12 +29,14 @@ export const IconMap = {
   Close,
   Code,
   Command,
+  Dark,
   Docs,
   Ellipsis,
   ExclamationTriangle,
   Gear,
   GraphQLIcon,
   Input,
+  Light,
   Play,
   Plus,
   Prettier,

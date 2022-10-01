@@ -7,18 +7,19 @@ export const editorThemeDark: MONACO_EDITOR.IStandaloneThemeData = {
   base: 'vs',
   inherit: false,
   colors: {
-    'editor.foreground': editorColors['dark']?.delimiters, // Editor default foreground color.
-    'editorCursor.foreground': editorColors['dark']?.yellow_default, // Color of the editor cursor.
-    'editor.selectionBackground': editorColors['dark']?.selections, // Color of the editor selection.
+    'editor.foreground': editorColors && editorColors['dark'].delimiters, // Editor default foreground color.
+    'editorCursor.foreground': editorColors && editorColors['dark'].yellow_default, // Color of the editor cursor.
+    'editor.selectionBackground': editorColors && editorColors['dark'].selections, // Color of the editor selection.
     'editor.background': '#FFFFFF00', // white with a 00 alpha value
-    'editorLineNumber.foreground': editorColors['dark']?.delimiters, // Color of editor line numbers.
-    'editorLineNumber.activeForeground': editorColors['dark']?.delimitersActive, // Color of editor active line number.
-    'editorError.foreground': editorColors['dark']?.orange_default, // Foreground color of error squigglies in the editor.
-    'editorWarning.foreground': editorColors['dark']?.orange_default, // Foreground color of warning squigglies in the editor.
+    'editorLineNumber.foreground': editorColors && editorColors['dark'].delimiters, // Color of editor line numbers.
+    'editorLineNumber.activeForeground':
+      editorColors && editorColors['dark'].delimitersActive, // Color of editor active line number.
+    'editorError.foreground': editorColors && editorColors['dark'].orange_default, // Foreground color of error squigglies in the editor.
+    'editorWarning.foreground': editorColors && editorColors['dark'].orange_default, // Foreground color of warning squigglies in the editor.
     'editor.lineHighlightBorder': '#FFFFFF00', // Background color for the border around the line at the cursor position.
     'editorBracketMatch.background': '#FFFFFF00', // Background color behind matching brackets
-    'editorBracketMatch.border': editorColors['dark']?.selections, // Color for matching brackets boxes
-    'editorIndentGuide.background': editorColors['dark']?.indentGuides, // Color of the editor indentation guides.
+    'editorBracketMatch.border': editorColors && editorColors['dark'].selections, // Color for matching brackets boxes
+    'editorIndentGuide.background': editorColors && editorColors['dark'].indentGuides, // Color of the editor indentation guides.
     'scrollbar.shadow': '#FFFFFF00', // Scrollbar shadow to indicate that the view is scrolled.
     'editorOverviewRuler.border': '#FFFFFF00', // Color of the overview ruler border.
     // 'editorMarkerNavigationError.background': '#FFFFFF00', // Editor marker navigation widget error color.
@@ -27,92 +28,92 @@ export const editorThemeDark: MONACO_EDITOR.IStandaloneThemeData = {
   rules: [
     // operations editor (graphql)
     {
-      foreground: editorColors['dark']?.delimiters,
+      foreground: editorColors && editorColors['dark'].delimiters,
       token: 'string.gql',
     },
     {
-      foreground: editorColors['dark']?.keywords,
+      foreground: editorColors && editorColors['dark'].keywords,
       token: 'string.quote.gql',
     },
     {
-      foreground: editorColors['dark']?.orange_default,
+      foreground: editorColors && editorColors['dark'].orange_default,
       token: 'string.invalid.gql',
     },
     {
-      foreground: editorColors['dark']?.values,
+      foreground: editorColors && editorColors['dark'].values,
       token: 'number.gql',
     },
     {
-      foreground: editorColors['dark']?.keywords,
+      foreground: editorColors && editorColors['dark'].keywords,
       token: 'keyword.gql',
     },
     {
-      foreground: editorColors['dark']?.operators,
+      foreground: editorColors && editorColors['dark'].operators,
       token: 'operator.gql',
     },
     {
-      foreground: editorColors['dark']?.types,
+      foreground: editorColors && editorColors['dark'].types,
       token: 'type.identifier.gql',
     },
     {
-      foreground: editorColors['dark']?.fields,
+      foreground: editorColors && editorColors['dark'].fields,
       token: 'key.identifier.gql',
     },
     {
-      foreground: editorColors['dark']?.arguments,
+      foreground: editorColors && editorColors['dark'].arguments,
       token: 'argument.identifier.gql',
     },
     {
-      foreground: editorColors['dark']?.delimiters,
+      foreground: editorColors && editorColors['dark'].delimiters,
       token: 'delimiter.gql',
     },
     {
-      foreground: editorColors['dark']?.delimiters,
+      foreground: editorColors && editorColors['dark'].delimiters,
       token: 'delimiter.parenthesis.gql',
     },
     {
-      foreground: editorColors['dark']?.delimiters,
+      foreground: editorColors && editorColors['dark'].delimiters,
       token: 'delimiter.curly.gql',
     },
     {
-      foreground: editorColors['dark']?.delimiters,
+      foreground: editorColors && editorColors['dark'].delimiters,
       token: 'delimiter.square.gql',
     },
     {
-      foreground: editorColors['dark']?.text2,
+      foreground: editorColors && editorColors['dark'].text2,
       token: 'comment.gql',
     },
     // variables editor & results viewer (json)
     {
-      foreground: editorColors['dark']?.text2,
+      foreground: editorColors && editorColors['dark'].text2,
       token: 'delimiter.bracket.json',
     },
     {
-      foreground: editorColors['dark']?.text2,
+      foreground: editorColors && editorColors['dark'].text2,
       token: 'delimiter.array.json',
     },
     {
-      foreground: editorColors['dark']?.text2,
+      foreground: editorColors && editorColors['dark'].text2,
       token: 'delimiter.comma.json',
     },
     {
-      foreground: editorColors['dark']?.text2,
+      foreground: editorColors && editorColors['dark'].text2,
       token: 'delimiter.colon.json',
     },
     {
-      foreground: editorColors['dark']?.keywords,
+      foreground: editorColors && editorColors['dark'].keywords,
       token: 'string.key.json',
     },
     {
-      foreground: editorColors['dark']?.values,
+      foreground: editorColors && editorColors['dark'].values,
       token: 'string.value.json',
     },
     {
-      foreground: editorColors['dark']?.values,
+      foreground: editorColors && editorColors['dark'].values,
       token: 'number.json',
     },
     {
-      foreground: editorColors['dark']?.values,
+      foreground: editorColors && editorColors['dark'].values,
       token: 'keyword.json',
     },
   ],
@@ -122,18 +123,19 @@ export const editorThemeLight: MONACO_EDITOR.IStandaloneThemeData = {
   base: 'vs',
   inherit: false,
   colors: {
-    'editor.foreground': editorColors['light']?.delimiters, // Editor default foreground color.
-    'editorCursor.foreground': editorColors['light']?.yellow_default, // Color of the editor cursor.
-    'editor.selectionBackground': editorColors['light']?.selections, // Color of the editor selection.
+    'editor.foreground': editorColors && editorColors['light'].delimiters, // Editor default foreground color.
+    'editorCursor.foreground': editorColors && editorColors['light'].yellow_default, // Color of the editor cursor.
+    'editor.selectionBackground': editorColors && editorColors['light'].selections, // Color of the editor selection.
     'editor.background': '#FFFFFF00', // white with a 00 alpha value
-    'editorLineNumber.foreground': editorColors['light']?.delimiters, // Color of editor line numbers.
-    'editorLineNumber.activeForeground': editorColors['light']?.delimitersActive, // Color of editor active line number.
-    'editorError.foreground': editorColors['light']?.orange_default, // Foreground color of error squigglies in the editor.
-    'editorWarning.foreground': editorColors['light']?.orange_default, // Foreground color of warning squigglies in the editor.
+    'editorLineNumber.foreground': editorColors && editorColors['light'].delimiters, // Color of editor line numbers.
+    'editorLineNumber.activeForeground':
+      editorColors && editorColors['light'].delimitersActive, // Color of editor active line number.
+    'editorError.foreground': editorColors && editorColors['light'].orange_default, // Foreground color of error squigglies in the editor.
+    'editorWarning.foreground': editorColors && editorColors['light'].orange_default, // Foreground color of warning squigglies in the editor.
     'editor.lineHighlightBorder': '#FFFFFF00', // Background color for the border around the line at the cursor position.
     'editorBracketMatch.background': '#FFFFFF00', // Background color behind matching brackets
-    'editorBracketMatch.border': editorColors['light']?.selections, // Color for matching brackets boxes
-    'editorIndentGuide.background': editorColors['light']?.indentGuides, // Color of the editor indentation guides.
+    'editorBracketMatch.border': editorColors && editorColors['light'].selections, // Color for matching brackets boxes
+    'editorIndentGuide.background': editorColors && editorColors['light'].indentGuides, // Color of the editor indentation guides.
     'scrollbar.shadow': '#FFFFFF00', // Scrollbar shadow to indicate that the view is scrolled.
     'editorOverviewRuler.border': '#FFFFFF00', // Color of the overview ruler border.
     // 'editorMarkerNavigationError.background': '#FFFFFF00', // Editor marker navigation widget error color.
@@ -142,92 +144,92 @@ export const editorThemeLight: MONACO_EDITOR.IStandaloneThemeData = {
   rules: [
     // operations editor (graphql)
     {
-      foreground: editorColors['light']?.delimiters,
+      foreground: editorColors && editorColors['light'].delimiters,
       token: 'string.gql',
     },
     {
-      foreground: editorColors['light']?.keywords,
+      foreground: editorColors && editorColors['light'].keywords,
       token: 'string.quote.gql',
     },
     {
-      foreground: editorColors['light']?.orange_default,
+      foreground: editorColors && editorColors['light'].orange_default,
       token: 'string.invalid.gql',
     },
     {
-      foreground: editorColors['light']?.values,
+      foreground: editorColors && editorColors['light'].values,
       token: 'number.gql',
     },
     {
-      foreground: editorColors['light']?.keywords,
+      foreground: editorColors && editorColors['light'].keywords,
       token: 'keyword.gql',
     },
     {
-      foreground: editorColors['light']?.operators,
+      foreground: editorColors && editorColors['light'].operators,
       token: 'operator.gql',
     },
     {
-      foreground: editorColors['light']?.types,
+      foreground: editorColors && editorColors['light'].types,
       token: 'type.identifier.gql',
     },
     {
-      foreground: editorColors['light']?.fields,
+      foreground: editorColors && editorColors['light'].fields,
       token: 'key.identifier.gql',
     },
     {
-      foreground: editorColors['light']?.arguments,
+      foreground: editorColors && editorColors['light'].arguments,
       token: 'argument.identifier.gql',
     },
     {
-      foreground: editorColors['light']?.delimiters,
+      foreground: editorColors && editorColors['light'].delimiters,
       token: 'delimiter.gql',
     },
     {
-      foreground: editorColors['light']?.delimiters,
+      foreground: editorColors && editorColors['light'].delimiters,
       token: 'delimiter.parenthesis.gql',
     },
     {
-      foreground: editorColors['light']?.delimiters,
+      foreground: editorColors && editorColors['light'].delimiters,
       token: 'delimiter.curly.gql',
     },
     {
-      foreground: editorColors['light']?.delimiters,
+      foreground: editorColors && editorColors['light'].delimiters,
       token: 'delimiter.square.gql',
     },
     {
-      foreground: editorColors['light']?.text2,
+      foreground: editorColors && editorColors['light'].text2,
       token: 'comment.gql',
     },
     // variables editor & results viewer (json)
     {
-      foreground: editorColors['light']?.text2,
+      foreground: editorColors && editorColors['light'].text2,
       token: 'delimiter.bracket.json',
     },
     {
-      foreground: editorColors['light']?.text2,
+      foreground: editorColors && editorColors['light'].text2,
       token: 'delimiter.array.json',
     },
     {
-      foreground: editorColors['light']?.text2,
+      foreground: editorColors && editorColors['light'].text2,
       token: 'delimiter.comma.json',
     },
     {
-      foreground: editorColors['light']?.text2,
+      foreground: editorColors && editorColors['light'].text2,
       token: 'delimiter.colon.json',
     },
     {
-      foreground: editorColors['light']?.keywords,
+      foreground: editorColors && editorColors['light'].keywords,
       token: 'string.key.json',
     },
     {
-      foreground: editorColors['light']?.values,
+      foreground: editorColors && editorColors['light'].values,
       token: 'string.value.json',
     },
     {
-      foreground: editorColors['light']?.values,
+      foreground: editorColors && editorColors['light'].values,
       token: 'number.json',
     },
     {
-      foreground: editorColors['light']?.values,
+      foreground: editorColors && editorColors['light'].values,
       token: 'keyword.json',
     },
   ],

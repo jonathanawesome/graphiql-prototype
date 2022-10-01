@@ -197,7 +197,8 @@ export const StyledControlWrap = styled('div', {
       true: {
         [`& ${StyledInput},& ${StyledSelectWrap}`]: {
           backgroundColor: theme.colors.surface3,
-          color: theme.colors.text3,
+          opacity: 0.4,
+          color: theme.colors.text2,
           cursor: `not-allowed`,
         },
       },

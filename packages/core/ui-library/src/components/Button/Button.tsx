@@ -39,7 +39,7 @@ export const Button = ({
     <StyledButton
       aria-label={label}
       isDisabled={isDisabled}
-      onClick={isDisabled ? null : action}
+      onClick={isDisabled ? undefined : action}
       size={size}
       style={style}
       type={type}

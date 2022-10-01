@@ -1,5 +1,5 @@
 import { styled, theme } from '../../theme';
-console.log('theme', theme);
+
 export const Handle = styled('div', {
   position: 'relative',
   width: theme.space[2],

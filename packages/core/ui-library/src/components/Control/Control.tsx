@@ -18,7 +18,8 @@ export const Control = ({
   labelCopy,
   list = false,
 }: ControlProps) => {
-  console.log('control', { isDisabled });
+  // console.log('control', { isDisabled });
+
   return (
     <StyledControlWrap
       key={control.name}

@@ -12,6 +12,6 @@ export const Results = () => {
   return <MonacoEditor monacoEditorType="results" />;
 };
 
-export const Headers = () => {
-  return <MonacoEditor monacoEditorType="headers" />;
-};
+// export const Headers = () => {
+//   return <MonacoEditor monacoEditorType="headers" />;
+// };

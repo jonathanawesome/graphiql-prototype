@@ -34,6 +34,32 @@ MONACO_EDITOR.defineTheme('graphiql-DARK', editorThemeDark);
 MONACO_EDITOR.defineTheme('graphiql-LIGHT', editorThemeLight);
 
 export const useEditor = create<EditorStore>()((set, get) => ({
+  monacoGraphQLAPI: initializeMode({
+    formattingOptions: {
+      prettierConfig: {
+        // TODO: this could use some tweaking
+        printWidth: 40,
+      },
+    },
+  }),
+  monacoEditors: {
+    operations: null,
+    variables: null,
+    results: null,
+    headers: null,
+  },
+  addMonacoEditor: ({ editor, name }) => {
+    // console.log('running addMonacoEditor', { editor, name });
+
+    const monacoEditors = get().monacoEditors;
+
+    set({
+      monacoEditors: {
+        ...monacoEditors,
+        ...(!monacoEditors[name] && { [name]: editor }),
+      },
+    });
+  },
   initMonacoEditor: ({ monacoEditorType, monacoEditorRef, optionOverrides }) => {
     const monacoEditors = get().monacoEditors;
     const activeTab = get().getActiveTab();
@@ -90,7 +116,6 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     // set the model for each of our editors
     monacoEditors.operations?.setModel(destinationTab.operationsModel);
     monacoEditors.variables?.setModel(destinationTab.variablesModel);
-    monacoEditors.headers?.setModel(destinationTab.headersModel);
     monacoEditors.results?.setModel(destinationTab.resultsModel);
   },
   initEditorTab: ({ withOperationModelValue }) => {
@@ -116,10 +141,6 @@ export const useEditor = create<EditorStore>()((set, get) => ({
       uri: `${newEditorTabId}-variables.json`,
       value: defaultVariables,
     });
-    const headersModel = getOrCreateModel({
-      uri: `${newEditorTabId}-headers.json`,
-      value: defaultVariables,
-    });
     const resultsModel = getOrCreateModel({
       uri: `${newEditorTabId}-results.json`,
       value: defaultResults,
@@ -133,8 +154,16 @@ export const useEditor = create<EditorStore>()((set, get) => ({
         `Tab${editorTabs.length > 0 ? editorTabs.length + 1 : 1}`,
       operationsModel,
       variablesModel,
-      headersModel,
       resultsModel,
+      headers: [
+        {
+          id: cuid.slug(),
+          enabled: false,
+          isRequired: false,
+          key: '',
+          value: '',
+        },
+      ],
       operationDefinition: withOperationModelValue?.operationDefinition || null,
     };
 
@@ -158,14 +187,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     });
     switchEditorTab({ editorTabId: newEditorTabId });
   },
-  monacoGraphQLAPI: initializeMode({
-    formattingOptions: {
-      prettierConfig: {
-        // TODO: this could use some tweaking
-        printWidth: 40,
-      },
-    },
-  }),
+
   activeEditorTabId: null,
   setActiveEditorTabId: ({ editorTabId }) => {
     set({ activeEditorTabId: editorTabId });
@@ -324,12 +346,13 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     }
   },
   updateVariable: async ({ onInputObject, variableName, variableValue }) => {
-    console.log('running updateVariable', {
-      onInputObject,
-      variableName,
-      variableValue,
-    });
     const activeEditorTab = get().getActiveTab();
+
+    // console.log('running updateVariable', {
+    //   onInputObject,
+    //   variableName,
+    //   variableValue,
+    // });
 
     if (activeEditorTab) {
       // 1. parse the existing variables string to an object
@@ -344,17 +367,24 @@ export const useEditor = create<EditorStore>()((set, get) => ({
         console.warn('error parsing variables in updateVariable');
       }
       // 2. set the variableName and/or variableValue
-      if (onInputObject) {
-        parsedVariables = {
-          ...parsedVariables,
-          [onInputObject]: {
-            ...parsedVariables[onInputObject],
-            [variableName]: variableValue,
-          },
-        };
-        // parsedVariables['somenewobj'][variableName] = variableValue;
+      // if the variable is an empty string, we should clear the variable from the variables editor
+      if (variableValue.length < 1 && onInputObject) {
+        delete parsedVariables[onInputObject][variableName];
+      } else if (variableValue.length < 1 && !onInputObject) {
+        delete parsedVariables[variableName];
       } else {
-        parsedVariables[variableName] = variableValue;
+        if (onInputObject) {
+          parsedVariables = {
+            ...parsedVariables,
+            [onInputObject]: {
+              ...parsedVariables[onInputObject],
+              [variableName]: variableValue,
+            },
+          };
+          // parsedVariables['somenewobj'][variableName] = variableValue;
+        } else {
+          parsedVariables[variableName] = variableValue;
+        }
       }
       // 3. return to string
       const newVariablesString = JSON.stringify(parsedVariables, null, ' ');
@@ -472,26 +502,30 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     }
     return null;
   },
+  // addTabHeader: () => {},
+  // removeTabHeader: ({ id }) => {},
+  // updateHeader: ({ id, payload }) => {},
   warningWhenMultipleOperations: false,
   clearWarningWhenMultipleOperations: () => {
     set({ warningWhenMultipleOperations: false });
   },
-  monacoEditors: {
-    operations: null,
-    variables: null,
-    results: null,
-    headers: null,
-  },
-  addMonacoEditor: ({ editor, name }) => {
-    // console.log('running addMonacoEditor', { editor, name });
+  updateTabState: ({ data }) => {
+    const editorTabs = get().editorTabs;
+    const activeEditorTabId = get().activeEditorTabId;
 
-    const monacoEditors = get().monacoEditors;
+    // 👇 safety first
+    const editorTabsCopy = [...editorTabs];
 
-    set({
-      monacoEditors: {
-        ...monacoEditors,
-        ...(!monacoEditors[name] && { [name]: editor }),
-      },
-    });
+    const existingEditorTabIndex = editorTabsCopy.findIndex(
+      (editorTab) => editorTab.editorTabId === activeEditorTabId
+    );
+
+    if (existingEditorTabIndex !== -1) {
+      editorTabsCopy[existingEditorTabIndex] = {
+        ...editorTabsCopy[existingEditorTabIndex],
+        ...data,
+      };
+      set({ editorTabs: editorTabsCopy });
+    }
   },
 }));

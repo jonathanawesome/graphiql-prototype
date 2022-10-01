@@ -27,7 +27,7 @@ export const Input = ({
       }}
       placeholder={placeholder}
       type="text"
-      value={value}
+      value={value as string}
       variant={variant}
     />
   );

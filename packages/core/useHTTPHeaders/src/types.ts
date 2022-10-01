@@ -8,17 +8,17 @@ export type HTTPHeaderValue = {
 
 export type HTTPHeaderPlacement = 'GLOBAL' | 'ACTIVE_TAB';
 
-type UpdateHeaderKeyOrValue = {
+export type UpdateHeaderKeyOrValue = {
   keyOrValue: 'key' | 'value';
   value: string;
 };
 
-type UpdateHeaderStatus = {
+export type UpdateHeaderStatus = {
   enabled: boolean;
 };
 
 export type HTTPHeadersStore = {
-  globalHeaders: Array<HTTPHeaderValue>;
+  globalHeaders: HTTPHeaderValue[];
   addHeader: ({ placement }: { placement: HTTPHeaderPlacement }) => void;
   removeHeader: ({
     id,

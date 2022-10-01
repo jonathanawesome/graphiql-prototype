@@ -96,7 +96,7 @@ export const HTTPHeaderControl = ({
                 removeHeader({ id: v.id, placement });
               }}
               icon="Plus"
-              isDisabled={v.isRequired || v.enabled}
+              isDisabled={v.isRequired || v.enabled || !v.key || !v.value}
               label="Button Copy"
               size="SMALL"
               style="ICON"
