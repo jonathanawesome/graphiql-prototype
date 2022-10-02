@@ -36,11 +36,6 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
     if (schemaUrl && activeTab) {
       const operationsModelValue = activeTab.operationsModel.getValue();
       const variablesModelValue = activeTab.variablesModel.getValue();
-      // const headersModelValue = activeTab.headersModel.getValue();
-
-      // const tabHeaders = JSONC.parse(headersModelValue);
-
-      // we should be able to grab all necessary headers (global and activeTab) from here
 
       const tabHeaders = activeTab.headers.reduce(
         (acc, header) => header.enabled && { ...acc, [header.key]: header.value },
@@ -99,7 +94,7 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
   schemaName: null,
   schemaUrl: null,
   loadSchema: async ({ init, url }) => {
-    set({ schemaLoading: true });
+    set({ schemaLoading: true, schemaUrl: url });
     const monacoGraphQLAPI = useEditor.getState().monacoGraphQLAPI;
     const resetEditorTabs = useEditor.getState().resetEditorTabs;
 
@@ -120,8 +115,6 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
         schemaUrl: testSchemaUrl,
       });
     } else {
-      // console.log('initializing schema:', { url });
-
       const globalHeaders = useHTTPHeaders
         .getState()
         .globalHeaders.reduce(
@@ -146,7 +139,6 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
         set({
           schema,
           schemaLoading: false,
-          schemaUrl: url,
         });
 
         return monacoGraphQLAPI.setSchemaConfig([
@@ -159,7 +151,6 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
         return set({
           schema: { error },
           schemaLoading: false,
-          schemaUrl: null,
         });
       }
     }

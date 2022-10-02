@@ -20,10 +20,7 @@ type GraphiQLProps = {
   panePlugins: PanePluginsArray;
 };
 
-export const GraphiQL = ({
-  // dialogPlugins,
-  panePlugins,
-}: GraphiQLProps) => {
+export const GraphiQL = ({ panePlugins }: GraphiQLProps) => {
   globalStyles();
 
   const { themeClass } = useTheme();

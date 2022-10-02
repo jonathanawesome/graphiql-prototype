@@ -14,8 +14,6 @@ export { InputObject } from './InputObject';
 
 export { ListItem } from './ListItem';
 
-export { Options } from './Options';
-
 export { Pathfinder } from './Pathfinder';
 
 export { RootOperation } from './RootOperation';

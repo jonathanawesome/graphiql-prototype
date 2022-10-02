@@ -24,7 +24,7 @@ const GlobalHeaders = () => {
 
   return (
     <StyledGlobalHeaders>
-      <HTTPHeaderControl placement="ACTIVE_TAB" values={globalHeaders} />
+      <HTTPHeaderControl placement="GLOBAL" values={globalHeaders} />
     </StyledGlobalHeaders>
   );
 };
@@ -59,7 +59,7 @@ export const ConnectionSettings = () => {
     <StyledConnectionSettings ref={wrapRef}>
       <StyledRefreshButtonWrap schemaLoading={schemaLoading}>
         <Button
-          action={() => schemaUrl && loadSchema({ url: schemaUrl })}
+          action={() => loadSchema({ url: useSchema.getState().schemaUrl as string })}
           icon="Refresh"
           label="Refresh schema"
           size="LARGE"

@@ -15,13 +15,13 @@ const CT_APPJSON: HTTPHeaderValue = {
   value: 'application/json',
 };
 
-export const BASE_HEADER = {
-  id: cuid.slug(),
+export const baseHeader = ({ id }: { id: string }) => ({
+  id,
   enabled: false,
   isRequired: false,
   key: '',
   value: '',
-};
+});
 
 export const useHTTPHeaders = create<HTTPHeadersStore>((set, get) => ({
   globalHeaders: [CT_APPJSON],
@@ -29,12 +29,14 @@ export const useHTTPHeaders = create<HTTPHeadersStore>((set, get) => ({
     if (placement === 'GLOBAL') {
       const globalHeaders = get().globalHeaders;
       set({
-        globalHeaders: [...globalHeaders, BASE_HEADER],
+        globalHeaders: [...globalHeaders, baseHeader({ id: cuid.slug() })],
       });
     } else {
       const activeTabHeaders = useEditor.getState().getActiveTab().headers;
       const updateTabState = useEditor.getState().updateTabState;
-      updateTabState({ data: { headers: [...activeTabHeaders, BASE_HEADER] } });
+      updateTabState({
+        data: { headers: [...activeTabHeaders, baseHeader({ id: cuid.slug() })] },
+      });
     }
   },
   removeHeader: ({ id, placement }) => {
@@ -58,7 +60,7 @@ export const useHTTPHeaders = create<HTTPHeadersStore>((set, get) => ({
         ? { [payload.keyOrValue]: payload.value }
         : { enabled: payload.enabled };
 
-    console.log('updateHeader', { id, payload, placement, update });
+    // console.log('updateHeader', { id, payload, placement, update });
 
     if (placement === 'GLOBAL') {
       const globalHeaders = [...get().globalHeaders];

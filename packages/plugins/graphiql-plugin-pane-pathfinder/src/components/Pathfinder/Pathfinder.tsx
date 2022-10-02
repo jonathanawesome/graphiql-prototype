@@ -7,6 +7,8 @@ import { Message, Tabs } from '@graphiql-prototype/ui-library';
 // hooks
 import { useEditor } from '@graphiql-prototype/use-editor';
 import { useSchema } from '@graphiql-prototype/use-schema';
+
+// using this provider allows us to have separate state for the Schema Reference and the simple docs lookup within Pathfinder
 import { SchemaReferenceProvider } from '@graphiql-prototype/graphiql-plugin-schema-documentation';
 
 // styles
@@ -24,7 +26,11 @@ export const Pathfinder = () => {
 
   if (!schema || 'error' in schema) {
     //TODO: loading/error skeleton
-    return <Message message={<p>Unable to load schema</p>} variant="ERROR" />;
+    return (
+      <StyledContainer>
+        <Message message={<p>Unable to load schema</p>} variant="ERROR" />
+      </StyledContainer>
+    );
   }
 
   // console.log('rendering Pathfinder', { typeMap: schema.getTypeMap() });
