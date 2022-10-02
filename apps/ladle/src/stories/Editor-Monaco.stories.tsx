@@ -11,7 +11,3 @@ export const Variables = () => {
 export const Results = () => {
   return <MonacoEditor monacoEditorType="results" />;
 };
-
-// export const Headers = () => {
-//   return <MonacoEditor monacoEditorType="headers" />;
-// };

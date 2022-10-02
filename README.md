@@ -18,13 +18,13 @@ The resulting monorepo structure combines ideas and implementations from the exi
 
 ### Try the prototype
 
-The quickest way to get involved is to try out the UI [here](https://jonathanawesome.github.io/graphiql-prototype/) and provide feedback via [Discord](https://discord.com/channels/625400653321076807/966768858402816020). The default schema is a copy of the GraphiQL repository's [test setup](https://github.com/graphql/graphiql/blob/main/packages/graphiql/test/schema.js), but the Schema Selector allows for the loading of a few popular and publicly-available schemas. If you have your own schema that you'd like to load, Schema Selector allows for this _and_ for the setting of any headers you need to access your schema.
+The quickest way to get involved is to try out the UI [here](https://jonathanawesome.github.io/graphiql-prototype/) and provide feedback via [Discord](https://discord.com/channels/625400653321076807/966768858402816020). The default schema is a copy of the GraphiQL repository's [test setup](https://github.com/graphql/graphiql/blob/main/packages/graphiql/test/schema.js), but you can also quickly load up one of a few popular and publicly-available schemas. If you have your own schema that you'd like to load, the "Custom Schema Url" option is available as is the ability to add global headers should your API require them. If you've an API that you'd like to try but it's CORS-protected, you'll want to run this prototype locally and ensure that your API is allowing the local origin url. Instructions for this are below.
 
 > A more complete testing and validation plan is necessary to full understand the impact of the new design for all users and for all spec-compliant schemas. If you are, or know of, a user experience researcher who might be interested in contributing to the success of the new graphiql, please reach out on [Discord](https://discord.com/channels/625400653321076807/966768858402816020).
 
 ### Running the prototype locally
 
-If you have a schema that's not available publicly, you can run the prototype locally and use the Schema Selector to point to your locally-available schema.
+If you have a schema that's not available publicly, you should run the prototype locally.
 
 1. Clone the repository
 
@@ -45,6 +45,8 @@ pnpm i
 pnpm ref:dev
 ```
 
+4. The local origin, by default, is `http://127.0.0.1:3000/`.
+
 ### Structure
 
 The structure explained below is of my own design, but very much based on the ideas and thoughts around plugins expressed by the GraphiQL community over the last few years.
@@ -52,61 +54,66 @@ The structure explained below is of my own design, but very much based on the id
 #### /apps
 
 - /ladle
-  - An incomplete build-out of a component library based on the design proposal. Very much in progress.
-  - `pnpm run ladle:serve`
+  - An incomplete build-out of a component library based on the design proposal. Very much in progress. Provides dev environment and views for components from multiple packages.
+  - `pnpm ladle:serve`
 - /reference
   - The deployable prototype running a basic vite setup.
-  - `pnpm run ref:dev`
+  - `pnpm ref:dev`
 
-#### /graphiql
+#### /packages
 
-- /graphiql-editor
+##### /core
 
-  - The core experience of GraphiQL. Can be deployed independently, without any of the plugin bits.
-  - A specific collection of editors (operations, variables, headers, results) that, given a schema URL, allow a user to write operations, provide variables for those operations, and view the results of those operations. Importantly, includes "tabs" functionality for organizing different operations (reach out to me on [Discord](https://discord.com/channels/625400653321076807/966768858402816020) if you're wondering why "tabs" is in quotes).
-  - Exports hooks for managing editor state (including "tab" state), global headers, and schema state. Schema state management is expanded in the prototype with the schema-switching feature, but would be simplified in the final product because schema switching is a prototyping feature and not a core feature of GraphiQL.
+- /editor
 
-- /graphiql-test-schema
+  - The core experience of GraphiQL. Meant to be deployed independently, if desired, without any of the plugin bits.
+  - A specific collection of editors (operations, variables,results) that, given a schema URL, allow a user to write operations, provide variables for those operations, and view the results of those operations. Importantly, includes "tabs" functionality for organizing different operations (reach out to me on [Discord](https://discord.com/channels/625400653321076807/966768858402816020) if you're wondering why "tabs" is in quotes).
 
-  - A hook that provides the test schema and some functions used in Ladle stories and testing.
+- /graphiql
 
-- /graphiql-ui-library
+  - The core component for the full prototype UI.
+  - Pretty simple, just wraps the core `GraphiQLEditor` component from `/editor`along with layout for navigation and plugins.
+  - Provides a hook for managing navigation/active plugin view state.
+
+- /ui-library
 
   - Base React components
 
-- /graphiql-utils
+- /useEditor
+
+  - A [zustand](https://github.com/pmndrs/zustand) store that manages editor state such as editors, models, and tabs.
+
+- /useHTTPHeaders
+
+  - A [zustand](https://github.com/pmndrs/zustand) store that manages global http header state and provides intermediate functions for tab headers. Quick and dirty, needs refactored.
+
+- /useSchema
+
+  - A [zustand](https://github.com/pmndrs/zustand) store that manages schema loading/state and operation execution.
+
+- /useTestSchema
+
+  - A [zustand](https://github.com/pmndrs/zustand) store that provides the test schema and some functions used in Ladle stories and testing.
+
+- /utils
 
   - Shared utilities
 
-- /graphiql-app
-  - The core component for the full prototype UI.
-  - Pretty simple, just wraps the core `graphiql-editor` component along with layout for navigation and plugins.
-  - Provides a hook for managing navigation/active plugin view state.
-
 #### /plugins
 
-> Both Pane and Dialog plugins are composed of three parts, a name, an icon, and some UI. Pane plugin triggers are displayed at the top of the navigation UI and their interfaces are meant to interact directly with the editor(s). Dialog plugin triggers are displayed at the bottom of the navigation UI and trigger full-screen takeovers that do not interact directly with the editor(s).
-
-
-- /graphiql-plugin-dialog-settings
-
-  - App-wide settings management. Currently only allows for setting headers to be used for all operations.
-  - Included in the final product as a default plugin.
-
-- /graphiql-plugin-pane-docs
-
-  - A simple version of the familiar `Documentation Explorer` experience. I hadn't planned on building this, but, while implementing the "Schema Info Overlay" from the new design it felt natural to pull it out into it's own plugin.
-  - Included in the final product as a default plugin.
-
-- /graphiql-plugin-pane-easy-vars
-
-  - Provides inputs for setting variable values across tab instances.
-  - The only real example of a "3rd party plugin" and how folks can use exported hooks to build entirely new functionality.
-  - Not a candidate for default inclusion into the final product.
+> Pane plugins are composed of three parts, a name, an icon, and some UI. Pane plugin triggers are displayed at the top of the navigation UI and their interfaces are meant to interact directly with the editor(s).
 
 - /graphiql-plugin-pane-history
 
   - A placeholder for now.
 
 - /graphiql-plugin-pane-pathfinder
-  - A first-go at implementing the new docs/docs-explorer/query-builder-ui design. I chose a unique name to reduce confusion with existing plugins.
+
+  - An attempt at implementing the new docs/docs-explorer/query-builder-ui design. I chose a unique name to reduce confusion.
+
+- /graphiql-plugin-pane-settings
+
+  - A simple plugin for managing app-wide settings
+
+- /graphiql-plugin-schema-documentation
+  - A plugin that provides the schema reference and definition UIs. Additionally, powers the quick docs UI in Pathfinder.
