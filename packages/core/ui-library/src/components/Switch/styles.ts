@@ -24,7 +24,7 @@ export const StyledSwitch = styled('div', {
       position: `absolute`,
       top: 2,
       left: 2,
-      background: theme.colors.text1,
+      background: theme.colors.surface2,
       boxShadow: `0 0 2px 0 ${theme.colors.surface3}`,
       transition: `all 0.15s`,
     },
@@ -48,6 +48,7 @@ export const StyledSwitch = styled('div', {
       true: {
         opacity: 0.35,
         '& label': {
+          cursor: `not-allowed`,
           background: theme.colors.text3,
         },
       },

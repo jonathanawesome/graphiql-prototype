@@ -31,6 +31,11 @@ export const HTTPHeaderControl = ({
 
   // console.log('HTTPHeaderControl', { values });
 
+  const hasEnabledHeaders = () => {
+    const filtered = values.filter((v) => v.enabled === true);
+    return filtered.length > 0;
+  };
+
   const handleChange: ControlProps['control']['handleChange'] = ({ name, value }) => {
     const id = name.split(SEPARATOR)[0];
     const valueType = name.split(SEPARATOR)[1];
@@ -90,13 +95,15 @@ export const HTTPHeaderControl = ({
             labelCopy={`Value for Value`}
             list={false}
           />
-          <StyledRemoveHeaderButtonWrap>
+          <StyledRemoveHeaderButtonWrap
+            isDisabled={v.isRequired || v.enabled || !hasEnabledHeaders()}
+          >
             <Button
               action={() => {
                 removeHeader({ id: v.id, placement });
               }}
               icon="Plus"
-              isDisabled={v.isRequired || v.enabled || !v.key || !v.value}
+              isDisabled={v.isRequired || v.enabled || !hasEnabledHeaders()}
               label="Button Copy"
               size="SMALL"
               style="ICON"
@@ -107,7 +114,7 @@ export const HTTPHeaderControl = ({
       <StyledAddHeaderButtonWrap>
         <Button
           action={() => addHeader({ placement })}
-          label="Add another HTTP header"
+          label="Add header"
           size="MEDIUM"
           style="GHOST"
         />

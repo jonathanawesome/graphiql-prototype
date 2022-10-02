@@ -169,6 +169,7 @@ export const SchemaSelector = () => {
   return (
     <StyledSchemaSelector>
       <Message message={<>This tab is a development-only feature</>} variant="INFO" />
+      {schemaError && <Error>{schemaError}</Error>}
       <RadioGroup
         value={activeRadioValue || undefined}
         aria-label="Choose schema"
@@ -205,14 +206,8 @@ export const SchemaSelector = () => {
               id="10"
               value={customSchemaUrlInput}
             />
-            {schemaError && <Error>{schemaError}</Error>}
             {activeRadioValue === customSchemaUrlInput && (
               <CustomSchemaFormWrap>
-                <Message
-                  message={<>Global headers can be set via the settings dialog</>}
-                  variant="INFO"
-                />
-
                 <Control
                   control={{
                     controlType: 'INPUT',

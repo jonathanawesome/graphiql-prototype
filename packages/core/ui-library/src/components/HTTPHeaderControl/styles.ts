@@ -30,6 +30,19 @@ export const StyledRemoveHeaderButtonWrap = styled('div', {
   svg: {
     transform: `rotate(-45deg)`,
   },
+  variants: {
+    isDisabled: {
+      true: {
+        '&:hover': {
+          svg: {
+            path: {
+              fill: theme.colors.surface3,
+            },
+          },
+        },
+      },
+    },
+  },
 });
 
 export const StyledAddHeaderButtonWrap = styled('span', {
