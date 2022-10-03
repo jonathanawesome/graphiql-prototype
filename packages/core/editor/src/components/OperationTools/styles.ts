@@ -7,6 +7,9 @@ export const StyledVariablesWrap = styled('div', {
 });
 
 export const StyledPerTabHeaders = styled('div', {
+  display: `flex`,
+  flexDirection: `column`,
+  gap: theme.space[6],
   paddingTop: theme.space[6],
   paddingRight: theme.space[4],
   paddingBottom: theme.space[6],

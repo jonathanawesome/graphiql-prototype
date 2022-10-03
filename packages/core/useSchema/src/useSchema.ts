@@ -66,8 +66,8 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
       try {
         const result = await fetcher({
           headers: {
-            ...tabHeaders,
             ...globalHeaders,
+            ...tabHeaders,
           },
           url: schemaUrl,
         })({
@@ -130,6 +130,7 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
         })({
           query: getIntrospectionQuery({
             // specifiedByUrl: true,
+            schemaDescription: true,
           }),
           operationName: 'IntrospectionQuery',
         });

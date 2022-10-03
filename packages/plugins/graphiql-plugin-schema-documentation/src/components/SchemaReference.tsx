@@ -5,6 +5,7 @@ import { PaneSection } from './PaneSection/PaneSection';
 import { RootOperationTypesNav } from './RootOperationTypesNav';
 import { SecondaryPane } from './SecondaryPane';
 import { TabButton } from './TabButton';
+import { Tag } from '@graphiql-prototype/ui-library';
 import { TertiaryPane } from './tertiary/TertiaryPane';
 import { TypesNav } from './TypesNav';
 
@@ -83,7 +84,19 @@ export const SchemaReference = () => {
           />
           <TypesNav sortedTypes={sortedTypes} />
           <PaneSection lead={`Other`} withSidePadding={false}>
-            <TabButton destinationPane="Directives" copy="Directives" />
+            <TabButton
+              destinationPane="Directives"
+              copy={
+                <div style={{ display: 'flex', gap: 12 }}>
+                  Directives
+                  <Tag
+                    copy={directives.length.toString() as string}
+                    title={`Directives count`}
+                    type="OPERATION"
+                  />
+                </div>
+              }
+            />
           </PaneSection>
         </StyledPrimaryPane>
         <SecondaryPane

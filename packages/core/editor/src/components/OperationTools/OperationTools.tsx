@@ -1,5 +1,5 @@
 // components
-import { HTTPHeaderControl, Tabs } from '@graphiql-prototype/ui-library';
+import { HTTPHeaderControl, Message, Tabs } from '@graphiql-prototype/ui-library';
 import { MonacoEditor } from '../MonacoEditor';
 
 // hooks
@@ -17,6 +17,15 @@ const PerTabHeaders = () => {
 
   return (
     <StyledPerTabHeaders>
+      <Message
+        message={
+          <>
+            Headers defined and enabled here will override any global headers that use the
+            same key.
+          </>
+        }
+        variant="INFO"
+      />
       <HTTPHeaderControl placement="ACTIVE_TAB" values={activeEditorTab.headers} />
     </StyledPerTabHeaders>
   );

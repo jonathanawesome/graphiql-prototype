@@ -74,24 +74,24 @@ export const Pathfinder = () => {
                     />
                   ),
                 },
-                {
-                  id: 'Fragments',
-                  name: 'Fragments',
-                  panel: (
-                    <StyledContainer>
-                      <Message
-                        message={
-                          <>
-                            This is a placeholder/idea for saving fragments for reuse
-                            across tabs/operations. Maybe it doesn't belong here and
-                            should be a plugin.
-                          </>
-                        }
-                        variant="WARNING"
-                      />
-                    </StyledContainer>
-                  ),
-                },
+                // {
+                //   id: 'Fragments',
+                //   name: 'Fragments',
+                //   panel: (
+                //     <StyledContainer>
+                //       <Message
+                //         message={
+                //           <>
+                //             This is a placeholder/idea for saving fragments for reuse
+                //             across tabs/operations. Maybe it doesn't belong here and
+                //             should be a plugin.
+                //           </>
+                //         }
+                //         variant="WARNING"
+                //       />
+                //     </StyledContainer>
+                //   ),
+                // },
               ]}
             />
           </StyledPathfinderContent>
