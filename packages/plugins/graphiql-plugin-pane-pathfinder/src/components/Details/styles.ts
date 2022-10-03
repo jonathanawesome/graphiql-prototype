@@ -104,30 +104,6 @@ export const DetailsStyled = styled('div', {
   fontSize: theme.fontSizes.body,
 
   variants: {
-    descriptionPlacement: {
-      Below: {
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        [`& ${Description}`]: {
-          svg: {
-            display: 'none',
-          },
-        },
-      },
-      Inline: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        [`& ${Description}`]: {
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-        },
-      },
-      Off: {
-        [`& ${Description}`]: {
-          display: 'none',
-        },
-      },
-    },
     isSelected: {
       true: {},
     },
@@ -146,7 +122,6 @@ export const DetailsStyled = styled('div', {
       isSelected: true,
       css: {
         [`& ${Name}, & ${Type}`]: {
-          // color: theme.colors.text1,
           color: theme.colors.violet_default,
         },
       },
@@ -156,7 +131,6 @@ export const DetailsStyled = styled('div', {
       isSelected: true,
       css: {
         [`${Type}`]: {
-          // color: theme.colors.text1,
           color: theme.colors.violet_default,
         },
       },
@@ -166,7 +140,6 @@ export const DetailsStyled = styled('div', {
       isSelected: true,
       css: {
         [`& ${Name}, & ${Type}`]: {
-          // color: theme.colors.text1,
           color: theme.colors.pink_default,
         },
       },
@@ -177,7 +150,6 @@ export const DetailsStyled = styled('div', {
       css: {
         [`& ${Name}, & ${Type}`]: {
           color: theme.colors.text1,
-          // color: theme.colors.pink_default,
         },
       },
     },
