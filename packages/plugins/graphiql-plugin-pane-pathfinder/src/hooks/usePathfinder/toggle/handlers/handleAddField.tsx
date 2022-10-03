@@ -39,9 +39,6 @@ export const handleAddField = ({
       kind: Kind.NAME,
       value: ancestor.field.name,
     },
-    // arguments: getRequiredArgumentNodesForField({
-    //   field: ancestor.field,
-    // }),
   };
 
   /** if we have required args for this field we need to get the variable definitions */

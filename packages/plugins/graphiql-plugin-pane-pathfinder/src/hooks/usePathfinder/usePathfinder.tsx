@@ -12,18 +12,6 @@ const activeEditorTab = useEditor.getState().getActiveTab();
 const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
 
 export const usePathfinder = create<PathfinderStore>((set, get) => ({
-  /** begin controls */
-  descriptionsVisibility: 'Inline',
-  setDescriptionsVisibility: (descriptionsVisibility) => {
-    set({ descriptionsVisibility });
-  },
-  fieldsVisibility: 'Off',
-  setFieldsVisibility: (fieldsVisibility) => {
-    set({ fieldsVisibility });
-  },
-  /** end controls */
-
-  /** begin toggle */
   nextOperationType: null,
   setNextOperationType: ({ nextOperationType }) => {
     // console.log('setNextOperationType', nextOperationType);
@@ -45,5 +33,4 @@ export const usePathfinder = create<PathfinderStore>((set, get) => ({
     set({ nextAction: action });
   },
   toggle: ({ ancestors, operationType }) => toggle({ ancestors, get, operationType }),
-  /** end toggle */
 }));
