@@ -4,7 +4,6 @@ import { isRequiredArgument, isRequiredInputField } from 'graphql';
 import { Icon } from '@graphiql-prototype/ui-library';
 
 // hooks
-import { usePathfinder } from '../../hooks';
 import { useSchemaReference } from '@graphiql-prototype/graphiql-plugin-schema-documentation';
 
 // styles
@@ -20,8 +19,6 @@ export type DetailsProps = {
 };
 
 export const Details = ({ isSelected, type, variant }: DetailsProps) => {
-  const { descriptionsVisibility } = usePathfinder();
-
   // console.log('Details', { type, variant });
 
   const { setActiveTertiaryPane } = useSchemaReference();
@@ -32,11 +29,7 @@ export const Details = ({ isSelected, type, variant }: DetailsProps) => {
     `*`;
 
   return (
-    <DetailsStyled
-      descriptionPlacement={descriptionsVisibility}
-      entityType={variant}
-      isSelected={isSelected}
-    >
+    <DetailsStyled entityType={variant} isSelected={isSelected}>
       <NameAndType>
         {/* 👇 this fragment situation is weird...just a guess I took given that union types and fragment handling isn't in the design. needs to be resolved at the community/design level  */}
         <Name>
