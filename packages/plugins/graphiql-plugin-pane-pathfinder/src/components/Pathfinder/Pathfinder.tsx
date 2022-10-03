@@ -1,7 +1,7 @@
 import { OperationTypeNode } from 'graphql';
 
 // components
-import { DocsDialog, RootOperation } from '../index';
+import { QuickDocs, RootOperation } from '../index';
 import { Message, Tabs } from '@graphiql-prototype/ui-library';
 
 // hooks
@@ -96,7 +96,7 @@ export const Pathfinder = () => {
             />
           </StyledPathfinderContent>
         </StyledPathfinderContainer>
-        <DocsDialog />
+        <QuickDocs />
       </StyledPathfinder>
     </SchemaReferenceProvider>
   );

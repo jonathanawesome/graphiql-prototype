@@ -2,9 +2,6 @@ import {
   ArgumentNode,
   GraphQLArgument,
   GraphQLField,
-  GraphQLInputField,
-  GraphQLInputObjectType,
-  ObjectFieldNode,
   OperationTypeNode,
   SelectionNode,
   SelectionSetNode,
@@ -24,25 +21,11 @@ export type AncestorArgument = {
   variableName: string;
 };
 
-export type AncestorInputField = {
-  inputField: GraphQLInputField;
-  selection: ObjectFieldNode | undefined;
-  variableName: string;
-};
-
 export type AncestorField = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   field: GraphQLField<any, any>;
   selection: AncestorSelection;
   selectionSet: AncestorSelectionSet;
-};
-
-export type AncestorInputObject = {
-  inputObject: GraphQLInputObjectType;
-  isNested: boolean;
-  name: string;
-  selection: ArgumentNode | ObjectFieldNode | undefined;
-  variableName: string;
 };
 
 export type AncestorInlineFragment = {
@@ -55,9 +38,7 @@ export type AncestorTypes =
   | AncestorRoot
   | AncestorField
   | AncestorInlineFragment
-  | AncestorArgument
-  | AncestorInputObject
-  | AncestorInputField;
+  | AncestorArgument;
 
 // we're using a Map here so that we can take advantage of the insertion order
 export type AncestorMap = Map<string, AncestorTypes>;
@@ -98,36 +79,21 @@ export type SetNextVariableDefinitionsSignature = ({
 // end variable definitions
 
 // begin edit actions
-export type ObjectFieldAction = { node: ObjectFieldNode; type: 'INPUT_FIELD' };
-export type ArgumentAction = { node: ArgumentNode; type: 'ARGUMENT' };
 export type AddAction = {
   type: 'ADD';
-  payload: ObjectFieldAction | ArgumentAction;
+  payload: { type: 'ARGUMENT'; node: ArgumentNode };
 };
 
 export type RemoveAction = {
   type: 'REMOVE';
-  payload: { type: 'INPUT_FIELD' | 'ARGUMENT'; nodeName: string };
+  payload: { type: 'ARGUMENT'; nodeName: string };
 };
 
 export type NextAction = AddAction | RemoveAction | null;
 export type SetNextActionSignature = (action: NextAction) => void;
 // end edit action
 
-// begin options
-export type DescriptionsVisibility = 'Inline' | 'Below' | 'Off';
-export type FieldsVisibility = 'On' | 'Off';
-// end options
-
 export type PathfinderStore = {
-  // begin options
-  descriptionsVisibility: DescriptionsVisibility;
-  setDescriptionsVisibility: (val: DescriptionsVisibility) => void;
-  fieldsVisibility: FieldsVisibility;
-  setFieldsVisibility: (val: FieldsVisibility) => void;
-  // end options
-
-  // begin toggle
   nextOperationType: NextOperationType;
   setNextOperationType: SetNextOperationType;
   nextSelectionSet: NextSelectionSet;
@@ -137,5 +103,4 @@ export type PathfinderStore = {
   nextAction: NextAction;
   setNextAction: SetNextActionSignature;
   toggle: ToggleSignature;
-  // end toggle
 };

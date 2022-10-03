@@ -2,7 +2,7 @@ import { styled, theme } from '@graphiql-prototype/ui-library';
 
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 
-export const DocsDialogStyled = styled('div', {
+export const StyledQuickDocs = styled('div', {
   backgroundColor: theme.colors.surface1,
   position: 'absolute',
   top: 0,
@@ -55,10 +55,6 @@ export const CloseButton = styled('button', {
 export const DialogRoot = styled(DialogPrimitive.Root, {});
 
 export const DialogPortal = styled(DialogPrimitive.Portal, {});
-
-const DialogTitle = styled(DialogPrimitive.Title, {});
-
-const DialogDescription = styled(DialogPrimitive.Description, {});
 
 export const DialogClose = styled(DialogPrimitive.Close, {
   // '&:focus': {

@@ -12,14 +12,10 @@ import {
 import {
   handleAddField,
   handleAddArgument,
-  handleAddInputField,
-  handleAddInputObject,
   handleAddParentField,
   handleAddParentInlineFragment,
   handleRemoveField,
   handleRemoveArgument,
-  handleRemoveInputField,
-  handleUpdateInputObject,
   handleUpdateParentField,
   handleUpdateParentInlineFragment,
 } from './handlers';
@@ -77,19 +73,20 @@ export const toggle = ({
     const isField = 'field' in ancestor;
     const isInlineFragment = 'onType' in ancestor;
     const isArgument = 'argument' in ancestor;
-    const isInputField = 'inputField' in ancestor;
-    const isInputObject = 'inputObject' in ancestor;
 
     /** begin handle TARGET */
     if (ancestor === target) {
-      // console.log('on TARGET', {
-      //   ancestor,
-      //   target,
-      // });
+      console.log('on TARGET', {
+        ancestor,
+        target,
+        isArgument,
+        isField,
+        isInlineFragment,
+      });
 
       /** begin handle ARGUMENT */
       if (isArgument) {
-        // console.log('isArgument');
+        console.log('isArgument');
         if (!ancestor.selection) {
           handleAddArgument({
             ancestor,
@@ -104,27 +101,9 @@ export const toggle = ({
         }
       } /** end handle ARGUMENT */
 
-      /** begin handle INPUT_FIELD */
-      if (isInputField) {
-        // console.log('isInputField');
-        if (!ancestor.selection) {
-          handleAddInputField({
-            ancestor,
-            setNextAction,
-            // variableDefinitions: activeOperationDefinition?.variableDefinitions,
-          });
-        } else {
-          handleRemoveInputField({
-            ancestor,
-            setNextAction,
-            setNextVariableDefinitions,
-          });
-        }
-      } /** end handle INPUT_FIELD */
-
       /** begin handle FIELD */
       if (isField) {
-        // console.log('isField');
+        console.log('isField');
         if (!ancestor.selection) {
           handleAddField({
             ancestor,
@@ -141,32 +120,14 @@ export const toggle = ({
           });
         }
       } /** end handle FIELD */
+
       /** end handle TARGET */
     } else {
       /** begin handle PARENT */
 
-      /** begin handle parent INPUT_OBJECT */
-      if (isInputObject) {
-        // console.log('isInputObject');
-        if (!ancestor.selection) {
-          handleAddInputObject({
-            ancestor,
-            nextAction: get().nextAction,
-            setNextAction,
-          });
-        } else {
-          handleUpdateInputObject({
-            ancestor,
-            nextAction: get().nextAction,
-            setNextAction,
-          });
-        }
-      } /** end handle parent INPUT_OBJECT */
-
       /** begin handle parent FIELD */
       if (isField) {
-        // console.log('isField(parent)');
-
+        console.log('isField(parent)');
         if (!ancestor.selection) {
           handleAddParentField({
             ancestor,
@@ -188,7 +149,7 @@ export const toggle = ({
 
       /** begin handle parent INLINE_FRAGMENT */
       if (isInlineFragment) {
-        // console.log('isInlineFragment)');
+        console.log('isInlineFragment)');
         if (!ancestor.selection) {
           handleAddParentInlineFragment({
             ancestor,
@@ -232,8 +193,6 @@ export const toggle = ({
       return OperationTypeNode.SUBSCRIPTION;
     }
     return OperationTypeNode.QUERY;
-
-    // nextOperationType === 'query' ? OperationTypeNode.QUERY : OperationTypeNode.MUTATION;
   };
 
   const name = (count: number): NameNode => ({

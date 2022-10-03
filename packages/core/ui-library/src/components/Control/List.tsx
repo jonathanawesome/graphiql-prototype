@@ -30,7 +30,7 @@ export const List = ({
     (value as string[]).map((v) => ({ name: `${cuid.slug()}-${v}`, value: v }))
   );
 
-  // console.log('items', { items, value: items.map((item) => item.value) });
+  // console.log('List', { name, value });
 
   useEffect(() => {
     handleChange({
@@ -96,7 +96,6 @@ export const List = ({
         onClick={() => handleAddItem({ name: `${cuid.slug()}` })}
       >
         {`Add item +`}
-        {/* {`Add ${items.length > 0 ? 'another' : ''} ${placeholder} +`} */}
       </StyledAddItemButton>
     </StyledList>
   );

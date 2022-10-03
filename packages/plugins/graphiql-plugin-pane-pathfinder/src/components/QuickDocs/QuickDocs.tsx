@@ -12,15 +12,15 @@ import {
   DialogContent,
   DialogPortal,
   DialogRoot,
-  DocsDialogStyled,
+  StyledQuickDocs,
 } from './styles';
 
-export const DocsDialog = () => {
+export const QuickDocs = () => {
   const [container, setContainer] = useState<HTMLElement | null>(null);
 
   const { activeTertiaryPane, clearTertiaryPaneStack } = useSchemaReference();
 
-  // console.log('DocsDialog', {
+  // console.log('QuickDocs', {
   //   activeTertiaryPane,
   // });
 
@@ -41,7 +41,7 @@ export const DocsDialog = () => {
   }, []);
 
   return (
-    <DocsDialogStyled dialogActive={!!activeTertiaryPane}>
+    <StyledQuickDocs dialogActive={!!activeTertiaryPane}>
       <DialogRoot open={!!activeTertiaryPane} modal={true}>
         <DialogPortal container={container}>
           <DialogContent
@@ -53,6 +53,6 @@ export const DocsDialog = () => {
         </DialogPortal>
       </DialogRoot>
       <CustomPortalContainer ref={setContainer} />
-    </DocsDialogStyled>
+    </StyledQuickDocs>
   );
 };

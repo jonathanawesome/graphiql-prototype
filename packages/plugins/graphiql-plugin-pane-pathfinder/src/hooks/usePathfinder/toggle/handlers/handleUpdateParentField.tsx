@@ -6,7 +6,7 @@ import { getFieldSiblings } from '../helpers';
 // types
 import {
   AncestorField,
-  ArgumentAction,
+  // ArgumentAction,
   NextAction,
   NextSelectionSet,
   SetNextActionSignature,
@@ -68,8 +68,8 @@ export const handleUpdateParentField = ({
       newFieldNode = {
         ...newFieldNode,
         arguments: selection.arguments
-          ? [...selection.arguments, (nextAction.payload as ArgumentAction).node]
-          : [(nextAction.payload as ArgumentAction).node],
+          ? [...selection.arguments, nextAction.payload.node]
+          : [nextAction.payload.node],
       };
     }
   }

@@ -5,8 +5,8 @@ import { getFieldSiblings } from '../helpers';
 
 // types
 import {
+  AddAction,
   AncestorField,
-  ArgumentAction,
   NextAction,
   NextSelectionSet,
   SetNextActionSignature,
@@ -38,7 +38,9 @@ export const handleAddParentField = ({
       value: ancestor.field.name,
     },
     selectionSet: nextSelectionSet || undefined,
-    arguments: nextAction ? [(nextAction.payload as ArgumentAction).node] : undefined,
+    arguments: nextAction
+      ? [(nextAction.payload as AddAction['payload']).node]
+      : undefined,
     //TODO: Decision re: automatically adding required args
     // arguments: getRequiredArgumentNodesForField({
     //   field: ancestor.field,

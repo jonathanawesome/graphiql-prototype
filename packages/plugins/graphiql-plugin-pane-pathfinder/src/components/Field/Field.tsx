@@ -11,7 +11,11 @@ import {
 import { Arguments, Fields, ListItem, Union } from '../index';
 
 // hooks
-import { AncestorField, AncestorMap, usePathfinder } from '../../hooks';
+import {
+  AncestorField,
+  AncestorMap,
+  // usePathfinder
+} from '../../hooks';
 
 // utils
 import { findSelection, unwrapType } from '../../utils';
@@ -23,7 +27,7 @@ export const Field = ({
   ancestors: AncestorMap;
   operationType: OperationTypeNode;
 }) => {
-  const { fieldsVisibility } = usePathfinder();
+  // const { fieldsVisibility } = usePathfinder();
 
   const { field, selectionSet } = ancestors.values().next().value as AncestorField;
 
@@ -72,9 +76,9 @@ export const Field = ({
     );
   }
 
-  if (fieldsVisibility === 'On' && !selection) {
-    return null;
-  }
+  // if (fieldsVisibility === 'On' && !selection) {
+  //   return null;
+  // }
 
   return (
     <ListItem
@@ -95,7 +99,7 @@ export const Field = ({
       isSelected={!!selection}
       toggler={{
         ancestors,
-        fieldOrArgumentName: field.name,
+        // fieldOrArgumentName: field.name,
         isSelected: !!selection,
         operationType,
         variant: 'FIELD',
