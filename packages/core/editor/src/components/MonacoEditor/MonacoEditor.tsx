@@ -19,7 +19,7 @@ export const MonacoEditor = ({
   const monacoEditorRef = useRef<HTMLDivElement>(null);
 
   // console.log('rendering MonacoEditor', {
-  //   editorRef,
+  //   monacoEditorRef,
   // });
 
   useEffect(() => {

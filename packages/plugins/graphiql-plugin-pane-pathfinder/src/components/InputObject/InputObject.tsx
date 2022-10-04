@@ -67,7 +67,7 @@ export const InputObject = ({
                   key={fields[f].name}
                   ancestors={new Map([...ancestors])}
                   argument={fields[f]}
-                  onInputType={true}
+                  onInputType={argument.name}
                   operationType={operationType}
                 />
               );

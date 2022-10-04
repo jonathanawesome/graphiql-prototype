@@ -341,7 +341,6 @@ export const useEditor = create<EditorStore>()((set, get) => ({
       return JSON.parse(activeEditorTab.variablesModel.getValue());
     } catch (e) {
       console.warn(e);
-      // Return a default object, or null based on use case.
       return {};
     }
   },
@@ -355,7 +354,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     // });
 
     if (activeEditorTab) {
-      // 1. parse the existing variables string to an object
+      // parse the existing variables string to an object
       // if the current variables model is undefined, use an empty object string
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let parsedVariables: Record<any, any> = {};
@@ -366,30 +365,24 @@ export const useEditor = create<EditorStore>()((set, get) => ({
       } catch (error) {
         console.warn('error parsing variables in updateVariable');
       }
-      // 2. set the variableName and/or variableValue
-      // if the variable is an empty string, we should clear the variable from the variables editor
-      if (variableValue.length < 1 && onInputObject) {
-        delete parsedVariables[onInputObject][variableName];
-      } else if (variableValue.length < 1 && !onInputObject) {
-        delete parsedVariables[variableName];
+      // set the variableName and/or variableValue
+
+      if (onInputObject) {
+        parsedVariables = {
+          ...parsedVariables,
+          [onInputObject]: {
+            ...parsedVariables[onInputObject],
+            [variableName]: variableValue,
+          },
+        };
       } else {
-        if (onInputObject) {
-          parsedVariables = {
-            ...parsedVariables,
-            [onInputObject]: {
-              ...parsedVariables[onInputObject],
-              [variableName]: variableValue,
-            },
-          };
-          // parsedVariables['somenewobj'][variableName] = variableValue;
-        } else {
-          parsedVariables[variableName] = variableValue;
-        }
+        parsedVariables[variableName] = variableValue;
       }
-      // 3. return to string
+
+      // return to string
       const newVariablesString = JSON.stringify(parsedVariables, null, ' ');
-      // 4. update the model
-      // console.log('updateVariable, pushEditOperationsToModel', { newVariablesString });
+
+      // update the model
       pushEditOperationsToModel({
         model: activeEditorTab.variablesModel,
         text: newVariablesString,

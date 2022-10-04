@@ -10,7 +10,6 @@ export const Input = ({
   name,
   placeholder,
   value,
-  variant,
 }: InputProps) => {
   return (
     <StyledInput
@@ -28,7 +27,6 @@ export const Input = ({
       placeholder={placeholder}
       type="text"
       value={value as string}
-      variant={variant}
     />
   );
 };

@@ -76,17 +76,17 @@ export const toggle = ({
 
     /** begin handle TARGET */
     if (ancestor === target) {
-      console.log('on TARGET', {
-        ancestor,
-        target,
-        isArgument,
-        isField,
-        isInlineFragment,
-      });
+      // console.log('on TARGET', {
+      //   ancestor,
+      //   target,
+      //   isArgument,
+      //   isField,
+      //   isInlineFragment,
+      // });
 
       /** begin handle ARGUMENT */
       if (isArgument) {
-        console.log('isArgument');
+        // console.log('isArgument');
         if (!ancestor.selection) {
           handleAddArgument({
             ancestor,
@@ -103,7 +103,7 @@ export const toggle = ({
 
       /** begin handle FIELD */
       if (isField) {
-        console.log('isField');
+        // console.log('isField');
         if (!ancestor.selection) {
           handleAddField({
             ancestor,
@@ -127,7 +127,7 @@ export const toggle = ({
 
       /** begin handle parent FIELD */
       if (isField) {
-        console.log('isField(parent)');
+        // console.log('isField(parent)');
         if (!ancestor.selection) {
           handleAddParentField({
             ancestor,
@@ -149,7 +149,7 @@ export const toggle = ({
 
       /** begin handle parent INLINE_FRAGMENT */
       if (isInlineFragment) {
-        console.log('isInlineFragment)');
+        // console.log('isInlineFragment)');
         if (!ancestor.selection) {
           handleAddParentInlineFragment({
             ancestor,

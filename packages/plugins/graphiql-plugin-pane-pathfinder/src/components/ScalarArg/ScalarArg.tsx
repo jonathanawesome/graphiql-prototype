@@ -27,7 +27,6 @@ import {
   parseOutgoingVariableValue,
   parseIncomingVariableValue,
 } from '@graphiql-prototype/utils';
-import { generateVariableNameFromAncestorMap } from '../../utils';
 import { validateInputValue } from './utils';
 
 export const ScalarArg = ({
@@ -38,7 +37,7 @@ export const ScalarArg = ({
 }: {
   ancestors: AncestorMap;
   argument: GraphQLArgument;
-  onInputType: boolean;
+  onInputType: string | null;
   operationType: OperationTypeNode;
 }) => {
   let baseType = argument.type;
@@ -58,14 +57,13 @@ export const ScalarArg = ({
 
   const [error, setError] = useState<string | null>(null);
 
+  const [isTouched, setIsTouched] = useState<boolean>(false);
+
   const ancestor = ancestors.values().next().value;
 
   const isSelected = !!ancestor.selection;
 
-  const variableName = `${generateVariableNameFromAncestorMap({
-    ancestors,
-    variableType: 'ARGUMENT',
-  })}`;
+  const argumentName = argument.name;
 
   const { activeVariables, updateVariable } = useEditor();
 
@@ -79,9 +77,8 @@ export const ScalarArg = ({
   const isRequired = isRequiredArgument(argument) || isRequiredInputField(argument);
 
   // console.log('ScalarArg', {
-  //   ancestor,
-  //   variableName,
-  //   inputValue,
+  //   argumentName,
+  //   onInputType,
   // });
 
   useEffect(() => {
@@ -99,15 +96,15 @@ export const ScalarArg = ({
     if (onInputType) {
       if (
         vars &&
-        vars.hasOwnProperty(variableName) &&
-        vars[variableName].hasOwnProperty(argument.name)
+        vars.hasOwnProperty(onInputType) &&
+        vars[onInputType].hasOwnProperty(argumentName)
       ) {
-        val = parseIncomingVariableValue(vars[variableName][argument.name]);
+        val = parseIncomingVariableValue(vars[onInputType][argumentName]);
       } else {
       }
     } else {
-      if (vars && vars.hasOwnProperty(variableName)) {
-        val = parseIncomingVariableValue(vars[variableName]);
+      if (vars && vars.hasOwnProperty(argumentName)) {
+        val = parseIncomingVariableValue(vars[argumentName]);
       } else {
       }
     }
@@ -123,7 +120,7 @@ export const ScalarArg = ({
       setError(null);
     }
 
-    if (inputValue.length > 0) {
+    if (isTouched) {
       validateInputValue({
         inputValue,
         setError,
@@ -131,23 +128,14 @@ export const ScalarArg = ({
       });
 
       updateVariable({
-        onInputObject: onInputType ? variableName : undefined,
-        variableName: onInputType ? argument.name : variableName,
+        onInputObject: onInputType || undefined,
+        variableName: argumentName,
         variableValue: parseOutgoingVariableValue({
           typeNameValue: baseType.toString(),
           value: inputValue,
         }),
       });
     }
-
-    // TODO: 👇 this code will automatically remove variables from the editor when their value is empty, which is not ideal for variable-editor users
-    // if (isTouched && inputValue.length === 0) {
-    //   updateVariable({
-    //     onInputObject: onInputType ? variableName : undefined,
-    //     variableName: onInputType ? argument.name : variableName,
-    //     variableValue: '',
-    //   });
-    // }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputValue]);
@@ -161,17 +149,16 @@ export const ScalarArg = ({
           control={{
             controlType: 'SELECT',
             handleChange,
-            name: variableName,
+            name: onInputType ? `${onInputType}-${argumentName}` : argumentName,
             options: [
               { name: 'true', value: 'true' },
               { name: 'false', value: 'false' },
             ],
             placeholder: 'Boolean',
             value: inputValue,
-            variant: onInputType ? 'INPUT_FIELD' : 'ARGUMENT',
           }}
           labelAddon={isRequired && <Tag copy={`R`} title={`Required`} type="ERROR" />}
-          labelCopy={argument.name}
+          labelCopy={argumentName}
           list={true}
         />
       );
@@ -181,17 +168,16 @@ export const ScalarArg = ({
           control={{
             controlType: 'SELECT',
             handleChange,
-            name: variableName,
+            name: onInputType ? `${onInputType}-${argumentName}` : argumentName,
             options:
               getEnumValues({
                 enumTypeName: typeName,
               }) || [],
             placeholder: typeName,
             value: inputValue,
-            variant: onInputType ? 'INPUT_FIELD' : 'ARGUMENT',
           }}
           labelAddon={isRequired && <Tag copy={`R`} title={`Required`} type="ERROR" />}
-          labelCopy={argument.name}
+          labelCopy={argumentName}
           list={true}
         />
       );
@@ -201,13 +187,12 @@ export const ScalarArg = ({
           control={{
             controlType: 'INPUT',
             handleChange,
-            name: variableName,
+            name: onInputType ? `${onInputType}-${argumentName}` : argumentName,
             placeholder: typeName,
             value: inputValue,
-            variant: onInputType ? 'INPUT_FIELD' : 'ARGUMENT',
           }}
           labelAddon={isRequired && <Tag copy={`R`} title={`Required`} type="ERROR" />}
-          labelCopy={argument.name}
+          labelCopy={argumentName}
           list={true}
         />
       );
@@ -218,17 +203,16 @@ export const ScalarArg = ({
         control={{
           controlType: 'SELECT',
           handleChange,
-          name: variableName,
+          name: onInputType ? `${onInputType}-${argumentName}` : argumentName,
           options:
             getEnumValues({
               enumTypeName: unwrappedType.name,
             }) || [],
           placeholder: unwrappedType.name,
           value: inputValue,
-          variant: onInputType ? 'INPUT_FIELD' : 'ARGUMENT',
         }}
         labelAddon={isRequired && <Tag copy={`R`} title={`Required`} type="ERROR" />}
-        labelCopy={argument.name}
+        labelCopy={argumentName}
         list={false}
       />
     );
@@ -238,17 +222,16 @@ export const ScalarArg = ({
         control={{
           controlType: 'SELECT',
           handleChange,
-          name: variableName,
+          name: onInputType ? `${onInputType}-${argumentName}` : argumentName,
           options: [
             { name: 'true', value: 'true' },
             { name: 'false', value: 'false' },
           ],
           placeholder: 'Boolean',
           value: inputValue,
-          variant: onInputType ? 'INPUT_FIELD' : 'ARGUMENT',
         }}
         labelAddon={isRequired && <Tag copy={`R`} title={`Required`} type="ERROR" />}
-        labelCopy={argument.name}
+        labelCopy={argumentName}
         list={false}
       />
     );
@@ -259,20 +242,19 @@ export const ScalarArg = ({
         control={{
           controlType: 'INPUT',
           handleChange,
-          name: variableName,
+          name: onInputType ? `${onInputType}-${argumentName}` : argumentName,
           placeholder: argument.type.toString(),
           value: inputValue,
-          variant: onInputType ? 'INPUT_FIELD' : 'ARGUMENT',
         }}
         labelAddon={isRequired && <Tag copy={`R`} title={`Required`} type="ERROR" />}
-        labelCopy={argument.name}
+        labelCopy={argumentName}
         list={false}
       />
     );
   }
 
   return (
-    <StyledScalarArgWrap>
+    <StyledScalarArgWrap onFocus={() => setIsTouched(true)}>
       {/* this bit's here to warn when this argument's type is not a built-in scalar or an enum. users should have the ability to pass in handlers for custom scalars */}
       {!['String', 'ID', 'Int', 'Float', 'Boolean'].includes(typeName) &&
         !isEnumType(unwrapType(argument.type)) && (

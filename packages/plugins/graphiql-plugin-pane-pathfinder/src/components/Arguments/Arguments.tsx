@@ -69,7 +69,7 @@ export const Arguments = ({
               ancestors={ancestors}
               argument={arg}
               operationType={operationType}
-              selection={selection}
+              selection={selection?.arguments?.find((a) => a.name.value === arg.name)}
             />
           ))}
         </StyledArgumentsList>

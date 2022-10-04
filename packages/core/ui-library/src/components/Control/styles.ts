@@ -18,17 +18,9 @@ export const StyledInput = styled('input', {
   boxSizing: `border-box`,
   width: `100%`,
   height: 28,
-  // color: theme.colors.text3,
   fontSize: 11,
   fontFamily: theme.fonts.mono,
   color: theme.colors.yellow_default,
-
-  variants: {
-    variant: {
-      INPUT_FIELD: {},
-      ARGUMENT: {},
-    },
-  },
 });
 
 export const StyledSelectWrap = styled('div', {
@@ -46,10 +38,6 @@ export const StyledSelectWrap = styled('div', {
   },
 
   variants: {
-    variant: {
-      INPUT_FIELD: {},
-      ARGUMENT: {},
-    },
     isSelected: {
       false: {
         select: {
@@ -58,19 +46,19 @@ export const StyledSelectWrap = styled('div', {
       },
     },
   },
+});
 
-  select: {
-    all: `unset`,
-    boxSizing: `border-box`,
-    display: `flex`,
-    alignItems: `center`,
-    width: `100%`,
-    height: 28,
-    color: theme.colors.yellow_default,
+export const StyledSelect = styled('select', {
+  all: `unset`,
+  boxSizing: `border-box`,
+  display: `flex`,
+  alignItems: `center`,
+  width: `100%`,
+  height: 28,
+  color: theme.colors.yellow_default,
 
-    fontSize: 11,
-    fontFamily: theme.fonts.mono,
-  },
+  fontSize: 11,
+  fontFamily: theme.fonts.mono,
 });
 
 export const StyledSelectDecoration = styled('div', {
@@ -149,30 +137,33 @@ export const StyledControlWrap = styled('div', {
   display: 'flex',
   width: '100%',
 
-  [`& ${StyledInput}, & ${StyledSelectWrap}`]: {
+  [`& ${StyledInput}, & ${StyledSelect}`]: {
     borderTop: `1px solid ${theme.colors.surface3}`,
     borderRight: `1px solid ${theme.colors.surface3}`,
     borderBottom: `1px solid ${theme.colors.surface3}`,
 
     '&:focus': {
       backgroundColor: theme.colors.surface2,
+      // select: {
+      //   backgroundColor: theme.colors.surface2,
+      // },
     },
   },
 
   variants: {
     alignment: {
       LEFT: {
-        [`& ${StyledInput}, & ${StyledSelectWrap} select`]: {
+        [`& ${StyledInput}, & ${StyledSelect}`]: {
           textAlign: `left`,
           paddingLeft: theme.space[3],
         },
       },
       RIGHT: {
-        [`& ${StyledInput}, & ${StyledSelectWrap} select`]: {
+        [`& ${StyledInput}, & ${StyledSelect}`]: {
           textAlign: `right`,
           paddingRight: theme.space[3],
         },
-        [`& ${StyledSelectWrap} select`]: {
+        [`& ${StyledSelect}`]: {
           paddingRight: theme.space[7],
         },
       },

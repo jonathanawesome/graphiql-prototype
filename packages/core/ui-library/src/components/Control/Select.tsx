@@ -2,7 +2,7 @@
 import { Icon } from '../../icons';
 
 // styles
-import { StyledSelectWrap, StyledSelectDecoration } from './styles';
+import { StyledSelect, StyledSelectWrap, StyledSelectDecoration } from './styles';
 
 // types
 import { SelectProps } from './types';
@@ -14,14 +14,10 @@ export const Select = ({
   options,
   placeholder,
   value,
-  variant,
 }: SelectProps) => {
   return (
-    <StyledSelectWrap
-      isSelected={options.some((option) => option.value === value)}
-      variant={variant}
-    >
-      <select
+    <StyledSelectWrap isSelected={options.some((option) => option.value === value)}>
+      <StyledSelect
         disabled={isDisabled}
         name={name}
         onChange={(e) => {
@@ -38,7 +34,7 @@ export const Select = ({
             {option.name}
           </option>
         ))}
-      </select>
+      </StyledSelect>
       <StyledSelectDecoration>
         <Icon name="Caret" />
       </StyledSelectDecoration>
