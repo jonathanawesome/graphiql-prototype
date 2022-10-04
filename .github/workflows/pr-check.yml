@@ -1,0 +1,22 @@
+name: tsc on PR
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  tsc:
+    name: tsc
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Install pnpm 
+        uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7       
+
+      - name: Install and run tsc
+        run: |
+          pnpm i
+          pnpm tsc
