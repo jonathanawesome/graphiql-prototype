@@ -24,7 +24,6 @@ export const List = ({
   options,
   placeholder,
   value,
-  variant,
 }: ListProps) => {
   const [items, setItems] = useState<Array<ControlData>>(
     (value as string[]).map((v) => ({ name: `${cuid.slug()}-${v}`, value: v }))
@@ -75,7 +74,6 @@ export const List = ({
                 name={item.name}
                 placeholder={placeholder}
                 value={item.value}
-                variant={variant}
               />
             )}
             {controlType === 'SELECT' && (
@@ -86,7 +84,6 @@ export const List = ({
                 options={options}
                 placeholder={placeholder}
                 value={item.value}
-                variant={variant}
               />
             )}
           </StyledListItem>
