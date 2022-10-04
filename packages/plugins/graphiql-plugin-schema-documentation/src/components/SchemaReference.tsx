@@ -56,7 +56,7 @@ export const SchemaReference = () => {
   const subscriptionRootType = schema?.getSubscriptionType();
   const directives = schema?.getDirectives();
 
-  // console.log('SchemaReference', {});
+  console.log('SchemaReference', { schema });
 
   return (
     <StyledSchemaReference>

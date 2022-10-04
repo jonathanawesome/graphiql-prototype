@@ -18,7 +18,6 @@ export type BaseControlProps = {
   name: string;
   placeholder: string;
   value: string | string[] | boolean;
-  variant?: 'INPUT_FIELD' | 'ARGUMENT';
 };
 
 export type InputProps = BaseControlProps & {

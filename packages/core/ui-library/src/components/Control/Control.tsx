@@ -40,7 +40,6 @@ export const Control = ({
           options={control.options}
           placeholder={control.placeholder}
           value={control.value}
-          variant={control.variant}
         />
       )}
       {list === true && control.controlType === 'INPUT' && (
@@ -51,7 +50,6 @@ export const Control = ({
           name={control.name}
           placeholder={control.placeholder}
           value={control.value}
-          variant={control.variant}
         />
       )}
       {list === false && control.controlType === 'SELECT' && (
@@ -63,7 +61,6 @@ export const Control = ({
           options={control.options}
           placeholder={control.placeholder}
           value={control.value}
-          variant={control.variant}
         />
       )}
       {list === false && control.controlType === 'INPUT' && (
@@ -74,7 +71,6 @@ export const Control = ({
           name={control.name}
           placeholder={control.placeholder}
           value={control.value}
-          variant={control.variant}
         />
       )}
     </StyledControlWrap>

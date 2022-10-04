@@ -1,6 +1,6 @@
 import cuid from 'cuid';
 import {
-  FieldNode,
+  ArgumentNode,
   GraphQLArgument,
   isInputObjectType,
   OperationTypeNode,
@@ -13,11 +13,7 @@ import { InputObject, ScalarArg } from '../index';
 import type { AncestorMap } from '../../hooks';
 
 // utils
-import {
-  capitalize,
-  generateVariableNameFromAncestorMap,
-  unwrapNonNullArgumentType,
-} from '../../utils';
+import { unwrapNonNullArgumentType } from '../../utils';
 
 export const Argument = ({
   ancestors,
@@ -28,7 +24,7 @@ export const Argument = ({
   ancestors: AncestorMap;
   argument: GraphQLArgument;
   operationType: OperationTypeNode;
-  selection: FieldNode | null;
+  selection: ArgumentNode | undefined;
 }) => {
   const unwrappedNonNullType = unwrapNonNullArgumentType({ argumentType: argument.type });
 
@@ -45,11 +41,8 @@ export const Argument = ({
       `${argument.name}-${hash}`,
       {
         argument,
-        selection: selection?.arguments?.find((a) => a.name.value === argument.name),
-        variableName: `${generateVariableNameFromAncestorMap({
-          ancestors,
-          variableType: 'ARGUMENT',
-        })}${capitalize(argument.name)}`,
+        selection,
+        variableName: argument.name,
       },
     ],
     ...ancestors,
@@ -72,7 +65,7 @@ export const Argument = ({
       <ScalarArg
         ancestors={newArgMap}
         argument={argument}
-        onInputType={false}
+        onInputType={null}
         operationType={operationType}
       />
     );

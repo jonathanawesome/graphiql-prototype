@@ -129,12 +129,13 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
           url,
         })({
           query: getIntrospectionQuery({
+            // TODO: revisit passing options here. would love to get schemaDescription for use in documentation, but introspection query fails
             // specifiedByUrl: true,
-            schemaDescription: true,
+            // schemaDescription: true,
           }),
           operationName: 'IntrospectionQuery',
         });
-
+        console.log('data', { res: result.data });
         const schema = buildClientSchema(result.data as unknown as IntrospectionQuery);
 
         set({
