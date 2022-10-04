@@ -1,5 +1,4 @@
 import { styled, theme } from '@graphiql-prototype/ui-library';
-import { FC } from 'react';
 
 const StyledFlexRow = styled('div', {
   width: `100%`,
@@ -15,7 +14,13 @@ const StyledFlexRow = styled('div', {
   },
 });
 
-export const FlexRow: FC<{ name: string }> = ({ children, name }) => {
+export const FlexRow = ({
+  children,
+  name,
+}: {
+  children: React.ReactNode;
+  name: string;
+}) => {
   return (
     <StyledFlexRow>
       <span className="name">{name}</span>
