@@ -13,6 +13,7 @@ export type EditorTabState = {
   resultsModel: MONACO_EDITOR.ITextModel;
   headers: HTTPHeaderValue[];
   operationDefinition: OperationDefinitionNode | null;
+  warningWhenMultipleOperations: boolean;
 };
 
 type MonacoEditors = {
@@ -114,8 +115,7 @@ export type EditorStore = {
   //   id: string;
   //   payload: UpdateHeaderKeyOrValue | UpdateHeaderStatus;
   // }) => void;
-  warningWhenMultipleOperations: boolean;
-  clearWarningWhenMultipleOperations: () => void;
+
   // TODO: 👇 is this the right way to update editor tab state? it seems brittle...currently only used for updating tab headers
   updateTabState: ({ data }: { data: Partial<EditorTabState> }) => void;
 };

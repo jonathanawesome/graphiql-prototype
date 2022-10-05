@@ -165,6 +165,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
         },
       ],
       operationDefinition: withOperationModelValue?.operationDefinition || null,
+      warningWhenMultipleOperations: false,
     };
 
     setModelsForAllEditorsWithinTab({ destinationTab: newEditorTab });
@@ -464,6 +465,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
   },
   updateOperationDefinitionFromModelValue: ({ value }) => {
     const updateOperationDefinition = get().updateOperationDefinition;
+    const updateTabState = get().updateTabState;
 
     const parsedQuery = parseQuery(value);
 
@@ -473,11 +475,15 @@ export const useEditor = create<EditorStore>()((set, get) => ({
       // console.log('parsedQuery', { parsedQuery });
 
       if (parsedQuery?.definitions && parsedQuery.definitions.length > 1) {
-        set({ warningWhenMultipleOperations: true });
+        updateTabState({
+          data: { warningWhenMultipleOperations: true },
+        });
       }
 
       if (parsedQuery?.definitions && parsedQuery.definitions.length <= 1) {
-        set({ warningWhenMultipleOperations: false });
+        updateTabState({
+          data: { warningWhenMultipleOperations: false },
+        });
       }
 
       const firstDefinition = parsedQuery?.definitions[0];
@@ -495,13 +501,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     }
     return null;
   },
-  // addTabHeader: () => {},
-  // removeTabHeader: ({ id }) => {},
-  // updateHeader: ({ id, payload }) => {},
   warningWhenMultipleOperations: false,
-  clearWarningWhenMultipleOperations: () => {
-    set({ warningWhenMultipleOperations: false });
-  },
   updateTabState: ({ data }) => {
     const editorTabs = get().editorTabs;
     const activeEditorTabId = get().activeEditorTabId;

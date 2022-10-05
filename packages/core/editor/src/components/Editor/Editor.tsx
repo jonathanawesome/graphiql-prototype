@@ -16,7 +16,7 @@ export const Editor = () => {
         }}
         pane2={{
           component: <Analyze />,
-          initialWidthPercentage: 45,
+          initialWidthPercentage: 50,
         }}
       />
     </>

@@ -14,11 +14,8 @@ import {
 } from './styles';
 
 export const OperationActions = () => {
-  const {
-    monacoEditors,
-    splitMultipleOperationsToSeparateTabs,
-    warningWhenMultipleOperations,
-  } = useEditor();
+  const { monacoEditors, splitMultipleOperationsToSeparateTabs, getActiveTab } =
+    useEditor();
 
   const { executeOperation } = useSchema();
 
@@ -38,7 +35,7 @@ export const OperationActions = () => {
       >
         <Prettier />
       </StyledPrettierButton>
-      {warningWhenMultipleOperations && (
+      {getActiveTab()?.warningWhenMultipleOperations && (
         <StyledWarningButton
           onClick={() => splitMultipleOperationsToSeparateTabs()}
           title={`Split multiple operations into separate tabs`}
