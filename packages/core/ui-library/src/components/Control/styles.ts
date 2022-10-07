@@ -21,6 +21,10 @@ export const StyledInput = styled('input', {
   fontSize: 11,
   fontFamily: theme.fonts.mono,
   color: theme.colors.yellow_default,
+
+  '&::placeholder': {
+    color: theme.colors.text4,
+  },
 });
 
 export const StyledSelectWrap = styled('div', {
