@@ -5,8 +5,8 @@ import { Button, HTTPHeaderControl, Tabs } from '@graphiql-prototype/ui-library'
 import { SchemaSelector } from './SchemaSelector';
 
 // hooks
-import { useHTTPHeaders } from '@graphiql-prototype/use-http-headers';
-import { useSchema } from '@graphiql-prototype/use-schema';
+import { useHTTPHeaders } from '@graphiql-prototype/store';
+import { useSchema } from '@graphiql-prototype/store';
 
 // styles
 import {

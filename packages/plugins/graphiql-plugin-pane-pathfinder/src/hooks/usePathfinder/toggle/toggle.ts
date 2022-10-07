@@ -21,7 +21,7 @@ import {
 } from './handlers';
 
 // hooks
-import { defaultOperation, useEditor } from '@graphiql-prototype/use-editor';
+import { defaultOperation, useEditor } from '@graphiql-prototype/store';
 
 // types
 import { AncestorMap, PathfinderStore } from '../types';

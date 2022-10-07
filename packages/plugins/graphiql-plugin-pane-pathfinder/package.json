@@ -8,9 +8,8 @@
   },
   "dependencies": {
     "@graphiql-prototype/graphiql-plugin-schema-documentation": "workspace:*",
+    "@graphiql-prototype/store": "workspace:*",
     "@graphiql-prototype/ui-library": "workspace:*",
-    "@graphiql-prototype/use-editor": "workspace:*",
-    "@graphiql-prototype/use-schema": "workspace:*",
     "@graphiql-prototype/utils": "workspace:*",
     "@radix-ui/react-collapsible": "^1.0.0",
     "@radix-ui/react-dialog": "^1.0.0",

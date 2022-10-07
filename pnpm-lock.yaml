@@ -34,16 +34,12 @@ importers:
       '@graphiql-prototype/graphiql': workspace:*
       '@graphiql-prototype/graphiql-plugin-pane-history': workspace:*
       '@graphiql-prototype/graphiql-plugin-pane-pathfinder': workspace:*
+      '@graphiql-prototype/store': workspace:*
       '@graphiql-prototype/ui-library': workspace:*
-      '@graphiql-prototype/use-editor': workspace:*
-      '@graphiql-prototype/use-http-headers': workspace:*
-      '@graphiql-prototype/use-schema': workspace:*
-      '@graphiql-prototype/use-test-schema': workspace:*
       '@ladle/react': 2.0.2
       '@types/react': 18.0.21
       '@vitejs/plugin-react': 1.3.1
       graphql: ^16.5.0
-      monaco-editor: ^0.33.0
       react: 18.2.0
       react-dom: 18.2.0
       vite: 3.0.2
@@ -53,17 +49,13 @@ importers:
       '@graphiql-prototype/graphiql': link:../../packages/core/graphiql
       '@graphiql-prototype/graphiql-plugin-pane-history': link:../../packages/plugins/graphiql-plugin-pane-history
       '@graphiql-prototype/graphiql-plugin-pane-pathfinder': link:../../packages/plugins/graphiql-plugin-pane-pathfinder
+      '@graphiql-prototype/store': link:../../packages/core/store
       '@graphiql-prototype/ui-library': link:../../packages/core/ui-library
-      '@graphiql-prototype/use-editor': link:../../packages/core/useEditor
-      '@graphiql-prototype/use-http-headers': link:../../packages/core/useHTTPHeaders
-      '@graphiql-prototype/use-schema': link:../../packages/core/useSchema
-      '@graphiql-prototype/use-test-schema': link:../../packages/core/useTestSchema
       '@ladle/react': 2.0.2_biqbaboplfbrettd7655fr4n2y
       graphql: 16.6.0
-      monaco-editor: 0.33.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      vite-plugin-monaco-editor: 1.1.0_monaco-editor@0.33.0
+      vite-plugin-monaco-editor: 1.1.0
     devDependencies:
       '@types/react': 18.0.21
       '@vitejs/plugin-react': 1.3.1
@@ -75,13 +67,12 @@ importers:
       '@graphiql-prototype/graphiql': workspace:*
       '@graphiql-prototype/graphiql-plugin-pane-history': workspace:*
       '@graphiql-prototype/graphiql-plugin-pane-pathfinder': workspace:*
+      '@graphiql-prototype/store': workspace:*
       '@graphiql-prototype/ui-library': workspace:*
-      '@graphiql-prototype/use-schema': workspace:*
       '@types/node': ^18.0.3
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
       '@vitejs/plugin-react': ^1.3.0
-      monaco-editor: ^0.33.0
       react: 18.2.0
       react-dom: 18.2.0
       typescript: ^4.6.3
@@ -92,12 +83,11 @@ importers:
       '@graphiql-prototype/graphiql': link:../../packages/core/graphiql
       '@graphiql-prototype/graphiql-plugin-pane-history': link:../../packages/plugins/graphiql-plugin-pane-history
       '@graphiql-prototype/graphiql-plugin-pane-pathfinder': link:../../packages/plugins/graphiql-plugin-pane-pathfinder
+      '@graphiql-prototype/store': link:../../packages/core/store
       '@graphiql-prototype/ui-library': link:../../packages/core/ui-library
-      '@graphiql-prototype/use-schema': link:../../packages/core/useSchema
-      monaco-editor: 0.33.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      vite-plugin-monaco-editor: 1.1.0_monaco-editor@0.33.0
+      vite-plugin-monaco-editor: 1.1.0
     devDependencies:
       '@types/node': 18.7.23
       '@types/react': 18.0.21
@@ -109,11 +99,8 @@ importers:
   packages/core/editor:
     specifiers:
       '@graphiql-prototype/graphiql-plugin-schema-documentation': workspace:*
+      '@graphiql-prototype/store': workspace:*
       '@graphiql-prototype/ui-library': workspace:*
-      '@graphiql-prototype/use-editor': workspace:*
-      '@graphiql-prototype/use-http-headers': workspace:*
-      '@graphiql-prototype/use-schema': workspace:*
-      '@graphiql-prototype/use-test-schema': workspace:*
       '@graphiql-prototype/utils': workspace:*
       '@graphiql/toolkit': ^0.6.0
       '@radix-ui/react-collapsible': ^1.0.0
@@ -132,11 +119,8 @@ importers:
       zustand: 4.1.1
     dependencies:
       '@graphiql-prototype/graphiql-plugin-schema-documentation': link:../../plugins/graphiql-plugin-schema-documentation
+      '@graphiql-prototype/store': link:../store
       '@graphiql-prototype/ui-library': link:../ui-library
-      '@graphiql-prototype/use-editor': link:../useEditor
-      '@graphiql-prototype/use-http-headers': link:../useHTTPHeaders
-      '@graphiql-prototype/use-schema': link:../useSchema
-      '@graphiql-prototype/use-test-schema': link:../useTestSchema
       '@graphiql-prototype/utils': link:../utils
       '@graphiql/toolkit': 0.6.1_bjgwlwebsm7ulvpmjq4c2w36jm
       '@radix-ui/react-collapsible': 1.0.0_biqbaboplfbrettd7655fr4n2y
@@ -159,8 +143,8 @@ importers:
     specifiers:
       '@graphiql-prototype/editor': workspace:*
       '@graphiql-prototype/graphiql-plugin-pane-settings': workspace:*
+      '@graphiql-prototype/store': workspace:*
       '@graphiql-prototype/ui-library': workspace:*
-      '@graphiql-prototype/use-schema': workspace:*
       '@types/react': 18.0.21
       graphql: ^16.5.0
       react: 18.2.0
@@ -168,9 +152,36 @@ importers:
     dependencies:
       '@graphiql-prototype/editor': link:../editor
       '@graphiql-prototype/graphiql-plugin-pane-settings': link:../../plugins/graphiql-plugin-pane-settings
+      '@graphiql-prototype/store': link:../store
       '@graphiql-prototype/ui-library': link:../ui-library
-      '@graphiql-prototype/use-schema': link:../useSchema
       graphql: 16.6.0
+      react: 18.2.0
+      zustand: 4.1.1_react@18.2.0
+    devDependencies:
+      '@types/react': 18.0.21
+
+  packages/core/store:
+    specifiers:
+      '@graphiql-prototype/editor': workspace:*
+      '@graphiql-prototype/ui-library': workspace:*
+      '@graphiql-prototype/utils': workspace:*
+      '@types/react': 18.0.21
+      cuid: ^2.1.8
+      graphql: ^16.5.0
+      jsonc-parser: 3.0.0
+      monaco-editor: ^0.33.0
+      monaco-graphql: 1.1.2
+      react: 18.2.0
+      zustand: 4.1.1
+    dependencies:
+      '@graphiql-prototype/editor': link:../editor
+      '@graphiql-prototype/ui-library': link:../ui-library
+      '@graphiql-prototype/utils': link:../utils
+      cuid: 2.1.8
+      graphql: 16.6.0
+      jsonc-parser: 3.0.0
+      monaco-editor: 0.33.0
+      monaco-graphql: 1.1.2_hcy3mshtuqano6ettx6nar7lwm
       react: 18.2.0
       zustand: 4.1.1_react@18.2.0
     devDependencies:
@@ -178,7 +189,7 @@ importers:
 
   packages/core/ui-library:
     specifiers:
-      '@graphiql-prototype/use-http-headers': workspace:*
+      '@graphiql-prototype/store': workspace:*
       '@graphiql-prototype/utils': workspace:*
       '@radix-ui/react-collapsible': ^1.0.0
       '@radix-ui/react-dialog': ^1.0.0
@@ -197,7 +208,7 @@ importers:
       vite: 3.0.2
       zustand: 4.1.1
     dependencies:
-      '@graphiql-prototype/use-http-headers': link:../useHTTPHeaders
+      '@graphiql-prototype/store': link:../store
       '@graphiql-prototype/utils': link:../utils
       '@radix-ui/react-collapsible': 1.0.0_biqbaboplfbrettd7655fr4n2y
       '@radix-ui/react-dialog': 1.0.0_rj7ozvcq3uehdlnj3cbwzbi5ce
@@ -217,111 +228,21 @@ importers:
       '@types/react': 18.0.21
       vite: 3.0.2
 
-  packages/core/useEditor:
-    specifiers:
-      '@graphiql-prototype/ui-library': workspace:*
-      '@graphiql-prototype/use-http-headers': workspace:*
-      '@graphiql-prototype/use-schema': workspace:*
-      '@graphiql-prototype/utils': workspace:*
-      '@types/react': 18.0.21
-      cuid: ^2.1.8
-      graphql: ^16.5.0
-      jsonc-parser: 3.0.0
-      monaco-editor: ^0.33.0
-      monaco-graphql: 1.1.2
-      react: 18.2.0
-      zustand: 4.1.1
-    dependencies:
-      '@graphiql-prototype/ui-library': link:../ui-library
-      '@graphiql-prototype/use-http-headers': link:../useHTTPHeaders
-      '@graphiql-prototype/use-schema': link:../useSchema
-      '@graphiql-prototype/utils': link:../utils
-      cuid: 2.1.8
-      graphql: 16.6.0
-      jsonc-parser: 3.0.0
-      monaco-editor: 0.33.0
-      monaco-graphql: 1.1.2_hcy3mshtuqano6ettx6nar7lwm
-      react: 18.2.0
-      zustand: 4.1.1_react@18.2.0
-    devDependencies:
-      '@types/react': 18.0.21
-
-  packages/core/useHTTPHeaders:
-    specifiers:
-      '@graphiql-prototype/use-editor': workspace:*
-      '@graphiql-prototype/utils': workspace:*
-      '@types/react': 18.0.21
-      cuid: ^2.1.8
-      graphql: ^16.5.0
-      jsonc-parser: 3.0.0
-      monaco-editor: ^0.33.0
-      react: 18.2.0
-      zustand: 4.1.1
-    dependencies:
-      '@graphiql-prototype/use-editor': link:../useEditor
-      '@graphiql-prototype/utils': link:../utils
-      cuid: 2.1.8
-      graphql: 16.6.0
-      jsonc-parser: 3.0.0
-      monaco-editor: 0.33.0
-      react: 18.2.0
-      zustand: 4.1.1_react@18.2.0
-    devDependencies:
-      '@types/react': 18.0.21
-
-  packages/core/useSchema:
-    specifiers:
-      '@graphiql-prototype/editor': workspace:*
-      '@graphiql-prototype/use-editor': workspace:*
-      '@graphiql-prototype/use-http-headers': workspace:*
-      '@graphiql-prototype/use-test-schema': workspace:*
-      '@graphiql-prototype/utils': workspace:*
-      '@types/react': 18.0.21
-      graphql: ^16.5.0
-      jsonc-parser: 3.0.0
-      monaco-editor: ^0.33.0
-      react: 18.2.0
-      zustand: 4.1.1
-    dependencies:
-      '@graphiql-prototype/editor': link:../editor
-      '@graphiql-prototype/use-editor': link:../useEditor
-      '@graphiql-prototype/use-http-headers': link:../useHTTPHeaders
-      '@graphiql-prototype/use-test-schema': link:../useTestSchema
-      '@graphiql-prototype/utils': link:../utils
-      graphql: 16.6.0
-      jsonc-parser: 3.0.0
-      monaco-editor: 0.33.0
-      react: 18.2.0
-      zustand: 4.1.1_react@18.2.0
-    devDependencies:
-      '@types/react': 18.0.21
-
-  packages/core/useTestSchema:
-    specifiers:
-      '@types/react': 18.0.21
-      graphql: ^16.5.0
-      react: 18.2.0
-      zustand: 4.1.1
-    dependencies:
-      graphql: 16.6.0
-      react: 18.2.0
-      zustand: 4.1.1_react@18.2.0
-    devDependencies:
-      '@types/react': 18.0.21
-
   packages/core/utils:
     specifiers:
+      '@graphiql-prototype/store': workspace:*
       '@graphiql-prototype/ui-library': workspace:*
-      '@graphiql-prototype/use-schema': workspace:*
       '@graphiql/toolkit': ^0.6.0
       graphql: ^16.5.0
       graphql-ws: ^5.11.2
+      monaco-editor: ^0.33.0
     dependencies:
+      '@graphiql-prototype/store': link:../store
       '@graphiql-prototype/ui-library': link:../ui-library
-      '@graphiql-prototype/use-schema': link:../useSchema
       '@graphiql/toolkit': 0.6.1_bjgwlwebsm7ulvpmjq4c2w36jm
       graphql: 16.6.0
       graphql-ws: 5.11.2_graphql@16.6.0
+      monaco-editor: 0.33.0
 
   packages/plugins/graphiql-plugin-pane-history:
     specifiers:
@@ -337,9 +258,8 @@ importers:
   packages/plugins/graphiql-plugin-pane-pathfinder:
     specifiers:
       '@graphiql-prototype/graphiql-plugin-schema-documentation': workspace:*
+      '@graphiql-prototype/store': workspace:*
       '@graphiql-prototype/ui-library': workspace:*
-      '@graphiql-prototype/use-editor': workspace:*
-      '@graphiql-prototype/use-schema': workspace:*
       '@graphiql-prototype/utils': workspace:*
       '@radix-ui/react-collapsible': ^1.0.0
       '@radix-ui/react-dialog': ^1.0.0
@@ -361,9 +281,8 @@ importers:
       zustand: 4.1.1
     dependencies:
       '@graphiql-prototype/graphiql-plugin-schema-documentation': link:../graphiql-plugin-schema-documentation
+      '@graphiql-prototype/store': link:../../core/store
       '@graphiql-prototype/ui-library': link:../../core/ui-library
-      '@graphiql-prototype/use-editor': link:../../core/useEditor
-      '@graphiql-prototype/use-schema': link:../../core/useSchema
       '@graphiql-prototype/utils': link:../../core/utils
       '@radix-ui/react-collapsible': 1.0.0_biqbaboplfbrettd7655fr4n2y
       '@radix-ui/react-dialog': 1.0.0_rj7ozvcq3uehdlnj3cbwzbi5ce
@@ -398,9 +317,8 @@ importers:
 
   packages/plugins/graphiql-plugin-schema-documentation:
     specifiers:
+      '@graphiql-prototype/store': workspace:*
       '@graphiql-prototype/ui-library': workspace:*
-      '@graphiql-prototype/use-editor': workspace:*
-      '@graphiql-prototype/use-schema': workspace:*
       '@graphiql-prototype/utils': workspace:*
       '@types/react': 18.0.21
       '@vitejs/plugin-react': ^2.0.0
@@ -412,9 +330,8 @@ importers:
       vitest: ^0.23.2
       zustand: 4.1.1
     dependencies:
+      '@graphiql-prototype/store': link:../../core/store
       '@graphiql-prototype/ui-library': link:../../core/ui-library
-      '@graphiql-prototype/use-editor': link:../../core/useEditor
-      '@graphiql-prototype/use-schema': link:../../core/useSchema
       '@graphiql-prototype/utils': link:../../core/utils
       cuid: 2.1.8
       graphql: 16.6.0
@@ -6440,12 +6357,10 @@ packages:
       vfile-message: 3.1.2
     dev: false
 
-  /vite-plugin-monaco-editor/1.1.0_monaco-editor@0.33.0:
+  /vite-plugin-monaco-editor/1.1.0:
     resolution: {integrity: sha512-IvtUqZotrRoVqwT0PBBDIZPNraya3BxN/bfcNfnxZ5rkJiGcNtO5eAOWWSgT7zullIAEqQwxMU83yL9J5k7gww==}
     peerDependencies:
       monaco-editor: '>=0.33.0'
-    dependencies:
-      monaco-editor: 0.33.0
     dev: false
 
   /vite-tsconfig-paths/3.5.1_vite@3.1.4:

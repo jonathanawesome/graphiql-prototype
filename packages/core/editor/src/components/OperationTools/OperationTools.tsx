@@ -3,7 +3,7 @@ import { HTTPHeaderControl, Message, Tabs } from '@graphiql-prototype/ui-library
 import { MonacoEditor } from '../MonacoEditor';
 
 // hooks
-import { useEditor } from '@graphiql-prototype/use-editor';
+import { useEditor } from '@graphiql-prototype/store';
 
 // styles
 import { StyledPerTabHeaders, StyledVariablesWrap } from './styles';

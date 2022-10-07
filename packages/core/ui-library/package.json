@@ -6,7 +6,7 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@graphiql-prototype/use-http-headers": "workspace:*",
+    "@graphiql-prototype/store": "workspace:*",
     "@graphiql-prototype/utils": "workspace:*",
     "@radix-ui/react-collapsible": "^1.0.0",
     "@radix-ui/react-dialog": "^1.0.0",

@@ -2,7 +2,7 @@ import cuid from 'cuid';
 import create from 'zustand';
 
 // hooks
-import { useEditor } from '@graphiql-prototype/use-editor';
+import { useEditor } from '../useEditor';
 
 // types
 import { HTTPHeadersStore, HTTPHeaderValue } from './types';

@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { GraphiQLEditor } from '@graphiql-prototype/editor';
 
 // hooks
-import { useSchema } from '@graphiql-prototype/use-schema';
+import { useSchema } from '@graphiql-prototype/store';
 
 export const GraphiQLEditorStory = () => {
   const { loadSchema } = useSchema();

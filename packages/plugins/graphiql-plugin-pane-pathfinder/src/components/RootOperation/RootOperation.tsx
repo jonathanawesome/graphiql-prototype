@@ -7,7 +7,7 @@ import {
 } from 'graphql';
 
 // hooks
-import { useEditor } from '@graphiql-prototype/use-editor';
+import { useEditor } from '@graphiql-prototype/store';
 
 // components
 import {

@@ -1,6 +1,8 @@
 // components
-import { useSchema } from '@graphiql-prototype/use-schema';
 import { MonacoEditor } from '../MonacoEditor';
+
+// hooks
+import { useSchema } from '@graphiql-prototype/store';
 
 // styles
 import { StyledAnalyzeWrap } from './styles';

@@ -8,7 +8,7 @@ import {
   HTTPHeaderPlacement,
   HTTPHeaderValue,
   useHTTPHeaders,
-} from '../../../../useHTTPHeaders';
+} from '@graphiql-prototype/store';
 
 // styles
 import {

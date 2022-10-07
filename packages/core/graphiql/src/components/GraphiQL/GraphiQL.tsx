@@ -7,7 +7,7 @@ import { globalStyles, Resizer } from '@graphiql-prototype/ui-library';
 
 // hooks
 import { useGraphiQL } from '../../hooks';
-import { useSchema } from '@graphiql-prototype/use-schema';
+import { useSchema } from '@graphiql-prototype/store';
 import { useTheme } from '@graphiql-prototype/ui-library';
 
 // styles

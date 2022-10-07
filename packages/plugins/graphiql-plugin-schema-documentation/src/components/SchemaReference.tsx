@@ -10,7 +10,7 @@ import { TertiaryPane } from './tertiary/TertiaryPane';
 import { TypesNav } from './TypesNav';
 
 // hooks
-import { useSchema } from '@graphiql-prototype/use-schema';
+import { useSchema } from '@graphiql-prototype/store';
 import { useSchemaReference } from '../hooks';
 
 // styles

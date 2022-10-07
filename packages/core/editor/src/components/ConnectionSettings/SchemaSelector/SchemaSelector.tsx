@@ -9,7 +9,7 @@ import {
 } from '@graphiql-prototype/ui-library';
 
 // hooks
-import { useSchema } from '@graphiql-prototype/use-schema';
+import { useSchema } from '@graphiql-prototype/store';
 
 // styles
 import {

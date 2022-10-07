@@ -1,3 +1,0 @@
-# use-test-schema
-
-## TODO

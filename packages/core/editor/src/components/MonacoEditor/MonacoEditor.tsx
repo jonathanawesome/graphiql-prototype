@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { editor as MONACO_EDITOR } from 'monaco-editor';
 
 // hooks
-import { MonacoEditorTypes, useEditor } from '@graphiql-prototype/use-editor';
+import { MonacoEditorTypes, useEditor } from '@graphiql-prototype/store';
 
 // styles
 import { MonacoEditorStyled, MonacoWrap } from './styles';

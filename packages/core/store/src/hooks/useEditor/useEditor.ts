@@ -20,14 +20,17 @@ import {
 } from '../../constants';
 
 // hooks
-import { useSchema } from '@graphiql-prototype/use-schema';
+import { useSchema } from '../useSchema';
 
 // types
 import { EditorTabState, EditorStore } from './types';
 
 // utils
-import { getOrCreateModel, pushEditOperationsToModel } from '../../utils';
-import { parseQuery } from '@graphiql-prototype/utils';
+import {
+  getOrCreateModel,
+  parseQuery,
+  pushEditOperationsToModel,
+} from '@graphiql-prototype/utils';
 
 // this should be called somewhere else, but fine here for now
 MONACO_EDITOR.defineTheme('graphiql-DARK', editorThemeDark);

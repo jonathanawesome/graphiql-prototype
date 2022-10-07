@@ -1,7 +1,7 @@
 import { isEnumType } from 'graphql';
 
 // hooks
-import { useSchema } from '@graphiql-prototype/use-schema';
+import { useSchema } from '@graphiql-prototype/store';
 
 export const getEnumValues = ({
   enumTypeName,

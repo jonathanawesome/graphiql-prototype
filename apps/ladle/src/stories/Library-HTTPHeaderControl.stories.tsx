@@ -5,7 +5,7 @@ import { FlexRow } from '../components/FlexRow';
 import { HTTPHeaderControl } from '@graphiql-prototype/ui-library';
 
 //hooks
-import { useHTTPHeaders } from '@graphiql-prototype/use-http-headers';
+import { useHTTPHeaders } from '@graphiql-prototype/store';
 
 export const HTTPHeaderControlStory = () => {
   const { globalHeaders } = useHTTPHeaders();

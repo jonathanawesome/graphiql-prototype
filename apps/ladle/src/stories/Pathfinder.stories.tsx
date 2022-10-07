@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useEditor } from '@graphiql-prototype/use-editor';
+import { useEditor } from '@graphiql-prototype/store';
 
 // components
 import { Pathfinder } from '@graphiql-prototype/graphiql-plugin-pane-pathfinder';

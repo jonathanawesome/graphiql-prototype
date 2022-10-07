@@ -4,8 +4,8 @@ import { editor as MONACO_EDITOR } from 'monaco-editor';
 import { editorColors } from '@graphiql-prototype/ui-library';
 
 export const editorThemeDark: MONACO_EDITOR.IStandaloneThemeData = {
-  base: 'vs',
-  inherit: false,
+  base: 'vs-dark',
+  inherit: true,
   colors: {
     'editor.foreground': editorColors && editorColors['dark'].delimiters, // Editor default foreground color.
     'editorCursor.foreground': editorColors && editorColors['dark'].yellow_default, // Color of the editor cursor.
@@ -121,7 +121,7 @@ export const editorThemeDark: MONACO_EDITOR.IStandaloneThemeData = {
 
 export const editorThemeLight: MONACO_EDITOR.IStandaloneThemeData = {
   base: 'vs',
-  inherit: false,
+  inherit: true,
   colors: {
     'editor.foreground': editorColors && editorColors['light'].delimiters, // Editor default foreground color.
     'editorCursor.foreground': editorColors && editorColors['light'].yellow_default, // Color of the editor cursor.

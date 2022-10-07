@@ -6,8 +6,8 @@ import userEvent from '@testing-library/user-event';
 import { Pathfinder } from '../Pathfinder';
 
 // hooks
-import { useEditor } from '@graphiql-prototype/use-editor';
-import { useSchema } from '@graphiql-prototype/use-schema';
+import { useEditor } from '@graphiql-prototype/store';
+import { useSchema } from '@graphiql-prototype/store';
 
 beforeEach(async () => {
   // the current state of schema hook
