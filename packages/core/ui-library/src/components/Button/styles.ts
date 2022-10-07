@@ -68,6 +68,7 @@ export const StyledButton = styled('button', {
       },
       ICON: {
         backgroundColor: `transparent`,
+
         svg: {
           path: {
             fill: theme.colors.text4,
