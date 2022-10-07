@@ -6,7 +6,7 @@ import { PanePluginHistory } from '@graphiql-prototype/graphiql-plugin-pane-hist
 import { PanePluginPathfinder } from '@graphiql-prototype/graphiql-plugin-pane-pathfinder';
 
 // hooks
-import { useSchema } from '@graphiql-prototype/use-schema';
+import { useSchema } from '@graphiql-prototype/store';
 
 // styles
 import { globalStyles } from '@graphiql-prototype/ui-library';

@@ -3,7 +3,7 @@ import { editor as MONACO_EDITOR } from 'monaco-editor/esm/vs/editor/editor.api'
 import type { MonacoGraphQLAPI } from 'monaco-graphql';
 
 // types
-import type { HTTPHeaderValue } from '@graphiql-prototype/use-http-headers';
+import type { HTTPHeaderValue } from '../useHTTPHeaders';
 
 export type EditorTabState = {
   editorTabId: string;

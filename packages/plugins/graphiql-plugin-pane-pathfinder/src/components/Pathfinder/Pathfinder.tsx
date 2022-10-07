@@ -5,8 +5,8 @@ import { QuickDocs, RootOperation } from '../index';
 import { Message, Tabs } from '@graphiql-prototype/ui-library';
 
 // hooks
-import { useEditor } from '@graphiql-prototype/use-editor';
-import { useSchema } from '@graphiql-prototype/use-schema';
+import { useEditor } from '@graphiql-prototype/store';
+import { useSchema } from '@graphiql-prototype/store';
 
 // using this provider allows us to have separate state for the Schema Reference and the simple docs lookup within Pathfinder
 import { SchemaReferenceProvider } from '@graphiql-prototype/graphiql-plugin-schema-documentation';

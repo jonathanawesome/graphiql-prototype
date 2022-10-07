@@ -15,7 +15,7 @@ import { Toggler } from '../Toggler';
 
 // hooks
 import { AncestorMap } from '../../hooks';
-import { useEditor } from '@graphiql-prototype/use-editor';
+import { useEditor } from '@graphiql-prototype/store';
 
 // styles
 import { StyledContainer, StyledError, StyledScalarArgWrap } from './styles';

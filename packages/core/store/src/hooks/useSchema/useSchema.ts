@@ -4,9 +4,9 @@ import * as JSONC from 'jsonc-parser';
 import { buildClientSchema, getIntrospectionQuery, IntrospectionQuery } from 'graphql';
 
 // hooks
-import { useEditor } from '@graphiql-prototype/use-editor';
-import { useHTTPHeaders } from '@graphiql-prototype/use-http-headers';
-import { useTestSchema } from '@graphiql-prototype/use-test-schema';
+import { useEditor } from '../useEditor';
+import { useHTTPHeaders } from '../useHTTPHeaders';
+import { useTestSchema } from '../useTestSchema';
 
 // types
 import { GraphiQLSchemaStore } from './types';

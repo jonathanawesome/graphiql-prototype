@@ -1,5 +1,5 @@
 import create from 'zustand';
-import { useEditor } from '@graphiql-prototype/use-editor';
+import { useEditor } from '@graphiql-prototype/store';
 
 /** toggle */
 import { toggle } from './toggle';

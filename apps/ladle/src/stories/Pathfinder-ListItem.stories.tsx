@@ -2,7 +2,7 @@
 import { ListItem } from '@graphiql-prototype/graphiql-plugin-pane-pathfinder';
 
 // hooks
-import { useTestSchema } from '@graphiql-prototype/use-test-schema';
+import { useTestSchema } from '@graphiql-prototype/store';
 import { GraphQLUnionType, isInputObjectType } from 'graphql';
 
 export const Field = () => {

@@ -3,14 +3,14 @@ import { editor as MONACO_EDITOR } from 'monaco-editor/esm/vs/editor/editor.api'
 import { printSchema } from 'graphql';
 
 // hooks
-import { editorOptions } from '@graphiql-prototype/use-editor';
-import { useSchema } from '@graphiql-prototype/use-schema';
+import { editorOptions, useSchema } from '@graphiql-prototype/store';
+// import {  } from '@graphiql-prototype/store';
 
 // styles
 import { SchemaDefinitionStyled } from './styles';
 
 // utils
-import { getOrCreateModel } from '@graphiql-prototype/use-editor/src/utils';
+import { getOrCreateModel } from '@graphiql-prototype/utils';
 
 export const SchemaDefinition = () => {
   const { schema } = useSchema();

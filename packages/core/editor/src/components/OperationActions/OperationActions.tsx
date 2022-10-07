@@ -2,8 +2,8 @@
 import { Icon, Play, Prettier } from '@graphiql-prototype/ui-library';
 
 // hooks
-import { useEditor } from '@graphiql-prototype/use-editor';
-import { useSchema } from '@graphiql-prototype/use-schema';
+import { useEditor } from '@graphiql-prototype/store';
+import { useSchema } from '@graphiql-prototype/store';
 
 // styles
 import {
