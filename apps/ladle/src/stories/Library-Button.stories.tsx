@@ -8,6 +8,31 @@ const dummyAction = () => {
   alert('clicked button!');
 };
 
+export const Ghost = () => {
+  return (
+    <FlexCol>
+      <FlexRow name={`small - disabled`}>
+        <Button
+          action={dummyAction}
+          isDisabled={true}
+          label="Button Copy"
+          size="SMALL"
+          style="GHOST"
+        />
+      </FlexRow>
+      <FlexRow name={`small`}>
+        <Button action={dummyAction} label="Button Copy" size="SMALL" style="GHOST" />
+      </FlexRow>
+      <FlexRow name={`medium`}>
+        <Button action={dummyAction} label="Button Copy" size="MEDIUM" style="GHOST" />
+      </FlexRow>
+      <FlexRow name={`large`}>
+        <Button action={dummyAction} label="Button Copy" size="LARGE" style="GHOST" />
+      </FlexRow>
+    </FlexCol>
+  );
+};
+
 export const Icon = () => {
   return (
     <FlexCol>

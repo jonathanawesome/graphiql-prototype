@@ -16,7 +16,7 @@ export const StyledRemoveTabButton = styled('button', {
     width: theme.space[3],
     height: theme.space[3],
     path: {
-      fill: theme.colors.text3,
+      fill: theme.colors.text4,
     },
   },
 
