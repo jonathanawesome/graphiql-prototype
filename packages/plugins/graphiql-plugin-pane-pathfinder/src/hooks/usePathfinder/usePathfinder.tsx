@@ -1,5 +1,6 @@
 import create from 'zustand';
 import { useEditor } from '@graphiql-prototype/store';
+import { editor, Range } from 'monaco-editor/esm/vs/editor/editor.api';
 
 /** toggle */
 import { toggle } from './toggle';
@@ -32,5 +33,17 @@ export const usePathfinder = create<PathfinderStore>((set, get) => ({
     // console.log('nextAction', { action });
     set({ nextAction: action });
   },
-  toggle: ({ ancestors, operationType }) => toggle({ ancestors, get, operationType }),
+  newContainer: null,
+  setNewContainer: ({ astNode, range, text }) => {
+    set({ newContainer: { astNode: astNode || null, range, text } });
+  },
+  toggle: ({
+    ancestors,
+    // operationType
+  }) =>
+    toggle({
+      ancestors,
+      get,
+      // operationType
+    }),
 }));

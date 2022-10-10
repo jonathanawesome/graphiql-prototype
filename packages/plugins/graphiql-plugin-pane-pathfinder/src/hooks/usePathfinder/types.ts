@@ -1,18 +1,22 @@
 import {
   ArgumentNode,
+  ASTNode,
   GraphQLArgument,
   GraphQLField,
+  OperationDefinitionNode,
   OperationTypeNode,
   SelectionNode,
   SelectionSetNode,
   VariableDefinitionNode,
 } from 'graphql';
+import { IRange, Range } from 'monaco-editor';
 
 type AncestorSelection = SelectionNode | null;
 type AncestorSelectionSet = SelectionSetNode | undefined;
 
 export type AncestorRoot = {
-  rootTypeName: string;
+  rootTypeName: OperationTypeNode;
+  operationDefinition: OperationDefinitionNode | null;
 };
 
 export type AncestorArgument = {
@@ -42,13 +46,15 @@ export type AncestorTypes =
 
 // we're using a Map here so that we can take advantage of the insertion order
 export type AncestorMap = Map<string, AncestorTypes>;
+export type AncestorsArray = AncestorTypes[];
 
 type ToggleSignature = ({
+  // operationType,
   ancestors,
-  operationType,
 }: {
-  ancestors: AncestorMap;
-  operationType: OperationTypeNode;
+  ancestors: AncestorsArray;
+  // ancestors: AncestorMap;
+  // operationType: OperationTypeNode;
 }) => void;
 
 // begin root type
@@ -93,6 +99,12 @@ export type NextAction = AddAction | RemoveAction | null;
 export type SetNextActionSignature = (action: NextAction) => void;
 // end edit action
 
+type NewShit = {
+  astNode: ASTNode | null;
+  range: IRange;
+  text: string;
+} | null;
+
 export type PathfinderStore = {
   nextOperationType: NextOperationType;
   setNextOperationType: SetNextOperationType;
@@ -103,4 +115,14 @@ export type PathfinderStore = {
   nextAction: NextAction;
   setNextAction: SetNextActionSignature;
   toggle: ToggleSignature;
+  newContainer: NewShit;
+  setNewContainer: ({
+    astNode,
+    range,
+    text,
+  }: {
+    astNode?: ASTNode;
+    range: IRange;
+    text: string;
+  }) => void;
 };

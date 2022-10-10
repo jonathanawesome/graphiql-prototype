@@ -18,11 +18,18 @@ import { Message } from '@graphiql-prototype/ui-library';
 
 // styles
 import { StyledRootOperation } from './styles';
+import {
+  // AncestorMap,
+  AncestorsArray,
+} from '../../hooks';
 
 export const RootOperation = ({
+  ancestors,
   operationType,
   rootType,
 }: {
+  // ancestors: AncestorMap;
+  ancestors: AncestorsArray;
   operationType: OperationTypeNode;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rootType: GraphQLObjectType<any, any> | null;
@@ -80,22 +87,18 @@ export const RootOperation = ({
         .map((field) => (
           <Field
             key={field}
-            ancestors={
-              new Map([
-                [
-                  `${fields[field].name}`,
-                  {
-                    field: fields[field],
-                    selectionSet,
-                    selection:
-                      operationDefinition?.selectionSet?.selections.find(
-                        (selection) =>
-                          (selection as FieldNode).name.value === fields[field].name
-                      ) || null,
-                  },
-                ],
-              ])
-            }
+            ancestors={[
+              {
+                field: fields[field],
+                selectionSet,
+                selection:
+                  operationDefinition?.selectionSet?.selections.find(
+                    (selection) =>
+                      (selection as FieldNode).name.value === fields[field].name
+                  ) || null,
+              },
+              ...ancestors,
+            ]}
             operationType={operationType}
           />
         ))}

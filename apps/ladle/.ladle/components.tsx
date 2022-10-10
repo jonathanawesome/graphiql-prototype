@@ -37,7 +37,7 @@ const Switch = styled('button', {
 
 export const Provider: GlobalProvider = ({ children, globalState }) => {
   const { themeMode, themeClass, toggleThemeMode } = useTheme();
-  console.log('globalState', { globalState });
+
   globalStyles();
 
   return (

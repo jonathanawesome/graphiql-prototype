@@ -5,6 +5,7 @@ import {
   isObjectType,
   isUnionType,
   OperationTypeNode,
+  // print,
 } from 'graphql';
 
 // components
@@ -13,7 +14,8 @@ import { Arguments, Fields, ListItem, Union } from '../index';
 // hooks
 import {
   AncestorField,
-  AncestorMap,
+  // AncestorMap,
+  AncestorsArray,
   // usePathfinder
 } from '../../hooks';
 
@@ -24,12 +26,22 @@ export const Field = ({
   ancestors,
   operationType,
 }: {
-  ancestors: AncestorMap;
+  // ancestors: AncestorMap;
+  ancestors: AncestorsArray;
   operationType: OperationTypeNode;
 }) => {
   // const { fieldsVisibility } = usePathfinder();
 
-  const { field, selectionSet } = ancestors.values().next().value as AncestorField;
+  // const { field, selectionSet } = ancestors.values().next().value as AncestorField;
+  const { field, selectionSet } = ancestors[0] as AncestorField;
+
+  // console.log('rendering Field', {
+  //   ancestors,
+  //   name: field.name,
+  //   // printedSelection: selection && print(selection),
+  //   // parentSelection1: ancestorValues.next().value,
+  //   // parentSelection2: ancestorValues.next().value,
+  // });
 
   const unwrappedType = unwrapType(field.type);
 
@@ -48,10 +60,7 @@ export const Field = ({
     });
   }
 
-  // console.log('rendering Field', {
-  //   field,
-  //   args: field.args,
-  // });
+  // const ancestorValues = ancestors.values();
 
   let childFieldsToRender: React.ReactNode = null;
 

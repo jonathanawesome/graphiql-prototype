@@ -98,10 +98,11 @@ export const Description = styled('div', {
   },
 });
 
-export const DetailsStyled = styled('div', {
+export const StyledDetails = styled('div', {
   display: 'flex',
   gap: 6,
   fontSize: theme.fontSizes.body,
+  cursor: `pointer`,
 
   variants: {
     isSelected: {

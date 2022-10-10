@@ -9,7 +9,11 @@ import {
 import { ListItem, ScalarArg } from '../index';
 
 // hooks
-import { AncestorArgument, AncestorMap } from '../../hooks';
+import {
+  AncestorArgument,
+  // AncestorMap,
+  AncestorsArray,
+} from '../../hooks';
 
 // styles
 import { StyledInputObject } from './styles';
@@ -22,7 +26,8 @@ export const InputObject = ({
   isNested,
   operationType,
 }: {
-  ancestors: AncestorMap;
+  // ancestors: AncestorMap;
+  ancestors: AncestorsArray;
   argument: GraphQLArgument;
   inputObjectType: GraphQLInputObjectType;
   isNested: boolean;
@@ -65,7 +70,7 @@ export const InputObject = ({
               return (
                 <ScalarArg
                   key={fields[f].name}
-                  ancestors={new Map([...ancestors])}
+                  ancestors={[...ancestors]}
                   argument={fields[f]}
                   onInputType={argument.name}
                   operationType={operationType}

@@ -10,7 +10,11 @@ import { Argument } from '../index';
 import { Caret } from '../../icons';
 
 // hooks
-import type { AncestorField, AncestorMap } from '../../hooks';
+import type {
+  AncestorField,
+  // AncestorMap,
+  AncestorsArray,
+} from '../../hooks';
 
 // styles
 import {
@@ -25,7 +29,8 @@ export const Arguments = ({
   operationType,
   selection,
 }: {
-  ancestors: AncestorMap;
+  // ancestors: AncestorMap;
+  ancestors: AncestorsArray;
   operationType: OperationTypeNode;
   selection: FieldNode | null;
 }) => {
@@ -35,7 +40,8 @@ export const Arguments = ({
   //   'selection.arguments': selection?.arguments,
   // });
 
-  const { field } = ancestors.values().next().value as AncestorField;
+  // const { field } = ancestors.values().next().value as AncestorField;
+  const { field } = ancestors[ancestors.length - 1] as AncestorField;
 
   const { args } = field;
 

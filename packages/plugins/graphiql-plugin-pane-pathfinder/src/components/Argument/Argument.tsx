@@ -1,4 +1,4 @@
-import cuid from 'cuid';
+// import cuid from 'cuid';
 import {
   ArgumentNode,
   GraphQLArgument,
@@ -10,7 +10,10 @@ import {
 import { InputObject, ScalarArg } from '../index';
 
 // hooks
-import type { AncestorMap } from '../../hooks';
+import type {
+  // AncestorMap,
+  AncestorsArray,
+} from '../../hooks';
 
 // utils
 import { unwrapNonNullArgumentType } from '../../utils';
@@ -21,7 +24,8 @@ export const Argument = ({
   operationType,
   selection,
 }: {
-  ancestors: AncestorMap;
+  // ancestors: AncestorMap;
+  ancestors: AncestorsArray;
   argument: GraphQLArgument;
   operationType: OperationTypeNode;
   selection: ArgumentNode | undefined;
@@ -33,21 +37,16 @@ export const Argument = ({
   //   selection,
   // });
 
-  const hash = cuid.slug();
+  // const hash = cuid.slug();
 
-  const newArgMap = new Map([
-    [
-      // hash = safety first!
-      `${argument.name}-${hash}`,
-      {
-        argument,
-        selection,
-        variableName: argument.name,
-      },
-    ],
+  const newArgMap = [
+    {
+      argument,
+      selection,
+      variableName: argument.name,
+    },
     ...ancestors,
-  ]);
-
+  ];
   let toRender: React.ReactNode | null = null;
 
   if (isInputObjectType(unwrappedNonNullType)) {

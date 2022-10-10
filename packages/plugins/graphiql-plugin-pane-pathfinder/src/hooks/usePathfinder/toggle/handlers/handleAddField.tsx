@@ -1,4 +1,4 @@
-import { FieldNode, Kind } from 'graphql';
+import { FieldNode, Kind, print, SelectionSetNode } from 'graphql';
 
 // helpers
 import { getFieldSiblings } from '../helpers';
@@ -30,7 +30,6 @@ export const handleAddField = ({
   const currentOperationType = activeEditorTab?.operationDefinition?.operation;
 
   const siblings = getFieldSiblings({ ancestor });
-  // console.log('running handleAddField', { ancestor, siblings });
 
   /** first, we build a new FieldNode using the field's name */
   const newFieldNode: FieldNode = {
@@ -61,11 +60,15 @@ export const handleAddField = ({
     });
   }
 
-  /** update the nextSelectionSet to include our new field node and any sibling selections */
-  return setNextSelectionSet({
-    nextSelectionSet: {
-      kind: Kind.SELECTION_SET,
-      selections: siblings ? [newFieldNode, ...siblings] : [newFieldNode],
-    },
+  const nextSelectionSet: SelectionSetNode = {
+    kind: Kind.SELECTION_SET,
+    selections: siblings ? [newFieldNode, ...siblings] : [newFieldNode],
+  };
+  console.log('running handleAddField', {
+    printedFieldNode: print(newFieldNode),
+    nextSelectionSet: print(nextSelectionSet),
   });
+
+  /** update the nextSelectionSet to include our new field node and any sibling selections */
+  return setNextSelectionSet({ nextSelectionSet });
 };

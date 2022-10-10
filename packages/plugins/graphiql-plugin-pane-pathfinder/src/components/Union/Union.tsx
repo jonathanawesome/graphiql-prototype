@@ -1,4 +1,4 @@
-import cuid from 'cuid';
+// import cuid from 'cuid';
 
 import {
   FieldNode,
@@ -13,10 +13,14 @@ import {
 import { Fields, ListItem } from '../index';
 
 // types
-import type { AncestorMap } from '../../hooks';
+import type {
+  // AncestorMap,
+  AncestorsArray,
+} from '../../hooks';
 
 type UnionProps = {
-  ancestors: AncestorMap;
+  // ancestors: AncestorMap;
+  ancestors: AncestorsArray;
   operationType: OperationTypeNode;
   selection: FieldNode | InlineFragmentNode | undefined;
   unionType: GraphQLUnionType;
@@ -48,13 +52,14 @@ const UnionMember = ({
   operationType,
   selection,
 }: {
-  ancestors: AncestorMap;
+  // ancestors: AncestorMap;
+  ancestors: AncestorsArray;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   objectMember: GraphQLObjectType<any, any>;
   operationType: OperationTypeNode;
   selection: FieldNode | InlineFragmentNode | undefined;
 }) => {
-  const hash = cuid.slug();
+  // const hash = cuid.slug();
 
   const inlineFragmentNode = selection?.selectionSet?.selections?.find(
     (s) =>
@@ -66,21 +71,14 @@ const UnionMember = ({
       collapsibleContent={{
         childFields: (
           <Fields
-            ancestors={
-              new Map([
-                // set inline fragment ancestor
-                [
-                  // hash = safety first!
-                  `${objectMember.name}-${hash}`,
-                  {
-                    onType: objectMember.name,
-                    selectionSet: selection?.selectionSet,
-                    selection: inlineFragmentNode || null,
-                  },
-                ],
-                ...ancestors,
-              ])
-            }
+            ancestors={[
+              {
+                onType: objectMember.name,
+                selectionSet: selection?.selectionSet,
+                selection: inlineFragmentNode || null,
+              },
+              ...ancestors,
+            ]}
             fields={objectMember.getFields()}
             operationType={operationType}
             selection={inlineFragmentNode}

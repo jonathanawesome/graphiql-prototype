@@ -1,4 +1,7 @@
-import { OperationTypeNode } from 'graphql';
+import {
+  // OperationDefinitionNode,
+  OperationTypeNode,
+} from 'graphql';
 
 // components
 import { QuickDocs, RootOperation } from '../index';
@@ -49,6 +52,13 @@ export const Pathfinder = () => {
                   name: 'Query',
                   panel: (
                     <RootOperation
+                      ancestors={[
+                        {
+                          rootTypeName: OperationTypeNode.QUERY,
+                          operationDefinition:
+                            activeEditorTab && activeEditorTab.operationDefinition,
+                        },
+                      ]}
                       rootType={schema.getQueryType() || null}
                       operationType={OperationTypeNode.QUERY}
                     />
@@ -59,6 +69,13 @@ export const Pathfinder = () => {
                   name: 'Mutation',
                   panel: (
                     <RootOperation
+                      ancestors={[
+                        {
+                          rootTypeName: OperationTypeNode.MUTATION,
+                          operationDefinition:
+                            activeEditorTab && activeEditorTab.operationDefinition,
+                        },
+                      ]}
                       rootType={schema.getMutationType() || null}
                       operationType={OperationTypeNode.MUTATION}
                     />
@@ -69,6 +86,13 @@ export const Pathfinder = () => {
                   name: 'Subscription',
                   panel: (
                     <RootOperation
+                      ancestors={[
+                        {
+                          rootTypeName: OperationTypeNode.SUBSCRIPTION,
+                          operationDefinition:
+                            activeEditorTab && activeEditorTab.operationDefinition,
+                        },
+                      ]}
                       rootType={schema.getSubscriptionType() || null}
                       operationType={OperationTypeNode.SUBSCRIPTION}
                     />

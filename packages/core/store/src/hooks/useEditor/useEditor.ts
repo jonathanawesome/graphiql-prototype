@@ -49,7 +49,6 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     operations: null,
     variables: null,
     results: null,
-    headers: null,
   },
   addMonacoEditor: ({ editor, name }) => {
     // console.log('running addMonacoEditor', { editor, name });
@@ -106,7 +105,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
 
       editor.onDidContentSizeChange(() => {
         const contentHeight = editor.getContentHeight();
-        if (monacoEditorRef && monacoEditorRef) {
+        if (monacoEditorRef) {
           monacoEditorRef.style.height = `${contentHeight}px`;
         }
       });
@@ -403,17 +402,75 @@ export const useEditor = create<EditorStore>()((set, get) => ({
       (editorTab) => editorTab.editorTabId === activeEditorTabId
     );
 
+    // const monacoEditors = get().monacoEditors;
+
+    // let editor: MONACO_EDITOR.IStandaloneCodeEditor | null = null;
+    // if (modelType === 'operationsModel') {
+    //   editor = monacoEditors.operations;
+    // }
+    // if (modelType === 'variablesModel') {
+    //   editor = monacoEditors.variables;
+    // }
+    // if (modelType === 'resultsModel') {
+    //   editor = monacoEditors.results;
+    // }
+
     if (activeEditorTab) {
       const model = activeEditorTab[modelType];
+      // const matches = model.findMatches('deferrable', true, false, true, null, true);
+      // console.log('findMatches', {
+      //   matches,
+      //   newValue,
+      // });
+
+      // const selection = editor?.getSelection();
+      // if (matches.length > 0 && matches[0]) {
+      //   // const model = editor.getModel();
+      //   editor?.executeEdits('update-value', [
+      //     {
+      //       range: {
+      //         startLineNumber: matches[0].range.startLineNumber,
+      //         endLineNumber: matches[0].range.startLineNumber + 1,
+      //         startColumn: matches[0].range.endColumn + 1,
+      //         endColumn: 2,
+      //       },
+      //       text: ' {\n    normalString  \n  }\n}',
+      //       forceMoveMarkers: true,
+      //     },
+      //   ]);
+      //   editor?.setSelection(selection);
+      //   //   const edit: MONACO_EDITOR.IIdentifiedSingleEditOperation = {
+      //   //     range: {
+      //   //       startLineNumber: matches[0].range.startLineNumber,
+      //   //       endLineNumber: matches[0].range.startLineNumber + 1,
+      //   //       startColumn: matches[0].range.endColumn + 1,
+      //   //       endColumn: 2,
+      //   //     },
+      //   //     text: '{\n    dogfood  \n  }\n}',
+      //   //   };
+      //   //   model.pushEditOperations([], [edit], (edit) => null);
+      // } else {
+      //   editor?.executeEdits('update-value', [
+      //     {
+      //       range: model.getFullModelRange(),
+      //       text: newValue,
+      //       // forceMoveMarkers: true,
+      //     },
+      //   ]);
+      //   editor?.setSelection(selection);
+
+      // }
+
       model.pushEditOperations(
         [],
         [
           {
+            forceMoveMarkers: true,
             range: model.getFullModelRange(),
             text: newValue,
           },
         ],
-        () => []
+        () => null
       );
     }
   },
@@ -472,7 +529,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
 
     const parsedQuery = parseQuery(value);
 
-    // console.log('updateOperationDefinitionFromModelValue', { value, parsedQuery });
+    console.log('updateOperationDefinitionFromModelValue', { value, parsedQuery });
 
     if (!(parsedQuery instanceof Error)) {
       // console.log('parsedQuery', { parsedQuery });
