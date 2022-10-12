@@ -1,5 +1,5 @@
 import { OperationDefinitionNode } from 'graphql';
-import { editor as MONACO_EDITOR } from 'monaco-editor/esm/vs/editor/editor.api';
+import { editor as MONACO_EDITOR, IRange } from 'monaco-editor/esm/vs/editor/editor.api';
 import type { MonacoGraphQLAPI } from 'monaco-graphql';
 
 // types
@@ -92,11 +92,13 @@ export type EditorStore = {
   // "other"
   splitMultipleOperationsToSeparateTabs: () => void;
   updateModel: ({
-    modelType,
-    newValue,
+    range,
+    targetModel,
+    text,
   }: {
-    modelType: 'operationsModel' | 'variablesModel' | 'resultsModel';
-    newValue: string;
+    range?: IRange;
+    targetModel: 'operationsModel' | 'variablesModel' | 'resultsModel';
+    text: string | null;
   }) => void;
   updateOperationDefinition: ({
     newDefinition,

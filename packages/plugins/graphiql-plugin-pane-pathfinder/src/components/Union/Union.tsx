@@ -72,12 +72,12 @@ const UnionMember = ({
         childFields: (
           <Fields
             ancestors={[
+              ...ancestors,
               {
                 onType: objectMember.name,
                 selectionSet: selection?.selectionSet,
                 selection: inlineFragmentNode || null,
               },
-              ...ancestors,
             ]}
             fields={objectMember.getFields()}
             operationType={operationType}

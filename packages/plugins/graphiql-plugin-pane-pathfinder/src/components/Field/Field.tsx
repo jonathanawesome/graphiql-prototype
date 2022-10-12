@@ -33,7 +33,7 @@ export const Field = ({
   // const { fieldsVisibility } = usePathfinder();
 
   // const { field, selectionSet } = ancestors.values().next().value as AncestorField;
-  const { field, selectionSet } = ancestors[0] as AncestorField;
+  const { field, selectionSet } = ancestors[ancestors.length - 1] as AncestorField;
 
   // console.log('rendering Field', {
   //   ancestors,

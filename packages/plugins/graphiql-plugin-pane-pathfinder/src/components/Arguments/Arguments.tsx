@@ -42,6 +42,7 @@ export const Arguments = ({
 
   // const { field } = ancestors.values().next().value as AncestorField;
   const { field } = ancestors[ancestors.length - 1] as AncestorField;
+  // const { field } = ancestors[0] as AncestorField;
 
   const { args } = field;
 

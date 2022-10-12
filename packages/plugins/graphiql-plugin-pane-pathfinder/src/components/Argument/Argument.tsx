@@ -40,12 +40,12 @@ export const Argument = ({
   // const hash = cuid.slug();
 
   const newArgMap = [
+    ...ancestors,
     {
       argument,
       selection,
       variableName: argument.name,
     },
-    ...ancestors,
   ];
   let toRender: React.ReactNode | null = null;
 

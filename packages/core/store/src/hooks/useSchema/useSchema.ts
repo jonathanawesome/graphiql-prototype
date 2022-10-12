@@ -52,8 +52,8 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
 
       if (schemaUrl === testSchemaUrl) {
         return updateModel({
-          modelType: 'resultsModel',
-          newValue: JSON.stringify(
+          targetModel: 'resultsModel',
+          text: JSON.stringify(
             {
               test_schema: `Hey there, looks like you're viewing the test schema. This schema is not backed by a server...you should try one of the publicly available schemas.`,
             },
@@ -77,13 +77,13 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
         });
 
         updateModel({
-          modelType: 'resultsModel',
-          newValue: JSON.stringify(result, null, 2),
+          targetModel: 'resultsModel',
+          text: JSON.stringify(result, null, 2),
         });
       } catch (error) {
         updateModel({
-          modelType: 'resultsModel',
-          newValue: JSON.stringify(error, Object.getOwnPropertyNames(error), 2),
+          targetModel: 'resultsModel',
+          text: JSON.stringify(error, Object.getOwnPropertyNames(error), 2),
         });
       }
     }

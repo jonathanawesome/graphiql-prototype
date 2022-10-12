@@ -1,6 +1,6 @@
 import {
   ArgumentNode,
-  ASTNode,
+  FieldNode,
   GraphQLArgument,
   GraphQLField,
   OperationDefinitionNode,
@@ -9,7 +9,6 @@ import {
   SelectionSetNode,
   VariableDefinitionNode,
 } from 'graphql';
-import { IRange, Range } from 'monaco-editor';
 
 type AncestorSelection = SelectionNode | null;
 type AncestorSelectionSet = SelectionSetNode | undefined;
@@ -99,11 +98,33 @@ export type NextAction = AddAction | RemoveAction | null;
 export type SetNextActionSignature = (action: NextAction) => void;
 // end edit action
 
-type NewShit = {
-  astNode: ASTNode | null;
-  range: IRange;
-  text: string;
-} | null;
+// type NewNextAction = {
+//   type: 'NEW_OPERATION' | 'INSERT' | 'REMOVE';
+//   payload: { type: 'FIELD'; node: FieldNode };
+// };
+// type NewSetNextActionSignature = ({ action }: { action: NewNextAction | null }) => void;
+
+type ActionMode = 'NEW_OPERATION' | 'INSERT' | 'REMOVE' | null;
+type NextField = FieldNode | null;
+
+// type PartTypes = "OPERATION" | "FIELD"
+
+// export type OperationPart = {
+//   type: 'OPERATION';
+//   operationDefinitionNode: OperationDefinitionNode;
+// };
+
+// export type FieldPart = {
+//   type: 'FIELD';
+//   fieldNode: FieldNode;
+// };
+
+// type PartTypes = OperationPart | FieldPart;
+
+type Parts = {
+  operationDefinition: OperationDefinitionNode | null;
+  fields: FieldNode[];
+};
 
 export type PathfinderStore = {
   nextOperationType: NextOperationType;
@@ -114,15 +135,20 @@ export type PathfinderStore = {
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
   nextAction: NextAction;
   setNextAction: SetNextActionSignature;
+
+  nextField: NextField;
+  setNextField: ({ nextField }: { nextField: NextField }) => void;
+  actionMode: ActionMode;
+  setActionMode: ({ actionMode }: { actionMode: ActionMode }) => void;
+
+  // parts: Parts;
+  // // pushParts: ({ part }: { part: OperationDefinitionNode | FieldNode }) => void;
+  // setOperationDefinition: ({
+  //   operationDefinition,
+  // }: {
+  //   operationDefinition: OperationDefinitionNode;
+  // }) => void;
+  // pushPartsField: ({ field }: { field: FieldNode }) => void;
+  // resetParts: () => void;
   toggle: ToggleSignature;
-  newContainer: NewShit;
-  setNewContainer: ({
-    astNode,
-    range,
-    text,
-  }: {
-    astNode?: ASTNode;
-    range: IRange;
-    text: string;
-  }) => void;
 };

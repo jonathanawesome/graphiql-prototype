@@ -39,6 +39,7 @@ export const Fields = ({
         <Field
           key={fields[f].name}
           ancestors={[
+            ...ancestors,
             {
               field: fields[f],
               selectionSet: selection?.selectionSet,
@@ -47,7 +48,6 @@ export const Fields = ({
                   (s) => s.kind === Kind.FIELD && s.name.value === fields[f].name
                 ) || null,
             },
-            ...ancestors,
           ]}
           operationType={operationType}
         />

@@ -284,8 +284,8 @@ export const useEditor = create<EditorStore>()((set, get) => ({
       });
 
       updateModel({
-        modelType: 'operationsModel',
-        newValue: print({
+        targetModel: 'operationsModel',
+        text: print({
           kind: Kind.DOCUMENT,
           definitions: [[...parsedQuery.definitions][0]],
         }),
@@ -394,80 +394,26 @@ export const useEditor = create<EditorStore>()((set, get) => ({
       console.log("editorTab doesn't exist ☠️");
     }
   },
-  updateModel: ({ modelType, newValue }) => {
+  updateModel: ({ range, targetModel, text }) => {
     const editorTabs = get().editorTabs;
     const activeEditorTabId = get().activeEditorTabId;
+
+    console.log('updateModel', { range, targetModel, text });
 
     const activeEditorTab = editorTabs.find(
       (editorTab) => editorTab.editorTabId === activeEditorTabId
     );
 
-    // const monacoEditors = get().monacoEditors;
-
-    // let editor: MONACO_EDITOR.IStandaloneCodeEditor | null = null;
-    // if (modelType === 'operationsModel') {
-    //   editor = monacoEditors.operations;
-    // }
-    // if (modelType === 'variablesModel') {
-    //   editor = monacoEditors.variables;
-    // }
-    // if (modelType === 'resultsModel') {
-    //   editor = monacoEditors.results;
-    // }
-
     if (activeEditorTab) {
-      const model = activeEditorTab[modelType];
-      // const matches = model.findMatches('deferrable', true, false, true, null, true);
-      // console.log('findMatches', {
-      //   matches,
-      //   newValue,
-      // });
-
-      // const selection = editor?.getSelection();
-      // if (matches.length > 0 && matches[0]) {
-      //   // const model = editor.getModel();
-      //   editor?.executeEdits('update-value', [
-      //     {
-      //       range: {
-      //         startLineNumber: matches[0].range.startLineNumber,
-      //         endLineNumber: matches[0].range.startLineNumber + 1,
-      //         startColumn: matches[0].range.endColumn + 1,
-      //         endColumn: 2,
-      //       },
-      //       text: ' {\n    normalString  \n  }\n}',
-      //       forceMoveMarkers: true,
-      //     },
-      //   ]);
-      //   editor?.setSelection(selection);
-      //   //   const edit: MONACO_EDITOR.IIdentifiedSingleEditOperation = {
-      //   //     range: {
-      //   //       startLineNumber: matches[0].range.startLineNumber,
-      //   //       endLineNumber: matches[0].range.startLineNumber + 1,
-      //   //       startColumn: matches[0].range.endColumn + 1,
-      //   //       endColumn: 2,
-      //   //     },
-      //   //     text: '{\n    dogfood  \n  }\n}',
-      //   //   };
-      //   //   model.pushEditOperations([], [edit], (edit) => null);
-      // } else {
-      //   editor?.executeEdits('update-value', [
-      //     {
-      //       range: model.getFullModelRange(),
-      //       text: newValue,
-      //       // forceMoveMarkers: true,
-      //     },
-      //   ]);
-      //   editor?.setSelection(selection);
-
-      // }
+      const model = activeEditorTab[targetModel];
 
       model.pushEditOperations(
         [],
         [
           {
             forceMoveMarkers: true,
-            range: model.getFullModelRange(),
-            text: newValue,
+            range: range || model.getFullModelRange(),
+            text,
           },
         ],
         () => null
@@ -549,7 +495,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
       const firstDefinition = parsedQuery?.definitions[0];
 
       if (!firstDefinition) {
-        return null;
+        return updateOperationDefinition({ newDefinition: null });
       }
 
       if (

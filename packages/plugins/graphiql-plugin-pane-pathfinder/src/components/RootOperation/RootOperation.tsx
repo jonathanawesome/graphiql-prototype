@@ -88,6 +88,7 @@ export const RootOperation = ({
           <Field
             key={field}
             ancestors={[
+              ...ancestors,
               {
                 field: fields[field],
                 selectionSet,
@@ -97,7 +98,6 @@ export const RootOperation = ({
                       (selection as FieldNode).name.value === fields[field].name
                   ) || null,
               },
-              ...ancestors,
             ]}
             operationType={operationType}
           />

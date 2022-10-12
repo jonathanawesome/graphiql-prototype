@@ -1,6 +1,5 @@
 import create from 'zustand';
 import { useEditor } from '@graphiql-prototype/store';
-import { editor, Range } from 'monaco-editor/esm/vs/editor/editor.api';
 
 /** toggle */
 import { toggle } from './toggle';
@@ -33,10 +32,54 @@ export const usePathfinder = create<PathfinderStore>((set, get) => ({
     // console.log('nextAction', { action });
     set({ nextAction: action });
   },
-  newContainer: null,
-  setNewContainer: ({ astNode, range, text }) => {
-    set({ newContainer: { astNode: astNode || null, range, text } });
+
+  // newNextAction: null,
+  // newSetNextAction: ({ action }) => {
+  //   // console.log('nextAction', { action });
+  //   set({ newNextAction: action });
+  // },
+  nextField: null,
+  setNextField: ({ nextField }) => {
+    set({ nextField });
   },
+  actionMode: null,
+  setActionMode: ({ actionMode }) => {
+    set({ actionMode });
+  },
+
+  // parts: {
+  //   operationDefinition: null,
+  //   fields: [],
+  // },
+  // pushPartsField: ({ field }) => {
+  //   const parts = get().parts;
+  //   set({
+  //     parts: {
+  //       ...parts,
+  //       fields: [...parts.fields, field],
+  //     },
+  //   });
+  // },
+
+  // setOperationDefinition: ({ operationDefinition }) => {
+  //   const parts = get().parts;
+  //   set({
+  //     parts: {
+  //       ...parts,
+  //       operationDefinition,
+  //     },
+  //   });
+  // },
+
+  // resetParts: () => {
+  //   set({
+  //     parts: {
+  //       operationDefinition: null,
+  //       fields: [],
+  //     },
+  //   });
+  // },
+
   toggle: ({
     ancestors,
     // operationType
