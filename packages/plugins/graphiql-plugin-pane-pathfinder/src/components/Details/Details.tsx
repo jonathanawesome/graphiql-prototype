@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { isRequiredArgument, isRequiredInputField } from 'graphql';
 
 // components
@@ -11,7 +12,6 @@ import { StyledDetails, NameAndType, Name, Type } from './styles';
 
 // types
 import type { ListItemTypeTypes, ListItemVariants } from '../ListItem';
-import { useState } from 'react';
 
 export type DetailsProps = {
   isSelected: boolean;

@@ -10,7 +10,6 @@ import { Caret } from '../../icons';
 
 // styles
 import {
-  // Arguments,
   ChildFields,
   CollapsibleContent,
   CollapsibleRoot,
@@ -25,7 +24,6 @@ import { Toggler } from '../Toggler';
 
 // types
 import { ListItemProps } from './types';
-// import { Description } from '../Description';
 
 export const ListItem = ({
   collapsibleContent,
@@ -81,16 +79,10 @@ export const ListItem = ({
             {'deprecationReason' in type && type.deprecationReason && (
               <DeprecatedMessage deprecationReason={type.deprecationReason} />
             )}
-            {/* {'description' in type && type.description && (
-              <Description description={type.description} />
-            )} */}
+
             {collapsibleContent.arguments && collapsibleContent.arguments}
             {collapsibleContent.childFields && (
-              <ChildFields
-              // variant={variant}
-              >
-                {collapsibleContent.childFields}
-              </ChildFields>
+              <ChildFields>{collapsibleContent.childFields}</ChildFields>
             )}
           </CollapsibleContent>
         </ListItemStyled>

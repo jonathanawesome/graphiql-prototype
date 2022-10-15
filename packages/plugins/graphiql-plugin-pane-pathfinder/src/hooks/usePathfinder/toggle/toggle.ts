@@ -1,5 +1,4 @@
-import { StoreApi } from 'zustand';
-import { Kind, Location, print, SelectionNode } from 'graphql';
+import { FieldNode, Location } from 'graphql';
 import { IRange } from 'monaco-editor';
 
 // helpers
@@ -9,14 +8,10 @@ import { insertNewOperation } from './insertNewOperation';
 import { useEditor } from '@graphiql-prototype/store';
 
 // types
-import { AncestorField, AncestorRoot, AncestorsArray, PathfinderStore } from '../types';
+import { AncestorField, AncestorRoot, AncestorsArray } from '../types';
 
-// utils
 import {
-  FieldNode,
-  //  Kind
-} from 'graphql';
-import {
+  rangeInsertAfterField,
   rangeInsertBeforeClosingBracket,
   rangeRemoveForAllSelectionsOfField,
   rangeRemoveForFieldWithSelections,
@@ -26,19 +21,16 @@ import {
 const targetModel = 'operationsModel';
 
 export const toggle = ({
-  get,
   ancestors,
 }: {
   ancestors: AncestorsArray;
-  get: StoreApi<PathfinderStore>['getState'];
+  // eslint-disable-next-line consistent-return
 }) => {
   const activeEditorTab = useEditor.getState().getActiveTab();
   const updateModel = useEditor.getState().updateModel;
 
   const target = ancestors[ancestors.length - 1];
   const index = ancestors.findIndex((a) => a === target);
-
-  // const ancestorSelectionsCount = target.selectionSet?.selections.length;
 
   const previousAncestor = ancestors[index - 1];
   const countPreviousAncestorSelections = (): number => {
@@ -65,10 +57,6 @@ export const toggle = ({
 
   console.log('toggle', {
     ancestors,
-    rootIsFirst: 'operationType' in ancestors[0],
-    previousAncestor,
-    // ancestorSelectionsCount,
-    previousAncestorSelectionsCount,
   });
 
   // 👇 short-circuit this process and build a brand new operation if we don't have an active operation definition
@@ -88,11 +76,8 @@ export const toggle = ({
       const location = target.selection?.loc as Location;
 
       if (!isNestedField) {
-        // 1. this is a top level field and is the only selection
         if (previousAncestorSelectionsCount === 1) {
-          console.log('REMOVE: this is a top level field and is the only selection', {});
-
-          // * WORKING!
+          // console.log('REMOVE: this is a top level field and is the only selection', {});
           return updateModel({
             range: activeEditorTab.operationsModel.getFullModelRange(),
             targetModel,
@@ -100,31 +85,24 @@ export const toggle = ({
           });
         }
 
-        // 2. this is a top level field but there are other top level selections
         if (previousAncestorSelectionsCount > 0) {
-          console.log(
-            'REMOVE: this is a top level field but there are other top level selections',
-            {
-              location,
-              target,
-            }
-          );
+          // console.log(
+          //   'REMOVE: this is a top level field but there are other top level selections'
+          // );
 
-          // does this field have selections?
           if (
             target.selection &&
             'selectionSet' in target.selection &&
             target.selection.selectionSet
           ) {
-            // range has to be the entire selection here
-            // * WORKING
+            // if this field has existing selections, we use an expanded range
             return updateModel({
               range: rangeRemoveForFieldWithSelections({ location }),
               targetModel,
               text: null,
             });
           } else {
-            // * WORKING
+            // if this field does not have selections, we just remove the field
             return updateModel({
               range: rangeRemoveForSingleLine({ location }),
               targetModel,
@@ -135,13 +113,8 @@ export const toggle = ({
       }
 
       if (isNestedField) {
-        // 3. this is not a top level field and is the only selection
         if (previousAncestorSelectionsCount === 1) {
-          console.log(
-            'REMOVE: this is not a top level field and is the only selection',
-            location
-          );
-          // * WORKING
+          // console.log('REMOVE: this is not a top level field and is the only selection');
           return updateModel({
             range: rangeRemoveForAllSelectionsOfField({ location }),
             targetModel,
@@ -151,18 +124,18 @@ export const toggle = ({
 
         // 4. this is not a top level field but there are other selections
         if (previousAncestorSelectionsCount > 1) {
-          console.log(
-            'REMOVE: this is not a top level field but there are other selections',
-            { location }
-          );
+          // console.log(
+          //   'REMOVE: this is not a top level field but there are other selections'
+          // );
           if ((target.selection as FieldNode).selectionSet) {
-            // this target has selections, we need to remove all of them
+            // if this field has existing selections, we use an expanded range
             return updateModel({
               range: rangeRemoveForFieldWithSelections({ location }),
               targetModel,
               text: null,
             });
           } else {
+            // if this field does not have selections, we just remove the field
             return updateModel({
               range: rangeRemoveForSingleLine({ location }),
               targetModel,
@@ -175,26 +148,13 @@ export const toggle = ({
 
     if (!isSelected) {
       // this is an INSERT action
-      // const ancestorSelectionsCount = target.selectionSet?.selections.length;
-      // const previousAncestor = ancestors[index - 1];
-
-      // 1. this is a top level field and there are no other top level selections <-- this case means that there is no operation and should be covered by NEW_OPERATION
-      // if (!('field' in previousAncestor) && ancestorSelectionsCount === 1) {
-      //   return console.log(
-      //     'SHOULD NOT SEE THIS!: this is a top level field and there are no other top level selections'
-      //   );
-      // }
-
-      // 2. this is a top level field and there are existing top level selections
       if (!isNestedField && previousAncestorSelectionsCount > 0) {
-        console.log(
-          'INSERT: this is a top level field and there are existing top level selections',
-          { previousAncestor }
-        );
+        // console.log(
+        //   'INSERT: this is a top level field and there are existing top level selections',
+        // );
         const location = (previousAncestor as AncestorRoot).operationDefinition
           ?.loc as Location;
 
-        // * WORKING!
         return updateModel({
           range: rangeInsertBeforeClosingBracket({ location }),
           targetModel,
@@ -202,18 +162,13 @@ export const toggle = ({
         });
       }
 
-      // 3. this is not a top level field and it's parent is selected
       if (isNestedField && previousAncestor.selection) {
+        // console.log(`INSERT: this is not a top level field and it's parent is selected`);
+
         const location = previousAncestor.selection.loc as Location;
-        console.log(`INSERT: this is not a top level field and it's parent is selected`, {
-          previousAncestor,
-          location,
-          previousAncestorSelectionsCount,
-        });
 
         // if the parent has more than one selection, our range is one thing
         if (previousAncestorSelectionsCount > 0) {
-          // * WORKING!
           return updateModel({
             range: rangeInsertBeforeClosingBracket({ location }),
             targetModel,
@@ -224,133 +179,106 @@ export const toggle = ({
           const calculatedWrite = `${previousAncestor.field.name} {\n${' '.repeat(
             location.startToken.column + 1
           )}${target.field.name}\n${' '.repeat(location.startToken.column - 1)}}`;
-          const range: IRange = {
-            startLineNumber: location.startToken.line,
-            startColumn: location.startToken.column,
-            endLineNumber: location.startToken.line,
-            endColumn:
-              location.startToken.column + previousAncestor.field.name.length + 2,
-          };
-          // * WORKING!
 
           return updateModel({
-            range,
+            range: rangeInsertAfterField({
+              endColumn:
+                location.startToken.column + previousAncestor.field.name.length + 2,
+              location,
+            }),
             targetModel,
             text: calculatedWrite,
           });
         }
       }
-      // 4. this is not a top level field and it's parent is NOT selected
+
+      // this is the most complicated case to reckon...reader beware ☠️
+      // our target is a nested field and the previous ancestor is not selected
       if (isNestedField && !previousAncestor.selection) {
-        console.log(
-          'field, is not selected, is target, setting actionMode to INSERT --- CHALLENGE',
-          {
-            name: target.field.name,
-          }
-        );
+        // console.log(
+        //   'field, is not selected, is target, setting actionMode to INSERT --- CHALLENGE'
+        // );
 
         // capture all ancestors except the first, which is always the root operation type
         const fieldAncestors = [...ancestors.slice(1)] as AncestorField[];
 
         // from those ancestors, capture all that are not selected
+        // we'll use this array to build our new selection
         const allUnselectedAncestors = fieldAncestors.filter((a) => !a.selection);
 
+        // capture the nearest ancestor that is selected
+        // used for location/range and determining if our new selection should be wrapped in brackets
         const nearestSelectedAncestor = [...fieldAncestors]
           .reverse()
           .find((a) => a.selection);
 
+        // a boolean indicating whether our nearest selected ancestor has selections of it's own
+        // also used for location/range and determining if our new selection should be wrapped in brackets
         const nearestSelectedAncestorHasSelections = !!(
           nearestSelectedAncestor?.selection &&
           'selectionSet' in nearestSelectedAncestor?.selection &&
           nearestSelectedAncestor?.selection.selectionSet
         );
 
-        // const nearestSelectedAncestorHasSelections = () => {
-        //   if (
-        //     nearestSelectedAncestor?.selection &&
-        //     'selectionSet' in nearestSelectedAncestor?.selection &&
-        //     nearestSelectedAncestor?.selection.selectionSet
-        //   ) {
-        //     return true;
-        //   }
-        //   return false;
-        // };
-
-        const targetLocation = () => {
-          let location: Location | null = null;
-          if (nearestSelectedAncestor) {
-            console.log('assigning location to nearest field ancestor', {
-              nearestSelectedAncestor,
-            });
-            location = nearestSelectedAncestor.selection?.loc as Location;
-          } else {
-            console.log('assigning location to operation', {
-              nearestSelectedAncestor,
-            });
-
-            location = (ancestors[0] as AncestorRoot).operationDefinition
-              ?.loc as Location;
-          }
-          return location;
-        };
-        const location = targetLocation();
+        // the location of our insert action is either the nearest selected ancestor or the root operation type
+        const location = nearestSelectedAncestor
+          ? (nearestSelectedAncestor.selection?.loc as Location)
+          : ((ancestors[0] as AncestorRoot).operationDefinition?.loc as Location);
 
         const calculatedText = () => {
+          const arr = allUnselectedAncestors;
+          const indentSize = 2;
+
+          // if we have a nearest selected ancestor (meaning we're adding to a selected field, not to the root operation)
+          // and that ancestor does not have selections, we should add wrapping brackets
           const shouldAddWrappingBrackets =
-            // we _have_ a nearest selected ancestor (meaning we're adding to a selected field, not to the root operation)
-            // also, that ancestor does not have selections
-            // so we should add wrapping brackets
             !!nearestSelectedAncestor && !nearestSelectedAncestorHasSelections;
-          let text = '';
+
+          let fieldText = '';
+          let bracketText = '';
+
           if (shouldAddWrappingBrackets) {
-            text += ` {\n`;
+            fieldText += ` {\n`;
           }
-          const tabSize = 2;
 
-          let fieldIndentCount =
-            (ancestors.length - allUnselectedAncestors.length) * tabSize;
-          let bracketIndentCount = (ancestors.length - 2) * tabSize;
+          // a variable to hold the count of the number of spaces to indent each of our fields
+          // we increment this for every field
+          let fieldIndentCount = (ancestors.length - arr.length) * indentSize;
 
-          allUnselectedAncestors.forEach((a, index) => {
+          // a variable to hold the count of the number of spaces to indent the closing brackets on each of our fields (where necessary)
+          // we decrement this for every field/bracket
+          let bracketIndentCount = (ancestors.length - 2) * indentSize;
+
+          arr.forEach((a, index) => {
             const fieldIndent = ' '.repeat(fieldIndentCount);
-            text += `${fieldIndent}`;
-            text += `${a.field.name}`;
-            text += ` `;
-            text += `${index < allUnselectedAncestors.length - 1 ? `{\n` : '\n'}`;
+            fieldText += fieldIndent;
+            fieldText += a.field.name;
+            // this space is critical, so i'm calling it out here
+            fieldText += ' ';
+            fieldText += `${index < arr.length - 1 ? '{\n' : '\n'}`;
             fieldIndentCount += 2;
-          });
-          allUnselectedAncestors.forEach((_a, index) => {
+
             const bracketIndent = `${' '.repeat(bracketIndentCount)}}\n`;
-            text += `${index < allUnselectedAncestors.length - 1 ? bracketIndent : ''}`;
+            bracketText += `${index < arr.length - 1 ? bracketIndent : ''}`;
             bracketIndentCount -= 2;
           });
 
           if (shouldAddWrappingBrackets) {
-            text += `${' '.repeat(bracketIndentCount + 2)}}`;
+            bracketText += `${' '.repeat(bracketIndentCount + 2)}}`;
           }
+          const text = fieldText + bracketText;
+
           return text;
         };
-
-        const text = calculatedText();
 
         let range: IRange | null = null;
 
         if (!nearestSelectedAncestor) {
-          // nearestSelectedAncestor is undefined, which means we're toggling a nested field for which the top level field is not selected
-          // this also means that there is already one or more top level fields that are selected
-          range = {
-            startLineNumber: location.endToken.line,
-            startColumn: location.startToken.column,
-            endLineNumber: location.endToken.line,
-            endColumn: location.startToken.column,
-          };
+          range = rangeInsertBeforeClosingBracket({ location });
         } else {
-          // two cases here
-          // the nearest ancestor has existing selections
           if (nearestSelectedAncestorHasSelections) {
             range = rangeInsertBeforeClosingBracket({ location });
           } else {
-            // the nearest ancestor does not have any selections
             range = {
               startLineNumber: location.startToken.line,
               startColumn: (location.startToken.column +
@@ -366,7 +294,7 @@ export const toggle = ({
         return updateModel({
           range,
           targetModel,
-          text,
+          text: calculatedText(),
         });
       }
     }

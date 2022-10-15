@@ -1,19 +1,10 @@
-import {
-  GraphQLArgument,
-  GraphQLInputObjectType,
-  isInputObjectType,
-  // OperationTypeNode,
-} from 'graphql';
+import { GraphQLArgument, GraphQLInputObjectType, isInputObjectType } from 'graphql';
 
 // components
 import { ListItem, ScalarArg } from '../index';
 
 // hooks
-import {
-  AncestorArgument,
-  // AncestorMap,
-  AncestorsArray,
-} from '../../hooks';
+import { AncestorArgument, AncestorsArray } from '../../hooks';
 
 // styles
 import { StyledInputObject } from './styles';
@@ -23,15 +14,12 @@ export const InputObject = ({
   ancestors,
   argument,
   inputObjectType,
-  // operationType,
   isNested,
 }: {
-  // ancestors: AncestorMap;
   ancestors: AncestorsArray;
   argument: GraphQLArgument;
   inputObjectType: GraphQLInputObjectType;
   isNested: boolean;
-  // operationType: OperationTypeNode;
 }) => {
   const fields = inputObjectType.getFields();
 
@@ -73,7 +61,6 @@ export const InputObject = ({
                   ancestors={[...ancestors]}
                   argument={fields[f]}
                   onInputType={argument.name}
-                  // operationType={operationType}
                 />
               );
             }
@@ -86,7 +73,6 @@ export const InputObject = ({
             : {
                 ancestors,
                 isSelected,
-                // operationType,
                 variant: 'ARGUMENT',
               }
         }

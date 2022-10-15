@@ -5,11 +5,9 @@ import { AncestorRoot, AncestorField, AncestorsArray } from '../types';
 const updateModel = useEditor.getState().updateModel;
 
 export const insertNewOperation = ({ ancestors }: { ancestors: AncestorsArray }) => {
-  // const parts = get().parts;
-  console.log('insert NEWNEWNEW_OPERATION', {
-    // parts
-    ancestors,
-  });
+  // console.log('insert new operation', {
+  //   ancestors,
+  // });
   const operationDefinition: OperationDefinitionNode = {
     kind: Kind.OPERATION_DEFINITION,
     name: {
@@ -66,8 +64,6 @@ export const insertNewOperation = ({ ancestors }: { ancestors: AncestorsArray })
 
   return updateModel({
     targetModel: 'operationsModel',
-    text: newOperationDefinitionNode
-      ? print(newOperationDefinitionNode)
-      : 'nothing to insert',
+    text: print(newOperationDefinitionNode),
   });
 };

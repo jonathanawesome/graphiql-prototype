@@ -52,3 +52,18 @@ export const rangeInsertBeforeClosingBracket = ({
     endColumn: 0,
   };
 };
+
+export const rangeInsertAfterField = ({
+  endColumn,
+  location,
+}: {
+  endColumn: number;
+  location: Location;
+}): IRange => {
+  return {
+    startLineNumber: location.startToken.line,
+    startColumn: location.startToken.column,
+    endLineNumber: location.startToken.line,
+    endColumn,
+  };
+};

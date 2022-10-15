@@ -6,7 +6,6 @@ import {
   isNonNullType,
   isRequiredArgument,
   isRequiredInputField,
-  OperationTypeNode,
 } from 'graphql';
 
 // components
@@ -14,10 +13,7 @@ import { Control, HandleChangeSignature, Tag } from '@graphiql-prototype/ui-libr
 import { Toggler } from '../Toggler';
 
 // hooks
-import {
-  // AncestorMap,
-  AncestorsArray,
-} from '../../hooks';
+import { AncestorsArray } from '../../hooks';
 import { useEditor } from '@graphiql-prototype/store';
 
 // styles
@@ -35,14 +31,11 @@ import { validateInputValue } from './utils';
 export const ScalarArg = ({
   ancestors,
   argument,
-  // operationType,
   onInputType,
 }: {
-  // ancestors: AncestorMap;
   ancestors: AncestorsArray;
   argument: GraphQLArgument;
   onInputType: string | null;
-  // operationType: OperationTypeNode;
 }) => {
   let baseType = argument.type;
 

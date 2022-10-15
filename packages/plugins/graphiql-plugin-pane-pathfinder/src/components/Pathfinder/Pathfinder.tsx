@@ -1,7 +1,4 @@
-import {
-  // OperationDefinitionNode,
-  OperationTypeNode,
-} from 'graphql';
+import { OperationTypeNode } from 'graphql';
 
 // components
 import { QuickDocs, RootOperation } from '../index';
@@ -60,8 +57,6 @@ export const Pathfinder = () => {
                         },
                       ]}
                       fields={schema.getQueryType()?.getFields()}
-                      // rootType={schema.getQueryType() || null}
-                      // operationType={OperationTypeNode.QUERY}
                     />
                   ),
                 },
@@ -78,8 +73,6 @@ export const Pathfinder = () => {
                         },
                       ]}
                       fields={schema.getMutationType()?.getFields()}
-                      // rootType={schema.getMutationType() || null}
-                      // operationType={OperationTypeNode.MUTATION}
                     />
                   ),
                 },
@@ -96,8 +89,6 @@ export const Pathfinder = () => {
                         },
                       ]}
                       fields={schema.getSubscriptionType()?.getFields()}
-                      // rootType={schema.getSubscriptionType() || null}
-                      // operationType={OperationTypeNode.SUBSCRIPTION}
                     />
                   ),
                 },

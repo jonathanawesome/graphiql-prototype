@@ -1,20 +1,12 @@
 import { useState, useEffect } from 'react';
-import {
-  FieldNode,
-  // isRequiredArgument,
-  OperationTypeNode,
-} from 'graphql';
+import { FieldNode } from 'graphql';
 
 // components
 import { Argument } from '../index';
 import { Caret } from '../../icons';
 
 // hooks
-import type {
-  AncestorField,
-  // AncestorMap,
-  AncestorsArray,
-} from '../../hooks';
+import type { AncestorField, AncestorsArray } from '../../hooks';
 
 // styles
 import {
@@ -26,12 +18,9 @@ import {
 
 export const Arguments = ({
   ancestors,
-  // operationType,
   selection,
 }: {
-  // ancestors: AncestorMap;
   ancestors: AncestorsArray;
-  // operationType: OperationTypeNode;
   selection: FieldNode | null;
 }) => {
   // console.log('rendering Arguments', {
@@ -40,9 +29,7 @@ export const Arguments = ({
   //   'selection.arguments': selection?.arguments,
   // });
 
-  // const { field } = ancestors.values().next().value as AncestorField;
   const { field } = ancestors[ancestors.length - 1] as AncestorField;
-  // const { field } = ancestors[0] as AncestorField;
 
   const { args } = field;
 
@@ -75,7 +62,6 @@ export const Arguments = ({
               key={arg.name}
               ancestors={ancestors}
               argument={arg}
-              // operationType={operationType}
               selection={selection?.arguments?.find((a) => a.name.value === arg.name)}
             />
           ))}
