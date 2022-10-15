@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
   FieldNode,
+  GraphQLFieldMap,
   GraphQLObjectType,
   OperationTypeNode,
   SelectionSetNode,
@@ -19,28 +20,40 @@ import { Message } from '@graphiql-prototype/ui-library';
 // styles
 import { StyledRootOperation } from './styles';
 import {
+  AncestorRoot,
   // AncestorMap,
   AncestorsArray,
 } from '../../hooks';
 
 export const RootOperation = ({
+  // rootType,
+  // operationType,
   ancestors,
-  operationType,
-  rootType,
+  fields,
 }: {
   // ancestors: AncestorMap;
   ancestors: AncestorsArray;
-  operationType: OperationTypeNode;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  rootType: GraphQLObjectType<any, any> | null;
+  fields: GraphQLFieldMap<any, any> | undefined;
+  // operationType: OperationTypeNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // rootType: GraphQLObjectType<any, any> | null;
 }) => {
-  const [selectionSet, setSelectionSet] = useState<SelectionSetNode | undefined>(
-    undefined
-  );
+  // const [selectionSet, setSelectionSet] = useState<SelectionSetNode | undefined>(
+  //   undefined
+  // );
 
-  const activeEditorTab = useEditor().getActiveTab();
+  // const activeEditorTab = useEditor().getActiveTab();
+  const { operationDefinition, operationType } = ancestors[
+    ancestors.length - 1
+  ] as AncestorRoot;
 
-  const operationDefinition = activeEditorTab?.operationDefinition;
+  // const operationDefinition = activeEditorTab?.operationDefinition;
+
+  // const rootAncestor: AncestorRoot = {
+  //   operationType,
+  //   operationDefinition: activeEditorTab?.operationDefinition,
+  // };
 
   // console.log('rendering RootOperation', {
   //   operationDefinition,
@@ -48,16 +61,16 @@ export const RootOperation = ({
   //   // editorTabs,
   // });
 
-  useEffect(() => {
-    const activeOperationType = operationDefinition?.operation;
-    if (!activeOperationType || activeOperationType === operationType) {
-      return setSelectionSet(operationDefinition?.selectionSet);
-    }
-    return setSelectionSet(undefined);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [operationDefinition]);
+  // useEffect(() => {
+  //   const activeOperationType = operationDefinition?.operation;
+  //   if (!activeOperationType || activeOperationType === operationType) {
+  //     return setSelectionSet(operationDefinition?.selectionSet);
+  //   }
+  //   return setSelectionSet(undefined);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [operationDefinition]);
 
-  const fields = rootType?.getFields();
+  // const fields = rootType?.getFields();
 
   if (!fields) {
     return (
@@ -89,17 +102,17 @@ export const RootOperation = ({
             key={field}
             ancestors={[
               ...ancestors,
+              // rootAncestor,
               {
                 field: fields[field],
-                selectionSet,
+                // selectionSet,
                 selection:
                   operationDefinition?.selectionSet?.selections.find(
-                    (selection) =>
-                      (selection as FieldNode).name.value === fields[field].name
+                    (s) => (s as FieldNode).name.value === fields[field].name
                   ) || null,
               },
             ]}
-            operationType={operationType}
+            // operationType={operationType}
           />
         ))}
     </StyledRootOperation>

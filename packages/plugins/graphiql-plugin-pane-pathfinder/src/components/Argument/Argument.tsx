@@ -21,13 +21,13 @@ import { unwrapNonNullArgumentType } from '../../utils';
 export const Argument = ({
   ancestors,
   argument,
-  operationType,
+  // operationType,
   selection,
 }: {
   // ancestors: AncestorMap;
   ancestors: AncestorsArray;
   argument: GraphQLArgument;
-  operationType: OperationTypeNode;
+  // operationType: OperationTypeNode;
   selection: ArgumentNode | undefined;
 }) => {
   const unwrappedNonNullType = unwrapNonNullArgumentType({ argumentType: argument.type });
@@ -56,7 +56,7 @@ export const Argument = ({
         argument={argument}
         inputObjectType={unwrappedNonNullType}
         isNested={false}
-        operationType={operationType}
+        // operationType={operationType}
       />
     );
   } else {
@@ -65,7 +65,7 @@ export const Argument = ({
         ancestors={newArgMap}
         argument={argument}
         onInputType={null}
-        operationType={operationType}
+        // operationType={operationType}
       />
     );
   }

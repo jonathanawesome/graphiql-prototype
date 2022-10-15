@@ -2,7 +2,7 @@ import {
   GraphQLArgument,
   GraphQLInputObjectType,
   isInputObjectType,
-  OperationTypeNode,
+  // OperationTypeNode,
 } from 'graphql';
 
 // components
@@ -23,15 +23,15 @@ export const InputObject = ({
   ancestors,
   argument,
   inputObjectType,
+  // operationType,
   isNested,
-  operationType,
 }: {
   // ancestors: AncestorMap;
   ancestors: AncestorsArray;
   argument: GraphQLArgument;
   inputObjectType: GraphQLInputObjectType;
   isNested: boolean;
-  operationType: OperationTypeNode;
+  // operationType: OperationTypeNode;
 }) => {
   const fields = inputObjectType.getFields();
 
@@ -73,7 +73,7 @@ export const InputObject = ({
                   ancestors={[...ancestors]}
                   argument={fields[f]}
                   onInputType={argument.name}
-                  operationType={operationType}
+                  // operationType={operationType}
                 />
               );
             }
@@ -86,7 +86,7 @@ export const InputObject = ({
             : {
                 ancestors,
                 isSelected,
-                operationType,
+                // operationType,
                 variant: 'ARGUMENT',
               }
         }

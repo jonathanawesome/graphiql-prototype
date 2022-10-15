@@ -4,6 +4,7 @@ import {
   isInterfaceType,
   isObjectType,
   isUnionType,
+  Kind,
   OperationTypeNode,
   // print,
 } from 'graphql';
@@ -23,25 +24,35 @@ import {
 import { findSelection, unwrapType } from '../../utils';
 
 export const Field = ({
+  // operationType,
   ancestors,
-  operationType,
 }: {
   // ancestors: AncestorMap;
   ancestors: AncestorsArray;
-  operationType: OperationTypeNode;
+  // operationType: OperationTypeNode;
 }) => {
   // const { fieldsVisibility } = usePathfinder();
 
   // const { field, selectionSet } = ancestors.values().next().value as AncestorField;
-  const { field, selectionSet } = ancestors[ancestors.length - 1] as AncestorField;
+  const { field, selection } = ancestors[ancestors.length - 1] as AncestorField;
 
   // console.log('rendering Field', {
   //   ancestors,
   //   name: field.name,
-  //   // printedSelection: selection && print(selection),
-  //   // parentSelection1: ancestorValues.next().value,
-  //   // parentSelection2: ancestorValues.next().value,
+  //   selection,
+  //   selections: selection ? (selection as FieldNode).selectionSet?.selections : null,
   // });
+
+  // const ancestorsToPass: AncestorsArray = [
+  //   {
+  //     field:,
+  //     // selectionSet,
+  //     selection:
+  //       operationDefinition?.selectionSet?.selections.find(
+  //         (s) => (s as FieldNode).name.value === fields[field].name
+  //       ) || null,
+  //   },
+  // ];
 
   const unwrappedType = unwrapType(field.type);
 
@@ -51,14 +62,21 @@ export const Field = ({
     isInterfaceType(unwrappedType) ||
     field.args.length > 0;
 
-  let selection: FieldNode | InlineFragmentNode | undefined = undefined;
+  // let selection: FieldNode | InlineFragmentNode | undefined = undefined;
 
-  if (selectionSet && selectionSet.selections) {
-    selection = findSelection({
-      fieldName: field.name,
-      selections: [...selectionSet.selections],
-    });
-  }
+  // if (selectionSet && selectionSet.selections) {
+  //   selection = findSelection({
+  //     fieldName: field.name,
+  //     selections: [...selectionSet.selections],
+  //   });
+  // }
+
+  const parentSelections = () => {
+    if (selection && 'selectionSet' in selection && selection.selectionSet) {
+      return selection.selectionSet.selections;
+    }
+    return [];
+  };
 
   // const ancestorValues = ancestors.values();
 
@@ -70,16 +88,17 @@ export const Field = ({
       <Fields
         ancestors={ancestors}
         fields={unwrappedType.getFields()}
-        operationType={operationType}
-        selection={selection}
+        // operationType={operationType}
+        parentSelections={parentSelections()}
       />
     );
   } else if (isUnionType(unwrappedType)) {
     childFieldsToRender = (
       <Union
         ancestors={ancestors}
-        operationType={operationType}
-        selection={selection}
+        // operationType={operationType}
+        // selection={selection}
+        parentSelections={parentSelections()}
         unionType={unwrappedType}
       />
     );
@@ -97,7 +116,7 @@ export const Field = ({
               arguments: field.args.length > 0 && (
                 <Arguments
                   ancestors={ancestors}
-                  operationType={operationType}
+                  // operationType={operationType}
                   selection={selection as FieldNode}
                 />
               ),
@@ -110,7 +129,7 @@ export const Field = ({
         ancestors,
         // fieldOrArgumentName: field.name,
         isSelected: !!selection,
-        operationType,
+        // operationType,
         variant: 'FIELD',
       }}
       type={field}

@@ -16,7 +16,7 @@ type TogglerBaseProps = {
   // ancestors: AncestorMap;
   ancestors: AncestorsArray;
   isSelected: boolean;
-  operationType: OperationTypeNode;
+  // operationType: OperationTypeNode;
   variant: 'ARGUMENT' | 'FIELD';
 };
 
@@ -37,7 +37,7 @@ export const Toggler: React.FC<ToggleProps> = ({
   ancestors,
   collapser,
   isSelected,
-  operationType,
+  // operationType,
   variant,
 }) => {
   const { toggle } = usePathfinder();

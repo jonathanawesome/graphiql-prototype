@@ -26,12 +26,12 @@ import {
 
 export const Arguments = ({
   ancestors,
-  operationType,
+  // operationType,
   selection,
 }: {
   // ancestors: AncestorMap;
   ancestors: AncestorsArray;
-  operationType: OperationTypeNode;
+  // operationType: OperationTypeNode;
   selection: FieldNode | null;
 }) => {
   // console.log('rendering Arguments', {
@@ -75,7 +75,7 @@ export const Arguments = ({
               key={arg.name}
               ancestors={ancestors}
               argument={arg}
-              operationType={operationType}
+              // operationType={operationType}
               selection={selection?.arguments?.find((a) => a.name.value === arg.name)}
             />
           ))}

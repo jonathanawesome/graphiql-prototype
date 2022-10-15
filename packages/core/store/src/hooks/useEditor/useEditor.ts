@@ -475,7 +475,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
 
     const parsedQuery = parseQuery(value);
 
-    console.log('updateOperationDefinitionFromModelValue', { value, parsedQuery });
+    // console.log('updateOperationDefinitionFromModelValue', { value, parsedQuery });
 
     if (!(parsedQuery instanceof Error)) {
       // console.log('parsedQuery', { parsedQuery });

@@ -6,7 +6,8 @@ import {
   GraphQLUnionType,
   InlineFragmentNode,
   Kind,
-  OperationTypeNode,
+  // OperationTypeNode,
+  SelectionNode,
 } from 'graphql';
 
 // components
@@ -21,12 +22,18 @@ import type {
 type UnionProps = {
   // ancestors: AncestorMap;
   ancestors: AncestorsArray;
-  operationType: OperationTypeNode;
-  selection: FieldNode | InlineFragmentNode | undefined;
+  // operationType: OperationTypeNode;
+  // selection: FieldNode | InlineFragmentNode | undefined;
+  parentSelections: ReadonlyArray<SelectionNode>;
   unionType: GraphQLUnionType;
 };
 
-export const Union = ({ ancestors, operationType, selection, unionType }: UnionProps) => {
+export const Union = ({
+  ancestors,
+  // operationType,
+  parentSelections,
+  unionType,
+}: UnionProps) => {
   const unionMembers = unionType.getTypes();
 
   // console.log('rendering Union', { unionMembers });
@@ -38,8 +45,8 @@ export const Union = ({ ancestors, operationType, selection, unionType }: UnionP
           key={o.name}
           ancestors={ancestors}
           objectMember={o}
-          operationType={operationType}
-          selection={selection}
+          // operationType={operationType}
+          parentSelections={parentSelections}
         />
       ))}
     </>
@@ -49,19 +56,21 @@ export const Union = ({ ancestors, operationType, selection, unionType }: UnionP
 const UnionMember = ({
   ancestors,
   objectMember,
-  operationType,
-  selection,
+  // operationType,
+  // selection,
+  parentSelections,
 }: {
   // ancestors: AncestorMap;
   ancestors: AncestorsArray;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   objectMember: GraphQLObjectType<any, any>;
-  operationType: OperationTypeNode;
-  selection: FieldNode | InlineFragmentNode | undefined;
+  // operationType: OperationTypeNode;
+  // selection: FieldNode | InlineFragmentNode | undefined;
+  parentSelections: ReadonlyArray<SelectionNode>;
 }) => {
   // const hash = cuid.slug();
 
-  const inlineFragmentNode = selection?.selectionSet?.selections?.find(
+  const inlineFragmentNode = parentSelections?.find(
     (s) =>
       s.kind === Kind.INLINE_FRAGMENT && s.typeCondition?.name.value === objectMember.name
   ) as InlineFragmentNode | undefined;
@@ -75,13 +84,14 @@ const UnionMember = ({
               ...ancestors,
               {
                 onType: objectMember.name,
-                selectionSet: selection?.selectionSet,
+                // selectionSet: selection?.selectionSet,
                 selection: inlineFragmentNode || null,
               },
             ]}
             fields={objectMember.getFields()}
-            operationType={operationType}
-            selection={inlineFragmentNode}
+            // operationType={operationType}
+            parentSelections={inlineFragmentNode ? [inlineFragmentNode] : []}
+            // selection={inlineFragmentNode}
           />
         ),
       }}

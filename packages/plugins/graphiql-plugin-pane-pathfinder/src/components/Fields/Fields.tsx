@@ -1,10 +1,11 @@
 // import cuid from 'cuid';
 import {
-  FieldNode,
+  // FieldNode,
   GraphQLFieldMap,
-  InlineFragmentNode,
+  // InlineFragmentNode,
   Kind,
-  OperationTypeNode,
+  // OperationTypeNode,
+  SelectionNode,
 } from 'graphql';
 
 // components
@@ -19,15 +20,17 @@ import type {
 export const Fields = ({
   ancestors,
   fields,
-  operationType,
-  selection,
+  // operationType,
+  // selection,
+  parentSelections,
 }: {
   // ancestors: AncestorMap;
   ancestors: AncestorsArray;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fields: GraphQLFieldMap<any, any>;
-  operationType: OperationTypeNode;
-  selection: FieldNode | InlineFragmentNode | undefined;
+  // operationType: OperationTypeNode;
+  // selection: FieldNode | InlineFragmentNode | undefined;
+  parentSelections: ReadonlyArray<SelectionNode>;
 }) => {
   // const hash = cuid.slug();
 
@@ -42,14 +45,14 @@ export const Fields = ({
             ...ancestors,
             {
               field: fields[f],
-              selectionSet: selection?.selectionSet,
+              // selectionSet: selection?.selectionSet,
               selection:
-                selection?.selectionSet?.selections?.find(
+                parentSelections?.find(
                   (s) => s.kind === Kind.FIELD && s.name.value === fields[f].name
                 ) || null,
             },
           ]}
-          operationType={operationType}
+          // operationType={operationType}
         />
       ))}
     </>

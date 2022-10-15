@@ -3,6 +3,7 @@ import {
   FieldNode,
   GraphQLArgument,
   GraphQLField,
+  Location,
   OperationDefinitionNode,
   OperationTypeNode,
   SelectionNode,
@@ -11,10 +12,23 @@ import {
 } from 'graphql';
 
 type AncestorSelection = SelectionNode | null;
-type AncestorSelectionSet = SelectionSetNode | undefined;
+// type AncestorSelectionSet = SelectionSetNode | undefined;
+
+type NewAncestorField = {
+  type: 'FIELD';
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  field: GraphQLField<any, any>;
+  selection: AncestorSelection;
+};
+
+type NewAncestorRoot = {
+  type: 'ROOT';
+  operationType: OperationTypeNode;
+  operationDefinition: OperationDefinitionNode | null;
+};
 
 export type AncestorRoot = {
-  rootTypeName: OperationTypeNode;
+  operationType: OperationTypeNode;
   operationDefinition: OperationDefinitionNode | null;
 };
 
@@ -28,13 +42,13 @@ export type AncestorField = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   field: GraphQLField<any, any>;
   selection: AncestorSelection;
-  selectionSet: AncestorSelectionSet;
+  // selectionSet: AncestorSelectionSet;
 };
 
 export type AncestorInlineFragment = {
   onType: string;
   selection: AncestorSelection;
-  selectionSet: AncestorSelectionSet;
+  // selectionSet: AncestorSelectionSet;
 };
 
 export type AncestorTypes =

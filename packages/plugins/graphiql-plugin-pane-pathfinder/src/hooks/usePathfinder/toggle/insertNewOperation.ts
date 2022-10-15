@@ -14,9 +14,9 @@ export const insertNewOperation = ({ ancestors }: { ancestors: AncestorsArray })
     kind: Kind.OPERATION_DEFINITION,
     name: {
       kind: Kind.NAME,
-      value: `new${(ancestors[0] as AncestorRoot).rootTypeName}`,
+      value: `new${(ancestors[0] as AncestorRoot).operationType}`,
     },
-    operation: (ancestors[0] as AncestorRoot).rootTypeName,
+    operation: (ancestors[0] as AncestorRoot).operationType,
     selectionSet: {
       kind: Kind.SELECTION_SET,
       selections: [],

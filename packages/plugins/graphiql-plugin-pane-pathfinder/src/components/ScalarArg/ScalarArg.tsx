@@ -35,14 +35,14 @@ import { validateInputValue } from './utils';
 export const ScalarArg = ({
   ancestors,
   argument,
+  // operationType,
   onInputType,
-  operationType,
 }: {
   // ancestors: AncestorMap;
   ancestors: AncestorsArray;
   argument: GraphQLArgument;
   onInputType: string | null;
-  operationType: OperationTypeNode;
+  // operationType: OperationTypeNode;
 }) => {
   let baseType = argument.type;
 
@@ -271,7 +271,7 @@ export const ScalarArg = ({
           <Toggler
             ancestors={ancestors}
             isSelected={!!isSelected}
-            operationType={operationType}
+            // operationType={operationType}
             variant={`ARGUMENT`}
           />
         )}
