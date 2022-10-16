@@ -1,6 +1,14 @@
 import { useEditor } from '@graphiql-prototype/store';
-import { FieldNode, Kind, OperationDefinitionNode, print, SelectionNode } from 'graphql';
-import { AncestorRoot, AncestorField, AncestorsArray } from '../types';
+import {
+  FieldNode,
+  InlineFragmentNode,
+  Kind,
+  OperationDefinitionNode,
+  print,
+  SelectionNode,
+} from 'graphql';
+
+import { AncestorRoot, AncestorsArray } from '../types';
 
 const updateModel = useEditor.getState().updateModel;
 
@@ -21,27 +29,91 @@ export const insertNewOperation = ({ ancestors }: { ancestors: AncestorsArray })
     },
   };
 
-  const fields = ancestors
-    .slice(1)
-    .reverse()
-    .map((a) => {
-      const field: FieldNode = {
+  const newNodes = [...ancestors].reverse().reduce((acc, a) => {
+    if (a.type === 'FIELD') {
+      const fieldNode: FieldNode = {
         kind: Kind.FIELD,
         name: {
           kind: Kind.NAME,
-          value: (a as AncestorField).field.name,
+          value: a.field.name,
         },
         selectionSet: {
           kind: Kind.SELECTION_SET,
           selections: [],
         },
       };
-      return field;
-    });
+      acc.push(fieldNode);
+    }
+    if (a.type === 'INLINE_FRAGMENT') {
+      const inlineFragmentNode: InlineFragmentNode = {
+        kind: Kind.INLINE_FRAGMENT,
+        typeCondition: {
+          kind: Kind.NAMED_TYPE,
+          name: { kind: Kind.NAME, value: a.onType },
+        },
+        selectionSet: {
+          kind: Kind.SELECTION_SET,
+          selections: [],
+        },
+      };
+      acc.push(inlineFragmentNode);
+    }
+    return acc;
+  }, [] as Array<FieldNode | InlineFragmentNode>);
+
+  // const newNodes = ancestors.reduce((result, a) => {
+  //   if (['FIELD', 'INLINE_FRAGMENT'].includes(a.type)) {
+  //     result.push(a);
+  //   }
+
+  //   return result;
+  // }, []);
+
+  // const nodes: Array<FieldNode | InlineFragmentNode> = ancestors
+  //   // .slice(1)
+  //   .reverse()
+  //   .filter((a) => {
+  //     if (['FIELD', 'INLINE_FRAGMENT'].includes(a.type)) {
+  //       return true;
+  //     }
+  //     return false;
+  //   })
+  //   .map((a) => {
+  //     // let node: FieldNode | InlineFragmentNode;
+  //     if (a.type === 'FIELD') {
+  //       return {
+  //         kind: Kind.FIELD,
+  //         name: {
+  //           kind: Kind.NAME,
+  //           value: a.field.name,
+  //         },
+  //         selectionSet: {
+  //           kind: Kind.SELECTION_SET,
+  //           selections: [],
+  //         },
+  //       } as FieldNode;
+  //     }
+  //     if (a.type === 'INLINE_FRAGMENT') {
+  //       return {
+  //         kind: Kind.INLINE_FRAGMENT,
+  //         typeCondition: {
+  //           kind: Kind.NAMED_TYPE,
+  //           name: { kind: Kind.NAME, value: a.onType },
+  //         },
+  //         selectionSet: {
+  //           kind: Kind.SELECTION_SET,
+  //           selections: [],
+  //         },
+  //       } as InlineFragmentNode;
+  //     }
+  //     // return node;
+  //   });
+
+  console.log('newNodes', { newNodes, ancestors });
 
   const selections = (): SelectionNode[] => {
-    let fieldNode = fields.shift() as FieldNode;
-    fields.forEach((field) => {
+    let fieldNode = newNodes.shift() as FieldNode | InlineFragmentNode;
+    newNodes.forEach((field) => {
       fieldNode = {
         ...field,
         selectionSet: {

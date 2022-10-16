@@ -4,7 +4,7 @@ import { ArgumentNode, GraphQLArgument, isInputObjectType } from 'graphql';
 import { InputObject, ScalarArg } from '../index';
 
 // hooks
-import type { AncestorsArray } from '../../hooks';
+import type { AncestorArgument, AncestorsArray } from '../../hooks';
 
 // utils
 import { unwrapNonNullArgumentType } from '../../utils';
@@ -25,27 +25,30 @@ export const Argument = ({
   //   selection,
   // });
 
-  const newArgMap = [
+  const newAncestors = [
     ...ancestors,
     {
+      type: 'ARGUMENT',
       argument,
       selection,
       variableName: argument.name,
-    },
+    } as AncestorArgument,
   ];
   let toRender: React.ReactNode | null = null;
 
   if (isInputObjectType(unwrappedNonNullType)) {
     toRender = (
       <InputObject
-        ancestors={newArgMap}
+        ancestors={newAncestors}
         argument={argument}
         inputObjectType={unwrappedNonNullType}
         isNested={false}
       />
     );
   } else {
-    toRender = <ScalarArg ancestors={newArgMap} argument={argument} onInputType={null} />;
+    toRender = (
+      <ScalarArg ancestors={newAncestors} argument={argument} onInputType={null} />
+    );
   }
 
   return <>{toRender}</>;

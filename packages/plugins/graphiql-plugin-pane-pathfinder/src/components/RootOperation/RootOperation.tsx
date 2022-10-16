@@ -59,6 +59,7 @@ export const RootOperation = ({
             ancestors={[
               ...ancestors,
               {
+                type: 'FIELD',
                 field: fields[field],
                 selection:
                   operationDefinition?.selectionSet?.selections.find(

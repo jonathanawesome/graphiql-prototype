@@ -2,6 +2,7 @@ import {
   ArgumentNode,
   GraphQLArgument,
   GraphQLField,
+  Kind,
   OperationDefinitionNode,
   OperationTypeNode,
   SelectionNode,
@@ -12,23 +13,27 @@ import {
 type AncestorSelection = SelectionNode | null;
 
 export type AncestorRoot = {
+  type: 'ROOT';
   operationType: OperationTypeNode;
   operationDefinition: OperationDefinitionNode | null;
 };
 
 export type AncestorArgument = {
+  type: 'ARGUMENT';
   argument: GraphQLArgument;
   selection: ArgumentNode | undefined;
   variableName: string;
 };
 
 export type AncestorField = {
+  type: 'FIELD';
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   field: GraphQLField<any, any>;
   selection: AncestorSelection;
 };
 
 export type AncestorInlineFragment = {
+  type: 'INLINE_FRAGMENT';
   onType: string;
   selection: AncestorSelection;
 };

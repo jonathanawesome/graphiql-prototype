@@ -60,12 +60,15 @@ const UnionMember = ({
             ancestors={[
               ...ancestors,
               {
+                type: 'INLINE_FRAGMENT',
                 onType: objectMember.name,
                 selection: inlineFragmentNode || null,
               },
             ]}
             fields={objectMember.getFields()}
-            parentSelections={inlineFragmentNode ? [inlineFragmentNode] : []}
+            parentSelections={
+              inlineFragmentNode ? inlineFragmentNode.selectionSet.selections : []
+            }
           />
         ),
       }}

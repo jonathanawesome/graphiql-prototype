@@ -51,6 +51,7 @@ export const Pathfinder = () => {
                     <RootOperation
                       ancestors={[
                         {
+                          type: 'ROOT',
                           operationType: OperationTypeNode.QUERY,
                           operationDefinition:
                             activeEditorTab && activeEditorTab.operationDefinition,
@@ -67,6 +68,7 @@ export const Pathfinder = () => {
                     <RootOperation
                       ancestors={[
                         {
+                          type: 'ROOT',
                           operationType: OperationTypeNode.MUTATION,
                           operationDefinition:
                             activeEditorTab && activeEditorTab.operationDefinition,
@@ -83,6 +85,7 @@ export const Pathfinder = () => {
                     <RootOperation
                       ancestors={[
                         {
+                          type: 'ROOT',
                           operationType: OperationTypeNode.SUBSCRIPTION,
                           operationDefinition:
                             activeEditorTab && activeEditorTab.operationDefinition,

@@ -10,14 +10,8 @@ import { AncestorField, AncestorsArray } from '../../hooks';
 import { unwrapType } from '../../utils';
 
 export const Field = ({ ancestors }: { ancestors: AncestorsArray }) => {
+  // const { field, selection } = ancestors[0] as AncestorField;
   const { field, selection } = ancestors[ancestors.length - 1] as AncestorField;
-
-  // console.log('rendering Field', {
-  //   ancestors,
-  //   name: field.name,
-  //   selection,
-  //   selections: selection ? (selection as FieldNode).selectionSet?.selections : null,
-  // });
 
   const unwrappedType = unwrapType(field.type);
 
@@ -33,6 +27,12 @@ export const Field = ({ ancestors }: { ancestors: AncestorsArray }) => {
     }
     return [];
   };
+  // console.log('rendering Field', {
+  //   ancestors,
+  //   name: field.name,
+  //   selection,
+  //   parentSelections: parentSelections(),
+  // });
 
   let childFieldsToRender: React.ReactNode = null;
 

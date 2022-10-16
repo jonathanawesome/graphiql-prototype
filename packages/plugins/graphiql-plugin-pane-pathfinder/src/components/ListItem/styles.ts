@@ -117,7 +117,7 @@ export const CollapsibleTrigger = styled(Collapsible.Trigger, {
       variant: 'INLINE_FRAGMENT',
       css: {
         svg: {
-          fill: theme.colors.violet_default,
+          fill: theme.colors.blue_default,
         },
       },
     },
@@ -191,7 +191,7 @@ export const CollapsibleContent = styled(Collapsible.Content, {
       variant: 'INLINE_FRAGMENT',
       css: {
         '&::after': {
-          backgroundColor: theme.colors.violet_default,
+          backgroundColor: theme.colors.blue_default,
         },
       },
     },

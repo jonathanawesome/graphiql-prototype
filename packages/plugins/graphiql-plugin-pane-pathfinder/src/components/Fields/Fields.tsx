@@ -1,10 +1,13 @@
-import { GraphQLFieldMap, Kind, SelectionNode } from 'graphql';
+import { GraphQLFieldMap, SelectionNode } from 'graphql';
 
 // components
 import { Field } from '../index';
 
 // types
 import type { AncestorsArray } from '../../hooks';
+
+// utils
+import { findSelection } from '../../utils';
 
 export const Fields = ({
   ancestors,
@@ -16,7 +19,7 @@ export const Fields = ({
   fields: GraphQLFieldMap<any, any>;
   parentSelections: ReadonlyArray<SelectionNode>;
 }) => {
-  // console.log('rendering Fields', { fields });
+  // console.log('rendering Fields', { fields, parentSelections });
 
   return (
     <>
@@ -26,11 +29,13 @@ export const Fields = ({
           ancestors={[
             ...ancestors,
             {
+              type: 'FIELD',
               field: fields[f],
               selection:
-                parentSelections?.find(
-                  (s) => s.kind === Kind.FIELD && s.name.value === fields[f].name
-                ) || null,
+                findSelection({
+                  fieldName: fields[f].name,
+                  selections: [...parentSelections],
+                }) || null,
             },
           ]}
         />

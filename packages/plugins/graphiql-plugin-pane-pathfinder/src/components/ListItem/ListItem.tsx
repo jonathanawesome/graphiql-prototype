@@ -37,8 +37,7 @@ export const ListItem = ({
   // console.log('ListItem', {
   //   type: type.name,
   //   isSelected,
-  //   isOpen,
-  //   activeEditorTabId,
+  //   variant,
   // });
 
   useEffect(() => {

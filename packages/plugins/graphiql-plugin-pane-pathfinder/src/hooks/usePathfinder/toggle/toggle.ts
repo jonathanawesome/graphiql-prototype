@@ -1,4 +1,4 @@
-import { FieldNode, Location } from 'graphql';
+import { FieldNode, InlineFragmentNode, Location } from 'graphql';
 import { IRange } from 'monaco-editor';
 
 // helpers
@@ -8,7 +8,12 @@ import { insertNewOperation } from './insertNewOperation';
 import { useEditor } from '@graphiql-prototype/store';
 
 // types
-import { AncestorField, AncestorRoot, AncestorsArray } from '../types';
+import {
+  AncestorField,
+  AncestorInlineFragment,
+  AncestorRoot,
+  AncestorsArray,
+} from '../types';
 
 import {
   rangeInsertAfterField,
@@ -20,12 +25,30 @@ import {
 
 const targetModel = 'operationsModel';
 
+const getStringToWrite = ({
+  ancestor,
+}: {
+  ancestor: AncestorField | AncestorInlineFragment;
+}) => {
+  if ('field' in ancestor) {
+    return ancestor.field.name;
+  }
+  if ('onType' in ancestor) {
+    return `... on ${ancestor.onType}`;
+  }
+  return 'WHOOPS';
+};
+
 export const toggle = ({
   ancestors,
 }: {
   ancestors: AncestorsArray;
   // eslint-disable-next-line consistent-return
 }) => {
+  console.log('toggle', {
+    ancestors,
+  });
+
   const activeEditorTab = useEditor.getState().getActiveTab();
   const updateModel = useEditor.getState().updateModel;
 
@@ -35,7 +58,8 @@ export const toggle = ({
   const previousAncestor = ancestors[index - 1];
   const countPreviousAncestorSelections = (): number => {
     if (
-      'field' in previousAncestor &&
+      (previousAncestor.type === 'INLINE_FRAGMENT' ||
+        previousAncestor.type === 'FIELD') &&
       previousAncestor.selection &&
       'selectionSet' in previousAncestor.selection &&
       previousAncestor.selection.selectionSet
@@ -43,7 +67,7 @@ export const toggle = ({
       return previousAncestor.selection.selectionSet.selections.length;
     }
     if (
-      'operationType' in previousAncestor &&
+      previousAncestor.type === 'ROOT' &&
       previousAncestor.operationDefinition &&
       'selectionSet' in previousAncestor.operationDefinition &&
       previousAncestor.operationDefinition.selectionSet
@@ -53,19 +77,46 @@ export const toggle = ({
     return 0;
   };
 
-  const previousAncestorSelectionsCount = countPreviousAncestorSelections();
+  const getLocationFromAncestor = ({ index }: { index: number }) => {
+    const ancestor = ancestors[index];
+    console.log('ancester', { ancestor });
+    if (
+      (ancestor.type === 'INLINE_FRAGMENT' || ancestor.type === 'FIELD') &&
+      ancestor.selection
+    ) {
+      return ancestor.selection.loc;
+    }
+    if (ancestor.type === 'ROOT' && ancestor.operationDefinition) {
+      return ancestor.operationDefinition.loc;
+    }
+    return null;
+  };
 
-  console.log('toggle', {
-    ancestors,
-  });
+  const getLocationFromPreviousAncestor = () => {
+    if (
+      (previousAncestor.type === 'INLINE_FRAGMENT' ||
+        previousAncestor.type === 'FIELD') &&
+      previousAncestor.selection
+    ) {
+      return previousAncestor.selection.loc;
+    }
+    if (previousAncestor.type === 'ROOT' && previousAncestor.operationDefinition) {
+      return previousAncestor.operationDefinition.loc;
+    }
+    return null;
+  };
+
+  const previousAncestorSelectionsCount = countPreviousAncestorSelections();
+  const locationFromPreviousAncestor = getLocationFromPreviousAncestor();
 
   // 👇 short-circuit this process and build a brand new operation if we don't have an active operation definition
   if ((ancestors[0] as AncestorRoot).operationDefinition === null) {
     return insertNewOperation({ ancestors });
   }
 
-  const isNestedField = 'field' in previousAncestor;
-  const isField = 'field' in target;
+  const isNestedField =
+    previousAncestor.type === 'FIELD' || previousAncestor.type === 'INLINE_FRAGMENT';
+  const isField = target.type === 'FIELD';
 
   if (isField) {
     const isSelected = !!target.selection;
@@ -114,20 +165,68 @@ export const toggle = ({
 
       if (isNestedField) {
         if (previousAncestorSelectionsCount === 1) {
-          // console.log('REMOVE: this is not a top level field and is the only selection');
+          let range: IRange | null = null;
+          if (previousAncestor.type === 'INLINE_FRAGMENT') {
+            if (
+              previousAncestor.selection &&
+              (previousAncestor.selection as InlineFragmentNode).selectionSet.selections
+                .length === 1
+            ) {
+              // the previous ancestor is an inline fragment and this field is the only selection
+              // we need to determine if the previous ancestor's (an inline fragment) parent (a field) has additional inline fragment selections
+
+              // find the index of the parent inline fragment
+              const nearestSelectedInlineFragmentIndex = [...ancestors]
+                .reverse()
+                .findIndex((a) => a.type === 'INLINE_FRAGMENT');
+
+              // the parent (a field) of this field's parent (an inline fragment)
+              const inlineFragmentParentField = ancestors[
+                nearestSelectedInlineFragmentIndex
+              ] as AncestorField;
+
+              if (
+                inlineFragmentParentField.selection &&
+                'selectionSet' in inlineFragmentParentField.selection &&
+                inlineFragmentParentField.selection.selectionSet &&
+                inlineFragmentParentField.selection.selectionSet.selections.length === 1
+              ) {
+                // this field's parent (an inline fragment) is the only selection
+                range = rangeRemoveForAllSelectionsOfField({
+                  location: locationFromPreviousAncestor as Location,
+                });
+              } else {
+                // this field's parent (an inline fragment) is not the only selection remaining on the inlineFragmentParentField
+                range = rangeRemoveForFieldWithSelections({
+                  location: locationFromPreviousAncestor as Location,
+                });
+              }
+            } else {
+              // the previous ancestor is an inline fragment and this field is not the only selection
+              range = rangeRemoveForAllSelectionsOfField({
+                location: locationFromPreviousAncestor as Location,
+              });
+            }
+          } else {
+            // this field is the only selection of it's parent and there are no inline fragments in it's ancestry
+            range = rangeRemoveForAllSelectionsOfField({ location });
+          }
+
+          console.log('REMOVE: this is not a top level field and is the only selection', {
+            target,
+          });
           return updateModel({
-            range: rangeRemoveForAllSelectionsOfField({ location }),
+            range,
             targetModel,
             text: null,
           });
         }
 
-        // 4. this is not a top level field but there are other selections
         if (previousAncestorSelectionsCount > 1) {
-          // console.log(
-          //   'REMOVE: this is not a top level field but there are other selections'
-          // );
-          if ((target.selection as FieldNode).selectionSet) {
+          console.log(
+            'REMOVE: this is not a top level field but there are other selections'
+          );
+          if ((target.selection as FieldNode | InlineFragmentNode).selectionSet) {
             // if this field has existing selections, we use an expanded range
             return updateModel({
               range: rangeRemoveForFieldWithSelections({ location }),
@@ -149,11 +248,12 @@ export const toggle = ({
     if (!isSelected) {
       // this is an INSERT action
       if (!isNestedField && previousAncestorSelectionsCount > 0) {
-        // console.log(
-        //   'INSERT: this is a top level field and there are existing top level selections',
-        // );
-        const location = (previousAncestor as AncestorRoot).operationDefinition
-          ?.loc as Location;
+        const location = locationFromPreviousAncestor as Location;
+
+        console.log(
+          'INSERT: this is a top level field and there are existing top level selections',
+          { location, previousAncestor }
+        );
 
         return updateModel({
           range: rangeInsertBeforeClosingBracket({ location }),
@@ -163,9 +263,9 @@ export const toggle = ({
       }
 
       if (isNestedField && previousAncestor.selection) {
-        // console.log(`INSERT: this is not a top level field and it's parent is selected`);
+        console.log(`INSERT: this is not a top level field and it's parent is selected`);
 
-        const location = previousAncestor.selection.loc as Location;
+        const location = locationFromPreviousAncestor as Location;
 
         // if the parent has more than one selection, our range is one thing
         if (previousAncestorSelectionsCount > 0) {
@@ -176,14 +276,17 @@ export const toggle = ({
           });
         } else {
           // if the parent does not have any selections, our range is another
-          const calculatedWrite = `${previousAncestor.field.name} {\n${' '.repeat(
+          const stringToWrite = getStringToWrite({
+            ancestor: previousAncestor,
+          });
+
+          const calculatedWrite = `${stringToWrite} {\n${' '.repeat(
             location.startToken.column + 1
           )}${target.field.name}\n${' '.repeat(location.startToken.column - 1)}}`;
 
           return updateModel({
             range: rangeInsertAfterField({
-              endColumn:
-                location.startToken.column + previousAncestor.field.name.length + 2,
+              endColumn: location.startToken.column + stringToWrite.length + 2,
               location,
             }),
             targetModel,
@@ -200,7 +303,9 @@ export const toggle = ({
         // );
 
         // capture all ancestors except the first, which is always the root operation type
-        const fieldAncestors = [...ancestors.slice(1)] as AncestorField[];
+        const fieldAncestors = [...ancestors.slice(1)] as Array<
+          AncestorField | AncestorInlineFragment
+        >;
 
         // from those ancestors, capture all that are not selected
         // we'll use this array to build our new selection
@@ -252,7 +357,7 @@ export const toggle = ({
           arr.forEach((a, index) => {
             const fieldIndent = ' '.repeat(fieldIndentCount);
             fieldText += fieldIndent;
-            fieldText += a.field.name;
+            fieldText += getStringToWrite({ ancestor: a });
             // this space is critical, so i'm calling it out here
             fieldText += ' ';
             fieldText += `${index < arr.length - 1 ? '{\n' : '\n'}`;
@@ -279,14 +384,13 @@ export const toggle = ({
           if (nearestSelectedAncestorHasSelections) {
             range = rangeInsertBeforeClosingBracket({ location });
           } else {
+            const stringToWrite = getStringToWrite({ ancestor: nearestSelectedAncestor });
             range = {
               startLineNumber: location.startToken.line,
-              startColumn: (location.startToken.column +
-                nearestSelectedAncestor?.field.name.length) as number,
+              startColumn: (location.startToken.column + stringToWrite.length) as number,
               endLineNumber: location.startToken.line,
               endColumn:
-                ((location.startToken.column +
-                  nearestSelectedAncestor?.field.name.length) as number) + 1,
+                ((location.startToken.column + stringToWrite.length) as number) + 1,
             };
           }
         }
