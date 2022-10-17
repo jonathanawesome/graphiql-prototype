@@ -77,20 +77,20 @@ export const toggle = ({
     return 0;
   };
 
-  const getLocationFromAncestor = ({ index }: { index: number }) => {
-    const ancestor = ancestors[index];
-    console.log('ancester', { ancestor });
-    if (
-      (ancestor.type === 'INLINE_FRAGMENT' || ancestor.type === 'FIELD') &&
-      ancestor.selection
-    ) {
-      return ancestor.selection.loc;
-    }
-    if (ancestor.type === 'ROOT' && ancestor.operationDefinition) {
-      return ancestor.operationDefinition.loc;
-    }
-    return null;
-  };
+  // const getLocationFromAncestor = ({ index }: { index: number }) => {
+  //   const ancestor = ancestors[index];
+  //   console.log('ancester', { ancestor });
+  //   if (
+  //     (ancestor.type === 'INLINE_FRAGMENT' || ancestor.type === 'FIELD') &&
+  //     ancestor.selection
+  //   ) {
+  //     return ancestor.selection.loc;
+  //   }
+  //   if (ancestor.type === 'ROOT' && ancestor.operationDefinition) {
+  //     return ancestor.operationDefinition.loc;
+  //   }
+  //   return null;
+  // };
 
   const getLocationFromPreviousAncestor = () => {
     if (
@@ -117,7 +117,11 @@ export const toggle = ({
   const isNestedField =
     previousAncestor.type === 'FIELD' || previousAncestor.type === 'INLINE_FRAGMENT';
   const isField = target.type === 'FIELD';
+  const isArgument = target.type === 'ARGUMENT';
 
+  if (isArgument) {
+    console.log('isArgument', { target });
+  }
   if (isField) {
     const isSelected = !!target.selection;
 

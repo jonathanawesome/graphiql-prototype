@@ -60,9 +60,14 @@ export const Arguments = ({
           {args.map((arg) => (
             <Argument
               key={arg.name}
-              ancestors={ancestors}
-              argument={arg}
-              selection={selection?.arguments?.find((a) => a.name.value === arg.name)}
+              ancestors={[
+                ...ancestors,
+                {
+                  type: 'ARGUMENT',
+                  argument: arg,
+                  selection: selection?.arguments?.find((a) => a.name.value === arg.name),
+                },
+              ]}
             />
           ))}
         </StyledArgumentsList>

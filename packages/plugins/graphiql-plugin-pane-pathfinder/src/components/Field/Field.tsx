@@ -10,7 +10,6 @@ import { AncestorField, AncestorsArray } from '../../hooks';
 import { unwrapType } from '../../utils';
 
 export const Field = ({ ancestors }: { ancestors: AncestorsArray }) => {
-  // const { field, selection } = ancestors[0] as AncestorField;
   const { field, selection } = ancestors[ancestors.length - 1] as AncestorField;
 
   const unwrappedType = unwrapType(field.type);

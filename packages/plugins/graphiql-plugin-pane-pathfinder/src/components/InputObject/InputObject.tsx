@@ -1,36 +1,32 @@
-import { GraphQLArgument, GraphQLInputObjectType, isInputObjectType } from 'graphql';
+import { GraphQLInputFieldMap, isInputObjectType } from 'graphql';
 
 // components
 import { ListItem, ScalarArg } from '../index';
+import { Message } from '@graphiql-prototype/ui-library';
 
 // hooks
 import { AncestorArgument, AncestorsArray } from '../../hooks';
 
 // styles
 import { StyledInputObject } from './styles';
-import { Message } from '@graphiql-prototype/ui-library';
 
 export const InputObject = ({
   ancestors,
-  argument,
-  inputObjectType,
+  fields,
   isNested,
 }: {
   ancestors: AncestorsArray;
-  argument: GraphQLArgument;
-  inputObjectType: GraphQLInputObjectType;
+  fields: GraphQLInputFieldMap;
   isNested: boolean;
 }) => {
-  const fields = inputObjectType.getFields();
+  const { argument, selection } = ancestors[ancestors.length - 1] as AncestorArgument;
 
-  const previousAncestor = ancestors.values().next().value as AncestorArgument;
+  const isSelected = !!selection;
 
-  const isSelected = !!previousAncestor.selection;
-
-  // console.log('rendering InputObject', {
-  //   isSelected,
-  //   previousAncestor,
-  // });
+  console.log('rendering InputObject', {
+    isSelected,
+    argument,
+  });
 
   return (
     <StyledInputObject>

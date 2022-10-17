@@ -2,7 +2,6 @@ import {
   ArgumentNode,
   GraphQLArgument,
   GraphQLField,
-  Kind,
   OperationDefinitionNode,
   OperationTypeNode,
   SelectionNode,
@@ -22,7 +21,6 @@ export type AncestorArgument = {
   type: 'ARGUMENT';
   argument: GraphQLArgument;
   selection: ArgumentNode | undefined;
-  variableName: string;
 };
 
 export type AncestorField = {

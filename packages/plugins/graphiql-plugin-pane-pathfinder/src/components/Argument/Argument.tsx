@@ -1,4 +1,4 @@
-import { ArgumentNode, GraphQLArgument, isInputObjectType } from 'graphql';
+import { isInputObjectType } from 'graphql';
 
 // components
 import { InputObject, ScalarArg } from '../index';
@@ -9,20 +9,15 @@ import type { AncestorArgument, AncestorsArray } from '../../hooks';
 // utils
 import { unwrapNonNullArgumentType } from '../../utils';
 
-export const Argument = ({
-  ancestors,
-  argument,
-  selection,
-}: {
-  ancestors: AncestorsArray;
-  argument: GraphQLArgument;
-  selection: ArgumentNode | undefined;
-}) => {
+export const Argument = ({ ancestors }: { ancestors: AncestorsArray }) => {
+  const { argument, selection } = ancestors[ancestors.length - 1] as AncestorArgument;
+
   const unwrappedNonNullType = unwrapNonNullArgumentType({ argumentType: argument.type });
 
   // console.log('Argument', {
   //   name: argument.name,
   //   selection,
+  //   ancestors,
   // });
 
   const newAncestors = [
@@ -31,7 +26,6 @@ export const Argument = ({
       type: 'ARGUMENT',
       argument,
       selection,
-      variableName: argument.name,
     } as AncestorArgument,
   ];
   let toRender: React.ReactNode | null = null;
@@ -40,8 +34,7 @@ export const Argument = ({
     toRender = (
       <InputObject
         ancestors={newAncestors}
-        argument={argument}
-        inputObjectType={unwrappedNonNullType}
+        fields={unwrappedNonNullType.getFields()}
         isNested={false}
       />
     );
