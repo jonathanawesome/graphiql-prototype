@@ -10,7 +10,7 @@ import type { AncestorArgument, AncestorsArray } from '../../hooks';
 import { unwrapNonNullArgumentType } from '../../utils';
 
 export const Argument = ({ ancestors }: { ancestors: AncestorsArray }) => {
-  const { argument, selection } = ancestors[ancestors.length - 1] as AncestorArgument;
+  const { argument } = ancestors[ancestors.length - 1] as AncestorArgument;
 
   const unwrappedNonNullType = unwrapNonNullArgumentType({ argumentType: argument.type });
 
@@ -20,28 +20,18 @@ export const Argument = ({ ancestors }: { ancestors: AncestorsArray }) => {
   //   ancestors,
   // });
 
-  const newAncestors = [
-    ...ancestors,
-    {
-      type: 'ARGUMENT',
-      argument,
-      selection,
-    } as AncestorArgument,
-  ];
   let toRender: React.ReactNode | null = null;
 
   if (isInputObjectType(unwrappedNonNullType)) {
     toRender = (
       <InputObject
-        ancestors={newAncestors}
+        ancestors={ancestors}
         fields={unwrappedNonNullType.getFields()}
         isNested={false}
       />
     );
   } else {
-    toRender = (
-      <ScalarArg ancestors={newAncestors} argument={argument} onInputType={null} />
-    );
+    toRender = <ScalarArg ancestors={ancestors} argument={argument} onInputType={null} />;
   }
 
   return <>{toRender}</>;

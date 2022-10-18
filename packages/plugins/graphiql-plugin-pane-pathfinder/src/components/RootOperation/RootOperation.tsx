@@ -22,11 +22,11 @@ export const RootOperation = ({
     ancestors.length - 1
   ] as AncestorRoot;
 
-  // console.log('rendering RootOperation', {
-  //   operationDefinition,
-  //   // activeEditorTab,
-  //   // editorTabs,
-  // });
+  console.log('rendering RootOperation', {
+    operationDefinition,
+    // activeEditorTab,
+    // editorTabs,
+  });
 
   if (!fields) {
     return (

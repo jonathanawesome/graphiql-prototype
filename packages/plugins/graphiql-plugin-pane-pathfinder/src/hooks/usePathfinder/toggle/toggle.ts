@@ -1,4 +1,11 @@
-import { FieldNode, InlineFragmentNode, Location } from 'graphql';
+import {
+  ArgumentNode,
+  FieldNode,
+  InlineFragmentNode,
+  Kind,
+  Location,
+  print,
+} from 'graphql';
 import { IRange } from 'monaco-editor';
 
 // helpers
@@ -30,10 +37,10 @@ const getStringToWrite = ({
 }: {
   ancestor: AncestorField | AncestorInlineFragment;
 }) => {
-  if ('field' in ancestor) {
+  if (ancestor.type === 'FIELD') {
     return ancestor.field.name;
   }
-  if ('onType' in ancestor) {
+  if (ancestor.type === 'INLINE_FRAGMENT') {
     return `... on ${ancestor.onType}`;
   }
   return 'WHOOPS';
@@ -120,7 +127,39 @@ export const toggle = ({
   const isArgument = target.type === 'ARGUMENT';
 
   if (isArgument) {
-    console.log('isArgument', { target });
+    const location = (previousAncestor as AncestorField).selection?.loc as Location;
+    const newArgumentNode: ArgumentNode = {
+      kind: Kind.ARGUMENT,
+      name: {
+        kind: Kind.NAME,
+        value: target.argument.name,
+      },
+      value: {
+        kind: Kind.VARIABLE,
+        name: {
+          kind: Kind.NAME,
+          value: target.argument.type.toString(),
+        },
+      },
+    };
+    const text = `(${print(newArgumentNode)})`;
+    console.log('isArgument', {
+      target,
+      previousAncestor,
+      location,
+      newArgumentNode,
+      printed: text,
+    });
+    return updateModel({
+      range: {
+        startLineNumber: location.startToken.line,
+        endLineNumber: location.startToken.line,
+        startColumn: location.startToken.column + location.startToken.value.length,
+        endColumn: location.startToken.column + location.startToken.value.length,
+      },
+      targetModel,
+      text,
+    });
   }
   if (isField) {
     const isSelected = !!target.selection;
@@ -284,13 +323,21 @@ export const toggle = ({
             ancestor: previousAncestor,
           });
 
-          const calculatedWrite = `${stringToWrite} {\n${' '.repeat(
-            location.startToken.column + 1
-          )}${target.field.name}\n${' '.repeat(location.startToken.column - 1)}}`;
+          const calculatedWrite = ` {\n${' '.repeat(location.startToken.column + 1)}${
+            target.field.name
+          }\n${' '.repeat(location.startToken.column - 1)}}`;
+
+          console.log(
+            `INSERT: this is not a top level field and it's parent is selected`,
+            {
+              location,
+              // stringToWrite
+            }
+          );
 
           return updateModel({
             range: rangeInsertAfterField({
-              endColumn: location.startToken.column + stringToWrite.length + 2,
+              // endColumn: location.startToken.column + stringToWrite.length + 2,
               location,
             }),
             targetModel,

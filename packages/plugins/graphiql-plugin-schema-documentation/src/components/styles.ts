@@ -187,23 +187,7 @@ export const StyledTertiaryPaneNav = styled('div', {
 
 export const StyledTertiaryPaneNavButton = styled('div', {
   transform: `rotate(90deg)`,
-  height: theme.space[12],
-  width: theme.space[12],
   flexShrink: 0,
-  cursor: `pointer`,
-
-  button: {
-    width: `100%`,
-    height: `100%`,
-    display: `flex`,
-    alignItems: `center`,
-    justifyContent: `center`,
-
-    svg: {
-      height: theme.space[5],
-      width: theme.space[5],
-    },
-  },
 
   variants: {
     isActive: {

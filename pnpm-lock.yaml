@@ -261,7 +261,6 @@ importers:
       '@graphiql-prototype/store': workspace:*
       '@graphiql-prototype/ui-library': workspace:*
       '@graphiql-prototype/utils': workspace:*
-      '@radix-ui/react-collapsible': ^1.0.0
       '@radix-ui/react-dialog': ^1.0.0
       '@testing-library/dom': ^8.18.1
       '@testing-library/jest-dom': ^5.16.5
@@ -273,7 +272,6 @@ importers:
       cuid: ^2.1.8
       dayjs: ^1.11.5
       graphql: ^16.5.0
-      graphql-language-service: ^5.0.6
       jsdom: ^20.0.1
       monaco-editor: ^0.33.0
       react: 18.2.0
@@ -286,13 +284,11 @@ importers:
       '@graphiql-prototype/store': link:../../core/store
       '@graphiql-prototype/ui-library': link:../../core/ui-library
       '@graphiql-prototype/utils': link:../../core/utils
-      '@radix-ui/react-collapsible': 1.0.0_biqbaboplfbrettd7655fr4n2y
       '@radix-ui/react-dialog': 1.0.0_rj7ozvcq3uehdlnj3cbwzbi5ce
       '@testing-library/dom': 8.18.1
       cuid: 2.1.8
       dayjs: 1.11.5
       graphql: 16.6.0
-      graphql-language-service: 5.0.6_graphql@16.6.0
       monaco-editor: 0.33.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0

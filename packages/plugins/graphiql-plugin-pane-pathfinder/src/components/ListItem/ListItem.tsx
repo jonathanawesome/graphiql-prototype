@@ -3,20 +3,16 @@ import { useEffect, useState } from 'react';
 // components
 import { Details } from '../Details';
 import { DeprecatedMessage } from '../DeprecatedMessage';
-import { SeparatorRound } from '@graphiql-prototype/ui-library';
-
-// icons
-import { Caret } from '../../icons';
+import { Button, SeparatorRound } from '@graphiql-prototype/ui-library';
 
 // styles
 import {
-  ChildFields,
-  CollapsibleContent,
-  CollapsibleRoot,
-  CollapsibleTrigger,
-  Layout,
-  ListItemStyled,
+  StyledChildFields,
+  StyledCollapsibleListItemTriggerWrap,
   StyledLeafIndicator,
+  StyledListItem,
+  StyledListItemContent,
+  StyledListItemLeadWrap,
 } from './styles';
 
 // types
@@ -32,7 +28,7 @@ export const ListItem = ({
   type,
   variant,
 }: ListItemProps) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   // console.log('ListItem', {
   //   type: type.name,
@@ -44,60 +40,63 @@ export const ListItem = ({
     // this effect ensures the field is initially expanded when selected
     // this is one of the many micro-interactions in pathfinder that need tweaking/testing
     if (isSelected) {
-      setIsOpen(true);
+      setIsExpanded(true);
     } else {
-      setIsOpen(false);
+      setIsExpanded(false);
     }
   }, [isSelected]);
 
   if (collapsibleContent) {
+    const id = `${type.name}-${variant}`;
     return (
-      <CollapsibleRoot asChild open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
-        <ListItemStyled>
-          <Layout hasToggler={!!toggler} isCollapsible={true}>
-            <CollapsibleTrigger
-              aria-label={`Expand nested content of ${type.name} ${variant}`}
-              isOpen={isOpen}
-              type="button"
-              variant={variant}
-            >
-              <Caret />
-            </CollapsibleTrigger>
-            {toggler && (
-              <Toggler
-                {...toggler}
-                collapser={{
-                  isOpen,
-                  setIsOpen,
-                }}
-              />
-            )}
-            <Details isSelected={isSelected} type={type} variant={variant} />
-          </Layout>
-          <CollapsibleContent isOpen={isOpen} variant={variant}>
-            {'deprecationReason' in type && type.deprecationReason && (
-              <DeprecatedMessage deprecationReason={type.deprecationReason} />
-            )}
+      <StyledListItem>
+        <StyledListItemLeadWrap>
+          <StyledCollapsibleListItemTriggerWrap isExpanded={isExpanded} variant={variant}>
+            <Button
+              action={() => setIsExpanded(!isExpanded)}
+              aria-expanded={isExpanded}
+              aria-controls={id}
+              icon="Caret"
+              label={`Expand nested content of ${type.name} ${variant}`}
+              size="SMALL"
+              style="ICON"
+            />
+          </StyledCollapsibleListItemTriggerWrap>
 
-            {collapsibleContent.arguments && collapsibleContent.arguments}
-            {collapsibleContent.childFields && (
-              <ChildFields>{collapsibleContent.childFields}</ChildFields>
-            )}
-          </CollapsibleContent>
-        </ListItemStyled>
-      </CollapsibleRoot>
+          {toggler && (
+            <Toggler
+              {...toggler}
+              collapser={{
+                isOpen: isExpanded,
+                setIsOpen: setIsExpanded,
+              }}
+            />
+          )}
+          <Details isSelected={isSelected} type={type} variant={variant} />
+        </StyledListItemLeadWrap>
+        <StyledListItemContent id={id} isExpanded={isExpanded} variant={variant}>
+          {'deprecationReason' in type && type.deprecationReason && (
+            <DeprecatedMessage deprecationReason={type.deprecationReason} />
+          )}
+
+          {collapsibleContent.arguments && collapsibleContent.arguments}
+          {isExpanded && collapsibleContent.childFields && (
+            <StyledChildFields>{collapsibleContent.childFields}</StyledChildFields>
+          )}
+        </StyledListItemContent>
+      </StyledListItem>
     );
   }
 
   return (
-    <ListItemStyled>
-      <Layout hasToggler={!!toggler} isCollapsible={false}>
+    <StyledListItem>
+      <StyledListItemLeadWrap>
         <StyledLeafIndicator>
           <SeparatorRound />
         </StyledLeafIndicator>
         {toggler && <Toggler {...toggler} />}
         <Details isSelected={isSelected} type={type} variant={variant} />
-      </Layout>
-    </ListItemStyled>
+      </StyledListItemLeadWrap>
+    </StyledListItem>
   );
 };

@@ -14,7 +14,7 @@ import {
 import { DirectivePane } from './DirectivePane';
 import { EnumTypePane } from './EnumTypePane';
 import { FieldPane } from './FieldPane';
-import { Icon } from '@graphiql-prototype/ui-library';
+import { Button } from '@graphiql-prototype/ui-library';
 import { InputObjectTypePane } from './InputObjectTypePane';
 import { InterfacePane } from './InterfacePane';
 import { ObjectTypePane } from './ObjectTypePane';
@@ -107,23 +107,31 @@ export const TertiaryPane = ({ pane }: { pane: TertiaryPaneType }) => {
         </StyledTertiaryPaneLeadInfo>
         {canNavigateBack && (
           <StyledTertiaryPaneNavButton isActive={canNavigateBack}>
-            <button
-              disabled={!canNavigateBack}
-              onClick={() => {
+            <Button
+              action={() => {
                 if (canNavigateBack) {
-                  return navigateTertiaryPaneStack({ destinationPaneIndex: indexOf - 1 });
+                  return navigateTertiaryPaneStack({
+                    destinationPaneIndex: indexOf - 1,
+                  });
                 }
                 return undefined;
               }}
-            >
-              <Icon name="ChevronLarge" />
-            </button>
+              isDisabled={!canNavigateBack}
+              icon="ChevronLarge"
+              label={`Navigate back`}
+              size="MEDIUM"
+              style="ICON"
+            />
           </StyledTertiaryPaneNavButton>
         )}
         <StyledTertiaryPaneNavButton isActive={true}>
-          <button onClick={() => clearTertiaryPaneStack()}>
-            <Icon name="Close" />
-          </button>
+          <Button
+            action={() => clearTertiaryPaneStack()}
+            icon="Close"
+            label={`Close`}
+            size="MEDIUM"
+            style="ICON"
+          />
         </StyledTertiaryPaneNavButton>
       </StyledTertiaryPaneLead>
       <StyledTertiaryPaneContent>{toRender}</StyledTertiaryPaneContent>

@@ -24,7 +24,7 @@ export const NameAndType = styled('div', {
 
 export const Name = styled('span', {
   // fontWeight: 600,
-  fontWeight: theme.fontWeights.medium,
+  fontWeight: theme.fontWeights.regular,
   color: theme.colors.text2,
 });
 
@@ -103,6 +103,7 @@ export const StyledDetails = styled('div', {
   gap: 6,
   fontSize: theme.fontSizes.body,
   cursor: `pointer`,
+  marginLeft: 8,
 
   variants: {
     isSelected: {

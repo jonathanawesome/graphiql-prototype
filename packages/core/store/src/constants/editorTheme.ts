@@ -28,7 +28,7 @@ export const editorThemeDark: MONACO_EDITOR.IStandaloneThemeData = {
   rules: [
     // operations editor (graphql)
     {
-      foreground: editorColors && editorColors['dark'].delimiters,
+      foreground: editorColors && editorColors['dark'].yellow_default,
       token: 'string.gql',
     },
     {
@@ -40,7 +40,7 @@ export const editorThemeDark: MONACO_EDITOR.IStandaloneThemeData = {
       token: 'string.invalid.gql',
     },
     {
-      foreground: editorColors && editorColors['dark'].values,
+      foreground: editorColors && editorColors['dark'].yellow_default,
       token: 'number.gql',
     },
     {

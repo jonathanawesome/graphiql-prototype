@@ -4,18 +4,20 @@ export const TogglerStyled = styled('button', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  height: theme.space[7],
+  width: theme.space[7],
+  borderRadius: 2,
+  flexShrink: 0,
 
   svg: {
-    // height: theme.space[3],
-    // width: theme.space[3],
     height: 14,
     width: 14,
     transition: 'transform .1s $authenticMotion',
   },
 
-  // '&:focus': {
-  //   outline: `1px dotted ${theme.colors.text4}`,
-  // },
+  '&:hover': {
+    backgroundColor: theme.colors.surface2,
+  },
 
   variants: {
     variant: {
@@ -26,7 +28,6 @@ export const TogglerStyled = styled('button', {
       true: {},
       false: {
         '&:hover, &:focus': {
-          // backgroundColor: 'orange',
           svg: {
             path: {
               '&:nth-of-type(1)': {

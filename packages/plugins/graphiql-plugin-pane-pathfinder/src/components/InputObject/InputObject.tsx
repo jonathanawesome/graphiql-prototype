@@ -23,10 +23,10 @@ export const InputObject = ({
 
   const isSelected = !!selection;
 
-  console.log('rendering InputObject', {
-    isSelected,
-    argument,
-  });
+  // console.log('rendering InputObject', {
+  //   isSelected,
+  //   argument,
+  // });
 
   return (
     <StyledInputObject>

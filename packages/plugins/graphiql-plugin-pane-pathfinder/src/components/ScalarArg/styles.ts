@@ -3,6 +3,13 @@ import { styled, theme } from '@graphiql-prototype/ui-library';
 export const StyledScalarArgWrap = styled('div', {
   marginTop: theme.space[1],
   marginBottom: theme.space[1],
+
+  variants: {
+    onInputType: {
+      true: { marginLeft: theme.space[4] },
+      false: {},
+    },
+  },
 });
 
 export const StyledError = styled('div', {

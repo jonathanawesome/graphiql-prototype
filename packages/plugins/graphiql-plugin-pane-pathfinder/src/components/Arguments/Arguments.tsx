@@ -3,7 +3,7 @@ import { FieldNode } from 'graphql';
 
 // components
 import { Argument } from '../index';
-import { Caret } from '../../icons';
+import { Button } from '@graphiql-prototype/ui-library';
 
 // hooks
 import type { AncestorField, AncestorsArray } from '../../hooks';
@@ -12,8 +12,8 @@ import type { AncestorField, AncestorsArray } from '../../hooks';
 import {
   StyledArguments,
   StyledArgumentsContent,
+  StyledArgumentsLeadWrap,
   StyledArgumentsList,
-  StyledArgumentsTrigger,
 } from './styles';
 
 export const Arguments = ({
@@ -33,29 +33,34 @@ export const Arguments = ({
 
   const { args } = field;
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   useEffect(() => {
     // this effect ensures the field is initially expanded when selected
     // this is one of the many micro-interactions in pathfinder that need tweaking/testing
     if (selection?.arguments && selection?.arguments.length > 0) {
-      setIsOpen(true);
+      setIsExpanded(true);
     } else {
-      setIsOpen(false);
+      setIsExpanded(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <StyledArguments isOpen={isOpen} open={isOpen} onOpenChange={setIsOpen}>
-      <StyledArgumentsTrigger
-        isOpen={isOpen}
-        aria-label={`Expand nested content of ${field.name} arguments`}
-      >
-        <Caret />
-        <span>arguments</span>
-      </StyledArgumentsTrigger>
-      <StyledArgumentsContent isOpen={isOpen}>
+    <StyledArguments>
+      <StyledArgumentsLeadWrap isExpanded={isExpanded}>
+        <Button
+          action={() => setIsExpanded(!isExpanded)}
+          aria-expanded={isExpanded}
+          aria-controls={field.name}
+          icon="Caret"
+          label={`Expand nested content of ${field.name} arguments`}
+          size="SMALL"
+          style="ICON"
+        />
+        <span>Arguments</span>
+      </StyledArgumentsLeadWrap>
+      <StyledArgumentsContent id={field.name} isExpanded={isExpanded}>
         <StyledArgumentsList>
           {args.map((arg) => (
             <Argument
