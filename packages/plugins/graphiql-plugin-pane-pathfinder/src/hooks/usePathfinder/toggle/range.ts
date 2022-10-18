@@ -54,22 +54,16 @@ export const rangeInsertBeforeClosingBracket = ({
 };
 
 export const rangeInsertAfterField = ({
-  // endColumn,
+  endColumn,
   location,
 }: {
-  // endColumn: number;
+  endColumn: number;
   location: Location;
 }): IRange => {
-  console.log('rangeInsertAfterField', { location });
-  // if the start and end token column numbers are the same, it means we have an empty parent field
-  const col =
-    location.startToken.column === location.endToken.column
-      ? location.endToken.column + location.startToken.value.length
-      : location.endToken.column + 1;
   return {
     startLineNumber: location.startToken.line,
-    startColumn: col,
+    startColumn: location.startToken.column,
     endLineNumber: location.startToken.line,
-    endColumn: col,
+    endColumn,
   };
 };

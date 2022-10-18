@@ -57,7 +57,8 @@ export const StyledArgumentsContent = styled('div', {
     left: 7,
     height: `100%`,
     width: 1,
-    backgroundColor: theme.colors.pink_default,
+    // backgroundColor: theme.colors.pink_default,
+    hairlineL: theme.colors.pink_default,
   },
 
   variants: {

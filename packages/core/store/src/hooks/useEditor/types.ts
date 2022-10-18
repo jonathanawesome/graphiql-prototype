@@ -69,13 +69,13 @@ export type EditorStore = {
   switchEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
 
   // variables
-  removeVariable: ({
-    onInputObject,
-    variableName,
-  }: {
-    onInputObject?: string;
-    variableName: string;
-  }) => void;
+  // removeVariable: ({
+  //   onInputObject,
+  //   variableName,
+  // }: {
+  //   onInputObject?: string;
+  //   variableName: string;
+  // }) => void;
   activeVariables: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getVariables: () => Record<any, any>;
@@ -92,14 +92,24 @@ export type EditorStore = {
   // "other"
   splitMultipleOperationsToSeparateTabs: () => void;
   updateModel: ({
-    range,
-    targetModel,
-    text,
+    edits,
+    targetEditor,
   }: {
-    range?: IRange;
-    targetModel: 'operationsModel' | 'variablesModel' | 'resultsModel';
-    text: string | null;
-  }) => void;
+    edits: Array<{
+      range?: IRange;
+      text: string | null;
+    }>;
+    targetEditor: 'operations' | 'variables' | 'results';
+  }) => //   {
+  //   range,
+  //   targetModel,
+  //   text,
+  // }: {
+  //   range?: IRange;
+  //   targetModel: 'operationsModel' | 'variablesModel' | 'resultsModel';
+  //   text: string | null;
+  // }
+  void;
   updateOperationDefinition: ({
     newDefinition,
   }: {

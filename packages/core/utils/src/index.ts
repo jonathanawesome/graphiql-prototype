@@ -18,6 +18,4 @@ export { parseOutgoingVariableValue } from './parseOutgoingVariableValue';
 
 export { parseQuery } from './parseQuery';
 
-export { pushEditOperationsToModel } from './pushEditOperationsToModel';
-
 export { unwrapType } from './unwrapType';

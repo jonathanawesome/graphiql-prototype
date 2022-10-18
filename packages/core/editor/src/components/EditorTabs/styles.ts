@@ -33,6 +33,8 @@ export const StyledTabWrap = styled('div', {
   alignItems: `center`,
   flexWrap: `nowrap`,
   minWidth: 0,
+  backgroundColor: theme.colors.surface1,
+  hairlineB: theme.colors.surface3,
 
   '&:hover': {
     backgroundColor: theme.colors.surface2,

@@ -5,6 +5,7 @@ import {
   Kind,
   Location,
   print,
+  VariableDefinitionNode,
 } from 'graphql';
 import { IRange } from 'monaco-editor';
 
@@ -30,7 +31,7 @@ import {
   rangeRemoveForSingleLine,
 } from './range';
 
-const targetModel = 'operationsModel';
+const targetEditor = 'operations';
 
 const getStringToWrite = ({
   ancestor,
@@ -84,20 +85,20 @@ export const toggle = ({
     return 0;
   };
 
-  // const getLocationFromAncestor = ({ index }: { index: number }) => {
-  //   const ancestor = ancestors[index];
-  //   console.log('ancester', { ancestor });
-  //   if (
-  //     (ancestor.type === 'INLINE_FRAGMENT' || ancestor.type === 'FIELD') &&
-  //     ancestor.selection
-  //   ) {
-  //     return ancestor.selection.loc;
-  //   }
-  //   if (ancestor.type === 'ROOT' && ancestor.operationDefinition) {
-  //     return ancestor.operationDefinition.loc;
-  //   }
-  //   return null;
-  // };
+  const getLocationFromAncestor = ({ index }: { index: number }) => {
+    const ancestor = ancestors[index];
+    console.log('ancester', { ancestor });
+    if (
+      (ancestor.type === 'INLINE_FRAGMENT' || ancestor.type === 'FIELD') &&
+      ancestor.selection
+    ) {
+      return ancestor.selection.loc;
+    }
+    if (ancestor.type === 'ROOT' && ancestor.operationDefinition) {
+      return ancestor.operationDefinition.loc;
+    }
+    return null;
+  };
 
   const getLocationFromPreviousAncestor = () => {
     if (
@@ -121,13 +122,44 @@ export const toggle = ({
     return insertNewOperation({ ancestors });
   }
 
+  // if the toggled item is on an operationType that differs from the current operationType, spin up a new tab and do work there
+  const currentOperationType = activeEditorTab?.operationDefinition?.operation;
+
+  if ((ancestors[0] as AncestorRoot).operationType !== currentOperationType) {
+    const initEditorTab = useEditor.getState().initEditorTab;
+
+    initEditorTab({});
+
+    return insertNewOperation({ ancestors });
+  }
+
   const isNestedField =
     previousAncestor.type === 'FIELD' || previousAncestor.type === 'INLINE_FRAGMENT';
   const isField = target.type === 'FIELD';
   const isArgument = target.type === 'ARGUMENT';
 
   if (isArgument) {
-    const location = (previousAncestor as AncestorField).selection?.loc as Location;
+    const argumentTargetLocation = (previousAncestor as AncestorField).selection
+      ?.loc as Location;
+    const variableTargetLocation = (ancestors[0] as AncestorRoot).operationDefinition
+      ?.loc as Location;
+    const newVariableDefinitionNode: VariableDefinitionNode = {
+      kind: Kind.VARIABLE_DEFINITION,
+      variable: {
+        kind: Kind.VARIABLE,
+        name: {
+          kind: Kind.NAME,
+          value: target.argument.name,
+        },
+      },
+      type: {
+        kind: Kind.NAMED_TYPE,
+        name: {
+          kind: Kind.NAME,
+          value: target.argument.type.toString(),
+        },
+      },
+    };
     const newArgumentNode: ArgumentNode = {
       kind: Kind.ARGUMENT,
       name: {
@@ -138,27 +170,50 @@ export const toggle = ({
         kind: Kind.VARIABLE,
         name: {
           kind: Kind.NAME,
-          value: target.argument.type.toString(),
+          value: target.argument.name,
         },
       },
     };
-    const text = `(${print(newArgumentNode)})`;
+    const argumentText = `(${print(newArgumentNode)})`;
+    const variableText = `(${print(newVariableDefinitionNode)})`;
     console.log('isArgument', {
       target,
-      previousAncestor,
-      location,
-      newArgumentNode,
-      printed: text,
+      argumentTargetLocation,
+      variableTargetLocation,
+      printedArgument: argumentText,
+      printedVariable: variableText,
     });
+
     return updateModel({
-      range: {
-        startLineNumber: location.startToken.line,
-        endLineNumber: location.startToken.line,
-        startColumn: location.startToken.column + location.startToken.value.length,
-        endColumn: location.startToken.column + location.startToken.value.length,
-      },
-      targetModel,
-      text,
+      edits: [
+        {
+          range: {
+            startLineNumber: variableTargetLocation.startToken.line,
+            endLineNumber: variableTargetLocation.startToken.line,
+            startColumn:
+              (variableTargetLocation.startToken.next?.column as number) +
+              (variableTargetLocation.startToken.next?.value as string).length,
+            endColumn:
+              (variableTargetLocation.startToken.next?.column as number) +
+              (variableTargetLocation.startToken.next?.value as string).length,
+          },
+          text: variableText,
+        },
+        {
+          range: {
+            startLineNumber: argumentTargetLocation.startToken.line,
+            endLineNumber: argumentTargetLocation.startToken.line,
+            startColumn:
+              argumentTargetLocation.startToken.column +
+              argumentTargetLocation.startToken.value.length,
+            endColumn:
+              argumentTargetLocation.startToken.column +
+              argumentTargetLocation.startToken.value.length,
+          },
+          text: argumentText,
+        },
+      ],
+      targetEditor,
     });
   }
   if (isField) {
@@ -173,9 +228,13 @@ export const toggle = ({
         if (previousAncestorSelectionsCount === 1) {
           // console.log('REMOVE: this is a top level field and is the only selection', {});
           return updateModel({
-            range: activeEditorTab.operationsModel.getFullModelRange(),
-            targetModel,
-            text: null,
+            edits: [
+              {
+                range: activeEditorTab.operationsModel.getFullModelRange(),
+                text: null,
+              },
+            ],
+            targetEditor,
           });
         }
 
@@ -191,16 +250,24 @@ export const toggle = ({
           ) {
             // if this field has existing selections, we use an expanded range
             return updateModel({
-              range: rangeRemoveForFieldWithSelections({ location }),
-              targetModel,
-              text: null,
+              edits: [
+                {
+                  range: rangeRemoveForFieldWithSelections({ location }),
+                  text: null,
+                },
+              ],
+              targetEditor,
             });
           } else {
             // if this field does not have selections, we just remove the field
             return updateModel({
-              range: rangeRemoveForSingleLine({ location }),
-              targetModel,
-              text: null,
+              edits: [
+                {
+                  range: rangeRemoveForSingleLine({ location }),
+                  text: null,
+                },
+              ],
+              targetEditor,
             });
           }
         }
@@ -259,9 +326,13 @@ export const toggle = ({
             target,
           });
           return updateModel({
-            range,
-            targetModel,
-            text: null,
+            edits: [
+              {
+                range,
+                text: null,
+              },
+            ],
+            targetEditor,
           });
         }
 
@@ -272,16 +343,24 @@ export const toggle = ({
           if ((target.selection as FieldNode | InlineFragmentNode).selectionSet) {
             // if this field has existing selections, we use an expanded range
             return updateModel({
-              range: rangeRemoveForFieldWithSelections({ location }),
-              targetModel,
-              text: null,
+              edits: [
+                {
+                  range: rangeRemoveForFieldWithSelections({ location }),
+                  text: null,
+                },
+              ],
+              targetEditor,
             });
           } else {
             // if this field does not have selections, we just remove the field
             return updateModel({
-              range: rangeRemoveForSingleLine({ location }),
-              targetModel,
-              text: null,
+              edits: [
+                {
+                  range: rangeRemoveForSingleLine({ location }),
+                  text: null,
+                },
+              ],
+              targetEditor,
             });
           }
         }
@@ -299,9 +378,13 @@ export const toggle = ({
         );
 
         return updateModel({
-          range: rangeInsertBeforeClosingBracket({ location }),
-          targetModel,
-          text: `${' '.repeat(location.startToken.column + 1)}${target.field.name}\n`,
+          edits: [
+            {
+              range: rangeInsertBeforeClosingBracket({ location }),
+              text: `${' '.repeat(location.startToken.column + 1)}${target.field.name}\n`,
+            },
+          ],
+          targetEditor,
         });
       }
 
@@ -313,9 +396,15 @@ export const toggle = ({
         // if the parent has more than one selection, our range is one thing
         if (previousAncestorSelectionsCount > 0) {
           return updateModel({
-            range: rangeInsertBeforeClosingBracket({ location }),
-            targetModel,
-            text: `${' '.repeat(location.startToken.column + 1)}${target.field.name}\n`,
+            edits: [
+              {
+                range: rangeInsertBeforeClosingBracket({ location }),
+                text: `${' '.repeat(location.startToken.column + 1)}${
+                  target.field.name
+                }\n`,
+              },
+            ],
+            targetEditor,
           });
         } else {
           // if the parent does not have any selections, our range is another
@@ -323,25 +412,21 @@ export const toggle = ({
             ancestor: previousAncestor,
           });
 
-          const calculatedWrite = ` {\n${' '.repeat(location.startToken.column + 1)}${
-            target.field.name
-          }\n${' '.repeat(location.startToken.column - 1)}}`;
-
-          console.log(
-            `INSERT: this is not a top level field and it's parent is selected`,
-            {
-              location,
-              // stringToWrite
-            }
-          );
+          const calculatedWrite = `${stringToWrite} {\n${' '.repeat(
+            location.startToken.column + 1
+          )}${target.field.name}\n${' '.repeat(location.startToken.column - 1)}}`;
 
           return updateModel({
-            range: rangeInsertAfterField({
-              // endColumn: location.startToken.column + stringToWrite.length + 2,
-              location,
-            }),
-            targetModel,
-            text: calculatedWrite,
+            edits: [
+              {
+                range: rangeInsertAfterField({
+                  endColumn: location.startToken.column + stringToWrite.length + 2,
+                  location,
+                }),
+                text: calculatedWrite,
+              },
+            ],
+            targetEditor,
           });
         }
       }
@@ -447,9 +532,13 @@ export const toggle = ({
         }
 
         return updateModel({
-          range,
-          targetModel,
-          text: calculatedText(),
+          edits: [
+            {
+              range,
+              text: calculatedText(),
+            },
+          ],
+          targetEditor,
         });
       }
     }

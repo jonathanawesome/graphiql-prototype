@@ -8,7 +8,7 @@ import {
   SelectionNode,
 } from 'graphql';
 
-import { AncestorRoot, AncestorsArray } from '../types';
+import { AncestorField, AncestorRoot, AncestorsArray } from '../types';
 
 const updateModel = useEditor.getState().updateModel;
 
@@ -16,13 +16,18 @@ export const insertNewOperation = ({ ancestors }: { ancestors: AncestorsArray })
   // console.log('insert new operation', {
   //   ancestors,
   // });
+  const operationType = (ancestors[0] as AncestorRoot).operationType;
+  const topLevelFieldName = (ancestors[1] as AncestorField).field.name;
+
   const operationDefinition: OperationDefinitionNode = {
     kind: Kind.OPERATION_DEFINITION,
     name: {
       kind: Kind.NAME,
-      value: `new${(ancestors[0] as AncestorRoot).operationType}`,
+      value: `new${
+        topLevelFieldName.charAt(0).toUpperCase() + topLevelFieldName.slice(1)
+      }${operationType.charAt(0).toUpperCase() + operationType.slice(1)}`,
     },
-    operation: (ancestors[0] as AncestorRoot).operationType,
+    operation: operationType,
     selectionSet: {
       kind: Kind.SELECTION_SET,
       selections: [],
@@ -135,7 +140,11 @@ export const insertNewOperation = ({ ancestors }: { ancestors: AncestorsArray })
   };
 
   return updateModel({
-    targetModel: 'operationsModel',
-    text: print(newOperationDefinitionNode),
+    edits: [
+      {
+        text: print(newOperationDefinitionNode),
+      },
+    ],
+    targetEditor: 'operations',
   });
 };

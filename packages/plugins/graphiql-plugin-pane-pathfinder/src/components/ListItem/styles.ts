@@ -125,7 +125,8 @@ export const StyledListItemContent = styled('div', {
       variant: 'FIELD',
       css: {
         '&::after': {
-          backgroundColor: theme.colors.violet_light,
+          // backgroundColor: theme.colors.violet_light,
+          hairlineL: theme.colors.violet_light,
         },
       },
     },
@@ -134,7 +135,8 @@ export const StyledListItemContent = styled('div', {
       variant: 'ARGUMENT',
       css: {
         '&::after': {
-          backgroundColor: theme.colors.pink_default,
+          // backgroundColor: theme.colors.pink_default,
+          // hairlineL: theme.colors.pink_default,
         },
       },
     },
@@ -143,7 +145,8 @@ export const StyledListItemContent = styled('div', {
       variant: 'INLINE_FRAGMENT',
       css: {
         '&::after': {
-          backgroundColor: theme.colors.blue_default,
+          // backgroundColor: theme.colors.blue_default,
+          hairlineL: theme.colors.blue_default,
         },
       },
     },
@@ -152,7 +155,8 @@ export const StyledListItemContent = styled('div', {
       variant: 'INPUT_OBJECT',
       css: {
         '&::after': {
-          backgroundColor: theme.colors.orange_default,
+          // backgroundColor: theme.colors.orange_default,
+          hairlineL: theme.colors.orange_default,
         },
       },
     },
