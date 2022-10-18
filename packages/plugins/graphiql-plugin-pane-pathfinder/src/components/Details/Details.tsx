@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { isRequiredArgument, isRequiredInputField } from 'graphql';
 
 // components
@@ -7,7 +8,7 @@ import { Icon } from '@graphiql-prototype/ui-library';
 import { useSchemaReference } from '@graphiql-prototype/graphiql-plugin-schema-documentation';
 
 // styles
-import { DetailsStyled, NameAndType, Name, Type } from './styles';
+import { StyledDetails, NameAndType, Name, Type } from './styles';
 
 // types
 import type { ListItemTypeTypes, ListItemVariants } from '../ListItem';
@@ -20,7 +21,7 @@ export type DetailsProps = {
 
 export const Details = ({ isSelected, type, variant }: DetailsProps) => {
   // console.log('Details', { type, variant });
-
+  const [showControls, setShowControls] = useState<boolean>(false);
   const { setActiveTertiaryPane } = useSchemaReference();
 
   const asterisk =
@@ -29,15 +30,17 @@ export const Details = ({ isSelected, type, variant }: DetailsProps) => {
     `*`;
 
   return (
-    <DetailsStyled entityType={variant} isSelected={isSelected}>
-      <NameAndType>
-        {/* 👇 this fragment situation is weird...just a guess I took given that union types and fragment handling isn't in the design. needs to be resolved at the community/design level  */}
+    <StyledDetails entityType={variant} isSelected={isSelected}>
+      <NameAndType
+        onMouseEnter={() => setShowControls(true)}
+        onMouseLeave={() => setShowControls(false)}
+      >
         <Name>
           {variant === 'INLINE_FRAGMENT'
             ? `... on ${type.name}`
             : `${type.name}${asterisk || ''}`}
         </Name>
-        {variant !== 'INPUT_OBJECT' && (
+        {showControls && variant !== 'INPUT_OBJECT' && (
           <Type>
             <button
               onClick={() => {
@@ -49,6 +52,6 @@ export const Details = ({ isSelected, type, variant }: DetailsProps) => {
           </Type>
         )}
       </NameAndType>
-    </DetailsStyled>
+    </StyledDetails>
   );
 };

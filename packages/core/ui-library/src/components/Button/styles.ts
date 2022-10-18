@@ -68,7 +68,17 @@ export const StyledButton = styled('button', {
       },
       ICON: {
         backgroundColor: `transparent`,
-
+        '&:hover': {
+          backgroundColor: theme.colors.surface2,
+          svg: {
+            path: {
+              fill: theme.colors.text2,
+            },
+          },
+        },
+        '&:focus': {
+          outline: `1px dotted ${theme.colors.surface3}`,
+        },
         svg: {
           path: {
             fill: theme.colors.text4,
@@ -107,8 +117,10 @@ export const StyledButton = styled('button', {
       style: 'ICON',
       size: 'SMALL',
       css: {
-        width: theme.space[6],
-        height: theme.space[6],
+        width: theme.space[7],
+        height: theme.space[7],
+        borderRadius: 2,
+
         svg: {
           height: theme.space[3],
           width: theme.space[3],

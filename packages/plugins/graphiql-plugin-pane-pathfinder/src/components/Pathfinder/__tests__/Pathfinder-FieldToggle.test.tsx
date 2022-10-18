@@ -20,6 +20,14 @@ beforeEach(() => {
 });
 
 describe('Pathfinder | Toggler - Field', () => {
+  // no active operation definition
+  // it('add top level field when there isn't an active operation definition', async () => {});
+  // it('add nested field, of any depth, when there isn't an active operation definition', async () => {});
+
+  // with active operation definition
+  // it('add top level field when there is an active operation definition', async () => {});
+  // it('add nested field, of any depth, when there is an active operation definition', async () => {});
+
   it('Field toggle buttons should respond correctly when clicked', async () => {
     // render Pathfinder UI
     render(<Pathfinder />);

@@ -1,5 +1,5 @@
 import { OperationDefinitionNode } from 'graphql';
-import { editor as MONACO_EDITOR } from 'monaco-editor/esm/vs/editor/editor.api';
+import { editor as MONACO_EDITOR, IRange } from 'monaco-editor/esm/vs/editor/editor.api';
 import type { MonacoGraphQLAPI } from 'monaco-graphql';
 
 // types
@@ -69,13 +69,13 @@ export type EditorStore = {
   switchEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
 
   // variables
-  removeVariable: ({
-    onInputObject,
-    variableName,
-  }: {
-    onInputObject?: string;
-    variableName: string;
-  }) => void;
+  // removeVariable: ({
+  //   onInputObject,
+  //   variableName,
+  // }: {
+  //   onInputObject?: string;
+  //   variableName: string;
+  // }) => void;
   activeVariables: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getVariables: () => Record<any, any>;
@@ -92,12 +92,24 @@ export type EditorStore = {
   // "other"
   splitMultipleOperationsToSeparateTabs: () => void;
   updateModel: ({
-    modelType,
-    newValue,
+    edits,
+    targetEditor,
   }: {
-    modelType: 'operationsModel' | 'variablesModel' | 'resultsModel';
-    newValue: string;
-  }) => void;
+    edits: Array<{
+      range?: IRange;
+      text: string | null;
+    }>;
+    targetEditor: 'operations' | 'variables' | 'results';
+  }) => //   {
+  //   range,
+  //   targetModel,
+  //   text,
+  // }: {
+  //   range?: IRange;
+  //   targetModel: 'operationsModel' | 'variablesModel' | 'resultsModel';
+  //   text: string | null;
+  // }
+  void;
   updateOperationDefinition: ({
     newDefinition,
   }: {

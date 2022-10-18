@@ -24,7 +24,7 @@ export const NameAndType = styled('div', {
 
 export const Name = styled('span', {
   // fontWeight: 600,
-  fontWeight: theme.fontWeights.medium,
+  fontWeight: theme.fontWeights.regular,
   color: theme.colors.text2,
 });
 
@@ -98,10 +98,12 @@ export const Description = styled('div', {
   },
 });
 
-export const DetailsStyled = styled('div', {
+export const StyledDetails = styled('div', {
   display: 'flex',
   gap: 6,
   fontSize: theme.fontSizes.body,
+  cursor: `pointer`,
+  marginLeft: 8,
 
   variants: {
     isSelected: {
@@ -121,7 +123,7 @@ export const DetailsStyled = styled('div', {
       entityType: 'FIELD',
       isSelected: true,
       css: {
-        [`& ${Name}, & ${Type}`]: {
+        [`& ${Name}`]: {
           color: theme.colors.violet_default,
         },
       },
@@ -130,8 +132,8 @@ export const DetailsStyled = styled('div', {
       entityType: 'INLINE_FRAGMENT',
       isSelected: true,
       css: {
-        [`${Type}`]: {
-          color: theme.colors.violet_default,
+        [`& ${Name}`]: {
+          color: theme.colors.blue_default,
         },
       },
     },
@@ -139,7 +141,7 @@ export const DetailsStyled = styled('div', {
       entityType: 'ARGUMENT',
       isSelected: true,
       css: {
-        [`& ${Name}, & ${Type}`]: {
+        [`& ${Name}`]: {
           color: theme.colors.pink_default,
         },
       },
@@ -148,7 +150,7 @@ export const DetailsStyled = styled('div', {
       entityType: 'INPUT_OBJECT',
       isSelected: true,
       css: {
-        [`& ${Name}, & ${Type}`]: {
+        [`& ${Name}`]: {
           color: theme.colors.text1,
         },
       },

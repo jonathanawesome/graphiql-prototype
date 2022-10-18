@@ -1,86 +1,40 @@
 import { styled, theme } from '@graphiql-prototype/ui-library';
 
-export const StyledRemoveTabButton = styled('button', {
-  all: 'reset',
-  position: 'absolute',
-  top: theme.space[2],
-  right: theme.space[2],
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: theme.space[6],
-  height: theme.space[6],
-  backgroundColor: theme.colors.surface1,
-
-  svg: {
-    width: theme.space[3],
-    height: theme.space[3],
-    path: {
-      fill: theme.colors.text4,
-    },
-  },
-
-  '&:hover': {
-    backgroundColor: theme.colors.surface3,
-
-    svg: {
-      width: theme.space[3],
-      height: theme.space[3],
-      path: {
-        fill: theme.colors.text1,
-      },
-    },
-  },
-});
-
 export const StyledEditorTabs = styled('div', {
   width: '100%',
   display: 'flex',
   alignItems: 'center',
-  // borderBottom: `1px solid ${theme.colors.surface3}`,
   hairlineB: theme.colors.surface3,
-  // backgroundColor: theme.colors.surface1,
-
   minWidth: 0,
 });
 
-export const StyledAddTabButton = styled('button', {
-  userSelect: 'none',
-  width: 32,
-  height: 32,
-  marginLeft: 4,
-  display: 'flex',
-  flexShrink: 0,
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: 2,
+export const StyledRemoveTabButtonWrap = styled('div', {
+  position: 'absolute',
+  top: theme.space[2],
+  right: theme.space[1],
+  backgroundColor: theme.colors.surface1,
 
-  svg: {
-    width: 11,
-    height: 11,
-    path: {
-      transition: 'fill .15s ease',
-      fill: theme.colors.text4,
-    },
+  button: {
+    width: theme.space[6],
+    height: theme.space[6],
   },
 
   '&:hover': {
-    svg: {
-      path: {
-        fill: theme.colors.text3,
-      },
+    button: {
+      backgroundColor: theme.colors.surface3,
     },
   },
 });
 
-export const TabWrap = styled('div', {
+export const StyledTabWrap = styled('div', {
   height: `100%`,
   position: `relative`,
-  // backgroundColor: theme.colors.surface1,
   display: `flex`,
   alignItems: `center`,
   flexWrap: `nowrap`,
-  whitespace: `nowrap`,
+  minWidth: 0,
+  backgroundColor: theme.colors.surface1,
+  hairlineB: theme.colors.surface3,
 
   '&:hover': {
     backgroundColor: theme.colors.surface2,
@@ -92,7 +46,7 @@ export const TabWrap = styled('div', {
         '&:hover': {
           height: `calc(100% - 1px)`,
 
-          [`& ${StyledRemoveTabButton}`]: {
+          [`& ${StyledRemoveTabButtonWrap}`]: {
             marginTop: `calc(-1 * var(--hairline-width))`,
           },
         },
@@ -114,7 +68,7 @@ export const TabWrap = styled('div', {
   },
 });
 
-export const TabButton = styled('button', {
+export const StyledTabButton = styled('button', {
   all: 'reset',
   cursor: 'pointer',
   fontSize: theme.fontSizes.body,
@@ -134,4 +88,9 @@ export const TabButton = styled('button', {
       },
     },
   },
+});
+
+export const StyledAddTabButtonWrap = styled('div', {
+  marginLeft: theme.space[2],
+  marginRight: theme.space[2],
 });

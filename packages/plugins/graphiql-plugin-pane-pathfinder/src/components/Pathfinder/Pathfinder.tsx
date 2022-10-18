@@ -49,8 +49,15 @@ export const Pathfinder = () => {
                   name: 'Query',
                   panel: (
                     <RootOperation
-                      rootType={schema.getQueryType() || null}
-                      operationType={OperationTypeNode.QUERY}
+                      ancestors={[
+                        {
+                          type: 'ROOT',
+                          operationType: OperationTypeNode.QUERY,
+                          operationDefinition:
+                            activeEditorTab && activeEditorTab.operationDefinition,
+                        },
+                      ]}
+                      fields={schema.getQueryType()?.getFields()}
                     />
                   ),
                 },
@@ -59,8 +66,15 @@ export const Pathfinder = () => {
                   name: 'Mutation',
                   panel: (
                     <RootOperation
-                      rootType={schema.getMutationType() || null}
-                      operationType={OperationTypeNode.MUTATION}
+                      ancestors={[
+                        {
+                          type: 'ROOT',
+                          operationType: OperationTypeNode.MUTATION,
+                          operationDefinition:
+                            activeEditorTab && activeEditorTab.operationDefinition,
+                        },
+                      ]}
+                      fields={schema.getMutationType()?.getFields()}
                     />
                   ),
                 },
@@ -69,8 +83,15 @@ export const Pathfinder = () => {
                   name: 'Subscription',
                   panel: (
                     <RootOperation
-                      rootType={schema.getSubscriptionType() || null}
-                      operationType={OperationTypeNode.SUBSCRIPTION}
+                      ancestors={[
+                        {
+                          type: 'ROOT',
+                          operationType: OperationTypeNode.SUBSCRIPTION,
+                          operationDefinition:
+                            activeEditorTab && activeEditorTab.operationDefinition,
+                        },
+                      ]}
+                      fields={schema.getSubscriptionType()?.getFields()}
                     />
                   ),
                 },

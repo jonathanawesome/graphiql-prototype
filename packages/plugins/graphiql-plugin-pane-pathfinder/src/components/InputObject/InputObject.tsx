@@ -1,42 +1,31 @@
-import {
-  GraphQLArgument,
-  GraphQLInputObjectType,
-  isInputObjectType,
-  OperationTypeNode,
-} from 'graphql';
+import { GraphQLInputFieldMap, isInputObjectType } from 'graphql';
 
 // components
 import { ListItem, ScalarArg } from '../index';
+import { Message } from '@graphiql-prototype/ui-library';
 
 // hooks
-import { AncestorArgument, AncestorMap } from '../../hooks';
+import { AncestorArgument, AncestorsArray } from '../../hooks';
 
 // styles
 import { StyledInputObject } from './styles';
-import { Message } from '@graphiql-prototype/ui-library';
 
 export const InputObject = ({
   ancestors,
-  argument,
-  inputObjectType,
+  fields,
   isNested,
-  operationType,
 }: {
-  ancestors: AncestorMap;
-  argument: GraphQLArgument;
-  inputObjectType: GraphQLInputObjectType;
+  ancestors: AncestorsArray;
+  fields: GraphQLInputFieldMap;
   isNested: boolean;
-  operationType: OperationTypeNode;
 }) => {
-  const fields = inputObjectType.getFields();
+  const { argument, selection } = ancestors[ancestors.length - 1] as AncestorArgument;
 
-  const previousAncestor = ancestors.values().next().value as AncestorArgument;
-
-  const isSelected = !!previousAncestor.selection;
+  const isSelected = !!selection;
 
   // console.log('rendering InputObject', {
   //   isSelected,
-  //   previousAncestor,
+  //   argument,
   // });
 
   return (
@@ -65,10 +54,9 @@ export const InputObject = ({
               return (
                 <ScalarArg
                   key={fields[f].name}
-                  ancestors={new Map([...ancestors])}
+                  ancestors={[...ancestors]}
                   argument={fields[f]}
                   onInputType={argument.name}
-                  operationType={operationType}
                 />
               );
             }
@@ -81,7 +69,6 @@ export const InputObject = ({
             : {
                 ancestors,
                 isSelected,
-                operationType,
                 variant: 'ARGUMENT',
               }
         }

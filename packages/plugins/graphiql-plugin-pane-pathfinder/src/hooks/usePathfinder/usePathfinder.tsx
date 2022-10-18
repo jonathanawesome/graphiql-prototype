@@ -1,7 +1,9 @@
 import create from 'zustand';
+
+// hooks
 import { useEditor } from '@graphiql-prototype/store';
 
-/** toggle */
+// toggle
 import { toggle } from './toggle';
 
 // types
@@ -11,7 +13,7 @@ const activeEditorTab = useEditor.getState().getActiveTab();
 
 const variableDefinitions = activeEditorTab?.operationDefinition?.variableDefinitions;
 
-export const usePathfinder = create<PathfinderStore>((set, get) => ({
+export const usePathfinder = create<PathfinderStore>((set) => ({
   nextOperationType: null,
   setNextOperationType: ({ nextOperationType }) => {
     // console.log('setNextOperationType', nextOperationType);
@@ -32,5 +34,9 @@ export const usePathfinder = create<PathfinderStore>((set, get) => ({
     // console.log('nextAction', { action });
     set({ nextAction: action });
   },
-  toggle: ({ ancestors, operationType }) => toggle({ ancestors, get, operationType }),
+
+  toggle: ({ ancestors }) =>
+    toggle({
+      ancestors,
+    }),
 }));

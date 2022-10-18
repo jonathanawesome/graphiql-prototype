@@ -2,6 +2,7 @@ import {
   ArgumentNode,
   GraphQLArgument,
   GraphQLField,
+  OperationDefinitionNode,
   OperationTypeNode,
   SelectionNode,
   SelectionSetNode,
@@ -9,29 +10,30 @@ import {
 } from 'graphql';
 
 type AncestorSelection = SelectionNode | null;
-type AncestorSelectionSet = SelectionSetNode | undefined;
 
 export type AncestorRoot = {
-  rootTypeName: string;
+  type: 'ROOT';
+  operationType: OperationTypeNode;
+  operationDefinition: OperationDefinitionNode | null;
 };
 
 export type AncestorArgument = {
+  type: 'ARGUMENT';
   argument: GraphQLArgument;
   selection: ArgumentNode | undefined;
-  variableName: string;
 };
 
 export type AncestorField = {
+  type: 'FIELD';
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   field: GraphQLField<any, any>;
   selection: AncestorSelection;
-  selectionSet: AncestorSelectionSet;
 };
 
 export type AncestorInlineFragment = {
+  type: 'INLINE_FRAGMENT';
   onType: string;
   selection: AncestorSelection;
-  selectionSet: AncestorSelectionSet;
 };
 
 export type AncestorTypes =
@@ -42,14 +44,9 @@ export type AncestorTypes =
 
 // we're using a Map here so that we can take advantage of the insertion order
 export type AncestorMap = Map<string, AncestorTypes>;
+export type AncestorsArray = AncestorTypes[];
 
-type ToggleSignature = ({
-  ancestors,
-  operationType,
-}: {
-  ancestors: AncestorMap;
-  operationType: OperationTypeNode;
-}) => void;
+type ToggleSignature = ({ ancestors }: { ancestors: AncestorsArray }) => void;
 
 // begin root type
 export type NextOperationType = OperationTypeNode | null;
@@ -102,5 +99,6 @@ export type PathfinderStore = {
   setNextVariableDefinitions: SetNextVariableDefinitionsSignature;
   nextAction: NextAction;
   setNextAction: SetNextActionSignature;
+
   toggle: ToggleSignature;
 };

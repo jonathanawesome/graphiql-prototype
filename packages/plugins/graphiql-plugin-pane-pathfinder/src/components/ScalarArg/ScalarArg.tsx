@@ -6,7 +6,6 @@ import {
   isNonNullType,
   isRequiredArgument,
   isRequiredInputField,
-  OperationTypeNode,
 } from 'graphql';
 
 // components
@@ -14,7 +13,7 @@ import { Control, HandleChangeSignature, Tag } from '@graphiql-prototype/ui-libr
 import { Toggler } from '../Toggler';
 
 // hooks
-import { AncestorMap } from '../../hooks';
+import { AncestorsArray } from '../../hooks';
 import { useEditor } from '@graphiql-prototype/store';
 
 // styles
@@ -33,12 +32,10 @@ export const ScalarArg = ({
   ancestors,
   argument,
   onInputType,
-  operationType,
 }: {
-  ancestors: AncestorMap;
+  ancestors: AncestorsArray;
   argument: GraphQLArgument;
   onInputType: string | null;
-  operationType: OperationTypeNode;
 }) => {
   let baseType = argument.type;
 
@@ -77,8 +74,9 @@ export const ScalarArg = ({
   const isRequired = isRequiredArgument(argument) || isRequiredInputField(argument);
 
   // console.log('ScalarArg', {
-  //   argumentName,
+  //   argument,
   //   onInputType,
+  //   isRequired,
   // });
 
   useEffect(() => {
@@ -254,7 +252,7 @@ export const ScalarArg = ({
   }
 
   return (
-    <StyledScalarArgWrap onFocus={() => setIsTouched(true)}>
+    <StyledScalarArgWrap onFocus={() => setIsTouched(true)} onInputType={!!onInputType}>
       {/* this bit's here to warn when this argument's type is not a built-in scalar or an enum. users should have the ability to pass in handlers for custom scalars */}
       {!['String', 'ID', 'Int', 'Float', 'Boolean'].includes(typeName) &&
         !isEnumType(unwrapType(argument.type)) && (
@@ -264,12 +262,7 @@ export const ScalarArg = ({
         )}
       <StyledContainer>
         {!onInputType && (
-          <Toggler
-            ancestors={ancestors}
-            isSelected={!!isSelected}
-            operationType={operationType}
-            variant={`ARGUMENT`}
-          />
+          <Toggler ancestors={ancestors} isSelected={!!isSelected} variant="ARGUMENT" />
         )}
         {toRender}
       </StyledContainer>

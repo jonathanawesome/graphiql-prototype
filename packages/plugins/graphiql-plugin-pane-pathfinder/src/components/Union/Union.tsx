@@ -1,28 +1,24 @@
-import cuid from 'cuid';
-
 import {
-  FieldNode,
   GraphQLObjectType,
   GraphQLUnionType,
   InlineFragmentNode,
   Kind,
-  OperationTypeNode,
+  SelectionNode,
 } from 'graphql';
 
 // components
 import { Fields, ListItem } from '../index';
 
 // types
-import type { AncestorMap } from '../../hooks';
+import type { AncestorsArray } from '../../hooks';
 
 type UnionProps = {
-  ancestors: AncestorMap;
-  operationType: OperationTypeNode;
-  selection: FieldNode | InlineFragmentNode | undefined;
+  ancestors: AncestorsArray;
+  parentSelections: ReadonlyArray<SelectionNode>;
   unionType: GraphQLUnionType;
 };
 
-export const Union = ({ ancestors, operationType, selection, unionType }: UnionProps) => {
+export const Union = ({ ancestors, parentSelections, unionType }: UnionProps) => {
   const unionMembers = unionType.getTypes();
 
   // console.log('rendering Union', { unionMembers });
@@ -34,8 +30,7 @@ export const Union = ({ ancestors, operationType, selection, unionType }: UnionP
           key={o.name}
           ancestors={ancestors}
           objectMember={o}
-          operationType={operationType}
-          selection={selection}
+          parentSelections={parentSelections}
         />
       ))}
     </>
@@ -45,18 +40,14 @@ export const Union = ({ ancestors, operationType, selection, unionType }: UnionP
 const UnionMember = ({
   ancestors,
   objectMember,
-  operationType,
-  selection,
+  parentSelections,
 }: {
-  ancestors: AncestorMap;
+  ancestors: AncestorsArray;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   objectMember: GraphQLObjectType<any, any>;
-  operationType: OperationTypeNode;
-  selection: FieldNode | InlineFragmentNode | undefined;
+  parentSelections: ReadonlyArray<SelectionNode>;
 }) => {
-  const hash = cuid.slug();
-
-  const inlineFragmentNode = selection?.selectionSet?.selections?.find(
+  const inlineFragmentNode = parentSelections?.find(
     (s) =>
       s.kind === Kind.INLINE_FRAGMENT && s.typeCondition?.name.value === objectMember.name
   ) as InlineFragmentNode | undefined;
@@ -66,24 +57,18 @@ const UnionMember = ({
       collapsibleContent={{
         childFields: (
           <Fields
-            ancestors={
-              new Map([
-                // set inline fragment ancestor
-                [
-                  // hash = safety first!
-                  `${objectMember.name}-${hash}`,
-                  {
-                    onType: objectMember.name,
-                    selectionSet: selection?.selectionSet,
-                    selection: inlineFragmentNode || null,
-                  },
-                ],
-                ...ancestors,
-              ])
-            }
+            ancestors={[
+              ...ancestors,
+              {
+                type: 'INLINE_FRAGMENT',
+                onType: objectMember.name,
+                selection: inlineFragmentNode || null,
+              },
+            ]}
             fields={objectMember.getFields()}
-            operationType={operationType}
-            selection={inlineFragmentNode}
+            parentSelections={
+              inlineFragmentNode ? inlineFragmentNode.selectionSet.selections : []
+            }
           />
         ),
       }}

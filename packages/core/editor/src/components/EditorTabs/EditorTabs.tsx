@@ -1,16 +1,16 @@
 // components
-import { Close, Plus, Tag } from '@graphiql-prototype/ui-library';
+import { Button, Tag } from '@graphiql-prototype/ui-library';
 
 // hooks
 import { useEditor } from '@graphiql-prototype/store';
 
 // styles
 import {
-  StyledAddTabButton,
+  StyledAddTabButtonWrap,
   StyledEditorTabs,
-  StyledRemoveTabButton,
-  TabButton,
-  TabWrap,
+  StyledRemoveTabButtonWrap,
+  StyledTabButton,
+  StyledTabWrap,
 } from './styles';
 
 const removeEditorTab = useEditor.getState().removeEditorTab;
@@ -20,9 +20,15 @@ const switchEditorTab = useEditor.getState().switchEditorTab;
 const AddTabButton = () => {
   const { initEditorTab } = useEditor();
   return (
-    <StyledAddTabButton onClick={() => initEditorTab({})}>
-      <Plus />
-    </StyledAddTabButton>
+    <StyledAddTabButtonWrap>
+      <Button
+        action={() => initEditorTab({})}
+        icon="Plus"
+        label={`Add new editor tab`}
+        size="SMALL"
+        style="ICON"
+      />
+    </StyledAddTabButtonWrap>
   );
 };
 
@@ -46,8 +52,11 @@ export const EditorTabs = () => {
     <StyledEditorTabs>
       {editorTabs.map((tab) => {
         return (
-          <TabWrap key={tab.editorTabId} isActive={activeEditorTabId === tab.editorTabId}>
-            <TabButton
+          <StyledTabWrap
+            key={tab.editorTabId}
+            isActive={activeEditorTabId === tab.editorTabId}
+          >
+            <StyledTabButton
               hasRemoveTabButton={showRemoveTabButton}
               onClick={() => handleTabChange({ editorTabId: tab.editorTabId })}
             >
@@ -57,16 +66,19 @@ export const EditorTabs = () => {
                 type="OPERATION"
               />
               {tab?.operationDefinition?.name?.value || tab?.editorTabName}
-            </TabButton>
+            </StyledTabButton>
             {showRemoveTabButton && (
-              <StyledRemoveTabButton
-                aria-label="Remove Tab"
-                onClick={() => doRemoveTab({ editorTabId: tab.editorTabId })}
-              >
-                <Close />
-              </StyledRemoveTabButton>
+              <StyledRemoveTabButtonWrap>
+                <Button
+                  action={() => doRemoveTab({ editorTabId: tab.editorTabId })}
+                  icon="Close"
+                  label={`Remove tab`}
+                  size="SMALL"
+                  style="ICON"
+                />
+              </StyledRemoveTabButtonWrap>
             )}
-          </TabWrap>
+          </StyledTabWrap>
         );
       })}
       <AddTabButton />

@@ -1,7 +1,5 @@
-import { OperationTypeNode } from 'graphql';
-
 // hooks
-import { usePathfinder } from '../../hooks';
+import { AncestorsArray, usePathfinder } from '../../hooks';
 
 // icons
 import { IndicatorArgument, IndicatorField } from '../../icons';
@@ -9,13 +7,9 @@ import { IndicatorArgument, IndicatorField } from '../../icons';
 // styles
 import { TogglerStyled } from './styles';
 
-// types
-import { AncestorMap } from '../../hooks';
-
 type TogglerBaseProps = {
-  ancestors: AncestorMap;
+  ancestors: AncestorsArray;
   isSelected: boolean;
-  operationType: OperationTypeNode;
   variant: 'ARGUMENT' | 'FIELD';
 };
 
@@ -36,15 +30,9 @@ export const Toggler: React.FC<ToggleProps> = ({
   ancestors,
   collapser,
   isSelected,
-  operationType,
   variant,
 }) => {
   const { toggle } = usePathfinder();
-
-  const breadcrumbs = [...ancestors.keys()]
-    .map((k) => k.split('-')[0])
-    .reverse()
-    .join('/');
 
   // console.log('Toggler', {
   //   // ancestors,
@@ -56,7 +44,7 @@ export const Toggler: React.FC<ToggleProps> = ({
 
   return (
     <TogglerStyled
-      aria-label={`Add ${breadcrumbs} ${variant} to operation`}
+      aria-label={`Add ${variant} to operation`}
       aria-pressed={isSelected}
       isSelected={isSelected}
       onClick={() => {
@@ -69,7 +57,9 @@ export const Toggler: React.FC<ToggleProps> = ({
           //   setIsOpen(true);
           // }
         }
-        return toggle({ ancestors, operationType });
+        return toggle({
+          ancestors,
+        });
       }}
       type="button"
       variant={variant}

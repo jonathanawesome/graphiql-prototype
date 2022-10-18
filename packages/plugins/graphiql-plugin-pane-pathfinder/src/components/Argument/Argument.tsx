@@ -1,74 +1,37 @@
-import cuid from 'cuid';
-import {
-  ArgumentNode,
-  GraphQLArgument,
-  isInputObjectType,
-  OperationTypeNode,
-} from 'graphql';
+import { isInputObjectType } from 'graphql';
 
 // components
 import { InputObject, ScalarArg } from '../index';
 
 // hooks
-import type { AncestorMap } from '../../hooks';
+import type { AncestorArgument, AncestorsArray } from '../../hooks';
 
 // utils
 import { unwrapNonNullArgumentType } from '../../utils';
 
-export const Argument = ({
-  ancestors,
-  argument,
-  operationType,
-  selection,
-}: {
-  ancestors: AncestorMap;
-  argument: GraphQLArgument;
-  operationType: OperationTypeNode;
-  selection: ArgumentNode | undefined;
-}) => {
+export const Argument = ({ ancestors }: { ancestors: AncestorsArray }) => {
+  const { argument } = ancestors[ancestors.length - 1] as AncestorArgument;
+
   const unwrappedNonNullType = unwrapNonNullArgumentType({ argumentType: argument.type });
 
   // console.log('Argument', {
   //   name: argument.name,
   //   selection,
+  //   ancestors,
   // });
-
-  const hash = cuid.slug();
-
-  const newArgMap = new Map([
-    [
-      // hash = safety first!
-      `${argument.name}-${hash}`,
-      {
-        argument,
-        selection,
-        variableName: argument.name,
-      },
-    ],
-    ...ancestors,
-  ]);
 
   let toRender: React.ReactNode | null = null;
 
   if (isInputObjectType(unwrappedNonNullType)) {
     toRender = (
       <InputObject
-        ancestors={newArgMap}
-        argument={argument}
-        inputObjectType={unwrappedNonNullType}
+        ancestors={ancestors}
+        fields={unwrappedNonNullType.getFields()}
         isNested={false}
-        operationType={operationType}
       />
     );
   } else {
-    toRender = (
-      <ScalarArg
-        ancestors={newArgMap}
-        argument={argument}
-        onInputType={null}
-        operationType={operationType}
-      />
-    );
+    toRender = <ScalarArg ancestors={ancestors} argument={argument} onInputType={null} />;
   }
 
   return <>{toRender}</>;

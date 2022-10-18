@@ -8,5 +8,5 @@ export const StyledRootOperation = styled('ul', {
   margin: 0,
   display: 'flex',
   flexDirection: 'column',
-  gap: 12,
+  gap: 2,
 });

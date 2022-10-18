@@ -26,11 +26,7 @@ import { useSchema } from '../useSchema';
 import { EditorTabState, EditorStore } from './types';
 
 // utils
-import {
-  getOrCreateModel,
-  parseQuery,
-  pushEditOperationsToModel,
-} from '@graphiql-prototype/utils';
+import { getOrCreateModel, parseQuery } from '@graphiql-prototype/utils';
 
 // this should be called somewhere else, but fine here for now
 MONACO_EDITOR.defineTheme('graphiql-DARK', editorThemeDark);
@@ -49,7 +45,6 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     operations: null,
     variables: null,
     results: null,
-    headers: null,
   },
   addMonacoEditor: ({ editor, name }) => {
     // console.log('running addMonacoEditor', { editor, name });
@@ -106,7 +101,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
 
       editor.onDidContentSizeChange(() => {
         const contentHeight = editor.getContentHeight();
-        if (monacoEditorRef && monacoEditorRef) {
+        if (monacoEditorRef) {
           monacoEditorRef.style.height = `${contentHeight}px`;
         }
       });
@@ -285,11 +280,15 @@ export const useEditor = create<EditorStore>()((set, get) => ({
       });
 
       updateModel({
-        modelType: 'operationsModel',
-        newValue: print({
-          kind: Kind.DOCUMENT,
-          definitions: [[...parsedQuery.definitions][0]],
-        }),
+        edits: [
+          {
+            text: print({
+              kind: Kind.DOCUMENT,
+              definitions: [[...parsedQuery.definitions][0]],
+            }),
+          },
+        ],
+        targetEditor: 'operations',
       });
 
       [...parsedQuery.definitions].splice(1).forEach((d) =>
@@ -309,36 +308,6 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     }
   },
   activeVariables: ``,
-  removeVariable: ({ onInputObject, variableName }) => {
-    const activeEditorTab = get().getActiveTab();
-    console.log('running removeVariables', {
-      onInputObject,
-      variableName,
-    });
-    if (activeEditorTab) {
-      // 1. parse the existing variables string to an object
-      const parsedVariables = JSON.parse(activeEditorTab.variablesModel.getValue());
-      // 2. remove the variables
-      if (onInputObject) {
-        if (Object.keys(parsedVariables[onInputObject]).length === 1) {
-          delete parsedVariables[onInputObject];
-        } else {
-          delete parsedVariables[onInputObject][variableName];
-        }
-      } else {
-        delete parsedVariables[variableName];
-      }
-      // 3. return to string
-      const newVariablesString = JSON.stringify(parsedVariables, null, ' ');
-      // 4. update the model
-      pushEditOperationsToModel({
-        model: activeEditorTab.variablesModel,
-        text: newVariablesString,
-      });
-    } else {
-      console.log("editorTab doesn't exist ☠️");
-    }
-  },
   getVariables: () => {
     const activeEditorTab = get().getActiveTab();
     try {
@@ -349,7 +318,8 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     }
   },
   updateVariable: async ({ onInputObject, variableName, variableValue }) => {
-    const activeEditorTab = get().getActiveTab();
+    const updateModel = get().updateModel;
+    const monacoEditors = get().monacoEditors;
 
     // console.log('running updateVariable', {
     //   onInputObject,
@@ -357,64 +327,71 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     //   variableValue,
     // });
 
-    if (activeEditorTab) {
-      // parse the existing variables string to an object
-      // if the current variables model is undefined, use an empty object string
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let parsedVariables: Record<any, any> = {};
-      try {
-        parsedVariables = await JSON.parse(
-          activeEditorTab.variablesModel.getValue() || '{}'
-        );
-      } catch (error) {
-        console.warn('error parsing variables in updateVariable');
-      }
-      // set the variableName and/or variableValue
-
-      if (onInputObject) {
-        parsedVariables = {
-          ...parsedVariables,
-          [onInputObject]: {
-            ...parsedVariables[onInputObject],
-            [variableName]: variableValue,
-          },
-        };
-      } else {
-        parsedVariables[variableName] = variableValue;
-      }
-
-      // return to string
-      const newVariablesString = JSON.stringify(parsedVariables, null, ' ');
-
-      // update the model
-      pushEditOperationsToModel({
-        model: activeEditorTab.variablesModel,
-        text: newVariablesString,
-      });
-    } else {
-      console.log("editorTab doesn't exist ☠️");
+    // parse the existing variables string to an object
+    // if the current variables model is undefined, use an empty object string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let parsedVariables: Record<any, any> = {};
+    try {
+      parsedVariables = await JSON.parse(
+        monacoEditors['variables']?.getModel()?.getValue() || '{}'
+      );
+    } catch (error) {
+      console.warn('error parsing variables in updateVariable');
     }
-  },
-  updateModel: ({ modelType, newValue }) => {
-    const editorTabs = get().editorTabs;
-    const activeEditorTabId = get().activeEditorTabId;
 
-    const activeEditorTab = editorTabs.find(
-      (editorTab) => editorTab.editorTabId === activeEditorTabId
+    if (onInputObject) {
+      parsedVariables = {
+        ...parsedVariables,
+        [onInputObject]: {
+          ...parsedVariables[onInputObject],
+          [variableName]: variableValue,
+        },
+      };
+    } else {
+      parsedVariables[variableName] = variableValue;
+    }
+
+    // return to string
+    const newVariablesString = JSON.stringify(parsedVariables, null, ' ');
+
+    // update the model
+    return updateModel({
+      edits: [
+        {
+          text: newVariablesString,
+        },
+      ],
+      targetEditor: 'variables',
+    });
+  },
+  updateModel: ({ edits, targetEditor }) => {
+    const monacoEditors = get().monacoEditors;
+
+    const editor = monacoEditors[targetEditor] as MONACO_EDITOR.IStandaloneCodeEditor;
+
+    const model = editor.getModel() as MONACO_EDITOR.ITextModel;
+
+    const editsWithProperRange: MONACO_EDITOR.ISingleEditOperation[] = edits.map(
+      (edit) => {
+        return {
+          ...edit,
+          range: edit.range || model.getFullModelRange(),
+        };
+      }
     );
 
-    if (activeEditorTab) {
-      const model = activeEditorTab[modelType];
-      model.pushEditOperations(
-        [],
-        [
-          {
-            range: model.getFullModelRange(),
-            text: newValue,
-          },
-        ],
-        () => []
-      );
+    console.log('updateModel', { editor, model, editsWithProperRange, targetEditor });
+
+    if (targetEditor === 'results') {
+      model.pushEditOperations([], editsWithProperRange, () => null);
+    } else {
+      const selection = editor.getSelection();
+
+      editor.executeEdits('edit', editsWithProperRange);
+
+      if (selection) {
+        editor.setSelection(selection);
+      }
     }
   },
   updateOperationDefinition: ({ newDefinition }) => {
@@ -492,7 +469,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
       const firstDefinition = parsedQuery?.definitions[0];
 
       if (!firstDefinition) {
-        return null;
+        return updateOperationDefinition({ newDefinition: null });
       }
 
       if (

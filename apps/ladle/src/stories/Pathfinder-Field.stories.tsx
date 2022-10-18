@@ -3,7 +3,6 @@ import { Field } from '@graphiql-prototype/graphiql-plugin-pane-pathfinder';
 
 // hooks
 import { useTestSchema } from '@graphiql-prototype/store';
-import { OperationTypeNode } from 'graphql';
 
 export const FieldStory = () => {
   const { getQueryField } = useTestSchema();
@@ -11,19 +10,13 @@ export const FieldStory = () => {
 
   return (
     <Field
-      ancestors={
-        new Map([
-          [
-            `${testField.name}`,
-            {
-              field: testField,
-              selectionSet: undefined,
-              selection: null,
-            },
-          ],
-        ])
-      }
-      operationType={OperationTypeNode.QUERY}
+      ancestors={[
+        {
+          type: 'FIELD',
+          field: testField,
+          selection: null,
+        },
+      ]}
     />
   );
 };

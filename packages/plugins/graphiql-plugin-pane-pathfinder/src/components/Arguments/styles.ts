@@ -1,28 +1,22 @@
 import { styled, theme } from '@graphiql-prototype/ui-library';
-import * as Collapsible from '@radix-ui/react-collapsible';
 
-export const StyledArguments = styled(Collapsible.Root, {
+export const StyledArguments = styled('div', {
   position: 'relative',
-  marginBottom: 8,
-
-  variants: {
-    isOpen: {
-      true: {
-        marginBottom: theme.space[4],
-      },
-      false: {},
-    },
-  },
+  marginBottom: theme.space[2],
+  // marginLeft: theme.space[2],
 });
 
-export const StyledArgumentsTrigger = styled(Collapsible.Trigger, {
-  height: theme.space[5],
-  paddingLeft: theme.space[1],
-  paddingRight: theme.space[1],
+export const StyledArgumentsLeadWrap = styled('div', {
   width: `100%`,
-  display: 'flex',
+  display: `flex`,
   alignItems: 'center',
-  gap: 12,
+  gap: theme.space[2],
+
+  button: {
+    svg: {
+      transform: 'rotate(-90deg)',
+    },
+  },
 
   span: {
     fontSize: 10,
@@ -31,29 +25,46 @@ export const StyledArgumentsTrigger = styled(Collapsible.Trigger, {
     color: theme.colors.text2,
   },
 
-  svg: {
-    height: 7,
-    width: 7,
-  },
-
   variants: {
-    isOpen: {
+    isExpanded: {
       true: {
-        svg: {
-          transform: 'rotate(90deg)',
-          fill: theme.colors.pink_default,
-        },
-      },
-      false: {
-        svg: {
-          fill: theme.colors.text4,
-        },
-        '&:hover, &:focus': {
+        button: {
           svg: {
-            fill: theme.colors.text3,
+            transform: 'rotate(0deg)',
+            path: {
+              fill: theme.colors.pink_default,
+            },
           },
         },
       },
+      false: {},
+    },
+  },
+});
+
+export const StyledArgumentsContent = styled('div', {
+  width: `100%`,
+  display: `none`,
+  paddingLeft: theme.space[5],
+  marginTop: theme.space[1],
+  marginLeft: 6,
+  position: `relative`,
+
+  '&::after': {
+    content: '',
+    position: `absolute`,
+    top: 0,
+    left: 7,
+    height: `100%`,
+    width: 1,
+    // backgroundColor: theme.colors.pink_default,
+    hairlineL: theme.colors.pink_default,
+  },
+
+  variants: {
+    isExpanded: {
+      true: { display: 'block', marginBottom: theme.space[3] },
+      false: { display: 'none' },
     },
   },
 });
@@ -65,47 +76,4 @@ export const StyledArgumentsList = styled('ul', {
   display: 'flex',
   flexDirection: 'column',
   position: `relative`,
-
-  variants: {
-    isOpen: {
-      true: {
-        // borderTop: `1px solid ${theme.colors.surface3}`,
-      },
-      false: {},
-    },
-  },
-});
-
-export const StyledArgumentsContent = styled(Collapsible.Content, {
-  paddingLeft: theme.space[4],
-  position: `relative`,
-  // backgroundColor: theme.colors.pink_lightest,
-  // borderRadius: 2,
-
-  // backgroundColor: theme.colors.pink_lightest,
-  // borderRadius: 2,
-  // borderLeft: `1px solid ${theme.colors.pink_default}`,
-  hairlineL: theme.colors.pink_default,
-  marginLeft: 7,
-  // padding: 12,
-  marginTop: 12,
-
-  // '&::after': {
-  //   content: '',
-  //   position: `absolute`,
-  //   top: 0,
-  //   left: 7,
-  //   height: `100%`,
-  //   width: 1,
-  //   backgroundColor: theme.colors.pink_default,
-  // },
-
-  variants: {
-    isOpen: {
-      true: {
-        // borderTop: `1px solid ${theme.colors.surface3}`,
-      },
-      false: {},
-    },
-  },
 });

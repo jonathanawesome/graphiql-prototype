@@ -6,7 +6,7 @@ export const parseQuery = (queryText: string): DocumentNode | null | Error => {
       return null;
     }
 
-    return parse(queryText, { noLocation: true });
+    return parse(queryText);
   } catch (err) {
     return err as Error;
   }
