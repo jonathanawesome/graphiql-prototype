@@ -23,6 +23,8 @@ export const Trigger = styled(TabsPrimitive.Trigger, {
   },
 
   '&[data-state="active"]': {
+    color: theme.colors.text1,
+
     '&:after': {
       content: '',
       position: 'absolute',

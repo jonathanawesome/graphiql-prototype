@@ -140,6 +140,7 @@ export const StyledAddItemButton = styled('button', {
 export const StyledControlWrap = styled('div', {
   display: 'flex',
   width: '100%',
+  backgroundColor: theme.colors.surface1,
 
   [`& ${StyledInput}, & ${StyledSelect}`]: {
     borderTop: `1px solid ${theme.colors.surface3}`,
