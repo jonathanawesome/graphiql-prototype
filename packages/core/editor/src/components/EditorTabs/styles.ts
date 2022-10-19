@@ -26,6 +26,28 @@ export const StyledRemoveTabButtonWrap = styled('div', {
   },
 });
 
+export const StyledTabButton = styled('button', {
+  all: 'reset',
+  cursor: 'pointer',
+  fontSize: theme.fontSizes.body,
+  lineHeight: theme.fontSizes.body,
+  paddingLeft: theme.space[3],
+  paddingRight: theme.space[3],
+  height: theme.space[10],
+  color: theme.colors.text2,
+  display: `flex`,
+  alignItems: `center`,
+  gap: theme.space[2],
+
+  variants: {
+    hasRemoveTabButton: {
+      true: {
+        paddingRight: theme.space[9],
+      },
+    },
+  },
+});
+
 export const StyledTabWrap = styled('div', {
   height: `100%`,
   position: `relative`,
@@ -54,6 +76,10 @@ export const StyledTabWrap = styled('div', {
       true: {
         flexShrink: 0,
 
+        [`& ${StyledTabButton}`]: {
+          color: theme.colors.text1,
+        },
+
         '&:after': {
           content: '',
           position: 'absolute',
@@ -63,28 +89,6 @@ export const StyledTabWrap = styled('div', {
           width: '100%',
           backgroundColor: theme.colors.green_default,
         },
-      },
-    },
-  },
-});
-
-export const StyledTabButton = styled('button', {
-  all: 'reset',
-  cursor: 'pointer',
-  fontSize: theme.fontSizes.body,
-  lineHeight: theme.fontSizes.body,
-  paddingLeft: theme.space[3],
-  paddingRight: theme.space[3],
-  height: theme.space[10],
-  color: theme.colors.text2,
-  display: `flex`,
-  alignItems: `center`,
-  gap: theme.space[2],
-
-  variants: {
-    hasRemoveTabButton: {
-      true: {
-        paddingRight: theme.space[9],
       },
     },
   },

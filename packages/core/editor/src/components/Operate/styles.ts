@@ -1,7 +1,7 @@
 import { styled, theme } from '@graphiql-prototype/ui-library';
 
 export const StyledOperateWrap = styled('div', {
-  backgroundColor: theme.colors.surface1,
+  backgroundColor: theme.colors.surface2,
   width: `100%`,
   height: `100%`,
   display: 'flex',

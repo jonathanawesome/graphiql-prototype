@@ -108,7 +108,7 @@ export const lightColors = generateColors({
 export const darkColors = generateColors({
   colors: {
     surface1: '#16171B',
-    surface2: '#222226',
+    surface2: '#1D1D20',
     surface3: '#363739',
     text1: '#FFFFFF',
     text2: '#BFBFBF',
