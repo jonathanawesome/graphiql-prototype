@@ -3,6 +3,7 @@ import type { OperationDefinitionNode } from 'graphql';
 import type { IRange } from 'monaco-editor';
 
 // types
+import type { ActiveDefinitionActions, ActiveDefinitionState } from './activeDefinition';
 import type { MonacoActions, MonacoState } from './monaco';
 import type { TabsActions, TabsState } from './tabs';
 import type { VariablesActions, VariablesState } from './variables';
@@ -10,12 +11,14 @@ import type { VariablesActions, VariablesState } from './variables';
 export type GetEditorStore = StoreApi<EditorStore>['getState'];
 export type SetEditorStore = StoreApi<EditorStore>['setState'];
 
-export type EditorStore = MonacoState &
+export type EditorStore = ActiveDefinitionActions &
+  ActiveDefinitionState &
+  MonacoState &
   MonacoActions &
-  VariablesActions &
-  VariablesState &
   TabsActions &
-  TabsState & {
+  TabsState &
+  VariablesActions &
+  VariablesState & {
     // "other"
     splitMultipleOperationsToSeparateTabs: () => void;
     updateModel: ({

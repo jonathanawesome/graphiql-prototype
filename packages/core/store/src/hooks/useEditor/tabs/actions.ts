@@ -135,10 +135,10 @@ export const tabsActions = (get: GetEditorStore, set: SetEditorStore): TabsActio
   },
   switchEditorTab: ({ editorTabId }) => {
     const monacoGraphQLAPI = get().monacoGraphQLAPI;
-    // const monacoEditors = get().monacoEditors;
     const editorTabs = get().editorTabs;
     const editorTab = editorTabs.find((t) => t.editorTabId === editorTabId);
     const setModelsForAllEditorsWithinTab = get().setModelsForAllEditorsWithinTab;
+    const activeExecutableDefinition = get().activeExecutableDefinition;
 
     if (editorTab) {
       set({
@@ -146,6 +146,8 @@ export const tabsActions = (get: GetEditorStore, set: SetEditorStore): TabsActio
         activeEditorTabId: editorTabId,
         // set the active variables
         activeVariables: editorTab.variablesModel.getValue(),
+        // set the activeExecutableDefinition
+        activeExecutableDefinition,
       });
 
       // set the model values for each of our editors

@@ -13,6 +13,7 @@ import { editorThemeDark, editorThemeLight } from '../../constants';
 // types
 import { EditorStore } from './types';
 
+import { activeDefinitionActions, activeDefinitionState } from './activeDefinition';
 import { monacoActions, monacoState } from './monaco';
 import { tabsActions, tabsState } from './tabs';
 import { variablesActions, variablesState } from './variables';
@@ -25,14 +26,17 @@ MONACO_EDITOR.defineTheme('graphiql-DARK', editorThemeDark);
 MONACO_EDITOR.defineTheme('graphiql-LIGHT', editorThemeLight);
 
 export const useEditor = create<EditorStore>()((set, get) => ({
+  ...activeDefinitionState,
+  ...activeDefinitionActions(get, set),
+
   ...monacoState,
   ...monacoActions(get, set),
 
-  ...variablesState,
-  ...variablesActions(get),
-
   ...tabsState,
   ...tabsActions(get, set),
+
+  ...variablesState,
+  ...variablesActions(get),
 
   splitMultipleOperationsToSeparateTabs: () => {
     // TODO: this was written very quickly, need to revisit
@@ -158,7 +162,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     }
   },
   updateOperationDefinitionFromModelValue: ({ value }) => {
-    const updateOperationDefinition = get().updateOperationDefinition;
+    // const updateOperationDefinition = get().updateOperationDefinition;
     const updateTabState = get().updateTabState;
 
     const parsedQuery = parseQuery(value);
@@ -183,14 +187,16 @@ export const useEditor = create<EditorStore>()((set, get) => ({
       const firstDefinition = parsedQuery?.definitions[0];
 
       if (!firstDefinition) {
-        return updateOperationDefinition({ newDefinition: null });
+        // return updateOperationDefinition({ newDefinition: null });
+        return set({ activeExecutableDefinition: null });
       }
 
       if (
         isExecutableDefinitionNode(firstDefinition) &&
         firstDefinition.kind === Kind.OPERATION_DEFINITION
       ) {
-        return updateOperationDefinition({ newDefinition: firstDefinition });
+        // return updateOperationDefinition({ newDefinition: firstDefinition });
+        return set({ activeExecutableDefinition: firstDefinition });
       }
     }
     return null;

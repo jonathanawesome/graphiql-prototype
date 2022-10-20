@@ -24,11 +24,4 @@ export type MonacoActions = {
     monacoEditorRef: HTMLDivElement;
     optionOverrides?: MONACO_EDITOR.IStandaloneEditorConstructionOptions;
   }) => void;
-  addMonacoEditor: ({
-    editor,
-    name,
-  }: {
-    editor: MONACO_EDITOR.IStandaloneCodeEditor;
-    name: MonacoEditorTypes;
-  }) => void;
 };
