@@ -5,7 +5,7 @@ import {
   OperationDefinitionNode,
   print,
 } from 'graphql';
-import { editor as MONACO_EDITOR } from 'monaco-editor';
+import { editor as MONACO_EDITOR, Selection } from 'monaco-editor';
 
 // constants
 import { editorThemeDark, editorThemeLight } from '../../constants';
@@ -62,6 +62,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
             }),
           },
         ],
+        position: { column: 0, lineNumber: 0 },
         targetEditor: 'operations',
       });
 
@@ -82,109 +83,124 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     }
   },
 
-  pushEdit: ({ edits, targetEditor }) => {
+  pushEdit: ({ edits, position, targetEditor }) => {
     // 👇 edits via editor
-    // const monacoEditors = get().monacoEditors;
+    const monacoEditors = get().monacoEditors;
 
-    // const editor = monacoEditors[targetEditor] as MONACO_EDITOR.IStandaloneCodeEditor;
+    const editor = monacoEditors[targetEditor] as MONACO_EDITOR.IStandaloneCodeEditor;
 
-    // const model = editor.getModel() as MONACO_EDITOR.ITextModel;
+    const model = editor.getModel() as MONACO_EDITOR.ITextModel;
 
-    // // if we're not passed a range we'll use the full model range
-    // const editsWithViableRange: MONACO_EDITOR.ISingleEditOperation[] = edits.map(
-    //   (edit) => {
-    //     return {
-    //       ...edit,
-    //       range: edit.range || model.getFullModelRange(),
-    //       forceMoveMarkers: false,
-    //     };
-    //   }
-    // );
-
-    // if (targetEditor === 'results') {
-    //   model.pushEditOperations([], editsWithViableRange, () => null);
-    // } else {
-    //   const selection = editor.getSelection();
-
-    //   editor.executeEdits('edit', editsWithViableRange);
-
-    //   if (selection) {
-    //     editor.setSelection(selection);
-    //   }
-    // }
-
-    // 👇 edits via model
-    const editorTabs = get().editorTabs;
-    const activeEditorTabId = get().activeEditorTabId;
-    const setDocumentState = get().setDocumentState;
-
-    const updateActiveDefinitionFromModelValue =
-      get().updateActiveDefinitionFromModelValue;
-
-    const activeEditorTab = editorTabs.find(
-      (editorTab) => editorTab.editorTabId === activeEditorTabId
+    // if we're not passed a range we'll use the full model range
+    const editsWithViableRange: MONACO_EDITOR.ISingleEditOperation[] = edits.map(
+      (edit) => {
+        return {
+          ...edit,
+          range: edit.range || model.getFullModelRange(),
+          forceMoveMarkers: true,
+        };
+      }
     );
 
-    if (activeEditorTab) {
-      const model = activeEditorTab[`${targetEditor}Model`];
-
-      // if we're not passed a range we'll use the full model range
-      const editsWithViableRange: MONACO_EDITOR.ISingleEditOperation[] = edits.map(
-        (edit) => {
-          return {
-            ...edit,
-            range: edit.range || model.getFullModelRange(),
-            forceMoveMarkers: true,
-          };
-        }
-      );
-
-      // edit our model
-      // TODO: set the cursor position here
-
+    if (targetEditor === 'results') {
+      // results editor is read-only
       model.pushEditOperations([], editsWithViableRange, () => null);
+    } else {
+      editor.executeEdits('edit', editsWithViableRange);
 
-      if (targetEditor === 'operations') {
-        // ensure the active definition is updated
-        // setDocumentState();
-        // updateActiveDefinitionFromModelValue({ value: model.getValue() });
-      }
+      // console.log('edits complete, setting position:', {
+      //   // column: finalEdit.range.endColumn,
+      //   // lineNumber: finalEdit.range?.endLineNumber,
+      //   // editLength: finalEdit.text?.length,
+      //   // pos: model.getPositionAt(finalEdit.text?.length as number),
+      //   activeDefinition,
+      //   activeDefinitionLocation: activeDefinition?.loc,
+      //   // modelValue: model.getValue(),
+      //   // range: finalEdit.range,
+      //   // attemptingToMatch: finalEdit.text,
+      //   // matches: finalEdit.text
+      //   //   ? model.findMatches(print(activeDefinition), true, false, true, null, true)
+      //   //   : 'NO TEXT TO MATCH',
+      // });
+
+      editor.setPosition(position);
     }
+
+    // 👇 edits via model
+    // const editorTabs = get().editorTabs;
+    // const activeEditorTabId = get().activeEditorTabId;
+    // const monacoEditors = get().monacoEditors;
+    // const editor = monacoEditors[targetEditor] as MONACO_EDITOR.IStandaloneCodeEditor;
+
+    // const activeEditorTab = editorTabs.find(
+    //   (editorTab) => editorTab.editorTabId === activeEditorTabId
+    // );
+
+    // if (activeEditorTab) {
+    //   const model = activeEditorTab[`${targetEditor}Model`];
+
+    //   // if we're not passed a range we'll use the full model range
+    //   const editsWithViableRange: MONACO_EDITOR.ISingleEditOperation[] = edits.map(
+    //     (edit) => {
+    //       return {
+    //         ...edit,
+    //         range: edit.range || model.getFullModelRange(),
+    //         // forceMoveMarkers: true,
+    //       };
+    //     }
+    //   );
+
+    //   // edit our model
+    //   // TODO: set the cursor position here
+
+    //   model.pushEditOperations([], editsWithViableRange, () => null);
+
+    //   const finalEdit = editsWithViableRange[editsWithViableRange.length - 1];
+
+    //   console.log('edits complete, setting position:', {
+    //     column: finalEdit.range.endColumn,
+    //     lineNumber: finalEdit.range?.endLineNumber,
+    //   });
+
+    //   editor.setPosition({
+    //     column: finalEdit.range.endColumn,
+    //     lineNumber: finalEdit.range?.endLineNumber,
+    //   });
+    // }
   },
-  updateActiveDefinitionFromModelValue: ({ value }) => {
-    const updateTabState = get().updateTabState;
+  // updateActiveDefinitionFromModelValue: ({ value }) => {
+  //   const updateTabState = get().updateTabState;
 
-    const parsedQuery = parseQuery(value);
+  //   const parsedQuery = parseQuery(value);
 
-    // console.log('updateActiveDefinitionFromModelValue', { value, parsedQuery });
+  //   console.log('updateActiveDefinitionFromModelValue', { value, parsedQuery });
 
-    if (!(parsedQuery instanceof Error)) {
-      if (parsedQuery?.definitions && parsedQuery.definitions.length > 1) {
-        updateTabState({
-          data: { warningWhenMultipleOperations: true },
-        });
-      }
+  //   if (!(parsedQuery instanceof Error)) {
+  //     if (parsedQuery?.definitions && parsedQuery.definitions.length > 1) {
+  //       updateTabState({
+  //         data: { warningWhenMultipleOperations: true },
+  //       });
+  //     }
 
-      if (parsedQuery?.definitions && parsedQuery.definitions.length <= 1) {
-        updateTabState({
-          data: { warningWhenMultipleOperations: false },
-        });
-      }
+  //     if (parsedQuery?.definitions && parsedQuery.definitions.length <= 1) {
+  //       updateTabState({
+  //         data: { warningWhenMultipleOperations: false },
+  //       });
+  //     }
 
-      const firstDefinition = parsedQuery?.definitions[0];
+  //     // const firstDefinition = parsedQuery?.definitions[0];
 
-      if (!firstDefinition) {
-        return set({ activeDefinition: null });
-      }
+  //     // if (!firstDefinition) {
+  //     //   return set({ activeDefinition: null });
+  //     // }
 
-      if (
-        isExecutableDefinitionNode(firstDefinition) &&
-        firstDefinition.kind === Kind.OPERATION_DEFINITION
-      ) {
-        return set({ activeDefinition: firstDefinition });
-      }
-    }
-    return null;
-  },
-  warningWhenMultipleOperations: false,
+  //     // if (
+  //     //   isExecutableDefinitionNode(firstDefinition) &&
+  //     //   firstDefinition.kind === Kind.OPERATION_DEFINITION
+  //     // ) {
+  //     //   return set({ activeDefinition: firstDefinition });
+  //     // }
+  //   }
+  //   return null;
+  // },
 }));

@@ -1,14 +1,17 @@
 import { Location } from 'graphql';
-import { IRange } from 'monaco-editor';
+import { IPosition, IRange } from 'monaco-editor';
 
 // constants
-import { TARGET_EDITOR } from '../../constants';
+import { INDENT_SIZE, TARGET_EDITOR } from '../../constants';
 
 // hooks
 import { useEditor } from '@graphiql-prototype/store';
 
 // range
-import { rangeInsertBeforeClosingBracket, rangeInsertAfterField } from '../range';
+import {
+  rangeInsertBeforePreviousAncestorClosingBracket,
+  rangeInsertAfterField,
+} from '../range';
 
 // types
 import {
@@ -25,7 +28,7 @@ import { insertNewOperation } from '../insertNewOperation';
 import {
   // countPreviousAncestorSelections,
   getLocationFromPreviousAncestor,
-  getStringToWrite,
+  getAncestorText,
   hasSiblingSelections as hasSiblingSelectionsFunc,
 } from '../../utils';
 
@@ -68,60 +71,103 @@ export const handleAddField = ({
   }
 
   if (isRootField && hasSiblingSelections) {
+    const { operations: operationsEditor } = useEditor.getState().monacoEditors;
+
     const location = locationFromPreviousAncestor as Location;
-    console.log('ADD: isRootField && hasSiblingSelections', { location });
-    // query something {
-    //   aSiblingField
-    //   *__insertingHere__
-    // }
+
+    const range = rangeInsertBeforePreviousAncestorClosingBracket({ location });
+
+    const position = operationsEditor
+      ?.getModel()
+      ?.getPositionAt(location.end) as IPosition;
+
+    const text = `${' '.repeat(location.startToken.column * INDENT_SIZE)}${
+      target.field.name
+    }\n`;
+
+    console.log('ADD: isRootField && hasSiblingSelections', {
+      position,
+      location,
+      text,
+      textLength: text.length,
+      // query something {
+      //   aSiblingField
+      //   *__insertingHere__
+      // }
+    });
 
     return pushEdit({
       edits: [
         {
-          range: rangeInsertBeforeClosingBracket({ location }),
-          text: `${' '.repeat(location.startToken.column + 1)}${target.field.name}\n`,
+          range,
+          text,
         },
       ],
+      position: { ...position, column: position.column + text.length },
       targetEditor: TARGET_EDITOR,
     });
   }
 
   if (!isRootField && previousAncestor.selection && hasSiblingSelections) {
+    const { operations: operationsEditor } = useEditor.getState().monacoEditors;
+
     const location = locationFromPreviousAncestor as Location;
+
+    const position = operationsEditor
+      ?.getModel()
+      ?.getPositionAt(location.end) as IPosition;
+
+    const text = `${' '.repeat(location.startToken.column + 1)}${target.field.name}\n`;
+
     console.log(
       'ADD: !isRootField && previousAncestor.selection && hasSiblingSelections',
-      { location }
+      { location, position }
+      //query something {
+      //  aRootField {
+      //    aNestedField
+      //   *__insertingHere__
+      //  }
+      //}
     );
-    //query something {
-    //  aRootField {
-    //    aNestedField
-    //   *__insertingHere__
-    //  }
-    //}
+
     return pushEdit({
       edits: [
         {
-          range: rangeInsertBeforeClosingBracket({ location }),
-          text: `${' '.repeat(location.startToken.column + 1)}${target.field.name}\n`,
+          range: rangeInsertBeforePreviousAncestorClosingBracket({ location }),
+          text,
         },
       ],
+      position: { ...position, column: position.column + text.length },
       targetEditor: TARGET_EDITOR,
     });
   }
 
   if (!isRootField && previousAncestor.selection && !hasSiblingSelections) {
+    const { operations: operationsEditor } = useEditor.getState().monacoEditors;
+
     const location = locationFromPreviousAncestor as Location;
-    console.log(
-      'ADD: !isRootField && previousAncestor.selection && !hasSiblingSelections',
-      { location }
-    );
-    const stringToWrite = getStringToWrite({
+
+    const position = operationsEditor
+      ?.getModel()
+      ?.getPositionAt(location.end) as IPosition;
+
+    const stringToWrite = getAncestorText({
       ancestor: previousAncestor,
     });
 
-    const calculatedWrite = `${stringToWrite} {\n${' '.repeat(
-      location.startToken.column + 1
-    )}${target.field.name}\n${' '.repeat(location.startToken.column - 1)}}`;
+    const text = `${stringToWrite} {\n${' '.repeat(location.startToken.column + 1)}${
+      target.field.name
+    }\n${' '.repeat(location.startToken.column - 1)}}`;
+
+    console.log(
+      'ADD: !isRootField && previousAncestor.selection && !hasSiblingSelections',
+      { location, position: { ...position, column: position.column + text.length } }
+      //query something {
+      //  aRootField {
+      //   *__insertingHereWithBrackets👆👇__
+      //  }
+      //}
+    );
 
     return pushEdit({
       edits: [
@@ -130,9 +176,13 @@ export const handleAddField = ({
             endColumn: location.startToken.column + stringToWrite.length + 2,
             location,
           }),
-          text: calculatedWrite,
+          text,
         },
       ],
+      position: {
+        column: position.column + text.length,
+        lineNumber: position.lineNumber + 1,
+      },
       targetEditor: TARGET_EDITOR,
     });
   }
@@ -140,7 +190,7 @@ export const handleAddField = ({
   // this is the most complicated case to reckon...reader beware ☠️
   // our target is a nested field and the previous ancestor is not selected
   if (!isRootField && !previousAncestor.selection) {
-    console.log('ADD: !isRootField && !previousAncestor.selection', {});
+    const { operations: operationsEditor } = useEditor.getState().monacoEditors;
 
     // capture all ancestors except the first, which is always the root operation type
     const fieldAncestors = [...ancestors.slice(1)] as Array<
@@ -197,7 +247,7 @@ export const handleAddField = ({
       arr.forEach((a, index) => {
         const fieldIndent = ' '.repeat(fieldIndentCount);
         fieldText += fieldIndent;
-        fieldText += getStringToWrite({ ancestor: a });
+        fieldText += getAncestorText({ ancestor: a });
         // this space is critical, so i'm calling it out here
         fieldText += ' ';
         fieldText += `${index < arr.length - 1 ? '{\n' : '\n'}`;
@@ -219,12 +269,12 @@ export const handleAddField = ({
     let range: IRange | null = null;
 
     if (!nearestSelectedAncestor) {
-      range = rangeInsertBeforeClosingBracket({ location });
+      range = rangeInsertBeforePreviousAncestorClosingBracket({ location });
     } else {
       if (nearestSelectedAncestorHasSelections) {
-        range = rangeInsertBeforeClosingBracket({ location });
+        range = rangeInsertBeforePreviousAncestorClosingBracket({ location });
       } else {
-        const stringToWrite = getStringToWrite({ ancestor: nearestSelectedAncestor });
+        const stringToWrite = getAncestorText({ ancestor: nearestSelectedAncestor });
         range = {
           startLineNumber: location.startToken.line,
           startColumn: (location.startToken.column + stringToWrite.length) as number,
@@ -234,6 +284,23 @@ export const handleAddField = ({
       }
     }
 
+    const position = operationsEditor
+      ?.getModel()
+      ?.getPositionAt(location.end) as IPosition;
+
+    const finalPosition = {
+      column: allUnselectedAncestors.length * INDENT_SIZE + 1 + target.field.name.length,
+      // column: position.column + calculatedText().length,
+      lineNumber: position.lineNumber + allUnselectedAncestors.length - 1,
+    };
+
+    console.log('ADD: !isRootField && !previousAncestor.selection', {
+      location,
+      position,
+      finalPosition,
+      l: allUnselectedAncestors.length,
+    });
+
     return pushEdit({
       edits: [
         {
@@ -241,6 +308,7 @@ export const handleAddField = ({
           text: calculatedText(),
         },
       ],
+      position: finalPosition,
       targetEditor: TARGET_EDITOR,
     });
   }

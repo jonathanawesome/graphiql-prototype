@@ -28,9 +28,10 @@ export const documentActions = (
     const editor = get().monacoEditors['operations'];
     const model = editor?.getModel();
     const modelValue = editor?.getModel()?.getValue();
+    const existingActiveDefinition = JSON.stringify(get().activeDefinition);
 
     console.log('setdocumentState', {
-      existingDecoratiosn: model?.getAllDecorations(),
+      existingDecorations: model?.getAllDecorations(),
     });
 
     model?.deltaDecorations(get().editorDecorations.existing, []);
@@ -44,7 +45,7 @@ export const documentActions = (
 
         set({ documentDefinitions: definitionCount });
 
-        if (definitionCount > 1) {
+        if (definitionCount >= 1) {
           const cPos = editor?.getPosition();
           // console.log('cursorPosition', { cPos });
 
@@ -55,10 +56,16 @@ export const documentActions = (
 
             if (cPos && cPos.lineNumber >= startLine && cPos.lineNumber <= endLine) {
               // if the cursor position exists within one of the definitions, it is the active definition
-              set({ activeDefinition: d, hasActiveDefinition: true });
-              console.log('setting active definition', {
-                d,
-              });
+
+              // only update state if our exiting activeDefinition differs from this definition
+              if (existingActiveDefinition !== JSON.stringify(d)) {
+                set({ activeDefinition: d });
+              }
+              set({ hasActiveDefinition: true });
+
+              // console.log('setting active definition to the cursor position', {
+              //   d,
+              // });
             } else {
               set({
                 editorDecorations: {
@@ -77,9 +84,16 @@ export const documentActions = (
 
           if (!get().hasActiveDefinition) {
             // our cursor is not within any of our definitions, so we want our first definition to be active
-            // shift first definition from newDecorations
-            const firstDefinition = get().editorDecorations.new.shift();
-            set({ activeDefinition: parsedQuery.definitions[0] });
+
+            // shift first definition from newDecorations (do NOT mark it inactive)
+            get().editorDecorations.new.shift();
+
+            const def = parsedQuery.definitions[0];
+
+            // only update state if our exiting activeDefinition differs from this definition
+            if (existingActiveDefinition !== JSON.stringify(def)) {
+              set({ activeDefinition: def });
+            }
           }
 
           set({

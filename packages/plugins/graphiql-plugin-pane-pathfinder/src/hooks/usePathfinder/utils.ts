@@ -1,6 +1,6 @@
 import { AncestorField, AncestorInlineFragment, AncestorTypes } from './types';
 
-export const getStringToWrite = ({
+export const getAncestorText = ({
   ancestor,
 }: {
   ancestor: AncestorField | AncestorInlineFragment;

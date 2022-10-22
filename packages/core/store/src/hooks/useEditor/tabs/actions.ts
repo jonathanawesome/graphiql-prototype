@@ -76,7 +76,6 @@ export const tabsActions = (get: GetEditorStore, set: SetEditorStore): TabsActio
         },
       ],
       operationDefinition: withOperationModelValue?.operationDefinition || null,
-      warningWhenMultipleOperations: false,
     };
 
     setModelsForAllEditorsWithinTab({ destinationTab: newEditorTab });

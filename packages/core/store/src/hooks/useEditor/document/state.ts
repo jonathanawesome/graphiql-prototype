@@ -6,8 +6,7 @@ export const documentState: DocumentState = {
     new: [],
     existing: [],
   },
-  // newDecorations: [],
-  // existingDecorations: [],
   hasActiveDefinition: false,
   documentDefinitions: 0,
+  warningWhenMultipleOperations: false,
 };

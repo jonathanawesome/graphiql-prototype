@@ -10,7 +10,6 @@ export type EditorTabState = {
   resultsModel: MONACO_EDITOR.ITextModel;
   headers: HTTPHeaderValue[];
   operationDefinition: OperationDefinitionNode | null;
-  warningWhenMultipleOperations: boolean;
 };
 
 export type TabsState = {

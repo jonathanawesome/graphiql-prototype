@@ -20,7 +20,7 @@ import {
 } from './styles';
 
 export const Pathfinder = () => {
-  const activeDefinition = useEditor().activeDefinition;
+  const activeDefinition = useEditor((state) => state.activeDefinition);
 
   const { schema } = useSchema();
 
@@ -36,7 +36,7 @@ export const Pathfinder = () => {
   const operationDefinition =
     activeDefinition?.kind === Kind.OPERATION_DEFINITION ? activeDefinition : null;
 
-  // console.log('rendering Pathfinder', { activeDefinition });
+  console.log('rendering Pathfinder', { activeDefinition });
 
   return (
     <SchemaReferenceProvider>

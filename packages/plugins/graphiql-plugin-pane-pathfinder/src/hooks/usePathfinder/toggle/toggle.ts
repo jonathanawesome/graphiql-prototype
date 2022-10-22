@@ -53,13 +53,25 @@ export const toggle = ({
     activeDefinition?.kind === Kind.OPERATION_DEFINITION &&
     activeDefinition.operation !== rootAncestor.operationType
   ) {
+    const fullModelRange = useEditor
+      .getState()
+      .getActiveTab()
+      ['operationsModel'].getFullModelRange();
+
     const range = {
-      startLineNumber: (activeDefinition.loc?.endToken.line as number) + 1,
+      startLineNumber: fullModelRange.endLineNumber + 1,
       startColumn: 0 + 1,
-      endLineNumber: (activeDefinition.loc?.endToken.line as number) + 1,
+      endLineNumber: fullModelRange.endLineNumber + 1,
       endColumn: 0 + 1,
     };
-    console.log('insert new operations', { activeDefinition, range });
+    console.log('insert new operations', {
+      activeDefinition,
+      range,
+      fullRane: useEditor
+        .getState()
+        .getActiveTab()
+        ['operationsModel'].getFullModelRange(),
+    });
     // range here needs to be the end of the
     return insertNewOperation({
       ancestors,

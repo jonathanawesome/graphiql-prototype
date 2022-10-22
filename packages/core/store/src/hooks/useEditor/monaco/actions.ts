@@ -20,8 +20,8 @@ export const monacoActions = (
     const activeTab = get().getActiveTab();
     const setDocumentState = useEditor.getState().setDocumentState;
 
-    const updateActiveDefinitionFromModelValue =
-      get().updateActiveDefinitionFromModelValue;
+    // const updateActiveDefinitionFromModelValue =
+    //   get().updateActiveDefinitionFromModelValue;
 
     const runOperationAction = useSchema.getState().runOperationAction;
 
@@ -54,27 +54,32 @@ export const monacoActions = (
       // when our operation or variables editor models change, update the operationDefinition
       editor.onDidChangeModelContent(() => {
         const editorValue = editor.getValue();
-        if (monacoEditorType === 'variables') {
-          set({ activeVariables: editorValue });
-        }
-        const selection = editor.getSelection();
 
-        if (editorValue.length === 0) {
-          useEditor.getState().clearDocumentState();
-        } else {
-          updateActiveDefinitionFromModelValue({ value: editorValue });
-        }
         console.log('onDidChangeModelContent', {
           // docState: useEditor.getState().documentDefinitions,
           value: editorValue,
         });
+
+        if (monacoEditorType === 'variables') {
+          set({ activeVariables: editorValue });
+        }
+
+        const selection = editor.getSelection();
+
+        if (editorValue.length === 0) {
+          useEditor.getState().clearDocumentState();
+          // } else {
+          //   updateActiveDefinitionFromModelValue({ value: editorValue });
+        }
+
         if (selection) {
           editor.setSelection(selection);
         }
+
         editor.focus();
       });
 
-      // set the height of our editor
+      // TODO: FIX THIS...set the height of our editor
       editor.onDidContentSizeChange(() => {
         const contentHeight = editor.getContentHeight();
         if (monacoEditorRef) {

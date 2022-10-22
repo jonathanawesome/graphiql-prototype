@@ -1,5 +1,5 @@
 import type { StoreApi } from 'zustand';
-import type { IRange } from 'monaco-editor';
+import type { IPosition, IRange } from 'monaco-editor';
 
 // types
 import type { DocumentActions, DocumentState } from './document';
@@ -22,13 +22,15 @@ export type EditorStore = DocumentActions &
     splitMultipleOperationsToSeparateTabs: () => void;
     pushEdit: ({
       edits,
+      position,
       targetEditor,
     }: {
       edits: Array<{
         range?: IRange;
         text: string | null;
       }>;
+      position: IPosition;
       targetEditor: 'operations' | 'variables' | 'results';
     }) => void;
-    updateActiveDefinitionFromModelValue: ({ value }: { value: string }) => void;
+    // updateActiveDefinitionFromModelValue: ({ value }: { value: string }) => void;
   };

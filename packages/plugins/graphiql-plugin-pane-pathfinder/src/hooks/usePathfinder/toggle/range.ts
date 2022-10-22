@@ -40,7 +40,7 @@ export const rangeRemoveForAllSelectionsOfField = ({
   };
 };
 
-export const rangeInsertBeforeClosingBracket = ({
+export const rangeInsertBeforePreviousAncestorClosingBracket = ({
   location,
 }: {
   location: Location;

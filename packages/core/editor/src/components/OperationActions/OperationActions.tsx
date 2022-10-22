@@ -1,3 +1,5 @@
+import shallow from 'zustand/shallow';
+
 // components
 import { Icon, Play, Prettier } from '@graphiql-prototype/ui-library';
 
@@ -14,8 +16,16 @@ import {
 } from './styles';
 
 export const OperationActions = () => {
-  const { monacoEditors, splitMultipleOperationsToSeparateTabs, getActiveTab } =
-    useEditor();
+  const { documentDefinitions, monacoEditors, splitMultipleOperationsToSeparateTabs } =
+    useEditor(
+      (state) => ({
+        documentDefinitions: state.documentDefinitions,
+        monacoEditors: state.monacoEditors,
+        splitMultipleOperationsToSeparateTabs:
+          state.splitMultipleOperationsToSeparateTabs,
+      }),
+      shallow
+    );
 
   const { executeOperation } = useSchema();
 
@@ -35,7 +45,7 @@ export const OperationActions = () => {
       >
         <Prettier />
       </StyledPrettierButton>
-      {getActiveTab()?.warningWhenMultipleOperations && (
+      {documentDefinitions > 1 && (
         <StyledWarningButton
           onClick={() => splitMultipleOperationsToSeparateTabs()}
           title={`Split multiple operations into separate tabs`}
