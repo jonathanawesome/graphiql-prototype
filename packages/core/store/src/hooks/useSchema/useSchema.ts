@@ -3,8 +3,6 @@ import { KeyCode, KeyMod } from 'monaco-editor';
 import * as JSONC from 'jsonc-parser';
 import { buildClientSchema, getIntrospectionQuery, IntrospectionQuery } from 'graphql';
 
-import 'monaco-graphql';
-
 // hooks
 import { useEditor } from '../useEditor';
 import { useHTTPHeaders } from '../useHTTPHeaders';
