@@ -34,17 +34,29 @@ export const Toggler: React.FC<ToggleProps> = ({
 }) => {
   const { toggle } = usePathfinder();
 
+  // breadcrumbs help identify toggle buttons in tests
+  const breadcrumbs = [...ancestors]
+    // eslint-disable-next-line consistent-return
+    .map((k) => {
+      if (k.type === 'FIELD') {
+        return k.field.name;
+      }
+      if (k.type === 'ARGUMENT') {
+        return k.argument.name;
+      }
+    })
+    .reverse()
+    .slice(0, -1)
+    .join('/');
+
   // console.log('Toggler', {
   //   // ancestors,
-  //   // collapser,
-  //   // isSelected,
-  //   // operationType,
-  //   variant,
+  //   breadcrumbs,
   // });
 
   return (
     <TogglerStyled
-      aria-label={`Add ${variant} to operation`}
+      aria-label={`Add ${breadcrumbs} ${variant} to operation`}
       aria-pressed={isSelected}
       isSelected={isSelected}
       onClick={() => {

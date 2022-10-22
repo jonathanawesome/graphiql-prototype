@@ -12,7 +12,7 @@ export const variablesActions = (get: GetEditorStore): VariablesActions => ({
     }
   },
   updateVariable: async ({ onInputObject, variableName, variableValue }) => {
-    const updateModel = get().updateModel;
+    const pushEdit = get().pushEdit;
     const monacoEditors = get().monacoEditors;
 
     // console.log('running updateVariable', {
@@ -49,7 +49,7 @@ export const variablesActions = (get: GetEditorStore): VariablesActions => ({
     const newVariablesString = JSON.stringify(parsedVariables, null, ' ');
 
     // update the model
-    return updateModel({
+    return pushEdit({
       edits: [
         {
           text: newVariablesString,

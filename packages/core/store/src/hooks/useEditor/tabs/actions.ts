@@ -15,6 +15,9 @@ import { TabsActions } from './types';
 
 export const tabsActions = (get: GetEditorStore, set: SetEditorStore): TabsActions => ({
   setModelsForAllEditorsWithinTab: ({ destinationTab }) => {
+    const clearDocumentState = get().clearDocumentState;
+    const setDocumentState = get().setDocumentState;
+
     // get our array of editors
     const monacoEditors = get().monacoEditors;
 
@@ -22,6 +25,9 @@ export const tabsActions = (get: GetEditorStore, set: SetEditorStore): TabsActio
     monacoEditors.operations?.setModel(destinationTab.operationsModel);
     monacoEditors.variables?.setModel(destinationTab.variablesModel);
     monacoEditors.results?.setModel(destinationTab.resultsModel);
+
+    clearDocumentState();
+    setDocumentState();
   },
   initEditorTab: ({ withOperationModelValue }) => {
     const monacoGraphQLAPI = get().monacoGraphQLAPI;
@@ -138,7 +144,7 @@ export const tabsActions = (get: GetEditorStore, set: SetEditorStore): TabsActio
     const editorTabs = get().editorTabs;
     const editorTab = editorTabs.find((t) => t.editorTabId === editorTabId);
     const setModelsForAllEditorsWithinTab = get().setModelsForAllEditorsWithinTab;
-    const activeExecutableDefinition = get().activeExecutableDefinition;
+    const activeDefinition = get().activeDefinition;
 
     if (editorTab) {
       set({
@@ -146,13 +152,12 @@ export const tabsActions = (get: GetEditorStore, set: SetEditorStore): TabsActio
         activeEditorTabId: editorTabId,
         // set the active variables
         activeVariables: editorTab.variablesModel.getValue(),
-        // set the activeExecutableDefinition
-        activeExecutableDefinition,
+        // set the activeDefinition
+        activeDefinition,
       });
 
       // set the model values for each of our editors
       setModelsForAllEditorsWithinTab({ destinationTab: editorTab });
-
       //TODO there's an uncaught promise in the DiagnosticsAdapter
       // languageFeatures.ts:124 Uncaught (in promise) TypeError: Cannot read properties of null (reading 'doValidation') at DiagnosticsAdapter._doValidate (languageFeatures.ts:124:38)
       monacoGraphQLAPI.setDiagnosticSettings({

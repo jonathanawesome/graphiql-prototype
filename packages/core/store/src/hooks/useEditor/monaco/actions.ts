@@ -1,4 +1,4 @@
-import { editor as MONACO_EDITOR } from 'monaco-editor/esm/vs/editor/editor.api';
+import { editor as MONACO_EDITOR } from 'monaco-editor';
 
 // constants
 import { editorOptions } from '../../../constants';
@@ -18,9 +18,10 @@ export const monacoActions = (
   initMonacoEditor: ({ monacoEditorType, monacoEditorRef, optionOverrides }) => {
     const monacoEditors = get().monacoEditors;
     const activeTab = get().getActiveTab();
+    const setDocumentState = useEditor.getState().setDocumentState;
 
-    const updateOperationDefinitionFromModelValue =
-      get().updateOperationDefinitionFromModelValue;
+    const updateActiveDefinitionFromModelValue =
+      get().updateActiveDefinitionFromModelValue;
 
     const runOperationAction = useSchema.getState().runOperationAction;
 
@@ -37,7 +38,6 @@ export const monacoActions = (
         : //otherwise, we'll leave it undefined for now
           undefined,
     });
-    console.log('running initMonacoEditor2', { editor });
 
     // add this editor to our editors state array
     set({
@@ -53,10 +53,25 @@ export const monacoActions = (
 
       // when our operation or variables editor models change, update the operationDefinition
       editor.onDidChangeModelContent(() => {
+        const editorValue = editor.getValue();
         if (monacoEditorType === 'variables') {
-          set({ activeVariables: editor.getValue() });
+          set({ activeVariables: editorValue });
         }
-        updateOperationDefinitionFromModelValue({ value: editor.getValue() });
+        const selection = editor.getSelection();
+
+        if (editorValue.length === 0) {
+          useEditor.getState().clearDocumentState();
+        } else {
+          updateActiveDefinitionFromModelValue({ value: editorValue });
+        }
+        console.log('onDidChangeModelContent', {
+          // docState: useEditor.getState().documentDefinitions,
+          value: editorValue,
+        });
+        if (selection) {
+          editor.setSelection(selection);
+        }
+        editor.focus();
       });
 
       // set the height of our editor
@@ -70,9 +85,7 @@ export const monacoActions = (
 
     if (monacoEditorType === 'operations') {
       editor.onDidChangeCursorPosition(() => {
-        const determineActiveExecutableDefinition =
-          useEditor.getState().determineActiveExecutableDefinition;
-        determineActiveExecutableDefinition();
+        setDocumentState();
       });
     }
   },

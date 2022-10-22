@@ -1,9 +1,8 @@
 import type { StoreApi } from 'zustand';
-import type { OperationDefinitionNode } from 'graphql';
 import type { IRange } from 'monaco-editor';
 
 // types
-import type { ActiveDefinitionActions, ActiveDefinitionState } from './activeDefinition';
+import type { DocumentActions, DocumentState } from './document';
 import type { MonacoActions, MonacoState } from './monaco';
 import type { TabsActions, TabsState } from './tabs';
 import type { VariablesActions, VariablesState } from './variables';
@@ -11,17 +10,17 @@ import type { VariablesActions, VariablesState } from './variables';
 export type GetEditorStore = StoreApi<EditorStore>['getState'];
 export type SetEditorStore = StoreApi<EditorStore>['setState'];
 
-export type EditorStore = ActiveDefinitionActions &
-  ActiveDefinitionState &
+export type EditorStore = DocumentActions &
+  DocumentState &
   MonacoState &
   MonacoActions &
   TabsActions &
   TabsState &
   VariablesActions &
   VariablesState & {
-    // "other"
+    // needs a home
     splitMultipleOperationsToSeparateTabs: () => void;
-    updateModel: ({
+    pushEdit: ({
       edits,
       targetEditor,
     }: {
@@ -31,10 +30,5 @@ export type EditorStore = ActiveDefinitionActions &
       }>;
       targetEditor: 'operations' | 'variables' | 'results';
     }) => void;
-    updateOperationDefinition: ({
-      newDefinition,
-    }: {
-      newDefinition: OperationDefinitionNode | null;
-    }) => void;
-    updateOperationDefinitionFromModelValue: ({ value }: { value: string }) => void;
+    updateActiveDefinitionFromModelValue: ({ value }: { value: string }) => void;
   };

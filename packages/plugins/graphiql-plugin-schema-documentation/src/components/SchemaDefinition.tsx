@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { editor as MONACO_EDITOR } from 'monaco-editor/esm/vs/editor/editor.api';
+import { editor as MONACO_EDITOR } from 'monaco-editor';
 import { printSchema } from 'graphql';
 
 // hooks

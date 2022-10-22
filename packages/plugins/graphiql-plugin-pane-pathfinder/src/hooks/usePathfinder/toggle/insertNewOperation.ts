@@ -7,12 +7,19 @@ import {
   print,
   SelectionNode,
 } from 'graphql';
+import { IRange } from 'monaco-editor';
 
 import { AncestorField, AncestorRoot, AncestorsArray } from '../types';
 
-const updateModel = useEditor.getState().updateModel;
+const pushEdit = useEditor.getState().pushEdit;
 
-export const insertNewOperation = ({ ancestors }: { ancestors: AncestorsArray }) => {
+export const insertNewOperation = ({
+  ancestors,
+  range,
+}: {
+  ancestors: AncestorsArray;
+  range?: IRange;
+}) => {
   // console.log('insert new operation', {
   //   ancestors,
   // });
@@ -114,7 +121,7 @@ export const insertNewOperation = ({ ancestors }: { ancestors: AncestorsArray })
   //     // return node;
   //   });
 
-  console.log('newNodes', { newNodes, ancestors });
+  // console.log('newNodes', { newNodes, ancestors });
 
   const selections = (): SelectionNode[] => {
     let fieldNode = newNodes.shift() as FieldNode | InlineFragmentNode;
@@ -139,12 +146,12 @@ export const insertNewOperation = ({ ancestors }: { ancestors: AncestorsArray })
     },
   };
 
-  return updateModel({
-    edits: [
-      {
-        text: print(newOperationDefinitionNode),
-      },
-    ],
+  const text = `${useEditor.getState().documentDefinitions > 0 ? '\n\n' : ''}${print(
+    newOperationDefinitionNode
+  )}`;
+
+  return pushEdit({
+    edits: [{ range: range || undefined, text }],
     targetEditor: 'operations',
   });
 };

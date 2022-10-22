@@ -2,4 +2,4 @@ export { tabsActions } from './actions';
 
 export { tabsState } from './state';
 
-export type { TabsActions, TabsState } from './types';
+export type { EditorTabState, TabsActions, TabsState } from './types';

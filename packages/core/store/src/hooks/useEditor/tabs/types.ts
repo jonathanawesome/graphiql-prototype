@@ -1,5 +1,5 @@
 import type { OperationDefinitionNode } from 'graphql';
-import { editor as MONACO_EDITOR } from 'monaco-editor/esm/vs/editor/editor.api';
+import { editor as MONACO_EDITOR } from 'monaco-editor';
 import type { HTTPHeaderValue } from '../../useHTTPHeaders';
 
 export type EditorTabState = {

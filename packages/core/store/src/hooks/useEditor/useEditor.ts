@@ -5,7 +5,7 @@ import {
   OperationDefinitionNode,
   print,
 } from 'graphql';
-import { editor as MONACO_EDITOR } from 'monaco-editor/esm/vs/editor/editor.api';
+import { editor as MONACO_EDITOR } from 'monaco-editor';
 
 // constants
 import { editorThemeDark, editorThemeLight } from '../../constants';
@@ -13,7 +13,7 @@ import { editorThemeDark, editorThemeLight } from '../../constants';
 // types
 import { EditorStore } from './types';
 
-import { activeDefinitionActions, activeDefinitionState } from './activeDefinition';
+import { documentActions, documentState } from './document';
 import { monacoActions, monacoState } from './monaco';
 import { tabsActions, tabsState } from './tabs';
 import { variablesActions, variablesState } from './variables';
@@ -26,8 +26,8 @@ MONACO_EDITOR.defineTheme('graphiql-DARK', editorThemeDark);
 MONACO_EDITOR.defineTheme('graphiql-LIGHT', editorThemeLight);
 
 export const useEditor = create<EditorStore>()((set, get) => ({
-  ...activeDefinitionState,
-  ...activeDefinitionActions(get, set),
+  ...documentState,
+  ...documentActions(get, set),
 
   ...monacoState,
   ...monacoActions(get, set),
@@ -41,7 +41,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
   splitMultipleOperationsToSeparateTabs: () => {
     // TODO: this was written very quickly, need to revisit
 
-    const updateModel = get().updateModel;
+    const pushEdit = get().pushEdit;
     const initEditorTab = get().initEditorTab;
     const getActiveTab = get().getActiveTab();
     const parsedQuery = parseQuery(getActiveTab.operationsModel.getValue());
@@ -53,7 +53,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
         defsToSplit: [...parsedQuery.definitions].splice(1),
       });
 
-      updateModel({
+      pushEdit({
         edits: [
           {
             text: print({
@@ -82,96 +82,83 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     }
   },
 
-  updateModel: ({ edits, targetEditor }) => {
-    const monacoEditors = get().monacoEditors;
+  pushEdit: ({ edits, targetEditor }) => {
+    // 👇 edits via editor
+    // const monacoEditors = get().monacoEditors;
 
-    const editor = monacoEditors[targetEditor] as MONACO_EDITOR.IStandaloneCodeEditor;
+    // const editor = monacoEditors[targetEditor] as MONACO_EDITOR.IStandaloneCodeEditor;
 
-    const model = editor.getModel() as MONACO_EDITOR.ITextModel;
+    // const model = editor.getModel() as MONACO_EDITOR.ITextModel;
 
-    const editsWithProperRange: MONACO_EDITOR.ISingleEditOperation[] = edits.map(
-      (edit) => {
-        return {
-          ...edit,
-          range: edit.range || model.getFullModelRange(),
-        };
-      }
-    );
+    // // if we're not passed a range we'll use the full model range
+    // const editsWithViableRange: MONACO_EDITOR.ISingleEditOperation[] = edits.map(
+    //   (edit) => {
+    //     return {
+    //       ...edit,
+    //       range: edit.range || model.getFullModelRange(),
+    //       forceMoveMarkers: false,
+    //     };
+    //   }
+    // );
 
-    console.log('updateModel', { editor, model, editsWithProperRange, targetEditor });
+    // if (targetEditor === 'results') {
+    //   model.pushEditOperations([], editsWithViableRange, () => null);
+    // } else {
+    //   const selection = editor.getSelection();
 
-    if (targetEditor === 'results') {
-      model.pushEditOperations([], editsWithProperRange, () => null);
-    } else {
-      const selection = editor.getSelection();
+    //   editor.executeEdits('edit', editsWithViableRange);
 
-      editor.executeEdits('edit', editsWithProperRange);
+    //   if (selection) {
+    //     editor.setSelection(selection);
+    //   }
+    // }
 
-      if (selection) {
-        editor.setSelection(selection);
-      }
-    }
-  },
-  updateOperationDefinition: ({ newDefinition }) => {
+    // 👇 edits via model
     const editorTabs = get().editorTabs;
     const activeEditorTabId = get().activeEditorTabId;
+    const setDocumentState = get().setDocumentState;
 
-    // 👇 safety first
-    const editorTabsCopy = [...editorTabs];
+    const updateActiveDefinitionFromModelValue =
+      get().updateActiveDefinitionFromModelValue;
 
-    const existingEditorTabIndex = editorTabsCopy.findIndex(
+    const activeEditorTab = editorTabs.find(
       (editorTab) => editorTab.editorTabId === activeEditorTabId
     );
 
-    if (existingEditorTabIndex !== -1) {
-      if (!newDefinition) {
-        // if we're here,  user has either manually cleared the operations editor or user has toggled OFF all fields in Pathfinder
-        editorTabsCopy[existingEditorTabIndex] = {
-          ...editorTabsCopy[existingEditorTabIndex],
-          operationDefinition: null,
-        };
-      } else if (isExecutableDefinitionNode(newDefinition)) {
-        // TODO: do we want to populate the variables editor here?
-        // const variableDefinitions = newDefinition.variableDefinitions;
-        // console.log('variableDefinitions', { variableDefinitions });
-        // if (variableDefinitions && variableDefinitions?.length > 0) {
-        //   const activeEditorTab = editorTabsCopy.find(
-        //     (eT) => eT.editorTabId === activeEditorTabId
-        //   );
+    if (activeEditorTab) {
+      const model = activeEditorTab[`${targetEditor}Model`];
 
-        //   const variablesString = activeEditorTab?.variablesModel.getValue();
+      // if we're not passed a range we'll use the full model range
+      const editsWithViableRange: MONACO_EDITOR.ISingleEditOperation[] = edits.map(
+        (edit) => {
+          return {
+            ...edit,
+            range: edit.range || model.getFullModelRange(),
+            forceMoveMarkers: true,
+          };
+        }
+      );
 
-        //   let parsed: Record<any, any> = {};
-        //   if (variablesString) {
-        //     parsed = JSON.parse(variablesString);
-        //     // we have an object with our existing variables
-        //   }
-        // }
+      // edit our model
+      // TODO: set the cursor position here
 
-        editorTabsCopy[existingEditorTabIndex] = {
-          ...editorTabsCopy[existingEditorTabIndex],
-          // let's ensure we're covering situations where user is explicitly naming their operation
-          // this is the only way, currently, to provide a name for a tab
-          editorTabName:
-            newDefinition.name?.value ||
-            editorTabsCopy[existingEditorTabIndex].editorTabName,
-          operationDefinition: newDefinition,
-        };
+      model.pushEditOperations([], editsWithViableRange, () => null);
+
+      if (targetEditor === 'operations') {
+        // ensure the active definition is updated
+        // setDocumentState();
+        // updateActiveDefinitionFromModelValue({ value: model.getValue() });
       }
-      set({ editorTabs: editorTabsCopy });
     }
   },
-  updateOperationDefinitionFromModelValue: ({ value }) => {
-    // const updateOperationDefinition = get().updateOperationDefinition;
+  updateActiveDefinitionFromModelValue: ({ value }) => {
     const updateTabState = get().updateTabState;
 
     const parsedQuery = parseQuery(value);
 
-    // console.log('updateOperationDefinitionFromModelValue', { value, parsedQuery });
+    // console.log('updateActiveDefinitionFromModelValue', { value, parsedQuery });
 
     if (!(parsedQuery instanceof Error)) {
-      // console.log('parsedQuery', { parsedQuery });
-
       if (parsedQuery?.definitions && parsedQuery.definitions.length > 1) {
         updateTabState({
           data: { warningWhenMultipleOperations: true },
@@ -187,16 +174,14 @@ export const useEditor = create<EditorStore>()((set, get) => ({
       const firstDefinition = parsedQuery?.definitions[0];
 
       if (!firstDefinition) {
-        // return updateOperationDefinition({ newDefinition: null });
-        return set({ activeExecutableDefinition: null });
+        return set({ activeDefinition: null });
       }
 
       if (
         isExecutableDefinitionNode(firstDefinition) &&
         firstDefinition.kind === Kind.OPERATION_DEFINITION
       ) {
-        // return updateOperationDefinition({ newDefinition: firstDefinition });
-        return set({ activeExecutableDefinition: firstDefinition });
+        return set({ activeDefinition: firstDefinition });
       }
     }
     return null;

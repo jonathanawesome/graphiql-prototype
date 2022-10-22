@@ -1,7 +1,7 @@
-import { editor as MONACO_EDITOR } from 'monaco-editor/esm/vs/editor/editor.api';
+import { editor as MONACO_EDITOR } from 'monaco-editor';
 import type { MonacoGraphQLAPI } from 'monaco-graphql';
 
-type MonacoEditorTypes = 'operations' | 'variables' | 'results';
+export type MonacoEditorTypes = 'operations' | 'variables' | 'results';
 
 type MonacoEditors = {
   operations: MONACO_EDITOR.IStandaloneCodeEditor | null;
