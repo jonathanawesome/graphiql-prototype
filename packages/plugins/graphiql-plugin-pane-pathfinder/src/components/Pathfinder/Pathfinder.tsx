@@ -1,4 +1,4 @@
-import { OperationTypeNode } from 'graphql';
+import { Kind, OperationTypeNode } from 'graphql';
 
 // components
 import { QuickDocs, RootOperation } from '../index';
@@ -20,7 +20,7 @@ import {
 } from './styles';
 
 export const Pathfinder = () => {
-  const activeEditorTab = useEditor().getActiveTab();
+  const activeDefinition = useEditor().activeDefinition;
 
   const { schema } = useSchema();
 
@@ -33,7 +33,10 @@ export const Pathfinder = () => {
     );
   }
 
-  // console.log('rendering Pathfinder', { typeMap: schema.getTypeMap() });
+  const operationDefinition =
+    activeDefinition?.kind === Kind.OPERATION_DEFINITION ? activeDefinition : null;
+
+  // console.log('rendering Pathfinder', { activeDefinition });
 
   return (
     <SchemaReferenceProvider>
@@ -41,8 +44,12 @@ export const Pathfinder = () => {
         <StyledPathfinderContainer>
           <StyledPathfinderContent>
             <Tabs
-              initialActiveTab={activeEditorTab?.operationDefinition?.operation}
-              ariaLabel="root operations types"
+              initialActiveTab={
+                activeDefinition?.kind === Kind.OPERATION_DEFINITION
+                  ? activeDefinition?.operation
+                  : 'query'
+              }
+              ariaLabel="root operations types and fragments"
               tabbedContent={[
                 {
                   id: 'query',
@@ -53,8 +60,7 @@ export const Pathfinder = () => {
                         {
                           type: 'ROOT',
                           operationType: OperationTypeNode.QUERY,
-                          operationDefinition:
-                            activeEditorTab && activeEditorTab.operationDefinition,
+                          operationDefinition,
                         },
                       ]}
                       fields={schema.getQueryType()?.getFields()}
@@ -70,8 +76,7 @@ export const Pathfinder = () => {
                         {
                           type: 'ROOT',
                           operationType: OperationTypeNode.MUTATION,
-                          operationDefinition:
-                            activeEditorTab && activeEditorTab.operationDefinition,
+                          operationDefinition,
                         },
                       ]}
                       fields={schema.getMutationType()?.getFields()}
@@ -87,32 +92,31 @@ export const Pathfinder = () => {
                         {
                           type: 'ROOT',
                           operationType: OperationTypeNode.SUBSCRIPTION,
-                          operationDefinition:
-                            activeEditorTab && activeEditorTab.operationDefinition,
+                          operationDefinition,
                         },
                       ]}
                       fields={schema.getSubscriptionType()?.getFields()}
                     />
                   ),
                 },
-                // {
-                //   id: 'Fragments',
-                //   name: 'Fragments',
-                //   panel: (
-                //     <StyledContainer>
-                //       <Message
-                //         message={
-                //           <>
-                //             This is a placeholder/idea for saving fragments for reuse
-                //             across tabs/operations. Maybe it doesn't belong here and
-                //             should be a plugin.
-                //           </>
-                //         }
-                //         variant="WARNING"
-                //       />
-                //     </StyledContainer>
-                //   ),
-                // },
+                {
+                  id: 'fragments',
+                  name: 'Fragments',
+                  panel: (
+                    <StyledContainer>
+                      <Message
+                        message={
+                          <>
+                            This is a placeholder/idea for saving fragments for reuse
+                            across tabs/operations. Maybe it doesn't belong here and
+                            should be a plugin.
+                          </>
+                        }
+                        variant="WARNING"
+                      />
+                    </StyledContainer>
+                  ),
+                },
               ]}
             />
           </StyledPathfinderContent>
