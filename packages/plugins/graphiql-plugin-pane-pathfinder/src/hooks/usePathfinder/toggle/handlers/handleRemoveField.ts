@@ -25,44 +25,69 @@ import {
 
 export const handleRemoveField = ({
   ancestors,
-  isNestedField,
   previousAncestor,
   target,
 }: {
   ancestors: AncestorsArray;
-  isNestedField: boolean;
   previousAncestor: AncestorTypes;
   target: AncestorField;
 }) => {
   const pushEdit = useEditor.getState().pushEdit;
   const documentDefinitions = useEditor.getState().documentDefinitions;
 
+  const position = useEditor.getState().monacoEditors['operations']?.getPosition() || {
+    column: 1,
+    lineNumber: 1,
+  };
+
   const location = target.selection?.loc as Location;
 
   const hasSiblingSelections = hasSiblingSelectionsFunc({
+    mode: 'REMOVE',
     previousAncestor,
   });
+
   const locationFromPreviousAncestor = getLocationFromPreviousAncestor({
     previousAncestor,
   });
 
-  if (!isNestedField && !hasSiblingSelections && documentDefinitions <= 1) {
-    // console.log('REMOVE: this is a top level field and is the only selection', {});
+  const isRootField = previousAncestor.type === 'ROOT';
+
+  const isNestedField =
+    previousAncestor.type === 'FIELD' || previousAncestor.type === 'INLINE_FRAGMENT';
+
+  if (isRootField && !hasSiblingSelections && documentDefinitions < 2) {
+    console.log(
+      'REMOVE: isRootField && !hasSiblingSelections && documentDefinitions < 2',
+      {}
+      // start
+      // query newImageQuery {
+      //   isTest
+      // }
+
+      //end
+      // empty!
+    );
+
     return pushEdit({
       edits: [
         {
-          range: activeEditorTab.operationsModel.getFullModelRange(),
+          range: useEditor
+            .getState()
+            .getActiveTab()
+            ['operationsModel'].getFullModelRange(),
           text: null,
         },
       ],
+      position,
       targetEditor: TARGET_EDITOR,
     });
   }
 
   if (!isNestedField && hasSiblingSelections) {
-    // console.log(
-    //   'REMOVE: this is a top level field but there are other top level selections'
-    // );
+    console.log('REMOVE: !isNestedField && hasSiblingSelections', {
+      location,
+    });
 
     if (
       target.selection &&
@@ -77,6 +102,7 @@ export const handleRemoveField = ({
             text: null,
           },
         ],
+        position,
         targetEditor: TARGET_EDITOR,
       });
     } else {
@@ -88,6 +114,7 @@ export const handleRemoveField = ({
             text: null,
           },
         ],
+        position,
         targetEditor: TARGET_EDITOR,
       });
     }
@@ -143,7 +170,8 @@ export const handleRemoveField = ({
       }
 
       console.log('REMOVE: this is not a top level field and is the only selection', {
-        target,
+        location,
+        range,
       });
       return pushEdit({
         edits: [
@@ -152,6 +180,7 @@ export const handleRemoveField = ({
             text: null,
           },
         ],
+        position,
         targetEditor: TARGET_EDITOR,
       });
     }
@@ -167,6 +196,7 @@ export const handleRemoveField = ({
               text: null,
             },
           ],
+          position,
           targetEditor: TARGET_EDITOR,
         });
       } else {
@@ -178,6 +208,7 @@ export const handleRemoveField = ({
               text: null,
             },
           ],
+          position,
           targetEditor: TARGET_EDITOR,
         });
       }

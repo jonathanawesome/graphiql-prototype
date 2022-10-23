@@ -82,9 +82,9 @@ describe('Pathfinder | Toggler - Field', () => {
 
       // this does _not_ update the model/editor values, only the operationDefinition
       act(() => {
-        editorHookResult.current.updateActiveDefinitionFromModelValue({
-          value: `query newDeferrableQuery {\r\n  deferrable\r\n}`,
-        });
+        // editorHookResult.current.updateActiveDefinitionFromModelValue({
+        //   value: `query newDeferrableQuery {\r\n  deferrable\r\n}`,
+        // });
       });
 
       console.log('values', {

@@ -102,28 +102,13 @@ export const useEditor = create<EditorStore>()((set, get) => ({
       }
     );
 
-    if (targetEditor === 'results') {
+    // TODO: variables editor changes should be using exuecute edits
+    if (targetEditor === 'operations') {
+      editor.executeEdits('edit', editsWithViableRange);
+      editor.setPosition(position);
+    } else {
       // results editor is read-only
       model.pushEditOperations([], editsWithViableRange, () => null);
-    } else {
-      editor.executeEdits('edit', editsWithViableRange);
-
-      // console.log('edits complete, setting position:', {
-      //   // column: finalEdit.range.endColumn,
-      //   // lineNumber: finalEdit.range?.endLineNumber,
-      //   // editLength: finalEdit.text?.length,
-      //   // pos: model.getPositionAt(finalEdit.text?.length as number),
-      //   activeDefinition,
-      //   activeDefinitionLocation: activeDefinition?.loc,
-      //   // modelValue: model.getValue(),
-      //   // range: finalEdit.range,
-      //   // attemptingToMatch: finalEdit.text,
-      //   // matches: finalEdit.text
-      //   //   ? model.findMatches(print(activeDefinition), true, false, true, null, true)
-      //   //   : 'NO TEXT TO MATCH',
-      // });
-
-      editor.setPosition(position);
     }
 
     // 👇 edits via model
@@ -168,39 +153,4 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     //   });
     // }
   },
-  // updateActiveDefinitionFromModelValue: ({ value }) => {
-  //   const updateTabState = get().updateTabState;
-
-  //   const parsedQuery = parseQuery(value);
-
-  //   console.log('updateActiveDefinitionFromModelValue', { value, parsedQuery });
-
-  //   if (!(parsedQuery instanceof Error)) {
-  //     if (parsedQuery?.definitions && parsedQuery.definitions.length > 1) {
-  //       updateTabState({
-  //         data: { warningWhenMultipleOperations: true },
-  //       });
-  //     }
-
-  //     if (parsedQuery?.definitions && parsedQuery.definitions.length <= 1) {
-  //       updateTabState({
-  //         data: { warningWhenMultipleOperations: false },
-  //       });
-  //     }
-
-  //     // const firstDefinition = parsedQuery?.definitions[0];
-
-  //     // if (!firstDefinition) {
-  //     //   return set({ activeDefinition: null });
-  //     // }
-
-  //     // if (
-  //     //   isExecutableDefinitionNode(firstDefinition) &&
-  //     //   firstDefinition.kind === Kind.OPERATION_DEFINITION
-  //     // ) {
-  //     //   return set({ activeDefinition: firstDefinition });
-  //     // }
-  //   }
-  //   return null;
-  // },
 }));

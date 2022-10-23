@@ -20,6 +20,16 @@ export const handleArgument = ({
 }) => {
   const pushEdit = useEditor.getState().pushEdit;
 
+  const position = useEditor.getState().monacoEditors['operations']?.getPosition() || {
+    column: 1,
+    lineNumber: 1,
+  };
+
+  // const position = {
+  //   column: 1,
+  //   lineNumber: 1,
+  // };
+
   const argumentTargetLocation = previousAncestor.selection?.loc as Location;
 
   const variableTargetLocation = rootAncestor.operationDefinition?.loc as Location;
@@ -57,6 +67,7 @@ export const handleArgument = ({
   };
   const argumentText = `(${print(newArgumentNode)})`;
   const variableText = `(${print(newVariableDefinitionNode)})`;
+
   console.log('isArgument', {
     target,
     argumentTargetLocation,
@@ -65,7 +76,7 @@ export const handleArgument = ({
     printedVariable: variableText,
   });
 
-  return pushEdit({
+  pushEdit({
     edits: [
       {
         range: {
@@ -94,6 +105,9 @@ export const handleArgument = ({
         text: argumentText,
       },
     ],
+    position,
     targetEditor: TARGET_EDITOR,
   });
+
+  useEditor.getState().setDocumentState();
 };

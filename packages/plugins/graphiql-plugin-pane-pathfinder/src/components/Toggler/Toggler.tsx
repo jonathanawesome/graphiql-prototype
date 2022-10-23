@@ -5,7 +5,7 @@ import { AncestorsArray, usePathfinder } from '../../hooks';
 import { IndicatorArgument, IndicatorField } from '../../icons';
 
 // styles
-import { TogglerStyled } from './styles';
+import { StyledToggler } from './styles';
 
 type TogglerBaseProps = {
   ancestors: AncestorsArray;
@@ -55,7 +55,7 @@ export const Toggler: React.FC<ToggleProps> = ({
   // });
 
   return (
-    <TogglerStyled
+    <StyledToggler
       aria-label={`Add ${breadcrumbs} ${variant} to operation`}
       aria-pressed={isSelected}
       isSelected={isSelected}
@@ -78,6 +78,6 @@ export const Toggler: React.FC<ToggleProps> = ({
     >
       {variant === 'ARGUMENT' && <IndicatorArgument />}
       {variant === 'FIELD' && <IndicatorField />}
-    </TogglerStyled>
+    </StyledToggler>
   );
 };

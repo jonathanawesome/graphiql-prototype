@@ -32,5 +32,4 @@ export type EditorStore = DocumentActions &
       position: IPosition;
       targetEditor: 'operations' | 'variables' | 'results';
     }) => void;
-    // updateActiveDefinitionFromModelValue: ({ value }: { value: string }) => void;
   };

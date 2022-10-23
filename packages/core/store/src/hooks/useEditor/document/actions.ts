@@ -30,10 +30,6 @@ export const documentActions = (
     const modelValue = editor?.getModel()?.getValue();
     const existingActiveDefinition = JSON.stringify(get().activeDefinition);
 
-    console.log('setdocumentState', {
-      existingDecorations: model?.getAllDecorations(),
-    });
-
     model?.deltaDecorations(get().editorDecorations.existing, []);
     editor?.deltaDecorations(get().editorDecorations.existing, []);
 
@@ -47,7 +43,6 @@ export const documentActions = (
 
         if (definitionCount >= 1) {
           const cPos = editor?.getPosition();
-          // console.log('cursorPosition', { cPos });
 
           [...parsedQuery.definitions].forEach((d) => {
             const { range, startLine, endLine } = getLocationAndRangeForDefinition({
@@ -62,10 +57,6 @@ export const documentActions = (
                 set({ activeDefinition: d });
               }
               set({ hasActiveDefinition: true });
-
-              // console.log('setting active definition to the cursor position', {
-              //   d,
-              // });
             } else {
               set({
                 editorDecorations: {

@@ -20,9 +20,6 @@ export const monacoActions = (
     const activeTab = get().getActiveTab();
     const setDocumentState = useEditor.getState().setDocumentState;
 
-    // const updateActiveDefinitionFromModelValue =
-    //   get().updateActiveDefinitionFromModelValue;
-
     const runOperationAction = useSchema.getState().runOperationAction;
 
     const editor = MONACO_EDITOR.create(monacoEditorRef, {
@@ -64,19 +61,19 @@ export const monacoActions = (
           set({ activeVariables: editorValue });
         }
 
-        const selection = editor.getSelection();
+        if (monacoEditorType === 'operations') {
+          const selection = editor.getSelection();
 
-        if (editorValue.length === 0) {
-          useEditor.getState().clearDocumentState();
-          // } else {
-          //   updateActiveDefinitionFromModelValue({ value: editorValue });
+          if (editorValue.length === 0) {
+            useEditor.getState().clearDocumentState();
+          }
+
+          if (selection) {
+            editor.setSelection(selection);
+          }
+
+          editor.focus();
         }
-
-        if (selection) {
-          editor.setSelection(selection);
-        }
-
-        editor.focus();
       });
 
       // TODO: FIX THIS...set the height of our editor
