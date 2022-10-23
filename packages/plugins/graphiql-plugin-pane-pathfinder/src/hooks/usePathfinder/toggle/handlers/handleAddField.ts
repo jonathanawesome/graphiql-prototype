@@ -23,7 +23,7 @@ import {
   getLocationFromAncestor,
   getAncestorText,
   hasSiblingSelections as hasSiblingSelectionsFunc,
-  getRangeForFieldFromLocation,
+  getAddRangeForFieldFromLocation,
   getPositionAtEndOfLocation,
 } from '../../utils';
 
@@ -68,7 +68,7 @@ export const handleAddField = ({
   }
 
   if (isRootField && hasSiblingSelections) {
-    const range = getRangeForFieldFromLocation({
+    const range = getAddRangeForFieldFromLocation({
       hasSelections: true,
       location: previousAncestorLocation,
     });
@@ -104,7 +104,7 @@ export const handleAddField = ({
   }
 
   if (!isRootField && previousAncestorIsSelected && !hasSiblingSelections) {
-    const range = getRangeForFieldFromLocation({
+    const range = getAddRangeForFieldFromLocation({
       hasSelections: false,
       location: previousAncestorLocation,
     });
@@ -148,7 +148,7 @@ export const handleAddField = ({
   }
 
   if (!isRootField && previousAncestorIsSelected && hasSiblingSelections) {
-    const range = getRangeForFieldFromLocation({
+    const range = getAddRangeForFieldFromLocation({
       hasSelections: true,
       location: previousAncestorLocation,
     });
@@ -279,7 +279,7 @@ export const handleAddField = ({
         column:
           allUnselectedAncestors.length * INDENT_SIZE + 1 + target.field.name.length,
       };
-      range = getRangeForFieldFromLocation({
+      range = getAddRangeForFieldFromLocation({
         hasSelections: true,
         location,
       });
@@ -308,7 +308,7 @@ export const handleAddField = ({
           lineNumber: location.endToken.line + allUnselectedAncestors.length - 1,
           column: ancestors.length * INDENT_SIZE + target.field.name.length - 1,
         };
-        range = getRangeForFieldFromLocation({
+        range = getAddRangeForFieldFromLocation({
           hasSelections: true,
           location,
         });
@@ -343,7 +343,7 @@ export const handleAddField = ({
           lineNumber: location.endToken.line + allUnselectedAncestors.length,
           column: ancestors.length * INDENT_SIZE + target.field.name.length - 1,
         };
-        range = getRangeForFieldFromLocation({
+        range = getAddRangeForFieldFromLocation({
           hasSelections: false,
           location,
         });

@@ -7,19 +7,13 @@ import { TARGET_EDITOR } from '../../constants';
 // hooks
 import { useEditor } from '@graphiql-prototype/store';
 
-// range
-import {
-  rangeRemoveForFieldWithSelections,
-  rangeRemoveForSingleLine,
-  rangeRemoveForAllSelectionsOfField,
-} from '../range';
-
 // types
 import { AncestorField, AncestorsArray, AncestorTypes } from '../../types';
 
 // utils
 import {
   getLocationFromAncestor,
+  getRemoveRangeForFieldFromLocation,
   hasSiblingSelections as hasSiblingSelectionsFunc,
 } from '../../utils';
 
@@ -95,10 +89,16 @@ export const handleRemoveField = ({
       target.selection.selectionSet
     ) {
       // if this field has existing selections, we use an expanded range
+
+      const range = getRemoveRangeForFieldFromLocation({
+        location,
+        mode: 'FIELD_WITH_SELECTIONS',
+      });
+
       return pushEdit({
         edits: [
           {
-            range: rangeRemoveForFieldWithSelections({ location }),
+            range,
             text: null,
           },
         ],
@@ -107,10 +107,16 @@ export const handleRemoveField = ({
       });
     } else {
       // if this field does not have selections, we just remove the field
+
+      const range = getRemoveRangeForFieldFromLocation({
+        location,
+        mode: 'SINGLE_CHILD_FIELD',
+      });
+
       return pushEdit({
         edits: [
           {
-            range: rangeRemoveForSingleLine({ location }),
+            range,
             text: null,
           },
         ],
@@ -149,37 +155,40 @@ export const handleRemoveField = ({
             inlineFragmentParentField.selection.selectionSet.selections.length === 1
           ) {
             // this field's parent (an inline fragment) is the only selection
-            range = rangeRemoveForAllSelectionsOfField({
+
+            range = getRemoveRangeForFieldFromLocation({
               location: locationFromPreviousAncestor as Location,
+              mode: 'ALL_SELECTIONS_ON_FIELD',
             });
           } else {
             // this field's parent (an inline fragment) is not the only selection remaining on the inlineFragmentParentField
-            range = rangeRemoveForFieldWithSelections({
+            range = getRemoveRangeForFieldFromLocation({
               location: locationFromPreviousAncestor as Location,
+              mode: 'FIELD_WITH_SELECTIONS',
             });
           }
         } else {
           // the previous ancestor is an inline fragment and this field is not the only selection
-          range = rangeRemoveForAllSelectionsOfField({
+          range = getRemoveRangeForFieldFromLocation({
             location: locationFromPreviousAncestor as Location,
+            mode: 'ALL_SELECTIONS_ON_FIELD',
           });
         }
       } else {
         // this field is the only selection of it's parent and there are no inline fragments in it's ancestry
-        range = rangeRemoveForAllSelectionsOfField({ location });
+        range = getRemoveRangeForFieldFromLocation({
+          location,
+          mode: 'ALL_SELECTIONS_ON_FIELD',
+        });
       }
 
       console.log('REMOVE: this is not a top level field and is the only selection', {
         location,
         range,
       });
+
       return pushEdit({
-        edits: [
-          {
-            range,
-            text: null,
-          },
-        ],
+        edits: [{ range, text: null }],
         position,
         targetEditor: TARGET_EDITOR,
       });
@@ -189,30 +198,31 @@ export const handleRemoveField = ({
       console.log('REMOVE: this is not a top level field but there are other selections');
       if ((target.selection as FieldNode | InlineFragmentNode).selectionSet) {
         // if this field has existing selections, we use an expanded range
+        const range = getRemoveRangeForFieldFromLocation({
+          location,
+          mode: 'FIELD_WITH_SELECTIONS',
+        });
+
         return pushEdit({
-          edits: [
-            {
-              range: rangeRemoveForFieldWithSelections({ location }),
-              text: null,
-            },
-          ],
+          edits: [{ range, text: null }],
           position,
           targetEditor: TARGET_EDITOR,
         });
       } else {
         // if this field does not have selections, we just remove the field
+        const range = getRemoveRangeForFieldFromLocation({
+          location,
+          mode: 'SINGLE_CHILD_FIELD',
+        });
+
         return pushEdit({
-          edits: [
-            {
-              range: rangeRemoveForSingleLine({ location }),
-              text: null,
-            },
-          ],
+          edits: [{ range, text: null }],
           position,
           targetEditor: TARGET_EDITOR,
         });
       }
     }
   }
+
   return console.log(`handleRemoveField: we shouldn't be here...field not handled.`, {});
 };
