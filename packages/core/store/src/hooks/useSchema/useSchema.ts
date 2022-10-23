@@ -18,6 +18,8 @@ const testSchema = useTestSchema.getState().schema;
 
 const testSchemaUrl = 'GraphiQL Test Schema';
 
+const RESULTS_EDITOR_POSITION = { column: 0, lineNumber: 0 };
+
 export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
   isExecuting: false,
   executeOperation: async () => {
@@ -64,6 +66,7 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
               ),
             },
           ],
+          position: RESULTS_EDITOR_POSITION,
           targetEditor: 'results',
         });
       }
@@ -87,6 +90,7 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
               text: JSON.stringify(result, null, 2),
             },
           ],
+          position: RESULTS_EDITOR_POSITION,
           targetEditor: 'results',
         });
       } catch (error) {
@@ -96,6 +100,7 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
               text: JSON.stringify(error, Object.getOwnPropertyNames(error), 2),
             },
           ],
+          position: RESULTS_EDITOR_POSITION,
           targetEditor: 'results',
         });
       }
