@@ -20,7 +20,7 @@ import {
 // utils
 import { insertNewOperation } from '../insertNewOperation';
 import {
-  getLocationFromPreviousAncestor,
+  getLocationFromAncestor,
   getAncestorText,
   hasSiblingSelections as hasSiblingSelectionsFunc,
   getRangeForFieldFromLocation,
@@ -47,8 +47,8 @@ export const handleAddField = ({
     previousAncestor,
   });
 
-  const previousAncestorLocation = getLocationFromPreviousAncestor({
-    previousAncestor,
+  const previousAncestorLocation = getLocationFromAncestor({
+    ancestor: previousAncestor,
   }) as Location;
 
   const isRootField = previousAncestor.type === 'ROOT';

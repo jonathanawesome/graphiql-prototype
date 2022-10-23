@@ -19,7 +19,7 @@ import { AncestorField, AncestorsArray, AncestorTypes } from '../../types';
 
 // utils
 import {
-  getLocationFromPreviousAncestor,
+  getLocationFromAncestor,
   hasSiblingSelections as hasSiblingSelectionsFunc,
 } from '../../utils';
 
@@ -47,8 +47,8 @@ export const handleRemoveField = ({
     previousAncestor,
   });
 
-  const locationFromPreviousAncestor = getLocationFromPreviousAncestor({
-    previousAncestor,
+  const locationFromPreviousAncestor = getLocationFromAncestor({
+    ancestor: previousAncestor,
   });
 
   const isRootField = previousAncestor.type === 'ROOT';

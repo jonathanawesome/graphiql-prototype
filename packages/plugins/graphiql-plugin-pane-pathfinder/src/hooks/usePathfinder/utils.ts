@@ -46,37 +46,18 @@ export const hasSiblingSelections = ({
   return false;
 };
 
-export const getLocationFromPreviousAncestor = ({
-  previousAncestor,
-}: {
-  previousAncestor: AncestorTypes;
-}) => {
+export const getLocationFromAncestor = ({ ancestor }: { ancestor: AncestorTypes }) => {
   if (
-    (previousAncestor.type === 'INLINE_FRAGMENT' || previousAncestor.type === 'FIELD') &&
-    previousAncestor.selection
+    (ancestor.type === 'INLINE_FRAGMENT' || ancestor.type === 'FIELD') &&
+    ancestor.selection
   ) {
-    return previousAncestor.selection.loc;
+    return ancestor.selection.loc;
   }
-  if (previousAncestor.type === 'ROOT' && previousAncestor.operationDefinition) {
-    return previousAncestor.operationDefinition.loc;
+  if (ancestor.type === 'ROOT' && ancestor.operationDefinition) {
+    return ancestor.operationDefinition.loc;
   }
   return null;
 };
-
-// const getLocationFromAncestor = ({ index }: { index: number }) => {
-//   const ancestor = ancestors[index];
-//   console.log('ancester', { ancestor });
-//   if (
-//     (ancestor.type === 'INLINE_FRAGMENT' || ancestor.type === 'FIELD') &&
-//     ancestor.selection
-//   ) {
-//     return ancestor.selection.loc;
-//   }
-//   if (ancestor.type === 'ROOT' && ancestor.operationDefinition) {
-//     return ancestor.operationDefinition.loc;
-//   }
-//   return null;
-// };
 
 export const findNextTokenKindInLocation = ({
   startToken,
