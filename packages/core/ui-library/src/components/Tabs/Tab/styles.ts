@@ -1,12 +1,11 @@
 import { styled, theme } from '../../../theme';
 
-import * as TabsPrimitive from '@radix-ui/react-tabs';
-
-export const TabWrap = styled('div', {
+export const StyledTab = styled('li', {
+  all: `unset`,
   position: `relative`,
 });
 
-export const Trigger = styled(TabsPrimitive.Trigger, {
+export const StyledTabTrigger = styled('button', {
   all: 'reset',
   cursor: 'pointer',
   fontSize: theme.fontSizes.body,
@@ -22,7 +21,7 @@ export const Trigger = styled(TabsPrimitive.Trigger, {
     paddingTop: 1,
   },
 
-  '&[data-state="active"]': {
+  '&[aria-selected="true"]': {
     color: theme.colors.text1,
 
     '&:after': {

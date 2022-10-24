@@ -35,6 +35,12 @@ export const monacoActions = (
 
     const runOperationAction = useSchema.getState().runOperationAction;
 
+    // console.log('initMonacoEditor', {
+    //   monacoEditorType,
+    //   activeTab,
+    //   model: activeTab[`${monacoEditorType}Model`],
+    // });
+
     const editor = MONACO_EDITOR.create(monacoEditorRef, {
       language: monacoEditorType === 'operations' ? 'graphql' : 'json',
       // spread our base options
@@ -47,6 +53,7 @@ export const monacoActions = (
           activeTab[`${monacoEditorType}Model`]
         : //otherwise, we'll leave it undefined for now
           undefined,
+      // automaticLayout: monacoEditorType !== 'variables',
     });
 
     // add this editor to our editors state array
@@ -56,6 +63,30 @@ export const monacoActions = (
         [monacoEditorType]: editor,
       },
     });
+
+    if (monacoEditorType === 'variables') {
+      // TODO: FIX THIS...set the height of our editor
+      editor.onDidContentSizeChange(() => {
+        const contentHeight = Math.min(1000, editor.getContentHeight());
+        // console.log('getContentHeight', {
+        //   getContentHeight: editor.getContentHeight(),
+        //   style: monacoEditorRef.style,
+        // });
+        const width = monacoEditorRef.getBoundingClientRect().width;
+        monacoEditorRef.style.height = `${contentHeight}px`;
+        editor.layout({ width, height: contentHeight });
+        // monacoEditorRef.style.width = `${width}px`;
+        // const contentHeight = editor.getContentHeight();
+        // if (monacoEditorRef) {
+        //   monacoEditorRef.style.height = `${contentHeight}px`;
+        // }
+        // try {
+        // ignoreEvent = true;
+        // } finally {
+        // ignoreEvent = false;
+        // }
+      });
+    }
 
     if (monacoEditorType !== 'results') {
       // add the runOperationAction to the operation and variables editors
@@ -87,14 +118,6 @@ export const monacoActions = (
 
           editor.focus();
         }
-      });
-
-      // TODO: FIX THIS...set the height of our editor
-      editor.onDidContentSizeChange(() => {
-        // const contentHeight = editor.getContentHeight();
-        // if (monacoEditorRef) {
-        //   monacoEditorRef.style.height = `${contentHeight}px`;
-        // }
       });
     }
 

@@ -1,11 +1,9 @@
 import { styled, theme } from '../../../theme';
 
-import * as TabsPrimitive from '@radix-ui/react-tabs';
-
-export const StyledTabsList = styled(TabsPrimitive.List, {
+export const StyledTabsList = styled('ul', {
+  all: `unset`,
   height: theme.space[10],
   display: 'flex',
-  // borderBottom: `1px solid ${theme.colors.surface3}`,
   hairlineB: theme.colors.surface3,
 
   variants: {

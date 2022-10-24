@@ -9,24 +9,27 @@ import { TabsProps, Tabs } from '@graphiql-prototype/ui-library';
 export const TabsStory = () => {
   const [tabs, setTabs] = useState<TabsProps['tabbedContent']>([
     {
-      id: 'One',
       name: 'Tab One',
       panel: <div>I'm the panel for tab one</div>,
+      panelId: `panelOne`,
+      tabId: `tabOne`,
     },
     {
-      id: 'Two',
       name: 'Tab Two',
       panel: <div>I'm the panel for tab two</div>,
+      panelId: `panelTwo`,
+      tabId: `tabTwo`,
     },
     {
-      id: 'Three',
       name: 'Tab Three',
       panel: <div>I'm the panel for tab three</div>,
+      panelId: `panelThree`,
+      tabId: `tabThree`,
     },
   ]);
 
   const doRemoveTab = ({ tabId }: { tabId: string }) =>
-    setTabs((tabs) => tabs.filter((t) => t.id !== tabId));
+    setTabs((tabs) => tabs.filter((t) => t.tabId !== tabId));
   return (
     <FlexCol>
       <FlexRow name="removable tabs">
@@ -38,73 +41,14 @@ export const TabsStory = () => {
       </FlexRow>
 
       <FlexRow name="non removable tabs / not Collapsible">
-        <Tabs
-          ariaLabel="Some tab label"
-          tabbedContent={[
-            {
-              id: 'One',
-              name: 'Tab One',
-              panel: <div>I'm the panel for tab one</div>,
-            },
-            {
-              id: 'Two',
-              name: 'Tab Two',
-              panel: <div>I'm the panel for tab two</div>,
-            },
-            {
-              id: 'Three',
-              name: 'Tab Three',
-              panel: <div>I'm the panel for tab three</div>,
-            },
-          ]}
-        />
+        <Tabs ariaLabel="Some tab label" tabbedContent={tabs} />
       </FlexRow>
       <FlexRow name="non removable tabs / isCollapsible">
-        <Tabs
-          ariaLabel="Some tab label"
-          isCollapsible={true}
-          tabbedContent={[
-            {
-              id: 'One',
-              name: 'Tab One',
-              panel: <div>I'm the panel for tab one</div>,
-            },
-            {
-              id: 'Two',
-              name: 'Tab Two',
-              panel: <div>I'm the panel for tab two</div>,
-            },
-            {
-              id: 'Three',
-              name: 'Tab Three',
-              panel: <div>I'm the panel for tab three</div>,
-            },
-          ]}
-        />
+        <Tabs ariaLabel="Some tab label" isCollapsible={true} tabbedContent={tabs} />
       </FlexRow>
 
       <FlexRow name="non removable tabs / forceMount / isCollapsible">
-        <Tabs
-          ariaLabel="Some tab label"
-          isCollapsible={true}
-          tabbedContent={[
-            {
-              id: 'One',
-              name: 'Tab One',
-              panel: <div>I'm the panel for tab one</div>,
-            },
-            {
-              id: 'Two',
-              name: 'Tab Two',
-              panel: <div>I'm the panel for tab two</div>,
-            },
-            {
-              id: 'Three',
-              name: 'Tab Three',
-              panel: <div>I'm the panel for tab three</div>,
-            },
-          ]}
-        />
+        <Tabs ariaLabel="Some tab label" isCollapsible={true} tabbedContent={tabs} />
       </FlexRow>
     </FlexCol>
   );

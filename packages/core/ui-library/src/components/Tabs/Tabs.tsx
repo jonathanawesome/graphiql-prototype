@@ -1,134 +1,151 @@
 import { useEffect, useState } from 'react';
-import type { Dispatch, MouseEvent, SetStateAction } from 'react';
+// import type { Dispatch, MouseEvent, SetStateAction } from 'react';
 
 // components
-import { ChevronLarge } from '../../icons';
+// import { ChevronLarge } from '../../icons';
 import { TabsList } from './TabsList';
 import { TabPanels } from './TabPanels';
 
 // styles
 import {
-  StyledCollapsibleContent,
-  StyledCollapsibleRoot,
-  StyledCollapsibleTrigger,
-  StyledTabsRoot,
+  // StyledCollapsibleContent,
+  // StyledCollapsibleRoot,
+  // StyledCollapsibleTrigger,
+  // StyledTabsRoot,
+  StyledTabs,
 } from './styles';
 
 // types
 import { TabsProps } from './types';
 
-const NotCollapsible = ({
-  ariaLabel,
-  activeTab,
-  setActiveTab,
-  doRemoveTab,
-  tabbedContent,
-}: TabsProps & {
-  activeTab: string;
-  setActiveTab: Dispatch<SetStateAction<string>>;
-}) => {
-  return (
-    <StyledTabsRoot value={activeTab} onValueChange={(value) => setActiveTab(value)}>
-      <TabsList
-        ariaLabel={ariaLabel}
-        doRemoveTab={doRemoveTab}
-        setActiveTab={setActiveTab}
-        tabbedContent={tabbedContent}
-      />
-      <TabPanels activeTab={activeTab} tabbedContent={tabbedContent} />
-    </StyledTabsRoot>
-  );
-};
+// const NotCollapsible = ({
+//   ariaLabel,
+//   selectedTab,
+//   setSelectedTab,
+//   doRemoveTab,
+//   tabbedContent,
+// }: TabsProps & {
+//   selectedTab: string;
+//   setSelectedTab: Dispatch<SetStateAction<string>>;
+// }) => {
+//   return (
+//     <StyledTabsRoot value={selectedTab} onValueChange={(value) => setSelectedTab(value)}>
+//       <TabsList
+//         ariaLabel={ariaLabel}
+//         doRemoveTab={doRemoveTab}
+//         setSelectedTab={setSelectedTab}
+//         tabbedContent={tabbedContent}
+//       />
+//       <TabPanels selectedTab={selectedTab} tabbedContent={tabbedContent} />
+//     </StyledTabsRoot>
+//   );
+// };
 
-const Collapsible = ({
-  ariaLabel,
-  activeTab,
-  setActiveTab,
-  doRemoveTab,
-  tabbedContent,
-}: TabsProps & {
-  activeTab: string;
-  setActiveTab: Dispatch<SetStateAction<string>>;
-}) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+// const Collapsible = ({
+//   ariaLabel,
+//   selectedTab,
+//   setSelectedTab,
+//   doRemoveTab,
+//   tabbedContent,
+// }: TabsProps & {
+//   selectedTab: string;
+//   setSelectedTab: Dispatch<SetStateAction<string>>;
+// }) => {
+//   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const handleCollapseOnClick = ({ event }: { event: MouseEvent }) => {
-    const targetValue = event.currentTarget.getAttribute('data-value');
-    // console.log('handleCollapseOnClick', {
-    //   activeTab,
-    //   targetValue,
-    // });
-    if (activeTab === targetValue && isOpen) {
-      setIsOpen(false);
-    }
-    if (activeTab === targetValue && !isOpen) {
-      setIsOpen(true);
-    }
-    if (activeTab !== targetValue && !isOpen) {
-      setIsOpen(true);
-    }
-  };
+//   const handleCollapseOnClick = ({ event }: { event: MouseEvent }) => {
+//     const targetValue = event.currentTarget.getAttribute('data-value');
+//     // console.log('handleCollapseOnClick', {
+//     //   selectedTab,
+//     //   targetValue,
+//     // });
+//     if (selectedTab === targetValue && isOpen) {
+//       setIsOpen(false);
+//     }
+//     if (selectedTab === targetValue && !isOpen) {
+//       setIsOpen(true);
+//     }
+//     if (selectedTab !== targetValue && !isOpen) {
+//       setIsOpen(true);
+//     }
+//   };
 
-  return (
-    <StyledCollapsibleRoot
-      open={isOpen}
-      onOpenChange={() => (isOpen ? setIsOpen(false) : setIsOpen(true))}
-    >
-      <StyledTabsRoot value={activeTab} onValueChange={(value) => setActiveTab(value)}>
-        <TabsList
-          ariaLabel={ariaLabel}
-          doRemoveTab={doRemoveTab}
-          handleCollapseOnClick={handleCollapseOnClick}
-          isCollapsible={true}
-          setActiveTab={setActiveTab}
-          tabbedContent={tabbedContent}
-        />
-        <StyledCollapsibleTrigger isOpen={isOpen}>
-          <ChevronLarge />
-        </StyledCollapsibleTrigger>
-        <StyledCollapsibleContent forceMount hidden={!isOpen}>
-          <TabPanels activeTab={activeTab} tabbedContent={tabbedContent} />
-        </StyledCollapsibleContent>
-      </StyledTabsRoot>
-    </StyledCollapsibleRoot>
-  );
-};
+//   return (
+//     <StyledCollapsibleRoot
+//       open={isOpen}
+//       onOpenChange={() => (isOpen ? setIsOpen(false) : setIsOpen(true))}
+//     >
+//       <StyledTabsRoot
+//         value={selectedTab}
+//         onValueChange={(value) => setSelectedTab(value)}
+//       >
+//         <TabsList
+//           ariaLabel={ariaLabel}
+//           doRemoveTab={doRemoveTab}
+//           handleCollapseOnClick={handleCollapseOnClick}
+//           isCollapsible={true}
+//           setSelectedTab={setSelectedTab}
+//           tabbedContent={tabbedContent}
+//         />
+//         <StyledCollapsibleTrigger isOpen={isOpen}>
+//           <ChevronLarge />
+//         </StyledCollapsibleTrigger>
+//         <StyledCollapsibleContent forceMount hidden={!isOpen}>
+//           <TabPanels selectedTab={selectedTab} tabbedContent={tabbedContent} />
+//         </StyledCollapsibleContent>
+//       </StyledTabsRoot>
+//     </StyledCollapsibleRoot>
+//   );
+// };
 
 export const Tabs = ({
-  initialActiveTab,
+  initialSelectedTab,
   ariaLabel,
   doRemoveTab,
   isCollapsible = false,
   tabbedContent,
 }: TabsProps) => {
-  const [activeTab, setActiveTab] = useState<string>(
-    initialActiveTab || tabbedContent[0].id
+  const [selectedTab, setSelectedTab] = useState<string>(
+    initialSelectedTab || tabbedContent[0].tabId
   );
-  // console.log('Tabs', { activeTab, initialActiveTab });
+  // console.log('Tabs', { selectedTab, initialSelectedTab });
 
   useEffect(() => {
-    setActiveTab(initialActiveTab || tabbedContent[0].id);
+    setSelectedTab(initialSelectedTab || tabbedContent[0].tabId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialActiveTab]);
+  }, [initialSelectedTab]);
 
-  if (isCollapsible) {
-    return (
-      <Collapsible
+  return (
+    <StyledTabs>
+      <TabsList
         ariaLabel={ariaLabel}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
         doRemoveTab={doRemoveTab}
+        selectedTab={selectedTab}
+        setSelectedTab={setSelectedTab}
         tabbedContent={tabbedContent}
       />
-    );
-  }
-  return (
-    <NotCollapsible
-      ariaLabel={ariaLabel}
-      activeTab={activeTab}
-      setActiveTab={setActiveTab}
-      doRemoveTab={doRemoveTab}
-      tabbedContent={tabbedContent}
-    />
+      <TabPanels selectedTab={selectedTab} tabbedContent={tabbedContent} />
+    </StyledTabs>
   );
+
+  // if (isCollapsible) {
+  //   return (
+  //     <Collapsible
+  //       ariaLabel={ariaLabel}
+  //       selectedTab={selectedTab}
+  //       setSelectedTab={setSelectedTab}
+  //       doRemoveTab={doRemoveTab}
+  //       tabbedContent={tabbedContent}
+  //     />
+  //   );
+  // }
+  // return (
+  //   <NotCollapsible
+  //     ariaLabel={ariaLabel}
+  //     selectedTab={selectedTab}
+  //     setSelectedTab={setSelectedTab}
+  //     doRemoveTab={doRemoveTab}
+  //     tabbedContent={tabbedContent}
+  //   />
+  // );
 };
