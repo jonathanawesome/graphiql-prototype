@@ -55,6 +55,8 @@ export const variablesActions = (get: GetEditorStore): VariablesActions => ({
           text: newVariablesString,
         },
       ],
+      // TODO adjust me!
+      position: { column: 1, lineNumber: 1 },
       targetEditor: 'variables',
     });
   },
