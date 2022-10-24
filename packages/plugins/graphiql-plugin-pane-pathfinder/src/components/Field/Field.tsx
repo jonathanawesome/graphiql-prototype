@@ -56,6 +56,7 @@ export const Field = ({ ancestors }: { ancestors: AncestorsArray }) => {
 
   return (
     <ListItem
+      ancestors={ancestors}
       collapsibleContent={
         isCollapsible
           ? {

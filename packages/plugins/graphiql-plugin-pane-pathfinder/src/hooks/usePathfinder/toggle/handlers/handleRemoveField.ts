@@ -78,6 +78,41 @@ export const handleRemoveField = ({
     });
   }
 
+  if (isRootField && !hasSiblingSelections && documentDefinitions >= 2) {
+    const range = getRemoveRangeForFieldFromLocation({
+      location: locationFromPreviousAncestor as Location,
+      mode: 'FIELD_WITH_SELECTIONS',
+    });
+    console.log(
+      'REMOVE: isRootField && !hasSiblingSelections && documentDefinitions >= 2',
+      {}
+      // start
+      // query IsTest {
+      //   isTest <-- toggling here
+      // }
+      //
+      // query Person {
+      //   person
+      // }
+
+      //end
+      // query Person {
+      //   person
+      // }
+    );
+
+    return pushEdit({
+      edits: [
+        {
+          range,
+          text: null,
+        },
+      ],
+      position,
+      targetEditor: TARGET_EDITOR,
+    });
+  }
+
   if (!isNestedField && hasSiblingSelections) {
     console.log('REMOVE: !isNestedField && hasSiblingSelections', {
       location,

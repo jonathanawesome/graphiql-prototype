@@ -22,6 +22,7 @@ import { Toggler } from '../Toggler';
 import { ListItemProps } from './types';
 
 export const ListItem = ({
+  ancestors,
   collapsibleContent,
   isSelected,
   toggler,
@@ -72,7 +73,12 @@ export const ListItem = ({
               }}
             />
           )}
-          <Details isSelected={isSelected} type={type} variant={variant} />
+          <Details
+            ancestors={ancestors}
+            isSelected={isSelected}
+            type={type}
+            variant={variant}
+          />
         </StyledListItemLeadWrap>
         <StyledListItemContent id={id} isExpanded={isExpanded} variant={variant}>
           {'deprecationReason' in type && type.deprecationReason && (
@@ -95,7 +101,12 @@ export const ListItem = ({
           <SeparatorRound />
         </StyledLeafIndicator>
         {toggler && <Toggler {...toggler} />}
-        <Details isSelected={isSelected} type={type} variant={variant} />
+        <Details
+          ancestors={ancestors}
+          isSelected={isSelected}
+          type={type}
+          variant={variant}
+        />
       </StyledListItemLeadWrap>
     </StyledListItem>
   );

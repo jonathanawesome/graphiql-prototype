@@ -4,6 +4,7 @@ import {
   GraphQLInputObjectType,
   GraphQLObjectType,
 } from 'graphql';
+import { AncestorsArray } from '../../hooks';
 
 import type { ToggleProps } from '../Toggler';
 
@@ -15,6 +16,7 @@ export type ListItemTypeTypes =
   GraphQLField<any, any> | GraphQLArgument | GraphQLInputObjectType | GraphQLObjectType;
 
 type ListItemBaseProps = {
+  ancestors: AncestorsArray;
   isSelected: boolean;
   type: ListItemTypeTypes;
   variant: ListItemVariants;
