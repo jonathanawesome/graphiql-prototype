@@ -100,7 +100,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
       };
     });
 
-    // TODO: variables editor changes should be using exuecute edits
+    // TODO: variables editor changes should be using execute edits
     if (targetEditor === 'operations') {
       editor.executeEdits('edit', editsWithRange);
       editor.setPosition(position);

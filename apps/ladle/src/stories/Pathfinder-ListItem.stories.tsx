@@ -13,6 +13,7 @@ export const Field = () => {
     return (
       <ListItem
         key={fields[key].name}
+        ancestors={[]}
         // collapser={{c}}
         isSelected={true}
         // toggler={}
@@ -31,6 +32,7 @@ export const Argument = () => {
     return (
       <ListItem
         key={hasArgsField.args[key].name}
+        ancestors={[]}
         // collapser={{c}}
         isSelected={true}
         // toggler={}
@@ -49,6 +51,7 @@ export const InputObject = () => {
       return (
         <ListItem
           key={hasArgsField.args[key].name}
+          ancestors={[]}
           // collapser={{c}}
           isSelected={true}
           // toggler={}
@@ -72,6 +75,7 @@ export const InlineFragment = () => {
   return unionMembers.map((o) => (
     <ListItem
       key={o.name}
+      ancestors={[]}
       // collapser={{c}}
       isSelected={true}
       // toggler={}

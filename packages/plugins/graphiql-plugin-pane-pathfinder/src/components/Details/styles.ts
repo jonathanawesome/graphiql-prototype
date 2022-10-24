@@ -1,6 +1,6 @@
 import { styled, theme } from '@graphiql-prototype/ui-library';
 
-export const NameAndType = styled('div', {
+export const StyledNameAndControls = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: theme.space[2],
@@ -9,71 +9,29 @@ export const NameAndType = styled('div', {
   span: {
     whiteSpace: 'nowrap',
   },
-
-  variants: {
-    hasDocs: {
-      true: {
-        '&:hover': {
-          borderBottom: `1px solid ${theme.colors.text4}`,
-        },
-      },
-      false: {},
-    },
-  },
+  width: `100%`,
 });
 
-export const Name = styled('span', {
-  // fontWeight: 600,
+export const StyledName = styled('span', {
   fontWeight: theme.fontWeights.regular,
   color: theme.colors.text2,
 });
 
-export const Type = styled('span', {
-  fontWeight: theme.fontWeights.regular,
-  color: theme.colors.text3,
+export const StyledControls = styled('div', {
   display: `flex`,
+  gap: theme.space[1],
   alignContent: `center`,
 
-  '&:hover': {
-    svg: {
-      height: 12,
-      width: 12,
-      path: {
-        '&:nth-of-type(1)': {
-          fill: 'transparent',
-        },
-        '&:nth-of-type(2)': {
-          fill: theme.colors.text2,
-        },
-        '&:nth-of-type(3)': {
-          fill: theme.colors.text2,
-        },
+  variants: {
+    isVisible: {
+      true: {
+        visibility: `visible`,
+        opacity: 1,
       },
-    },
-  },
-
-  svg: {
-    height: 12,
-    width: 12,
-    path: {
-      '&:nth-of-type(1)': {
-        fill: 'transparent',
+      false: {
+        visibility: `hidden`,
+        opacity: 0,
       },
-      '&:nth-of-type(2)': {
-        fill: theme.colors.text4,
-      },
-      '&:nth-of-type(3)': {
-        fill: theme.colors.text4,
-      },
-    },
-  },
-
-  button: {
-    '&:hover': {
-      textDecoration: 'underline',
-    },
-    '&:focus': {
-      outline: `1px dotted ${theme.colors.text4}`,
     },
   },
 });
@@ -103,7 +61,8 @@ export const StyledDetails = styled('div', {
   gap: 6,
   fontSize: theme.fontSizes.body,
   cursor: `pointer`,
-  marginLeft: 8,
+  marginLeft: theme.space[2],
+  width: `100%`,
 
   variants: {
     isSelected: {
@@ -123,7 +82,7 @@ export const StyledDetails = styled('div', {
       entityType: 'FIELD',
       isSelected: true,
       css: {
-        [`& ${Name}`]: {
+        [`& ${StyledName}`]: {
           color: theme.colors.violet_default,
         },
       },
@@ -132,7 +91,7 @@ export const StyledDetails = styled('div', {
       entityType: 'INLINE_FRAGMENT',
       isSelected: true,
       css: {
-        [`& ${Name}`]: {
+        [`& ${StyledName}`]: {
           color: theme.colors.blue_default,
         },
       },
@@ -141,7 +100,7 @@ export const StyledDetails = styled('div', {
       entityType: 'ARGUMENT',
       isSelected: true,
       css: {
-        [`& ${Name}`]: {
+        [`& ${StyledName}`]: {
           color: theme.colors.pink_default,
         },
       },
@@ -150,7 +109,7 @@ export const StyledDetails = styled('div', {
       entityType: 'INPUT_OBJECT',
       isSelected: true,
       css: {
-        [`& ${Name}`]: {
+        [`& ${StyledName}`]: {
           color: theme.colors.text1,
         },
       },
