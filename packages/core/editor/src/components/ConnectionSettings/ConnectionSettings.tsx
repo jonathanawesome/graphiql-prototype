@@ -76,14 +76,15 @@ export const ConnectionSettings = () => {
           <StyledSettingsPanel>
             <Tabs
               ariaLabel="Connection settings"
+              initialSelectedTab="Public schemas"
               tabbedContent={[
                 {
-                  id: 'Public schemas',
                   name: 'Public schemas',
                   panel: <SchemaSelector />,
+                  panelId: 'Public schemas',
+                  tabId: 'Public schemas',
                 },
                 {
-                  id: 'Connection settings',
                   name: 'Connection settings',
                   panel: (
                     <StyledConnectionSettingsTab>
@@ -95,11 +96,14 @@ export const ConnectionSettings = () => {
                       </ul>
                     </StyledConnectionSettingsTab>
                   ),
+                  panelId: 'Connection settings',
+                  tabId: 'Connection settings',
                 },
                 {
-                  id: 'Global HTTP Headers',
                   name: 'Global HTTP Headers',
                   panel: <GlobalHeaders />,
+                  panelId: 'Global HTTP Headers',
+                  tabId: 'Global HTTP Headers',
                 },
               ]}
             />
