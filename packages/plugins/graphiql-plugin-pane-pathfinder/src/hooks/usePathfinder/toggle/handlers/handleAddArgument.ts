@@ -9,7 +9,7 @@ import { useEditor } from '@graphiql-prototype/store';
 
 import { AncestorArgument, AncestorField, AncestorRoot } from '../../types';
 
-export const handleArgument = ({
+export const handleAddArgument = ({
   previousAncestor,
   rootAncestor,
   target,

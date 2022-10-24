@@ -2,7 +2,8 @@ import { Kind } from 'graphql';
 
 // handlers
 import { handleAddField } from './handlers/handleAddField';
-import { handleArgument } from './handlers/handleArgument';
+import { handleAddArgument } from './handlers/handleAddArgument';
+import { handleRemoveArgument } from './handlers/handleRemoveArgument';
 import { handleRemoveField } from './handlers/handleRemoveField';
 
 // hooks
@@ -75,11 +76,25 @@ export const toggle = ({
   const isArgument = target.type === 'ARGUMENT';
 
   if (isArgument) {
-    handleArgument({
-      previousAncestor: previousAncestor as AncestorField,
-      rootAncestor,
-      target,
-    });
+    const isSelected = !!target.selection;
+
+    console.log('toggle isArgument', { target, isSelected });
+
+    if (isSelected) {
+      handleRemoveArgument({
+        previousAncestor: previousAncestor as AncestorField,
+        rootAncestor,
+        target,
+      });
+    }
+
+    if (!isSelected) {
+      handleAddArgument({
+        previousAncestor: previousAncestor as AncestorField,
+        rootAncestor,
+        target,
+      });
+    }
   } // isArgument
 
   if (isField) {
