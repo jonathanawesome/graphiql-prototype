@@ -2,8 +2,11 @@ import { styled, theme } from '@graphiql-prototype/ui-library';
 
 export const StyledVariablesWrap = styled('div', {
   padding: theme.space[4],
-  maxHeight: 300,
+  // maxHeight: 300,
+  minHeight: 120,
   overflowY: `auto`,
+  height: '100%',
+  width: '100%',
 });
 
 export const StyledPerTabHeaders = styled('div', {

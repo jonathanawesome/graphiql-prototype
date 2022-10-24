@@ -24,9 +24,8 @@ export const Arguments = ({
   selection: FieldNode | null;
 }) => {
   // console.log('rendering Arguments', {
-  //   // args,
+  //   ancestors,
   //   selection,
-  //   'selection.arguments': selection?.arguments,
   // });
 
   const { field } = ancestors[ancestors.length - 1] as AncestorField;

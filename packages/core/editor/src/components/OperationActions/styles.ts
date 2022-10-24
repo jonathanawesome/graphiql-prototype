@@ -2,38 +2,60 @@ import { styled, theme } from '@graphiql-prototype/ui-library';
 
 export const StyledOperationActions = styled('div', {
   display: 'flex',
-  flexDirection: 'column',
   gap: theme.space[4],
-  width: theme.space[10],
-  minWidth: theme.space[10],
+});
+
+export const StyledPlayButtonType = styled('span', {
+  fontSize: 12,
+  fontWeight: theme.fontWeights.medium,
+  color: theme.colors.text3,
 });
 
 export const StyledPlayButton = styled('button', {
+  all: `unset`,
   cursor: 'pointer',
-  border: 'none',
-  backgroundColor: 'transparent',
+  userSelect: `none`,
   margin: 0,
   padding: 0,
-  height: theme.space[10],
-  width: theme.space[10],
+  height: theme.space[7],
   display: 'flex',
-  opacity: 0.8,
+  alignItems: `center`,
+  gap: theme.space[2],
+  border: `1px solid ${theme.colors.surface3}`,
+  borderRadius: 4,
+  paddingRight: 8,
+  paddingLeft: 8,
 
   '& svg': {
-    height: theme.space[10],
-    width: theme.space[10],
+    height: theme.space[2],
+    width: theme.space[2],
     path: {
-      '&:nth-of-type(1)': {
-        fill: theme.colors.pink_default,
-      },
-      '&:nth-of-type(2)': {
-        fill: `white`,
-      },
+      fill: theme.colors.text3,
     },
   },
 
-  '&:hover': {
-    opacity: 1,
+  variants: {
+    isDisabled: {
+      true: {
+        cursor: `not-allowed`,
+        opacity: 0.5,
+      },
+      false: {
+        '&:hover': {
+          border: `1px solid transparent`,
+          backgroundColor: theme.colors.surface3,
+
+          span: {
+            color: theme.colors.text1,
+          },
+          '& svg': {
+            path: {
+              fill: theme.colors.text1,
+            },
+          },
+        },
+      },
+    },
   },
 });
 
@@ -46,12 +68,13 @@ export const StyledPrettierButton = styled('button', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  width: theme.space[10],
-  minWidth: theme.space[10],
+  width: theme.space[7],
+  height: theme.space[7],
+  minWidth: theme.space[7],
 
   '& svg': {
-    height: theme.space[6],
-    width: theme.space[6],
+    height: theme.space[5],
+    width: theme.space[5],
 
     path: {
       fill: theme.colors.text4,
@@ -74,23 +97,29 @@ export const StyledWarningButton = styled('button', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  width: theme.space[10],
-  height: theme.space[10],
-  minWidth: theme.space[10],
-  borderRadius: theme.space[1],
-  border: `1px solid ${theme.colors.orange_light}`,
-  backgroundColor: theme.colors.orange_lightest,
+  width: theme.space[7],
+  height: theme.space[7],
+  minWidth: theme.space[7],
+  // borderRadius: theme.space[1],
+  // border: `1px solid ${theme.colors.orange_light}`,
+  // backgroundColor: theme.colors.orange_lightest,
 
   '& svg': {
     height: theme.space[6],
     width: theme.space[6],
 
     path: {
-      fill: theme.colors.orange_default,
+      fill: theme.colors.orange_light,
     },
   },
 
   '&:hover': {
-    border: `1px solid ${theme.colors.orange_default}`,
+    // border: `1px solid ${theme.colors.orange_default}`,
+
+    '& svg': {
+      path: {
+        fill: theme.colors.orange_default,
+      },
+    },
   },
 });

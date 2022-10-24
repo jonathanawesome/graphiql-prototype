@@ -6,6 +6,8 @@ export { getDisplayStringFromVariableDefinitionTypeNode } from './getDisplayStri
 
 export { getEnumValues } from './getEnumValues';
 
+export { getLocationAndRangeForDefinition } from './getLocationAndRangeForDefinition';
+
 export { getOrCreateModel } from './getOrCreateModel';
 
 export { getTypeNameValue } from './getTypeNameValue';

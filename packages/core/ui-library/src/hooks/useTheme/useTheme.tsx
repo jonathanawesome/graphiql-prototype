@@ -1,5 +1,5 @@
 import create from 'zustand';
-import { editor as MONACO_EDITOR } from 'monaco-editor/esm/vs/editor/editor.api';
+import { editor as MONACO_EDITOR } from 'monaco-editor';
 
 // stitches
 import { theme, darkTheme } from '../../theme';

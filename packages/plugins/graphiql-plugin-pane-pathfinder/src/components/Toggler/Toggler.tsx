@@ -5,7 +5,7 @@ import { AncestorsArray, usePathfinder } from '../../hooks';
 import { IndicatorArgument, IndicatorField } from '../../icons';
 
 // styles
-import { TogglerStyled } from './styles';
+import { StyledToggler } from './styles';
 
 type TogglerBaseProps = {
   ancestors: AncestorsArray;
@@ -34,17 +34,29 @@ export const Toggler: React.FC<ToggleProps> = ({
 }) => {
   const { toggle } = usePathfinder();
 
+  // breadcrumbs help identify toggle buttons in tests
+  const breadcrumbs = [...ancestors]
+    // eslint-disable-next-line consistent-return
+    .map((k) => {
+      if (k.type === 'FIELD') {
+        return k.field.name;
+      }
+      if (k.type === 'ARGUMENT') {
+        return k.argument.name;
+      }
+    })
+    .reverse()
+    .slice(0, -1)
+    .join('/');
+
   // console.log('Toggler', {
   //   // ancestors,
-  //   // collapser,
-  //   // isSelected,
-  //   // operationType,
-  //   variant,
+  //   breadcrumbs,
   // });
 
   return (
-    <TogglerStyled
-      aria-label={`Add ${variant} to operation`}
+    <StyledToggler
+      aria-label={`Add ${breadcrumbs} ${variant} to operation`}
       aria-pressed={isSelected}
       isSelected={isSelected}
       onClick={() => {
@@ -66,6 +78,6 @@ export const Toggler: React.FC<ToggleProps> = ({
     >
       {variant === 'ARGUMENT' && <IndicatorArgument />}
       {variant === 'FIELD' && <IndicatorField />}
-    </TogglerStyled>
+    </StyledToggler>
   );
 };

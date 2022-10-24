@@ -9,18 +9,25 @@ export default defineConfig(() => {
   return {
     plugins: [react()],
     test: {
+      alias: [
+        {
+          find: /^monaco-editor$/,
+          replacement: __dirname + '/node_modules/monaco-editor/esm/vs/editor/editor.api',
+        },
+      ],
       globals: true,
       environment: 'jsdom',
-      // threads: false,
       deps: {
-        // inline: true,
-        inline: [
-          'monaco-editor',
-          // '@radix-ui+react-select',
-        ],
-        // external: ['@graphiql-prototype/use-editor', '@graphiql-prototype/ui-library'],
+        inline: ['monaco-editor'],
       },
-      setupFiles: ['./setupTests.ts', './test-setup/matchMedia'],
+      setupFiles: [
+        './setupTests.ts',
+        // monaco-related mocks
+        './test-setup/canvas',
+        './test-setup/getSelection',
+        './test-setup/matchMedia',
+        './test-setup/resizeObserver',
+      ],
     },
   };
 });

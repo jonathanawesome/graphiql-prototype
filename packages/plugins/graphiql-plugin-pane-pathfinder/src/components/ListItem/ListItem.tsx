@@ -54,8 +54,8 @@ export const ListItem = ({
           <StyledCollapsibleListItemTriggerWrap isExpanded={isExpanded} variant={variant}>
             <Button
               action={() => setIsExpanded(!isExpanded)}
-              aria-expanded={isExpanded}
-              aria-controls={id}
+              controls={id}
+              expanded={isExpanded}
               icon="Caret"
               label={`Expand nested content of ${type.name} ${variant}`}
               size="SMALL"

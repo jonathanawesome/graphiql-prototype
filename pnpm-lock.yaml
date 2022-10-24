@@ -272,6 +272,7 @@ importers:
       cuid: ^2.1.8
       dayjs: ^1.11.5
       graphql: ^16.5.0
+      jest-canvas-mock: ^2.4.0
       jsdom: ^20.0.1
       monaco-editor: ^0.33.0
       react: 18.2.0
@@ -300,6 +301,7 @@ importers:
       '@types/react': 18.0.21
       '@types/testing-library__jest-dom': 5.14.5
       '@vitejs/plugin-react': 2.1.0_vite@3.1.4
+      jest-canvas-mock: 2.4.0
       jsdom: 20.0.1
       vite: 3.1.4
       vitest: 0.23.4_jsdom@20.0.1
@@ -3186,6 +3188,10 @@ packages:
     resolution: {integrity: sha512-YUifsXXuknHlUsmlgyY0PKzgPOr7/FjCePfHNt0jxm83wHZi44VDMQ7/fGNkjY3/jV1MC+1CmZbaHzugyeRtpg==}
     dev: true
 
+  /cssfontparser/1.2.1:
+    resolution: {integrity: sha512-6tun4LoZnj7VN6YeegOVb67KBX/7JJsqvj+pv3ZA7F878/eN33AbGa5b/S/wXxS/tcp8nc40xRUrsPlxIyNUPg==}
+    dev: true
+
   /cssom/0.3.8:
     resolution: {integrity: sha512-b0tGHbfegbhPJpxpiBPU2sCkigAqtM9O121le6bbOlgyV+NyGyCmVfJ6QW9eRjz8CpNfWEOYBIMIGRYkLwsIYg==}
     dev: true
@@ -4663,6 +4669,13 @@ packages:
   /isexe/2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
 
+  /jest-canvas-mock/2.4.0:
+    resolution: {integrity: sha512-mmMpZzpmLzn5vepIaHk5HoH3Ka4WykbSoLuG/EKoJd0x0ID/t+INo1l8ByfcUJuDM+RIsL4QDg/gDnBbrj2/IQ==}
+    dependencies:
+      cssfontparser: 1.2.1
+      moo-color: 1.0.3
+    dev: true
+
   /jest-diff/29.1.2:
     resolution: {integrity: sha512-4GQts0aUopVvecIT4IwD/7xsBaMhKTYoM4/njE/aVw9wpw+pIUVp8Vab/KnSzSilr84GnLBkaP3JLDnQYCKqVQ==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -5190,6 +5203,12 @@ packages:
       monaco-editor: 0.33.0
       picomatch-browser: 2.2.6
     dev: false
+
+  /moo-color/1.0.3:
+    resolution: {integrity: sha512-i/+ZKXMDf6aqYtBhuOcej71YSlbjT3wCO/4H1j8rPvxDJEifdwgg5MaFyu6iYAT8GBZJg2z0dkgK4YMzvURALQ==}
+    dependencies:
+      color-name: 1.1.4
+    dev: true
 
   /mri/1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}

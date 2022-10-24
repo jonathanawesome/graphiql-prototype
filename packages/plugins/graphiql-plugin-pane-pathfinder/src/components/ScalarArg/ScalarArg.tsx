@@ -13,7 +13,7 @@ import { Control, HandleChangeSignature, Tag } from '@graphiql-prototype/ui-libr
 import { Toggler } from '../Toggler';
 
 // hooks
-import { AncestorsArray } from '../../hooks';
+import { AncestorArgument, AncestorField, AncestorsArray } from '../../hooks';
 import { useEditor } from '@graphiql-prototype/store';
 
 // styles
@@ -37,6 +37,8 @@ export const ScalarArg = ({
   argument: GraphQLArgument;
   onInputType: string | null;
 }) => {
+  const { selection } = ancestors[ancestors.length - 1] as AncestorArgument;
+
   let baseType = argument.type;
 
   if (isNonNullType(argument.type)) {
@@ -56,13 +58,14 @@ export const ScalarArg = ({
 
   const [isTouched, setIsTouched] = useState<boolean>(false);
 
-  const ancestor = ancestors.values().next().value;
+  // const ancestor = ancestors.values().next().value;
 
-  const isSelected = !!ancestor.selection;
+  const isSelected = !!selection;
 
   const argumentName = argument.name;
 
-  const { activeVariables, updateVariable } = useEditor();
+  const activeVariables = useEditor((state) => state.activeVariables);
+  const updateVariable = useEditor((state) => state.updateVariable);
 
   const typeName = unwrapType(argument.type).toString();
 
@@ -74,9 +77,10 @@ export const ScalarArg = ({
   const isRequired = isRequiredArgument(argument) || isRequiredInputField(argument);
 
   // console.log('ScalarArg', {
+  //   ancestors,
+  //   name: argument.name,
   //   argument,
-  //   onInputType,
-  //   isRequired,
+  //   selection,
   // });
 
   useEffect(() => {

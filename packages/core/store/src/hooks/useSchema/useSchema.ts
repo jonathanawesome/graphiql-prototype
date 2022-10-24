@@ -1,7 +1,12 @@
 import create from 'zustand';
 import { KeyCode, KeyMod } from 'monaco-editor';
 import * as JSONC from 'jsonc-parser';
-import { buildClientSchema, getIntrospectionQuery, IntrospectionQuery } from 'graphql';
+import {
+  buildClientSchema,
+  getIntrospectionQuery,
+  IntrospectionQuery,
+  OperationDefinitionNode,
+} from 'graphql';
 
 // hooks
 import { useEditor } from '../useEditor';
@@ -18,11 +23,14 @@ const testSchema = useTestSchema.getState().schema;
 
 const testSchemaUrl = 'GraphiQL Test Schema';
 
+const RESULTS_EDITOR_POSITION = { column: 0, lineNumber: 0 };
+
 export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
   isExecuting: false,
   executeOperation: async () => {
-    const updateModel = useEditor.getState().updateModel;
+    const pushEdit = useEditor.getState().pushEdit;
     const activeTab = useEditor.getState().getActiveTab();
+    const activeDefinition = useEditor.getState().activeDefinition;
     const schemaUrl = get().schemaUrl;
 
     // console.log('running executeOperation', {
@@ -52,7 +60,7 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
 
       if (schemaUrl === testSchemaUrl) {
         set({ isExecuting: false });
-        return updateModel({
+        return pushEdit({
           edits: [
             {
               text: JSON.stringify(
@@ -64,11 +72,15 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
               ),
             },
           ],
+          position: RESULTS_EDITOR_POSITION,
           targetEditor: 'results',
         });
       }
 
       try {
+        console.log('executing operation:', {
+          name: (activeDefinition as OperationDefinitionNode).name?.value,
+        });
         const result = await fetcher({
           headers: {
             ...globalHeaders,
@@ -76,26 +88,29 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
           },
           url: schemaUrl,
         })({
-          operationName: activeTab.operationDefinition?.name?.value || undefined,
+          operationName:
+            (activeDefinition as OperationDefinitionNode).name?.value || undefined,
           query: operationsModelValue,
           variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
         });
 
-        updateModel({
+        pushEdit({
           edits: [
             {
               text: JSON.stringify(result, null, 2),
             },
           ],
+          position: RESULTS_EDITOR_POSITION,
           targetEditor: 'results',
         });
       } catch (error) {
-        updateModel({
+        pushEdit({
           edits: [
             {
               text: JSON.stringify(error, Object.getOwnPropertyNames(error), 2),
             },
           ],
+          position: RESULTS_EDITOR_POSITION,
           targetEditor: 'results',
         });
       }
@@ -108,15 +123,22 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
   schemaUrl: null,
   loadSchema: async ({ init, url }) => {
     set({ schemaLoading: true, schemaUrl: url });
-    const monacoGraphQLAPI = useEditor.getState().monacoGraphQLAPI;
     const resetEditorTabs = useEditor.getState().resetEditorTabs;
+    const clearDocumentState = useEditor.getState().clearDocumentState;
+    const initMonacoGraphQLAPI = useEditor.getState().initMonacoGraphQLAPI;
+
+    if (!useEditor.getState().monacoGraphQLAPI) {
+      initMonacoGraphQLAPI();
+    }
+
+    const monacoGraphQLAPI = useEditor.getState().monacoGraphQLAPI;
 
     init && resetEditorTabs();
+    init && clearDocumentState();
 
     if (url === testSchemaUrl) {
       // console.log('no URL provided, setting testSchema');
-
-      monacoGraphQLAPI.setSchemaConfig([
+      monacoGraphQLAPI?.setSchemaConfig([
         {
           schema: testSchema,
           uri: `testSchema-schema.graphql`,
@@ -148,7 +170,6 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
           }),
           operationName: 'IntrospectionQuery',
         });
-        console.log('data', { res: result.data });
         const schema = buildClientSchema(result.data as unknown as IntrospectionQuery);
 
         set({
@@ -156,7 +177,7 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
           schemaLoading: false,
         });
 
-        return monacoGraphQLAPI.setSchemaConfig([
+        return monacoGraphQLAPI?.setSchemaConfig([
           {
             schema,
             uri: `${url}-schema.graphql`,

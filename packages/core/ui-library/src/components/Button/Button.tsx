@@ -7,6 +7,8 @@ import { Icon } from '../../icons';
 
 type ButtonBase = {
   action: () => void;
+  controls?: string | undefined;
+  expanded?: boolean | undefined;
   isDisabled?: ButtonVariants['isDisabled'];
   label: string;
   size: ButtonVariants['size'];
@@ -28,6 +30,8 @@ type ButtonTypes = ButtonGhost | ButtonIcon;
 
 export const Button = ({
   action,
+  controls = undefined,
+  expanded = undefined,
   icon,
   isDisabled = false,
   label,
@@ -37,12 +41,15 @@ export const Button = ({
 }: ButtonTypes) => {
   return (
     <StyledButton
+      aria-controls={controls}
+      aria-expanded={expanded}
       aria-label={label}
       isDisabled={isDisabled}
       onClick={isDisabled ? undefined : action}
       size={size}
       style={style}
       type={type}
+      data-whatever="dasdasd"
     >
       {icon ? <Icon name={icon} /> : label}
     </StyledButton>

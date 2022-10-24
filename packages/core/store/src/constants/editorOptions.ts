@@ -16,7 +16,8 @@ export const editorOptions: MONACO_EDITOR.IStandaloneEditorConstructionOptions =
   scrollbar: {
     // hide the scrollbars
     horizontal: 'hidden',
-    vertical: 'hidden',
+    // vertical: 'hidden',
+    verticalScrollbarSize: 4,
   },
   // scrollPredominantAxis: false,
   scrollBeyondLastLine: false, // cleans up unnecessary "padding" on the bottom of each editor

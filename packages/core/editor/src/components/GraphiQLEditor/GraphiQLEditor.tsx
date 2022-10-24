@@ -7,18 +7,27 @@ import { TopBar } from '../TopBar';
 import { useEditorPanes } from '../../hooks';
 
 // styles
-import { EditorWrap, EditorInner } from './styles';
+import {
+  StyledGraphiQLEditor,
+  StyledGraphiQLEditorInner,
+  StyledEditorWrap,
+  StyledSchemaWrap,
+} from './styles';
 
 export const GraphiQLEditor = () => {
   const { activePane } = useEditorPanes();
 
   return (
-    <EditorWrap>
-      <EditorInner activePane={activePane}>
+    <StyledGraphiQLEditor>
+      <StyledGraphiQLEditorInner activePane={activePane}>
         <TopBar />
-        {activePane === 'EDITOR' && <Editor />}
-        {activePane === 'SCHEMA' && <Schema />}
-      </EditorInner>
-    </EditorWrap>
+        <StyledEditorWrap isActive={activePane === 'EDITOR'}>
+          <Editor />
+        </StyledEditorWrap>
+        <StyledSchemaWrap isActive={activePane === 'SCHEMA'}>
+          <Schema />
+        </StyledSchemaWrap>
+      </StyledGraphiQLEditorInner>
+    </StyledGraphiQLEditor>
   );
 };
