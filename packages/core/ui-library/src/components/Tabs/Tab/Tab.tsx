@@ -2,32 +2,37 @@
 import { RemoveTabButton } from '../RemoveTabButton';
 
 // styles
-import { Trigger, TabWrap } from './styles';
+import { StyledTab, StyledTabTrigger } from './styles';
 
 //types
-import { TabFullProps } from '../types';
+import { TabProps } from '../types';
 
 export const Tab = ({
   copy,
   doRemoveTab,
   handleCollapseOnClick,
-  setActiveTab,
-  value,
-}: TabFullProps) => {
+  isSelected,
+  panelId,
+  setSelectedTab,
+  tabId,
+}: TabProps) => {
   return (
-    <TabWrap>
-      <Trigger
+    <StyledTab role="presentation">
+      <StyledTabTrigger
+        aria-selected={isSelected}
+        aria-controls={panelId}
+        hasRemoveTabButton={!!doRemoveTab}
+        id={tabId}
         onPointerDown={(event) => {
-          setActiveTab(value);
+          setSelectedTab(tabId);
           handleCollapseOnClick ? handleCollapseOnClick({ event }) : undefined;
         }}
-        hasRemoveTabButton={!!doRemoveTab}
-        data-value={value}
-        value={value}
+        role="tab"
+        tabIndex={-1}
       >
         {copy}
-      </Trigger>
-      {doRemoveTab && <RemoveTabButton doRemoveTab={doRemoveTab} tabId={value} />}
-    </TabWrap>
+      </StyledTabTrigger>
+      {doRemoveTab && <RemoveTabButton doRemoveTab={doRemoveTab} tabId={tabId} />}
+    </StyledTab>
   );
 };

@@ -2,41 +2,46 @@ import React from 'react';
 
 export type TabsDoRemoveTabSignature = ({ tabId }: { tabId: string }) => void;
 
-type HandleCollapseOnClickSignature = ({ event }: { event: React.MouseEvent }) => void;
+export type HandleCollapseOnClickSignature = ({
+  event,
+}: {
+  event: React.MouseEvent;
+}) => void;
 
-type TabbedContent = Array<{
-  id: string;
-  name: string;
-  panel: React.ReactElement;
-}>;
-
-type TabBaseProps = {
+export type TabProps = {
   copy: string;
-  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
-};
-
-export type TabFullProps = TabBaseProps & {
   doRemoveTab?: TabsDoRemoveTabSignature;
   handleCollapseOnClick?: HandleCollapseOnClickSignature;
-  value: string;
+  isSelected: boolean;
+  panelId: string;
+  setSelectedTab: React.Dispatch<React.SetStateAction<string>>;
+  tabId: string;
 };
+
+type TabbedContent = Array<{
+  name: string;
+  panel: React.ReactElement;
+  panelId: string;
+  tabId: string;
+}>;
 
 export type TabsListProps = {
   ariaLabel: string;
   doRemoveTab?: TabsDoRemoveTabSignature;
   handleCollapseOnClick?: HandleCollapseOnClickSignature;
   isCollapsible?: boolean;
-  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+  selectedTab: string;
+  setSelectedTab: React.Dispatch<React.SetStateAction<string>>;
   tabbedContent: TabbedContent;
 };
 
 export type TabPanelsProps = {
-  activeTab?: string;
+  selectedTab?: string;
   tabbedContent: TabbedContent;
 };
 
 export type TabsProps = {
-  initialActiveTab?: string;
+  initialSelectedTab?: string;
   ariaLabel: string;
   doRemoveTab?: TabsDoRemoveTabSignature;
   isCollapsible?: boolean;

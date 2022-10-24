@@ -9,11 +9,7 @@ import { useEditor } from '@graphiql-prototype/store';
 import { StyledPerTabHeaders, StyledVariablesWrap } from './styles';
 
 const PerTabHeaders = () => {
-  const activeEditorTab = useEditor().getActiveTab();
-
-  if (!activeEditorTab?.headers) {
-    return null;
-  }
+  const activeTab = useEditor((state) => state.getActiveTab());
 
   return (
     <StyledPerTabHeaders>
@@ -26,7 +22,9 @@ const PerTabHeaders = () => {
         }
         variant="INFO"
       />
-      <HTTPHeaderControl placement="ACTIVE_TAB" values={activeEditorTab.headers} />
+      {activeTab && (
+        <HTTPHeaderControl placement="ACTIVE_TAB" values={activeTab.headers} />
+      )}
     </StyledPerTabHeaders>
   );
 };
@@ -36,20 +34,23 @@ export const OperationTools = () => {
     <Tabs
       ariaLabel="Some tab label"
       isCollapsible={true}
+      initialSelectedTab="variables"
       tabbedContent={[
         {
-          id: 'Variables',
           name: 'Variables',
           panel: (
             <StyledVariablesWrap>
               <MonacoEditor monacoEditorType="variables" />
             </StyledVariablesWrap>
           ),
+          panelId: 'variables',
+          tabId: 'variables',
         },
         {
-          id: 'Headers',
           name: 'Headers',
           panel: <PerTabHeaders />,
+          panelId: 'headers',
+          tabId: 'headers',
         },
       ]}
     />

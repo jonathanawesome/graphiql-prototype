@@ -36,7 +36,7 @@ export const Pathfinder = () => {
   const operationDefinition =
     activeDefinition?.kind === Kind.OPERATION_DEFINITION ? activeDefinition : null;
 
-  console.log('rendering Pathfinder', { activeDefinition });
+  // console.log('rendering Pathfinder', { activeDefinition });
 
   return (
     <SchemaReferenceProvider>
@@ -44,7 +44,7 @@ export const Pathfinder = () => {
         <StyledPathfinderContainer>
           <StyledPathfinderContent>
             <Tabs
-              initialActiveTab={
+              initialSelectedTab={
                 activeDefinition?.kind === Kind.OPERATION_DEFINITION
                   ? activeDefinition?.operation
                   : 'query'
@@ -52,7 +52,6 @@ export const Pathfinder = () => {
               ariaLabel="root operations types and fragments"
               tabbedContent={[
                 {
-                  id: 'query',
                   name: 'Query',
                   panel: (
                     <RootOperation
@@ -66,9 +65,10 @@ export const Pathfinder = () => {
                       fields={schema.getQueryType()?.getFields()}
                     />
                   ),
+                  panelId: 'query',
+                  tabId: 'query',
                 },
                 {
-                  id: 'mutation',
                   name: 'Mutation',
                   panel: (
                     <RootOperation
@@ -82,9 +82,10 @@ export const Pathfinder = () => {
                       fields={schema.getMutationType()?.getFields()}
                     />
                   ),
+                  panelId: 'mutation',
+                  tabId: 'mutation',
                 },
                 {
-                  id: 'subscription',
                   name: 'Subscription',
                   panel: (
                     <RootOperation
@@ -98,9 +99,10 @@ export const Pathfinder = () => {
                       fields={schema.getSubscriptionType()?.getFields()}
                     />
                   ),
+                  panelId: 'subscription',
+                  tabId: 'subscription',
                 },
                 {
-                  id: 'fragments',
                   name: 'Fragments',
                   panel: (
                     <StyledContainer>
@@ -116,6 +118,8 @@ export const Pathfinder = () => {
                       />
                     </StyledContainer>
                   ),
+                  panelId: 'fragments',
+                  tabId: 'fragments',
                 },
               ]}
             />

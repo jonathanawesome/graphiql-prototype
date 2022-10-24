@@ -12,19 +12,22 @@ export const TabsList = ({
   doRemoveTab,
   handleCollapseOnClick,
   isCollapsible,
-  setActiveTab,
+  selectedTab,
+  setSelectedTab,
   tabbedContent,
 }: TabsListProps) => {
   return (
-    <StyledTabsList aria-label={ariaLabel} isCollapsible={isCollapsible}>
+    <StyledTabsList aria-label={ariaLabel} isCollapsible={isCollapsible} role="tablist">
       {tabbedContent.map((t) => (
         <Tab
-          key={t.id}
+          key={t.tabId}
           copy={t.name}
           doRemoveTab={doRemoveTab}
           handleCollapseOnClick={handleCollapseOnClick}
-          setActiveTab={setActiveTab}
-          value={t.id}
+          isSelected={t.tabId === selectedTab}
+          panelId={t.panelId}
+          setSelectedTab={setSelectedTab}
+          tabId={t.tabId}
         />
       ))}
     </StyledTabsList>

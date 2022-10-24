@@ -18,6 +18,7 @@ export const StyledOperationEditor = styled('div', {
   paddingRight: theme.space[1],
   paddingBottom: theme.space[4],
   paddingLeft: theme.space[4],
+  hairlineB: theme.colors.surface3,
 });
 
 export const StyledOperationActionsWrap = styled('div', {
