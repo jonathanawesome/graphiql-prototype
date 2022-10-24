@@ -31,6 +31,7 @@ export const InputObject = ({
   return (
     <StyledInputObject>
       <ListItem
+        ancestors={ancestors}
         collapsibleContent={{
           arguments: Object.keys(fields).map((f) => {
             if (isInputObjectType(fields[f].type)) {

@@ -54,6 +54,7 @@ const UnionMember = ({
 
   return (
     <ListItem
+      ancestors={ancestors}
       collapsibleContent={{
         childFields: (
           <Fields
