@@ -92,23 +92,21 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     const model = editor.getModel() as MONACO_EDITOR.ITextModel;
 
     // if we're not passed a range we'll use the full model range
-    const editsWithViableRange: MONACO_EDITOR.ISingleEditOperation[] = edits.map(
-      (edit) => {
-        return {
-          ...edit,
-          range: edit.range || model.getFullModelRange(),
-          forceMoveMarkers: true,
-        };
-      }
-    );
+    const editsWithRange: MONACO_EDITOR.ISingleEditOperation[] = edits.map((edit) => {
+      return {
+        ...edit,
+        range: edit.range || model.getFullModelRange(),
+        forceMoveMarkers: true,
+      };
+    });
 
     // TODO: variables editor changes should be using exuecute edits
     if (targetEditor === 'operations') {
-      editor.executeEdits('edit', editsWithViableRange);
+      editor.executeEdits('edit', editsWithRange);
       editor.setPosition(position);
     } else {
       // results editor is read-only
-      model.pushEditOperations([], editsWithViableRange, () => null);
+      model.pushEditOperations([], editsWithRange, () => null);
     }
 
     // 👇 edits via model
@@ -125,7 +123,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     //   const model = activeEditorTab[`${targetEditor}Model`];
 
     //   // if we're not passed a range we'll use the full model range
-    //   const editsWithViableRange: MONACO_EDITOR.ISingleEditOperation[] = edits.map(
+    //   const editsWithRange: MONACO_EDITOR.ISingleEditOperation[] = edits.map(
     //     (edit) => {
     //       return {
     //         ...edit,
@@ -138,9 +136,9 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     //   // edit our model
     //   // TODO: set the cursor position here
 
-    //   model.pushEditOperations([], editsWithViableRange, () => null);
+    //   model.pushEditOperations([], editsWithRange, () => null);
 
-    //   const finalEdit = editsWithViableRange[editsWithViableRange.length - 1];
+    //   const finalEdit = editsWithRange[editsWithRange.length - 1];
 
     //   console.log('edits complete, setting position:', {
     //     column: finalEdit.range.endColumn,

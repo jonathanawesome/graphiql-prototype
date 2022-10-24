@@ -11,21 +11,27 @@ import { useSchema } from '@graphiql-prototype/store';
 import {
   StyledOperationActions,
   StyledPlayButton,
+  StyledPlayButtonType,
   StyledPrettierButton,
   StyledWarningButton,
 } from './styles';
+import { OperationDefinitionNode } from 'graphql';
 
 export const OperationActions = () => {
-  const { documentDefinitions, monacoEditors, splitMultipleOperationsToSeparateTabs } =
-    useEditor(
-      (state) => ({
-        documentDefinitions: state.documentDefinitions,
-        monacoEditors: state.monacoEditors,
-        splitMultipleOperationsToSeparateTabs:
-          state.splitMultipleOperationsToSeparateTabs,
-      }),
-      shallow
-    );
+  const {
+    activeDefinition,
+    documentDefinitions,
+    monacoEditors,
+    splitMultipleOperationsToSeparateTabs,
+  } = useEditor(
+    (state) => ({
+      activeDefinition: state.activeDefinition,
+      documentDefinitions: state.documentDefinitions,
+      monacoEditors: state.monacoEditors,
+      splitMultipleOperationsToSeparateTabs: state.splitMultipleOperationsToSeparateTabs,
+    }),
+    shallow
+  );
 
   const { executeOperation } = useSchema();
 
@@ -38,7 +44,14 @@ export const OperationActions = () => {
           executeOperation();
         }}
       >
-        <Play />
+        <>
+          <Play />
+          <StyledPlayButtonType>
+            {(activeDefinition &&
+              (activeDefinition as OperationDefinitionNode).name?.value) ||
+              ''}
+          </StyledPlayButtonType>
+        </>
       </StyledPlayButton>
       <StyledPrettierButton
         onClick={() => operationEditor?.getAction('editor.action.formatDocument').run()}

@@ -78,10 +78,10 @@ export const monacoActions = (
 
       // TODO: FIX THIS...set the height of our editor
       editor.onDidContentSizeChange(() => {
-        const contentHeight = editor.getContentHeight();
-        if (monacoEditorRef) {
-          monacoEditorRef.style.height = `${contentHeight}px`;
-        }
+        // const contentHeight = editor.getContentHeight();
+        // if (monacoEditorRef) {
+        //   monacoEditorRef.style.height = `${contentHeight}px`;
+        // }
       });
     }
 

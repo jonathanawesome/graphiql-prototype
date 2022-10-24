@@ -1,7 +1,12 @@
 import create from 'zustand';
 import { KeyCode, KeyMod } from 'monaco-editor';
 import * as JSONC from 'jsonc-parser';
-import { buildClientSchema, getIntrospectionQuery, IntrospectionQuery } from 'graphql';
+import {
+  buildClientSchema,
+  getIntrospectionQuery,
+  IntrospectionQuery,
+  OperationDefinitionNode,
+} from 'graphql';
 
 // hooks
 import { useEditor } from '../useEditor';
@@ -25,6 +30,7 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
   executeOperation: async () => {
     const pushEdit = useEditor.getState().pushEdit;
     const activeTab = useEditor.getState().getActiveTab();
+    const activeDefinition = useEditor.getState().activeDefinition;
     const schemaUrl = get().schemaUrl;
 
     // console.log('running executeOperation', {
@@ -72,6 +78,9 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
       }
 
       try {
+        console.log('executing operation:', {
+          name: (activeDefinition as OperationDefinitionNode).name?.value,
+        });
         const result = await fetcher({
           headers: {
             ...globalHeaders,
@@ -79,7 +88,8 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
           },
           url: schemaUrl,
         })({
-          operationName: activeTab.operationDefinition?.name?.value || undefined,
+          operationName:
+            (activeDefinition as OperationDefinitionNode).name?.value || undefined,
           query: operationsModelValue,
           variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
         });

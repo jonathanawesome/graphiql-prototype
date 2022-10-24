@@ -34,9 +34,7 @@ export const insertNewOperation = ({
     kind: Kind.OPERATION_DEFINITION,
     name: {
       kind: Kind.NAME,
-      value: `new${
-        topLevelFieldName.charAt(0).toUpperCase() + topLevelFieldName.slice(1)
-      }${operationType.charAt(0).toUpperCase() + operationType.slice(1)}`,
+      value: `${topLevelFieldName.charAt(0).toUpperCase() + topLevelFieldName.slice(1)}`,
     },
     operation: operationType,
     selectionSet: {
