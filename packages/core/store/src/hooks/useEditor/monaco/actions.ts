@@ -1,4 +1,5 @@
 import { editor as MONACO_EDITOR } from 'monaco-editor';
+import { initializeMode } from 'monaco-graphql/esm/initializeMode';
 
 // constants
 import { editorOptions } from '../../../constants';
@@ -15,6 +16,18 @@ export const monacoActions = (
   get: GetEditorStore,
   set: SetEditorStore
 ): MonacoActions => ({
+  initMonacoGraphQLAPI: () => {
+    set({
+      monacoGraphQLAPI: initializeMode({
+        formattingOptions: {
+          prettierConfig: {
+            // TODO: this could use some tweaking
+            printWidth: 40,
+          },
+        },
+      }),
+    });
+  },
   initMonacoEditor: ({ monacoEditorType, monacoEditorRef, optionOverrides }) => {
     const monacoEditors = get().monacoEditors;
     const activeTab = get().getActiveTab();

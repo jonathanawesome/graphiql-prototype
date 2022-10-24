@@ -123,9 +123,15 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
   schemaUrl: null,
   loadSchema: async ({ init, url }) => {
     set({ schemaLoading: true, schemaUrl: url });
-    const monacoGraphQLAPI = useEditor.getState().monacoGraphQLAPI;
     const resetEditorTabs = useEditor.getState().resetEditorTabs;
     const clearDocumentState = useEditor.getState().clearDocumentState;
+    const initMonacoGraphQLAPI = useEditor.getState().initMonacoGraphQLAPI;
+
+    if (!useEditor.getState().monacoGraphQLAPI) {
+      initMonacoGraphQLAPI();
+    }
+
+    const monacoGraphQLAPI = useEditor.getState().monacoGraphQLAPI;
 
     init && resetEditorTabs();
     init && clearDocumentState();
@@ -165,14 +171,13 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
           operationName: 'IntrospectionQuery',
         });
         const schema = buildClientSchema(result.data as unknown as IntrospectionQuery);
-        console.log('data', { res: result.data, schema });
 
         set({
           schema,
           schemaLoading: false,
         });
 
-        return monacoGraphQLAPI.setSchemaConfig([
+        return monacoGraphQLAPI?.setSchemaConfig([
           {
             schema,
             uri: `${url}-schema.graphql`,

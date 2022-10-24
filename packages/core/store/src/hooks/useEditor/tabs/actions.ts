@@ -80,7 +80,7 @@ export const tabsActions = (get: GetEditorStore, set: SetEditorStore): TabsActio
 
     setModelsForAllEditorsWithinTab({ destinationTab: newEditorTab });
 
-    monacoGraphQLAPI.setDiagnosticSettings({
+    monacoGraphQLAPI?.setDiagnosticSettings({
       validateVariablesJSON: {
         [operationsModel.uri.toString()]: [variablesModel.uri.toString()],
       },
@@ -157,9 +157,8 @@ export const tabsActions = (get: GetEditorStore, set: SetEditorStore): TabsActio
 
       // set the model values for each of our editors
       setModelsForAllEditorsWithinTab({ destinationTab: editorTab });
-      //TODO there's an uncaught promise in the DiagnosticsAdapter
-      // languageFeatures.ts:124 Uncaught (in promise) TypeError: Cannot read properties of null (reading 'doValidation') at DiagnosticsAdapter._doValidate (languageFeatures.ts:124:38)
-      monacoGraphQLAPI.setDiagnosticSettings({
+
+      monacoGraphQLAPI?.setDiagnosticSettings({
         validateVariablesJSON: {
           [editorTab.operationsModel.uri.toString()]: [
             editorTab.variablesModel.uri.toString(),

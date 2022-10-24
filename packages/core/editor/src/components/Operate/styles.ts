@@ -4,18 +4,19 @@ export const StyledOperateWrap = styled('div', {
   backgroundColor: theme.colors.surface2,
   width: `100%`,
   height: `100%`,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
+  display: `flex`,
+  flexDirection: `column`,
+  justifyContent: `flex-end`,
   position: `relative`,
 });
 
 export const StyledOperationEditor = styled('div', {
+  overflowY: `auto`,
   height: `100%`,
   position: `relative`,
   paddingTop: 72,
   paddingRight: theme.space[1],
-  paddingBottom: 0,
+  paddingBottom: theme.space[4],
   paddingLeft: theme.space[4],
 });
 

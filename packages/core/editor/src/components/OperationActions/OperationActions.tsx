@@ -43,13 +43,14 @@ export const OperationActions = () => {
         onClick={() => {
           executeOperation();
         }}
+        isDisabled={!activeDefinition}
       >
         <>
           <Play />
           <StyledPlayButtonType>
             {(activeDefinition &&
               (activeDefinition as OperationDefinitionNode).name?.value) ||
-              ''}
+              'Run'}
           </StyledPlayButtonType>
         </>
       </StyledPlayButton>

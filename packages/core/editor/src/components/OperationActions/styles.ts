@@ -2,10 +2,7 @@ import { styled, theme } from '@graphiql-prototype/ui-library';
 
 export const StyledOperationActions = styled('div', {
   display: 'flex',
-  // flexDirection: ``,
   gap: theme.space[4],
-  // width: theme.space[10],
-  // minWidth: theme.space[10],
 });
 
 export const StyledPlayButtonType = styled('span', {
@@ -37,16 +34,26 @@ export const StyledPlayButton = styled('button', {
     },
   },
 
-  '&:hover': {
-    border: `1px solid transparent`,
-    backgroundColor: theme.colors.surface3,
+  variants: {
+    isDisabled: {
+      true: {
+        cursor: `not-allowed`,
+        opacity: 0.5,
+      },
+      false: {
+        '&:hover': {
+          border: `1px solid transparent`,
+          backgroundColor: theme.colors.surface3,
 
-    span: {
-      color: theme.colors.text1,
-    },
-    '& svg': {
-      path: {
-        fill: theme.colors.text1,
+          span: {
+            color: theme.colors.text1,
+          },
+          '& svg': {
+            path: {
+              fill: theme.colors.text1,
+            },
+          },
+        },
       },
     },
   },

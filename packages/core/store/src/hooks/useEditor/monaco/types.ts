@@ -10,11 +10,12 @@ type MonacoEditors = {
 };
 
 export type MonacoState = {
-  monacoGraphQLAPI: MonacoGraphQLAPI;
+  monacoGraphQLAPI: MonacoGraphQLAPI | null;
   monacoEditors: MonacoEditors;
 };
 
 export type MonacoActions = {
+  initMonacoGraphQLAPI: () => void;
   initMonacoEditor: ({
     monacoEditorType,
     monacoEditorRef,
