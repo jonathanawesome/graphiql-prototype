@@ -1,4 +1,4 @@
-import { Kind } from 'graphql';
+import { ArgumentNode, Kind, VariableDefinitionNode } from 'graphql';
 
 // handlers
 import { handleAddField } from './handlers/handleAddField';
@@ -46,7 +46,8 @@ export const toggle = ({
   console.log('toggle', {
     ancestors,
     activeDefinition,
-    rootType: rootAncestor.operationType,
+    // rootType: rootAncestor.operationType,
+    target,
   });
 
   if (
@@ -78,21 +79,25 @@ export const toggle = ({
   if (isArgument) {
     const isSelected = !!target.selection;
 
-    console.log('toggle isArgument', { target, isSelected });
+    const variableText = `$${target.argument.name}: ${target.argument.type.toString()}`;
+    const argumentText = `${target.argument.name}: $${target.argument.name}`;
 
     if (isSelected) {
       handleRemoveArgument({
+        argumentText,
         previousAncestor: previousAncestor as AncestorField,
         rootAncestor,
         target,
+        variableText,
       });
     }
 
     if (!isSelected) {
       handleAddArgument({
+        argumentText,
         previousAncestor: previousAncestor as AncestorField,
         rootAncestor,
-        target,
+        variableText,
       });
     }
   } // isArgument

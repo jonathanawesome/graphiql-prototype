@@ -41,6 +41,21 @@ export const handleRemoveField = ({
     previousAncestor,
   });
 
+  // const hasArgumentSelections = !!(
+  //   target.selection &&
+  //   'arguments' in target.selection &&
+  //   target.selection.arguments &&
+  //   target.selection.arguments.length > 0
+  // );
+
+  const argumentSelections = (target.selection as FieldNode).arguments;
+
+  if (argumentSelections && argumentSelections.length > 0) {
+    console.log('WE NEED TO REMOVE VARIABLE DEFINITION FOR THIS ARGUMENT', {
+      argumentSelections,
+    });
+  }
+
   const locationFromPreviousAncestor = getLocationFromAncestor({
     ancestor: previousAncestor,
   });
