@@ -10,6 +10,11 @@ import type { VariablesActions, VariablesState } from './variables';
 export type GetEditorStore = StoreApi<EditorStore>['getState'];
 export type SetEditorStore = StoreApi<EditorStore>['setState'];
 
+export type EditorEdit = {
+  range?: IRange;
+  text: string | null;
+};
+
 export type EditorStore = DocumentActions &
   DocumentState &
   MonacoState &
@@ -25,10 +30,7 @@ export type EditorStore = DocumentActions &
       position,
       targetEditor,
     }: {
-      edits: Array<{
-        range?: IRange;
-        text: string | null;
-      }>;
+      edits: Array<EditorEdit>;
       position: IPosition;
       targetEditor: 'operations' | 'variables' | 'results';
     }) => void;

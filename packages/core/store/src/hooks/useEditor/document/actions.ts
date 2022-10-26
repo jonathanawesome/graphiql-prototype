@@ -12,7 +12,7 @@ export const documentActions = (
   setActiveExecutableDefinition: ({ definitionNode }) => {
     set({ activeDefinition: definitionNode });
   },
-  clearDocumentState: () => {
+  resetDocumentState: () => {
     set({
       activeDefinition: null,
       editorDecorations: {
@@ -26,6 +26,7 @@ export const documentActions = (
   },
   setDocumentState: () => {
     const editor = get().monacoEditors['operations'];
+    const resetDocumentState = get().resetDocumentState;
     const model = editor?.getModel();
     const modelValue = editor?.getModel()?.getValue();
     const existingActiveDefinition = JSON.stringify(get().activeDefinition);
@@ -35,6 +36,11 @@ export const documentActions = (
 
     if (model && modelValue && editor) {
       const parsedQuery = parseQuery(modelValue);
+
+      if (!parsedQuery) {
+        // we've an empty editor (either user-cleared or cleared via pathfinder) so we reset our documentstate
+        return resetDocumentState();
+      }
 
       if (parsedQuery && !(parsedQuery instanceof Error)) {
         const definitionCount = parsedQuery.definitions.length;
@@ -87,7 +93,7 @@ export const documentActions = (
             }
           }
 
-          set({
+          return set({
             editorDecorations: {
               // reset our newDecorations array
               new: [],
@@ -101,7 +107,7 @@ export const documentActions = (
           });
         } else {
           // we have one or less definitions, so we clear all decorations
-          set({
+          return set({
             editorDecorations: {
               ...get().editorDecorations,
               existing: editor.deltaDecorations(get().editorDecorations.existing, []),
@@ -109,8 +115,9 @@ export const documentActions = (
           });
         }
       } else {
-        console.log('Error parsing query', { parsedQuery });
+        return console.log('Error parsing query', { parsedQuery });
       }
     }
+    return console.warn('model and/or editor not available');
   },
 });

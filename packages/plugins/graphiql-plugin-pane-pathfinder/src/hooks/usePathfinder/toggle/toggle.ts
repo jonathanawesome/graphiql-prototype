@@ -2,7 +2,8 @@ import { Kind } from 'graphql';
 
 // handlers
 import { handleAddField } from './handlers/handleAddField';
-import { handleArgument } from './handlers/handleArgument';
+import { handleAddArgument } from './handlers/handleAddArgument';
+import { handleRemoveArgument } from './handlers/handleRemoveArgument';
 import { handleRemoveField } from './handlers/handleRemoveField';
 
 // hooks
@@ -19,6 +20,7 @@ import {
 
 // utils
 import { insertNewOperation } from './insertNewOperation';
+import { createArgumentText, createVariableText } from '../utils';
 
 export const toggle = ({
   ancestors,
@@ -45,7 +47,8 @@ export const toggle = ({
   console.log('toggle', {
     ancestors,
     activeDefinition,
-    rootType: rootAncestor.operationType,
+    // rootType: rootAncestor.operationType,
+    target,
   });
 
   if (
@@ -75,11 +78,35 @@ export const toggle = ({
   const isArgument = target.type === 'ARGUMENT';
 
   if (isArgument) {
-    handleArgument({
-      previousAncestor: previousAncestor as AncestorField,
-      rootAncestor,
-      target,
+    const isSelected = !!target.selection;
+
+    const { name, type } = target.argument;
+
+    const variableText = createVariableText({
+      argumentName: name,
+      argumentTypeAsString: type.toString(),
     });
+
+    const argumentText = createArgumentText({
+      argumentName: name,
+    });
+
+    if (isSelected) {
+      handleRemoveArgument({
+        argumentText,
+        target,
+        variableText,
+      });
+    }
+
+    if (!isSelected) {
+      handleAddArgument({
+        argumentText,
+        previousAncestor: previousAncestor as AncestorField,
+        rootAncestor,
+        variableText,
+      });
+    }
   } // isArgument
 
   if (isField) {

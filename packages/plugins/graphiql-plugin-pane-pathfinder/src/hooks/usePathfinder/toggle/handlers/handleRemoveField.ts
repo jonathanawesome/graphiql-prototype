@@ -27,6 +27,7 @@ export const handleRemoveField = ({
   target: AncestorField;
 }) => {
   const pushEdit = useEditor.getState().pushEdit;
+
   const documentDefinitions = useEditor.getState().documentDefinitions;
 
   const position = useEditor.getState().monacoEditors['operations']?.getPosition() || {
@@ -142,12 +143,17 @@ export const handleRemoveField = ({
       });
     } else {
       // if this field does not have selections, we just remove the field
-
       const range = getRemoveRangeForFieldFromLocation({
         location,
         mode: 'SINGLE_CHILD_FIELD',
       });
 
+      console.log(
+        'REMOVE: if this field does not have selections, we just remove the field',
+        {
+          range,
+        }
+      );
       return pushEdit({
         edits: [
           {

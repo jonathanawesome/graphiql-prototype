@@ -15,7 +15,7 @@ import { TabsActions } from './types';
 
 export const tabsActions = (get: GetEditorStore, set: SetEditorStore): TabsActions => ({
   setModelsForAllEditorsWithinTab: ({ destinationTab }) => {
-    const clearDocumentState = get().clearDocumentState;
+    const resetDocumentState = get().resetDocumentState;
     const setDocumentState = get().setDocumentState;
 
     // get our array of editors
@@ -26,7 +26,7 @@ export const tabsActions = (get: GetEditorStore, set: SetEditorStore): TabsActio
     monacoEditors.variables?.setModel(destinationTab.variablesModel);
     monacoEditors.results?.setModel(destinationTab.resultsModel);
 
-    clearDocumentState();
+    resetDocumentState();
     setDocumentState();
   },
   initEditorTab: ({ withOperationModelValue }) => {
