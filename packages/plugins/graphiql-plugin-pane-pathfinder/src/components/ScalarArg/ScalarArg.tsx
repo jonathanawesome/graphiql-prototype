@@ -13,7 +13,7 @@ import { Control, HandleChangeSignature, Tag } from '@graphiql-prototype/ui-libr
 import { Toggler } from '../Toggler';
 
 // hooks
-import { AncestorArgument, AncestorField, AncestorsArray } from '../../hooks';
+import { AncestorArgument, AncestorsArray } from '../../hooks';
 import { useEditor } from '@graphiql-prototype/store';
 
 // styles
@@ -81,6 +81,7 @@ export const ScalarArg = ({
   //   name: argument.name,
   //   argument,
   //   selection,
+  //   typeName,
   // });
 
   useEffect(() => {
@@ -258,12 +259,12 @@ export const ScalarArg = ({
   return (
     <StyledScalarArgWrap onFocus={() => setIsTouched(true)} onInputType={!!onInputType}>
       {/* this bit's here to warn when this argument's type is not a built-in scalar or an enum. users should have the ability to pass in handlers for custom scalars */}
-      {!['String', 'ID', 'Int', 'Float', 'Boolean'].includes(typeName) &&
+      {/* {!['String', 'ID', 'Int', 'Float', 'Boolean'].includes(typeName) &&
         !isEnumType(unwrapType(argument.type)) && (
           <StyledError>
             The scalar type for this argument is not being handled
           </StyledError>
-        )}
+        )} */}
       <StyledContainer>
         {!onInputType && (
           <Toggler ancestors={ancestors} isSelected={!!isSelected} variant="ARGUMENT" />
