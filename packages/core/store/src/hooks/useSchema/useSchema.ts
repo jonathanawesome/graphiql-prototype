@@ -124,7 +124,7 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
   loadSchema: async ({ init, url }) => {
     set({ schemaLoading: true, schemaUrl: url });
     const resetEditorTabs = useEditor.getState().resetEditorTabs;
-    const clearDocumentState = useEditor.getState().clearDocumentState;
+    const resetDocumentState = useEditor.getState().resetDocumentState;
     const initMonacoGraphQLAPI = useEditor.getState().initMonacoGraphQLAPI;
 
     if (!useEditor.getState().monacoGraphQLAPI) {
@@ -134,7 +134,7 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
     const monacoGraphQLAPI = useEditor.getState().monacoGraphQLAPI;
 
     init && resetEditorTabs();
-    init && clearDocumentState();
+    init && resetDocumentState();
 
     if (url === testSchemaUrl) {
       // console.log('no URL provided, setting testSchema');

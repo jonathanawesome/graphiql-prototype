@@ -109,7 +109,7 @@ export const monacoActions = (
           const selection = editor.getSelection();
 
           if (editorValue.length === 0) {
-            useEditor.getState().clearDocumentState();
+            useEditor.getState().resetDocumentState();
           }
 
           if (selection) {

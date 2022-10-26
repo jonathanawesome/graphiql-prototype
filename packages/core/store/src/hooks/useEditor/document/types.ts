@@ -20,5 +20,5 @@ export type DocumentActions = {
     definitionNode: DefinitionNode | null;
   }) => void;
   setDocumentState: () => void;
-  clearDocumentState: () => void;
+  resetDocumentState: () => void;
 };

@@ -27,6 +27,7 @@ export const handleRemoveField = ({
   target: AncestorField;
 }) => {
   const pushEdit = useEditor.getState().pushEdit;
+
   const documentDefinitions = useEditor.getState().documentDefinitions;
 
   const position = useEditor.getState().monacoEditors['operations']?.getPosition() || {

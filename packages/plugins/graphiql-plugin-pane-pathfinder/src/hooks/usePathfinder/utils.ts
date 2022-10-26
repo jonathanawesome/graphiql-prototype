@@ -260,7 +260,7 @@ export const getPositionAtEndOfLocation = ({
   return position;
 };
 
-const getActiveDefinitionRange = (): IRange | null => {
+export const getActiveDefinitionRange = (): IRange | null => {
   const activeDefinition = useEditor.getState().activeDefinition;
   if (activeDefinition?.loc) {
     return {
