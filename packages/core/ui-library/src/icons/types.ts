@@ -12,6 +12,7 @@ import { ExclamationTriangle } from './ExclamationTriangle';
 import { Gear } from './Gear';
 import { GraphQLIcon } from './GraphQLIcon';
 import { Input } from './Input';
+import { InsertNewOperation } from './InsertNewOperation';
 import { Light } from './Light';
 import { Play } from './Play';
 import { Plus } from './Plus';
@@ -36,6 +37,7 @@ export const IconMap = {
   Gear,
   GraphQLIcon,
   Input,
+  InsertNewOperation,
   Light,
   Play,
   Plus,
