@@ -12,6 +12,7 @@ import { defaultOperation, defaultResults, defaultVariables } from '../../../con
 // types
 import { GetEditorStore, SetEditorStore } from '../types';
 import { TabsActions } from './types';
+import { DefinitionNode } from 'graphql';
 
 export const tabsActions = (get: GetEditorStore, set: SetEditorStore): TabsActions => ({
   setModelsForAllEditorsWithinTab: ({ destinationTab }) => {
@@ -60,9 +61,7 @@ export const tabsActions = (get: GetEditorStore, set: SetEditorStore): TabsActio
     // build our new editorTab shape
     const newEditorTab: EditorTabState = {
       editorTabId: newEditorTabId,
-      editorTabName:
-        withOperationModelValue?.operationName ||
-        `Tab${editorTabs.length > 0 ? editorTabs.length + 1 : 1}`,
+      editorTabName: 'Untitled',
       operationsModel,
       variablesModel,
       resultsModel,
@@ -75,7 +74,7 @@ export const tabsActions = (get: GetEditorStore, set: SetEditorStore): TabsActio
           value: '',
         },
       ],
-      operationDefinition: withOperationModelValue?.operationDefinition || null,
+      definitions: [withOperationModelValue?.operationDefinition as DefinitionNode] || [],
     };
 
     setModelsForAllEditorsWithinTab({ destinationTab: newEditorTab });
@@ -174,7 +173,7 @@ export const tabsActions = (get: GetEditorStore, set: SetEditorStore): TabsActio
       });
     }
   },
-  updateTabState: ({ data }) => {
+  updateActiveTabState: ({ data }) => {
     const editorTabs = get().editorTabs;
     const activeEditorTabId = get().activeEditorTabId;
 

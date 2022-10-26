@@ -4,6 +4,9 @@ import { DocumentActions } from './types';
 
 // utils
 import { getLocationAndRangeForDefinition, parseQuery } from '@graphiql-prototype/utils';
+import { OperationDefinitionNode } from 'graphql';
+
+const DEFAULT_EDITOR_TAB_NAME = 'Untitled';
 
 export const documentActions = (
   get: GetEditorStore,
@@ -27,23 +30,38 @@ export const documentActions = (
   setDocumentState: () => {
     const editor = get().monacoEditors['operations'];
     const resetDocumentState = get().resetDocumentState;
+    const updateActiveTabState = get().updateActiveTabState;
     const model = editor?.getModel();
-    const modelValue = editor?.getModel()?.getValue();
+    const modelValue = editor?.getModel()?.getValue() as string;
     const existingActiveDefinition = JSON.stringify(get().activeDefinition);
 
     model?.deltaDecorations(get().editorDecorations.existing, []);
     editor?.deltaDecorations(get().editorDecorations.existing, []);
 
-    if (model && modelValue && editor) {
+    if (model && editor) {
       const parsedQuery = parseQuery(modelValue);
 
       if (!parsedQuery) {
-        // we've an empty editor (either user-cleared or cleared via pathfinder) so we reset our documentstate
+        // we've an empty editor (either user-cleared or cleared via pathfinder) so we reset our document state and update the active tab name
+        updateActiveTabState({
+          data: {
+            editorTabName: DEFAULT_EDITOR_TAB_NAME,
+          },
+        });
         return resetDocumentState();
       }
 
       if (parsedQuery && !(parsedQuery instanceof Error)) {
         const definitionCount = parsedQuery.definitions.length;
+
+        updateActiveTabState({
+          data: {
+            definitions: [...parsedQuery.definitions],
+            editorTabName:
+              (parsedQuery.definitions[0] as OperationDefinitionNode).name?.value ||
+              DEFAULT_EDITOR_TAB_NAME,
+          },
+        });
 
         set({ documentDefinitions: definitionCount });
 
@@ -118,6 +136,7 @@ export const documentActions = (
         return console.log('Error parsing query', { parsedQuery });
       }
     }
+
     return undefined;
   },
 });

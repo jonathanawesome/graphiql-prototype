@@ -33,8 +33,8 @@ export const useHTTPHeaders = create<HTTPHeadersStore>((set, get) => ({
       });
     } else {
       const activeTabHeaders = useEditor.getState().getActiveTab().headers;
-      const updateTabState = useEditor.getState().updateTabState;
-      updateTabState({
+      const updateActiveTabState = useEditor.getState().updateActiveTabState;
+      updateActiveTabState({
         data: { headers: [...activeTabHeaders, baseHeader({ id: cuid.slug() })] },
       });
     }
@@ -48,8 +48,8 @@ export const useHTTPHeaders = create<HTTPHeadersStore>((set, get) => ({
     } else {
       // TODO: remove tab header
       const activeTabHeaders = useEditor.getState().getActiveTab().headers;
-      const updateTabState = useEditor.getState().updateTabState;
-      updateTabState({
+      const updateActiveTabState = useEditor.getState().updateActiveTabState;
+      updateActiveTabState({
         data: { headers: activeTabHeaders.filter((header) => header.id !== id) },
       });
     }
@@ -77,7 +77,7 @@ export const useHTTPHeaders = create<HTTPHeadersStore>((set, get) => ({
     } else {
       // TODO: update active tab header here
       const activeTabHeaders = useEditor.getState().getActiveTab().headers;
-      const updateTabState = useEditor.getState().updateTabState;
+      const updateActiveTabState = useEditor.getState().updateActiveTabState;
       const existingHeaderIndex = activeTabHeaders.findIndex(
         (header) => header.id === id
       );
@@ -86,7 +86,7 @@ export const useHTTPHeaders = create<HTTPHeadersStore>((set, get) => ({
         ...activeTabHeaders[existingHeaderIndex],
         ...update,
       };
-      updateTabState({
+      updateActiveTabState({
         data: {
           headers: activeTabHeaders,
         },
