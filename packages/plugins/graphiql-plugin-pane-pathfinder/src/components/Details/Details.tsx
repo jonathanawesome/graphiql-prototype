@@ -29,9 +29,10 @@ export type DetailsProps = {
 };
 
 export const Details = ({ ancestors, isSelected, type, variant }: DetailsProps) => {
-  // console.log('Details', { type, variant });
   const [showControls, setShowControls] = useState<boolean>(false);
   const { setActiveTertiaryPane } = useSchemaReference();
+
+  const previousAncestor = ancestors[ancestors.length - 2];
 
   const asterisk =
     'defaultValue' in type &&
@@ -49,11 +50,8 @@ export const Details = ({ ancestors, isSelected, type, variant }: DetailsProps) 
             ? `... on ${type.name}`
             : `${type.name}${asterisk || ''}`}
         </StyledName>
-        {variant !== 'INPUT_OBJECT' && (
+        {!['INPUT_OBJECT', 'INLINE_FRAGMENT'].includes(variant) && (
           <StyledControls isVisible={showControls}>
-            {/* <button onClick={() => {}}>
-              <Icon name="Docs" />
-            </button> */}
             <Button
               action={() => setActiveTertiaryPane({ destinationPane: type })}
               icon="Docs"
@@ -61,30 +59,32 @@ export const Details = ({ ancestors, isSelected, type, variant }: DetailsProps) 
               size="SMALL"
               style="ICON"
             />
-            <Button
-              action={() => {
-                const fullModelRange = useEditor
-                  .getState()
-                  .getActiveTab()
-                  ['operationsModel'].getFullModelRange();
+            {previousAncestor.type === 'ROOT' && (
+              <Button
+                action={() => {
+                  const fullModelRange = useEditor
+                    .getState()
+                    .getActiveTab()
+                    ['operationsModel'].getFullModelRange();
 
-                const range = {
-                  startLineNumber: fullModelRange.endLineNumber + 1,
-                  startColumn: 0 + 1,
-                  endLineNumber: fullModelRange.endLineNumber + 1,
-                  endColumn: 0 + 1,
-                };
+                  const range = {
+                    startLineNumber: fullModelRange.endLineNumber + 1,
+                    startColumn: 0 + 1,
+                    endLineNumber: fullModelRange.endLineNumber + 1,
+                    endColumn: 0 + 1,
+                  };
 
-                return insertNewOperation({
-                  ancestors,
-                  range,
-                });
-              }}
-              icon="Plus"
-              label="Insert field with new operations"
-              size="SMALL"
-              style="ICON"
-            />
+                  return insertNewOperation({
+                    ancestors,
+                    range,
+                  });
+                }}
+                icon="Plus"
+                label="Insert field with new operations"
+                size="SMALL"
+                style="ICON"
+              />
+            )}
           </StyledControls>
         )}
       </StyledNameAndControls>
