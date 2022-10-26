@@ -118,6 +118,6 @@ export const documentActions = (
         return console.log('Error parsing query', { parsedQuery });
       }
     }
-    return console.warn('model and/or editor not available');
+    return undefined;
   },
 });
