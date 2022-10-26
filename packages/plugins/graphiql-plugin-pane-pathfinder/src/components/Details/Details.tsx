@@ -79,8 +79,8 @@ export const Details = ({ ancestors, isSelected, type, variant }: DetailsProps) 
                     range,
                   });
                 }}
-                icon="Plus"
-                label="Insert field with new operations"
+                icon="InsertNewOperation"
+                label="Insert field with new operation"
                 size="SMALL"
                 style="ICON"
               />
