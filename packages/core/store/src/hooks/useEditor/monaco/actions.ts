@@ -68,23 +68,9 @@ export const monacoActions = (
       // TODO: FIX THIS...set the height of our editor
       editor.onDidContentSizeChange(() => {
         const contentHeight = Math.min(1000, editor.getContentHeight());
-        // console.log('getContentHeight', {
-        //   getContentHeight: editor.getContentHeight(),
-        //   style: monacoEditorRef.style,
-        // });
         const width = monacoEditorRef.getBoundingClientRect().width;
         monacoEditorRef.style.height = `${contentHeight}px`;
         editor.layout({ width, height: contentHeight });
-        // monacoEditorRef.style.width = `${width}px`;
-        // const contentHeight = editor.getContentHeight();
-        // if (monacoEditorRef) {
-        //   monacoEditorRef.style.height = `${contentHeight}px`;
-        // }
-        // try {
-        // ignoreEvent = true;
-        // } finally {
-        // ignoreEvent = false;
-        // }
       });
     }
 
@@ -96,10 +82,9 @@ export const monacoActions = (
       editor.onDidChangeModelContent(() => {
         const editorValue = editor.getValue();
 
-        console.log('onDidChangeModelContent', {
-          // docState: useEditor.getState().documentDefinitions,
-          value: editorValue,
-        });
+        // console.log('onDidChangeModelContent', {
+        //   value: editorValue,
+        // });
 
         if (monacoEditorType === 'variables') {
           set({ activeVariables: editorValue });

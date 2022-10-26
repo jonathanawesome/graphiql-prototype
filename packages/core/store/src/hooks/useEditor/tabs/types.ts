@@ -1,4 +1,4 @@
-import type { OperationDefinitionNode } from 'graphql';
+import type { DefinitionNode, OperationDefinitionNode } from 'graphql';
 import { editor as MONACO_EDITOR } from 'monaco-editor';
 import type { HTTPHeaderValue } from '../../useHTTPHeaders';
 
@@ -9,7 +9,7 @@ export type EditorTabState = {
   variablesModel: MONACO_EDITOR.ITextModel;
   resultsModel: MONACO_EDITOR.ITextModel;
   headers: HTTPHeaderValue[];
-  operationDefinition: OperationDefinitionNode | null;
+  definitions: DefinitionNode[];
 };
 
 export type TabsState = {
@@ -39,5 +39,5 @@ export type TabsActions = {
   removeEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
   switchEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
   // TODO: 👇 is this the right way to update editor tab state? it seems brittle...currently only used for updating tab headers
-  updateTabState: ({ data }: { data: Partial<EditorTabState> }) => void;
+  updateActiveTabState: ({ data }: { data: Partial<EditorTabState> }) => void;
 };

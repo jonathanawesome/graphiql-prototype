@@ -8,5 +8,4 @@ export const documentState: DocumentState = {
   },
   hasActiveDefinition: false,
   documentDefinitions: 0,
-  warningWhenMultipleOperations: false,
 };

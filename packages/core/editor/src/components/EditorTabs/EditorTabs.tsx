@@ -33,9 +33,10 @@ const AddTabButton = () => {
 };
 
 export const EditorTabs = () => {
-  const { activeEditorTabId, editorTabs } = useEditor();
+  const editorTabs = useEditor((state) => state.editorTabs);
+  const activeEditorTabId = useEditor((state) => state.activeEditorTabId);
 
-  // console.log('editortabs', { editorTabs });
+  const showRemoveTabButton = editorTabs.length > 1;
 
   const handleTabChange = ({ editorTabId }: { editorTabId: string }) => {
     setActiveEditorTabId({ editorTabId });
@@ -45,8 +46,6 @@ export const EditorTabs = () => {
   const doRemoveTab = ({ editorTabId }: { editorTabId: string }) => {
     removeEditorTab({ editorTabId });
   };
-
-  const showRemoveTabButton = editorTabs.length > 1;
 
   return (
     <StyledEditorTabs>
@@ -60,12 +59,12 @@ export const EditorTabs = () => {
               hasRemoveTabButton={showRemoveTabButton}
               onClick={() => handleTabChange({ editorTabId: tab.editorTabId })}
             >
-              <Tag
+              {/* <Tag
                 copy={tab.operationDefinition?.operation.charAt(0).toUpperCase() || '?'}
                 title={tab.operationDefinition?.operation || 'Operation not set'}
                 type="OPERATION"
-              />
-              {tab?.operationDefinition?.name?.value || tab?.editorTabName}
+              /> */}
+              {tab.editorTabName}
             </StyledTabButton>
             {showRemoveTabButton && (
               <StyledRemoveTabButtonWrap>

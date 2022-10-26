@@ -1,11 +1,6 @@
 import create from 'zustand';
-import {
-  isExecutableDefinitionNode,
-  Kind,
-  OperationDefinitionNode,
-  print,
-} from 'graphql';
-import { editor as MONACO_EDITOR, Selection } from 'monaco-editor';
+import { Kind, OperationDefinitionNode, print } from 'graphql';
+import { editor as MONACO_EDITOR } from 'monaco-editor';
 
 // constants
 import { editorThemeDark, editorThemeLight } from '../../constants';
@@ -47,11 +42,11 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     const parsedQuery = parseQuery(getActiveTab.operationsModel.getValue());
 
     if (parsedQuery && !(parsedQuery instanceof Error)) {
-      console.log('running splitMultipleOperationsToSeparateTabs', {
-        parsedQuery,
-        firstDef: [...parsedQuery.definitions][0],
-        defsToSplit: [...parsedQuery.definitions].splice(1),
-      });
+      // console.log('running splitMultipleOperationsToSeparateTabs', {
+      //   parsedQuery,
+      //   firstDef: [...parsedQuery.definitions][0],
+      //   defsToSplit: [...parsedQuery.definitions].splice(1),
+      // });
 
       pushEdit({
         edits: [

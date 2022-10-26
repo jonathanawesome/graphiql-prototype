@@ -10,7 +10,6 @@ export type DocumentState = {
   };
   hasActiveDefinition: boolean;
   documentDefinitions: number;
-  warningWhenMultipleOperations: boolean;
 };
 
 export type DocumentActions = {
