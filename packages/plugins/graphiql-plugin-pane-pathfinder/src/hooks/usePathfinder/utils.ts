@@ -1,4 +1,4 @@
-import { useEditor } from '@graphiql-prototype/store';
+import { EditorEdit, useEditor } from '@graphiql-prototype/store';
 import { Kind, Location, OperationDefinitionNode, Token, TokenKind } from 'graphql';
 import { IPosition, IRange } from 'monaco-editor';
 import {
@@ -297,44 +297,11 @@ export const getRemoveRangeNew = ({
       target.selection?.loc?.endToken.next?.kind === TokenKind.PAREN_R &&
       target.selection?.loc?.startToken.prev?.kind === TokenKind.PAREN_L;
 
-    // const { startToken, endToken } = target.selection?.loc as Location;
-    // const isLastArgument =
-    //   target.selection?.loc?.endToken.next?.kind === TokenKind.PAREN_R &&
-    //   target.selection?.loc?.startToken.prev?.kind === TokenKind.PAREN_L;
-
-    console.log('isLastArgument?', { isLastArgumentOrVariable });
-
-    // const startPosition = model?.getPositionAt(target.selection?.loc?.start as number);
-    // const endPosition = model?.getPositionAt(target.selection?.loc?.end as number);
     startPosition = model?.getPositionAt(target.selection?.loc?.start as number);
     endPosition = model?.getPositionAt(target.selection?.loc?.end as number);
-
-    // range = {
-    //   startLineNumber: isLastArgument
-    //     ? (startToken.prev?.line as number)
-    //     : (startPosition?.lineNumber as number),
-    //   startColumn: isLastArgument
-    //     ? (startToken.prev?.column as number)
-    //     : (startPosition?.column as number),
-    //   endLineNumber: isLastArgument
-    //     ? (endToken.next?.line as number)
-    //     : (endPosition?.lineNumber as number),
-    //   endColumn: isLastArgument
-    //     ? (endToken.next?.column as number) + 1
-    //     : (endPosition?.column as number),
-    // };
-
-    // console.log('ARGUMENT_RANGE', {
-    //   startPosition,
-    //   endPosition,
-    //   range,
-    //   loc: target.selection?.loc,
-    // });
   } else {
+    // mode is "VARIABLE_DEFINITION"
     const activeDefinition = useEditor.getState().activeDefinition;
-
-    // const isLastVariableDefinition =
-    //   (activeDefinition as OperationDefinitionNode).variableDefinitions?.length === 1;
 
     const definition = (
       activeDefinition as OperationDefinitionNode
@@ -349,50 +316,9 @@ export const getRemoveRangeNew = ({
     isLastArgumentOrVariable =
       (activeDefinition as OperationDefinitionNode).variableDefinitions?.length === 1;
 
-    console.log('isLastVariableDefinition?', { isLastArgumentOrVariable });
-
-    // const { startToken, endToken } = definition?.loc as Location;
-
-    // const startPosition = model?.getPositionAt(definition?.loc?.start as number);
-    // const endPosition = model?.getPositionAt(definition?.loc?.end as number);
     startPosition = model?.getPositionAt(definition?.loc?.start as number);
     endPosition = model?.getPositionAt(definition?.loc?.end as number);
-
-    // range = {
-    //   startLineNumber: isLastVariableDefinition
-    //     ? (startToken.prev?.line as number)
-    //     : (startPosition?.lineNumber as number),
-    //   startColumn: isLastVariableDefinition
-    //     ? (startToken.prev?.column as number)
-    //     : (startPosition?.column as number),
-    //   endLineNumber: isLastVariableDefinition
-    //     ? (endToken.next?.line as number)
-    //     : (endPosition?.lineNumber as number),
-    //   endColumn: isLastVariableDefinition
-    //     ? (endToken.next?.column as number) + 1
-    //     : (endPosition?.column as number),
-    // };
-
-    console.log('VARIABLE_DEFINITION_RANGE', { range, loc: definition?.loc });
   }
-
-  // if this text is on a single line, by itself, we need to remove the entire line
-
-  // const monacoLineContent = model?.getLineContent(range?.startLineNumber as number);
-
-  // const lineIndentCount = monacoLineContent?.search(/\S/) || 0;
-
-  // if (monacoLineContent && monacoLineContent.length < lineIndentCount + text.length + 3) {
-  //   // text is on a line by itself so we update our range
-  //   range = {
-  //     // ...(range as IRange),
-  //     ...(range as IRange),
-  //     // startLineNumber: range?.startLineNumber as number,
-  //     startColumn: 0,
-  //     endColumn: 0,
-  //     // endLineNumber: (range?.startLineNumber as number) + 1,
-  //   };
-  // }
 
   const { startToken, endToken } = location;
 
@@ -413,6 +339,22 @@ export const getRemoveRangeNew = ({
     endColumn: endPosition?.column as number,
   };
 
+  const testForLeadingComma = getRangeFromStringInActiveDefinition({
+    string: `, ${text}`,
+  });
+
+  if (testForLeadingComma) {
+    range = testForLeadingComma;
+  }
+
+  const testForTrailingComma = getRangeFromStringInActiveDefinition({
+    string: `${text}, `,
+  });
+
+  if (!range && testForTrailingComma) {
+    range = testForTrailingComma;
+  }
+
   const monacoLineContent = model?.getLineContent(startPosition?.lineNumber as number);
 
   const lineIndentCount = monacoLineContent?.search(/\S/) || 0;
@@ -431,85 +373,61 @@ export const getRemoveRangeNew = ({
     };
   }
 
-  // range = {
-  //   startLineNumber: isLastArgumentOrVariable
-  //     ? (startToken.prev?.line as number)
-  //     : (startPosition?.lineNumber as number),
-  //   startColumn: isLastArgumentOrVariable
-  //     ? (startToken.prev?.column as number)
-  //     : (startPosition?.column as number),
-  //   endLineNumber: isLastArgumentOrVariable
-  //     ? (endToken.next?.line as number)
-  //     : (endPosition?.lineNumber as number),
-  //   endColumn: isLastArgumentOrVariable
-  //     ? (endToken.next?.column as number) + 1
-  //     : (endPosition?.column as number),
-  // };
-
   console.log('getRemoveRangeNew', {
     range,
-    // location,
-    isLastArgumentOrVariable,
-    // startPosition,
-    // endPosition,
-    monacoLineContent,
-    monacoLineLength: monacoLineContent && monacoLineContent.length,
-    copyLength: lineIndentCount + text.length + 3,
-    isSingleLine,
-    text,
   });
 
   return range;
 };
 
-export const getRemoveRangeForArgumentOrVariable = ({
-  text,
-}: {
-  text: string;
-}): IRange | null => {
-  let range: IRange | null = null;
+// export const getRemoveRangeForArgumentOrVariable = ({
+//   text,
+// }: {
+//   text: string;
+// }): IRange | null => {
+//   let range: IRange | null = null;
 
-  // const testForLeadingComma = getRangeFromStringInActiveDefinition({
-  //   string: `, ${text}`,
-  // });
+//   // const testForLeadingComma = getRangeFromStringInActiveDefinition({
+//   //   string: `, ${text}`,
+//   // });
 
-  // if (testForLeadingComma) {
-  //   range = testForLeadingComma;
-  // }
+//   // if (testForLeadingComma) {
+//   //   range = testForLeadingComma;
+//   // }
 
-  // const testForTrailingComma = getRangeFromStringInActiveDefinition({
-  //   string: `${text}, `,
-  // });
+//   // const testForTrailingComma = getRangeFromStringInActiveDefinition({
+//   //   string: `${text}, `,
+//   // });
 
-  // if (!range && testForTrailingComma) {
-  //   range = testForTrailingComma;
-  // }
+//   // if (!range && testForTrailingComma) {
+//   //   range = testForTrailingComma;
+//   // }
 
-  if (!range && getRangeFromStringInActiveDefinition({ string: text })) {
-    range = getRangeFromStringInActiveDefinition({ string: text });
-  }
+//   if (!range && getRangeFromStringInActiveDefinition({ string: text })) {
+//     range = getRangeFromStringInActiveDefinition({ string: text });
+//   }
 
-  // if this text is on a single line, by itself, we need to remove the entire line
-  const model = useEditor.getState().monacoEditors['operations']?.getModel();
+//   // if this text is on a single line, by itself, we need to remove the entire line
+//   const model = useEditor.getState().monacoEditors['operations']?.getModel();
 
-  const monacoLineContent = model?.getLineContent(range?.startLineNumber as number);
+//   const monacoLineContent = model?.getLineContent(range?.startLineNumber as number);
 
-  const lineIndentCount = monacoLineContent?.search(/\S/) || 0;
+//   const lineIndentCount = monacoLineContent?.search(/\S/) || 0;
 
-  if (monacoLineContent && monacoLineContent.length < lineIndentCount + text.length + 3) {
-    // text is on a line by itself so we update our range
-    return {
-      // ...(range as IRange),
-      startLineNumber: range?.startLineNumber as number,
-      startColumn: 0,
-      endColumn: 0,
-      endLineNumber: (range?.startLineNumber as number) + 1,
-    };
-  } else {
-    // text is not on a line by itself, leave the range be
-    return range;
-  }
-};
+//   if (monacoLineContent && monacoLineContent.length < lineIndentCount + text.length + 3) {
+//     // text is on a line by itself so we update our range
+//     return {
+//       // ...(range as IRange),
+//       startLineNumber: range?.startLineNumber as number,
+//       startColumn: 0,
+//       endColumn: 0,
+//       endLineNumber: (range?.startLineNumber as number) + 1,
+//     };
+//   } else {
+//     // text is not on a line by itself, leave the range be
+//     return range;
+//   }
+// };
 
 export const getRangeFromStringInActiveDefinition = ({
   string,
@@ -584,3 +502,123 @@ export const getRemoveRangeForLastArgument = ({
     endColumn: (endToken.next?.column as number) + 1,
   };
 };
+
+export const getAddVariableEditWithExistingVariables = ({
+  variableTargetLocation,
+  variableText,
+}: {
+  variableTargetLocation: Location;
+  variableText: string;
+}): EditorEdit => {
+  let text = variableText;
+
+  const closeVariableParenthesis = findNextTokenKindInLocation({
+    startToken: variableTargetLocation.startToken,
+    tokenKind: TokenKind.PAREN_R,
+  });
+
+  if (closeVariableParenthesis?.line !== closeVariableParenthesis?.prev?.line) {
+    text = `  ${text}\n`;
+  } else {
+    text = `, ${text}`;
+  }
+
+  return {
+    range: {
+      startLineNumber: closeVariableParenthesis?.line as number,
+      endLineNumber: closeVariableParenthesis?.line as number,
+      startColumn: closeVariableParenthesis?.column as number,
+      endColumn: closeVariableParenthesis?.column as number,
+    },
+    text,
+  };
+};
+
+export const getAddVariableEditWithoutExistingVariables = ({
+  variableTargetLocation,
+  variableText,
+}: {
+  variableTargetLocation: Location;
+  variableText: string;
+}): EditorEdit => {
+  const text = `(${variableText})`;
+
+  const {
+    startToken: { line, next },
+  } = variableTargetLocation;
+
+  return {
+    range: {
+      startLineNumber: line,
+      endLineNumber: line,
+      startColumn: (next?.column as number) + (next?.value as string).length,
+      endColumn: (next?.column as number) + (next?.value as string).length,
+    },
+    text,
+  };
+};
+
+export const getAddArgumentEditWithoutSiblings = ({
+  argumentTargetLocation,
+  argumentText,
+}: {
+  argumentTargetLocation: Location;
+  argumentText: string;
+}): EditorEdit => {
+  const text = `(${argumentText})`;
+
+  const {
+    startToken: { column, line, value },
+  } = argumentTargetLocation;
+
+  return {
+    range: {
+      startLineNumber: line,
+      endLineNumber: line,
+      startColumn: column + value.length,
+      endColumn: column + value.length,
+    },
+    text,
+  };
+};
+
+export const getAddArgumentEditWithSiblings = ({
+  argumentTargetLocation,
+  argumentText,
+}: {
+  argumentTargetLocation: Location;
+  argumentText: string;
+}): EditorEdit => {
+  let text = argumentText;
+
+  const closeArgumentParenthesis = findNextTokenKindInLocation({
+    startToken: argumentTargetLocation.startToken,
+    tokenKind: TokenKind.PAREN_R,
+  });
+
+  if (closeArgumentParenthesis?.line !== closeArgumentParenthesis?.prev?.line) {
+    text = `  ${text}\n  `;
+  } else {
+    text = `, ${text}`;
+  }
+  return {
+    range: {
+      startLineNumber: closeArgumentParenthesis?.line as number,
+      endLineNumber: closeArgumentParenthesis?.line as number,
+      startColumn: closeArgumentParenthesis?.column as number,
+      endColumn: closeArgumentParenthesis?.column as number,
+    },
+    text,
+  };
+};
+
+export const createVariableText = ({
+  argumentName,
+  argumentTypeAsString,
+}: {
+  argumentName: string;
+  argumentTypeAsString: string;
+}) => `$${argumentName}: ${argumentTypeAsString}`;
+
+export const createArgumentText = ({ argumentName }: { argumentName: string }) =>
+  `${argumentName}: $${argumentName}`;

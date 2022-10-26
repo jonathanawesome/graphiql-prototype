@@ -41,21 +41,6 @@ export const handleRemoveField = ({
     previousAncestor,
   });
 
-  // const hasArgumentSelections = !!(
-  //   target.selection &&
-  //   'arguments' in target.selection &&
-  //   target.selection.arguments &&
-  //   target.selection.arguments.length > 0
-  // );
-
-  const argumentSelections = (target.selection as FieldNode).arguments;
-
-  if (argumentSelections && argumentSelections.length > 0) {
-    console.log('WE NEED TO REMOVE VARIABLE DEFINITION FOR THIS ARGUMENT', {
-      argumentSelections,
-    });
-  }
-
   const locationFromPreviousAncestor = getLocationFromAncestor({
     ancestor: previousAncestor,
   });
@@ -157,12 +142,17 @@ export const handleRemoveField = ({
       });
     } else {
       // if this field does not have selections, we just remove the field
-
       const range = getRemoveRangeForFieldFromLocation({
         location,
         mode: 'SINGLE_CHILD_FIELD',
       });
 
+      console.log(
+        'REMOVE: if this field does not have selections, we just remove the field',
+        {
+          range,
+        }
+      );
       return pushEdit({
         edits: [
           {

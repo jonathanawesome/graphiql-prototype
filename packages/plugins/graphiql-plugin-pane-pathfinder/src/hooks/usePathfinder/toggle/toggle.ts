@@ -1,4 +1,4 @@
-import { ArgumentNode, Kind, VariableDefinitionNode } from 'graphql';
+import { Kind } from 'graphql';
 
 // handlers
 import { handleAddField } from './handlers/handleAddField';
@@ -20,6 +20,7 @@ import {
 
 // utils
 import { insertNewOperation } from './insertNewOperation';
+import { createArgumentText, createVariableText } from '../utils';
 
 export const toggle = ({
   ancestors,
@@ -79,14 +80,20 @@ export const toggle = ({
   if (isArgument) {
     const isSelected = !!target.selection;
 
-    const variableText = `$${target.argument.name}: ${target.argument.type.toString()}`;
-    const argumentText = `${target.argument.name}: $${target.argument.name}`;
+    const { name, type } = target.argument;
+
+    const variableText = createVariableText({
+      argumentName: name,
+      argumentTypeAsString: type.toString(),
+    });
+
+    const argumentText = createArgumentText({
+      argumentName: name,
+    });
 
     if (isSelected) {
       handleRemoveArgument({
         argumentText,
-        previousAncestor: previousAncestor as AncestorField,
-        rootAncestor,
         target,
         variableText,
       });

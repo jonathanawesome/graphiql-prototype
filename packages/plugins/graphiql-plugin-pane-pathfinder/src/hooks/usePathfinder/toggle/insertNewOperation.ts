@@ -100,7 +100,7 @@ export const insertNewOperation = ({
 
   const newLines = useEditor.getState().documentDefinitions > 0 ? '\n\n' : '';
 
-  const printedNode = `${print(newOperationDefinitionNode)}`;
+  const printedNode = print(newOperationDefinitionNode);
 
   const text = `${newLines}${printedNode}`;
 
