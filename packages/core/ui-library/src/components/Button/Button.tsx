@@ -48,6 +48,7 @@ export const Button = ({
       onClick={isDisabled ? undefined : action}
       size={size}
       style={style}
+      title={label}
       type={type}
       data-whatever="dasdasd"
     >
