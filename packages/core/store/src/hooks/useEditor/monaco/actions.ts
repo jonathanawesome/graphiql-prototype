@@ -38,7 +38,6 @@ export const monacoActions = (
     // console.log('initMonacoEditor', {
     //   monacoEditorType,
     //   activeTab,
-    //   model: activeTab[`${monacoEditorType}Model`],
     // });
 
     const editor = MONACO_EDITOR.create(monacoEditorRef, {

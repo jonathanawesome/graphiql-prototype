@@ -1,43 +1,6 @@
 import { HexValue } from '../hooks/useTheme/types';
 import { hexToHSL } from './hexToHSL';
 
-export const editorColors = {
-  dark: {
-    indentGuides: '#363739',
-    delimiters: '#55565C',
-    delimitersActive: '#A4A4A4',
-    selections: '#363739',
-    keywords: '#A4A4A4',
-    operators: '#A4A4A4',
-    text1: '#FFFFFF',
-    text2: '#BFBFBF',
-    text3: '#A4A4A4',
-    fields: '#948AE3',
-    arguments: '#FC618D',
-    types: '#5AD4E6',
-    values: '#7BD88F',
-    orange_default: '#EE8E57',
-    yellow_default: '#FCE566',
-  },
-  light: {
-    indentGuides: '#D7D7D7', // surface3
-    delimiters: '#BCBCBC', // text4
-    delimitersActive: '#757575', // text3
-    selections: '#D7D7D7', // surface3
-    keywords: '#757575', // text3
-    operators: '#757575', // text3
-    text1: '#1B1B1B', // text1
-    text2: '#4A4A4A', // text2
-    text3: '#757575', // text3
-    fields: '#5C4CDD', // violet_default
-    arguments: '#D60690', // pink_default
-    types: '#0B6AF9', // blue_default
-    values: '#128934', // green_default
-    orange_default: '#AF5F15', // orange_default
-    yellow_default: '#767800', // yellow_default
-  },
-};
-
 type Colors = {
   surface1: HexValue;
   surface2: HexValue;
