@@ -13,7 +13,7 @@ import { Control, HandleChangeSignature, Tag } from '@graphiql-prototype/ui-libr
 import { Toggler } from '../Toggler';
 
 // hooks
-import { AncestorArgument, AncestorsArray } from '../../hooks';
+import { AncestorArgument, AncestorField, AncestorsArray } from '../../hooks';
 import { useEditor } from '@graphiql-prototype/store';
 
 // styles
@@ -58,14 +58,18 @@ export const ScalarArg = ({
 
   const [isTouched, setIsTouched] = useState<boolean>(false);
 
-  // const ancestor = ancestors.values().next().value;
+  const { selection: ancestorSelection } = ancestors[
+    ancestors.length - 2
+  ] as AncestorField;
 
   const isSelected = !!selection;
 
   const argumentName = argument.name;
 
-  const activeVariables = useEditor((state) => state.activeVariables);
+  const activeTab = useEditor((state) => state.getActiveTab());
   const updateVariable = useEditor((state) => state.updateVariable);
+
+  const variablesModel = activeTab && activeTab.variablesModel;
 
   const typeName = unwrapType(argument.type).toString();
 
@@ -77,7 +81,7 @@ export const ScalarArg = ({
   const isRequired = isRequiredArgument(argument) || isRequiredInputField(argument);
 
   // console.log('ScalarArg', {
-  //   ancestors,
+  //   // ancestors,
   //   name: argument.name,
   //   argument,
   //   selection,
@@ -89,7 +93,7 @@ export const ScalarArg = ({
     let vars: Record<any, any> = {};
     let val: string | string[] = isListType(baseType) ? [] : ``;
     try {
-      vars = JSON.parse(activeVariables);
+      vars = JSON.parse(variablesModel?.getValue());
     } catch (e) {
       // console.warn(e);
       // return here so we don't muck with existing values when the incoming variables object doesn't pass parse
@@ -115,7 +119,7 @@ export const ScalarArg = ({
     return setInputValue(val);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeVariables]);
+  }, [variablesModel]);
 
   useEffect(() => {
     // clear errors if input is empty
@@ -267,7 +271,12 @@ export const ScalarArg = ({
         )} */}
       <StyledContainer>
         {!onInputType && (
-          <Toggler ancestors={ancestors} isSelected={!!isSelected} variant="ARGUMENT" />
+          <Toggler
+            ancestors={ancestors}
+            isDisabled={!ancestorSelection}
+            isSelected={!!isSelected}
+            variant="ARGUMENT"
+          />
         )}
         {toRender}
       </StyledContainer>

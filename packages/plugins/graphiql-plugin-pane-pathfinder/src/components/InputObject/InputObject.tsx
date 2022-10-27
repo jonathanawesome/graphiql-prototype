@@ -5,7 +5,7 @@ import { ListItem, ScalarArg } from '../index';
 import { Message } from '@graphiql-prototype/ui-library';
 
 // hooks
-import { AncestorArgument, AncestorsArray } from '../../hooks';
+import { AncestorArgument, AncestorField, AncestorsArray } from '../../hooks';
 
 // styles
 import { StyledInputObject } from './styles';
@@ -22,6 +22,10 @@ export const InputObject = ({
   const { argument, selection } = ancestors[ancestors.length - 1] as AncestorArgument;
 
   const isSelected = !!selection;
+
+  const { selection: ancestorSelection } = ancestors[
+    ancestors.length - 2
+  ] as AncestorField;
 
   // console.log('rendering InputObject', {
   //   isSelected,
@@ -69,6 +73,7 @@ export const InputObject = ({
             ? undefined
             : {
                 ancestors,
+                isDisabled: !ancestorSelection,
                 isSelected,
                 variant: 'ARGUMENT',
               }
