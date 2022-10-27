@@ -9,6 +9,7 @@ import { StyledToggler } from './styles';
 
 type TogglerBaseProps = {
   ancestors: AncestorsArray;
+  isDisabled?: boolean;
   isSelected: boolean;
   variant: 'ARGUMENT' | 'FIELD';
 };
@@ -29,6 +30,7 @@ export type ToggleProps = TogglerWithCollapserProps | TogglerWithoutCollapserPro
 export const Toggler: React.FC<ToggleProps> = ({
   ancestors,
   collapser,
+  isDisabled = false,
   isSelected,
   variant,
 }) => {
@@ -58,6 +60,7 @@ export const Toggler: React.FC<ToggleProps> = ({
     <StyledToggler
       aria-label={`Add ${breadcrumbs} ${variant} to operation`}
       aria-pressed={isSelected}
+      disabled={isDisabled}
       isSelected={isSelected}
       onClick={() => {
         if (collapser) {

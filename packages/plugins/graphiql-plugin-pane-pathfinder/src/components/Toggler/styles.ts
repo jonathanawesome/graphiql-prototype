@@ -19,6 +19,46 @@ export const StyledToggler = styled('button', {
     backgroundColor: theme.colors.surface2,
   },
 
+  '&:disabled': {
+    cursor: `not-allowed`,
+    svg: {
+      path: {
+        '&:nth-of-type(1)': {
+          //inner
+          fill: theme.colors.surface3,
+        },
+        '&:nth-of-type(2)': {
+          //outer
+          fill: theme.colors.surface3,
+        },
+        '&:nth-of-type(3)': {
+          //checkmark
+          fill: 'transparent',
+        },
+      },
+    },
+    '&:hover, &:focus': {
+      backgroundColor: `transparent`,
+
+      svg: {
+        path: {
+          '&:nth-of-type(1)': {
+            //inner
+            fill: theme.colors.surface3,
+          },
+          '&:nth-of-type(2)': {
+            //outer
+            fill: theme.colors.surface3,
+          },
+          '&:nth-of-type(3)': {
+            //checkmark
+            fill: 'transparent',
+          },
+        },
+      },
+    },
+  },
+
   variants: {
     variant: {
       ARGUMENT: {},
