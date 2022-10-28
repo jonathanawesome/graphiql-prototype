@@ -21,7 +21,7 @@ export default defineConfig(() => {
         inline: ['monaco-editor'],
       },
       setupFiles: [
-        './setupTests.ts',
+        './vitest.setup.ts',
         // monaco-related mocks
         './test-setup/canvas',
         './test-setup/getSelection',
