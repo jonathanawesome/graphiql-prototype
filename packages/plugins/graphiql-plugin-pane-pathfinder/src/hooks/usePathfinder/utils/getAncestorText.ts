@@ -1,4 +1,4 @@
-import { AncestorField, AncestorInlineFragment } from '../../types';
+import { AncestorField, AncestorInlineFragment } from '../types';
 
 export const getAncestorText = ({
   ancestor,

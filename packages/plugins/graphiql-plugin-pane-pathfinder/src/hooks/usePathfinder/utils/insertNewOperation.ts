@@ -12,7 +12,7 @@ import { IRange } from 'monaco-editor';
 import { useEditor } from '@graphiql-prototype/store';
 
 // types
-import { AncestorField, AncestorRoot, AncestorsArray } from '../../types';
+import { AncestorField, AncestorRoot, AncestorsArray } from '../types';
 
 const pushEdit = useEditor.getState().pushEdit;
 

@@ -2,13 +2,13 @@ import { InlineFragmentNode, FieldNode, Location } from 'graphql';
 import { IRange } from 'monaco-editor';
 
 // constants
-import { TARGET_EDITOR } from '../../constants';
+import { TARGET_EDITOR } from '../constants';
 
 // hooks
 import { useEditor } from '@graphiql-prototype/store';
 
 // types
-import { AncestorField, AncestorsArray, AncestorTypes } from '../../types';
+import { AncestorField, AncestorsArray, AncestorTypes } from '../types';
 
 // utils
 import {

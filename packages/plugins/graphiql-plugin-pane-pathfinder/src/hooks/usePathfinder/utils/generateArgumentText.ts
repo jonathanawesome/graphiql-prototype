@@ -9,13 +9,15 @@ import {
   ValueNode,
 } from 'graphql';
 
-// constants
-import { ARGUMENT_HANDLING } from '../../constants';
+// hooks
+import { usePathfinder } from '../usePathfinder';
 
 // utils
 import { getEnumValues, unwrapType } from '@graphiql-prototype/utils';
 
 export const generateArgumentText = ({ argument }: { argument: GraphQLArgument }) => {
+  const argumentHandlingMode = usePathfinder.getState().argumentHandlingMode;
+
   // defaults are set for "WITH_VARIABLE" handling mode
   let valueNode: ValueNode = {
     kind: Kind.VARIABLE,
@@ -35,7 +37,7 @@ export const generateArgumentText = ({ argument }: { argument: GraphQLArgument }
     },
   };
 
-  if (ARGUMENT_HANDLING === 'INLINE') {
+  if (argumentHandlingMode === 'INLINE') {
     const { name } = unwrapType(argument.type);
 
     if (isScalarType(argument.type)) {

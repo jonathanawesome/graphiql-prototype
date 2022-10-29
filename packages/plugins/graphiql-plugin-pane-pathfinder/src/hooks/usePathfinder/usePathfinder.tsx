@@ -1,11 +1,13 @@
 import create from 'zustand';
 
-// toggle
-import { toggle } from './toggle';
+// actions and state
+import { pathfinderActions } from './actions';
+import { pathfinderState } from './state';
 
 // types
 import { PathfinderStore } from './types';
 
-export const usePathfinder = create<PathfinderStore>(() => ({
-  toggle: ({ ancestors }) => toggle({ ancestors }),
+export const usePathfinder = create<PathfinderStore>((set) => ({
+  ...pathfinderState,
+  ...pathfinderActions(set),
 }));

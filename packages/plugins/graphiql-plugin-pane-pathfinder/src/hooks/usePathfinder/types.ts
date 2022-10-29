@@ -6,6 +6,7 @@ import {
   OperationTypeNode,
   SelectionNode,
 } from 'graphql';
+import { StoreApi } from 'zustand';
 
 type AncestorSelection = SelectionNode | null;
 
@@ -44,6 +45,18 @@ export type AncestorsArray = AncestorTypes[];
 
 type ToggleSignature = ({ ancestors }: { ancestors: AncestorsArray }) => void;
 
-export type PathfinderStore = {
-  toggle: ToggleSignature;
+type ArgumentHandlingMode = 'INLINE' | 'WITH_VARIABLE';
+
+export type PathfinderState = {
+  argumentHandlingMode: ArgumentHandlingMode;
 };
+
+export type PathfinderActions = {
+  toggle: ToggleSignature;
+  setArgumentHandlingMode: ({ mode }: { mode: ArgumentHandlingMode }) => void;
+};
+
+export type PathfinderStore = PathfinderActions & PathfinderState;
+
+export type GetPathfinderStore = StoreApi<PathfinderStore>['getState'];
+export type SetPathfinderStore = StoreApi<PathfinderStore>['setState'];
