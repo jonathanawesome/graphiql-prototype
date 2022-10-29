@@ -2,16 +2,17 @@ import create from 'zustand';
 import { Kind, OperationDefinitionNode, print } from 'graphql';
 import { editor as MONACO_EDITOR } from 'monaco-editor';
 
+// actions and state
+import { documentActions, documentState } from './document';
+import { monacoActions, monacoState } from './monaco';
+import { tabsActions, tabsState } from './tabs';
+import { variablesActions, variablesState } from './variables';
+
 // constants
 import { editorThemeDark, editorThemeLight } from '../../constants';
 
 // types
 import { EditorStore } from './types';
-
-import { documentActions, documentState } from './document';
-import { monacoActions, monacoState } from './monaco';
-import { tabsActions, tabsState } from './tabs';
-import { variablesActions, variablesState } from './variables';
 
 // utils
 import { parseQuery } from '@graphiql-prototype/utils';

@@ -1,4 +1,4 @@
-import { AncestorField } from '../../types';
+import { AncestorField } from '../types';
 
 export const getSelectedArgumentsCount = ({
   previousAncestor,

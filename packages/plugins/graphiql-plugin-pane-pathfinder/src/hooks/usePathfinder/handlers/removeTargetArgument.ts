@@ -1,11 +1,11 @@
 // constants
-import { TARGET_EDITOR } from '../../constants';
+import { TARGET_EDITOR } from '../constants';
 
 // hooks
 import { EditorEdit, useEditor } from '@graphiql-prototype/store';
 
 // types
-import { AncestorArgument } from '../../types';
+import { AncestorArgument } from '../types';
 
 // utils
 import { generateArgumentText, generateVariableText, getRemoveRange } from '../utils';

@@ -1,3 +1,5 @@
 export { usePathfinder } from './usePathfinder';
-export { insertNewOperation } from './toggle';
+
+export { insertNewOperation } from './utils';
+
 export * from './types';

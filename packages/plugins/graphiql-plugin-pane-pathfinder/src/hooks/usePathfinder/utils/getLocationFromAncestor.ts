@@ -1,4 +1,4 @@
-import { AncestorTypes } from '../../types';
+import { AncestorTypes } from '../types';
 
 export const getLocationFromAncestor = ({ ancestor }: { ancestor: AncestorTypes }) => {
   if (

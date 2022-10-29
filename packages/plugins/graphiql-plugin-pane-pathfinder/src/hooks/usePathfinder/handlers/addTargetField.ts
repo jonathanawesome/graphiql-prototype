@@ -2,7 +2,7 @@ import { Location } from 'graphql';
 import { IPosition, IRange } from 'monaco-editor';
 
 // constants
-import { INDENT_SIZE, TARGET_EDITOR } from '../../constants';
+import { INDENT_SIZE, TARGET_EDITOR } from '../constants';
 
 // hooks
 import { useEditor } from '@graphiql-prototype/store';
@@ -15,7 +15,7 @@ import {
   AncestorRoot,
   AncestorsArray,
   AncestorTypes,
-} from '../../types';
+} from '../types';
 
 // utils
 import {

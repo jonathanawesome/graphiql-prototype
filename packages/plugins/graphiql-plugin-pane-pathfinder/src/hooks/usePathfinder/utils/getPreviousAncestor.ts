@@ -1,4 +1,4 @@
-import { AncestorArgument, AncestorsArray, AncestorTypes } from '../../types';
+import { AncestorArgument, AncestorsArray, AncestorTypes } from '../types';
 
 export const getPreviousAncestor = ({
   ancestors,

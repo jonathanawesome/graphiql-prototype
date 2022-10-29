@@ -1,13 +1,14 @@
 import { Location } from 'graphql';
 
 // constants
-import { ARGUMENT_HANDLING, TARGET_EDITOR } from '../../constants';
+import { TARGET_EDITOR } from '../constants';
 
 // hooks
 import { EditorEdit, useEditor } from '@graphiql-prototype/store';
+import { usePathfinder } from '../usePathfinder';
 
 // types
-import { AncestorArgument, AncestorField, AncestorRoot } from '../../types';
+import { AncestorArgument, AncestorField, AncestorRoot } from '../types';
 
 // utils
 import {
@@ -27,6 +28,8 @@ export const addTargetArgument = ({
   rootAncestor: AncestorRoot;
   target: AncestorArgument;
 }) => {
+  const argumentHandlingMode = usePathfinder.getState().argumentHandlingMode;
+
   const pushEdit = useEditor.getState().pushEdit;
 
   const edits: EditorEdit[] = [];
@@ -64,7 +67,7 @@ export const addTargetArgument = ({
     };
   }
 
-  if (ARGUMENT_HANDLING === 'WITH_VARIABLE') {
+  if (argumentHandlingMode === 'WITH_VARIABLE') {
     const variableDefinitionsCount = getVariableDefinitionsCount();
 
     const variableTargetLocation = rootAncestor.operationDefinition?.loc as Location;

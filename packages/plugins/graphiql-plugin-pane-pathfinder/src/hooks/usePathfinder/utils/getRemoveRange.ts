@@ -5,7 +5,7 @@ import { IRange, IPosition } from 'monaco-editor';
 import { useEditor } from '@graphiql-prototype/store';
 
 // types
-import { AncestorArgument } from '../../types';
+import { AncestorArgument } from '../types';
 
 // utils
 import { getRangeFromStringInActiveDefinition } from './getRangeFromStringInActiveDefinition';
