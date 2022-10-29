@@ -18,8 +18,6 @@ import {
   // getAddVariableEditWithExistingVariables,
   // getAddVariableEditWithoutExistingVariables,
   // findNextTokenKindInLocation,
-  getAddArgumentEdit,
-  getAddVariableEdit,
   generateArgumentText,
   generateVariableText,
   getAddEdit,

@@ -1,6 +1,6 @@
 import { Location, TokenKind } from 'graphql';
 import { IRange } from 'monaco-editor';
-import { findNextTokenKindInLocation } from './findNexttokenKindInLocation';
+import { findNextTokenKindInLocation } from './findNextTokenKindInLocation';
 
 export const getAddRangeForFieldFromLocation = ({
   hasSelections,
