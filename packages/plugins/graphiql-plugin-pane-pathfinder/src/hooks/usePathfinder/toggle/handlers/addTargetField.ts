@@ -27,7 +27,7 @@ import {
   insertNewOperation,
 } from '../utils';
 
-export const handleAddField = ({
+export const addTargetField = ({
   ancestors,
   previousAncestor,
   rootAncestor,
@@ -55,7 +55,7 @@ export const handleAddField = ({
 
   const previousAncestorIsSelected = !isRootField && previousAncestor.selection;
 
-  // console.log('handleAddField', { hasSiblingSelections });
+  // console.log('addTargetField', { hasSiblingSelections });
 
   if (isRootField && !hasSiblingSelections && documentDefinitions === 0) {
     console.log('ADD: isRootField && !hasSiblingSelections', {});
@@ -381,5 +381,5 @@ export const handleAddField = ({
     });
   }
 
-  return console.log(`handleAddField: we shouldn't be here...field not handled.`, {});
+  return console.log(`addTargetField: we shouldn't be here...field not handled.`, {});
 };

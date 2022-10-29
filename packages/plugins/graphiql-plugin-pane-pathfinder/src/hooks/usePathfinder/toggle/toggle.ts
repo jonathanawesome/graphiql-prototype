@@ -1,10 +1,10 @@
 import { Kind } from 'graphql';
 
 // handlers
-import { handleAddField } from './handlers/handleAddField';
-import { handleAddArgument } from './handlers/handleAddArgument';
-import { handleRemoveArgument } from './handlers/handleRemoveArgument';
-import { handleRemoveField } from './handlers/handleRemoveField';
+import { addTargetField } from './handlers/addTargetField';
+import { addTargetArgument } from './handlers/addTargetArgument';
+import { removeTargetArgument } from './handlers/removeTargetArgument';
+import { removeTargetField } from './handlers/removeTargetField';
 
 // hooks
 import { useEditor } from '@graphiql-prototype/store';
@@ -14,8 +14,6 @@ import { AncestorField, AncestorsArray } from '../types';
 
 // utils
 import { getPreviousAncestor, getRootAncestor, insertNewOperation } from './utils';
-import {} from './utils/getRootAncestor';
-import {} from './utils/getPreviousAncestor';
 
 export const toggle = ({
   ancestors,
@@ -72,13 +70,13 @@ export const toggle = ({
     const isSelected = !!target.selection;
 
     if (isSelected) {
-      handleRemoveArgument({
+      removeTargetArgument({
         target,
       });
     }
 
     if (!isSelected) {
-      handleAddArgument({
+      addTargetArgument({
         previousAncestor: previousAncestor as AncestorField,
         rootAncestor,
         target,
@@ -90,7 +88,7 @@ export const toggle = ({
     const isSelected = !!target.selection;
 
     if (isSelected) {
-      handleRemoveField({
+      removeTargetField({
         ancestors,
         previousAncestor,
         target,
@@ -98,7 +96,7 @@ export const toggle = ({
     }
 
     if (!isSelected) {
-      handleAddField({ ancestors, previousAncestor, rootAncestor, target });
+      addTargetField({ ancestors, previousAncestor, rootAncestor, target });
     }
   } // isField
 };

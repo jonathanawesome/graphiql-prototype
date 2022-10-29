@@ -17,7 +17,7 @@ import {
   hasSiblingSelections as hasSiblingSelectionsFunc,
 } from '../utils';
 
-export const handleRemoveField = ({
+export const removeTargetField = ({
   ancestors,
   previousAncestor,
   target,
@@ -265,5 +265,5 @@ export const handleRemoveField = ({
     }
   }
 
-  return console.log(`handleRemoveField: we shouldn't be here...field not handled.`, {});
+  return console.log(`removeTargetField: we shouldn't be here...field not handled.`, {});
 };

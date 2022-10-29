@@ -10,7 +10,7 @@ import { AncestorArgument } from '../../types';
 // utils
 import { generateArgumentText, generateVariableText, getRemoveRange } from '../utils';
 
-export const handleRemoveArgument = ({ target }: { target: AncestorArgument }) => {
+export const removeTargetArgument = ({ target }: { target: AncestorArgument }) => {
   const argument = target.argument;
 
   const pushEdit = useEditor.getState().pushEdit;
@@ -27,10 +27,6 @@ export const handleRemoveArgument = ({ target }: { target: AncestorArgument }) =
   const variableText = generateVariableText({
     argument,
   });
-
-  // console.log('handleRemoveArgument', {
-  //   position,
-  // });
 
   const edits: EditorEdit[] = [];
 
