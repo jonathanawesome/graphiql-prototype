@@ -1,112 +1,179 @@
-import type { Location } from 'graphql';
+import { Location, TokenKind } from 'graphql';
 
 // constants
-import { TARGET_EDITOR } from '../../constants';
+import { ARGUMENT_HANDLING, TARGET_EDITOR } from '../../constants';
 
 // hooks
-import { useEditor } from '@graphiql-prototype/store';
+import { EditorEdit, editorOptions, useEditor } from '@graphiql-prototype/store';
 
 // types
-import { AncestorField, AncestorRoot } from '../../types';
+import { AncestorArgument, AncestorField, AncestorRoot } from '../../types';
 
 // utils
 import {
-  getVariableDefinitionsCount,
+  // getVariableDefinitionsCount,
+  // getSelectedArgumentsCount,
+  // getAddArgumentEditWithoutSiblings,
+  // getAddArgumentEditWithSiblings,
+  // getAddVariableEditWithExistingVariables,
+  // getAddVariableEditWithoutExistingVariables,
+  // findNextTokenKindInLocation,
+  getAddArgumentEdit,
+  getAddVariableEdit,
+  generateArgumentText,
+  generateVariableText,
+  getAddEdit,
   getSelectedArgumentsCount,
-  getAddArgumentEditWithoutSiblings,
-  getAddArgumentEditWithSiblings,
-  getAddVariableEditWithExistingVariables,
-  getAddVariableEditWithoutExistingVariables,
-  // hasSiblingArguments as hasSiblingArgumentsFunc,
-  // isExistingVariableDefinitions as isExistingVariableDefinitionsFunc,
-} from '../../utils';
+  getVariableDefinitionsCount,
+} from '../utils';
 
 export const handleAddArgument = ({
-  argumentText,
   previousAncestor,
   rootAncestor,
-  variableText,
+  target,
 }: {
-  argumentText: string;
   previousAncestor: AncestorField;
   rootAncestor: AncestorRoot;
-  variableText: string;
+  target: AncestorArgument;
 }) => {
   const pushEdit = useEditor.getState().pushEdit;
 
-  const position = useEditor.getState().monacoEditors['operations']?.getPosition() || {
+  const edits: EditorEdit[] = [];
+
+  // if there's currently a valid cursor position in the operations editor,
+  // use it for our final cursor position. otherwise, start of file.
+  let position = useEditor.getState().monacoEditors['operations']?.getPosition() || {
     column: 1,
     lineNumber: 1,
   };
 
-  const selectedArgumentsCount = getSelectedArgumentsCount({ previousAncestor });
-  const variableDefinitionsCount = getVariableDefinitionsCount();
-
-  console.log('handleAddArgument', {
-    selectedArgumentsCount,
-    variableDefinitionsCount,
+  const argumentText = generateArgumentText({
+    argument: target.argument,
   });
+
+  // const argumentEdit = getAddArgumentEdit({
+  //   incomingText: argumentText,
+  //   previousAncestor,
+  // });
+
+  const selectedArgumentsCount = getSelectedArgumentsCount({ previousAncestor });
 
   const argumentTargetLocation = previousAncestor.selection?.loc as Location;
 
-  const variableTargetLocation = rootAncestor.operationDefinition?.loc as Location;
+  const argumentEdit = getAddEdit({
+    incomingText: argumentText,
+    mode: 'ARGUMENT',
+    siblingCount: selectedArgumentsCount,
+    targetLocation: argumentTargetLocation,
+  });
 
-  if (selectedArgumentsCount === 0 && variableDefinitionsCount === 0) {
-    console.log(
-      '1 - handleAddArgument - selectedArgumentsCount === 0 && variableDefinitionsCount === 0',
-      {}
-    );
-
-    pushEdit({
-      edits: [
-        getAddVariableEditWithoutExistingVariables({
-          variableTargetLocation,
-          variableText,
-        }),
-        getAddArgumentEditWithoutSiblings({ argumentTargetLocation, argumentText }),
-      ],
-      position,
-      targetEditor: TARGET_EDITOR,
+  if (argumentEdit) {
+    edits.push({
+      range: argumentEdit.range,
+      text: argumentEdit.text,
     });
-
-    return useEditor.getState().setDocumentState();
+    position = {
+      column: argumentEdit.range.endColumn + argumentEdit.text.length,
+      lineNumber: argumentEdit.range.endLineNumber,
+    };
   }
 
-  if (selectedArgumentsCount === 0 && variableDefinitionsCount > 0) {
-    console.log(
-      '2 - handleAddArgument - selectedArgumentsCount === 0 && variableDefinitionsCount > 0',
-      {}
-    );
+  if (ARGUMENT_HANDLING === 'WITH_VARIABLE') {
+    const variableDefinitionsCount = getVariableDefinitionsCount();
 
-    pushEdit({
-      edits: [
-        getAddVariableEditWithExistingVariables({ variableTargetLocation, variableText }),
-        getAddArgumentEditWithoutSiblings({ argumentTargetLocation, argumentText }),
-      ],
-      position,
-      targetEditor: TARGET_EDITOR,
+    const variableTargetLocation = rootAncestor.operationDefinition?.loc as Location;
+
+    const variableText = generateVariableText({
+      argument: target.argument,
     });
 
-    return useEditor.getState().setDocumentState();
-  }
+    // const variableEdit = getAddVariableEdit({
+    //   incomingText: variableText,
+    //   rootAncestor,
+    // });
 
-  if (selectedArgumentsCount > 0 && variableDefinitionsCount > 0) {
-    console.log(
-      '3 - handleAddArgument - selectedArgumentsCount > 0 && variableDefinitionsCount > 0',
-      {}
-    );
-
-    pushEdit({
-      edits: [
-        getAddVariableEditWithExistingVariables({ variableTargetLocation, variableText }),
-        getAddArgumentEditWithSiblings({ argumentTargetLocation, argumentText }),
-      ],
-      position,
-      targetEditor: TARGET_EDITOR,
+    const variableEdit = getAddEdit({
+      incomingText: variableText,
+      mode: 'VARIABLE_DEFINITION',
+      siblingCount: variableDefinitionsCount,
+      targetLocation: variableTargetLocation,
     });
 
-    return useEditor.getState().setDocumentState();
+    if (variableEdit) {
+      edits.push({
+        range: variableEdit.range,
+        text: variableEdit.text,
+      });
+    }
   }
 
-  return console.log('unhandled addArgument...why are we here?');
+  console.log('handleAddArgument', {
+    argumentEdit,
+    // variableEdit,
+  });
+
+  return pushEdit({
+    edits,
+    position,
+    targetEditor: TARGET_EDITOR,
+  });
+
+  // if (selectedArgumentsCount === 0 && variableDefinitionsCount === 0) {
+  //   console.log(
+  //     '1 - handleAddArgument - selectedArgumentsCount === 0 && variableDefinitionsCount === 0',
+  //     {}
+  //   );
+
+  //   pushEdit({
+  //     edits: [
+  //       getAddVariableEditWithoutExistingVariables({
+  //         variableTargetLocation,
+  //         variableText,
+  //       }),
+  //       getAddArgumentEditWithoutSiblings({ argumentTargetLocation, argumentText }),
+  //     ],
+  //     position,
+  //     targetEditor: TARGET_EDITOR,
+  //   });
+
+  //   return useEditor.getState().setDocumentState();
+  // }
+
+  // if (selectedArgumentsCount === 0 && variableDefinitionsCount > 0) {
+  //   console.log(
+  //     '2 - handleAddArgument - selectedArgumentsCount === 0 && variableDefinitionsCount > 0',
+  //     {}
+  //   );
+
+  //   pushEdit({
+  //     edits: [
+  //       getAddVariableEditWithExistingVariables({ variableTargetLocation, variableText }),
+  //       getAddArgumentEditWithoutSiblings({ argumentTargetLocation, argumentText }),
+  //     ],
+  //     position,
+  //     targetEditor: TARGET_EDITOR,
+  //   });
+
+  //   return useEditor.getState().setDocumentState();
+  // }
+
+  // if (selectedArgumentsCount > 0 && variableDefinitionsCount > 0) {
+  //   console.log(
+  //     '3 - handleAddArgument - selectedArgumentsCount > 0 && variableDefinitionsCount > 0',
+  //     {}
+  //   );
+
+  //   pushEdit({
+  //     edits: [
+  //       getAddVariableEditWithExistingVariables({ variableTargetLocation, variableText }),
+  //       getAddArgumentEditWithSiblings({ argumentTargetLocation, argumentText }),
+  //     ],
+  //     position,
+  //     targetEditor: TARGET_EDITOR,
+  //   });
+
+  //   return useEditor.getState().setDocumentState();
+  // }
+
+  // return console.log('unhandled addArgument...why are we here?');
 };

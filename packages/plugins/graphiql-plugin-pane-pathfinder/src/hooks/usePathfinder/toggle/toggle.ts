@@ -10,17 +10,12 @@ import { handleRemoveField } from './handlers/handleRemoveField';
 import { useEditor } from '@graphiql-prototype/store';
 
 // types
-import {
-  AncestorArgument,
-  AncestorField,
-  AncestorRoot,
-  AncestorsArray,
-  AncestorTypes,
-} from '../types';
+import { AncestorField, AncestorsArray } from '../types';
 
 // utils
-import { insertNewOperation } from './insertNewOperation';
-import { createArgumentText, createVariableText } from '../utils';
+import { getPreviousAncestor, getRootAncestor, insertNewOperation } from './utils';
+import {} from './utils/getRootAncestor';
+import {} from './utils/getPreviousAncestor';
 
 export const toggle = ({
   ancestors,
@@ -28,29 +23,15 @@ export const toggle = ({
   ancestors: AncestorsArray;
   // eslint-disable-next-line consistent-return
 }) => {
-  const target = ancestors[ancestors.length - 1];
-  const index = ancestors.findIndex((a) => a === target);
-
-  const previousAncestor = ancestors[index - 1] as Exclude<
-    AncestorTypes,
-    AncestorArgument
-  >;
-  const rootAncestor = ancestors[0] as AncestorRoot;
-
   const activeDefinition = useEditor.getState().activeDefinition;
 
   if (!activeDefinition) {
     return insertNewOperation({ ancestors });
   }
 
-  // if the toggled item is on an operationType that differs from the current operationType, insert a new operation
-  console.log('toggle', {
-    ancestors,
-    activeDefinition,
-    // rootType: rootAncestor.operationType,
-    target,
-  });
+  const rootAncestor = getRootAncestor({ ancestors });
 
+  // if the toggled item is on an operationType that differs from the current operationType, insert a new operation
   if (
     activeDefinition?.kind === Kind.OPERATION_DEFINITION &&
     activeDefinition.operation !== rootAncestor.operationType
@@ -73,6 +54,16 @@ export const toggle = ({
     });
   }
 
+  const target = ancestors[ancestors.length - 1];
+
+  const previousAncestor = getPreviousAncestor({ ancestors, target });
+
+  console.log('toggle', {
+    ancestors,
+    activeDefinition,
+    target,
+  });
+
   const isField = target.type === 'FIELD';
 
   const isArgument = target.type === 'ARGUMENT';
@@ -80,31 +71,17 @@ export const toggle = ({
   if (isArgument) {
     const isSelected = !!target.selection;
 
-    const { name, type } = target.argument;
-
-    const variableText = createVariableText({
-      argumentName: name,
-      argumentTypeAsString: type.toString(),
-    });
-
-    const argumentText = createArgumentText({
-      argumentName: name,
-    });
-
     if (isSelected) {
       handleRemoveArgument({
-        argumentText,
         target,
-        variableText,
       });
     }
 
     if (!isSelected) {
       handleAddArgument({
-        argumentText,
         previousAncestor: previousAncestor as AncestorField,
         rootAncestor,
-        variableText,
+        target,
       });
     }
   } // isArgument

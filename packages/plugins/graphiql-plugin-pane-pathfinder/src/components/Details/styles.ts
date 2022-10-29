@@ -3,7 +3,7 @@ import { styled, theme } from '@graphiql-prototype/ui-library';
 export const StyledNameAndControls = styled('div', {
   display: 'flex',
   alignItems: 'center',
-  gap: theme.space[2],
+  gap: theme.space[1],
   borderBottom: '1px solid transparent',
   fontSize: 14,
   span: {
@@ -19,7 +19,7 @@ export const StyledName = styled('span', {
 
 export const StyledControls = styled('div', {
   display: `flex`,
-  gap: theme.space[1],
+  gap: 2,
   alignContent: `center`,
 
   variants: {

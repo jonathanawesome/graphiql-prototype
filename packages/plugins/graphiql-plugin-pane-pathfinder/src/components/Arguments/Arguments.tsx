@@ -59,22 +59,29 @@ export const Arguments = ({
         />
         <span>Arguments</span>
       </StyledArgumentsLeadWrap>
-      <StyledArgumentsContent id={field.name} isExpanded={isExpanded}>
-        <StyledArgumentsList>
-          {args.map((arg) => (
-            <Argument
-              key={arg.name}
-              ancestors={[
-                ...ancestors,
-                {
-                  type: 'ARGUMENT',
-                  argument: arg,
-                  selection: selection?.arguments?.find((a) => a.name.value === arg.name),
-                },
-              ]}
-            />
-          ))}
-        </StyledArgumentsList>
+      <StyledArgumentsContent
+        id={field.name}
+        // isExpanded={isExpanded}
+      >
+        {isExpanded && (
+          <StyledArgumentsList>
+            {args.map((arg) => (
+              <Argument
+                key={arg.name}
+                ancestors={[
+                  ...ancestors,
+                  {
+                    type: 'ARGUMENT',
+                    argument: arg,
+                    selection: selection?.arguments?.find(
+                      (a) => a.name.value === arg.name
+                    ),
+                  },
+                ]}
+              />
+            ))}
+          </StyledArgumentsList>
+        )}
       </StyledArgumentsContent>
     </StyledArguments>
   );

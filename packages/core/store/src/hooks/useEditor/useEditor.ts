@@ -51,6 +51,7 @@ export const useEditor = create<EditorStore>()((set, get) => ({
       pushEdit({
         edits: [
           {
+            range: 'FULL_MODEL_RANGE',
             text: print({
               kind: Kind.DOCUMENT,
               definitions: [[...parsedQuery.definitions][0]],
@@ -79,6 +80,8 @@ export const useEditor = create<EditorStore>()((set, get) => ({
   },
 
   pushEdit: ({ edits, position, targetEditor }) => {
+    const setDocumentState = get().setDocumentState;
+
     // 👇 edits via editor
     const monacoEditors = get().monacoEditors;
 
@@ -89,8 +92,8 @@ export const useEditor = create<EditorStore>()((set, get) => ({
     // if we're not passed a range we'll use the full model range
     const editsWithRange: MONACO_EDITOR.ISingleEditOperation[] = edits.map((edit) => {
       return {
-        ...edit,
-        range: edit.range || model.getFullModelRange(),
+        range: edit.range === 'FULL_MODEL_RANGE' ? model.getFullModelRange() : edit.range,
+        text: edit.text,
         forceMoveMarkers: true,
       };
     });
@@ -103,6 +106,8 @@ export const useEditor = create<EditorStore>()((set, get) => ({
       // results editor is read-only
       model.pushEditOperations([], editsWithRange, () => null);
     }
+
+    return setDocumentState();
 
     // 👇 edits via model
     // const editorTabs = get().editorTabs;

@@ -69,9 +69,9 @@ export const Details = ({ ancestors, isSelected, type, variant }: DetailsProps) 
 
                   const range = {
                     startLineNumber: fullModelRange.endLineNumber + 1,
-                    startColumn: 0 + 1,
+                    startColumn: 0,
                     endLineNumber: fullModelRange.endLineNumber + 1,
-                    endColumn: 0 + 1,
+                    endColumn: 0,
                   };
 
                   return insertNewOperation({

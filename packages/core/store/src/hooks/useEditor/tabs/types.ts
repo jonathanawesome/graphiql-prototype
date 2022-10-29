@@ -38,6 +38,5 @@ export type TabsActions = {
   resetEditorTabs: () => void;
   removeEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
   switchEditorTab: ({ editorTabId }: { editorTabId: string }) => void;
-  // TODO: 👇 is this the right way to update editor tab state? it seems brittle...currently only used for updating tab headers
   updateActiveTabState: ({ data }: { data: Partial<EditorTabState> }) => void;
 };

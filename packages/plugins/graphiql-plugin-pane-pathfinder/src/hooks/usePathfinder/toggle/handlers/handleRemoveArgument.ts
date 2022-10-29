@@ -8,30 +8,11 @@ import { EditorEdit, useEditor } from '@graphiql-prototype/store';
 import { AncestorArgument } from '../../types';
 
 // utils
-import {
-  // getSelectedArgumentsCount,
-  // getVariableDefinitionsCount,
-  // getRangeFromStringInActiveDefinition,
-  // getRemoveRangeForArgumentOrVariable,
-  // getRemoveRangeForLastVariableDefinition,
-  // getRemoveRangeForLastArgument,
-  getRemoveRangeNew,
-  // hasSiblingArguments as hasSiblingArgumentsFunc,
-  // isExistingVariableDefinitions as isExistingVariableDefinitionsFunc,
-} from '../../utils';
-import { IRange } from 'monaco-editor';
+import { generateArgumentText, generateVariableText, getRemoveRange } from '../utils';
 
-export const handleRemoveArgument = ({
-  argumentText,
-  // previousAncestor,
-  target,
-  variableText,
-}: {
-  argumentText: string;
-  // previousAncestor: AncestorField;
-  target: AncestorArgument;
-  variableText: string;
-}) => {
+export const handleRemoveArgument = ({ target }: { target: AncestorArgument }) => {
+  const argument = target.argument;
+
   const pushEdit = useEditor.getState().pushEdit;
 
   const position = useEditor.getState().monacoEditors['operations']?.getPosition() || {
@@ -39,38 +20,49 @@ export const handleRemoveArgument = ({
     lineNumber: 1,
   };
 
-  console.log('handleRemoveArgument', {
-    // selectedArgumentsCount,
-    // variableDefinitionsCount,
+  const argumentText = generateArgumentText({
+    argument,
   });
 
-  const variableRange = getRemoveRangeNew({
+  const variableText = generateVariableText({
+    argument,
+  });
+
+  // console.log('handleRemoveArgument', {
+  //   position,
+  // });
+
+  const edits: EditorEdit[] = [];
+
+  const variableRange = getRemoveRange({
     mode: 'VARIABLE_DEFINITION',
     target,
     text: variableText,
   });
 
-  const argumentRange = getRemoveRangeNew({
+  if (variableRange) {
+    edits.push({
+      range: variableRange,
+      text: null,
+    });
+  }
+
+  const argumentRange = getRemoveRange({
     mode: 'ARGUMENT',
     target,
     text: argumentText,
   });
 
-  const variableEdit: EditorEdit = {
-    range: variableRange as IRange,
-    text: null,
-  };
+  if (argumentRange) {
+    edits.push({
+      range: argumentRange,
+      text: null,
+    });
+  }
 
-  const argumentEdit: EditorEdit = {
-    range: argumentRange as IRange,
-    text: null,
-  };
-
-  pushEdit({
-    edits: [variableEdit, argumentEdit],
+  return pushEdit({
+    edits,
     position,
     targetEditor: TARGET_EDITOR,
   });
-
-  return useEditor.getState().setDocumentState();
 };

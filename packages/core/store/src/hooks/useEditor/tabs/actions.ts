@@ -144,12 +144,16 @@ export const tabsActions = (get: GetEditorStore, set: SetEditorStore): TabsActio
     const setModelsForAllEditorsWithinTab = get().setModelsForAllEditorsWithinTab;
     const activeDefinition = get().activeDefinition;
 
+    console.log('switchEditorTab', {
+      // activeVariables: editorTab?.variablesModel.getValue(),
+    });
+
     if (editorTab) {
       set({
         // set the activeEditorTabId
         activeEditorTabId: editorTabId,
         // set the active variables
-        activeVariables: editorTab.variablesModel.getValue(),
+        // activeVariables: editorTab.variablesModel.getValue(),
         // set the activeDefinition
         activeDefinition,
       });

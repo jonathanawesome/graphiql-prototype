@@ -80,14 +80,22 @@ export const ListItem = ({
             variant={variant}
           />
         </StyledListItemLeadWrap>
-        <StyledListItemContent id={id} isExpanded={isExpanded} variant={variant}>
-          {'deprecationReason' in type && type.deprecationReason && (
-            <DeprecatedMessage deprecationReason={type.deprecationReason} />
-          )}
+        <StyledListItemContent
+          id={id}
+          // isExpanded={isExpanded}
+          variant={variant}
+        >
+          {isExpanded && (
+            <>
+              {'deprecationReason' in type && type.deprecationReason && (
+                <DeprecatedMessage deprecationReason={type.deprecationReason} />
+              )}
 
-          {collapsibleContent.arguments && collapsibleContent.arguments}
-          {isExpanded && collapsibleContent.childFields && (
-            <StyledChildFields>{collapsibleContent.childFields}</StyledChildFields>
+              {collapsibleContent.arguments && collapsibleContent.arguments}
+              {isExpanded && collapsibleContent.childFields && (
+                <StyledChildFields>{collapsibleContent.childFields}</StyledChildFields>
+              )}
+            </>
           )}
         </StyledListItemContent>
       </StyledListItem>

@@ -1,3 +1,3 @@
-export { insertNewOperation } from './insertNewOperation';
+export { insertNewOperation } from './utils';
 
 export { toggle } from './toggle';

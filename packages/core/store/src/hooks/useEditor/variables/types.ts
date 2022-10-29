@@ -1,10 +1,8 @@
 export type VariablesState = {
-  activeVariables: string;
+  // activeVariables: string;
 };
 
 export type VariablesActions = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getVariables: () => Record<any, any>;
   updateVariable: ({
     onInputObject,
     variableName,

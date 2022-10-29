@@ -63,6 +63,7 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
         return pushEdit({
           edits: [
             {
+              range: 'FULL_MODEL_RANGE',
               text: JSON.stringify(
                 {
                   test_schema: `Hey there, looks like you're viewing the test schema. This schema is not backed by a server...you should try one of the publicly available schemas.`,
@@ -97,6 +98,7 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
         pushEdit({
           edits: [
             {
+              range: 'FULL_MODEL_RANGE',
               text: JSON.stringify(result, null, 2),
             },
           ],
@@ -107,6 +109,7 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
         pushEdit({
           edits: [
             {
+              range: 'FULL_MODEL_RANGE',
               text: JSON.stringify(error, Object.getOwnPropertyNames(error), 2),
             },
           ],

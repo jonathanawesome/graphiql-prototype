@@ -86,7 +86,7 @@ export const monacoActions = (
         // });
 
         if (monacoEditorType === 'variables') {
-          set({ activeVariables: editorValue });
+          // set({ activeVariables: editorValue });
         }
 
         if (monacoEditorType === 'operations') {

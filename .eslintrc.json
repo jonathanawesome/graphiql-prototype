@@ -9,6 +9,7 @@
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "@typescript-eslint",
+    "eslint-plugin-tsdoc",    
     "jsx-a11y",
     "testing-library",
     "jest-dom"
@@ -19,7 +20,8 @@
     "no-unneeded-ternary": "error",
     "object-shorthand": ["error", "always"],
     "prefer-const": ["warn"],    
-    "@typescript-eslint/no-unused-vars": ["warn"]
+    "@typescript-eslint/no-unused-vars": ["warn"],
+    "tsdoc/syntax": "warn"
   },
   "settings": {
     "jsx-a11y": {

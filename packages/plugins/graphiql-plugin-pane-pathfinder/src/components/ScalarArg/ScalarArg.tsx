@@ -37,6 +37,9 @@ export const ScalarArg = ({
   argument: GraphQLArgument;
   onInputType: string | null;
 }) => {
+  const variablesModel = useEditor((state) => state.monacoEditors.variables?.getModel());
+  const updateVariable = useEditor((state) => state.updateVariable);
+
   const { selection } = ancestors[ancestors.length - 1] as AncestorArgument;
 
   let baseType = argument.type;
@@ -66,11 +69,6 @@ export const ScalarArg = ({
 
   const argumentName = argument.name;
 
-  const activeTab = useEditor((state) => state.getActiveTab());
-  const updateVariable = useEditor((state) => state.updateVariable);
-
-  const variablesModel = activeTab && activeTab.variablesModel;
-
   const typeName = unwrapType(argument.type).toString();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -86,6 +84,7 @@ export const ScalarArg = ({
   //   argument,
   //   selection,
   //   typeName,
+  //   onInputType,
   // });
 
   useEffect(() => {
@@ -93,7 +92,7 @@ export const ScalarArg = ({
     let vars: Record<any, any> = {};
     let val: string | string[] = isListType(baseType) ? [] : ``;
     try {
-      vars = JSON.parse(variablesModel?.getValue());
+      vars = variablesModel && JSON.parse(variablesModel.getValue());
     } catch (e) {
       // console.warn(e);
       // return here so we don't muck with existing values when the incoming variables object doesn't pass parse

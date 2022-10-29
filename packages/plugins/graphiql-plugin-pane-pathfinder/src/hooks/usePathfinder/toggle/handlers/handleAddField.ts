@@ -18,14 +18,14 @@ import {
 } from '../../types';
 
 // utils
-import { insertNewOperation } from '../insertNewOperation';
 import {
   getLocationFromAncestor,
   getAncestorText,
   hasSiblingSelections as hasSiblingSelectionsFunc,
   getAddRangeForFieldFromLocation,
   getPositionAtEndOfLocation,
-} from '../../utils';
+  insertNewOperation,
+} from '../utils';
 
 export const handleAddField = ({
   ancestors,

@@ -12,7 +12,7 @@ import { IRange } from 'monaco-editor';
 import { useEditor } from '@graphiql-prototype/store';
 
 // types
-import { AncestorField, AncestorRoot, AncestorsArray } from '../types';
+import { AncestorField, AncestorRoot, AncestorsArray } from '../../types';
 
 const pushEdit = useEditor.getState().pushEdit;
 
@@ -105,7 +105,7 @@ export const insertNewOperation = ({
   const text = `${newLines}${printedNode}`;
 
   return pushEdit({
-    edits: [{ range: range || undefined, text }],
+    edits: [{ range: range || 'FULL_MODEL_RANGE', text }],
     // mostly guaranteed that position will be EOF
     position: { column: 1000, lineNumber: 1000 },
     targetEditor: 'operations',

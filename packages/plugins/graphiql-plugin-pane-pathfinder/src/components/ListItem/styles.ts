@@ -88,7 +88,7 @@ export const StyledCollapsibleListItemTriggerWrap = styled('div', {
 
 export const StyledListItemContent = styled('div', {
   position: `relative`,
-  display: `none`,
+  // display: `none`,
   paddingLeft: theme.space[5],
   marginTop: theme.space[1],
   marginLeft: theme.space[2],
@@ -104,13 +104,13 @@ export const StyledListItemContent = styled('div', {
   },
 
   variants: {
-    isExpanded: {
-      true: {
-        display: `block`,
-        // marginBottom: theme.space[3]
-      },
-      false: { display: `none` },
-    },
+    // isExpanded: {
+    //   true: {
+    //     display: `block`,
+    //     // marginBottom: theme.space[3]
+    //   },
+    //   false: { display: `none` },
+    // },
     variant: {
       FIELD: {},
       INLINE_FRAGMENT: {},
@@ -121,7 +121,7 @@ export const StyledListItemContent = styled('div', {
 
   compoundVariants: [
     {
-      isExpanded: true,
+      // isExpanded: true,
       variant: 'FIELD',
       css: {
         '&::after': {
@@ -131,7 +131,7 @@ export const StyledListItemContent = styled('div', {
       },
     },
     {
-      isExpanded: true,
+      // isExpanded: true,
       variant: 'ARGUMENT',
       css: {
         '&::after': {
@@ -141,7 +141,7 @@ export const StyledListItemContent = styled('div', {
       },
     },
     {
-      isExpanded: true,
+      // isExpanded: true,
       variant: 'INLINE_FRAGMENT',
       css: {
         '&::after': {
@@ -151,7 +151,7 @@ export const StyledListItemContent = styled('div', {
       },
     },
     {
-      isExpanded: true,
+      // isExpanded: true,
       variant: 'INPUT_OBJECT',
       css: {
         '&::after': {

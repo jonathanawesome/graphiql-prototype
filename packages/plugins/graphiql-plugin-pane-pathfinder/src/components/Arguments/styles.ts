@@ -44,7 +44,7 @@ export const StyledArgumentsLeadWrap = styled('div', {
 
 export const StyledArgumentsContent = styled('div', {
   width: `100%`,
-  display: `none`,
+  // display: `none`,
   paddingLeft: theme.space[5],
   marginTop: theme.space[1],
   marginLeft: 6,
@@ -61,12 +61,12 @@ export const StyledArgumentsContent = styled('div', {
     hairlineL: theme.colors.pink_default,
   },
 
-  variants: {
-    isExpanded: {
-      true: { display: 'block', marginBottom: theme.space[3] },
-      false: { display: 'none' },
-    },
-  },
+  // variants: {
+  //   isExpanded: {
+  //     true: { display: 'block', marginBottom: theme.space[3] },
+  //     false: { display: 'none' },
+  //   },
+  // },
 });
 
 export const StyledArgumentsList = styled('ul', {

@@ -15,7 +15,7 @@ import {
   getLocationFromAncestor,
   getRemoveRangeForFieldFromLocation,
   hasSiblingSelections as hasSiblingSelectionsFunc,
-} from '../../utils';
+} from '../utils';
 
 export const handleRemoveField = ({
   ancestors,

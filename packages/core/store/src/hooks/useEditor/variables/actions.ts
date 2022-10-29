@@ -2,15 +2,6 @@ import { GetEditorStore } from '../types';
 import { VariablesActions } from './types';
 
 export const variablesActions = (get: GetEditorStore): VariablesActions => ({
-  getVariables: () => {
-    const activeEditorTab = get().getActiveTab();
-    try {
-      return JSON.parse(activeEditorTab.variablesModel.getValue());
-    } catch (e) {
-      console.warn(e);
-      return {};
-    }
-  },
   updateVariable: async ({ onInputObject, variableName, variableValue }) => {
     const pushEdit = get().pushEdit;
     const monacoEditors = get().monacoEditors;
@@ -52,6 +43,7 @@ export const variablesActions = (get: GetEditorStore): VariablesActions => ({
     return pushEdit({
       edits: [
         {
+          range: 'FULL_MODEL_RANGE',
           text: newVariablesString,
         },
       ],

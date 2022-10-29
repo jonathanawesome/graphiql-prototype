@@ -61,11 +61,7 @@ export const editorThemeDark: MONACO_EDITOR.IStandaloneThemeData = {
   rules: [
     // operations editor (graphql)
     {
-      foreground: editorColors['dark'].yellow_default,
-      token: 'string.gql',
-    },
-    {
-      foreground: editorColors['dark'].keywords,
+      foreground: editorColors && editorColors['dark'].keywords,
       token: 'string.quote.gql',
     },
     {
@@ -73,11 +69,19 @@ export const editorThemeDark: MONACO_EDITOR.IStandaloneThemeData = {
       token: 'string.invalid.gql',
     },
     {
-      foreground: editorColors['dark'].yellow_default,
+      foreground: editorColors && editorColors['dark'].yellow_default,
+      token: 'string.gql',
+    },
+    {
+      foreground: editorColors && editorColors['dark'].yellow_default,
       token: 'number.gql',
     },
     {
-      foreground: editorColors['dark'].keywords,
+      foreground: editorColors && editorColors['dark'].yellow_default,
+      token: 'number.float.gql',
+    },
+    {
+      foreground: editorColors && editorColors['dark'].keywords,
       token: 'keyword.gql',
     },
     {
@@ -176,11 +180,7 @@ export const editorThemeLight: MONACO_EDITOR.IStandaloneThemeData = {
   rules: [
     // operations editor (graphql)
     {
-      foreground: editorColors['light'].delimiters,
-      token: 'string.gql',
-    },
-    {
-      foreground: editorColors['light'].keywords,
+      foreground: editorColors && editorColors['light'].keywords,
       token: 'string.quote.gql',
     },
     {
@@ -188,12 +188,16 @@ export const editorThemeLight: MONACO_EDITOR.IStandaloneThemeData = {
       token: 'string.invalid.gql',
     },
     {
-      foreground: editorColors['light'].values,
+      foreground: editorColors && editorColors['light'].yellow_default,
+      token: 'string.gql',
+    },
+    {
+      foreground: editorColors && editorColors['light'].yellow_default,
       token: 'number.gql',
     },
     {
-      foreground: editorColors['light'].keywords,
-      token: 'keyword.gql',
+      foreground: editorColors && editorColors['light'].yellow_default,
+      token: 'number.float.gql',
     },
     {
       foreground: editorColors['light'].operators,
