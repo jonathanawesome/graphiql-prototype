@@ -1,8 +1,5 @@
-import { Location, Token, TokenKind } from 'graphql';
+import { Location, TokenKind } from 'graphql';
 import { IRange } from 'monaco-editor';
-
-// store
-import { EditorEdit } from '@graphiql-prototype/store';
 
 // utils
 import { findNextTokenKindInLocation } from './findNextTokenKindInLocation';

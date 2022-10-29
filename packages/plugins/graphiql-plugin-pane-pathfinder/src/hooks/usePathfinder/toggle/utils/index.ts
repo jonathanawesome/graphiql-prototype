@@ -6,21 +6,9 @@ export { generateVariableText } from './generateVariableText';
 
 export { getActiveDefinitionRange } from './getActiveDefinitionRange';
 
-export { getAddArgumentEdit } from './getAddArgumentEdit';
-
-export { getAddArgumentEditWithoutSiblings } from './getAddArgumentEditWithoutSiblings';
-
-export { getAddArgumentEditWithSiblings } from './getAddArgumentEditWithSiblings';
-
 export { getAddEdit } from './getAddEdit';
 
 export { getAddRangeForFieldFromLocation } from './getAddRangeForFieldFromLocation';
-
-export { getAddVariableEditWithExistingVariables } from './getAddVariableEditWithExistingVariables';
-
-export { getAddVariableEditWithoutExistingVariables } from './getAddVariableEditWithoutExistingVariables';
-
-export { getAddVariableEdit } from './getAddVariableEdit';
 
 export { getAncestorText } from './getAncestorText';
 
@@ -41,8 +29,6 @@ export { getRootAncestor } from './getRootAncestor';
 export { getSelectedArgumentsCount } from './getSelectedArgumentsCount';
 
 export { getVariableDefinitionsCount } from './getVariableDefinitionsCount';
-
-export { hasSiblingArguments } from './hasSiblingArguments';
 
 export { hasSiblingSelections } from './hasSiblingSelections';
 
