@@ -4,7 +4,7 @@ import { Location, TokenKind } from 'graphql';
 import { EditorEdit } from '@graphiql-prototype/store';
 
 // utils
-import { findNextTokenKindInLocation } from './findNexttokenKindInLocation';
+import { findNextTokenKindInLocation } from './findNextTokenKindInLocation';
 
 export const getAddVariableEditWithExistingVariables = ({
   variableTargetLocation,
