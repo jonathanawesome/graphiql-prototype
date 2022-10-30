@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 // components
 import { GraphiQLEditor } from '@graphiql-prototype/editor';
+import { Navigation } from '../Navigation';
 import { PanePlugins } from '../PanePlugins';
 import { globalStyles, Resizer } from '@graphiql-prototype/ui-library';
 
@@ -11,10 +12,10 @@ import { useSchema } from '@graphiql-prototype/store';
 import { useTheme } from '@graphiql-prototype/ui-library';
 
 // styles
-import { GraphiQLWrap, PaneWrap } from './styles';
+import { StyledGraphiQLWrap, StyledPaneWrap } from './styles';
 
 // types
-import type { PanePluginsArray } from '../PanePlugins/types';
+import type { PanePluginsArray } from '../../types';
 
 type GraphiQLProps = {
   panePlugins: PanePluginsArray;
@@ -35,19 +36,20 @@ export const GraphiQL = ({ panePlugins }: GraphiQLProps) => {
   }, []);
 
   return (
-    <GraphiQLWrap className={themeClass()}>
+    <StyledGraphiQLWrap className={themeClass()}>
+      <Navigation panePlugins={panePlugins} />
       <Resizer
         direction="HORIZONTAL"
         handlePosition="RIGHT"
         pane1={{
           component: (
-            <PaneWrap schemaLoading={schemaLoading}>
+            <StyledPaneWrap schemaLoading={schemaLoading}>
               <PanePlugins activePane={activePanePlugin} panePlugins={panePlugins} />
-            </PaneWrap>
+            </StyledPaneWrap>
           ),
         }}
         pane2={{ component: <GraphiQLEditor />, initialWidthPercentage: 70 }}
       />
-    </GraphiQLWrap>
+    </StyledGraphiQLWrap>
   );
 };

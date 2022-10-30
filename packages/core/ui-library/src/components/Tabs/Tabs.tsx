@@ -36,7 +36,7 @@ export const Tabs = ({
         setSelectedTab={setSelectedTab}
         tabbedContent={tabbedContent}
       />
-      <TabPanels selectedTab={selectedTab} tabbedContent={tabbedContent} />
+      {/* <TabPanels selectedTab={selectedTab} tabbedContent={tabbedContent} /> */}
     </StyledTabs>
   );
 };

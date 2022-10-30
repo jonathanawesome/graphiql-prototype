@@ -5,10 +5,10 @@ export const Handle = styled('div', {
   width: theme.space[2],
   zIndex: 2,
   flexShrink: 0,
-  backgroundColor: theme.colors.surface1,
-  borderLeft: `1px solid ${theme.colors.surface3}`,
-  borderRight: `1px solid ${theme.colors.surface3}`,
-  // hairlineX: theme.colors.surface3,
+  // backgroundColor: theme.colors.surface1,
+  // borderLeft: `1px solid ${theme.colors.surface3}`,
+  // borderRight: `1px solid ${theme.colors.surface3}`,
+  hairlineX: theme.colors.surface3,
 
   '&::after': {
     content: '',

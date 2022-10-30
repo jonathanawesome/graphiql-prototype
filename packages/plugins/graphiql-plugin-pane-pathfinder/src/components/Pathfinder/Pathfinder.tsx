@@ -2,7 +2,7 @@ import { Kind, OperationTypeNode } from 'graphql';
 
 // components
 import { QuickDocs, RootOperation } from '../index';
-import { Message, Tabs } from '@graphiql-prototype/ui-library';
+import { Button, Message, Tabs } from '@graphiql-prototype/ui-library';
 
 // hooks
 import { useEditor } from '@graphiql-prototype/store';
@@ -15,8 +15,8 @@ import { SchemaReferenceProvider } from '@graphiql-prototype/graphiql-plugin-sch
 import {
   StyledContainer,
   StyledPathfinder,
-  StyledPathfinderContainer,
   StyledPathfinderContent,
+  StyledPathfinderLead,
 } from './styles';
 
 export const Pathfinder = () => {
@@ -41,90 +41,98 @@ export const Pathfinder = () => {
   return (
     <SchemaReferenceProvider>
       <StyledPathfinder>
-        <StyledPathfinderContainer>
-          <StyledPathfinderContent>
-            <Tabs
-              initialSelectedTab={
-                activeDefinition?.kind === Kind.OPERATION_DEFINITION
-                  ? activeDefinition?.operation
-                  : 'query'
-              }
-              ariaLabel="root operations types and fragments"
-              tabbedContent={[
-                {
-                  name: 'Query',
-                  panel: (
-                    <RootOperation
-                      ancestors={[
-                        {
-                          type: 'ROOT',
-                          operationType: OperationTypeNode.QUERY,
-                          operationDefinition,
-                        },
-                      ]}
-                      fields={schema.getQueryType()?.getFields()}
+        <StyledPathfinderLead>
+          <span>Pathfinder</span>
+          <Button
+            action={() => undefined}
+            icon="Gear"
+            label="Pathfinder options"
+            size="MEDIUM"
+            style="ICON"
+          />
+        </StyledPathfinderLead>
+        <StyledPathfinderContent>
+          <Tabs
+            initialSelectedTab={
+              activeDefinition?.kind === Kind.OPERATION_DEFINITION
+                ? activeDefinition?.operation
+                : 'query'
+            }
+            ariaLabel="root operations types and fragments"
+            tabbedContent={[
+              {
+                name: 'Query',
+                panel: (
+                  <RootOperation
+                    ancestors={[
+                      {
+                        type: 'ROOT',
+                        operationType: OperationTypeNode.QUERY,
+                        operationDefinition,
+                      },
+                    ]}
+                    fields={schema.getQueryType()?.getFields()}
+                  />
+                ),
+                panelId: 'query',
+                tabId: 'query',
+              },
+              {
+                name: 'Mutation',
+                panel: (
+                  <RootOperation
+                    ancestors={[
+                      {
+                        type: 'ROOT',
+                        operationType: OperationTypeNode.MUTATION,
+                        operationDefinition,
+                      },
+                    ]}
+                    fields={schema.getMutationType()?.getFields()}
+                  />
+                ),
+                panelId: 'mutation',
+                tabId: 'mutation',
+              },
+              {
+                name: 'Subscription',
+                panel: (
+                  <RootOperation
+                    ancestors={[
+                      {
+                        type: 'ROOT',
+                        operationType: OperationTypeNode.SUBSCRIPTION,
+                        operationDefinition,
+                      },
+                    ]}
+                    fields={schema.getSubscriptionType()?.getFields()}
+                  />
+                ),
+                panelId: 'subscription',
+                tabId: 'subscription',
+              },
+              {
+                name: 'Fragments',
+                panel: (
+                  <StyledContainer>
+                    <Message
+                      message={
+                        <>
+                          This is a placeholder/idea for saving fragments for reuse across
+                          tabs/operations. Maybe it doesn't belong here and should be a
+                          plugin.
+                        </>
+                      }
+                      variant="WARNING"
                     />
-                  ),
-                  panelId: 'query',
-                  tabId: 'query',
-                },
-                {
-                  name: 'Mutation',
-                  panel: (
-                    <RootOperation
-                      ancestors={[
-                        {
-                          type: 'ROOT',
-                          operationType: OperationTypeNode.MUTATION,
-                          operationDefinition,
-                        },
-                      ]}
-                      fields={schema.getMutationType()?.getFields()}
-                    />
-                  ),
-                  panelId: 'mutation',
-                  tabId: 'mutation',
-                },
-                {
-                  name: 'Subscription',
-                  panel: (
-                    <RootOperation
-                      ancestors={[
-                        {
-                          type: 'ROOT',
-                          operationType: OperationTypeNode.SUBSCRIPTION,
-                          operationDefinition,
-                        },
-                      ]}
-                      fields={schema.getSubscriptionType()?.getFields()}
-                    />
-                  ),
-                  panelId: 'subscription',
-                  tabId: 'subscription',
-                },
-                {
-                  name: 'Fragments',
-                  panel: (
-                    <StyledContainer>
-                      <Message
-                        message={
-                          <>
-                            This is a placeholder/idea for saving fragments for reuse
-                            across tabs/operations. Maybe it doesn't belong here and
-                            should be a plugin.
-                          </>
-                        }
-                        variant="WARNING"
-                      />
-                    </StyledContainer>
-                  ),
-                  panelId: 'fragments',
-                  tabId: 'fragments',
-                },
-              ]}
-            />
-          </StyledPathfinderContent>
-        </StyledPathfinderContainer>
+                  </StyledContainer>
+                ),
+                panelId: 'fragments',
+                tabId: 'fragments',
+              },
+            ]}
+          />
+        </StyledPathfinderContent>
         <QuickDocs />
       </StyledPathfinder>
     </SchemaReferenceProvider>

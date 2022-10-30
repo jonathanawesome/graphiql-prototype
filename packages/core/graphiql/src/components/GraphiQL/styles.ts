@@ -1,15 +1,15 @@
 import { styled, theme } from '@graphiql-prototype/ui-library';
 
-export const GraphiQLWrap = styled('div', {
+export const StyledGraphiQLWrap = styled('div', {
   backgroundColor: theme.colors.surface1,
   height: '100%',
   width: '100%',
-  // display: 'grid',
-  // gridTemplateColumns: '60px 1fr',
+  display: 'grid',
+  gridTemplateColumns: '60px 1fr',
   overflow: 'hidden',
 });
 
-export const PaneWrap = styled('div', {
+export const StyledPaneWrap = styled('div', {
   width: `100%`,
   display: 'flex',
   flexDirection: 'column',

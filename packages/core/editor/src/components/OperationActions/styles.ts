@@ -22,9 +22,9 @@ export const StyledPlayButton = styled('button', {
   alignItems: `center`,
   gap: theme.space[2],
   border: `1px solid ${theme.colors.surface3}`,
-  borderRadius: 4,
-  paddingRight: 8,
-  paddingLeft: 8,
+  borderRadius: theme.space[1],
+  paddingRight: theme.space[2],
+  paddingLeft: theme.space[2],
 
   '& svg': {
     height: theme.space[2],
@@ -41,6 +41,8 @@ export const StyledPlayButton = styled('button', {
         opacity: 0.5,
       },
       false: {
+        border: `1px solid ${theme.colors.text4}`,
+
         '&:hover': {
           border: `1px solid transparent`,
           backgroundColor: theme.colors.surface3,

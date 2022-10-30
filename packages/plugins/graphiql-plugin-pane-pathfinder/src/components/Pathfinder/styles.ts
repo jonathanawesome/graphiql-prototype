@@ -6,29 +6,22 @@ export const StyledPathfinder = styled('div', {
   width: '100%',
   backgroundColor: theme.colors.surface1,
   color: theme.colors.text2,
+  // paddingLeft: theme.space[5],
+  // paddingRight: theme.space[5],
+  padding: theme.space[5],
 });
 
-export const StyledPathfinderContainer = styled('div', {
-  overflow: `hidden`,
+export const StyledPathfinderLead = styled('div', {
   position: 'relative',
-  height: '100%',
-  width: '100%',
-  transition: 'all .1s $authenticMotion',
-
-  // variants: {
-  //   dialogActive: {
-  //     false: {
-  //       visibility: 'visible',
-  //       opacity: '1',
-  //       transform: 'scale(1)',
-  //     },
-  //     true: {
-  //       visibility: 'hidden',
-  //       opacity: '0',
-  //       transform: 'scale(0.98)',
-  //     },
-  //   },
-  // },
+  // height: theme.space[12],
+  display: `flex`,
+  alignItems: `center`,
+  justifyContent: `space-between`,
+  fontSize: 18,
+  // fontWeight: 600,
+  paddingBottom: theme.space[4],
+  marginBottom: theme.space[3],
+  hairlineB: theme.colors.surface3,
 });
 
 export const StyledPathfinderContent = styled('div', {

@@ -41,7 +41,7 @@ export const OperationActions = () => {
     <StyledOperationActions>
       <StyledPlayButton
         onClick={() => {
-          executeOperation();
+          activeDefinition ? executeOperation() : undefined;
         }}
         isDisabled={!activeDefinition}
       >
