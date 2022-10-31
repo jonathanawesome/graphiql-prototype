@@ -63,6 +63,7 @@ export const Handle = styled('div', {
 });
 
 export const Pane1 = styled('div', {
+  minWidth: 200,
   // display: 'flex',
   // flexGrow: 1,
   // flexShrink: 1,
@@ -70,6 +71,8 @@ export const Pane1 = styled('div', {
 });
 
 export const Pane2 = styled('div', {
+  minWidth: 200,
+
   // display: 'flex',
   // flexGrow: 0,
   // flexShrink: 0,

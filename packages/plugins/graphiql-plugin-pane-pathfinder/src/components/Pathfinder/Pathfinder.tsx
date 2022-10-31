@@ -18,9 +18,40 @@ import {
   StyledPathfinderContent,
   StyledPathfinderLead,
 } from './styles';
+import { useState } from 'react';
 
+const DisclosureItem = () => {
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  return (
+    <div>
+      <button
+        onClick={() => {
+          setIsExpanded(!isExpanded);
+        }}
+      >
+        Query 👇
+      </button>
+      {isExpanded && (
+        <RootOperation
+          ancestors={[
+            {
+              type: 'ROOT',
+              operationType: OperationTypeNode.QUERY,
+              operationDefinition,
+            },
+          ]}
+          fields={schema.getQueryType()?.getFields()}
+        />
+      )}
+    </div>
+  );
+};
 export const Pathfinder = () => {
   const activeDefinition = useEditor((state) => state.activeDefinition);
+
+  const [activeRootOperationType, setActiveRootOperationType] = useState<string | null>(
+    null
+  );
 
   const { schema } = useSchema();
 
@@ -52,7 +83,55 @@ export const Pathfinder = () => {
           />
         </StyledPathfinderLead>
         <StyledPathfinderContent>
-          <Tabs
+          <div>
+            <div>
+              <button
+                onClick={() => {
+                  activeRootOperationType === 'Query'
+                    ? setActiveRootOperationType(null)
+                    : setActiveRootOperationType('Query');
+                }}
+              >
+                Query 👇
+              </button>
+              {activeRootOperationType === 'Query' && (
+                <RootOperation
+                  ancestors={[
+                    {
+                      type: 'ROOT',
+                      operationType: OperationTypeNode.QUERY,
+                      operationDefinition,
+                    },
+                  ]}
+                  fields={schema.getQueryType()?.getFields()}
+                />
+              )}
+            </div>
+            <div>
+              <button
+                onClick={() => {
+                  activeRootOperationType === 'Mutation'
+                    ? setActiveRootOperationType(null)
+                    : setActiveRootOperationType('Mutation');
+                }}
+              >
+                Mutation 👇
+              </button>
+              {activeRootOperationType === 'Mutation' && (
+                <RootOperation
+                  ancestors={[
+                    {
+                      type: 'ROOT',
+                      operationType: OperationTypeNode.MUTATION,
+                      operationDefinition,
+                    },
+                  ]}
+                  fields={schema.getMutationType()?.getFields()}
+                />
+              )}
+            </div>
+          </div>
+          {/* <Tabs
             initialSelectedTab={
               activeDefinition?.kind === Kind.OPERATION_DEFINITION
                 ? activeDefinition?.operation
@@ -131,7 +210,7 @@ export const Pathfinder = () => {
                 tabId: 'fragments',
               },
             ]}
-          />
+          /> */}
         </StyledPathfinderContent>
         <QuickDocs />
       </StyledPathfinder>

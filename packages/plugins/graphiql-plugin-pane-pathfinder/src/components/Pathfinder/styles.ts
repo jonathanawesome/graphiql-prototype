@@ -29,6 +29,7 @@ export const StyledPathfinderContent = styled('div', {
   width: '100%',
   padding: 0,
   margin: 0,
+  overflowY: `auto`,
 });
 
 export const StyledContainer = styled('div', {

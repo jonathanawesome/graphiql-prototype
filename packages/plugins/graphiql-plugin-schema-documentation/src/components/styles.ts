@@ -17,7 +17,7 @@ export const StyledSchemaNavigationButton = styled('button', {
   textAlign: `center`,
   paddingLeft: theme.space[6],
   paddingRight: theme.space[6],
-  color: theme.colors.text3,
+  color: theme.colors.text4,
   fontSize: 14,
   whiteSpace: `nowrap`,
 
@@ -39,21 +39,23 @@ export const StyledSchemaNavigationButton = styled('button', {
     isActive: {
       true: {
         color: theme.colors.text2,
+        backgroundColor: theme.colors.surface2,
+
         '&:hover': {
           backgroundColor: theme.colors.surface2,
           height: `100%`,
           paddingTop: 0,
         },
 
-        '&:after': {
-          content: ``,
-          position: `absolute`,
-          bottom: -1,
-          left: 0,
-          width: `100%`,
-          height: 2,
-          backgroundColor: theme.colors.green_default,
-        },
+        // '&:after': {
+        //   content: ``,
+        //   position: `absolute`,
+        //   bottom: -1,
+        //   left: 0,
+        //   width: `100%`,
+        //   height: 2,
+        //   backgroundColor: theme.colors.green_default,
+        // },
       },
     },
   },
@@ -70,6 +72,8 @@ export const StyledSchema = styled('div', {
 
 export const StyledSchemaReference = styled('div', {
   color: theme.colors.text3,
+  backgroundColor: theme.colors.surface2,
+
   height: `100%`,
   width: `100%`,
   position: 'relative',
@@ -83,14 +87,17 @@ export const StyledBreadcrumb = styled('div', {
   alignItems: `center`,
   flexGrow: 0,
   flexShrink: 0,
-  color: theme.colors.text3,
-  paddingLeft: padding,
-  paddingRight: padding,
+  color: theme.colors.text4,
+  marginLeft: theme.space[3],
+  marginRight: theme.space[3],
+  paddingLeft: theme.space[3],
+  paddingRight: theme.space[3],
   height: theme.space[10],
   width: `100%`,
   // borderBottom: border,
   hairlineB: theme.colors.surface3,
   fontSize: 12,
+  fontStyle: `italic`,
 });
 
 export const StyledBreadcrumbArrow = styled('span', {
@@ -311,7 +318,7 @@ export const StyledTabButton = styled('button', {
         color: theme.colors.text1,
 
         '&:after': {
-          backgroundColor: theme.colors.green_default,
+          // backgroundColor: theme.colors.green_default,
         },
       },
     },
@@ -444,7 +451,9 @@ export const StyledNullThing = styled('div', {
   color: theme.colors.text2,
 });
 
-export const SchemaDefinitionStyled = styled('div', {
+export const StyledSchemaDefinition = styled('div', {
+  backgroundColor: theme.colors.surface2,
+
   height: `100%`,
   width: `100%`,
   position: 'relative',
