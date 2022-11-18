@@ -17,8 +17,8 @@ jobs:
 
       - name: Install, run tsc, and build reference app 🔧 
         run: |
-          pnpm i
-          pnpm tsc
+          pnpm install
+          pnpm types:check
           pnpm ref:build
 
       - name: Deploy 🚀

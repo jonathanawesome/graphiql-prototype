@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "index.ts",
   "scripts": {
-    "tsc": "tsc --noEmit"
+    "types:check": "tsc --noEmit"
   },
   "dependencies": {
     "@graphiql/toolkit": "^0.6.0",
