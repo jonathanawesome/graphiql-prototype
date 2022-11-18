@@ -36,7 +36,7 @@ const TestEnum = new GraphQLEnumType({
   },
 });
 
-const TestInputObject = new GraphQLInputObjectType({
+const TestInputObject: GraphQLInputObjectType = new GraphQLInputObjectType({
   name: 'TestInput',
   description: 'Test all sorts of inputs in this input object type.',
   fields: () => ({
@@ -73,7 +73,7 @@ const TestInputObject = new GraphQLInputObjectType({
   }),
 });
 
-const TestInterface = new GraphQLInterfaceType({
+const TestInterface: GraphQLInterfaceType = new GraphQLInterfaceType({
   name: 'TestInterface',
   description: 'Test interface.',
   fields: () => ({
@@ -82,6 +82,7 @@ const TestInterface = new GraphQLInterfaceType({
       description: 'Common name string.',
     },
   }),
+  // @ts-expect-error resolveType
   resolveType: (check) => {
     return check ? UnionFirst : UnionSecond;
   },
@@ -124,6 +125,7 @@ const UnionSecond = new GraphQLObjectType({
 const TestUnion = new GraphQLUnionType({
   name: 'TestUnion',
   types: [UnionFirst, UnionSecond],
+  // @ts-expect-error resolveType
   resolveType() {
     return UnionFirst;
   },
@@ -165,7 +167,7 @@ const DeferrableObject = new GraphQLObjectType({
   },
 });
 
-const Person = new GraphQLObjectType({
+const Person: GraphQLObjectType = new GraphQLObjectType({
   name: 'Person',
   fields: () => ({
     name: {
@@ -184,6 +186,7 @@ const Person = new GraphQLObjectType({
     },
     friends: {
       type: new GraphQLList(Person),
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       async *resolve(_value, args) {
         const names = ['James', 'Mary', 'John', 'Patrica']; // Top 4 names https://www.ssa.gov/oact/babynames/decades/century.html
         for (const name of names) {
@@ -195,6 +198,7 @@ const Person = new GraphQLObjectType({
   }),
 });
 
+// @ts-expect-error timeout
 const sleep = async (timeout) => new Promise((res) => setTimeout(res, timeout));
 
 export const TestType: GraphQLObjectType = new GraphQLObjectType({
