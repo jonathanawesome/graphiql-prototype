@@ -5,7 +5,11 @@ import pluginReact from '@vitejs/plugin-react';
 
 export default defineConfig(() => {
   return {
-    plugins: [pluginReact()],
+    resolve: {
+      alias: {
+        '@graphiql-prototype/ui-library': '../ui-library/src/index.ts',
+      },
+    },
     build: {
       lib: {
         entry: 'src/index.ts',
@@ -33,5 +37,6 @@ export default defineConfig(() => {
         },
       },
     },
+    plugins: [pluginReact()],
   };
 });
