@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
   GraphQLArgument,
+  GraphQLSchema,
   isEnumType,
   isListType,
   isNonNullType,
@@ -14,7 +15,7 @@ import { Toggler } from '../Toggler';
 
 // hooks
 import { AncestorArgument, AncestorField, AncestorsArray } from '../../hooks';
-import { useEditor } from '@graphiql-prototype/store';
+import { useEditor, useSchema } from '@graphiql-prototype/store';
 
 // styles
 import { StyledContainer, StyledError, StyledScalarArgWrap } from './styles';
@@ -37,6 +38,8 @@ export const ScalarArg = ({
   argument: GraphQLArgument;
   onInputType: string | null;
 }) => {
+  const schema = useSchema().schema;
+
   const variablesModel = useEditor((state) => state.monacoEditors.variables?.getModel());
   const updateVariable = useEditor((state) => state.updateVariable);
 
@@ -178,6 +181,7 @@ export const ScalarArg = ({
             options:
               getEnumValues({
                 enumTypeName: typeName,
+                schema: schema as GraphQLSchema,
               }) || [],
             placeholder: typeName,
             value: inputValue,
@@ -213,6 +217,7 @@ export const ScalarArg = ({
           options:
             getEnumValues({
               enumTypeName: unwrappedType.name,
+              schema: schema as GraphQLSchema,
             }) || [],
           placeholder: unwrappedType.name,
           value: inputValue,

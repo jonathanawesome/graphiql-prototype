@@ -1,15 +1,12 @@
-import { isEnumType } from 'graphql';
-
-// hooks
-import { useSchema } from '@graphiql-prototype/store';
+import { GraphQLSchema, isEnumType } from 'graphql';
 
 export const getEnumValues = ({
   enumTypeName,
+  schema,
 }: {
   enumTypeName: string;
+  schema: GraphQLSchema;
 }): Array<{ name: string; value: string }> | undefined => {
-  const schema = useSchema.getState().schema;
-
   if (!schema || 'error' in schema) {
     return undefined;
   }

@@ -1,11 +1,13 @@
-import { Location } from 'graphql';
+import { GraphQLSchema, Location } from 'graphql';
 
 // constants
 import { TARGET_EDITOR } from '../constants';
 
 // hooks
-import { EditorEdit, useEditor } from '@graphiql-prototype/store';
 import { usePathfinder } from '../usePathfinder';
+
+// store
+import { EditorEdit, useEditor, useSchema } from '@graphiql-prototype/store';
 
 // types
 import { AncestorArgument, AncestorField, AncestorRoot } from '../types';
@@ -30,6 +32,8 @@ export const addTargetArgument = ({
 }) => {
   const argumentHandlingMode = usePathfinder.getState().argumentHandlingMode;
 
+  const schema = useSchema.getState().schema;
+
   const pushEdit = useEditor.getState().pushEdit;
 
   const edits: EditorEdit[] = [];
@@ -43,6 +47,7 @@ export const addTargetArgument = ({
 
   const argumentText = generateArgumentText({
     argument: target.argument,
+    schema: schema as GraphQLSchema,
   });
 
   const selectedArgumentsCount = getSelectedArgumentsCount({ previousAncestor });

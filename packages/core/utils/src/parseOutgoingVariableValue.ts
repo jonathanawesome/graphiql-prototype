@@ -4,7 +4,8 @@ export const parseOutgoingVariableValue = ({
 }: {
   typeNameValue: string;
   value: string | string[];
-}) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+}): any => {
   if (Array.isArray(value)) {
     // filter out empty values before parsing
     return value
