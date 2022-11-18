@@ -28,8 +28,8 @@ lerna-debug.log*
 *.tsbuildinfo
 
 # build
-/apps/ladle/build
-/apps/reference/dist
+build
+dist
 
 # prisma
 /apps/api/src/prisma/generated

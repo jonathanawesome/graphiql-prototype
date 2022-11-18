@@ -7,7 +7,6 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "noImplicitAny": false,
-    "skipLibCheck": true,
     "strict": true,
     "target": "ESNext",
   }
