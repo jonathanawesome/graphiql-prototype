@@ -198,7 +198,6 @@ const Person: GraphQLObjectType = new GraphQLObjectType({
   }),
 });
 
-// @ts-expect-error timeout
 const sleep = async (timeout) => new Promise((res) => setTimeout(res, timeout));
 
 export const TestType: GraphQLObjectType = new GraphQLObjectType({

@@ -5,7 +5,7 @@ export default defineConfig(() => {
     build: {
       lib: {
         entry: 'src/index.ts',
-        fileName: 'graphiql-prototype-store',
+        fileName: 'graphiql-prototype-core-store',
         formats: ['cjs', 'es'],
       },
       rollupOptions: {

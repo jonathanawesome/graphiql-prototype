@@ -4,18 +4,17 @@
   "types": "./dist/types/index.d.ts",
   "type": "module",
   "files": ["dist"],
-  "main": "./dist/graphiql-prototype-store.cjs",
-  "module": "./dist/graphiql-prototype-store.js",
+  "main": "./dist/graphiql-prototype-core-store.cjs",
+  "module": "./dist/graphiql-prototype-core-store.js",
   "exports": {
     ".": {
-      "import": "./dist/graphiql-prototype-store.js",
-      "require": "./dist/graphiql-prototype-store.cjs"
+      "import": "./dist/graphiql-prototype-core-store.js",
+      "require": "./dist/graphiql-prototype-core-store.cjs"
     }
   },
   "scripts": {
-    "build-tsc": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json",
     "build": "vite build && tsc --build tsconfig-build.json",
-    "tsc": "tsc --noEmit"
+    "types:check": "tsc --noEmit"
   },
   "dependencies": {
     "@graphiql-prototype/utils": "workspace:*",
