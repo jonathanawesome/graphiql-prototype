@@ -14,6 +14,10 @@ export default defineConfig(() => {
       rollupOptions: {
         external: [
           '@graphiql-prototype/store',
+          '@graphiql-prototype/ui-library',
+          '@graphiql-prototype/graphiql-plugin-schema-documentation',
+          '@graphiql-prototype/utils',
+          '@radix-ui/react-radio-group',
           'monaco-editor',
           'graphql',
           'react',

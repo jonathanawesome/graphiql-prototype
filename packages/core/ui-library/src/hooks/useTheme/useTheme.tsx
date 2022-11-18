@@ -11,7 +11,6 @@ export const useTheme = create<ThemeStore>((set, get) => ({
   themeMode: 'DARK',
   themeClass: () => {
     const themeMode = get().themeMode;
-    console.log('tst');
     return themeMode === 'DARK' ? darkTheme : theme;
   },
   toggleThemeMode: ({ mode }) => {
