@@ -1,12 +1,23 @@
 {
   "name": "@graphiql-prototype/store",
   "version": "0.0.1",
-  "main": "index.ts",
+  "types": "./dist/types/index.d.ts",
+  "type": "module",
+  "files": ["dist"],
+  "main": "./dist/graphiql-prototype-store.cjs",
+  "module": "./dist/graphiql-prototype-store.js",
+  "exports": {
+    ".": {
+      "import": "./dist/graphiql-prototype-store.js",
+      "require": "./dist/graphiql-prototype-store.cjs"
+    }
+  },
   "scripts": {
+    "build-tsc": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json",
+    "build": "vite build && tsc --build tsconfig-build.json",
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@graphiql-prototype/editor": "workspace:*",
     "@graphiql-prototype/utils": "workspace:*",
     "cuid": "^2.1.8",
     "graphql": "^16.5.0",
@@ -17,6 +28,10 @@
     "zustand": "4.1.1"
   },
   "devDependencies": {
-    "@types/react": "18.0.21"
-  }    
+    "@rollup/plugin-typescript": "^9.0.2",
+    "@types/react": "18.0.21",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "vite": "3.0.2",
+    "vite-plugin-dts": "^1.7.1"
+  }
 }
