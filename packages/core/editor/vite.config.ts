@@ -5,11 +5,6 @@ import pluginReact from '@vitejs/plugin-react';
 
 export default defineConfig(() => {
   return {
-    resolve: {
-      alias: {
-        '@graphiql-prototype/ui-library': '../ui-library/src/index.ts',
-      },
-    },
     build: {
       lib: {
         entry: 'src/index.ts',

@@ -30,6 +30,10 @@ lerna-debug.log*
 # build
 build
 dist
+.next/**
 
 # prisma
 /apps/api/src/prisma/generated
+
+# turbo
+.turbo

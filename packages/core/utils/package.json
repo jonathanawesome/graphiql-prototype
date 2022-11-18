@@ -6,7 +6,6 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@graphiql-prototype/ui-library": "workspace:*",
     "@graphiql/toolkit": "^0.6.0",
     "graphql": "^16.5.0",
     "graphql-ws": "^5.11.2",
