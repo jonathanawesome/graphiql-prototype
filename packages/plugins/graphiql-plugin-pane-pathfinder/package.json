@@ -27,11 +27,11 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/react": "18.0.21",
     "@types/testing-library__jest-dom": "^5.14.5",
-    "@vitejs/plugin-react": "^2.1.0",
+    "@vitejs/plugin-react": "^2.2.0",
     "happy-dom": "^7.6.6",
     "jest-canvas-mock": "^2.4.0",
     "jsdom": "^20.0.1",
-    "vite": "3.0.2",
+    "vite": "3.2.4",
     "vitest": "0.25.2"
   }
 }

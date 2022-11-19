@@ -8,11 +8,11 @@ export default defineConfig(() => {
     build: {
       lib: {
         entry: 'src/index.ts',
-        fileName: 'graphiql-prototype-core-ui-library',
+        fileName: 'graphiql-prototype-plugin-pane-history',
         formats: ['cjs', 'es'],
       },
       rollupOptions: {
-        external: ['@graphiql-prototype/store', 'monaco-editor', 'react', 'react-dom'],
+        external: ['@graphiql-prototype/ui-library', 'react'],
       },
     },
     plugins: [pluginReact()],
