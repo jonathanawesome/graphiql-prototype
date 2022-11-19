@@ -1,6 +1,7 @@
 import {
   ArgumentNode,
   GraphQLArgument,
+  GraphQLSchema,
   isEnumType,
   isListType,
   isScalarType,
@@ -15,7 +16,13 @@ import { usePathfinder } from '../usePathfinder';
 // utils
 import { getEnumValues, unwrapType } from '@graphiql-prototype/utils';
 
-export const generateArgumentText = ({ argument }: { argument: GraphQLArgument }) => {
+export const generateArgumentText = ({
+  argument,
+  schema,
+}: {
+  argument: GraphQLArgument;
+  schema: GraphQLSchema;
+}) => {
   const argumentHandlingMode = usePathfinder.getState().argumentHandlingMode;
 
   // defaults are set for "WITH_VARIABLE" handling mode
@@ -65,6 +72,7 @@ export const generateArgumentText = ({ argument }: { argument: GraphQLArgument }
     } else if (isEnumType(argument.type)) {
       const enumValues = getEnumValues({
         enumTypeName: argument.type.toString(),
+        schema,
       });
       valueNode = {
         kind: Kind.ENUM,

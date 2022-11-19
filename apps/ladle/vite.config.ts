@@ -1,5 +1,9 @@
+/// <reference types="vite/client" />
+
 import { defineConfig } from 'vite';
+
 import monacoEditorPlugin from 'vite-plugin-monaco-editor';
+import pluginReact from '@vitejs/plugin-react';
 
 export default defineConfig(({ command }) => {
   return {
@@ -8,6 +12,7 @@ export default defineConfig(({ command }) => {
       open: false,
     },
     plugins: [
+      pluginReact(),
       monacoEditorPlugin({
         languageWorkers: ['json', 'editorWorkerService'],
         customWorkers: [

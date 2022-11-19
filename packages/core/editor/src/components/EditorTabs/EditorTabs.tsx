@@ -1,5 +1,8 @@
 // components
-import { Button, Tag } from '@graphiql-prototype/ui-library';
+import {
+  Button,
+  // , Tag
+} from '@graphiql-prototype/ui-library';
 
 // hooks
 import { useEditor } from '@graphiql-prototype/store';

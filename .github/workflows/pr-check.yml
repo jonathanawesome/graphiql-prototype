@@ -16,7 +16,14 @@ jobs:
         with:
           version: 7       
 
-      - name: Install and run tsc
-        run: |
-          pnpm i
-          pnpm tsc
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'pnpm'
+      
+      - name: Install dependencies
+        run: pnpm install          
+      
+      - name: Check types
+        run: pnpm types:check

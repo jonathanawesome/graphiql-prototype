@@ -6,7 +6,7 @@ export const globalStyles = globalCss({
   '*, *:before, *:after': {
     boxSizing: 'border-box',
   },
-  'html, body, #root, #ladle-root': {
+  'html, body, #root': {
     height: '100%',
     width: '100%',
     margin: 0,

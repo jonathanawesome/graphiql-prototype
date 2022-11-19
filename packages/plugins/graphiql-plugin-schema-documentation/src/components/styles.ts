@@ -444,10 +444,17 @@ export const StyledNullThing = styled('div', {
   color: theme.colors.text2,
 });
 
-export const SchemaDefinitionStyled = styled('div', {
+export const StyledSchemaDefinitionWrap = styled('div', {
   height: `100%`,
   width: `100%`,
   position: 'relative',
   paddingTop: padding,
   paddingLeft: theme.space[2],
+  paddingRight: theme.space[2],
+});
+
+export const StyledSchemaDefinition = styled('div', {
+  height: `100%`,
+  width: `100%`,
+  position: 'relative',
 });

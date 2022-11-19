@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "./types",
+    "emitDeclarationOnly": true,
+    "paths": {
+      // TODO: Remove the workaround whenever MS fixes the issue
+      // https://github.com/microsoft/TypeScript/issues/48212
+      "zustand": ["./node_modules/zustand"]
+    }    
+  },
+  "include": ["src"],
+}
+
