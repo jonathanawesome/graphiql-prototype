@@ -2,7 +2,10 @@
 import { TARGET_EDITOR } from '../constants';
 
 // hooks
-import { EditorEdit, useEditor } from '@graphiql-prototype/store';
+import { EditorEdit, useEditor, useSchema } from '@graphiql-prototype/store';
+
+// store
+import { GraphQLSchema } from 'graphql';
 
 // types
 import { AncestorArgument } from '../types';
@@ -11,6 +14,8 @@ import { AncestorArgument } from '../types';
 import { generateArgumentText, generateVariableText, getRemoveRange } from '../utils';
 
 export const removeTargetArgument = ({ target }: { target: AncestorArgument }) => {
+  const schema = useSchema.getState().schema;
+
   const argument = target.argument;
 
   const pushEdit = useEditor.getState().pushEdit;
@@ -22,6 +27,7 @@ export const removeTargetArgument = ({ target }: { target: AncestorArgument }) =
 
   const argumentText = generateArgumentText({
     argument,
+    schema: schema as GraphQLSchema,
   });
 
   const variableText = generateVariableText({

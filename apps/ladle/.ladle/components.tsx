@@ -1,6 +1,5 @@
+import * as React from 'react';
 import type { GlobalProvider } from '@ladle/react';
-
-import React from 'react';
 import { globalStyles, styled } from '@graphiql-prototype/ui-library';
 
 // hooks

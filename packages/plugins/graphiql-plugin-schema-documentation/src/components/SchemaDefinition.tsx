@@ -7,7 +7,7 @@ import { editorOptions, useSchema } from '@graphiql-prototype/store';
 // import {  } from '@graphiql-prototype/store';
 
 // styles
-import { StyledSchemaDefinition } from './styles';
+import { StyledSchemaDefinitionWrap, StyledSchemaDefinition } from './styles';
 
 // utils
 import { getOrCreateModel } from '@graphiql-prototype/utils';
@@ -55,5 +55,9 @@ export const SchemaDefinition = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [schema]);
 
-  return <StyledSchemaDefinition ref={editorRef}></StyledSchemaDefinition>;
+  return (
+    <StyledSchemaDefinitionWrap>
+      <StyledSchemaDefinition ref={editorRef}></StyledSchemaDefinition>
+    </StyledSchemaDefinitionWrap>
+  );
 };

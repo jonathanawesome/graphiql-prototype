@@ -1,4 +1,8 @@
-import { describe, expect, it } from 'vitest';
+import {
+  describe,
+  // expect,
+  it,
+} from 'vitest';
 import { act, render, renderHook, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -6,7 +10,7 @@ import userEvent from '@testing-library/user-event';
 import { Pathfinder } from '../../../components';
 
 // hooks
-import { useEditor } from '@graphiql-prototype/store';
+// import { useEditor } from '@graphiql-prototype/store';
 import { useSchema } from '@graphiql-prototype/store';
 
 beforeEach(async () => {
@@ -39,7 +43,9 @@ beforeEach(async () => {
 });
 
 describe('Pathfinder | Toggler - Argument', () => {
-  it('Argument toggle buttons should respond correctly when clicked', async () => {});
+  it('Argument toggle buttons should respond correctly when clicked', async () => {
+    console.log('TODO!');
+  });
   // it('Argument toggle buttons should respond correctly when clicked', async () => {
   //   // the current state of editor hook
   //   const { result: editorHookResult } = renderHook(() => useEditor());
