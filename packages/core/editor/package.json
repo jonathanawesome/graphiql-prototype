@@ -1,7 +1,7 @@
 {
   "name": "@graphiql-prototype/editor",
   "version": "0.0.1",
-  "types": "./dist/types/index.d.ts",
+  "types": "./types/index.d.ts",
   "type": "module",
   "files": [
     "dist"

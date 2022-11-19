@@ -12,13 +12,7 @@ export default defineConfig(() => {
         formats: ['cjs', 'es'],
       },
       rollupOptions: {
-        external: [
-          '@graphiql-prototype/store',
-          'monaco-editor',
-          'graphql',
-          'react',
-          'react-dom',
-        ],
+        external: ['@graphiql-prototype/store', 'monaco-editor', 'react', 'react-dom'],
         output: {
           chunkFileNames: '[name].[format].js',
           // Provide global variables to use in the UMD build
@@ -27,7 +21,6 @@ export default defineConfig(() => {
             'monaco-editor': 'MonacoEditor',
             react: 'React',
             'react-dom': 'ReactDOM',
-            graphql: 'GraphQL',
           },
         },
       },

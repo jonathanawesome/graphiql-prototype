@@ -5,9 +5,7 @@
     "turbo:build": "turbo run build",
     "ladle:serve": "pnpm --filter ladle serve",
     "packages:build": "pnpm --filter './packages/**' build",
-    "packages:watch": "pnpm --stream​ --parallel --filter './packages/**' watch",
     "ref:dev": "pnpm --filter reference dev",
-    "ref:build": "pnpm --filter reference build",
     "types:check": "pnpm --filter './apps/**' --filter './packages/**' types:check"
   },
   "devDependencies": {
