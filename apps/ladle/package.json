@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "scripts": {
     "serve": "NODE_ENV=development ladle serve",
-    "build": "NODE_ENV=production ladle build",
     "types:check": "tsc --noEmit"
   },
   "dependencies": {
