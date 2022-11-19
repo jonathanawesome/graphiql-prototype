@@ -10,7 +10,7 @@ export const TabPanels = ({ selectedTab, tabbedContent }: TabPanelsProps) => {
       {tabbedContent.map((t) => {
         return (
           <StyledTabPanel
-            key={t.tabId}
+            key={`${t.tabId}-${t.panelId}`}
             aria-labelledby={t.tabId}
             hidden={selectedTab !== t.tabId}
             id={t.panelId}
