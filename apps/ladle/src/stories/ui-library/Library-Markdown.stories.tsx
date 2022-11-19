@@ -1,6 +1,6 @@
 // ladle helper components
-import { FlexCol } from '../components/FlexCol';
-import { FlexRow } from '../components/FlexRow';
+import { FlexCol } from '../../components/FlexCol';
+import { FlexRow } from '../../components/FlexRow';
 
 import { Markdown } from '@graphiql-prototype/ui-library';
 

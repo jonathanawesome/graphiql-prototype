@@ -18,14 +18,6 @@ export default defineConfig(() => {
           '@graphiql-prototype/ui-library',
           'react',
         ],
-        output: {
-          chunkFileNames: '[name].[format].js',
-          // Provide global variables to use in the UMD build
-          // for externalized deps
-          globals: {
-            react: 'React',
-          },
-        },
       },
     },
     plugins: [pluginReact()],

@@ -22,16 +22,6 @@ export default defineConfig(() => {
           'graphql',
           'react',
         ],
-        output: {
-          chunkFileNames: '[name].[format].js',
-          // Provide global variables to use in the UMD build
-          // for externalized deps
-          globals: {
-            'monaco-editor': 'MonacoEditor',
-            react: 'React',
-            graphql: 'GraphQL',
-          },
-        },
       },
     },
     plugins: [pluginReact()],
