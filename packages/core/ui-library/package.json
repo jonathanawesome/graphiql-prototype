@@ -1,11 +1,8 @@
 {
   "name": "@graphiql-prototype/ui-library",
   "version": "0.0.1",
-  "types": "./types/index.d.ts",
   "type": "module",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist", "src", "types"],
   "main": "./dist/graphiql-prototype-core-ui-library.cjs",
   "module": "./dist/graphiql-prototype-core-ui-library.js",
   "exports": {
@@ -14,6 +11,10 @@
       "require": "./dist/graphiql-prototype-core-ui-library.cjs"
     }
   },
+  "types": "./src/index.ts",
+  "publishConfig": {
+    "types": "./types/index.d.ts"
+  },  
   "scripts": {
     "build": "vite build && tsc --build tsconfig-build.json",
     "types:check": "tsc --noEmit",

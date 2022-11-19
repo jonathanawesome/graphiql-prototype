@@ -1,11 +1,8 @@
 {
   "name": "@graphiql-prototype/editor",
   "version": "0.0.1",
-  "types": "./types/index.d.ts",
   "type": "module",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist", "src", "types"],
   "main": "./dist/graphiql-prototype-core-editor.cjs",
   "module": "./dist/graphiql-prototype-core-editor.js",
   "exports": {
@@ -14,6 +11,10 @@
       "require": "./dist/graphiql-prototype-core-editor.cjs"
     }
   },
+  "types": "./src/index.ts",
+  "publishConfig": {
+    "types": "./types/index.d.ts"
+  },    
   "scripts": {
     "build": "vite build && tsc --build tsconfig-build.json",
     "types:check": "tsc --noEmit",
@@ -33,7 +34,6 @@
     "monaco-editor": "^0.33.0",
     "monaco-graphql": "1.1.2",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
     "zustand": "4.1.1"
   },
   "devDependencies": {

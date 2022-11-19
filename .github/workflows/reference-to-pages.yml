@@ -14,12 +14,18 @@ jobs:
         uses: pnpm/action-setup@v2.2.2
         with:
           version: 7       
+      
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'pnpm'          
 
-      - name: Install, run tsc, and build reference app 🔧 
-        run: |
-          pnpm install
-          pnpm types:check
-          pnpm ref:build
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build reference app 🔧 
+        run: pnpm ref:build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.3.3

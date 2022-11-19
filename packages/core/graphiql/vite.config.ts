@@ -8,18 +8,14 @@ export default defineConfig(() => {
     build: {
       lib: {
         entry: 'src/index.ts',
-        fileName: 'graphiql-prototype-core-editor',
+        fileName: 'graphiql-prototype-core-graphiql',
         formats: ['cjs', 'es'],
       },
       rollupOptions: {
         external: [
+          '@graphiql-prototype/editor',
           '@graphiql-prototype/store',
           '@graphiql-prototype/ui-library',
-          '@graphiql-prototype/graphiql-plugin-schema-documentation',
-          '@graphiql-prototype/utils',
-          '@radix-ui/react-radio-group',
-          'monaco-editor',
-          'graphql',
           'react',
         ],
         output: {
@@ -27,9 +23,7 @@ export default defineConfig(() => {
           // Provide global variables to use in the UMD build
           // for externalized deps
           globals: {
-            'monaco-editor': 'MonacoEditor',
             react: 'React',
-            graphql: 'GraphQL',
           },
         },
       },

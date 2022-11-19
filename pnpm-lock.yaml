@@ -120,7 +120,6 @@ importers:
       monaco-editor: ^0.33.0
       monaco-graphql: 1.1.2
       react: 18.2.0
-      react-dom: 18.2.0
       vite: 3.0.2
       zustand: 4.1.1
     dependencies:
@@ -129,7 +128,7 @@ importers:
       '@graphiql-prototype/ui-library': link:../ui-library
       '@graphiql-prototype/utils': link:../utils
       '@graphiql/toolkit': 0.6.1_bjgwlwebsm7ulvpmjq4c2w36jm
-      '@radix-ui/react-radio-group': 1.1.0_biqbaboplfbrettd7655fr4n2y
+      '@radix-ui/react-radio-group': 1.1.0_react@18.2.0
       cuid: 2.1.8
       graphql: 16.6.0
       graphql-ws: 5.11.2_graphql@16.6.0
@@ -137,7 +136,6 @@ importers:
       monaco-editor: 0.33.0
       monaco-graphql: 1.1.2_hcy3mshtuqano6ettx6nar7lwm
       react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
       zustand: 4.1.1_react@18.2.0
     devDependencies:
       '@stitches/react': 1.2.8_react@18.2.0
@@ -151,20 +149,24 @@ importers:
       '@graphiql-prototype/graphiql-plugin-pane-settings': workspace:*
       '@graphiql-prototype/store': workspace:*
       '@graphiql-prototype/ui-library': workspace:*
+      '@stitches/react': 1.2.8
       '@types/react': 18.0.21
-      graphql: ^16.5.0
+      '@vitejs/plugin-react': ^2.2.0
       react: 18.2.0
+      vite: 3.0.2
       zustand: 4.1.1
     dependencies:
       '@graphiql-prototype/editor': link:../editor
       '@graphiql-prototype/graphiql-plugin-pane-settings': link:../../plugins/graphiql-plugin-pane-settings
       '@graphiql-prototype/store': link:../store
       '@graphiql-prototype/ui-library': link:../ui-library
-      graphql: 16.6.0
       react: 18.2.0
       zustand: 4.1.1_react@18.2.0
     devDependencies:
+      '@stitches/react': 1.2.8_react@18.2.0
       '@types/react': 18.0.21
+      '@vitejs/plugin-react': 2.2.0_vite@3.0.2
+      vite: 3.0.2
 
   packages/core/store:
     specifiers:
@@ -2066,7 +2068,7 @@ packages:
       '@babel/runtime': 7.18.9
     dev: false
 
-  /@radix-ui/react-collection/1.0.1_biqbaboplfbrettd7655fr4n2y:
+  /@radix-ui/react-collection/1.0.1_react@18.2.0:
     resolution: {integrity: sha512-uuiFbs+YCKjn3X1DTSx9G7BHApu4GHbi3kgiwsnFUbOKCrwejAJv4eE4Vc8C0Oaxt9T0aV4ox0WCOdx+39Xo+g==}
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0
@@ -2075,10 +2077,9 @@ packages:
       '@babel/runtime': 7.18.9
       '@radix-ui/react-compose-refs': 1.0.0_react@18.2.0
       '@radix-ui/react-context': 1.0.0_react@18.2.0
-      '@radix-ui/react-primitive': 1.0.1_biqbaboplfbrettd7655fr4n2y
+      '@radix-ui/react-primitive': 1.0.1_react@18.2.0
       '@radix-ui/react-slot': 1.0.1_react@18.2.0
       react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@radix-ui/react-compose-refs/1.0.0_react@18.2.0:
@@ -2209,6 +2210,18 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
+  /@radix-ui/react-presence/1.0.0_react@18.2.0:
+    resolution: {integrity: sha512-A+6XEvN01NfVWiKu38ybawfHsBjWum42MRPnEuqPsBZ4eV7e/7K321B5VgYMPv3Xx5An6o1/l9ZuDBgmcmWK3w==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    dependencies:
+      '@babel/runtime': 7.18.9
+      '@radix-ui/react-compose-refs': 1.0.0_react@18.2.0
+      '@radix-ui/react-use-layout-effect': 1.0.0_react@18.2.0
+      react: 18.2.0
+    dev: false
+
   /@radix-ui/react-primitive/1.0.0_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-EyXe6mnRlHZ8b6f4ilTDrXmkLShICIuOTTj0GX4w1rp+wSxf3+TD05u1UOITC8VsJ2a9nwHvdXtOXEOl0Cw/zQ==}
     peerDependencies:
@@ -2221,7 +2234,7 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /@radix-ui/react-primitive/1.0.1_biqbaboplfbrettd7655fr4n2y:
+  /@radix-ui/react-primitive/1.0.1_react@18.2.0:
     resolution: {integrity: sha512-fHbmislWVkZaIdeF6GZxF0A/NH/3BjrGIYj+Ae6eTmTCr7EB0RQAAVEiqsXK6p3/JcRqVSBQoceZroj30Jj3XA==}
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0
@@ -2230,10 +2243,9 @@ packages:
       '@babel/runtime': 7.18.9
       '@radix-ui/react-slot': 1.0.1_react@18.2.0
       react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /@radix-ui/react-radio-group/1.1.0_biqbaboplfbrettd7655fr4n2y:
+  /@radix-ui/react-radio-group/1.1.0_react@18.2.0:
     resolution: {integrity: sha512-7rrkZCXu0Q7oC0MxCm497X1DdV/tI78oNIGXA8sDbCkboiTkuLSe728zCCpRYHw+9PifHIx86nsbITPEq5yijg==}
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0
@@ -2244,17 +2256,16 @@ packages:
       '@radix-ui/react-compose-refs': 1.0.0_react@18.2.0
       '@radix-ui/react-context': 1.0.0_react@18.2.0
       '@radix-ui/react-direction': 1.0.0_react@18.2.0
-      '@radix-ui/react-presence': 1.0.0_biqbaboplfbrettd7655fr4n2y
-      '@radix-ui/react-primitive': 1.0.1_biqbaboplfbrettd7655fr4n2y
-      '@radix-ui/react-roving-focus': 1.0.1_biqbaboplfbrettd7655fr4n2y
+      '@radix-ui/react-presence': 1.0.0_react@18.2.0
+      '@radix-ui/react-primitive': 1.0.1_react@18.2.0
+      '@radix-ui/react-roving-focus': 1.0.1_react@18.2.0
       '@radix-ui/react-use-controllable-state': 1.0.0_react@18.2.0
       '@radix-ui/react-use-previous': 1.0.0_react@18.2.0
       '@radix-ui/react-use-size': 1.0.0_react@18.2.0
       react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /@radix-ui/react-roving-focus/1.0.1_biqbaboplfbrettd7655fr4n2y:
+  /@radix-ui/react-roving-focus/1.0.1_react@18.2.0:
     resolution: {integrity: sha512-TB76u5TIxKpqMpUAuYH2VqMhHYKa+4Vs1NHygo/llLvlffN6mLVsFhz0AnSFlSBAvTBYVHYAkHAyEt7x1gPJOA==}
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0
@@ -2262,16 +2273,15 @@ packages:
     dependencies:
       '@babel/runtime': 7.18.9
       '@radix-ui/primitive': 1.0.0
-      '@radix-ui/react-collection': 1.0.1_biqbaboplfbrettd7655fr4n2y
+      '@radix-ui/react-collection': 1.0.1_react@18.2.0
       '@radix-ui/react-compose-refs': 1.0.0_react@18.2.0
       '@radix-ui/react-context': 1.0.0_react@18.2.0
       '@radix-ui/react-direction': 1.0.0_react@18.2.0
       '@radix-ui/react-id': 1.0.0_react@18.2.0
-      '@radix-ui/react-primitive': 1.0.1_biqbaboplfbrettd7655fr4n2y
+      '@radix-ui/react-primitive': 1.0.1_react@18.2.0
       '@radix-ui/react-use-callback-ref': 1.0.0_react@18.2.0
       '@radix-ui/react-use-controllable-state': 1.0.0_react@18.2.0
       react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@radix-ui/react-slot/1.0.0_react@18.2.0:
