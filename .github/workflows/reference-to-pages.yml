@@ -24,8 +24,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build reference app 🔧 
-        run: pnpm ref:build
+      - name: Build packages and reference app 🔧 
+        run: pnpm turbo:build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.3.3

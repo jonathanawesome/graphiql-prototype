@@ -1,11 +1,11 @@
-name: tsc on PR
+name: types:check on PR open/sync
 on:
   pull_request:
     types: [opened, synchronize]
 
 jobs:
-  tsc:
-    name: tsc
+  types-check:
+    name: Check types
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout 🛎️
