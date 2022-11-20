@@ -20,32 +20,6 @@ import {
 } from './styles';
 import { useState } from 'react';
 
-const DisclosureItem = () => {
-  const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  return (
-    <div>
-      <button
-        onClick={() => {
-          setIsExpanded(!isExpanded);
-        }}
-      >
-        Query 👇
-      </button>
-      {isExpanded && (
-        <RootOperation
-          ancestors={[
-            {
-              type: 'ROOT',
-              operationType: OperationTypeNode.QUERY,
-              operationDefinition,
-            },
-          ]}
-          fields={schema.getQueryType()?.getFields()}
-        />
-      )}
-    </div>
-  );
-};
 export const Pathfinder = () => {
   const activeDefinition = useEditor((state) => state.activeDefinition);
 
@@ -83,7 +57,7 @@ export const Pathfinder = () => {
           />
         </StyledPathfinderLead>
         <StyledPathfinderContent>
-          <div>
+          {/* <div>
             <div>
               <button
                 onClick={() => {
@@ -130,8 +104,8 @@ export const Pathfinder = () => {
                 />
               )}
             </div>
-          </div>
-          {/* <Tabs
+          </div> */}
+          <Tabs
             initialSelectedTab={
               activeDefinition?.kind === Kind.OPERATION_DEFINITION
                 ? activeDefinition?.operation
@@ -210,7 +184,7 @@ export const Pathfinder = () => {
                 tabId: 'fragments',
               },
             ]}
-          /> */}
+          />
         </StyledPathfinderContent>
         <QuickDocs />
       </StyledPathfinder>

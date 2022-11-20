@@ -42,15 +42,14 @@ export const globalStyles = globalCss({
 
     // Chrome, Edge, and Safari
     '&::-webkit-scrollbar': {
-      width: 12,
+      width: 4,
+      height: 4,
     },
     '&::-webkit-scrollbar-track': {
       background: `transparent`,
     },
     '&::-webkit-scrollbar-thumb': {
       backgroundColor: theme.colors.surface3,
-      borderRadius: 20,
-      border: `3px solid ${theme.colors.surface1}`,
 
       '&:hover': {
         backgroundColor: theme.colors.text4,

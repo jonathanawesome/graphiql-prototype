@@ -87,12 +87,13 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
             ...globalHeaders,
             ...tabHeaders,
           },
+          params: {
+            operationName:
+              (activeDefinition as OperationDefinitionNode).name?.value || undefined,
+            query: operationsModelValue,
+            variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
+          },
           url: schemaUrl,
-        })({
-          operationName:
-            (activeDefinition as OperationDefinitionNode).name?.value || undefined,
-          query: operationsModelValue,
-          variables: variablesModelValue ? JSONC.parse(variablesModelValue) : undefined,
         });
 
         pushEdit({
@@ -164,15 +165,17 @@ export const useSchema = create<GraphiQLSchemaStore>((set, get) => ({
       try {
         const result = await fetcher({
           headers: globalHeaders,
+          params: {
+            query: getIntrospectionQuery({
+              // TODO: revisit passing options here. would love to get schemaDescription for use in documentation, but introspection query fails
+              // specifiedByUrl: true,
+              // schemaDescription: true,
+            }),
+            operationName: 'IntrospectionQuery',
+          },
           url,
-        })({
-          query: getIntrospectionQuery({
-            // TODO: revisit passing options here. would love to get schemaDescription for use in documentation, but introspection query fails
-            // specifiedByUrl: true,
-            // schemaDescription: true,
-          }),
-          operationName: 'IntrospectionQuery',
         });
+        console.log('result', { result });
         const schema = buildClientSchema(result.data as unknown as IntrospectionQuery);
 
         set({
