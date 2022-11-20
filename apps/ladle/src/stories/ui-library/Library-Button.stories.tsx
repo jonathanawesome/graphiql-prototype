@@ -76,3 +76,12 @@ export const Icon = () => {
     </FlexCol>
   );
 };
+
+export default {
+  title: 'Ui Library/Button',
+  component: Ghost,
+  // tags: ['docsPage'],
+  // argTypes: {
+  //   backgroundColor: { control: 'color' },
+  // },
+};
