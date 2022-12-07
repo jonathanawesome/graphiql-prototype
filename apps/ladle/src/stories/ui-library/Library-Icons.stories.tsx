@@ -1,21 +1,4 @@
-import {
-  Check,
-  ChevronLarge,
-  ChevronSmall,
-  Close,
-  Code,
-  Command,
-  Docs,
-  Ellipsis,
-  Gear,
-  GraphQLIcon,
-  Input,
-  Play,
-  Plus,
-  Prettier,
-  SeparatorRound,
-  css,
-} from '@graphiql-prototype/ui-library';
+import { Icon, css } from '@graphiql-prototype/ui-library';
 
 const StyledWrap = css({
   display: 'flex',
@@ -53,21 +36,21 @@ const Component = ({ icon, title }: { icon: React.ReactElement; title: string })
 export const Library = () => {
   return (
     <div className={StyledWrap()}>
-      <Component icon={<Check />} title="Check" />
-      <Component icon={<ChevronLarge />} title="ChevronLarge" />
-      <Component icon={<ChevronSmall />} title="ChevronSmall" />
-      <Component icon={<Close />} title="Close" />
-      <Component icon={<Code />} title="Code" />
-      <Component icon={<Command />} title="Command" />
-      <Component icon={<Docs />} title="Docs" />
-      <Component icon={<Ellipsis />} title="Ellipsis" />
-      <Component icon={<Gear />} title="Gear" />
-      <Component icon={<GraphQLIcon />} title="GraphQLIcon" />
-      <Component icon={<Input />} title="Input" />
-      <Component icon={<Play />} title="Play" />
-      <Component icon={<Plus />} title="Plus" />
-      <Component icon={<Prettier />} title="Prettier" />
-      <Component icon={<SeparatorRound />} title="SeparatorRound" />
+      <Component icon={<Icon name="Check" />} title="Check" />
+      <Component icon={<Icon name="ChevronLarge" />} title="ChevronLarge" />
+      <Component icon={<Icon name="ChevronSmall" />} title="ChevronSmall" />
+      <Component icon={<Icon name="Close" />} title="Close" />
+      <Component icon={<Icon name="Code" />} title="Code" />
+      <Component icon={<Icon name="Command" />} title="Command" />
+      <Component icon={<Icon name="Docs" />} title="Docs" />
+      <Component icon={<Icon name="Ellipsis" />} title="Ellipsis" />
+      <Component icon={<Icon name="Gear" />} title="Gear" />
+      <Component icon={<Icon name="GraphQLIcon" />} title="GraphQLIcon" />
+      <Component icon={<Icon name="Input" />} title="Input" />
+      <Component icon={<Icon name="Play" />} title="Play" />
+      <Component icon={<Icon name="Plus" />} title="Plus" />
+      <Component icon={<Icon name="Prettier" />} title="Prettier" />
+      <Component icon={<Icon name="SeparatorRound" />} title="SeparatorRound" />
     </div>
   );
 };

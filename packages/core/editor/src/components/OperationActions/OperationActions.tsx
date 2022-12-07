@@ -1,7 +1,7 @@
 import shallow from 'zustand/shallow';
 
 // components
-import { Icon, Play, Prettier } from '@graphiql-prototype/ui-library';
+import { Icon } from '@graphiql-prototype/ui-library';
 
 // hooks
 import { useEditor } from '@graphiql-prototype/store';
@@ -46,7 +46,7 @@ export const OperationActions = () => {
         }}
       >
         <>
-          <Play />
+          <Icon name="Play" />
           <span className={StyledPlayButtonType()}>
             {(activeDefinition &&
               (activeDefinition as OperationDefinitionNode).name?.value) ||
@@ -58,7 +58,7 @@ export const OperationActions = () => {
         className={StyledPrettierButton()}
         onClick={() => operationEditor?.getAction('editor.action.formatDocument').run()}
       >
-        <Prettier />
+        <Icon name="Prettier" />
       </button>
       {documentDefinitions > 1 && (
         <button

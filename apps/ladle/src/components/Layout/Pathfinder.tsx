@@ -1,5 +1,5 @@
 import { Caret } from '@graphiql-prototype/graphiql-plugin-pane-pathfinder/src/icons';
-import { SeparatorRound, css } from '@graphiql-prototype/ui-library';
+import { Icon, css } from '@graphiql-prototype/ui-library';
 
 const StyledPathfinder = css({
   all: 'unset',
@@ -89,7 +89,7 @@ const ListItem = () => {
           <div>Type/DocsButton</div>
           <div className={StyledDescription()}>
             <div className={StyledDescriptionSeparator()}>
-              <SeparatorRound />
+              <Icon name="SeparatorRound" />
             </div>
             <p>Description</p>
           </div>

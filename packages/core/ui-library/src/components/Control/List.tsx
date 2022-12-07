@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import cuid from 'cuid';
 
 // components
-import { Icon } from '../../icons';
+import { Icon } from '../Icon';
 import { Input } from './Input';
 import { Select } from './Select';
 

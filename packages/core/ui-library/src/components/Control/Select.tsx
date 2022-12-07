@@ -1,5 +1,5 @@
 // components
-import { Icon } from '../../icons';
+import { Icon } from '../Icon';
 
 // styles
 import { StyledSelect, StyledSelectWrap, StyledSelectDecoration } from './styles';

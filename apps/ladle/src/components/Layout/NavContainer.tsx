@@ -1,4 +1,4 @@
-import { GraphQLIcon, css } from '@graphiql-prototype/ui-library';
+import { Icon, css } from '@graphiql-prototype/ui-library';
 
 import { VisuallyHidden } from './VisuallyHidden';
 
@@ -48,17 +48,17 @@ export const NavContainer = () => {
         <ul>
           <li>
             <button className={StyledNavButton()}>
-              <GraphQLIcon />
+              <Icon name="GraphQLIcon" />
             </button>
           </li>
           <li>
             <button className={StyledNavButton()}>
-              <GraphQLIcon />
+              <Icon name="GraphQLIcon" />
             </button>
           </li>
           <li>
             <button className={StyledNavButton()}>
-              <GraphQLIcon />
+              <Icon name="GraphQLIcon" />
             </button>
           </li>
         </ul>
@@ -70,12 +70,12 @@ export const NavContainer = () => {
         <ul>
           <li>
             <button className={StyledNavButton()}>
-              <GraphQLIcon />
+              <Icon name="GraphQLIcon" />
             </button>
           </li>
           <li>
             <button className={StyledNavButton()}>
-              <GraphQLIcon />
+              <Icon name="GraphQLIcon" />
             </button>
           </li>
         </ul>

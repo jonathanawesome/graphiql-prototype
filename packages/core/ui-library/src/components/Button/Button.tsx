@@ -1,12 +1,14 @@
+// components
+import { Icon } from '../Icon';
+
 // styles
 import { ButtonVariants, StyledButton } from './styles';
-// types
 
-import { IconNames } from '../../icons/types';
-import { Icon } from '../../icons';
+// types
+import { IconNames } from '../Icon';
 
 type ButtonBase = {
-  action: () => void;
+  action?: () => void | Promise<void>;
   controls?: string | undefined;
   expanded?: boolean | undefined;
   isDisabled?: ButtonVariants['isDisabled'];
@@ -26,7 +28,7 @@ type ButtonIcon = ButtonBase & {
   type?: never;
 };
 
-type ButtonTypes = ButtonGhost | ButtonIcon;
+export type ButtonTypes = ButtonGhost | ButtonIcon;
 
 export const Button = ({
   action,
@@ -45,12 +47,8 @@ export const Button = ({
       aria-controls={controls}
       aria-expanded={expanded}
       aria-label={label}
-      // isDisabled={isDisabled}
       onClick={isDisabled ? undefined : action}
-      // size={size}
-      // style={style}
       title={label}
-      // type={type}
       data-whatever="dasdasd"
     >
       {icon ? <Icon name={icon} /> : label}

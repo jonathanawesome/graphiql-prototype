@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 // components
 import { Details } from '../Details';
 import { DeprecatedMessage } from '../DeprecatedMessage';
-import { Button, SeparatorRound } from '@graphiql-prototype/ui-library';
+import { Button, Icon } from '@graphiql-prototype/ui-library';
 
 // styles
 import {
@@ -102,7 +102,7 @@ export const ListItem = ({
     <li className={StyledListItem()}>
       <div className="listItem-lead-wrap">
         <div className="leaf-indicator">
-          <SeparatorRound />
+          <Icon name="SeparatorRound" />
         </div>
         {toggler && <Toggler {...toggler} />}
         <Details
