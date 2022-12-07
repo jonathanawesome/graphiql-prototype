@@ -1,11 +1,11 @@
-import { styled, theme } from '../../../theme';
+import { css, theme } from '../../../theme';
 
-export const StyledTab = styled('li', {
+export const StyledTab = css({
   all: `unset`,
   position: `relative`,
 });
 
-export const StyledTabTrigger = styled('button', {
+export const StyledTabTrigger = css({
   all: 'reset',
   cursor: 'pointer',
   fontSize: theme.fontSizes.body,

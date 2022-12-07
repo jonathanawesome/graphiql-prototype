@@ -8,7 +8,7 @@
       // TODO: Remove the workaround whenever MS fixes the issue
       // https://github.com/stitchesjs/stitches/issues/1055
       // https://github.com/microsoft/TypeScript/issues/48212
-      "@stitches/react": ["./node_modules/@stitches/react"],
+      "@stitches/core": ["./node_modules/@stitches/core"],
       "zustand": ["./node_modules/zustand"]
     }      
   },

@@ -1,8 +1,8 @@
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { css, theme } from '@graphiql-prototype/ui-library';
 
-import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
+// import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 
-export const CustomSchemaFormWrap = styled('form', {
+export const StyledCustomSchemaFormWrap = css({
   display: `flex`,
   flexDirection: `column`,
   gap: 24,
@@ -10,11 +10,11 @@ export const CustomSchemaFormWrap = styled('form', {
   marginBottom: theme.space[3],
 });
 
-export const StyledSchemaSelector = styled('div', {
+export const StyledSchemaSelector = css({
   marginTop: theme.space[3],
 });
 
-export const StyledSubmitButton = styled('button', {
+export const StyledSubmitButton = css({
   backgroundColor: theme.colors.surface3,
   border: '1px solid transparent',
   color: theme.colors.text1,
@@ -34,7 +34,7 @@ export const StyledSubmitButton = styled('button', {
   },
 });
 
-export const Error = styled('span', {
+export const StyledError = css({
   display: 'block',
   backgroundColor: theme.colors.red_lightest,
   color: theme.colors.red_default,
@@ -46,7 +46,7 @@ export const Error = styled('span', {
   padding: theme.space[2],
 });
 
-export const RadioGroupRadio = styled(RadioGroupPrimitive.Item, {
+export const StyledRadioGroupRadio = css({
   all: 'unset',
   boxSizing: 'border-box',
   border: `1px solid ${theme.colors.text4}`,
@@ -61,7 +61,7 @@ export const RadioGroupRadio = styled(RadioGroupPrimitive.Item, {
   },
 });
 
-export const RadioGroupIndicator = styled(RadioGroupPrimitive.Indicator, {
+export const StyledRadioGroupIndicator = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -79,7 +79,7 @@ export const RadioGroupIndicator = styled(RadioGroupPrimitive.Indicator, {
   },
 });
 
-export const RadioGroup = styled(RadioGroupPrimitive.Root, {
+export const StyledRadioGroup = css({
   position: 'relative',
   paddingTop: theme.space[4],
   margin: '12px 0',
@@ -100,7 +100,7 @@ export const RadioGroup = styled(RadioGroupPrimitive.Root, {
   },
 });
 
-export const RadioWrap = styled('div', {
+export const StyledRadioWrap = css({
   display: 'flex',
   alignItems: 'center',
 
@@ -152,7 +152,7 @@ export const RadioWrap = styled('div', {
   },
 });
 
-export const SpinnerWrap = styled('div', {
+export const StyledSpinnerWrap = css({
   position: 'absolute',
   top: '50%',
   left: '50%',

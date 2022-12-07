@@ -1,6 +1,6 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { css } from '@graphiql-prototype/ui-library';
 
-export const FlexCol = styled('div', {
+export const FlexCol = css({
   width: `100%`,
   display: 'flex',
   flexDirection: 'column',

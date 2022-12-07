@@ -1,12 +1,12 @@
-import { styled, theme } from '../../theme';
+import { css, theme } from '../../theme';
 
-export const StyledHTTPHeaderControlWrap = styled('div', {
+export const StyledHTTPHeaderControlWrap = css({
   display: `flex`,
   flexDirection: `column`,
   gap: theme.space[4],
 });
 
-export const StyledHTTPHeaderControl = styled('div', {
+export const StyledHTTPHeaderControl = css({
   display: `grid`,
   alignItems: `center`,
   justifyContent: `center`,
@@ -26,7 +26,7 @@ export const StyledHTTPHeaderControl = styled('div', {
   },
 });
 
-export const StyledRemoveHeaderButtonWrap = styled('div', {
+export const StyledRemoveHeaderButtonWrap = css({
   svg: {
     transform: `rotate(-45deg)`,
   },
@@ -45,7 +45,7 @@ export const StyledRemoveHeaderButtonWrap = styled('div', {
   },
 });
 
-export const StyledAddHeaderButtonWrap = styled('span', {
+export const StyledAddHeaderButtonWrap = css({
   hairlineT: theme.colors.surface3,
   paddingTop: theme.space[3],
 });

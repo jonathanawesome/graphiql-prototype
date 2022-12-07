@@ -20,27 +20,31 @@ export const Schema = () => {
   );
 
   return (
-    <StyledSchema>
-      <StyledSchemaNavigation>
-        <StyledSchemaNavigationButton
-          isActive={activeSchemaView === 'REFERENCE'}
+    <div className={StyledSchema()}>
+      <div className={StyledSchemaNavigation()}>
+        <button
+          className={StyledSchemaNavigationButton({
+            isActive: activeSchemaView === 'REFERENCE',
+          })}
           onClick={() => setActiveSchemaView('REFERENCE')}
         >
           Schema Reference
-        </StyledSchemaNavigationButton>
-        <StyledSchemaNavigationButton
-          isActive={activeSchemaView === 'DEFINITION'}
+        </button>
+        <button
+          className={StyledSchemaNavigationButton({
+            isActive: activeSchemaView === 'DEFINITION',
+          })}
           onClick={() => setActiveSchemaView('DEFINITION')}
         >
           Schema Definition
-        </StyledSchemaNavigationButton>
-      </StyledSchemaNavigation>
+        </button>
+      </div>
       {activeSchemaView === 'REFERENCE' && (
         <SchemaReferenceProvider>
           <SchemaReference />
         </SchemaReferenceProvider>
       )}
       {activeSchemaView === 'DEFINITION' && <SchemaDefinition />}
-    </StyledSchema>
+    </div>
   );
 };

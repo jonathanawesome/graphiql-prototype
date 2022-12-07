@@ -32,8 +32,10 @@ export const DefaultValue = ({
     <>
       {dVal && (
         <>
-          <StyledDelimiter>{`=`}</StyledDelimiter>
-          <StyledDefaultValue title="Default value">{dVal}</StyledDefaultValue>
+          <span className={StyledDelimiter()}>=</span>
+          <span className={StyledDefaultValue()} title="Default value">
+            {dVal}
+          </span>
         </>
       )}
     </>

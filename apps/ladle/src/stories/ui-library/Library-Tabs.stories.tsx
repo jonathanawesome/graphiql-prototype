@@ -31,7 +31,7 @@ export const TabsStory = () => {
   const doRemoveTab = ({ tabId }: { tabId: string }) =>
     setTabs((tabs) => tabs.filter((t) => t.tabId !== tabId));
   return (
-    <FlexCol>
+    <div className={FlexCol()}>
       <FlexRow name="removable tabs">
         <Tabs ariaLabel="Some tab label" doRemoveTab={doRemoveTab} tabbedContent={tabs} />
       </FlexRow>
@@ -50,6 +50,6 @@ export const TabsStory = () => {
       <FlexRow name="non removable tabs / forceMount / isCollapsible">
         <Tabs ariaLabel="Some tab label" isCollapsible={true} tabbedContent={tabs} />
       </FlexRow>
-    </FlexCol>
+    </div>
   );
 };

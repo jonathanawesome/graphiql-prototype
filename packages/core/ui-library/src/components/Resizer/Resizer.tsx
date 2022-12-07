@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 
 // styles
-import { Container, Handle, Pane1, Pane2 } from './styles';
+import { StyledContainer, StyledHandle, StyledPane1, StyledPane2 } from './styles';
 
 type ResizerBaseProps = {
   pane1: {
@@ -70,19 +70,27 @@ export const Resizer: React.FC<ResizerProps> = ({
   };
 
   return (
-    <Container ref={containerRef} direction={direction}>
-      <Pane1 ref={pane1Ref} style={{ width: `${100 - pane2.initialWidthPercentage}%` }}>
+    <div className={StyledContainer({ direction })} ref={containerRef}>
+      <div
+        className={StyledPane1()}
+        ref={pane1Ref}
+        style={{ width: `${100 - pane2.initialWidthPercentage}%` }}
+      >
         {pane1.component}
-      </Pane1>
-      <Handle
+      </div>
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+      <div
+        className={StyledHandle({ direction, handlePosition })}
         ref={handleRef}
         onMouseDown={onMouseDown}
-        direction={direction}
-        handlePosition={handlePosition}
       />
-      <Pane2 ref={pane2Ref} style={{ width: `${pane2.initialWidthPercentage}%` }}>
+      <div
+        className={StyledPane2()}
+        ref={pane2Ref}
+        style={{ width: `${pane2.initialWidthPercentage}%` }}
+      >
         {pane2.component}
-      </Pane2>
-    </Container>
+      </div>
+    </div>
   );
 };

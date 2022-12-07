@@ -11,12 +11,7 @@ import { insertNewOperation } from '../../hooks';
 import type { AncestorsArray } from '../../hooks';
 
 // styles
-import {
-  StyledDetails,
-  StyledNameAndControls,
-  StyledName,
-  StyledControls,
-} from './styles';
+import { StyledDetails } from './styles';
 
 // types
 import type { ListItemTypeTypes, ListItemVariants } from '../ListItem';
@@ -40,18 +35,26 @@ export const Details = ({ ancestors, isSelected, type, variant }: DetailsProps) 
     `*`;
 
   return (
-    <StyledDetails entityType={variant} isSelected={isSelected}>
-      <StyledNameAndControls
+    <div
+      className={StyledDetails({
+        controlsVisible: showControls,
+        entityType: variant,
+        isSelected,
+      })}
+    >
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+      <div
+        className="details-name-and-controls"
         onMouseEnter={() => setShowControls(true)}
         onMouseLeave={() => setShowControls(false)}
       >
-        <StyledName>
+        <span className="details-name">
           {variant === 'INLINE_FRAGMENT'
             ? `... on ${type.name}`
             : `${type.name}${asterisk || ''}`}
-        </StyledName>
+        </span>
         {!['INPUT_OBJECT', 'INLINE_FRAGMENT'].includes(variant) && (
-          <StyledControls isVisible={showControls}>
+          <div className="details-controls">
             <Button
               action={() => setActiveTertiaryPane({ destinationPane: type })}
               icon="Docs"
@@ -85,9 +88,9 @@ export const Details = ({ ancestors, isSelected, type, variant }: DetailsProps) 
                 style="ICON"
               />
             )}
-          </StyledControls>
+          </div>
         )}
-      </StyledNameAndControls>
-    </StyledDetails>
+      </div>
+    </div>
   );
 };

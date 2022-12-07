@@ -14,7 +14,7 @@ export const Tabs = ({
   initialSelectedTab,
   ariaLabel,
   doRemoveTab,
-  isCollapsible = false,
+  // isCollapsible = false,
   tabbedContent,
 }: TabsProps) => {
   const [selectedTab, setSelectedTab] = useState<string>(
@@ -28,7 +28,7 @@ export const Tabs = ({
   }, [initialSelectedTab]);
 
   return (
-    <StyledTabs>
+    <section className={StyledTabs()}>
       <TabsList
         ariaLabel={ariaLabel}
         doRemoveTab={doRemoveTab}
@@ -37,6 +37,6 @@ export const Tabs = ({
         tabbedContent={tabbedContent}
       />
       <TabPanels selectedTab={selectedTab} tabbedContent={tabbedContent} />
-    </StyledTabs>
+    </section>
   );
 };

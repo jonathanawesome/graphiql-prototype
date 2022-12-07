@@ -8,8 +8,7 @@ import { AncestorsArray } from '../../hooks';
 
 import type { ToggleProps } from '../Toggler';
 
-export type ListItemVariants = 'ARGUMENT' | 'FIELD' | 'INLINE_FRAGMENT' | 'INPUT_OBJECT';
-// | 'ROOT'
+export type ListItemVariants = 'FIELD' | 'INLINE_FRAGMENT' | 'INPUT_OBJECT';
 
 export type ListItemTypeTypes =
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -33,7 +33,7 @@ export const InputObject = ({
   // });
 
   return (
-    <StyledInputObject>
+    <div className={StyledInputObject()}>
       <ListItem
         ancestors={ancestors}
         collapsibleContent={{
@@ -81,6 +81,6 @@ export const InputObject = ({
         type={argument}
         variant="INPUT_OBJECT"
       />
-    </StyledInputObject>
+    </div>
   );
 };

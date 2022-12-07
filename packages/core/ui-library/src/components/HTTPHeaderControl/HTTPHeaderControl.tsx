@@ -52,14 +52,14 @@ export const HTTPHeaderControl = ({
   };
 
   return (
-    <StyledHTTPHeaderControlWrap>
-      <StyledHTTPHeaderControl>
+    <div className={StyledHTTPHeaderControlWrap()}>
+      <div className={StyledHTTPHeaderControl()}>
         <span>Enabled</span>
         <span>Key</span>
         <span>Value</span>
-      </StyledHTTPHeaderControl>
+      </div>
       {values.map((v) => (
-        <StyledHTTPHeaderControl key={v.id}>
+        <div className={StyledHTTPHeaderControl()} key={v.id}>
           <Switch
             handleChange={handleChange}
             isChecked={v.enabled}
@@ -95,8 +95,10 @@ export const HTTPHeaderControl = ({
             labelCopy={`Value for Value`}
             list={false}
           />
-          <StyledRemoveHeaderButtonWrap
-            isDisabled={v.isRequired || v.enabled || !hasEnabledHeaders()}
+          <div
+            className={StyledRemoveHeaderButtonWrap({
+              isDisabled: v.isRequired || v.enabled || !hasEnabledHeaders(),
+            })}
           >
             <Button
               action={() => {
@@ -108,17 +110,17 @@ export const HTTPHeaderControl = ({
               size="SMALL"
               style="ICON"
             />
-          </StyledRemoveHeaderButtonWrap>
-        </StyledHTTPHeaderControl>
+          </div>
+        </div>
       ))}
-      <StyledAddHeaderButtonWrap>
+      <span className={StyledAddHeaderButtonWrap()}>
         <Button
           action={() => addHeader({ placement })}
           label="Add header"
           size="MEDIUM"
           style="GHOST"
         />
-      </StyledAddHeaderButtonWrap>
-    </StyledHTTPHeaderControlWrap>
+      </span>
+    </div>
   );
 };

@@ -1,8 +1,8 @@
-import { GraphQLIcon, styled } from '@graphiql-prototype/ui-library';
+import { GraphQLIcon, css } from '@graphiql-prototype/ui-library';
 
 import { VisuallyHidden } from './VisuallyHidden';
 
-const NavContainerStyled = styled('div', {
+const StyledNavContainer = css({
   height: '100%',
   width: '100%',
   display: 'flex',
@@ -11,7 +11,7 @@ const NavContainerStyled = styled('div', {
   borderRight: '1px solid $gray015',
 });
 
-const Nav = styled('nav', {
+const StyledNav = css({
   padding: '24px 0',
 
   ul: {
@@ -24,7 +24,7 @@ const Nav = styled('nav', {
   },
 });
 
-const NavButton = styled('button', {
+const StyledNavButton = css({
   height: 32,
   width: 32,
   padding: 4,
@@ -40,46 +40,46 @@ const NavButton = styled('button', {
 
 export const NavContainer = () => {
   return (
-    <NavContainerStyled>
-      <Nav aria-labelledby="plugins-navigation">
-        <VisuallyHidden>
+    <div className={StyledNavContainer()}>
+      <nav aria-labelledby="plugins-navigation" className={StyledNav()}>
+        <span className={VisuallyHidden()}>
           <h2 id="plugins-navigation">Plugins navigation</h2>
-        </VisuallyHidden>
+        </span>
         <ul>
           <li>
-            <NavButton>
+            <button className={StyledNavButton()}>
               <GraphQLIcon />
-            </NavButton>
+            </button>
           </li>
           <li>
-            <NavButton>
+            <button className={StyledNavButton()}>
               <GraphQLIcon />
-            </NavButton>
+            </button>
           </li>
           <li>
-            <NavButton>
+            <button className={StyledNavButton()}>
               <GraphQLIcon />
-            </NavButton>
+            </button>
           </li>
         </ul>
-      </Nav>
-      <Nav aria-labelledby="dialogs-navigation">
-        <VisuallyHidden>
+      </nav>
+      <nav aria-labelledby="dialogs-navigation" className={StyledNav()}>
+        <span className={VisuallyHidden()}>
           <h2 id="dialogs-navigation">Dialogs navigation</h2>
-        </VisuallyHidden>
+        </span>
         <ul>
           <li>
-            <NavButton>
+            <button className={StyledNavButton()}>
               <GraphQLIcon />
-            </NavButton>
+            </button>
           </li>
           <li>
-            <NavButton>
+            <button className={StyledNavButton()}>
               <GraphQLIcon />
-            </NavButton>
+            </button>
           </li>
         </ul>
-      </Nav>
-    </NavContainerStyled>
+      </nav>
+    </div>
   );
 };

@@ -15,8 +15,12 @@ export const RemoveTabButton = ({
   tabId: string;
 }) => {
   return (
-    <StyledRemoveTabButton aria-label="Remove Tab" onClick={() => doRemoveTab({ tabId })}>
+    <button
+      aria-label="Remove Tab"
+      className={StyledRemoveTabButton()}
+      onClick={() => doRemoveTab({ tabId })}
+    >
       <Close />
-    </StyledRemoveTabButton>
+    </button>
   );
 };

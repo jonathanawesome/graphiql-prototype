@@ -12,8 +12,9 @@ export const Input = ({
   value,
 }: InputProps) => {
   return (
-    <StyledInput
+    <input
       autoComplete="off"
+      className={StyledInput()}
       data-testid={`input-${name}`}
       disabled={isDisabled}
       id={name}

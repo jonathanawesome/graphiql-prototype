@@ -1,6 +1,6 @@
-import { styled, theme } from '../../theme';
+import { css, theme } from '../../theme';
 
-export const StyledMessage = styled('div', {
+export const StyledMessage = css({
   borderRadius: theme.space[1],
   padding: theme.space[3],
   fontSize: 13,

@@ -8,13 +8,13 @@ export const InterfaceSummary = ({ int }: { int: GraphQLInterfaceType }) => {
   // console.log('InterfaceSummary', { int });
 
   return (
-    <StyledInterfaceSummary>
+    <div className={StyledInterfaceSummary()}>
       <div className="interfaceSummaryName">{int.name}</div>
       {int.description && (
         <div className="interfaceSummaryDescription">
           <Markdown content={int.description} />
         </div>
       )}
-    </StyledInterfaceSummary>
+    </div>
   );
 };

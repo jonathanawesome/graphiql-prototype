@@ -7,22 +7,22 @@ import { useTheme } from '@graphiql-prototype/ui-library';
 // styles
 import {
   StyledSettingsWrap,
-  StyledSettingsContent,
-  StyledThemeSwitch,
-  StyledThemeSwitchButton,
-  StyledIcon,
+  // StyledSettingsContent,
+  // StyledThemeSwitch,
+  // StyledThemeSwitchButton,
+  // StyledIcon,
 } from './styles';
 
 export const Settings = () => {
   const { themeMode, toggleThemeMode } = useTheme();
 
   return (
-    <StyledSettingsWrap>
-      <StyledSettingsContent>
-        <StyledThemeSwitch>
+    <div className={StyledSettingsWrap()}>
+      <div className="plugin-settings-content">
+        <div className="plugin-settings-theme-switch">
           <span>Switch theme</span>
 
-          <StyledThemeSwitchButton
+          <button
             onClick={() => {
               if (themeMode === 'LIGHT') {
                 toggleThemeMode({ mode: 'DARK' });
@@ -32,12 +32,12 @@ export const Settings = () => {
               }
             }}
           >
-            <StyledIcon>
+            <div className="plugin-settings-icon-wrap">
               <Icon name="Light" />
-            </StyledIcon>
-          </StyledThemeSwitchButton>
-        </StyledThemeSwitch>
-      </StyledSettingsContent>
-    </StyledSettingsWrap>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };

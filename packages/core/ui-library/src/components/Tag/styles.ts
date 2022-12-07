@@ -1,6 +1,6 @@
-import { styled, theme } from '../../theme';
+import { css, theme } from '../../theme';
 
-export const StyledTag = styled('span', {
+export const StyledTag = css({
   display: 'flex',
   alignItems: `center`,
   justifyContent: `center`,

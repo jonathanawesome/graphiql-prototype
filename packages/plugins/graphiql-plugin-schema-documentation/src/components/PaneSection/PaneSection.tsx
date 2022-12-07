@@ -15,9 +15,9 @@ export const PaneSection = ({
   // console.log('PaneSection', {});
 
   return (
-    <StyledPaneSection withSidePadding={withSidePadding}>
+    <div className={StyledPaneSection({ withSidePadding })}>
       {lead && <span className={'paneSectionLead'}>{lead}</span>}
       {children}
-    </StyledPaneSection>
+    </div>
   );
 };

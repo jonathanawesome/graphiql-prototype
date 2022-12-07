@@ -1,4 +1,4 @@
-import { keyframes, styled } from '../../theme';
+import { keyframes, css } from '../../theme';
 
 export const spinner = keyframes({
   from: {
@@ -9,7 +9,7 @@ export const spinner = keyframes({
   },
 });
 
-export const SpinnerStyled = styled('div', {
+export const SpinnerStyled = css({
   width: '100%',
   height: '100%',
   display: 'flex',

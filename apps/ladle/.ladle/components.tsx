@@ -1,6 +1,6 @@
 import * as React from 'react';
 import type { GlobalProvider } from '@ladle/react';
-import { globalStyles, styled } from '@graphiql-prototype/ui-library';
+import { globalStyles, css } from '@graphiql-prototype/ui-library';
 
 // hooks
 import { useTheme, theme } from '@graphiql-prototype/ui-library';
@@ -8,7 +8,7 @@ import { useTheme, theme } from '@graphiql-prototype/ui-library';
 // styles | this is a simple override of ladle-main styles
 import './styles.css';
 
-const Container = styled('div', {
+const StyledContainer = css({
   height: `100%`,
   width: `100%`,
   backgroundColor: theme.colors.surface1,
@@ -26,7 +26,7 @@ const Container = styled('div', {
   },
 });
 
-const Switch = styled('button', {
+const StyledSwitch = css({
   all: 'unset',
   cursor: 'pointer',
   position: 'fixed',
@@ -40,9 +40,10 @@ export const Provider: GlobalProvider = ({ children, globalState }) => {
   globalStyles();
 
   return (
-    <Container className={themeClass()} mode={globalState.mode}>
+    <div className={`${themeClass()} ${StyledContainer({ mode: globalState.mode })}`}>
       {children}
-      <Switch
+      <button
+        className={StyledSwitch()}
         onClick={() => {
           if (themeMode === 'LIGHT') {
             toggleThemeMode({ mode: 'DARK' });
@@ -53,7 +54,7 @@ export const Provider: GlobalProvider = ({ children, globalState }) => {
         }}
       >
         🚦
-      </Switch>
-    </Container>
+      </button>
+    </div>
   );
 };

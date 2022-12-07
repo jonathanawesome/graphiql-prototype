@@ -16,12 +16,12 @@ export const EnumValuesPaneSection = ({
     <>
       <PaneSection lead="Values">
         {enumValues.map((val) => (
-          <StyledEnumValue key={val.name}>
+          <div key={val.name} className={StyledEnumValue()}>
             <div className={`enumValue`}>{val.name}</div>
             {val.description && (
               <Markdown content={val.description} showSummary={false} />
             )}
-          </StyledEnumValue>
+          </div>
         ))}
       </PaneSection>
     </>

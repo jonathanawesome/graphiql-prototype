@@ -22,13 +22,14 @@ export const FieldPane = ({ field }: { field: GraphQLField<any, any> }) => {
     <>
       <DescriptionPaneSection description={field.description} />
       <PaneSection lead="Return type">
-        <StyledReturnType
+        <button
+          className={StyledReturnType()}
           onClick={() =>
             setActiveTertiaryPane({ destinationPane: unwrapType(field.type) })
           }
         >
           {field.type.toString()}
-        </StyledReturnType>
+        </button>
       </PaneSection>
       <ArgumentsPaneSection args={field.args} />
     </>

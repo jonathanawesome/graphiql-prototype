@@ -1,20 +1,20 @@
 import { useState } from 'react';
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { css, theme } from '@graphiql-prototype/ui-library';
 
-const StyledCol = styled('div', {
+const StyledCol = css({
   display: `flex`,
   flexDirection: `column`,
   gap: 24,
   backgroundColor: theme.colors.surface1,
 });
 
-const StyledRow = styled('div', {
+const StyledRow = css({
   display: `grid`,
   gridTemplateColumns: `160px 1fr`,
   gap: 24,
 });
 
-const StyledInfo = styled('div', {
+const StyledInfo = css({
   display: `flex`,
   flexDirection: `column`,
   alignItems: `center`,
@@ -25,7 +25,7 @@ const StyledInfo = styled('div', {
   },
 });
 
-const StyledData = styled('span', {
+const StyledData = css({
   display: `flex`,
   alignItems: `center`,
   color: theme.colors.text1,
@@ -153,15 +153,15 @@ export const ControlStory = () => {
   };
 
   return (
-    <StyledCol>
+    <div className={StyledCol()}>
       {controls(handleChange).map((control) => (
-        <StyledRow key={control.control.name}>
-          <StyledInfo>
+        <div key={control.control.name} className={StyledRow()}>
+          <div className={StyledInfo()}>
             {control.control.name}
-            <StyledData>
+            <span className={StyledData()}>
               {values[control.control.name] ? values[control.control.name].value : ''}
-            </StyledData>
-          </StyledInfo>
+            </span>
+          </div>
           <Control
             alignment={control.alignment}
             control={{
@@ -176,8 +176,8 @@ export const ControlStory = () => {
             labelCopy={control.labelCopy}
             list={control.list}
           />
-        </StyledRow>
+        </div>
       ))}
-    </StyledCol>
+    </div>
   );
 };

@@ -1,8 +1,8 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { css } from '@graphiql-prototype/ui-library';
 
 import { Pathfinder } from './Pathfinder';
 
-const PaneStyled = styled('div', {
+const StyledPane = css({
   border: '2px dashed red',
   height: 'calc(100% - 48px)',
   width: 'calc(100% - 48px)',
@@ -12,8 +12,8 @@ const PaneStyled = styled('div', {
 
 export const Pane = () => {
   return (
-    <PaneStyled>
+    <div className={StyledPane()}>
       <Pathfinder />
-    </PaneStyled>
+    </div>
   );
 };

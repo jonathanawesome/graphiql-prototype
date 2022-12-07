@@ -26,21 +26,22 @@ export const InputFieldSummary = ({ inputField }: { inputField: GraphQLInputFiel
   // });
 
   return (
-    <StyledFieldSummary>
-      <StyledScalarArgumentName>{inputField.name}</StyledScalarArgumentName>
-      <StyledDelimiter>:</StyledDelimiter>
-      <StyledReturnType
+    <div className={StyledFieldSummary()}>
+      <span className={StyledScalarArgumentName()}>{inputField.name}</span>
+      <span className={StyledDelimiter()}>{`:`}</span>
+      <button
+        className={StyledReturnType()}
         title="Return type"
         onClick={() =>
           setActiveTertiaryPane({ destinationPane: unwrapType(inputField.type) })
         }
       >
         {inputField.type.toString()}
-      </StyledReturnType>
+      </button>
       <DefaultValue inputFieldOrArgument={inputField} />
       {inputField.description && (
         <Markdown content={inputField.description} showSummary={false} />
       )}
-    </StyledFieldSummary>
+    </div>
   );
 };

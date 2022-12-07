@@ -1,6 +1,6 @@
-import { styled } from '../../theme';
+import { css } from '../../theme';
 
-export const StyledTabs = styled('section', {
+export const StyledTabs = css({
   position: 'relative',
   height: '100%',
   width: '100%',

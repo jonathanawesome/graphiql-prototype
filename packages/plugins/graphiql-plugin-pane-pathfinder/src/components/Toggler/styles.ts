@@ -1,6 +1,6 @@
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { css, theme } from '@graphiql-prototype/ui-library';
 
-export const StyledToggler = styled('button', {
+export const StyledToggler = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

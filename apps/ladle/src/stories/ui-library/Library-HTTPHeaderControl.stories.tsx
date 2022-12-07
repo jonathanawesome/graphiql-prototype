@@ -11,10 +11,10 @@ export const HTTPHeaderControlStory = () => {
   const { globalHeaders } = useHTTPHeaders();
 
   return (
-    <FlexCol>
+    <div className={FlexCol()}>
       <FlexRow name="HTTP Header Control">
         <HTTPHeaderControl placement="ACTIVE_TAB" values={globalHeaders} />
       </FlexRow>
-    </FlexCol>
+    </div>
   );
 };

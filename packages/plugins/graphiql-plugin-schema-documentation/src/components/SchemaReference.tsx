@@ -59,21 +59,21 @@ export const SchemaReference = () => {
   // console.log('SchemaReference', { schema });
 
   return (
-    <StyledSchemaReference>
-      <StyledBreadcrumb>
+    <div className={StyledSchemaReference()}>
+      <div className={StyledBreadcrumb()}>
         <span>Schema</span>
-        <StyledBreadcrumbArrow>{`->`}</StyledBreadcrumbArrow>
+        <span className={StyledBreadcrumbArrow()}>{`->`}</span>
         <span>{activePrimaryPane}</span>
         {tertiaryPaneStack.length > 0 &&
           tertiaryPaneStack.map((stackItem) => (
-            <StyledBreadcrumbItem key={stackItem.hash}>
-              <StyledBreadcrumbArrow>{`->`}</StyledBreadcrumbArrow>
+            <span className={StyledBreadcrumbItem()} key={stackItem.hash}>
+              <span className={StyledBreadcrumbArrow()}>{`->`}</span>
               {stackItem.pane.name}
-            </StyledBreadcrumbItem>
+            </span>
           ))}
-      </StyledBreadcrumb>
-      <StyledPanes>
-        <StyledPrimaryPane>
+      </div>
+      <div className={StyledPanes()}>
+        <div className={StyledPrimaryPane()}>
           <PaneSection lead={`Schema description`} withSidePadding={true}>
             {schema.description || 'No description provided'}
           </PaneSection>
@@ -98,7 +98,7 @@ export const SchemaReference = () => {
               }
             />
           </PaneSection>
-        </StyledPrimaryPane>
+        </div>
         <SecondaryPane
           directives={directives}
           queryRootType={queryRootType || null}
@@ -107,7 +107,7 @@ export const SchemaReference = () => {
           sortedTypes={sortedTypes}
         />
         {activeTertiaryPane && <TertiaryPane pane={activeTertiaryPane['pane']} />}
-      </StyledPanes>
-    </StyledSchemaReference>
+      </div>
+    </div>
   );
 };

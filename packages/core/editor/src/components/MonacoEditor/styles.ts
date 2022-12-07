@@ -1,11 +1,11 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { css } from '@graphiql-prototype/ui-library';
 
-export const MonacoEditorStyled = styled('div', {
+export const StyledMonacoEditor = css({
   height: '100%',
   width: '100%',
 });
 
-export const MonacoWrap = styled('div', {
+export const StyledMonacoWrap = css({
   height: '100%',
   width: '100%',
   '.monaco-editor': {

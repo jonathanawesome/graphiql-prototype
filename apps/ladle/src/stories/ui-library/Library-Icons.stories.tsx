@@ -14,17 +14,17 @@ import {
   Plus,
   Prettier,
   SeparatorRound,
-  styled,
+  css,
 } from '@graphiql-prototype/ui-library';
 
-const Wrap = styled('div', {
+const StyledWrap = css({
   display: 'flex',
   flexDirection: 'column',
   // alignItems: 'center',
   gap: 24,
 });
 
-const ComponentStyled = styled('div', {
+const StyledComponent = css({
   display: 'flex',
   alignItems: 'center',
   gap: 12,
@@ -36,23 +36,23 @@ const ComponentStyled = styled('div', {
   },
 });
 
-const SVGWrap = styled('div', {
+const StyledSVGWrap = css({
   height: 24,
   width: 24,
 });
 
 const Component = ({ icon, title }: { icon: React.ReactElement; title: string }) => {
   return (
-    <ComponentStyled>
+    <div className={StyledComponent()}>
       <span>{title}</span>
-      <SVGWrap>{icon}</SVGWrap>
-    </ComponentStyled>
+      <div className={StyledSVGWrap()}>{icon}</div>
+    </div>
   );
 };
 
 export const Library = () => {
   return (
-    <Wrap>
+    <div className={StyledWrap()}>
       <Component icon={<Check />} title="Check" />
       <Component icon={<ChevronLarge />} title="ChevronLarge" />
       <Component icon={<ChevronSmall />} title="ChevronSmall" />
@@ -68,6 +68,6 @@ export const Library = () => {
       <Component icon={<Plus />} title="Plus" />
       <Component icon={<Prettier />} title="Prettier" />
       <Component icon={<SeparatorRound />} title="SeparatorRound" />
-    </Wrap>
+    </div>
   );
 };

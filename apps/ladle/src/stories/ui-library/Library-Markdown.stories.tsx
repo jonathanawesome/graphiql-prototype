@@ -6,14 +6,14 @@ import { Markdown } from '@graphiql-prototype/ui-library';
 
 export const MarkdownStory = () => {
   return (
-    <FlexCol>
+    <div className={FlexCol()}>
       <FlexRow name="Summary">
         <Markdown content={md} showSummary={true} />
       </FlexRow>
       <FlexRow name="Full description">
         <Markdown content={md} />
       </FlexRow>
-    </FlexCol>
+    </div>
   );
 };
 

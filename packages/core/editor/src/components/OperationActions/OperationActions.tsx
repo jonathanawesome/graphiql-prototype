@@ -38,35 +38,37 @@ export const OperationActions = () => {
   const operationEditor = monacoEditors.operations;
 
   return (
-    <StyledOperationActions>
-      <StyledPlayButton
+    <div className={StyledOperationActions()}>
+      <button
+        className={StyledPlayButton({ isDisabled: !activeDefinition })}
         onClick={() => {
           executeOperation();
         }}
-        isDisabled={!activeDefinition}
       >
         <>
           <Play />
-          <StyledPlayButtonType>
+          <span className={StyledPlayButtonType()}>
             {(activeDefinition &&
               (activeDefinition as OperationDefinitionNode).name?.value) ||
               'Run'}
-          </StyledPlayButtonType>
+          </span>
         </>
-      </StyledPlayButton>
-      <StyledPrettierButton
+      </button>
+      <button
+        className={StyledPrettierButton()}
         onClick={() => operationEditor?.getAction('editor.action.formatDocument').run()}
       >
         <Prettier />
-      </StyledPrettierButton>
+      </button>
       {documentDefinitions > 1 && (
-        <StyledWarningButton
+        <button
+          className={StyledWarningButton()}
           onClick={() => splitMultipleOperationsToSeparateTabs()}
           title={`Split multiple operations into separate tabs`}
         >
           <Icon name="SplitToTabs" />
-        </StyledWarningButton>
+        </button>
       )}
-    </StyledOperationActions>
+    </div>
   );
 };

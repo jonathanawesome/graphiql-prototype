@@ -1,6 +1,6 @@
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { css, theme } from '@graphiql-prototype/ui-library';
 
-export const StyledOperateWrap = styled('div', {
+export const StyledOperateWrap = css({
   backgroundColor: theme.colors.surface2,
   width: `100%`,
   height: `100%`,
@@ -10,7 +10,7 @@ export const StyledOperateWrap = styled('div', {
   position: `relative`,
 });
 
-export const StyledOperationEditor = styled('div', {
+export const StyledOperationEditor = css({
   overflowY: `auto`,
   height: `100%`,
   position: `relative`,
@@ -21,7 +21,7 @@ export const StyledOperationEditor = styled('div', {
   hairlineB: theme.colors.surface3,
 });
 
-export const StyledOperationActionsWrap = styled('div', {
+export const StyledOperationActionsWrap = css({
   position: 'absolute',
   width: `calc(100% - 32px)`,
   paddingBottom: theme.space[3],
@@ -30,7 +30,7 @@ export const StyledOperationActionsWrap = styled('div', {
   hairlineB: theme.colors.surface3,
 });
 
-export const StyledOperationToolsWrap = styled('div', {
+export const StyledOperationToolsWrap = css({
   width: '100%',
   marginBottom: -1,
 });

@@ -6,7 +6,7 @@ import { Tag } from '@graphiql-prototype/ui-library';
 
 export const TagStory = () => {
   return (
-    <FlexCol>
+    <div className={FlexCol()}>
       <FlexRow name="OPERATION">
         <Tag copy="Q" title="Query" type="OPERATION" />
       </FlexRow>
@@ -22,6 +22,6 @@ export const TagStory = () => {
       <FlexRow name="SUCCESS">
         <Tag copy="S" title="SUCCESS" type="SUCCESS" />
       </FlexRow>
-    </FlexCol>
+    </div>
   );
 };

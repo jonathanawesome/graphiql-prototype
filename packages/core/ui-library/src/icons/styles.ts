@@ -1,6 +1,6 @@
-import { styled } from '../theme';
+import { css } from '../theme';
 
-export const StyledIcon = styled('div', {
+export const StyledIcon = css({
   display: `flex`,
 
   svg: {

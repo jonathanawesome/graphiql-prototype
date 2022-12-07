@@ -46,8 +46,8 @@ export const Arguments = ({
   }, []);
 
   return (
-    <StyledArguments>
-      <StyledArgumentsLeadWrap isExpanded={isExpanded}>
+    <div className={StyledArguments()}>
+      <div className={StyledArgumentsLeadWrap({ isExpanded })}>
         <Button
           action={() => setIsExpanded(!isExpanded)}
           aria-expanded={isExpanded}
@@ -58,13 +58,14 @@ export const Arguments = ({
           style="ICON"
         />
         <span>Arguments</span>
-      </StyledArgumentsLeadWrap>
-      <StyledArgumentsContent
+      </div>
+      <div
+        className={StyledArgumentsContent()}
         id={field.name}
         // isExpanded={isExpanded}
       >
         {isExpanded && (
-          <StyledArgumentsList>
+          <ul className={StyledArgumentsList()}>
             {args.map((arg) => (
               <Argument
                 key={arg.name}
@@ -80,9 +81,9 @@ export const Arguments = ({
                 ]}
               />
             ))}
-          </StyledArgumentsList>
+          </ul>
         )}
-      </StyledArgumentsContent>
-    </StyledArguments>
+      </div>
+    </div>
   );
 };

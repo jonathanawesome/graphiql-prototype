@@ -1,6 +1,6 @@
-import { styled, theme } from '../../theme';
+import { css, theme } from '../../theme';
 
-export const Handle = styled('div', {
+export const StyledHandle = css({
   position: 'relative',
   width: theme.space[2],
   zIndex: 2,
@@ -62,21 +62,21 @@ export const Handle = styled('div', {
   },
 });
 
-export const Pane1 = styled('div', {
+export const StyledPane1 = css({
   // display: 'flex',
   // flexGrow: 1,
   // flexShrink: 1,
   // flexBasis: 'auto',
 });
 
-export const Pane2 = styled('div', {
+export const StyledPane2 = css({
   // display: 'flex',
   // flexGrow: 0,
   // flexShrink: 0,
   // flexBasis: 'auto',
 });
 
-export const Container = styled('div', {
+export const StyledContainer = css({
   position: 'relative',
   height: '100%',
   width: '100%',

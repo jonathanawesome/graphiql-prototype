@@ -1,6 +1,6 @@
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { css, theme } from '@graphiql-prototype/ui-library';
 
-export const StyledSearch = styled('div', {
+export const StyledSearch = css({
   height: '100%',
   width: '100%',
   display: `flex`,
@@ -58,4 +58,4 @@ export const StyledSearch = styled('div', {
   },
 });
 
-export const StyledSearchTriggerWrap = styled('div', {});
+export const StyledSearchTriggerWrap = css({});

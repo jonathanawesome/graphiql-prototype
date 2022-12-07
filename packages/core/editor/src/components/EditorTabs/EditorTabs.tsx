@@ -23,7 +23,7 @@ const switchEditorTab = useEditor.getState().switchEditorTab;
 const AddTabButton = () => {
   const { initEditorTab } = useEditor();
   return (
-    <StyledAddTabButtonWrap>
+    <div className={StyledAddTabButtonWrap()}>
       <Button
         action={() => initEditorTab({})}
         icon="Plus"
@@ -31,7 +31,7 @@ const AddTabButton = () => {
         size="SMALL"
         style="ICON"
       />
-    </StyledAddTabButtonWrap>
+    </div>
   );
 };
 
@@ -51,15 +51,16 @@ export const EditorTabs = () => {
   };
 
   return (
-    <StyledEditorTabs>
+    <div className={StyledEditorTabs()}>
       {editorTabs.map((tab) => {
         return (
-          <StyledTabWrap
+          <div
             key={tab.editorTabId}
-            isActive={activeEditorTabId === tab.editorTabId}
+            className={StyledTabWrap({ isActive: activeEditorTabId === tab.editorTabId })}
           >
-            <StyledTabButton
-              hasRemoveTabButton={showRemoveTabButton}
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+            <div
+              className={StyledTabButton({ hasRemoveTabButton: showRemoveTabButton })}
               onClick={() => handleTabChange({ editorTabId: tab.editorTabId })}
             >
               {/* <Tag
@@ -68,9 +69,9 @@ export const EditorTabs = () => {
                 type="OPERATION"
               /> */}
               {tab.editorTabName}
-            </StyledTabButton>
+            </div>
             {showRemoveTabButton && (
-              <StyledRemoveTabButtonWrap>
+              <div className={StyledRemoveTabButtonWrap()}>
                 <Button
                   action={() => doRemoveTab({ editorTabId: tab.editorTabId })}
                   icon="Close"
@@ -78,12 +79,12 @@ export const EditorTabs = () => {
                   size="SMALL"
                   style="ICON"
                 />
-              </StyledRemoveTabButtonWrap>
+              </div>
             )}
-          </StyledTabWrap>
+          </div>
         );
       })}
       <AddTabButton />
-    </StyledEditorTabs>
+    </div>
   );
 };

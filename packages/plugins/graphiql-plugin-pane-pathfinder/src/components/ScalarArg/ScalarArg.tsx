@@ -18,7 +18,11 @@ import { AncestorArgument, AncestorField, AncestorsArray } from '../../hooks';
 import { useEditor, useSchema } from '@graphiql-prototype/store';
 
 // styles
-import { StyledContainer, StyledError, StyledScalarArgWrap } from './styles';
+import {
+  // StyledContainer,
+  //  StyledError,
+  StyledScalarArgWrap,
+} from './styles';
 
 // utils
 import {
@@ -265,7 +269,11 @@ export const ScalarArg = ({
   }
 
   return (
-    <StyledScalarArgWrap onFocus={() => setIsTouched(true)} onInputType={!!onInputType}>
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <div
+      className={StyledScalarArgWrap({ onInputType: !!onInputType })}
+      onFocus={() => setIsTouched(true)}
+    >
       {/* this bit's here to warn when this argument's type is not a built-in scalar or an enum. users should have the ability to pass in handlers for custom scalars */}
       {/* {!['String', 'ID', 'Int', 'Float', 'Boolean'].includes(typeName) &&
         !isEnumType(unwrapType(argument.type)) && (
@@ -273,7 +281,7 @@ export const ScalarArg = ({
             The scalar type for this argument is not being handled
           </StyledError>
         )} */}
-      <StyledContainer>
+      <div className="scalar-arg">
         {!onInputType && (
           <Toggler
             ancestors={ancestors}
@@ -283,8 +291,8 @@ export const ScalarArg = ({
           />
         )}
         {toRender}
-      </StyledContainer>
-      {error && <StyledError>{error}</StyledError>}
-    </StyledScalarArgWrap>
+      </div>
+      {error && <div className="scalar-arg-error">{error}</div>}
+    </div>
   );
 };

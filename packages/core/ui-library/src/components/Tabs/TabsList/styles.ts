@@ -1,6 +1,6 @@
-import { styled, theme } from '../../../theme';
+import { css, theme } from '../../../theme';
 
-export const StyledTabsList = styled('ul', {
+export const StyledTabsList = css({
   all: `unset`,
   height: theme.space[10],
   display: 'flex',

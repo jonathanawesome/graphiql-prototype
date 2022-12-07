@@ -2,7 +2,11 @@
   "name": "@graphiql-prototype/ui-library",
   "version": "0.0.1",
   "type": "module",
-  "files": ["dist", "src", "types"],
+  "files": [
+    "dist",
+    "src",
+    "types"
+  ],
   "main": "./dist/graphiql-prototype-core-ui-library.cjs",
   "module": "./dist/graphiql-prototype-core-ui-library.js",
   "exports": {
@@ -14,15 +18,16 @@
   "types": "./src/index.ts",
   "publishConfig": {
     "types": "./types/index.d.ts"
-  },  
+  },
   "scripts": {
     "build": "vite build && tsc --build tsconfig-build.json",
     "types:check": "tsc --noEmit",
-    "watch": "concurrently 'vite build --watch' 'tsc --build tsconfig-build.json --watch'"    
+    "watch": "concurrently 'vite build --watch' 'tsc --build tsconfig-build.json --watch'"
   },
   "dependencies": {
     "@graphiql-prototype/store": "workspace:*",
-    "@stitches/react": "1.2.8",
+    "@headlessui/react": "^1.7.4",
+    "@stitches/core": "^1.2.8",
     "cuid": "^2.1.8",
     "react": "18.2.0",
     "react-dom": "18.2.0",

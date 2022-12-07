@@ -7,12 +7,12 @@ import { Button, SeparatorRound } from '@graphiql-prototype/ui-library';
 
 // styles
 import {
-  StyledChildFields,
+  // StyledChildFields,
   StyledCollapsibleListItemTriggerWrap,
-  StyledLeafIndicator,
+  // StyledLeafIndicator,
   StyledListItem,
-  StyledListItemContent,
-  StyledListItemLeadWrap,
+  // StyledListItemContent,
+  // StyledListItemLeadWrap,
 } from './styles';
 
 // types
@@ -50,9 +50,9 @@ export const ListItem = ({
   if (collapsibleContent) {
     const id = `${type.name}-${variant}`;
     return (
-      <StyledListItem>
-        <StyledListItemLeadWrap>
-          <StyledCollapsibleListItemTriggerWrap isExpanded={isExpanded} variant={variant}>
+      <li className={StyledListItem({ isExpanded, variant })}>
+        <div className="listItem-lead-wrap">
+          <div className={StyledCollapsibleListItemTriggerWrap({ isExpanded, variant })}>
             <Button
               action={() => setIsExpanded(!isExpanded)}
               controls={id}
@@ -62,7 +62,7 @@ export const ListItem = ({
               size="SMALL"
               style="ICON"
             />
-          </StyledCollapsibleListItemTriggerWrap>
+          </div>
 
           {toggler && (
             <Toggler
@@ -79,12 +79,8 @@ export const ListItem = ({
             type={type}
             variant={variant}
           />
-        </StyledListItemLeadWrap>
-        <StyledListItemContent
-          id={id}
-          // isExpanded={isExpanded}
-          variant={variant}
-        >
+        </div>
+        <div className="listItem-content" id={id}>
           {isExpanded && (
             <>
               {'deprecationReason' in type && type.deprecationReason && (
@@ -93,21 +89,21 @@ export const ListItem = ({
 
               {collapsibleContent.arguments && collapsibleContent.arguments}
               {isExpanded && collapsibleContent.childFields && (
-                <StyledChildFields>{collapsibleContent.childFields}</StyledChildFields>
+                <ul className="child-fields">{collapsibleContent.childFields}</ul>
               )}
             </>
           )}
-        </StyledListItemContent>
-      </StyledListItem>
+        </div>
+      </li>
     );
   }
 
   return (
-    <StyledListItem>
-      <StyledListItemLeadWrap>
-        <StyledLeafIndicator>
+    <li className={StyledListItem()}>
+      <div className="listItem-lead-wrap">
+        <div className="leaf-indicator">
           <SeparatorRound />
-        </StyledLeafIndicator>
+        </div>
         {toggler && <Toggler {...toggler} />}
         <Details
           ancestors={ancestors}
@@ -115,7 +111,7 @@ export const ListItem = ({
           type={type}
           variant={variant}
         />
-      </StyledListItemLeadWrap>
-    </StyledListItem>
+      </div>
+    </li>
   );
 };

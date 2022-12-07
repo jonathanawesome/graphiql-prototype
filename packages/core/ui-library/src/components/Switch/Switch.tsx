@@ -20,7 +20,7 @@ export const Switch = ({
   size: 'SMALL' | 'MEDIUM' | 'LARGE';
 }) => {
   return (
-    <StyledSwitch isChecked={isChecked} isDisabled={isDisabled} size={size}>
+    <div className={StyledSwitch({ isChecked, isDisabled, size })}>
       <input
         checked={isChecked}
         disabled={isDisabled}
@@ -32,6 +32,6 @@ export const Switch = ({
       <label htmlFor={name}>
         <span></span>
       </label>
-    </StyledSwitch>
+    </div>
   );
 };

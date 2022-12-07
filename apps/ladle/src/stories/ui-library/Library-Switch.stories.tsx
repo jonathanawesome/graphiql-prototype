@@ -4,23 +4,23 @@ import { useState } from 'react';
 import { FlexCol } from '../../components/FlexCol';
 import { FlexRow } from '../../components/FlexRow';
 
-import { Icon, Switch } from '@graphiql-prototype/ui-library';
+import { Switch } from '@graphiql-prototype/ui-library';
 
 export const Switches = () => {
   const [value, setValue] = useState<boolean>(false);
 
   const handleChange = ({
-    name,
+    // name,
     value,
   }: {
-    name: string;
+    // name: string;
     value: string | string[] | boolean;
   }) => {
     setValue(!!value);
   };
 
   return (
-    <FlexCol>
+    <div className={FlexCol()}>
       <FlexRow name="small">
         <Switch
           handleChange={handleChange}
@@ -45,6 +45,6 @@ export const Switches = () => {
           size="LARGE"
         />
       </FlexRow>
-    </FlexCol>
+    </div>
   );
 };

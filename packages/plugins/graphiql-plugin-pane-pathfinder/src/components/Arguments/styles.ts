@@ -1,12 +1,12 @@
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { css, theme } from '@graphiql-prototype/ui-library';
 
-export const StyledArguments = styled('div', {
+export const StyledArguments = css({
   position: 'relative',
   marginBottom: theme.space[2],
   // marginLeft: theme.space[2],
 });
 
-export const StyledArgumentsLeadWrap = styled('div', {
+export const StyledArgumentsLeadWrap = css({
   width: `100%`,
   display: `flex`,
   alignItems: 'center',
@@ -42,7 +42,7 @@ export const StyledArgumentsLeadWrap = styled('div', {
   },
 });
 
-export const StyledArgumentsContent = styled('div', {
+export const StyledArgumentsContent = css({
   width: `100%`,
   // display: `none`,
   paddingLeft: theme.space[5],
@@ -69,7 +69,7 @@ export const StyledArgumentsContent = styled('div', {
   // },
 });
 
-export const StyledArgumentsList = styled('ul', {
+export const StyledArgumentsList = css({
   all: 'unset',
   margin: 0,
   overflow: `hidden`,

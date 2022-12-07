@@ -1,13 +1,13 @@
-import { Resizer, styled } from '@graphiql-prototype/ui-library';
+import { Resizer, css } from '@graphiql-prototype/ui-library';
 
-const EditorStyled = styled('div', {
+const StyledEditor = css({
   backgroundColor: '$editorBackground',
   borderRadius: 16,
   height: '100%',
   width: '100%',
 });
 
-const Operate = styled('div', {
+const StyledOperate = css({
   backgroundColor: 'white',
   borderRadius: 12,
   height: 'calc(100% - 24px)',
@@ -18,22 +18,25 @@ const Operate = styled('div', {
   marginLeft: 12,
 });
 
-const Analyze = styled('div', {
+const StyledAnalyze = css({
   height: '100%',
   width: '100%',
 });
 
 export const Editor = () => {
   return (
-    <EditorStyled>
+    <div className={StyledEditor()}>
       <Resizer
         direction="HORIZONTAL"
         handlePosition="RIGHT"
         pane1={{
-          component: <Operate>operate</Operate>,
+          component: <div className={StyledOperate()}>operate</div>,
         }}
-        pane2={{ component: <Analyze>analyze</Analyze>, initialWidthPercentage: 50 }}
+        pane2={{
+          component: <div className={StyledAnalyze()}>analyze</div>,
+          initialWidthPercentage: 50,
+        }}
       />
-    </EditorStyled>
+    </div>
   );
 };

@@ -24,8 +24,8 @@ import { IconMap, IconProps } from './types';
 export const Icon = ({ name }: IconProps) => {
   const TheIcon = IconMap[name];
   return (
-    <StyledIcon>
+    <div className={StyledIcon()}>
       <TheIcon />
-    </StyledIcon>
+    </div>
   );
 };

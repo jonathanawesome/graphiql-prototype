@@ -2,7 +2,7 @@
 import { SpinnerStyled } from './styles';
 
 export const Spinner = () => (
-  <SpinnerStyled data-testid="styled-spinner">
+  <div className={SpinnerStyled()} data-testid="styled-spinner">
     <div />
-  </SpinnerStyled>
+  </div>
 );

@@ -1,9 +1,9 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { css } from '@graphiql-prototype/ui-library';
 
 import { Main } from './Main';
 import { NavContainer } from './NavContainer';
 
-const AppWrap = styled('div', {
+const StyledAppWrap = css({
   backgroundColor: '$appBackground',
   height: '100%',
   width: '100%',
@@ -14,9 +14,9 @@ const AppWrap = styled('div', {
 
 export const Layout = () => {
   return (
-    <AppWrap>
+    <div className={StyledAppWrap()}>
       <NavContainer />
       <Main />
-    </AppWrap>
+    </div>
   );
 };

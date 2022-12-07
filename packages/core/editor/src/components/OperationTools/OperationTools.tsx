@@ -12,7 +12,7 @@ const PerTabHeaders = () => {
   const activeTab = useEditor((state) => state.getActiveTab());
 
   return (
-    <StyledPerTabHeaders>
+    <div className={StyledPerTabHeaders()}>
       <Message
         message={
           <>
@@ -25,7 +25,7 @@ const PerTabHeaders = () => {
       {activeTab && (
         <HTTPHeaderControl placement="ACTIVE_TAB" values={activeTab.headers} />
       )}
-    </StyledPerTabHeaders>
+    </div>
   );
 };
 
@@ -39,9 +39,9 @@ export const OperationTools = () => {
         {
           name: 'Variables',
           panel: (
-            <StyledVariablesWrap>
+            <div className={StyledVariablesWrap()}>
               <MonacoEditor monacoEditorType="variables" />
-            </StyledVariablesWrap>
+            </div>
           ),
           panelId: 'variables',
           tabId: 'variables',

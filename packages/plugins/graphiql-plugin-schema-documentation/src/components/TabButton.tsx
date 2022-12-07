@@ -19,14 +19,14 @@ export const TabButton = ({
     useSchemaReference();
 
   return (
-    <StyledTabButton
-      isActive={activePrimaryPane === destinationPane}
+    <button
+      className={StyledTabButton({ isActive: activePrimaryPane === destinationPane })}
       onClick={() => {
         setActivePrimaryPane({ destinationPane });
         clearTertiaryPaneStack();
       }}
     >
       {copy}
-    </StyledTabButton>
+    </button>
   );
 };

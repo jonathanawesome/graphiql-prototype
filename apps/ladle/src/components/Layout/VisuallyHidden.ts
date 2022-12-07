@@ -1,6 +1,6 @@
-import { styled } from '@graphiql-prototype/ui-library';
+import { css } from '@graphiql-prototype/ui-library';
 
-export const VisuallyHidden = styled('span', {
+export const VisuallyHidden = css({
   position: 'absolute',
   border: 0,
   width: 1,

@@ -22,9 +22,9 @@ const GlobalHeaders = () => {
   const { globalHeaders } = useHTTPHeaders();
 
   return (
-    <StyledGlobalHeaders>
+    <div className={StyledGlobalHeaders()}>
       <HTTPHeaderControl placement="GLOBAL" values={globalHeaders} />
-    </StyledGlobalHeaders>
+    </div>
   );
 };
 
@@ -55,8 +55,8 @@ export const ConnectionSettings = () => {
   }, [settingsOpen]);
 
   return (
-    <StyledConnectionSettings ref={wrapRef}>
-      <StyledRefreshButtonWrap schemaLoading={schemaLoading}>
+    <div className={StyledConnectionSettings()} ref={wrapRef}>
+      <div className={StyledRefreshButtonWrap({ schemaLoading })}>
         <Button
           action={() => loadSchema({ url: useSchema.getState().schemaUrl as string })}
           icon="Refresh"
@@ -64,15 +64,18 @@ export const ConnectionSettings = () => {
           size="LARGE"
           style="ICON"
         />
-      </StyledRefreshButtonWrap>
+      </div>
 
-      <StyledSettingsWrap>
-        <StyledActiveURL onClick={() => setSettingsOpen(!settingsOpen)}>
+      <div className={StyledSettingsWrap()}>
+        <button
+          className={StyledActiveURL()}
+          onClick={() => setSettingsOpen(!settingsOpen)}
+        >
           <span>Active schema URL</span>
           {schemaUrl}
-        </StyledActiveURL>
+        </button>
         {settingsOpen && (
-          <StyledSettingsPanel>
+          <div className={StyledSettingsPanel()}>
             <Tabs
               ariaLabel="Connection settings"
               initialSelectedTab="Public schemas"
@@ -86,14 +89,14 @@ export const ConnectionSettings = () => {
                 {
                   name: 'Connection settings',
                   panel: (
-                    <StyledConnectionSettingsTab>
+                    <div className={StyledConnectionSettingsTab()}>
                       <span>Todo:</span>
                       <ul>
                         <li>Polling / Refresh config</li>
                         <li>SSE/WS config</li>
                         <li>HTTP GET/POST</li>
                       </ul>
-                    </StyledConnectionSettingsTab>
+                    </div>
                   ),
                   panelId: 'Connection settings',
                   tabId: 'Connection settings',
@@ -106,9 +109,9 @@ export const ConnectionSettings = () => {
                 },
               ]}
             />
-          </StyledSettingsPanel>
+          </div>
         )}
-      </StyledSettingsWrap>
-    </StyledConnectionSettings>
+      </div>
+    </div>
   );
 };

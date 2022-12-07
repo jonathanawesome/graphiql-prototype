@@ -30,19 +30,19 @@ export const RootOperation = ({
 
   if (!fields) {
     return (
-      <StyledRootOperation>
+      <ul className={StyledRootOperation()}>
         <Message
           message={
             <>{`The active schema doesn’t provide a ${operationType} root operation type.`}</>
           }
           variant="WARNING"
         />
-      </StyledRootOperation>
+      </ul>
     );
   }
 
   return (
-    <StyledRootOperation>
+    <ul className={StyledRootOperation()}>
       {operationType === 'subscription' && (
         <Message
           message={
@@ -69,6 +69,6 @@ export const RootOperation = ({
             ]}
           />
         ))}
-    </StyledRootOperation>
+    </ul>
   );
 };

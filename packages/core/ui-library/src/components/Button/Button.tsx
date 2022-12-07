@@ -40,19 +40,20 @@ export const Button = ({
   type = 'PRIMARY',
 }: ButtonTypes) => {
   return (
-    <StyledButton
+    <button
+      className={StyledButton({ isDisabled, size, style, type })}
       aria-controls={controls}
       aria-expanded={expanded}
       aria-label={label}
-      isDisabled={isDisabled}
+      // isDisabled={isDisabled}
       onClick={isDisabled ? undefined : action}
-      size={size}
-      style={style}
+      // size={size}
+      // style={style}
       title={label}
-      type={type}
+      // type={type}
       data-whatever="dasdasd"
     >
       {icon ? <Icon name={icon} /> : label}
-    </StyledButton>
+    </button>
   );
 };

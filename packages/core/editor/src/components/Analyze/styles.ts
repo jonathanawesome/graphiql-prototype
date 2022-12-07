@@ -1,6 +1,6 @@
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { css, theme } from '@graphiql-prototype/ui-library';
 
-export const StyledAnalyzeWrap = styled('div', {
+export const StyledAnalyzeWrap = css({
   display: 'flex',
   height: '100%',
   width: '100%',

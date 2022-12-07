@@ -110,7 +110,7 @@ importers:
       '@graphiql-prototype/utils': workspace:*
       '@graphiql/toolkit': ^0.6.0
       '@radix-ui/react-radio-group': ^1.0.0
-      '@stitches/react': 1.2.8
+      '@stitches/core': 1.2.8
       '@types/react': 18.0.21
       '@vitejs/plugin-react': ^2.2.0
       cuid: ^2.1.8
@@ -138,7 +138,7 @@ importers:
       react: 18.2.0
       zustand: 4.1.1_react@18.2.0
     devDependencies:
-      '@stitches/react': 1.2.8_react@18.2.0
+      '@stitches/core': 1.2.8
       '@types/react': 18.0.21
       '@vitejs/plugin-react': 2.2.0_vite@3.2.4
       vite: 3.2.4
@@ -149,7 +149,7 @@ importers:
       '@graphiql-prototype/graphiql-plugin-pane-settings': workspace:*
       '@graphiql-prototype/store': workspace:*
       '@graphiql-prototype/ui-library': workspace:*
-      '@stitches/react': 1.2.8
+      '@stitches/core': 1.2.8
       '@types/react': 18.0.21
       '@vitejs/plugin-react': ^2.2.0
       react: 18.2.0
@@ -163,7 +163,7 @@ importers:
       react: 18.2.0
       zustand: 4.1.1_react@18.2.0
     devDependencies:
-      '@stitches/react': 1.2.8_react@18.2.0
+      '@stitches/core': 1.2.8
       '@types/react': 18.0.21
       '@vitejs/plugin-react': 2.2.0_vite@3.2.4
       vite: 3.2.4
@@ -192,7 +192,8 @@ importers:
   packages/core/ui-library:
     specifiers:
       '@graphiql-prototype/store': workspace:*
-      '@stitches/react': 1.2.8
+      '@headlessui/react': ^1.7.4
+      '@stitches/core': ^1.2.8
       '@types/react': 18.0.21
       '@vitejs/plugin-react': ^2.2.0
       cuid: ^2.1.8
@@ -204,7 +205,8 @@ importers:
       zustand: 4.1.1
     dependencies:
       '@graphiql-prototype/store': link:../store
-      '@stitches/react': 1.2.8_react@18.2.0
+      '@headlessui/react': 1.7.4_biqbaboplfbrettd7655fr4n2y
+      '@stitches/core': 1.2.8
       cuid: 2.1.8
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -1865,6 +1867,18 @@ packages:
       - '@types/node'
     dev: false
 
+  /@headlessui/react/1.7.4_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-D8n5yGCF3WIkPsjEYeM8knn9jQ70bigGGb5aUvN6y4BGxcT3OcOQOKcM3zRGllRCZCFxCZyQvYJF6ZE7bQUOyQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^16 || ^17 || ^18
+      react-dom: ^16 || ^17 || ^18
+    dependencies:
+      client-only: 0.0.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
   /@humanwhocodes/config-array/0.11.6:
     resolution: {integrity: sha512-jJr+hPTJYKyDILJfhNSHsjiwXYf26Flsz8DvNndOsHs5pwSnpGUEy8yzF0JYhCEvTDdV2vuOK5tt8BVhwO5/hg==}
     engines: {node: '>=10.10.0'}
@@ -2344,12 +2358,8 @@ packages:
     resolution: {integrity: sha512-ka0W0KN5i6LfrSocduwliMMpqVgohtPFidKdMEOUjoOFCHcOOYkKsPRxfs5f15oPNHTm6ERAm0GV/+/LTKeiWg==}
     dev: true
 
-  /@stitches/react/1.2.8_react@18.2.0:
-    resolution: {integrity: sha512-9g9dWI4gsSVe8bNLlb+lMkBYsnIKCZTmvqvDG+Avnn69XfmHZKiaMrx7cgTaddq7aTPPmXiTsbFcUy0xgI4+wA==}
-    peerDependencies:
-      react: '>= 16.3.0'
-    dependencies:
-      react: 18.2.0
+  /@stitches/core/1.2.8:
+    resolution: {integrity: sha512-Gfkvwk9o9kE9r9XNBmJRfV8zONvXThnm1tcuojL04Uy5uRyqg93DC83lDebl0rocZCfKSjUv+fWYtMQmEDJldg==}
 
   /@testing-library/dom/8.18.1:
     resolution: {integrity: sha512-oEvsm2B/WtcHKE+IcEeeCqNU/ltFGaVyGbpcm4g/2ytuT49jrlH9x5qRKL/H3A6yfM4YAbSbC0ceT5+9CEXnLg==}
@@ -2487,7 +2497,6 @@ packages:
 
   /@types/node/18.7.23:
     resolution: {integrity: sha512-DWNcCHolDq0ZKGizjx2DZjR/PqsYwAcYUJmfMWqtVU2MBMG5Mo+xFZrhGId5r/O5HOuMPyQEcM6KUBp5lBZZBg==}
-    dev: true
 
   /@types/node/8.10.66:
     resolution: {integrity: sha512-tktOkFUA4kXx2hhhrB8bIFb5TbwzS4uOhKEmwiD+NoiL0qtP2OQ9mFldbgD4dV1djrlBYP6eBuQZiWjuHUpqFw==}
@@ -2685,7 +2694,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.19.6_@babel+core@7.20.2
       magic-string: 0.26.7
       react-refresh: 0.14.0
-      vite: 3.2.4
+      vite: 3.2.4_@types+node@18.7.23
     transitivePeerDependencies:
       - supports-color
 
@@ -3079,6 +3088,10 @@ packages:
   /cli-boxes/3.0.0:
     resolution: {integrity: sha512-/lzGpEWL/8PfI0BmBOPRwp0c/wFNX1RdUML3jK/RcSBA9T8mZDdQpqYBKtCFTOfQbwPqWEOpjqW+Fnayc0969g==}
     engines: {node: '>=10'}
+    dev: false
+
+  /client-only/0.0.1:
+    resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
     dev: false
 
   /cliui/8.0.1:
@@ -6582,7 +6595,6 @@ packages:
       rollup: 2.79.1
     optionalDependencies:
       fsevents: 2.3.2
-    dev: true
 
   /vitest/0.25.2_ye6oshpj4ty7tenphfu353iv6i:
     resolution: {integrity: sha512-qqkzfzglEFbQY7IGkgSJkdOhoqHjwAao/OrphnHboeYHC5JzsVFoLCaB2lnAy8krhj7sbrFTVRApzpkTOeuDWQ==}

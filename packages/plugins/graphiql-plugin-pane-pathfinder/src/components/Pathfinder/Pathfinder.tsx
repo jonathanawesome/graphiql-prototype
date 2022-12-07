@@ -13,10 +13,10 @@ import { SchemaReferenceProvider } from '@graphiql-prototype/graphiql-plugin-sch
 
 // styles
 import {
-  StyledContainer,
-  StyledPathfinder,
-  StyledPathfinderContainer,
-  StyledPathfinderContent,
+  StyledPathfinderWrap,
+  // StyledContainer,
+  // StyledPathfinderContainer,
+  // StyledPathfinderContent,
 } from './styles';
 
 export const Pathfinder = () => {
@@ -27,9 +27,9 @@ export const Pathfinder = () => {
   if (!schema || 'error' in schema) {
     //TODO: loading/error skeleton
     return (
-      <StyledContainer>
+      <div className="pathfinder-message-container">
         <Message message={<p>Unable to load schema</p>} variant="ERROR" />
-      </StyledContainer>
+      </div>
     );
   }
 
@@ -40,9 +40,9 @@ export const Pathfinder = () => {
 
   return (
     <SchemaReferenceProvider>
-      <StyledPathfinder>
-        <StyledPathfinderContainer>
-          <StyledPathfinderContent>
+      <div className={StyledPathfinderWrap()}>
+        <div className="pathfinder-inner">
+          <div className="pathfinder-content">
             <Tabs
               initialSelectedTab={
                 activeDefinition?.kind === Kind.OPERATION_DEFINITION
@@ -105,7 +105,7 @@ export const Pathfinder = () => {
                 {
                   name: 'Fragments',
                   panel: (
-                    <StyledContainer>
+                    <div className="pathfinder-message-container">
                       <Message
                         message={
                           <>
@@ -116,17 +116,17 @@ export const Pathfinder = () => {
                         }
                         variant="WARNING"
                       />
-                    </StyledContainer>
+                    </div>
                   ),
                   panelId: 'fragments',
                   tabId: 'fragments',
                 },
               ]}
             />
-          </StyledPathfinderContent>
-        </StyledPathfinderContainer>
+          </div>
+        </div>
         <QuickDocs />
-      </StyledPathfinder>
+      </div>
     </SchemaReferenceProvider>
   );
 };

@@ -1,6 +1,6 @@
-import { keyframes, styled, theme } from '@graphiql-prototype/ui-library';
+import { keyframes, css, theme } from '@graphiql-prototype/ui-library';
 
-export const StyledConnectionSettings = styled('div', {
+export const StyledConnectionSettings = css({
   position: `relative`,
   zIndex: 5,
   width: '100%',
@@ -9,7 +9,7 @@ export const StyledConnectionSettings = styled('div', {
   justifyContent: 'space-between',
 });
 
-export const StyledConnectionSettingsTab = styled('div', {
+export const StyledConnectionSettingsTab = css({
   color: theme.colors.text2,
   padding: theme.space[4],
 
@@ -24,7 +24,7 @@ export const spin = keyframes({
   '100%': { transform: `rotate(360deg)` },
 });
 
-export const StyledRefreshButtonWrap = styled('div', {
+export const StyledRefreshButtonWrap = css({
   button: {
     height: '100%',
   },
@@ -42,14 +42,14 @@ export const StyledRefreshButtonWrap = styled('div', {
   },
 });
 
-export const StyledSettingsWrap = styled('div', {
+export const StyledSettingsWrap = css({
   position: `relative`,
   display: `flex`,
   width: `100%`,
   zIndex: 10,
 });
 
-export const StyledActiveURL = styled('button', {
+export const StyledActiveURL = css({
   all: `unset`,
   position: `relative`,
   zIndex: 2,
@@ -78,7 +78,7 @@ export const StyledActiveURL = styled('button', {
   },
 });
 
-export const StyledSettingsPanel = styled('div', {
+export const StyledSettingsPanel = css({
   display: `flex`,
   backgroundColor: theme.colors.surface1,
   borderRight: `1px solid ${theme.colors.surface3}`,
@@ -94,7 +94,7 @@ export const StyledSettingsPanel = styled('div', {
   boxShadow: '8px 8px 24px 4px hsla(0, 0%, 0%, .1)',
 });
 
-export const StyledGlobalHeaders = styled('div', {
+export const StyledGlobalHeaders = css({
   paddingTop: theme.space[6],
   paddingBottom: theme.space[4],
 });
