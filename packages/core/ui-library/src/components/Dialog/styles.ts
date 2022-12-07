@@ -1,20 +1,16 @@
-import { css, theme } from '../../theme';
-// import type * as Stitches from '@stitches/react';
-
-// StyledDialog, StyledDialogPanel, StyledDialogTitle
-
-//  = styled(Dialog, {
-//   backgroundColor: 'orange',
-// });
+import { css } from '../../theme';
 
 export const StyledDialog = css({
-  backgroundColor: 'red',
-});
+  backgroundColor: 'orange',
+  position: 'relative',
 
-export const StyledDialogPanel = css({
-  backgroundColor: 'pink',
-});
-
-export const StyledDialogTitle = css({
-  backgroundColor: 'green',
+  '& .fixed': {
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate3d(-50%, -50%, 0)',
+    maxWidth: 300,
+    backgroundColor: 'orange',
+    padding: 24,
+  },
 });
