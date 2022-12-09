@@ -10,7 +10,7 @@ const dummyAction = () => {
 
 export const Ghost = () => {
   return (
-    <FlexCol>
+    <div className={FlexCol()}>
       <FlexRow name={`small - disabled`}>
         <Button
           action={dummyAction}
@@ -29,13 +29,13 @@ export const Ghost = () => {
       <FlexRow name={`large`}>
         <Button action={dummyAction} label="Button Copy" size="LARGE" style="GHOST" />
       </FlexRow>
-    </FlexCol>
+    </div>
   );
 };
 
 export const Icon = () => {
   return (
-    <FlexCol>
+    <div className={FlexCol()}>
       <FlexRow name={`small - disabled`}>
         <Button
           action={dummyAction}
@@ -73,6 +73,6 @@ export const Icon = () => {
           style="ICON"
         />
       </FlexRow>
-    </FlexCol>
+    </div>
   );
 };

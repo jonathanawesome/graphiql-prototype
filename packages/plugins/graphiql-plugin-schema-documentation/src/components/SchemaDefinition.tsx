@@ -56,8 +56,8 @@ export const SchemaDefinition = () => {
   }, [schema]);
 
   return (
-    <StyledSchemaDefinitionWrap>
-      <StyledSchemaDefinition ref={editorRef}></StyledSchemaDefinition>
-    </StyledSchemaDefinitionWrap>
+    <div className={StyledSchemaDefinitionWrap()}>
+      <div className={StyledSchemaDefinition()} ref={editorRef}></div>
+    </div>
   );
 };

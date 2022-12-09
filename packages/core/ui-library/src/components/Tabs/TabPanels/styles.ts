@@ -1,5 +1,5 @@
-import { styled, theme } from '../../../theme';
+import { css } from '../../../theme';
 
-export const StyledTabPanel = styled('div', {
+export const StyledTabPanel = css({
   height: '100%',
 });

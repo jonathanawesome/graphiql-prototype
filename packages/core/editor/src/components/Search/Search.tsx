@@ -69,7 +69,7 @@ export const Search = () => {
   };
 
   return (
-    <StyledSearch isActive={searchBarVisible} ref={wrapRef}>
+    <div className={StyledSearch({ isActive: searchBarVisible })} ref={wrapRef}>
       <input
         ref={inputRef}
         type="text"
@@ -77,7 +77,7 @@ export const Search = () => {
         value={searchValue}
         onChange={(e) => handleChange({ value: e.currentTarget.value })}
       />
-      <StyledSearchTriggerWrap>
+      <div className={StyledSearchTriggerWrap()}>
         {searchBarVisible ? (
           <Button
             action={() => setSearchBarVisible({ bool: false })}
@@ -95,7 +95,7 @@ export const Search = () => {
             style="ICON"
           />
         )}
-      </StyledSearchTriggerWrap>
-    </StyledSearch>
+      </div>
+    </div>
   );
 };

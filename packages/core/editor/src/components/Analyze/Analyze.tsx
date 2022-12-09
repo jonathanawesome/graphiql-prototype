@@ -11,7 +11,7 @@ export const Analyze = () => {
   const { isExecuting } = useSchema();
 
   return (
-    <StyledAnalyzeWrap isExecuting={isExecuting}>
+    <div className={StyledAnalyzeWrap({ isExecuting })}>
       <MonacoEditor
         monacoEditorType="results"
         optionOverrides={{
@@ -19,6 +19,6 @@ export const Analyze = () => {
           readOnly: true,
         }}
       />
-    </StyledAnalyzeWrap>
+    </div>
   );
 };

@@ -18,16 +18,16 @@ export const GraphiQLEditor = () => {
   const { activePane } = useEditorPanes();
 
   return (
-    <StyledGraphiQLEditor>
-      <StyledGraphiQLEditorInner activePane={activePane}>
+    <section className={StyledGraphiQLEditor()}>
+      <div className={StyledGraphiQLEditorInner({ activePane })}>
         <TopBar />
-        <StyledEditorWrap isActive={activePane === 'EDITOR'}>
+        <div className={StyledEditorWrap({ isActive: activePane === 'EDITOR' })}>
           <Editor />
-        </StyledEditorWrap>
-        <StyledSchemaWrap isActive={activePane === 'SCHEMA'}>
+        </div>
+        <div className={StyledSchemaWrap({ isActive: activePane === 'SCHEMA' })}>
           <Schema />
-        </StyledSchemaWrap>
-      </StyledGraphiQLEditorInner>
-    </StyledGraphiQLEditor>
+        </div>
+      </div>
+    </section>
   );
 };

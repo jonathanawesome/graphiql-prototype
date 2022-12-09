@@ -1,9 +1,9 @@
-import { styled, theme } from '../../theme';
-import type * as Stitches from '@stitches/react';
+import { css, theme } from '../../theme';
+import type * as Stitches from '@stitches/core';
 
 export type ButtonVariants = Stitches.VariantProps<typeof StyledButton>;
 
-export const StyledButton = styled('button', {
+export const StyledButton = css({
   all: 'unset',
   cursor: 'pointer',
   display: 'flex',

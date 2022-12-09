@@ -1,7 +1,7 @@
 import shallow from 'zustand/shallow';
 
 // components
-import { Icon, Play, Prettier } from '@graphiql-prototype/ui-library';
+import { Icon } from '@graphiql-prototype/ui-library';
 
 // hooks
 import { useEditor } from '@graphiql-prototype/store';
@@ -38,35 +38,37 @@ export const OperationActions = () => {
   const operationEditor = monacoEditors.operations;
 
   return (
-    <StyledOperationActions>
-      <StyledPlayButton
+    <div className={StyledOperationActions()}>
+      <button
+        className={StyledPlayButton({ isDisabled: !activeDefinition })}
         onClick={() => {
           executeOperation();
         }}
-        isDisabled={!activeDefinition}
       >
         <>
-          <Play />
-          <StyledPlayButtonType>
+          <Icon name="Play" />
+          <span className={StyledPlayButtonType()}>
             {(activeDefinition &&
               (activeDefinition as OperationDefinitionNode).name?.value) ||
               'Run'}
-          </StyledPlayButtonType>
+          </span>
         </>
-      </StyledPlayButton>
-      <StyledPrettierButton
+      </button>
+      <button
+        className={StyledPrettierButton()}
         onClick={() => operationEditor?.getAction('editor.action.formatDocument').run()}
       >
-        <Prettier />
-      </StyledPrettierButton>
+        <Icon name="Prettier" />
+      </button>
       {documentDefinitions > 1 && (
-        <StyledWarningButton
+        <button
+          className={StyledWarningButton()}
           onClick={() => splitMultipleOperationsToSeparateTabs()}
           title={`Split multiple operations into separate tabs`}
         >
           <Icon name="SplitToTabs" />
-        </StyledWarningButton>
+        </button>
       )}
-    </StyledOperationActions>
+    </div>
   );
 };

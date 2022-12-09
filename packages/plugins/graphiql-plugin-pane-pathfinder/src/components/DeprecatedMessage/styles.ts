@@ -1,6 +1,6 @@
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { css, theme } from '@graphiql-prototype/ui-library';
 
-export const StyledDeprecatedMessage = styled('div', {
+export const StyledDeprecatedMessage = css({
   display: `flex`,
   flexDirection: `column`,
   gap: theme.space[2],

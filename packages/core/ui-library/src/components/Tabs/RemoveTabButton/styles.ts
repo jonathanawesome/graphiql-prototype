@@ -1,6 +1,6 @@
-import { styled, theme } from '../../../theme';
+import { css, theme } from '../../../theme';
 
-export const StyledRemoveTabButton = styled('button', {
+export const StyledRemoveTabButton = css({
   all: 'reset',
   position: 'absolute',
   top: theme.space[2],

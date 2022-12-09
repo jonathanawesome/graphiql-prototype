@@ -1,6 +1,6 @@
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { css, theme } from '@graphiql-prototype/ui-library';
 
-export const GraphiQLWrap = styled('div', {
+export const StyledGraphiQLWrap = css({
   backgroundColor: theme.colors.surface1,
   height: '100%',
   width: '100%',
@@ -9,7 +9,7 @@ export const GraphiQLWrap = styled('div', {
   overflow: 'hidden',
 });
 
-export const PaneWrap = styled('div', {
+export const StyledPaneWrap = css({
   width: `100%`,
   display: 'flex',
   flexDirection: 'column',

@@ -1,6 +1,6 @@
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { css, theme } from '@graphiql-prototype/ui-library';
 
-export const PanePluginContainerWrap = styled('div', {
+export const StyledPanePluginContainerWrap = css({
   height: '100%',
   width: '100%',
   position: 'relative',
@@ -8,7 +8,7 @@ export const PanePluginContainerWrap = styled('div', {
   gridTemplateRows: `${theme.space[12]} minmax(0, 1fr)`,
 });
 
-export const PanePluginContainer = styled('div', {
+export const StyledPanePluginContainer = css({
   height: '100%',
 
   variants: {
@@ -19,7 +19,7 @@ export const PanePluginContainer = styled('div', {
   },
 });
 
-export const PanePluginNavigation = styled('div', {
+export const StyledPanePluginNavigation = css({
   width: `100%`,
   display: 'flex',
   // gap: 10,
@@ -27,7 +27,7 @@ export const PanePluginNavigation = styled('div', {
   // hairlineB: theme.colors.surface3,
 });
 
-export const PanePluginNavigationItem = styled('button', {
+export const StyledPanePluginNavigationItem = css({
   flexShrink: 0,
 
   padding: 13,
@@ -62,7 +62,7 @@ export const PanePluginNavigationItem = styled('button', {
   },
 });
 
-export const StyledSettingsButtonWrap = styled('div', {
+export const StyledSettingsButtonWrap = css({
   marginLeft: `auto`,
   button: {
     height: '100%',

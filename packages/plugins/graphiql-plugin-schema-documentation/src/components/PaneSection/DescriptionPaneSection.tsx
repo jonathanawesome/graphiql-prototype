@@ -17,7 +17,7 @@ export const DescriptionPaneSection = ({
         {description ? (
           <Markdown content={description} />
         ) : (
-          <StyledNullThing>No description provided</StyledNullThing>
+          <div className={StyledNullThing()}>No description provided</div>
         )}
       </PaneSection>
     </>

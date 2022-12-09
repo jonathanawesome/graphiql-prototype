@@ -33,9 +33,9 @@ export const FieldSummary = ({
   const { setActiveTertiaryPane } = useSchemaReference();
 
   return (
-    <StyledFieldSummary>
-      <StyledTertiaryTrigger
-        color="VIOLET"
+    <div className={StyledFieldSummary()}>
+      <button
+        className={StyledTertiaryTrigger({ color: 'VIOLET' })}
         onClick={() =>
           setActiveTertiaryPane({
             destinationPane: field,
@@ -44,21 +44,23 @@ export const FieldSummary = ({
         }
       >
         {field.name}
-      </StyledTertiaryTrigger>
+      </button>
       {'args' in field && field.args.length > 0 && (
         <>
-          <StyledDelimiter>{`(`}</StyledDelimiter>
-          <StyledFieldPaneArgumentsList>
+          <span className={StyledDelimiter()}>{`(`}</span>
+          <div className={StyledFieldPaneArgumentsList()}>
             <ArgumentsList
               args={field.args}
               resetTertiaryPaneOnClick={resetTertiaryPaneOnClick}
             />
-          </StyledFieldPaneArgumentsList>
-          <StyledDelimiter>{`)`}</StyledDelimiter>
+          </div>
+          <span className={StyledDelimiter()}>{`)`}</span>
         </>
       )}
-      <StyledDelimiter>:</StyledDelimiter>
-      <StyledReturnType
+      <span className={StyledDelimiter()}>{`:`}</span>
+
+      <button
+        className={StyledReturnType()}
         onClick={() =>
           setActiveTertiaryPane({
             destinationPane: unwrapType(field.type),
@@ -67,7 +69,7 @@ export const FieldSummary = ({
         }
       >
         {field.type.toString()}
-      </StyledReturnType>
-    </StyledFieldSummary>
+      </button>
+    </div>
   );
 };

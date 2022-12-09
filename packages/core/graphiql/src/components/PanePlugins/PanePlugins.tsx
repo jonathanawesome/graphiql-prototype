@@ -7,10 +7,10 @@ import { useGraphiQL } from '../../hooks';
 
 // styles
 import {
-  PanePluginContainer,
-  PanePluginContainerWrap,
-  PanePluginNavigationItem,
-  PanePluginNavigation,
+  StyledPanePluginContainer,
+  StyledPanePluginContainerWrap,
+  StyledPanePluginNavigationItem,
+  StyledPanePluginNavigation,
   StyledSettingsButtonWrap,
 } from './styles';
 
@@ -36,47 +36,53 @@ export const PanePlugins = ({
   }
 
   return (
-    <PanePluginContainerWrap>
-      <PanePluginNavigation>
+    <div className={StyledPanePluginContainerWrap()}>
+      <div className={StyledPanePluginNavigation()}>
         {panePlugins?.map((panePlugin) => (
-          <PanePluginNavigationItem
+          <button
+            className={StyledPanePluginNavigationItem({
+              isActive: activePanePlugin === panePlugin.panePluginName,
+            })}
             key={panePlugin.panePluginName}
-            isActive={activePanePlugin === panePlugin.panePluginName}
             onClick={() => setActivePanePlugin(panePlugin.panePluginName)}
             title={`${
               activePanePlugin === panePlugin.panePluginName ? 'Close' : 'Show'
             } ${panePlugin.panePluginName}`}
           >
             <panePlugin.panePluginIcon />
-          </PanePluginNavigationItem>
+          </button>
         ))}
-        <StyledSettingsButtonWrap>
+        <div className={StyledSettingsButtonWrap()}>
           {activePanePlugin === 'Settings' ? (
-            <PanePluginNavigationItem
-              isActive={activePanePlugin === PanePluginSettings.panePluginName}
+            <button
+              className={StyledPanePluginNavigationItem({
+                isActive: activePanePlugin === PanePluginSettings.panePluginName,
+              })}
               onClick={() => setActivePanePlugin(panePlugins[0].panePluginName)}
               title={`${
                 activePanePlugin === PanePluginSettings.panePluginName ? 'Close' : 'Show'
               } ${PanePluginSettings.panePluginName}`}
             >
               <Icon name="Close" />
-            </PanePluginNavigationItem>
+            </button>
           ) : (
-            <PanePluginNavigationItem
-              isActive={activePanePlugin === PanePluginSettings.panePluginName}
+            <button
+              className={StyledPanePluginNavigationItem({
+                isActive: activePanePlugin === PanePluginSettings.panePluginName,
+              })}
               onClick={() => setActivePanePlugin(PanePluginSettings.panePluginName)}
               title={`${
                 activePanePlugin === PanePluginSettings.panePluginName ? 'Close' : 'Show'
               } ${PanePluginSettings.panePluginName}`}
             >
               <PanePluginSettings.panePluginIcon />
-            </PanePluginNavigationItem>
+            </button>
           )}
-        </StyledSettingsButtonWrap>
-      </PanePluginNavigation>
-      <PanePluginContainer>
+        </div>
+      </div>
+      <div className={StyledPanePluginContainer()}>
         <activePaneContent.panePluginContent />
-      </PanePluginContainer>
-    </PanePluginContainerWrap>
+      </div>
+    </div>
   );
 };

@@ -19,11 +19,11 @@ export const DeprecatedMessage = ({
   deprecationReason: string;
 }) => {
   return (
-    <StyledDeprecatedMessage>
+    <div className={StyledDeprecatedMessage()}>
       <Message
         message={<Msg deprecationReason={deprecationReason}></Msg>}
         variant="WARNING"
       />
-    </StyledDeprecatedMessage>
+    </div>
   );
 };

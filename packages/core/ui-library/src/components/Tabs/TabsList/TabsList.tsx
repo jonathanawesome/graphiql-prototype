@@ -17,7 +17,12 @@ export const TabsList = ({
   tabbedContent,
 }: TabsListProps) => {
   return (
-    <StyledTabsList aria-label={ariaLabel} isCollapsible={isCollapsible} role="tablist">
+    <ul
+      aria-label={ariaLabel}
+      className={StyledTabsList({ isCollapsible })}
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+      role="tablist"
+    >
       {tabbedContent.map((t) => (
         <Tab
           key={t.tabId}
@@ -30,6 +35,6 @@ export const TabsList = ({
           tabId={t.tabId}
         />
       ))}
-    </StyledTabsList>
+    </ul>
   );
 };

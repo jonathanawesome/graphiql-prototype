@@ -1,6 +1,6 @@
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { css, theme } from '@graphiql-prototype/ui-library';
 
-export const StyledEditorTabs = styled('div', {
+export const StyledEditorTabs = css({
   width: '100%',
   display: 'flex',
   alignItems: 'center',
@@ -8,7 +8,7 @@ export const StyledEditorTabs = styled('div', {
   minWidth: 0,
 });
 
-export const StyledRemoveTabButtonWrap = styled('div', {
+export const StyledRemoveTabButtonWrap = css({
   position: 'absolute',
   top: theme.space[2],
   right: theme.space[1],
@@ -26,7 +26,7 @@ export const StyledRemoveTabButtonWrap = styled('div', {
   },
 });
 
-export const StyledTabButton = styled('button', {
+export const StyledTabButton = css({
   all: 'reset',
   cursor: 'pointer',
   fontSize: theme.fontSizes.body,
@@ -48,7 +48,7 @@ export const StyledTabButton = styled('button', {
   },
 });
 
-export const StyledTabWrap = styled('div', {
+export const StyledTabWrap = css({
   height: `100%`,
   position: `relative`,
   display: `flex`,
@@ -94,7 +94,7 @@ export const StyledTabWrap = styled('div', {
   },
 });
 
-export const StyledAddTabButtonWrap = styled('div', {
+export const StyledAddTabButtonWrap = css({
   marginLeft: theme.space[2],
   marginRight: theme.space[2],
 });

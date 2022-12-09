@@ -1,5 +1,5 @@
 // components
-import { Close } from '../../../icons';
+import { Icon } from '../../Icon';
 
 // styles
 import { StyledRemoveTabButton } from './styles';
@@ -15,8 +15,12 @@ export const RemoveTabButton = ({
   tabId: string;
 }) => {
   return (
-    <StyledRemoveTabButton aria-label="Remove Tab" onClick={() => doRemoveTab({ tabId })}>
-      <Close />
-    </StyledRemoveTabButton>
+    <button
+      aria-label="Remove Tab"
+      className={StyledRemoveTabButton()}
+      onClick={() => doRemoveTab({ tabId })}
+    >
+      <Icon name="Close" />
+    </button>
   );
 };

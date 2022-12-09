@@ -1,8 +1,6 @@
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { css, theme } from '@graphiql-prototype/ui-library';
 
-import * as DialogPrimitive from '@radix-ui/react-dialog';
-
-export const StyledQuickDocs = styled('div', {
+export const StyledQuickDocs = css({
   backgroundColor: theme.colors.surface1,
   position: 'absolute',
   top: 0,
@@ -11,6 +9,26 @@ export const StyledQuickDocs = styled('div', {
   height: '100%',
   width: '100%',
   transition: 'all .1s $authenticMotion',
+
+  '& .quick-docs-portal-container': {
+    position: 'relative',
+    height: '100%',
+    width: '100%',
+  },
+
+  '& .quick-docs-dialog-root': {
+    position: 'relative',
+    height: '100%',
+    width: '100%',
+  },
+
+  '& .quick-docs-dialog-content': {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: '100%',
+    width: '100%',
+  },
 
   variants: {
     dialogActive: {
@@ -28,50 +46,26 @@ export const StyledQuickDocs = styled('div', {
   },
 });
 
-export const CloseButton = styled('button', {
-  height: 24,
-  width: 24,
-  position: 'absolute',
-  top: 20,
-  right: 20,
+// export const DialogRoot = styled(DialogPrimitive.Root, {});
 
-  svg: {
-    height: 24,
-    width: 24,
-    path: {
-      fill: theme.colors.text4,
-    },
-  },
+// export const DialogPortal = styled(DialogPrimitive.Portal, {});
 
-  '&:hover': {
-    svg: {
-      path: {
-        fill: theme.colors.text2,
-      },
-    },
-  },
-});
+// export const DialogClose = styled(DialogPrimitive.Close, {
+//   // '&:focus': {
+//   //   outline: `2px solid red`,
+//   // },
+// });
 
-export const DialogRoot = styled(DialogPrimitive.Root, {});
+// export const DialogContent = styled(DialogPrimitive.Content, {
+//   position: 'absolute',
+//   top: 0,
+//   left: 0,
+//   height: '100%',
+//   width: '100%',
+// });
 
-export const DialogPortal = styled(DialogPrimitive.Portal, {});
-
-export const DialogClose = styled(DialogPrimitive.Close, {
-  // '&:focus': {
-  //   outline: `2px solid red`,
-  // },
-});
-
-export const DialogContent = styled(DialogPrimitive.Content, {
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  height: '100%',
-  width: '100%',
-});
-
-export const CustomPortalContainer = styled('div', {
-  position: 'relative',
-  height: '100%',
-  width: '100%',
-});
+// export const CustomPortalContainer = styled('div', {
+//   position: 'relative',
+//   height: '100%',
+//   width: '100%',
+// });

@@ -1,6 +1,6 @@
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { css, theme } from '@graphiql-prototype/ui-library';
 
-const StyledFlexRow = styled('div', {
+const StyledFlexRow = css({
   width: `100%`,
   display: 'grid',
   gridTemplateColumns: '64px 1fr',
@@ -22,9 +22,9 @@ export const FlexRow = ({
   name: string;
 }) => {
   return (
-    <StyledFlexRow>
+    <div className={StyledFlexRow()}>
       <span className="name">{name}</span>
       {children}
-    </StyledFlexRow>
+    </div>
   );
 };

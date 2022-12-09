@@ -41,19 +41,16 @@ export const ArgumentsList = ({
     return (
       <>
         {args.map((a) => (
-          <StyledArgWrap
-            key={a.name}
-            showBorder={showBorder}
-            showDescription={showDescription}
-          >
-            <StyledArg>
+          <div key={a.name} className={StyledArgWrap({ showBorder, showDescription })}>
+            <div className={StyledArg()}>
               {isInputObjectType(a.type) ? (
-                <StyledInputObjectName>{a.name}</StyledInputObjectName>
+                <span className={StyledInputObjectName()}>{a.name}</span>
               ) : (
-                <StyledScalarArgumentName>{a.name}</StyledScalarArgumentName>
+                <span className={StyledScalarArgumentName()}>{a.name}</span>
               )}
-              <StyledDelimiter>:</StyledDelimiter>
-              <StyledReturnType
+              <span className={StyledDelimiter()}>:</span>
+              <button
+                className={StyledReturnType()}
                 onClick={() =>
                   setActiveTertiaryPane({
                     destinationPane: unwrapType(a.type),
@@ -62,13 +59,13 @@ export const ArgumentsList = ({
                 }
               >
                 {a.type.toString()}
-              </StyledReturnType>
+              </button>
               <DefaultValue inputFieldOrArgument={a} />
-            </StyledArg>
+            </div>
             {showDescription && a.description && (
               <Markdown content={a.description} showSummary={true} />
             )}
-          </StyledArgWrap>
+          </div>
         ))}
       </>
     );

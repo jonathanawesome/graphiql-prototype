@@ -99,14 +99,14 @@ export const TertiaryPane = ({ pane }: { pane: TertiaryPaneType }) => {
   }
 
   return (
-    <StyledTertiaryPane>
-      <StyledTertiaryPaneLead>
-        <StyledTertiaryPaneLeadInfo>
+    <div className={StyledTertiaryPane()}>
+      <div className={StyledTertiaryPaneLead()}>
+        <div className={StyledTertiaryPaneLeadInfo()}>
           <span>{leadType}</span>
           <span>{activeTertiaryPane?.pane.name}</span>
-        </StyledTertiaryPaneLeadInfo>
+        </div>
         {canNavigateBack && (
-          <StyledTertiaryPaneNavButton isActive={canNavigateBack}>
+          <div className={StyledTertiaryPaneNavButton({ isActive: canNavigateBack })}>
             <Button
               action={() => {
                 if (canNavigateBack) {
@@ -122,9 +122,9 @@ export const TertiaryPane = ({ pane }: { pane: TertiaryPaneType }) => {
               size="MEDIUM"
               style="ICON"
             />
-          </StyledTertiaryPaneNavButton>
+          </div>
         )}
-        <StyledTertiaryPaneNavButton isActive={true}>
+        <div className={StyledTertiaryPaneNavButton({ isActive: true })}>
           <Button
             action={() => clearTertiaryPaneStack()}
             icon="Close"
@@ -132,9 +132,9 @@ export const TertiaryPane = ({ pane }: { pane: TertiaryPaneType }) => {
             size="MEDIUM"
             style="ICON"
           />
-        </StyledTertiaryPaneNavButton>
-      </StyledTertiaryPaneLead>
-      <StyledTertiaryPaneContent>{toRender}</StyledTertiaryPaneContent>
-    </StyledTertiaryPane>
+        </div>
+      </div>
+      <div className={StyledTertiaryPaneContent()}>{toRender}</div>
+    </div>
   );
 };

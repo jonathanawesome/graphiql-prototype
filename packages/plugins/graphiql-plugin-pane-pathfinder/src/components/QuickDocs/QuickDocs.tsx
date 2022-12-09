@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
 
 // components
 import { TertiaryPane } from '@graphiql-prototype/graphiql-plugin-schema-documentation';
@@ -8,10 +9,10 @@ import { useSchemaReference } from '@graphiql-prototype/graphiql-plugin-schema-d
 
 // styles
 import {
-  CustomPortalContainer,
-  DialogContent,
-  DialogPortal,
-  DialogRoot,
+  // CustomPortalContainer,
+  // DialogContent,
+  // DialogPortal,
+  // DialogRoot,
   StyledQuickDocs,
 } from './styles';
 
@@ -41,18 +42,19 @@ export const QuickDocs = () => {
   }, []);
 
   return (
-    <StyledQuickDocs dialogActive={!!activeTertiaryPane}>
-      <DialogRoot open={!!activeTertiaryPane} modal={true}>
-        <DialogPortal container={container}>
-          <DialogContent
+    <div className={StyledQuickDocs({ dialogActive: !!activeTertiaryPane })}>
+      <DialogPrimitive.Root open={!!activeTertiaryPane} modal={true}>
+        <DialogPrimitive.Portal container={container}>
+          <DialogPrimitive.Content
+            className="quick-docs-dialog-content"
             onEscapeKeyDown={() => closeDialog()}
             onPointerDownOutside={() => closeDialog()}
           >
             {activeTertiaryPane && <TertiaryPane pane={activeTertiaryPane['pane']} />}
-          </DialogContent>
-        </DialogPortal>
-      </DialogRoot>
-      <CustomPortalContainer ref={setContainer} />
-    </StyledQuickDocs>
+          </DialogPrimitive.Content>
+        </DialogPrimitive.Portal>
+      </DialogPrimitive.Root>
+      <div className="quick-docs-portal-container" ref={setContainer} />
+    </div>
   );
 };

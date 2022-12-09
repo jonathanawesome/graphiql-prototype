@@ -8,19 +8,19 @@ export const WorkspaceNavigation = () => {
   const { activePane, setActivePane } = useEditorPanes();
 
   return (
-    <StyledWorkspaceNavigation>
-      <StyledWorkspaceNavigationButton
-        isActive={activePane === 'EDITOR'}
+    <div className={StyledWorkspaceNavigation()}>
+      <button
+        className={StyledWorkspaceNavigationButton({ isActive: activePane === 'EDITOR' })}
         onClick={() => setActivePane({ destinationPane: 'EDITOR' })}
       >
         Editor
-      </StyledWorkspaceNavigationButton>
-      <StyledWorkspaceNavigationButton
-        isActive={activePane === 'SCHEMA'}
+      </button>
+      <button
+        className={StyledWorkspaceNavigationButton({ isActive: activePane === 'SCHEMA' })}
         onClick={() => setActivePane({ destinationPane: 'SCHEMA' })}
       >
         Schema
-      </StyledWorkspaceNavigationButton>
-    </StyledWorkspaceNavigation>
+      </button>
+    </div>
   );
 };

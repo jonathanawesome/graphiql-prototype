@@ -11,8 +11,8 @@ export const Tag = ({
   type: 'ERROR' | 'SUCCESS' | 'WARNING' | 'INFO' | 'OPERATION';
 }) => {
   return (
-    <StyledTag title={title} type={type}>
+    <span className={StyledTag({ type })} title={title}>
       {copy}
-    </StyledTag>
+    </span>
   );
 };

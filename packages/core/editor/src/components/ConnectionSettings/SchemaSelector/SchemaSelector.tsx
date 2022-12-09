@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 
 // components
 import {
@@ -13,13 +14,13 @@ import { useSchema } from '@graphiql-prototype/store';
 
 // styles
 import {
-  CustomSchemaFormWrap,
-  Error,
-  RadioWrap,
-  RadioGroup,
-  RadioGroupIndicator,
-  RadioGroupRadio,
-  SpinnerWrap,
+  StyledCustomSchemaFormWrap,
+  StyledError,
+  StyledRadioWrap,
+  StyledRadioGroup,
+  StyledRadioGroupIndicator,
+  StyledRadioGroupRadio,
+  StyledSpinnerWrap,
   StyledSchemaSelector,
   StyledSubmitButton,
 } from './styles';
@@ -67,10 +68,10 @@ const Radio = ({
   id: string;
   copy: string;
 }) => (
-  <RadioWrap isActive={activeRadioValue === value}>
-    <RadioGroupRadio value={value} id={id}>
-      <RadioGroupIndicator />
-    </RadioGroupRadio>
+  <div className={StyledRadioWrap({ isActive: activeRadioValue === value })}>
+    <RadioGroupPrimitive.Item value={value} id={id} className={StyledRadioGroupRadio()}>
+      <RadioGroupPrimitive.Indicator className={StyledRadioGroupIndicator()} />
+    </RadioGroupPrimitive.Item>
     <label htmlFor={id}>
       <span>{copy}</span>
       {aboutUrl && (
@@ -79,7 +80,7 @@ const Radio = ({
         </a>
       )}
     </label>
-  </RadioWrap>
+  </div>
 );
 
 export const SchemaSelector = () => {
@@ -167,10 +168,11 @@ export const SchemaSelector = () => {
   };
 
   return (
-    <StyledSchemaSelector>
+    <div className={StyledSchemaSelector()}>
       <Message message={<>This tab is a development-only feature</>} variant="INFO" />
-      {schemaError && <Error>{schemaError}</Error>}
-      <RadioGroup
+      {schemaError && <span className={StyledError()}>{schemaError}</span>}
+      <RadioGroupPrimitive.Root
+        className={StyledRadioGroup()}
         value={activeRadioValue || undefined}
         aria-label="Choose schema"
         onValueChange={(value) => {
@@ -207,7 +209,7 @@ export const SchemaSelector = () => {
               value={customSchemaUrlInput}
             />
             {activeRadioValue === customSchemaUrlInput && (
-              <CustomSchemaFormWrap>
+              <form className={StyledCustomSchemaFormWrap()}>
                 <Control
                   control={{
                     controlType: 'INPUT',
@@ -219,21 +221,22 @@ export const SchemaSelector = () => {
                   labelCopy={`Your schema URL`}
                   list={false}
                 />
-                <StyledSubmitButton
+                <button
+                  className={StyledSubmitButton()}
                   onClick={(e) => {
                     customSchemaUrlInputSubmitHandler(e);
                   }}
                 >
                   Use this schema
-                </StyledSubmitButton>
-              </CustomSchemaFormWrap>
+                </button>
+              </form>
             )}
           </div>
         </fieldset>
-        <SpinnerWrap loading={schemaLoading}>
+        <div className={StyledSpinnerWrap({ loading: schemaLoading })}>
           <Spinner />
-        </SpinnerWrap>
-      </RadioGroup>
-    </StyledSchemaSelector>
+        </div>
+      </RadioGroupPrimitive.Root>
+    </div>
   );
 };

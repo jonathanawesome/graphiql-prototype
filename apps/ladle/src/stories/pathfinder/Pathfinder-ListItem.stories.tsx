@@ -24,24 +24,24 @@ export const Field = () => {
   });
 };
 
-export const Argument = () => {
-  const { getQueryField } = useTestSchema();
-  const hasArgsField = getQueryField('hasArgs');
+// export const Argument = () => {
+//   const { getQueryField } = useTestSchema();
+//   const hasArgsField = getQueryField('hasArgs');
 
-  return Object.keys(hasArgsField.args).map((key) => {
-    return (
-      <ListItem
-        key={hasArgsField.args[key].name}
-        ancestors={[]}
-        // collapser={{c}}
-        isSelected={true}
-        // toggler={}
-        type={hasArgsField.args[key]}
-        variant="ARGUMENT"
-      />
-    );
-  });
-};
+//   return Object.keys(hasArgsField.args).map((key) => {
+//     return (
+//       <ListItem
+//         key={hasArgsField.args[key].name}
+//         ancestors={[]}
+//         // collapser={{c}}
+//         isSelected={true}
+//         // toggler={}
+//         type={hasArgsField.args[key]}
+//         variant="ARGUMENT"
+//       />
+//     );
+//   });
+// };
 
 export const InputObject = () => {
   const { getQueryField } = useTestSchema();

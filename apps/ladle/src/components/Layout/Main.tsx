@@ -1,9 +1,9 @@
-import { Resizer, styled } from '@graphiql-prototype/ui-library';
+import { Resizer, css } from '@graphiql-prototype/ui-library';
 
 import { Editor } from './Editor';
 import { Pane } from './Pane';
 
-const MainStyled = styled('main', {
+const StyledMain = css({
   backgroundColor: 'lime',
   height: 'calc(100% - 32px)',
   width: 'calc(100% - 32px)',
@@ -13,7 +13,7 @@ const MainStyled = styled('main', {
 
 export const Main = () => {
   return (
-    <MainStyled>
+    <main className={StyledMain()}>
       <Resizer
         direction="HORIZONTAL"
         handlePosition="RIGHT"
@@ -25,6 +25,6 @@ export const Main = () => {
           initialWidthPercentage: 70,
         }}
       />
-    </MainStyled>
+    </main>
   );
 };

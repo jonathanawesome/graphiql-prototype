@@ -19,7 +19,7 @@ export const ArgumentsPaneSection = ({ args }: { args: readonly GraphQLArgument[
             showDescription={true}
           />
         ) : (
-          <StyledNullThing>This field has no arguments</StyledNullThing>
+          <div className={StyledNullThing()}>This field has no arguments</div>
         )}
       </PaneSection>
     </>

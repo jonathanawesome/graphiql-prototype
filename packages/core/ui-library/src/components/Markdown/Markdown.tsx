@@ -11,12 +11,12 @@ export const Markdown = ({
   showSummary?: boolean;
 }) => {
   return (
-    <StyledMarkdown showSummary={showSummary}>
+    <div className={StyledMarkdown({ showSummary })}>
       <ReactMarkdown
         children={content}
         // transform all links within markdown to open externally
         linkTarget="_blank"
       />
-    </StyledMarkdown>
+    </div>
   );
 };

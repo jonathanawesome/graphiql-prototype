@@ -17,11 +17,11 @@ export const Tab = ({
   tabId,
 }: TabProps) => {
   return (
-    <StyledTab role="presentation">
-      <StyledTabTrigger
+    <li className={StyledTab()} role="presentation">
+      <button
         aria-selected={isSelected}
         aria-controls={panelId}
-        hasRemoveTabButton={!!doRemoveTab}
+        className={StyledTabTrigger({ hasRemoveTabButton: !!doRemoveTab })}
         id={tabId}
         onPointerDown={(event) => {
           setSelectedTab(tabId);
@@ -31,8 +31,8 @@ export const Tab = ({
         tabIndex={-1}
       >
         {copy}
-      </StyledTabTrigger>
+      </button>
       {doRemoveTab && <RemoveTabButton doRemoveTab={doRemoveTab} tabId={tabId} />}
-    </StyledTab>
+    </li>
   );
 };

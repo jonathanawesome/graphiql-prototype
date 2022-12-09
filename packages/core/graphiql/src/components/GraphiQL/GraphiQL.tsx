@@ -11,7 +11,7 @@ import { useSchema } from '@graphiql-prototype/store';
 import { useTheme } from '@graphiql-prototype/ui-library';
 
 // styles
-import { GraphiQLWrap, PaneWrap } from './styles';
+import { StyledGraphiQLWrap, StyledPaneWrap } from './styles';
 
 // types
 import type { PanePluginsArray } from '../PanePlugins/types';
@@ -35,19 +35,19 @@ export const GraphiQL = ({ panePlugins }: GraphiQLProps) => {
   }, []);
 
   return (
-    <GraphiQLWrap className={themeClass()}>
+    <div className={`${themeClass()} ${StyledGraphiQLWrap()}`}>
       <Resizer
         direction="HORIZONTAL"
         handlePosition="RIGHT"
         pane1={{
           component: (
-            <PaneWrap schemaLoading={schemaLoading}>
+            <div className={StyledPaneWrap({ schemaLoading })}>
               <PanePlugins activePane={activePanePlugin} panePlugins={panePlugins} />
-            </PaneWrap>
+            </div>
           ),
         }}
         pane2={{ component: <GraphiQLEditor />, initialWidthPercentage: 70 }}
       />
-    </GraphiQLWrap>
+    </div>
   );
 };

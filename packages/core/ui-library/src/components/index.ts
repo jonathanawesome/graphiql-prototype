@@ -1,9 +1,12 @@
 export { Button } from './Button';
 
-export { Control } from './Control';
-export type { ControlData, ControlProps, HandleChangeSignature } from './Control';
+export * from './Control';
+
+export { Dialog } from './Dialog';
 
 export { HTTPHeaderControl } from './HTTPHeaderControl';
+
+export * from './Icon';
 
 export { Markdown } from './Markdown';
 

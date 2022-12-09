@@ -1,5 +1,5 @@
 // components
-import { Icon } from '../../icons';
+import { Icon } from '../Icon';
 
 // styles
 import { StyledSelect, StyledSelectWrap, StyledSelectDecoration } from './styles';
@@ -16,8 +16,13 @@ export const Select = ({
   value,
 }: SelectProps) => {
   return (
-    <StyledSelectWrap isSelected={options.some((option) => option.value === value)}>
-      <StyledSelect
+    <div
+      className={StyledSelectWrap({
+        isSelected: options.some((option) => option.value === value),
+      })}
+    >
+      <select
+        className={StyledSelect()}
         disabled={isDisabled}
         name={name}
         onChange={(e) => {
@@ -34,10 +39,10 @@ export const Select = ({
             {option.name}
           </option>
         ))}
-      </StyledSelect>
-      <StyledSelectDecoration>
+      </select>
+      <div className={StyledSelectDecoration()}>
         <Icon name="Caret" />
-      </StyledSelectDecoration>
-    </StyledSelectWrap>
+      </div>
+    </div>
   );
 };

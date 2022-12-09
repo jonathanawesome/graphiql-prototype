@@ -15,16 +15,16 @@ import {
 
 export const Operate = () => {
   return (
-    <StyledOperateWrap>
-      <StyledOperationEditor>
+    <div className={StyledOperateWrap()}>
+      <div className={StyledOperationEditor()}>
         <MonacoEditor monacoEditorType="operations" />
-        <StyledOperationActionsWrap>
+        <div className={StyledOperationActionsWrap()}>
           <OperationActions />
-        </StyledOperationActionsWrap>
-      </StyledOperationEditor>
-      <StyledOperationToolsWrap>
+        </div>
+      </div>
+      <div className={StyledOperationToolsWrap()}>
         <OperationTools />
-      </StyledOperationToolsWrap>
-    </StyledOperateWrap>
+      </div>
+    </div>
   );
 };

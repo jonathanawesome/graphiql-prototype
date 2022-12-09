@@ -1,6 +1,6 @@
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { css, theme } from '@graphiql-prototype/ui-library';
 
-export const StyledGraphiQLEditorInner = styled('div', {
+export const StyledGraphiQLEditorInner = css({
   display: 'grid',
   height: '100%',
   width: '100%',
@@ -18,7 +18,7 @@ export const StyledGraphiQLEditorInner = styled('div', {
   },
 });
 
-export const StyledGraphiQLEditor = styled('section', {
+export const StyledGraphiQLEditor = css({
   position: `relative`,
   height: '100%',
   width: '100%',
@@ -26,7 +26,7 @@ export const StyledGraphiQLEditor = styled('section', {
   backgroundColor: theme.colors.surface1,
 });
 
-export const StyledEditorWrap = styled('div', {
+export const StyledEditorWrap = css({
   width: '100%',
   display: `grid`,
   gridTemplateRows: `${theme.space[10]}  1fr`,
@@ -38,7 +38,7 @@ export const StyledEditorWrap = styled('div', {
   },
 });
 
-export const StyledSchemaWrap = styled('div', {
+export const StyledSchemaWrap = css({
   height: '100%',
   width: '100%',
 

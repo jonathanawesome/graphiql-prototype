@@ -1,6 +1,6 @@
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { css, theme } from '@graphiql-prototype/ui-library';
 
-export const StyledTopBar = styled('div', {
+export const StyledTopBar = css({
   position: `relative`,
   width: '100%',
   height: '100%',

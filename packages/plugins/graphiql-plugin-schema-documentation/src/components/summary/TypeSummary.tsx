@@ -23,9 +23,9 @@ export const TypeSummary = ({
   const { setActiveTertiaryPane } = useSchemaReference();
 
   return (
-    <StyledTypeSummary>
-      <StyledTertiaryTrigger
-        color="BLUE"
+    <div className={StyledTypeSummary()}>
+      <button
+        className={StyledTertiaryTrigger({ color: 'BLUE' })}
         onClick={() =>
           setActiveTertiaryPane({
             destinationPane: type,
@@ -34,10 +34,10 @@ export const TypeSummary = ({
         }
       >
         {type.name}
-      </StyledTertiaryTrigger>
+      </button>
       {showDescription && type.description && (
         <Markdown content={type.description} showSummary={true} />
       )}
-    </StyledTypeSummary>
+    </div>
   );
 };

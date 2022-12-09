@@ -78,8 +78,10 @@ export const SecondaryPane = ({
   }
 
   return (
-    <StyledSecondaryPane activeTertiaryPane={activeTertiaryPane !== null}>
+    <div
+      className={StyledSecondaryPane({ activeTertiaryPane: activeTertiaryPane !== null })}
+    >
       {toRender}
-    </StyledSecondaryPane>
+    </div>
   );
 };

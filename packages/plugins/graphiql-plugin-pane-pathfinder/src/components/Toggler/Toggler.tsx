@@ -57,11 +57,11 @@ export const Toggler: React.FC<ToggleProps> = ({
   // });
 
   return (
-    <StyledToggler
+    <button
       aria-label={`Add ${breadcrumbs} ${variant} to operation`}
       aria-pressed={isSelected}
+      className={StyledToggler({ isSelected, variant })}
       disabled={isDisabled}
-      isSelected={isSelected}
       onClick={() => {
         if (collapser) {
           // const { isOpen, setIsOpen } = collapser;
@@ -77,10 +77,9 @@ export const Toggler: React.FC<ToggleProps> = ({
         });
       }}
       type="button"
-      variant={variant}
     >
       {variant === 'ARGUMENT' && <IndicatorArgument />}
       {variant === 'FIELD' && <IndicatorField />}
-    </StyledToggler>
+    </button>
   );
 };

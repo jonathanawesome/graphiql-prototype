@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import cuid from 'cuid';
 
 // components
-import { Icon } from '../../icons';
+import { Icon } from '../Icon';
 import { Input } from './Input';
 import { Select } from './Select';
 
@@ -60,13 +60,16 @@ export const List = ({
   };
 
   return (
-    <StyledList>
+    <div className={StyledList()}>
       {items.length > 0 &&
         items.map((item) => (
-          <StyledListItem key={`${item.name}`}>
-            <StyledRemoveItemButton onClick={() => handleRemoveItem({ name: item.name })}>
+          <div className={StyledListItem()} key={`${item.name}`}>
+            <button
+              className={StyledRemoveItemButton()}
+              onClick={() => handleRemoveItem({ name: item.name })}
+            >
               <Icon name="Close" />
-            </StyledRemoveItemButton>
+            </button>
             {controlType === 'INPUT' && (
               <Input
                 controlType={controlType}
@@ -86,14 +89,15 @@ export const List = ({
                 value={item.value}
               />
             )}
-          </StyledListItem>
+          </div>
         ))}
-      <StyledAddItemButton
-        type="button"
+      <button
+        className={StyledAddItemButton()}
         onClick={() => handleAddItem({ name: `${cuid.slug()}` })}
+        type="button"
       >
         {`Add item +`}
-      </StyledAddItemButton>
-    </StyledList>
+      </button>
+    </div>
   );
 };

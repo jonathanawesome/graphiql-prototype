@@ -1,6 +1,6 @@
-import { styled, theme } from '../../theme';
+import { css, theme } from '../../theme';
 
-export const StyledMarkdown = styled('div', {
+export const StyledMarkdown = css({
   display: `flex`,
   flexDirection: `column`,
   paddingTop: theme.space[1],

@@ -1,7 +1,7 @@
 import { Caret } from '@graphiql-prototype/graphiql-plugin-pane-pathfinder/src/icons';
-import { SeparatorRound, styled } from '@graphiql-prototype/ui-library';
+import { Icon, css } from '@graphiql-prototype/ui-library';
 
-const PathfinderStyled = styled('ul', {
+const StyledPathfinder = css({
   all: 'unset',
   backgroundColor: 'pink',
   listStyleType: 'none',
@@ -10,25 +10,25 @@ const PathfinderStyled = styled('ul', {
   gap: 16,
 });
 
-const ListItemStyled = styled('li', {
+const StyledListItem = css({
   backgroundColor: 'pink',
   fontSize: 14,
 });
 
-const ListItemControls = styled('div', {
+const StyledListItemControls = css({
   display: 'flex',
   alignItems: 'center',
   gap: 4,
 });
 
-const ToggleButton = styled('button', {
+const StyledToggleButton = css({
   height: 16,
   width: 16,
   border: '1px solid blue',
   borderRadius: '50%',
 });
 
-const CollapseButton = styled('button', {
+const StyledCollapseButton = css({
   height: 16,
   width: 16,
   svg: {
@@ -36,13 +36,13 @@ const CollapseButton = styled('button', {
   },
 });
 
-const Details = styled('div', {
+const StyledDetails = css({
   display: 'flex',
   alignItems: 'center',
   gap: 4,
 });
 
-const Description = styled('div', {
+const StyledDescription = css({
   display: 'flex',
   alignItems: 'center',
 
@@ -51,7 +51,7 @@ const Description = styled('div', {
   },
 });
 
-const DescriptionSeparator = styled('div', {
+const StyledDescriptionSeparator = css({
   height: 16,
   width: 16,
   svg: {
@@ -59,7 +59,7 @@ const DescriptionSeparator = styled('div', {
   },
 });
 
-const CollapsibleContent = styled('div', {
+const StyledCollapsibleContent = css({
   marginLeft: 24,
   ul: {
     all: 'unset',
@@ -73,38 +73,39 @@ const CollapsibleContent = styled('div', {
 
 const ListItem = () => {
   return (
-    <ListItemStyled>
-      <ListItemControls>
-        <ToggleButton
+    <li className={StyledListItem()}>
+      <div className={StyledListItemControls()}>
+        <button
           aria-label="Toggle Field or Argument Name"
           aria-pressed="false"
+          className={StyledToggleButton()}
           type="button"
-        ></ToggleButton>
-        <CollapseButton>
+        ></button>
+        <button className={StyledCollapseButton()}>
           <Caret />
-        </CollapseButton>
-        <Details>
+        </button>
+        <div className={StyledDetails()}>
           <div>Name</div>
           <div>Type/DocsButton</div>
-          <Description>
-            <DescriptionSeparator>
-              <SeparatorRound />
-            </DescriptionSeparator>
+          <div className={StyledDescription()}>
+            <div className={StyledDescriptionSeparator()}>
+              <Icon name="SeparatorRound" />
+            </div>
             <p>Description</p>
-          </Description>
-        </Details>
-      </ListItemControls>
-      <CollapsibleContent id="collapsible-content">
+          </div>
+        </div>
+      </div>
+      <div className={StyledCollapsibleContent()} id="collapsible-content">
         <ul>args?</ul>
         <ul>child fields</ul>
-      </CollapsibleContent>
-    </ListItemStyled>
+      </div>
+    </li>
   );
 };
 
 export const Pathfinder = () => {
   return (
-    <PathfinderStyled>
+    <ul className={StyledPathfinder()}>
       <ListItem />
       <ListItem />
       <ListItem />
@@ -130,6 +131,6 @@ export const Pathfinder = () => {
       <ListItem />
       <ListItem />
       <ListItem />
-    </PathfinderStyled>
+    </ul>
   );
 };

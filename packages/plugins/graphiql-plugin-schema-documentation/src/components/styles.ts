@@ -1,15 +1,15 @@
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { css, theme } from '@graphiql-prototype/ui-library';
 
 const padding = theme.space[6];
 const border = `1px solid ${theme.colors.surface3}`;
 
-export const StyledSchemaNavigation = styled('div', {
+export const StyledSchemaNavigation = css({
   display: `flex`,
   // borderBottom: border,
   hairlineB: theme.colors.surface3,
 });
 
-export const StyledSchemaNavigationButton = styled('button', {
+export const StyledSchemaNavigationButton = css({
   position: `relative`,
   height: '100%',
   display: `flex`,
@@ -59,7 +59,7 @@ export const StyledSchemaNavigationButton = styled('button', {
   },
 });
 
-export const StyledSchema = styled('div', {
+export const StyledSchema = css({
   height: '100%',
   width: '100%',
   position: 'relative',
@@ -68,7 +68,7 @@ export const StyledSchema = styled('div', {
   overflow: `hidden`,
 });
 
-export const StyledSchemaReference = styled('div', {
+export const StyledSchemaReference = css({
   color: theme.colors.text3,
   height: `100%`,
   width: `100%`,
@@ -78,7 +78,7 @@ export const StyledSchemaReference = styled('div', {
   overflow: `hidden`,
 });
 
-export const StyledBreadcrumb = styled('div', {
+export const StyledBreadcrumb = css({
   display: `flex`,
   alignItems: `center`,
   flexGrow: 0,
@@ -93,18 +93,18 @@ export const StyledBreadcrumb = styled('div', {
   fontSize: 12,
 });
 
-export const StyledBreadcrumbArrow = styled('span', {
+export const StyledBreadcrumbArrow = css({
   display: `flex`,
   paddingLeft: theme.space[2],
   paddingRight: theme.space[2],
 });
 
-export const StyledBreadcrumbItem = styled('span', {
+export const StyledBreadcrumbItem = css({
   display: `flex`,
   gap: 2,
 });
 
-export const StyledPane = styled('div', {
+const StyledPane = css({
   height: `100%`,
   overflowY: `auto`,
   display: `flex`,
@@ -114,12 +114,12 @@ export const StyledPane = styled('div', {
   paddingTop: padding,
 });
 
-export const StyledPrimaryPane = styled(StyledPane, {
+export const StyledPrimaryPane = css(StyledPane, {
   maxWidth: 320,
   // borderRight: border,
 });
 
-export const StyledSecondaryPane = styled(StyledPane, {
+export const StyledSecondaryPane = css(StyledPane, {
   flexGrow: 1,
   minWidth: 200,
   hairlineL: theme.colors.surface3,
@@ -134,7 +134,7 @@ export const StyledSecondaryPane = styled(StyledPane, {
   },
 });
 
-export const StyledTertiaryPane = styled(StyledPane, {
+export const StyledTertiaryPane = css(StyledPane, {
   flexGrow: 1,
   paddingTop: 0,
   display: `grid`,
@@ -144,7 +144,7 @@ export const StyledTertiaryPane = styled(StyledPane, {
   hairlineL: theme.colors.surface3,
 });
 
-export const StyledTertiaryPaneLead = styled('div', {
+export const StyledTertiaryPaneLead = css({
   width: `calc(100% - 48px)`,
   display: `flex`,
   alignItems: `center`,
@@ -154,7 +154,7 @@ export const StyledTertiaryPaneLead = styled('div', {
   hairlineB: theme.colors.surface3,
 });
 
-export const StyledTertiaryPaneLeadInfo = styled('div', {
+export const StyledTertiaryPaneLeadInfo = css({
   width: `100%`,
   display: `flex`,
   flexDirection: `column`,
@@ -179,13 +179,13 @@ export const StyledTertiaryPaneLeadInfo = styled('div', {
   },
 });
 
-export const StyledTertiaryPaneNav = styled('div', {
-  display: `flex`,
-  alignItems: `center`,
-  gap: 4,
-});
+// export const StyledTertiaryPaneNav = css({
+//   display: `flex`,
+//   alignItems: `center`,
+//   gap: 4,
+// });
 
-export const StyledTertiaryPaneNavButton = styled('div', {
+export const StyledTertiaryPaneNavButton = css({
   transform: `rotate(90deg)`,
   flexShrink: 0,
 
@@ -220,7 +220,7 @@ export const StyledTertiaryPaneNavButton = styled('div', {
   },
 });
 
-export const StyledTertiaryPaneContent = styled('div', {
+export const StyledTertiaryPaneContent = css({
   height: `100%`,
   width: `100%`,
   overflowY: `auto`,
@@ -230,7 +230,7 @@ export const StyledTertiaryPaneContent = styled('div', {
   paddingTop: theme.space[4],
 });
 
-export const StyledPaneSection = styled('div', {
+export const StyledPaneSection = css({
   // overflowX: `hidden`,
   display: `flex`,
   flexDirection: `column`,
@@ -273,13 +273,13 @@ export const StyledPaneSection = styled('div', {
   },
 });
 
-export const StyledPanes = styled('div', {
+export const StyledPanes = css({
   height: `100%`,
   display: `flex`,
   overflow: `hidden`,
 });
 
-export const StyledTabButton = styled('button', {
+export const StyledTabButton = css({
   position: `relative`,
   display: `flex`,
   alignItems: `center`,
@@ -318,7 +318,7 @@ export const StyledTabButton = styled('button', {
   },
 });
 
-export const StyledFieldSummary = styled('div', {
+export const StyledFieldSummary = css({
   borderLeft: border,
   // hairlineL: theme.colors.surface3,
   paddingLeft: theme.space[3],
@@ -327,7 +327,7 @@ export const StyledFieldSummary = styled('div', {
   whiteSpace: `nowrap`,
 });
 
-export const StyledInterfaceSummary = styled('div', {
+export const StyledInterfaceSummary = css({
   display: `flex`,
   flexDirection: `column`,
   gap: 8,
@@ -338,13 +338,13 @@ export const StyledInterfaceSummary = styled('div', {
   },
 });
 
-export const StyledFieldPaneArgumentsList = styled('div', {
+export const StyledFieldPaneArgumentsList = css({
   paddingLeft: theme.space[2],
   paddingTop: theme.space[1],
   paddingBottom: theme.space[1],
 });
 
-export const StyledTertiaryTrigger = styled('button', {
+export const StyledTertiaryTrigger = css({
   color: theme.colors.blue_default,
 
   '&:hover': {
@@ -366,13 +366,13 @@ export const StyledTertiaryTrigger = styled('button', {
   },
 });
 
-export const StyledDelimiter = styled('span', {
+export const StyledDelimiter = css({
   color: theme.colors.text3,
   paddingLeft: 2,
   paddingRight: 2,
 });
 
-export const StyledReturnType = styled('button', {
+export const StyledReturnType = css({
   color: theme.colors.blue_default,
 
   '&:hover': {
@@ -380,17 +380,17 @@ export const StyledReturnType = styled('button', {
   },
 });
 
-export const StyledDefaultValue = styled('span', {
+export const StyledDefaultValue = css({
   color: theme.colors.yellow_default,
   cursor: `default`,
 });
 
-export const StyledDirectiveLocation = styled('div', {
+export const StyledDirectiveLocation = css({
   color: theme.colors.yellow_default,
   cursor: `default`,
 });
 
-export const StyledArgWrap = styled('div', {
+export const StyledArgWrap = css({
   paddingTop: theme.space[1],
   paddingBottom: theme.space[1],
 
@@ -411,25 +411,25 @@ export const StyledArgWrap = styled('div', {
   },
 });
 
-export const StyledArg = styled('div', {
+export const StyledArg = css({
   whiteSpace: `nowrap`,
 });
 
-export const StyledInputObjectName = styled('span', {
+export const StyledInputObjectName = css({
   color: theme.colors.orange_default,
 });
 
-export const StyledScalarArgumentName = styled('span', {
+export const StyledScalarArgumentName = css({
   color: theme.colors.pink_default,
 });
 
-export const StyledEnumValue = styled('div', {
+export const StyledEnumValue = css({
   '& .enumValue': {
     color: theme.colors.green_default,
   },
 });
 
-export const StyledTypeSummary = styled('div', {
+export const StyledTypeSummary = css({
   display: `flex`,
   flexDirection: `column`,
   // borderLeft: border,
@@ -439,12 +439,12 @@ export const StyledTypeSummary = styled('div', {
   paddingBottom: theme.space[1],
 });
 
-export const StyledNullThing = styled('div', {
+export const StyledNullThing = css({
   fontSize: 13,
   color: theme.colors.text2,
 });
 
-export const StyledSchemaDefinitionWrap = styled('div', {
+export const StyledSchemaDefinitionWrap = css({
   height: `100%`,
   width: `100%`,
   position: 'relative',
@@ -453,7 +453,7 @@ export const StyledSchemaDefinitionWrap = styled('div', {
   paddingRight: theme.space[2],
 });
 
-export const StyledSchemaDefinition = styled('div', {
+export const StyledSchemaDefinition = css({
   height: `100%`,
   width: `100%`,
   position: 'relative',

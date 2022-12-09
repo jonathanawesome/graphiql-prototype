@@ -1,3 +1,3 @@
 export { globalStyles } from './globalStyles';
 
-export { darkTheme, keyframes, styled, theme } from './stitches.config';
+export { darkTheme, keyframes, css, theme } from './stitches.config';

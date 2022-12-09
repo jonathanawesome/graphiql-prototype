@@ -9,16 +9,18 @@ export const TabPanels = ({ selectedTab, tabbedContent }: TabPanelsProps) => {
     <>
       {tabbedContent.map((t) => {
         return (
-          <StyledTabPanel
+          <div
             key={t.tabId}
             aria-labelledby={t.tabId}
+            className={StyledTabPanel()}
             hidden={selectedTab !== t.tabId}
             id={t.panelId}
             role="tabpanel"
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
             tabIndex={0}
           >
             {t.panel}
-          </StyledTabPanel>
+          </div>
         );
       })}
     </>

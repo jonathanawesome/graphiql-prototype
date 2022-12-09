@@ -1,6 +1,6 @@
-import { styled, theme } from '../../theme';
+import { css, theme } from '../../theme';
 
-export const StyledSwitch = styled('div', {
+export const StyledSwitch = css({
   display: `flex`,
   alignItems: `center`,
   transition: `opacity .1s ease`,

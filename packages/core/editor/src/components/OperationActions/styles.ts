@@ -1,17 +1,17 @@
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { css, theme } from '@graphiql-prototype/ui-library';
 
-export const StyledOperationActions = styled('div', {
+export const StyledOperationActions = css({
   display: 'flex',
   gap: theme.space[4],
 });
 
-export const StyledPlayButtonType = styled('span', {
+export const StyledPlayButtonType = css({
   fontSize: 12,
   fontWeight: theme.fontWeights.medium,
   color: theme.colors.text3,
 });
 
-export const StyledPlayButton = styled('button', {
+export const StyledPlayButton = css({
   all: `unset`,
   cursor: 'pointer',
   userSelect: `none`,
@@ -59,7 +59,7 @@ export const StyledPlayButton = styled('button', {
   },
 });
 
-export const StyledPrettierButton = styled('button', {
+export const StyledPrettierButton = css({
   cursor: 'pointer',
   border: 'none',
   backgroundColor: 'transparent',
@@ -90,7 +90,7 @@ export const StyledPrettierButton = styled('button', {
   },
 });
 
-export const StyledWarningButton = styled('button', {
+export const StyledWarningButton = css({
   cursor: 'pointer',
   margin: 0,
   padding: 0,

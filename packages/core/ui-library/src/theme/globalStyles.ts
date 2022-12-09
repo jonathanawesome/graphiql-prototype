@@ -1,4 +1,4 @@
-import { globalCss } from '@stitches/react';
+import { globalCss } from '@stitches/core';
 import { theme } from './stitches.config';
 
 export const globalStyles = globalCss({

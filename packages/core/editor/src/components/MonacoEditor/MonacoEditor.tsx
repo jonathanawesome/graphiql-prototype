@@ -5,7 +5,7 @@ import { editor as MONACO_EDITOR } from 'monaco-editor';
 import { MonacoEditorTypes, useEditor } from '@graphiql-prototype/store';
 
 // styles
-import { MonacoEditorStyled, MonacoWrap } from './styles';
+import { StyledMonacoEditor, StyledMonacoWrap } from './styles';
 
 const initMonacoEditor = useEditor.getState().initMonacoEditor;
 
@@ -30,8 +30,8 @@ export const MonacoEditor = ({
   }, []);
 
   return (
-    <MonacoEditorStyled>
-      <MonacoWrap ref={monacoEditorRef} />
-    </MonacoEditorStyled>
+    <div className={StyledMonacoEditor()}>
+      <div className={StyledMonacoWrap()} ref={monacoEditorRef} />
+    </div>
   );
 };

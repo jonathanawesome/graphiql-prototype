@@ -1,6 +1,6 @@
-import { styled, theme } from '../../theme';
+import { css, theme } from '../../theme';
 
-export const StyledLabel = styled('label', {
+export const StyledLabel = css({
   width: `auto`,
   whiteSpace: `nowrap`,
   display: `flex`,
@@ -13,7 +13,7 @@ export const StyledLabel = styled('label', {
   fontSize: theme.space[3],
 });
 
-export const StyledInput = styled('input', {
+export const StyledInput = css({
   all: `unset`,
   boxSizing: `border-box`,
   width: `100%`,
@@ -27,7 +27,7 @@ export const StyledInput = styled('input', {
   },
 });
 
-export const StyledSelectWrap = styled('div', {
+export const StyledSelectWrap = css({
   width: `100%`,
   position: `relative`,
   cursor: `pointer`,
@@ -52,7 +52,7 @@ export const StyledSelectWrap = styled('div', {
   },
 });
 
-export const StyledSelect = styled('select', {
+export const StyledSelect = css({
   all: `unset`,
   boxSizing: `border-box`,
   display: `flex`,
@@ -65,7 +65,7 @@ export const StyledSelect = styled('select', {
   fontFamily: theme.fonts.mono,
 });
 
-export const StyledSelectDecoration = styled('div', {
+export const StyledSelectDecoration = css({
   position: `absolute`,
   right: theme.space[3],
   top: 9,
@@ -79,11 +79,11 @@ export const StyledSelectDecoration = styled('div', {
   },
 });
 
-export const StyledList = styled('div', {
+export const StyledList = css({
   width: '100%',
 });
 
-export const StyledListItem = styled('div', {
+export const StyledListItem = css({
   display: 'flex',
 
   [`& ${StyledInput}, & ${StyledSelectWrap}`]: {
@@ -91,7 +91,7 @@ export const StyledListItem = styled('div', {
   },
 });
 
-export const StyledRemoveItemButton = styled('button', {
+export const StyledRemoveItemButton = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -119,7 +119,7 @@ export const StyledRemoveItemButton = styled('button', {
   },
 });
 
-export const StyledAddItemButton = styled('button', {
+export const StyledAddItemButton = css({
   width: '100%',
   height: theme.space[8],
   textAlign: 'right',
@@ -137,7 +137,7 @@ export const StyledAddItemButton = styled('button', {
   },
 });
 
-export const StyledControlWrap = styled('div', {
+export const StyledControlWrap = css({
   display: 'flex',
   width: '100%',
   backgroundColor: theme.colors.surface1,

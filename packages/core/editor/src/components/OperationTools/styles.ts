@@ -1,6 +1,6 @@
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { css, theme } from '@graphiql-prototype/ui-library';
 
-export const StyledVariablesWrap = styled('div', {
+export const StyledVariablesWrap = css({
   padding: theme.space[4],
   // maxHeight: 300,
   // minHeight: 120,
@@ -9,7 +9,7 @@ export const StyledVariablesWrap = styled('div', {
   width: '100%',
 });
 
-export const StyledPerTabHeaders = styled('div', {
+export const StyledPerTabHeaders = css({
   display: `flex`,
   flexDirection: `column`,
   gap: theme.space[6],

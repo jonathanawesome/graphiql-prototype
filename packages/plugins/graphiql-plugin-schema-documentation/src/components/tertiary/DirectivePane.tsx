@@ -26,7 +26,9 @@ export const DirectivePane = ({ directive }: { directive: GraphQLDirective }) =>
       </PaneSection>
       <PaneSection lead="Locations">
         {directive.locations.map((d) => (
-          <StyledDirectiveLocation key={d}>{d}</StyledDirectiveLocation>
+          <div className={StyledDirectiveLocation()} key={d}>
+            {d}
+          </div>
         ))}
       </PaneSection>
     </>

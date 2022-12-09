@@ -21,16 +21,14 @@ export const Control = ({
   // console.log('control', { isDisabled });
 
   return (
-    <StyledControlWrap
+    <div
       key={control.name}
-      alignment={alignment}
-      displayLabel={displayLabel}
-      isDisabled={isDisabled}
+      className={StyledControlWrap({ alignment, displayLabel, isDisabled })}
     >
-      <StyledLabel htmlFor={control.name}>
+      <label className={StyledLabel()} htmlFor={control.name}>
         {labelCopy}
         {labelAddon && labelAddon}
-      </StyledLabel>
+      </label>
       {list === true && control.controlType === 'SELECT' && (
         <List
           key={control.name}
@@ -73,6 +71,6 @@ export const Control = ({
           value={control.value}
         />
       )}
-    </StyledControlWrap>
+    </div>
   );
 };

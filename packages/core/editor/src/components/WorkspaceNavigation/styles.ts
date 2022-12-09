@@ -1,10 +1,10 @@
-import { styled, theme } from '@graphiql-prototype/ui-library';
+import { css, theme } from '@graphiql-prototype/ui-library';
 
-export const StyledWorkspaceNavigation = styled('div', {
+export const StyledWorkspaceNavigation = css({
   display: `flex`,
 });
 
-export const StyledWorkspaceNavigationButton = styled('button', {
+export const StyledWorkspaceNavigationButton = css({
   position: `relative`,
   height: '100%',
   display: `flex`,

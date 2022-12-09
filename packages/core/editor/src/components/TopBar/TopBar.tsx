@@ -13,12 +13,12 @@ export const TopBar = () => {
   const { searchBarVisible } = useSearch();
 
   return (
-    <StyledTopBar searchBarVisible={searchBarVisible}>
+    <div className={StyledTopBar({ searchBarVisible })}>
       <div className="hideWhenSearchVisible">
         <ConnectionSettings />
         <WorkspaceNavigation />
       </div>
       <Search />
-    </StyledTopBar>
+    </div>
   );
 };
