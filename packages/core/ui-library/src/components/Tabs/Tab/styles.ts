@@ -17,8 +17,8 @@ export const StyledTabTrigger = css({
 
   '&:hover': {
     backgroundColor: theme.colors.surface2,
-    height: `calc(100% - 1px)`,
-    paddingTop: 1,
+    // height: `calc(100% - 1px)`,
+    // paddingTop: 1,
   },
 
   '&[aria-selected="true"]': {

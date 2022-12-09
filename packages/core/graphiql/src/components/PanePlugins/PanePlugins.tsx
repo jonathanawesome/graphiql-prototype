@@ -1,9 +1,5 @@
 // default plugin
 import { PanePluginSettings } from '@graphiql-prototype/graphiql-plugin-pane-settings';
-import { Icon } from '@graphiql-prototype/ui-library';
-
-// hooks
-import { useGraphiQL } from '../../hooks';
 
 // styles
 import {
@@ -15,7 +11,7 @@ import {
 } from './styles';
 
 // types
-import { PanePluginsArray } from './types';
+import { PanePluginsArray } from '../../types';
 
 export const PanePlugins = ({
   activePane,
@@ -24,8 +20,6 @@ export const PanePlugins = ({
   activePane: string;
   panePlugins: PanePluginsArray;
 }) => {
-  const { activePanePlugin, setActivePanePlugin } = useGraphiQL();
-
   const activePaneContent = [...panePlugins, PanePluginSettings].find(
     (panePlugin) => panePlugin.panePluginName === activePane
   );

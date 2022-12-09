@@ -4,7 +4,8 @@ export const StyledEditorTabs = css({
   width: '100%',
   display: 'flex',
   alignItems: 'center',
-  hairlineB: theme.colors.surface3,
+  // hairlineB: theme.colors.surface3,
+  borderBottom: `1px solid ${theme.colors.surface3}`,
   minWidth: 0,
 });
 
@@ -12,7 +13,7 @@ export const StyledRemoveTabButtonWrap = css({
   position: 'absolute',
   top: theme.space[2],
   right: theme.space[1],
-  backgroundColor: theme.colors.surface1,
+  // backgroundColor: theme.colors.surface1,
 
   button: {
     width: theme.space[6],
@@ -34,7 +35,7 @@ export const StyledTabButton = css({
   paddingLeft: theme.space[3],
   paddingRight: theme.space[3],
   height: theme.space[10],
-  color: theme.colors.text2,
+  color: theme.colors.text3,
   display: `flex`,
   alignItems: `center`,
   gap: theme.space[2],
@@ -56,7 +57,9 @@ export const StyledTabWrap = css({
   flexWrap: `nowrap`,
   minWidth: 0,
   backgroundColor: theme.colors.surface1,
-  hairlineB: theme.colors.surface3,
+  // hairlineB: theme.colors.surface3,
+  borderRight: `1px solid transparent`,
+  borderLeft: `1px solid transparent`,
 
   '&:hover': {
     backgroundColor: theme.colors.surface2,
@@ -75,19 +78,28 @@ export const StyledTabWrap = css({
       },
       true: {
         flexShrink: 0,
+        backgroundColor: theme.colors.surface2,
+        // borderTop: `1px solid ${theme.colors.surface3}`,
+        borderRight: `1px solid ${theme.colors.surface3}`,
+        borderLeft: `1px solid ${theme.colors.surface3}`,
+
+        '&:nth-of-type(1)': {
+          borderLeft: `1px solid transparent`,
+        },
 
         [`& ${StyledTabButton}`]: {
-          color: theme.colors.text1,
+          color: theme.colors.text2,
         },
 
         '&:after': {
           content: '',
           position: 'absolute',
-          bottom: 0,
+          bottom: -1,
           left: 0,
           height: 2,
           width: '100%',
-          backgroundColor: theme.colors.green_default,
+          // backgroundColor: theme.colors.green_default,
+          backgroundColor: theme.colors.surface2,
         },
       },
     },

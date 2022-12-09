@@ -35,10 +35,14 @@ export const StyledWorkspaceNavigationButton = css({
   variants: {
     isActive: {
       true: {
+        // backgroundColor: theme.colors.surface2,
+
         '&:hover': {
           height: `100%`,
           paddingTop: 0,
+          backgroundColor: `transparent`,
         },
+
         '&:after': {
           content: ``,
           position: `absolute`,
@@ -46,7 +50,7 @@ export const StyledWorkspaceNavigationButton = css({
           left: 0,
           width: `100%`,
           height: 2,
-          backgroundColor: theme.colors.green_default,
+          backgroundColor: theme.colors.surface1,
         },
       },
     },

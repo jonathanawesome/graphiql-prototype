@@ -7,8 +7,8 @@ export const StyledTopBar = css({
   paddingRight: 48,
   display: 'flex',
   justifyContent: 'space-between',
-  borderBottom: `1px solid ${theme.colors.surface3}`,
-  // hairlineB: theme.colors.surface3,
+  // borderBottom: `1px solid ${theme.colors.surface3}`,
+  hairlineB: theme.colors.surface3,
 
   '& .hideWhenSearchVisible': {
     display: `inline-flex`,

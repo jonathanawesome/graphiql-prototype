@@ -4,8 +4,6 @@ export const StyledPanePluginContainerWrap = css({
   height: '100%',
   width: '100%',
   position: 'relative',
-  display: `grid`,
-  gridTemplateRows: `${theme.space[12]} minmax(0, 1fr)`,
 });
 
 export const StyledPanePluginContainer = css({

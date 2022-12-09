@@ -2,7 +2,7 @@ import { Kind, OperationTypeNode } from 'graphql';
 
 // components
 import { QuickDocs, RootOperation } from '../index';
-import { Message, Tabs } from '@graphiql-prototype/ui-library';
+import { Button, Message, Tabs } from '@graphiql-prototype/ui-library';
 
 // hooks
 import { useEditor } from '@graphiql-prototype/store';
@@ -18,9 +18,14 @@ import {
   // StyledPathfinderContainer,
   // StyledPathfinderContent,
 } from './styles';
+import { useState } from 'react';
 
 export const Pathfinder = () => {
   const activeDefinition = useEditor((state) => state.activeDefinition);
+
+  const [activeRootOperationType, setActiveRootOperationType] = useState<string | null>(
+    null
+  );
 
   const { schema } = useSchema();
 

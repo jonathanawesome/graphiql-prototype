@@ -43,6 +43,7 @@ export const TabsStory = () => {
       <FlexRow name="non removable tabs / not Collapsible">
         <Tabs ariaLabel="Some tab label" tabbedContent={tabs} />
       </FlexRow>
+
       <FlexRow name="non removable tabs / isCollapsible">
         <Tabs ariaLabel="Some tab label" isCollapsible={true} tabbedContent={tabs} />
       </FlexRow>

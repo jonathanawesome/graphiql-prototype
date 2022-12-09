@@ -42,7 +42,7 @@ export const OperationActions = () => {
       <button
         className={StyledPlayButton({ isDisabled: !activeDefinition })}
         onClick={() => {
-          executeOperation();
+          activeDefinition ? executeOperation() : undefined;
         }}
       >
         <>

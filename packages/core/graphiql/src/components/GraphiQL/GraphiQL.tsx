@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 // components
 import { GraphiQLEditor } from '@graphiql-prototype/editor';
+import { Navigation } from '../Navigation';
 import { PanePlugins } from '../PanePlugins';
 import { globalStyles, Resizer } from '@graphiql-prototype/ui-library';
 
@@ -14,7 +15,7 @@ import { useTheme } from '@graphiql-prototype/ui-library';
 import { StyledGraphiQLWrap, StyledPaneWrap } from './styles';
 
 // types
-import type { PanePluginsArray } from '../PanePlugins/types';
+import type { PanePluginsArray } from '../../types';
 
 type GraphiQLProps = {
   panePlugins: PanePluginsArray;

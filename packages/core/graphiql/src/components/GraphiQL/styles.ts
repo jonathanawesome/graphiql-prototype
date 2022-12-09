@@ -4,8 +4,8 @@ export const StyledGraphiQLWrap = css({
   backgroundColor: theme.colors.surface1,
   height: '100%',
   width: '100%',
-  // display: 'grid',
-  // gridTemplateColumns: '60px 1fr',
+  display: 'grid',
+  gridTemplateColumns: '60px 1fr',
   overflow: 'hidden',
 });
 

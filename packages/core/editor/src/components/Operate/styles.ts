@@ -8,16 +8,17 @@ export const StyledOperateWrap = css({
   flexDirection: `column`,
   justifyContent: `flex-end`,
   position: `relative`,
+  overflow: `hidden`,
+  paddingRight: theme.space[4],
 });
 
 export const StyledOperationEditor = css({
   overflowY: `auto`,
   height: `100%`,
   position: `relative`,
-  paddingTop: 72,
+  paddingTop: theme.space[5],
   paddingRight: theme.space[1],
   paddingBottom: theme.space[4],
-  paddingLeft: theme.space[4],
   hairlineB: theme.colors.surface3,
 });
 
