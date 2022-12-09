@@ -39,13 +39,19 @@ cd graphiql-prototype
 pnpm i
 ```
 
-3. Run the reference app
+3. Run the reference app or ladle
 
 ```
 pnpm ref:dev
 ```
 
-4. The local origin, by default, is `http://127.0.0.1:3000/`.
+The local origin, by default, is `http://127.0.0.1:3000/`.
+
+```
+pnpm ladle:serve
+```
+
+Ladle is at `http://localhost:61000/`.
 
 ### Structure
 
@@ -75,25 +81,29 @@ The structure explained below is of my own design, but very much based on the id
   - Pretty simple, just wraps the core `GraphiQLEditor` component from `/editor`along with layout for navigation and plugins.
   - Provides a hook for managing navigation/active plugin view state.
 
+- /store
+
+  - Centralized business logic in the form of Zustand stores/hooks
+
+    - /useEditor
+
+      - A [zustand](https://github.com/pmndrs/zustand) store that manages editor state such as editors, models, and tabs.
+
+    - /useHTTPHeaders
+
+      - A [zustand](https://github.com/pmndrs/zustand) store that manages global http header state and provides intermediate functions for tab headers. Quick and dirty, needs refactored.
+
+    - /useSchema
+
+      - A [zustand](https://github.com/pmndrs/zustand) store that manages schema loading/state and operation execution.
+
+    - /useTestSchema
+
+      - A [zustand](https://github.com/pmndrs/zustand) store that provides the test schema and some functions used in Ladle stories and testing.
+
 - /ui-library
 
   - Base React components
-
-- /useEditor
-
-  - A [zustand](https://github.com/pmndrs/zustand) store that manages editor state such as editors, models, and tabs.
-
-- /useHTTPHeaders
-
-  - A [zustand](https://github.com/pmndrs/zustand) store that manages global http header state and provides intermediate functions for tab headers. Quick and dirty, needs refactored.
-
-- /useSchema
-
-  - A [zustand](https://github.com/pmndrs/zustand) store that manages schema loading/state and operation execution.
-
-- /useTestSchema
-
-  - A [zustand](https://github.com/pmndrs/zustand) store that provides the test schema and some functions used in Ladle stories and testing.
 
 - /utils
 
