@@ -21,6 +21,7 @@ export const StyledInput = css({
   fontSize: 11,
   fontFamily: theme.fonts.mono,
   color: theme.colors.yellow_default,
+  // backgroundColor: theme.colors.yellow_default,
 
   '&::placeholder': {
     color: theme.colors.text4,
@@ -86,7 +87,7 @@ export const StyledList = css({
 export const StyledListItem = css({
   display: 'flex',
 
-  [`& ${StyledInput}, & ${StyledSelectWrap}`]: {
+  [`& .${StyledInput}, & .${StyledSelectWrap}`]: {
     borderBottom: `transparent !important`,
   },
 });
@@ -140,9 +141,8 @@ export const StyledAddItemButton = css({
 export const StyledControlWrap = css({
   display: 'flex',
   width: '100%',
-  backgroundColor: theme.colors.surface1,
 
-  [`& ${StyledInput}, & ${StyledSelect}`]: {
+  [`& .${StyledInput}, & .${StyledSelect}`]: {
     borderTop: `1px solid ${theme.colors.surface3}`,
     borderRight: `1px solid ${theme.colors.surface3}`,
     borderBottom: `1px solid ${theme.colors.surface3}`,
@@ -158,29 +158,29 @@ export const StyledControlWrap = css({
   variants: {
     alignment: {
       LEFT: {
-        [`& ${StyledInput}, & ${StyledSelect}`]: {
+        [`& .${StyledInput}, & .${StyledSelect}`]: {
           textAlign: `left`,
           paddingLeft: theme.space[3],
         },
       },
       RIGHT: {
-        [`& ${StyledInput}, & ${StyledSelect}`]: {
+        [`& .${StyledInput}, & .${StyledSelect}`]: {
           textAlign: `right`,
           paddingRight: theme.space[3],
         },
-        [`& ${StyledSelect}`]: {
+        [`& .${StyledSelect}`]: {
           paddingRight: theme.space[7],
         },
       },
     },
     displayLabel: {
       false: {
-        [`& ${StyledLabel}`]: {
+        [`& .${StyledLabel}`]: {
           position: `absolute !important`,
           top: `-9999px !important`,
           left: `-9999px !important`,
         },
-        [`& ${StyledInput},& ${StyledSelectWrap}`]: {
+        [`& .${StyledInput}, & .${StyledSelectWrap}`]: {
           border: `1px solid ${theme.colors.surface3}`,
 
           '&:focus': {
@@ -191,7 +191,7 @@ export const StyledControlWrap = css({
     },
     isDisabled: {
       true: {
-        [`& ${StyledInput},& ${StyledSelectWrap}`]: {
+        [`& .${StyledInput}, & .${StyledSelectWrap}`]: {
           backgroundColor: theme.colors.surface3,
           opacity: 0.4,
           color: theme.colors.text2,

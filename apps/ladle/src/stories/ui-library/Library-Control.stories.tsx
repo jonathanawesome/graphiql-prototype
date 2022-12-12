@@ -38,7 +38,7 @@ import {
   ControlData,
   ControlProps,
   HandleChangeSignature,
-} from '@graphiql-prototype/ui-library';
+} from '../../../../../packages/core/ui-library/src/index';
 
 const controls: (
   handleChange: HandleChangeSignature
